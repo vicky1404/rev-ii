@@ -1,28 +1,34 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-   xmlns:ui="http://java.sun.com/jsf/facelets"
-   xmlns:f="http://java.sun.com/jsf/core"
-   xmlns:h="http://java.sun.com/jsf/html"
-   xmlns:p="http://primefaces.org/ui">
-<h:form>  
-  
-    <p:growl id="growl" showDetail="true" />  
-  
-    <p:accordionPanel activeIndex="#{menuBackingBean.activeTabIndex}">  
-  
-        <p:ajax event="tabChange" listener="#{menuBackingBean.onTabChange}" />  
-  
-        <p:tab title="Proceso" id="m1">  
-            <p:commandLink value="Pagina 1" action="pagina1"></p:commandLink>
-        </p:tab>  
-        <p:tab title="Mantendores" id="m2">  
-              <p:commandLink value="Pagina 2" action="pagina2"></p:commandLink>
-        </p:tab>  
-        <p:tab title="Reportes" id="m3">  
-             <p:commandLink value="PAgina 3" action="pagina1"></p:commandLink>
-        </p:tab>
-        <p:tab title="Parametrizacion" id="m4">  
-             <p:commandLink value="PAgina 4" action="pagina2"></p:commandLink>
-        </p:tab>   
-    </p:accordionPanel>  
-</h:form>
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form>
+
+		<p:growl id="growl" showDetail="true" />
+
+		<p:accordionPanel activeIndex="#{menuBackingBean.activeTabIndex}">
+
+			<p:ajax event="tabChange" listener="#{menuBackingBean.onTabChange}" />
+
+			<p:tab title="Proceso" id="m1">
+				<p:tree id="treeSingle" value="#{menuBackingBean.root}" var="node"
+					selectionMode="single" style="border: 0px; width:90%;">
+
+					<p:treeNode>
+						<h:outputText value="#{node}" />
+					</p:treeNode>
+				</p:tree>
+			</p:tab>
+			<p:tab title="Mantendores" id="m2">
+				<p:commandLink value="Pagina 2" action="pagina2"></p:commandLink>
+			</p:tab>
+			<p:tab title="Reportes" id="m3">
+				<p:commandLink value="PAgina 3" action="pagina1"></p:commandLink>
+			</p:tab>
+			<p:tab title="Parametrizacion" id="m4">
+				<p:commandLink value="PAgina 4" action="pagina2"></p:commandLink>
+			</p:tab>
+		</p:accordionPanel>
+	</h:form>
 </ui:composition>
