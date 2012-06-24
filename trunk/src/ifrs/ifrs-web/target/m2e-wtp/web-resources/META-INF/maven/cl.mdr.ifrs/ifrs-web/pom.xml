@@ -12,6 +12,15 @@
    <packaging>war</packaging>
 
    <name>ifrs Web module</name>
+   
+   <repositories>
+	   <repository>  
+	        <id>prime-repo</id>  
+	        <name>PrimeFaces Maven Repository</name>  
+	        <url>http://repository.primefaces.org</url>  
+	        <layout>default</layout>  
+	    </repository> 
+   </repositories>
 
    <dependencies>
 
@@ -54,6 +63,13 @@
          <artifactId>hibernate-jpa-2.0-api</artifactId>
          <scope>provided</scope>
       </dependency>
+      
+      <!-- Prime faces -->
+      <dependency>
+		<groupId>org.primefaces</groupId>
+		<artifactId>primefaces</artifactId>
+		<version>3.3</version>
+	  </dependency> 
 
    </dependencies>
 
