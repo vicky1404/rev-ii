@@ -20,10 +20,11 @@
 
       <!-- Import the EJB API, we use provided scope as the API is included 
          in JBoss AS 7 -->
+      
       <dependency>
-         <groupId>org.jboss.spec.javax.ejb</groupId>
-         <artifactId>jboss-ejb-api_3.1_spec</artifactId>
-         <scope>provided</scope>
+		<groupId>org.jboss.spec.javax.ejb</groupId>
+		<artifactId>jboss-ejb-api_3.1_spec</artifactId>
+		<version>1.0.2.Final</version><!--$NO-MVN-MAN-VER$-->
       </dependency>
 
       <!-- Import the CDI API, we use provided scope as the API is included 
