@@ -11,7 +11,8 @@
 
 			<p:ajax event="tabChange" listener="#{menuBackingBean.onTabChange}" />
 
-			<p:tab title="Proceso" id="m1">
+			<p:tab title="#{msg.label_tab_proceso}" id="m1">
+			    <p:commandLink value="Pagina 1" action="pagina1"></p:commandLink>
 				<p:tree id="treeSingle" value="#{menuBackingBean.root}" var="node"
 					selectionMode="single" style="border: 0px; width:95%; padding-left:auto; float:left;">
 
@@ -21,7 +22,7 @@
 				</p:tree>
 			</p:tab>
 			<p:tab title="Mantendores" id="m2">
-				<p:commandLink value="Pagina 2" action="pagina2"></p:commandLink>
+				
 			</p:tab>
 			<p:tab title="Reportes" id="m3">
 				<p:commandLink value="PAgina 3" action="pagina1"></p:commandLink>
