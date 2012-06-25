@@ -4,6 +4,7 @@
 package cl.mdr.ifrs.cross.mb;
 
 import java.io.Serializable;
+import java.util.Locale;
 import java.util.logging.Logger;
 
 import javax.ejb.EJB;
@@ -43,6 +44,7 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 	@SuppressWarnings("unused")
 	public MenuBackingBean() {
 		super();
+		super.getFacesContext().getViewRoot().setLocale(new Locale("es"));
 		root = new DefaultTreeNode("Proceso", null);  
 		TreeNode node0 = new DefaultTreeNode("Notas", root);  
         TreeNode node1 = new DefaultTreeNode("Cuadros Tecnicos", root);   
