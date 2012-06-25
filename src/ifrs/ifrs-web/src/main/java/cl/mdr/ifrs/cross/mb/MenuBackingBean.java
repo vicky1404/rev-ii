@@ -7,7 +7,6 @@ import java.io.Serializable;
 import java.util.Locale;
 import java.util.logging.Logger;
 
-import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
@@ -16,8 +15,6 @@ import org.primefaces.component.accordionpanel.AccordionPanel;
 import org.primefaces.event.TabChangeEvent;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
-
-import cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal;
 
 /**
  * @author rreyes
@@ -29,10 +26,7 @@ import cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal;
 public class MenuBackingBean extends AbstractBackingBean implements Serializable {
 	private Logger log = Logger.getLogger(this.getClass().getName());
 	private static final long serialVersionUID = 8077481642975216680L;
-	
-	@EJB
-	private TestServiceLocal testServiceLocal;
-	
+			
 	private UIComponent tabActivo;
 	private AccordionPanel menuAcordionPanel;
 	private String activeTabIndex;
@@ -59,8 +53,7 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 	
 	public void onTabChange(TabChangeEvent event) {  
 		this.setTabActivo(event.getTab());   
-		this.setActiveTabIndex("1");
-		log.info(""+testServiceLocal.findAll());
+		this.setActiveTabIndex("1");		
     }
 	
 	
