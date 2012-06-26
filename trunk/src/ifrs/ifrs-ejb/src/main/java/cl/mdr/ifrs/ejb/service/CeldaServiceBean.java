@@ -1,11 +1,11 @@
 package cl.mdr.ifrs.ejb.service;
 
 
+import static cl.mdr.ifrs.ejb.cross.Constantes.PERSISTENCE_UNIT_NAME;
+
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -18,7 +18,6 @@ import cl.mdr.ifrs.ejb.entity.Columna;
 import cl.mdr.ifrs.ejb.entity.Grilla;
 import cl.mdr.ifrs.ejb.entity.pk.CeldaPK;
 import cl.mdr.ifrs.ejb.service.local.CeldaServiceLocal;
-import static cl.mdr.ifrs.ejb.cross.Constantes.PERSISTENCE_UNIT_NAME;
 
 @Stateless
 public class CeldaServiceBean implements CeldaServiceLocal{
