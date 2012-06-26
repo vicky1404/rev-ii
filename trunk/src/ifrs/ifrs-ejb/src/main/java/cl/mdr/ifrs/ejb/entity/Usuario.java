@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -48,12 +49,12 @@ public class Usuario implements Serializable {
 	private Long vigente;
 
 	//bi-directional many-to-one association to HistorialReporte
-		@OneToMany(mappedBy="usuario")
-		private List<HistorialReporte> historialReportes;
+	@OneToMany(mappedBy="usuario", fetch = FetchType.LAZY)
+	private List<HistorialReporte> historialReportes;
 
-		//bi-directional many-to-one association to HistorialVersion
-		@OneToMany(mappedBy="usuario")
-		private List<HistorialVersion> historialVersiones;
+	//bi-directional many-to-one association to HistorialVersion
+	@OneToMany(mappedBy="usuario", fetch = FetchType.LAZY)
+	private List<HistorialVersion> historialVersiones;
 
 	//bi-directional many-to-many association to Grupo
     @ManyToMany

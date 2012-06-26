@@ -88,7 +88,7 @@ public class Catalogo implements Serializable {
     @OneToMany(mappedBy = "catalogo")
     private List<Version> versionList;
     
-    @OneToMany(mappedBy = "catalogo" , targetEntity = CatalogoGrupo.class, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "catalogo")
     private List<CatalogoGrupo> catalogoGrupoList;
     
     @ManyToOne

@@ -70,9 +70,9 @@ public class Grupo implements Serializable {
 		)
 	private List<Empresa> empresas;
 
-  //bi-directional many-to-many association to Menu
-  	@ManyToMany(mappedBy="grupos")
-  	private List<Menu> menus;
+	//bi-directional many-to-many association to Menu
+	@ManyToMany(mappedBy="grupoList")
+	private List<Menu> menus;
 
 	//bi-directional many-to-many association to Usuario
 	@ManyToMany(mappedBy="grupos")

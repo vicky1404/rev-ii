@@ -46,8 +46,8 @@ public class Columna implements Serializable {
     @Column(name = "TITULO_COLUMNA", nullable = false, length = 128)
     private String tituloColumna;
     
-    @OneToMany(mappedBy = "columna" , fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @OrderBy("idColumna asc ,idFila asc")
+    @OneToMany(mappedBy = "columna")
+    //@OrderBy("idColumna asc ,idFila asc")
     private List<Celda> celdaList;
     
     @ManyToOne
@@ -59,7 +59,7 @@ public class Columna implements Serializable {
     
     
     
-    @OneToMany(mappedBy = "columna", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "columna")
     private List<AgrupacionColumna> agrupacionColumnaList;
     
     @Transient

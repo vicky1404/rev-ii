@@ -51,10 +51,7 @@ public class HistorialReporte implements Serializable {
     
     @Column(name="IP_USUARIO", length = 256)
     private String ipUsuario;
-    
-    @Column(name="USUARIO_OID", length = 256)
-    private String usuarioOid;
-    
+            
     @Column(name="NOMBRE_ARCHIVO", length = 512)
     private String nombreArchivo;
     
@@ -62,34 +59,28 @@ public class HistorialReporte implements Serializable {
     @JoinColumn(name = "ID_PERIODO")
     private Periodo periodo;
     
-    //bi-directional many-to-one association to Usuario
     @ManyToOne
 	@JoinColumn(name="NOMBRE_USUARIO")
 	private Usuario usuario;
+
+    public HistorialReporte() {
+    }
+    
+    
 
     public Usuario getUsuario() {
 		return usuario;
 	}
 
+
+
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
 
-	public HistorialReporte() {
-    }
-
-    public HistorialReporte(String checkSumExportacion, String comentario, Date fechaExportacion,
-                            BigDecimal idHistorialReporte, String ipUsuario, String usuarioOid) {
-        this.checkSumExportacion = checkSumExportacion;
-        this.comentario = comentario;
-        this.fechaExportacion = fechaExportacion;
-        this.idHistorialReporte = idHistorialReporte;
-        this.ipUsuario = ipUsuario;
-        this.usuarioOid = usuarioOid;
-    }
 
 
-    public String getCheckSumExportacion() {
+	public String getCheckSumExportacion() {
         return checkSumExportacion;
     }
 
@@ -136,14 +127,6 @@ public class HistorialReporte implements Serializable {
     public void setIpUsuario(String ipUsuario) {
         this.ipUsuario = ipUsuario;
     }
-
-    public String getUsuarioOid() {
-        return usuarioOid;
-    }
-
-    public void setUsuarioOid(String usuarioOid) {
-        this.usuarioOid = usuarioOid;
-    }
     
     public void setNombreArchivo(String nombreArchivo) {
         this.nombreArchivo = nombreArchivo;
@@ -183,9 +166,7 @@ public class HistorialReporte implements Serializable {
         buffer.append(',');
         buffer.append("ipUsuario=");
         buffer.append(getIpUsuario());
-        buffer.append(',');
-        buffer.append("usuarioOid=");
-        buffer.append(getUsuarioOid());
+        buffer.append(',');       
         buffer.append(']');
         return buffer.toString();
     }
