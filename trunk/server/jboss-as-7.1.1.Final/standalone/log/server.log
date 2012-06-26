@@ -1,0 +1,1291 @@
+18:27:13,311 INFO  [org.jboss.as.configadmin] (ServerService Thread Pool -- 26) JBAS016200: Activating ConfigAdmin Subsystem
+18:27:13,325 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 31) JBAS010280: Activating Infinispan subsystem.
+18:27:13,358 INFO  [org.jboss.as.naming] (ServerService Thread Pool -- 38) JBAS011800: Activating Naming Subsystem
+18:27:13,360 INFO  [org.jboss.as.osgi] (ServerService Thread Pool -- 39) JBAS011940: Activating OSGi Subsystem
+18:27:13,371 INFO  [org.jboss.as.security] (ServerService Thread Pool -- 44) JBAS013101: Activating Security Subsystem
+18:27:13,393 INFO  [org.jboss.as.webservices] (ServerService Thread Pool -- 48) JBAS015537: Activating WebServices Extension
+18:27:13,400 INFO  [org.jboss.as.security] (MSC service thread 1-7) JBAS013100: Current PicketBox version=4.0.7.Final
+18:27:13,407 INFO  [org.jboss.as.connector] (MSC service thread 1-5) JBAS010408: Starting JCA Subsystem (JBoss IronJacamar 1.0.9.Final)
+18:27:13,553 INFO  [org.jboss.as.naming] (MSC service thread 1-5) JBAS011802: Starting Naming Service
+18:27:13,609 INFO  [org.jboss.as.mail.extension] (MSC service thread 1-2) JBAS015400: Bound mail session [java:jboss/mail/Default]
+18:27:13,722 INFO  [org.jboss.as.connector.subsystems.datasources] (ServerService Thread Pool -- 27) JBAS010403: Deploying JDBC-compliant driver class org.h2.Driver (version 1.3)
+18:27:13,746 INFO  [org.jboss.ws.common.management.AbstractServerConfig] (MSC service thread 1-3) JBoss Web Services - Stack CXF Server 4.0.2.GA
+18:27:14,485 ERROR [org.apache.coyote.http11.Http11Protocol] (MSC service thread 1-1) Error inicializando punto final (endpoint): java.net.BindException: Address already in use: JVM_Bind localhost/127.0.0.1:8080
+	at org.apache.tomcat.util.net.JIoEndpoint.init(JIoEndpoint.java:983) [jbossweb-7.0.13.Final.jar:]
+	at org.apache.coyote.http11.Http11Protocol.init(Http11Protocol.java:190) [jbossweb-7.0.13.Final.jar:]
+	at org.apache.catalina.connector.Connector.init(Connector.java:983) [jbossweb-7.0.13.Final.jar:]
+	at org.jboss.as.web.WebConnectorService.start(WebConnectorService.java:267) [jboss-as-web-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.msc.service.ServiceControllerImpl$StartTask.startService(ServiceControllerImpl.java:1811) [jboss-msc-1.0.2.GA.jar:1.0.2.GA]
+	at org.jboss.msc.service.ServiceControllerImpl$StartTask.run(ServiceControllerImpl.java:1746) [jboss-msc-1.0.2.GA.jar:1.0.2.GA]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886) [rt.jar:1.6.0_32]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908) [rt.jar:1.6.0_32]
+	at java.lang.Thread.run(Thread.java:662) [rt.jar:1.6.0_32]
+
+18:27:14,498 INFO  [org.jboss.as.server.deployment.scanner] (MSC service thread 1-4) JBAS015012: Started FileSystemDeploymentService for directory D:\server\jboss-as-7.1.1.Final\standalone\deployments
+18:27:14,518 ERROR [org.jboss.msc.service.fail] (MSC service thread 1-1) MSC00001: Failed to start service jboss.web.connector.http: org.jboss.msc.service.StartException in service jboss.web.connector.http: JBAS018007: Error starting web connector
+	at org.jboss.as.web.WebConnectorService.start(WebConnectorService.java:271)
+	at org.jboss.msc.service.ServiceControllerImpl$StartTask.startService(ServiceControllerImpl.java:1811) [jboss-msc-1.0.2.GA.jar:1.0.2.GA]
+	at org.jboss.msc.service.ServiceControllerImpl$StartTask.run(ServiceControllerImpl.java:1746) [jboss-msc-1.0.2.GA.jar:1.0.2.GA]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886) [rt.jar:1.6.0_32]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908) [rt.jar:1.6.0_32]
+	at java.lang.Thread.run(Thread.java:662) [rt.jar:1.6.0_32]
+Caused by: LifecycleException:  Falló la inicialización del manejador de protocolo: java.net.BindException: Address already in use: JVM_Bind localhost/127.0.0.1:8080
+	at org.apache.catalina.connector.Connector.init(Connector.java:985)
+	at org.jboss.as.web.WebConnectorService.start(WebConnectorService.java:267)
+	... 5 more
+
+18:27:14,538 INFO  [org.jboss.as.remoting] (MSC service thread 1-2) JBAS017100: Listening on localhost/127.0.0.1:4447
+18:27:14,537 INFO  [org.jboss.as.remoting] (MSC service thread 1-5) JBAS017100: Listening on /127.0.0.1:9999
+18:27:14,542 INFO  [org.jboss.as.server.deployment.scanner] (DeploymentScanner-threads - 1) JBAS015003: Found ifrs-ear.ear in deployment directory. To trigger deployment create a file called ifrs-ear.ear.dodeploy
+18:27:14,668 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-6) JBAS010400: Bound data source [java:jboss/datasources/ExampleDS]
+18:27:14,688 INFO  [org.jboss.as.controller] (Controller Boot Thread) JBAS014774: Service status report
+JBAS014777:   Services which failed to start:      service jboss.web.connector.http: org.jboss.msc.service.StartException in service jboss.web.connector.http: JBAS018007: Error starting web connector
+
+18:27:14,730 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-7) JBAS015876: Starting deployment of "ifrs-ear.ear"
+18:27:14,800 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-6) JBAS015876: Starting deployment of "ifrs-ejb-0.0.1-SNAPSHOT.jar"
+18:27:14,800 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-2) JBAS015876: Starting deployment of "ifrs-web-0.0.1-SNAPSHOT.war"
+18:27:15,514 INFO  [org.jboss.as.jpa] (MSC service thread 1-1) JBAS011401: Read persistence.xml for ifrs_PU
+18:27:15,600 INFO  [org.jboss.weld.deployer] (MSC service thread 1-8) JBAS016002: Processing weld deployment ifrs-ear.ear
+18:27:15,618 INFO  [org.jboss.weld.deployer] (MSC service thread 1-2) JBAS016002: Processing weld deployment ifrs-ejb-0.0.1-SNAPSHOT.jar
+18:27:15,704 INFO  [org.jboss.weld.deployer] (MSC service thread 1-8) JBAS016002: Processing weld deployment ifrs-web-0.0.1-SNAPSHOT.war
+18:27:15,724 INFO  [org.jboss.weld.deployer] (MSC service thread 1-3) JBAS016005: Starting Services for CDI deployment: ifrs-ear.ear
+18:27:15,774 INFO  [org.jboss.weld.Version] (MSC service thread 1-3) WELD-000900 1.1.5 (AS71)
+18:27:15,814 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-6) JBAS010400: Bound data source [jboss/datasources/ifrsDS]
+18:27:15,826 INFO  [org.jboss.as.jpa] (MSC service thread 1-3) JBAS011402: Starting Persistence Unit Service 'ifrs-ear.ear/ifrs-ejb-0.0.1-SNAPSHOT.jar#ifrs_PU'
+18:27:16,205 INFO  [org.hibernate.annotations.common.Version] (MSC service thread 1-3) HCANN000001: Hibernate Commons Annotations {4.0.1.Final}
+18:27:16,215 INFO  [org.hibernate.Version] (MSC service thread 1-3) HHH000412: Hibernate Core {4.0.1.Final}
+18:27:16,222 INFO  [org.hibernate.cfg.Environment] (MSC service thread 1-3) HHH000206: hibernate.properties not found
+18:27:16,226 INFO  [org.hibernate.cfg.Environment] (MSC service thread 1-3) HHH000021: Bytecode provider name : javassist
+18:27:16,258 INFO  [org.hibernate.ejb.Ejb3Configuration] (MSC service thread 1-3) HHH000204: Processing PersistenceUnitInfo [
+	name: ifrs_PU
+	...]
+18:27:16,395 INFO  [org.hibernate.service.jdbc.connections.internal.ConnectionProviderInitiator] (MSC service thread 1-3) HHH000130: Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+18:27:16,649 INFO  [org.hibernate.dialect.Dialect] (MSC service thread 1-3) HHH000400: Using dialect: org.hibernate.dialect.Oracle9iDialect
+18:27:16,658 INFO  [org.hibernate.engine.jdbc.internal.LobCreatorBuilder] (MSC service thread 1-3) HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+18:27:16,667 INFO  [org.hibernate.engine.transaction.internal.TransactionFactoryInitiator] (MSC service thread 1-3) HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jta.CMTTransactionFactory
+18:27:16,673 INFO  [org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory] (MSC service thread 1-3) HHH000397: Using ASTQueryTranslatorFactory
+18:27:16,884 INFO  [org.jboss.weld.deployer] (MSC service thread 1-7) JBAS016008: Starting weld service for deployment ifrs-ear.ear
+18:27:17,349 INFO  [javax.enterprise.resource.webcontainer.jsf.config] (MSC service thread 1-2) Inicializando Mojarra 2.1.7-jbossorg-1 (20120227-1401) para el contexto '/ifrs-web'
+18:27:18,122 INFO  [org.hibernate.validator.util.Version] (MSC service thread 1-2) Hibernate Validator 4.2.0.Final
+18:27:18,916 INFO  [org.primefaces.webapp.PostConstructApplicationEventListener] (MSC service thread 1-2) Running on PrimeFaces 3.3
+18:27:18,959 INFO  [org.jboss.web] (MSC service thread 1-2) JBAS018210: Registering web context: /ifrs-web
+18:27:18,961 INFO  [org.jboss.as] (MSC service thread 1-3) JBAS015951: Admin console listening on http://127.0.0.1:9990
+18:27:18,962 ERROR [org.jboss.as] (MSC service thread 1-3) JBAS015875: JBoss AS 7.1.1.Final "Brontes" started (with errors) in 8526ms - Started 226 of 308 services (1 services failed or missing dependencies, 80 services are passive or on-demand)
+18:27:19,139 INFO  [org.jboss.as.server] (DeploymentScanner-threads - 2) JBAS018559: Deployed "ifrs-ear.ear"
+18:27:52,041 INFO  [org.jboss.as.osgi] (MSC service thread 1-6) JBAS011942: Stopping OSGi Framework
+18:27:52,053 WARN  [org.jboss.remoting.remote] (Remoting "pc-rreyes:MANAGEMENT" read-1) JBREM000205: Failed to accept a connection: java.nio.channels.ClosedChannelException
+18:27:52,055 WARN  [org.jboss.remoting.remote] (Remoting "pc-rreyes:MANAGEMENT" read-1) JBREM000205: Failed to accept a connection: java.nio.channels.ClosedChannelException
+18:27:52,057 WARN  [org.jboss.remoting.remote] (Remoting "pc-rreyes:MANAGEMENT" read-1) JBREM000205: Failed to accept a connection: java.nio.channels.ClosedChannelException
+18:27:52,058 WARN  [org.jboss.remoting.remote] (Remoting "pc-rreyes:MANAGEMENT" read-1) JBREM000205: Failed to accept a connection: java.nio.channels.ClosedChannelException
+18:27:52,060 WARN  [org.jboss.remoting.remote] (Remoting "pc-rreyes:MANAGEMENT" read-1) JBREM000205: Failed to accept a connection: java.nio.channels.ClosedChannelException
+18:27:52,062 WARN  [org.jboss.remoting.remote] (Remoting "pc-rreyes:MANAGEMENT" read-1) JBREM000205: Failed to accept a connection: java.nio.channels.ClosedChannelException
+18:27:52,064 WARN  [org.jboss.remoting.remote] (Remoting "pc-rreyes:MANAGEMENT" read-1) JBREM000205: Failed to accept a connection: java.nio.channels.ClosedChannelException
+18:27:52,065 WARN  [org.jboss.remoting.remote] (Remoting "pc-rreyes:MANAGEMENT" read-1) JBREM000205: Failed to accept a connection: java.nio.channels.ClosedChannelException
+18:27:52,067 WARN  [org.jboss.remoting.remote] (Remoting "pc-rreyes:MANAGEMENT" read-1) JBREM000205: Failed to accept a connection: java.nio.channels.ClosedChannelException
+18:28:36,475 INFO  [org.jboss.as.configadmin] (ServerService Thread Pool -- 26) JBAS016200: Activating ConfigAdmin Subsystem
+18:28:36,486 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 31) JBAS010280: Activating Infinispan subsystem.
+18:28:36,497 INFO  [org.jboss.as.security] (ServerService Thread Pool -- 44) JBAS013101: Activating Security Subsystem
+18:28:36,514 INFO  [org.jboss.as.webservices] (ServerService Thread Pool -- 48) JBAS015537: Activating WebServices Extension
+18:28:36,538 INFO  [org.jboss.as.naming] (ServerService Thread Pool -- 38) JBAS011800: Activating Naming Subsystem
+18:28:36,656 INFO  [org.jboss.as.naming] (MSC service thread 1-1) JBAS011802: Starting Naming Service
+18:28:36,663 INFO  [org.jboss.as.security] (MSC service thread 1-6) JBAS013100: Current PicketBox version=4.0.7.Final
+18:28:36,669 INFO  [org.jboss.as.mail.extension] (MSC service thread 1-1) JBAS015400: Bound mail session [java:jboss/mail/Default]
+18:28:36,688 INFO  [org.jboss.as.osgi] (ServerService Thread Pool -- 39) JBAS011940: Activating OSGi Subsystem
+18:28:36,752 INFO  [org.jboss.as.connector] (MSC service thread 1-8) JBAS010408: Starting JCA Subsystem (JBoss IronJacamar 1.0.9.Final)
+18:28:36,894 INFO  [org.jboss.as.connector.subsystems.datasources] (ServerService Thread Pool -- 27) JBAS010403: Deploying JDBC-compliant driver class org.h2.Driver (version 1.3)
+18:28:37,291 INFO  [org.jboss.ws.common.management.AbstractServerConfig] (MSC service thread 1-6) JBoss Web Services - Stack CXF Server 4.0.2.GA
+18:28:37,739 INFO  [org.apache.coyote.http11.Http11Protocol] (MSC service thread 1-2) Arrancando Coyote HTTP/1.1 en puerto http-localhost-127.0.0.1-80
+18:28:37,833 INFO  [org.jboss.as.server.deployment.scanner] (MSC service thread 1-2) JBAS015012: Started FileSystemDeploymentService for directory D:\server\jboss-as-7.1.1.Final\standalone\deployments
+18:28:37,836 INFO  [org.jboss.as.remoting] (MSC service thread 1-3) JBAS017100: Listening on /127.0.0.1:9999
+18:28:37,837 INFO  [org.jboss.as.remoting] (MSC service thread 1-6) JBAS017100: Listening on localhost/127.0.0.1:4447
+18:28:37,861 INFO  [org.jboss.as.server.deployment.scanner] (DeploymentScanner-threads - 1) JBAS015003: Found ifrs-ear.ear in deployment directory. To trigger deployment create a file called ifrs-ear.ear.dodeploy
+18:28:37,941 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-5) JBAS010400: Bound data source [java:jboss/datasources/ExampleDS]
+18:28:37,987 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-6) JBAS015876: Starting deployment of "ifrs-ear.ear"
+18:28:38,048 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-6) JBAS015876: Starting deployment of "ifrs-web-0.0.1-SNAPSHOT.war"
+18:28:38,048 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-7) JBAS015876: Starting deployment of "ifrs-ejb-0.0.1-SNAPSHOT.jar"
+18:28:38,765 INFO  [org.jboss.as.jpa] (MSC service thread 1-1) JBAS011401: Read persistence.xml for ifrs_PU
+18:28:38,842 INFO  [org.jboss.weld.deployer] (MSC service thread 1-8) JBAS016002: Processing weld deployment ifrs-ear.ear
+18:28:38,860 INFO  [org.jboss.weld.deployer] (MSC service thread 1-3) JBAS016002: Processing weld deployment ifrs-ejb-0.0.1-SNAPSHOT.jar
+18:28:39,009 INFO  [org.jboss.weld.deployer] (MSC service thread 1-3) JBAS016002: Processing weld deployment ifrs-web-0.0.1-SNAPSHOT.war
+18:28:39,030 INFO  [org.jboss.weld.deployer] (MSC service thread 1-3) JBAS016005: Starting Services for CDI deployment: ifrs-ear.ear
+18:28:39,091 INFO  [org.jboss.weld.Version] (MSC service thread 1-3) WELD-000900 1.1.5 (AS71)
+18:28:39,227 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-5) JBAS010400: Bound data source [jboss/datasources/ifrsDS]
+18:28:39,261 INFO  [org.jboss.as.jpa] (MSC service thread 1-8) JBAS011402: Starting Persistence Unit Service 'ifrs-ear.ear/ifrs-ejb-0.0.1-SNAPSHOT.jar#ifrs_PU'
+18:28:39,519 INFO  [org.hibernate.annotations.common.Version] (MSC service thread 1-8) HCANN000001: Hibernate Commons Annotations {4.0.1.Final}
+18:28:39,531 INFO  [org.hibernate.Version] (MSC service thread 1-8) HHH000412: Hibernate Core {4.0.1.Final}
+18:28:39,534 INFO  [org.hibernate.cfg.Environment] (MSC service thread 1-8) HHH000206: hibernate.properties not found
+18:28:39,536 INFO  [org.hibernate.cfg.Environment] (MSC service thread 1-8) HHH000021: Bytecode provider name : javassist
+18:28:39,566 INFO  [org.hibernate.ejb.Ejb3Configuration] (MSC service thread 1-8) HHH000204: Processing PersistenceUnitInfo [
+	name: ifrs_PU
+	...]
+18:28:39,659 INFO  [org.hibernate.service.jdbc.connections.internal.ConnectionProviderInitiator] (MSC service thread 1-8) HHH000130: Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+18:28:39,926 INFO  [org.hibernate.dialect.Dialect] (MSC service thread 1-8) HHH000400: Using dialect: org.hibernate.dialect.Oracle9iDialect
+18:28:39,934 INFO  [org.hibernate.engine.jdbc.internal.LobCreatorBuilder] (MSC service thread 1-8) HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+18:28:39,943 INFO  [org.hibernate.engine.transaction.internal.TransactionFactoryInitiator] (MSC service thread 1-8) HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jta.CMTTransactionFactory
+18:28:39,948 INFO  [org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory] (MSC service thread 1-8) HHH000397: Using ASTQueryTranslatorFactory
+18:28:40,107 INFO  [org.jboss.weld.deployer] (MSC service thread 1-4) JBAS016008: Starting weld service for deployment ifrs-ear.ear
+18:28:40,552 INFO  [javax.enterprise.resource.webcontainer.jsf.config] (MSC service thread 1-3) Inicializando Mojarra 2.1.7-jbossorg-1 (20120227-1401) para el contexto '/ifrs-web'
+18:28:41,388 INFO  [org.hibernate.validator.util.Version] (MSC service thread 1-3) Hibernate Validator 4.2.0.Final
+18:28:42,268 INFO  [org.primefaces.webapp.PostConstructApplicationEventListener] (MSC service thread 1-3) Running on PrimeFaces 3.3
+18:28:42,323 INFO  [org.jboss.web] (MSC service thread 1-3) JBAS018210: Registering web context: /ifrs-web
+18:28:42,325 INFO  [org.jboss.as] (MSC service thread 1-7) JBAS015951: Admin console listening on http://127.0.0.1:9990
+18:28:42,327 INFO  [org.jboss.as] (MSC service thread 1-7) JBAS015874: JBoss AS 7.1.1.Final "Brontes" started in 8833ms - Started 227 of 308 services (80 services are passive or on-demand)
+18:28:42,458 INFO  [org.jboss.as.server] (DeploymentScanner-threads - 2) JBAS018559: Deployed "ifrs-ear.ear"
+18:49:18,644 INFO  [org.jboss.weld.deployer] (MSC service thread 1-6) JBAS016009: Stopping weld service for deployment ifrs-ear.ear
+18:49:18,679 INFO  [org.jboss.as.jpa] (MSC service thread 1-6) JBAS011403: Stopping Persistence Unit Service 'ifrs-ear.ear/ifrs-ejb-0.0.1-SNAPSHOT.jar#ifrs_PU'
+18:49:18,691 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-1) JBAS010409: Unbound data source [jboss/datasources/ifrsDS]
+18:49:18,703 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-8) JBAS015877: Stopped deployment ifrs-ejb-0.0.1-SNAPSHOT.jar in 127ms
+18:49:18,708 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-5) JBAS015877: Stopped deployment ifrs-web-0.0.1-SNAPSHOT.war in 132ms
+18:49:18,715 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-4) JBAS015877: Stopped deployment ifrs-ear.ear in 142ms
+18:49:18,718 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-1) JBAS015876: Starting deployment of "ifrs-ear.ear"
+18:49:18,833 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-1) JBAS015876: Starting deployment of "ifrs-web-0.0.1-SNAPSHOT.war"
+18:49:18,836 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-1) JBAS015876: Starting deployment of "ifrs-ejb-0.0.1-SNAPSHOT.jar"
+18:49:19,330 INFO  [org.jboss.weld.deployer] (MSC service thread 1-7) JBAS016002: Processing weld deployment ifrs-ear.ear
+18:49:19,359 INFO  [org.jboss.weld.deployer] (MSC service thread 1-5) JBAS016002: Processing weld deployment ifrs-ejb-0.0.1-SNAPSHOT.jar
+18:49:19,377 INFO  [org.jboss.weld.deployer] (MSC service thread 1-3) JBAS016002: Processing weld deployment ifrs-web-0.0.1-SNAPSHOT.war
+18:49:19,383 INFO  [org.jboss.weld.deployer] (MSC service thread 1-3) JBAS016005: Starting Services for CDI deployment: ifrs-ear.ear
+18:49:19,397 INFO  [org.jboss.weld.deployer] (MSC service thread 1-7) JBAS016008: Starting weld service for deployment ifrs-ear.ear
+18:49:19,423 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-8) JBAS010400: Bound data source [jboss/datasources/ifrsDS]
+18:49:19,926 INFO  [javax.enterprise.resource.webcontainer.jsf.config] (MSC service thread 1-1) Inicializando Mojarra 2.1.7-jbossorg-1 (20120227-1401) para el contexto '/ifrs-web'
+18:49:20,591 INFO  [org.primefaces.webapp.PostConstructApplicationEventListener] (MSC service thread 1-1) Running on PrimeFaces 3.3
+18:49:20,595 INFO  [org.jboss.web] (MSC service thread 1-1) JBAS018210: Registering web context: /ifrs-web
+18:49:20,768 INFO  [org.jboss.as.server] (DeploymentScanner-threads - 1) JBAS018565: Replaced deployment "ifrs-ear.ear" with deployment "ifrs-ear.ear"
+18:52:11,066 INFO  [org.jboss.weld.deployer] (MSC service thread 1-4) JBAS016009: Stopping weld service for deployment ifrs-ear.ear
+18:52:11,075 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-1) JBAS010409: Unbound data source [jboss/datasources/ifrsDS]
+18:52:11,093 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-1) JBAS015877: Stopped deployment ifrs-web-0.0.1-SNAPSHOT.war in 59ms
+18:52:11,095 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-1) JBAS015877: Stopped deployment ifrs-ejb-0.0.1-SNAPSHOT.jar in 61ms
+18:52:11,105 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-1) JBAS015877: Stopped deployment ifrs-ear.ear in 71ms
+18:52:11,244 INFO  [org.jboss.as.server] (DeploymentScanner-threads - 2) JBAS018558: Undeployed "ifrs-ear.ear"
+19:08:01,832 INFO  [org.jboss.as.server.deployment.scanner] (DeploymentScanner-threads - 1) JBAS015003: Found ifrs-ear.ear in deployment directory. To trigger deployment create a file called ifrs-ear.ear.dodeploy
+19:08:01,845 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-8) JBAS015876: Starting deployment of "ifrs-ear.ear"
+19:08:01,889 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-7) JBAS015876: Starting deployment of "ifrs-web-0.0.1-SNAPSHOT.war"
+19:08:01,892 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-7) JBAS015876: Starting deployment of "ifrs-ejb-0.0.1-SNAPSHOT.jar"
+19:08:02,382 INFO  [org.jboss.as.jpa] (MSC service thread 1-6) JBAS011401: Read persistence.xml for IfrsPU
+19:08:02,481 INFO  [org.jboss.weld.deployer] (MSC service thread 1-5) JBAS016002: Processing weld deployment ifrs-ear.ear
+19:08:02,527 INFO  [org.jboss.weld.deployer] (MSC service thread 1-5) JBAS016002: Processing weld deployment ifrs-ejb-0.0.1-SNAPSHOT.jar
+19:08:02,538 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-5) JNDI bindings for session bean named TestServiceBean in deployment unit subdeployment "ifrs-ejb-0.0.1-SNAPSHOT.jar" of deployment "ifrs-ear.ear" are as follows:
+
+	java:global/ifrs-ear/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean!cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal
+	java:app/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean!cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal
+	java:module/TestServiceBean!cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal
+	java:global/ifrs-ear/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean
+	java:app/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean
+	java:module/TestServiceBean
+
+19:08:02,543 INFO  [org.jboss.weld.deployer] (MSC service thread 1-1) JBAS016002: Processing weld deployment ifrs-web-0.0.1-SNAPSHOT.war
+19:08:02,554 INFO  [org.jboss.weld.deployer] (MSC service thread 1-4) JBAS016005: Starting Services for CDI deployment: ifrs-ear.ear
+19:08:02,584 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-1) JBAS010400: Bound data source [jboss/datasources/ifrsDS]
+19:08:03,016 INFO  [org.jboss.as.jpa] (MSC service thread 1-6) JBAS011402: Starting Persistence Unit Service 'ifrs-ear.ear/ifrs-ejb-0.0.1-SNAPSHOT.jar#IfrsPU'
+19:08:03,019 INFO  [org.hibernate.ejb.Ejb3Configuration] (MSC service thread 1-6) HHH000204: Processing PersistenceUnitInfo [
+	name: IfrsPU
+	...]
+19:08:03,230 INFO  [org.hibernate.service.jdbc.connections.internal.ConnectionProviderInitiator] (MSC service thread 1-6) HHH000130: Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+19:08:03,243 INFO  [org.hibernate.dialect.Dialect] (MSC service thread 1-6) HHH000400: Using dialect: org.hibernate.dialect.Oracle9iDialect
+19:08:03,246 INFO  [org.hibernate.engine.jdbc.internal.LobCreatorBuilder] (MSC service thread 1-6) HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+19:08:03,248 INFO  [org.hibernate.engine.transaction.internal.TransactionFactoryInitiator] (MSC service thread 1-6) HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jta.CMTTransactionFactory
+19:08:03,251 INFO  [org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory] (MSC service thread 1-6) HHH000397: Using ASTQueryTranslatorFactory
+19:08:03,570 INFO  [org.jboss.weld.deployer] (MSC service thread 1-5) JBAS016008: Starting weld service for deployment ifrs-ear.ear
+19:08:03,803 INFO  [javax.enterprise.resource.webcontainer.jsf.config] (MSC service thread 1-3) Inicializando Mojarra 2.1.7-jbossorg-1 (20120227-1401) para el contexto '/ifrs-web'
+19:08:04,132 INFO  [org.primefaces.webapp.PostConstructApplicationEventListener] (MSC service thread 1-3) Running on PrimeFaces 3.3
+19:08:04,136 INFO  [org.jboss.web] (MSC service thread 1-3) JBAS018210: Registering web context: /ifrs-web
+19:08:04,262 INFO  [org.jboss.as.server] (DeploymentScanner-threads - 2) JBAS018559: Deployed "ifrs-ear.ear"
+19:09:05,285 WARN  [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] (http-localhost-127.0.0.1-80-2) SQL Error: 42102, SQLState: 42S02
+19:09:05,287 ERROR [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] (http-localhost-127.0.0.1-80-2) Tabla "TEST" no encontrada
+Table "TEST" not found; SQL statement:
+select test0_.column1 as column1_0_, test0_.column2 as column2_0_ from Test test0_ [42102-161]
+19:09:05,317 ERROR [org.jboss.ejb3.invocation] (http-localhost-127.0.0.1-80-2) JBAS014134: EJB Invocation failed on component TestServiceBean for method public abstract java.util.List cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal.findAll(): javax.ejb.EJBException: javax.persistence.PersistenceException: org.hibernate.exception.SQLGrammarException: Tabla "TEST" no encontrada
+Table "TEST" not found; SQL statement:
+select test0_.column1 as column1_0_, test0_.column2 as column2_0_ from Test test0_ [42102-161]
+	at org.jboss.as.ejb3.tx.CMTTxInterceptor.handleExceptionInOurTx(CMTTxInterceptor.java:166) [jboss-as-ejb3-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.as.ejb3.tx.CMTTxInterceptor.invokeInOurTx(CMTTxInterceptor.java:230) [jboss-as-ejb3-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.as.ejb3.tx.CMTTxInterceptor.required(CMTTxInterceptor.java:304) [jboss-as-ejb3-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.as.ejb3.tx.CMTTxInterceptor.processInvocation(CMTTxInterceptor.java:190) [jboss-as-ejb3-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:288) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.as.ejb3.component.interceptors.CurrentInvocationContextInterceptor.processInvocation(CurrentInvocationContextInterceptor.java:41) [jboss-as-ejb3-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:288) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.as.ejb3.component.interceptors.LoggingInterceptor.processInvocation(LoggingInterceptor.java:59) [jboss-as-ejb3-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:288) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.as.ee.component.NamespaceContextInterceptor.processInvocation(NamespaceContextInterceptor.java:50) [jboss-as-ee-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:288) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.as.ejb3.component.interceptors.AdditionalSetupInterceptor.processInvocation(AdditionalSetupInterceptor.java:32) [jboss-as-ejb3-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:288) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.as.ee.component.TCCLInterceptor.processInvocation(TCCLInterceptor.java:45) [jboss-as-ee-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:288) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.invocation.ChainedInterceptor.processInvocation(ChainedInterceptor.java:61) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.as.ee.component.ViewService$View.invoke(ViewService.java:165) [jboss-as-ee-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.as.ee.component.ViewDescription$1.processInvocation(ViewDescription.java:173) [jboss-as-ee-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:288) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.invocation.ChainedInterceptor.processInvocation(ChainedInterceptor.java:61) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.as.ee.component.ProxyInvocationHandler.invoke(ProxyInvocationHandler.java:72) [jboss-as-ee-7.1.1.Final.jar:7.1.1.Final]
+	at cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal$$$view1.findAll(Unknown Source) [ifrs-ejb-0.0.1-SNAPSHOT.jar:]
+	at cl.mdr.ifrs.cross.mb.MenuBackingBean.onTabChange(MenuBackingBean.java:41)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [rt.jar:1.6.0_32]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39) [rt.jar:1.6.0_32]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25) [rt.jar:1.6.0_32]
+	at java.lang.reflect.Method.invoke(Method.java:597) [rt.jar:1.6.0_32]
+	at org.apache.el.parser.AstValue.invoke(AstValue.java:262)
+	at org.apache.el.MethodExpressionImpl.invoke(MethodExpressionImpl.java:278)
+	at org.jboss.weld.util.el.ForwardingMethodExpression.invoke(ForwardingMethodExpression.java:39) [weld-core-1.1.5.AS71.Final.jar:2012-02-10 15:31]
+	at org.jboss.weld.el.WeldMethodExpression.invoke(WeldMethodExpression.java:50) [weld-core-1.1.5.AS71.Final.jar:2012-02-10 15:31]
+	at org.primefaces.component.behavior.ajax.AjaxBehaviorListenerImpl.processAjaxBehavior(AjaxBehaviorListenerImpl.java:47)
+	at org.primefaces.event.TabChangeEvent.processListener(TabChangeEvent.java:42)
+	at javax.faces.component.behavior.BehaviorBase.broadcast(BehaviorBase.java:106)
+	at javax.faces.component.UIComponentBase.broadcast(UIComponentBase.java:760)
+	at javax.faces.component.UIData.broadcast(UIData.java:1071)
+	at javax.faces.component.UIData.broadcast(UIData.java:1093)
+	at javax.faces.component.UIViewRoot.broadcastEvents(UIViewRoot.java:794)
+	at javax.faces.component.UIViewRoot.processApplication(UIViewRoot.java:1259)
+	at com.sun.faces.lifecycle.InvokeApplicationPhase.execute(InvokeApplicationPhase.java:81)
+	at com.sun.faces.lifecycle.Phase.doPhase(Phase.java:101)
+	at com.sun.faces.lifecycle.LifecycleImpl.execute(LifecycleImpl.java:118)
+	at javax.faces.webapp.FacesServlet.service(FacesServlet.java:593)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:329)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:248)
+	at org.jboss.weld.servlet.ConversationPropagationFilter.doFilter(ConversationPropagationFilter.java:62) [weld-core-1.1.5.AS71.Final.jar:2012-02-10 15:31]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:280)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:248)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:275)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:161)
+	at org.jboss.as.jpa.interceptor.WebNonTxEmCloserValve.invoke(WebNonTxEmCloserValve.java:50) [jboss-as-jpa-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.as.web.security.SecurityContextAssociationValve.invoke(SecurityContextAssociationValve.java:153)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:155)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:368)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:877)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:671)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:930)
+	at java.lang.Thread.run(Thread.java:662) [rt.jar:1.6.0_32]
+Caused by: javax.persistence.PersistenceException: org.hibernate.exception.SQLGrammarException: Tabla "TEST" no encontrada
+Table "TEST" not found; SQL statement:
+select test0_.column1 as column1_0_, test0_.column2 as column2_0_ from Test test0_ [42102-161]
+	at org.hibernate.ejb.AbstractEntityManagerImpl.convert(AbstractEntityManagerImpl.java:1361) [hibernate-entitymanager-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.ejb.AbstractEntityManagerImpl.convert(AbstractEntityManagerImpl.java:1289) [hibernate-entitymanager-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.ejb.QueryImpl.getResultList(QueryImpl.java:261) [hibernate-entitymanager-4.0.1.Final.jar:4.0.1.Final]
+	at cl.mdr.ifrs.ejb.cross.service.TestServiceBean.findAll(TestServiceBean.java:31) [ifrs-ejb-0.0.1-SNAPSHOT.jar:]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [rt.jar:1.6.0_32]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39) [rt.jar:1.6.0_32]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25) [rt.jar:1.6.0_32]
+	at java.lang.reflect.Method.invoke(Method.java:597) [rt.jar:1.6.0_32]
+	at org.jboss.as.ee.component.ManagedReferenceMethodInterceptorFactory$ManagedReferenceMethodInterceptor.processInvocation(ManagedReferenceMethodInterceptorFactory.java:72) [jboss-as-ee-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:288) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.invocation.InterceptorContext$Invocation.proceed(InterceptorContext.java:374) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.as.weld.ejb.Jsr299BindingsInterceptor.doMethodInterception(Jsr299BindingsInterceptor.java:127) [jboss-as-weld-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.as.weld.ejb.Jsr299BindingsInterceptor.processInvocation(Jsr299BindingsInterceptor.java:135) [jboss-as-weld-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.as.ee.component.interceptors.UserInterceptorFactory$1.processInvocation(UserInterceptorFactory.java:36) [jboss-as-ee-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:288) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.invocation.WeavedInterceptor.processInvocation(WeavedInterceptor.java:53) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.as.ee.component.interceptors.UserInterceptorFactory$1.processInvocation(UserInterceptorFactory.java:36) [jboss-as-ee-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:288) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.as.jpa.interceptor.SBInvocationInterceptor.processInvocation(SBInvocationInterceptor.java:47) [jboss-as-jpa-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:288) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.as.weld.ejb.EjbRequestScopeActivationInterceptor.processInvocation(EjbRequestScopeActivationInterceptor.java:82) [jboss-as-weld-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:288) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.invocation.InitialInterceptor.processInvocation(InitialInterceptor.java:21) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:288) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.invocation.ChainedInterceptor.processInvocation(ChainedInterceptor.java:61) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.as.ee.component.interceptors.ComponentDispatcherInterceptor.processInvocation(ComponentDispatcherInterceptor.java:53) [jboss-as-ee-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:288) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.as.ejb3.component.pool.PooledInstanceInterceptor.processInvocation(PooledInstanceInterceptor.java:51) [jboss-as-ejb3-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:288) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.as.ejb3.tx.CMTTxInterceptor.invokeInOurTx(CMTTxInterceptor.java:228) [jboss-as-ejb3-7.1.1.Final.jar:7.1.1.Final]
+	... 58 more
+Caused by: org.hibernate.exception.SQLGrammarException: Tabla "TEST" no encontrada
+Table "TEST" not found; SQL statement:
+select test0_.column1 as column1_0_, test0_.column2 as column2_0_ from Test test0_ [42102-161]
+	at org.hibernate.exception.internal.SQLStateConversionDelegate.convert(SQLStateConversionDelegate.java:122) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:47) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:125) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:110) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.engine.jdbc.internal.proxy.ConnectionProxyHandler.continueInvocation(ConnectionProxyHandler.java:146) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.engine.jdbc.internal.proxy.AbstractProxyHandler.invoke(AbstractProxyHandler.java:81) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at $Proxy31.prepareStatement(Unknown Source)	at org.hibernate.engine.jdbc.internal.StatementPreparerImpl$5.doPrepare(StatementPreparerImpl.java:147) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.engine.jdbc.internal.StatementPreparerImpl$StatementPreparationTemplate.prepareStatement(StatementPreparerImpl.java:166) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.engine.jdbc.internal.StatementPreparerImpl.prepareQueryStatement(StatementPreparerImpl.java:145) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.loader.Loader.prepareQueryStatement(Loader.java:1739) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.loader.Loader.doQuery(Loader.java:828) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.loader.Loader.doQueryAndInitializeNonLazyCollections(Loader.java:289) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.loader.Loader.doList(Loader.java:2463) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.loader.Loader.doList(Loader.java:2449) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.loader.Loader.listIgnoreQueryCache(Loader.java:2279) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.loader.Loader.list(Loader.java:2274) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.loader.hql.QueryLoader.list(QueryLoader.java:470) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.hql.internal.ast.QueryTranslatorImpl.list(QueryTranslatorImpl.java:355) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.engine.query.spi.HQLQueryPlan.performList(HQLQueryPlan.java:196) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.internal.SessionImpl.list(SessionImpl.java:1115) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.internal.QueryImpl.list(QueryImpl.java:101) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.ejb.QueryImpl.getResultList(QueryImpl.java:252) [hibernate-entitymanager-4.0.1.Final.jar:4.0.1.Final]
+	... 85 more
+Caused by: org.h2.jdbc.JdbcSQLException: Tabla "TEST" no encontrada
+Table "TEST" not found; SQL statement:
+select test0_.column1 as column1_0_, test0_.column2 as column2_0_ from Test test0_ [42102-161]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:329)
+	at org.h2.message.DbException.get(DbException.java:169)
+	at org.h2.message.DbException.get(DbException.java:146)
+	at org.h2.command.Parser.readTableOrView(Parser.java:4749)
+	at org.h2.command.Parser.readTableFilter(Parser.java:1075)
+	at org.h2.command.Parser.parseSelectSimpleFromPart(Parser.java:1681)
+	at org.h2.command.Parser.parseSelectSimple(Parser.java:1788)
+	at org.h2.command.Parser.parseSelectSub(Parser.java:1675)
+	at org.h2.command.Parser.parseSelectUnion(Parser.java:1518)
+	at org.h2.command.Parser.parseSelect(Parser.java:1506)
+	at org.h2.command.Parser.parsePrepared(Parser.java:405)
+	at org.h2.command.Parser.parse(Parser.java:279)
+	at org.h2.command.Parser.parse(Parser.java:251)
+	at org.h2.command.Parser.prepareCommand(Parser.java:217)
+	at org.h2.engine.Session.prepareLocal(Session.java:415)
+	at org.h2.engine.Session.prepareCommand(Session.java:364)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1119)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:71)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:635)
+	at org.jboss.jca.adapters.jdbc.BaseWrapperManagedConnection.doPrepareStatement(BaseWrapperManagedConnection.java:677)
+	at org.jboss.jca.adapters.jdbc.BaseWrapperManagedConnection.prepareStatement(BaseWrapperManagedConnection.java:663)
+	at org.jboss.jca.adapters.jdbc.WrappedConnection.prepareStatement(WrappedConnection.java:404)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [rt.jar:1.6.0_32]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39) [rt.jar:1.6.0_32]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25) [rt.jar:1.6.0_32]
+	at java.lang.reflect.Method.invoke(Method.java:597) [rt.jar:1.6.0_32]
+	at org.hibernate.engine.jdbc.internal.proxy.ConnectionProxyHandler.continueInvocation(ConnectionProxyHandler.java:138) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	... 103 more
+
+19:09:05,493 ADVERTENCIA [javax.enterprise.resource.webcontainer.jsf.lifecycle] (http-localhost-127.0.0.1-80-2) javax.ejb.EJBException: javax.persistence.PersistenceException: org.hibernate.exception.SQLGrammarException: Tabla "TEST" no encontrada
+Table "TEST" not found; SQL statement:
+select test0_.column1 as column1_0_, test0_.column2 as column2_0_ from Test test0_ [42102-161]: javax.el.ELException: javax.ejb.EJBException: javax.persistence.PersistenceException: org.hibernate.exception.SQLGrammarException: Tabla "TEST" no encontrada
+Table "TEST" not found; SQL statement:
+select test0_.column1 as column1_0_, test0_.column2 as column2_0_ from Test test0_ [42102-161]
+	at org.apache.el.parser.AstValue.invoke(AstValue.java:275) [jbossweb-7.0.13.Final.jar:]
+	at org.apache.el.MethodExpressionImpl.invoke(MethodExpressionImpl.java:278) [jbossweb-7.0.13.Final.jar:]
+	at org.jboss.weld.util.el.ForwardingMethodExpression.invoke(ForwardingMethodExpression.java:39) [weld-core-1.1.5.AS71.Final.jar:2012-02-10 15:31]
+	at org.jboss.weld.el.WeldMethodExpression.invoke(WeldMethodExpression.java:50) [weld-core-1.1.5.AS71.Final.jar:2012-02-10 15:31]
+	at org.primefaces.component.behavior.ajax.AjaxBehaviorListenerImpl.processAjaxBehavior(AjaxBehaviorListenerImpl.java:47) [primefaces-3.3.jar:]
+	at org.primefaces.event.TabChangeEvent.processListener(TabChangeEvent.java:42) [primefaces-3.3.jar:]
+	at javax.faces.component.behavior.BehaviorBase.broadcast(BehaviorBase.java:106) [jboss-jsf-api_2.1_spec-2.0.1.Final.jar:2.0.1.Final]
+	at javax.faces.component.UIComponentBase.broadcast(UIComponentBase.java:760) [jboss-jsf-api_2.1_spec-2.0.1.Final.jar:2.0.1.Final]
+	at javax.faces.component.UIData.broadcast(UIData.java:1071) [jboss-jsf-api_2.1_spec-2.0.1.Final.jar:2.0.1.Final]
+	at javax.faces.component.UIData.broadcast(UIData.java:1093) [jboss-jsf-api_2.1_spec-2.0.1.Final.jar:2.0.1.Final]
+	at javax.faces.component.UIViewRoot.broadcastEvents(UIViewRoot.java:794) [jboss-jsf-api_2.1_spec-2.0.1.Final.jar:2.0.1.Final]
+	at javax.faces.component.UIViewRoot.processApplication(UIViewRoot.java:1259) [jboss-jsf-api_2.1_spec-2.0.1.Final.jar:2.0.1.Final]
+	at com.sun.faces.lifecycle.InvokeApplicationPhase.execute(InvokeApplicationPhase.java:81) [jsf-impl-2.1.7-jbossorg-2.jar:]
+	at com.sun.faces.lifecycle.Phase.doPhase(Phase.java:101) [jsf-impl-2.1.7-jbossorg-2.jar:]
+	at com.sun.faces.lifecycle.LifecycleImpl.execute(LifecycleImpl.java:118) [jsf-impl-2.1.7-jbossorg-2.jar:]
+	at javax.faces.webapp.FacesServlet.service(FacesServlet.java:593) [jboss-jsf-api_2.1_spec-2.0.1.Final.jar:2.0.1.Final]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:329) [jbossweb-7.0.13.Final.jar:]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:248) [jbossweb-7.0.13.Final.jar:]
+	at org.jboss.weld.servlet.ConversationPropagationFilter.doFilter(ConversationPropagationFilter.java:62) [weld-core-1.1.5.AS71.Final.jar:2012-02-10 15:31]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:280) [jbossweb-7.0.13.Final.jar:]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:248) [jbossweb-7.0.13.Final.jar:]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:275) [jbossweb-7.0.13.Final.jar:]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:161) [jbossweb-7.0.13.Final.jar:]
+	at org.jboss.as.jpa.interceptor.WebNonTxEmCloserValve.invoke(WebNonTxEmCloserValve.java:50) [jboss-as-jpa-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.as.web.security.SecurityContextAssociationValve.invoke(SecurityContextAssociationValve.java:153) [jboss-as-web-7.1.1.Final.jar:7.1.1.Final]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:155) [jbossweb-7.0.13.Final.jar:]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102) [jbossweb-7.0.13.Final.jar:]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109) [jbossweb-7.0.13.Final.jar:]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:368) [jbossweb-7.0.13.Final.jar:]
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:877) [jbossweb-7.0.13.Final.jar:]
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:671) [jbossweb-7.0.13.Final.jar:]
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:930) [jbossweb-7.0.13.Final.jar:]
+	at java.lang.Thread.run(Thread.java:662) [rt.jar:1.6.0_32]
+Caused by: javax.ejb.EJBException: javax.persistence.PersistenceException: org.hibernate.exception.SQLGrammarException: Tabla "TEST" no encontrada
+Table "TEST" not found; SQL statement:
+select test0_.column1 as column1_0_, test0_.column2 as column2_0_ from Test test0_ [42102-161]
+	at org.jboss.as.ejb3.tx.CMTTxInterceptor.handleExceptionInOurTx(CMTTxInterceptor.java:166) [jboss-as-ejb3-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.as.ejb3.tx.CMTTxInterceptor.invokeInOurTx(CMTTxInterceptor.java:230) [jboss-as-ejb3-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.as.ejb3.tx.CMTTxInterceptor.required(CMTTxInterceptor.java:304) [jboss-as-ejb3-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.as.ejb3.tx.CMTTxInterceptor.processInvocation(CMTTxInterceptor.java:190) [jboss-as-ejb3-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:288) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.as.ejb3.component.interceptors.CurrentInvocationContextInterceptor.processInvocation(CurrentInvocationContextInterceptor.java:41) [jboss-as-ejb3-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:288) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.as.ejb3.component.interceptors.LoggingInterceptor.processInvocation(LoggingInterceptor.java:59) [jboss-as-ejb3-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:288) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.as.ee.component.NamespaceContextInterceptor.processInvocation(NamespaceContextInterceptor.java:50) [jboss-as-ee-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:288) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.as.ejb3.component.interceptors.AdditionalSetupInterceptor.processInvocation(AdditionalSetupInterceptor.java:32) [jboss-as-ejb3-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:288) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.as.ee.component.TCCLInterceptor.processInvocation(TCCLInterceptor.java:45) [jboss-as-ee-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:288) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.invocation.ChainedInterceptor.processInvocation(ChainedInterceptor.java:61) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.as.ee.component.ViewService$View.invoke(ViewService.java:165) [jboss-as-ee-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.as.ee.component.ViewDescription$1.processInvocation(ViewDescription.java:173) [jboss-as-ee-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:288) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.invocation.ChainedInterceptor.processInvocation(ChainedInterceptor.java:61) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.as.ee.component.ProxyInvocationHandler.invoke(ProxyInvocationHandler.java:72) [jboss-as-ee-7.1.1.Final.jar:7.1.1.Final]
+	at cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal$$$view1.findAll(Unknown Source) [ifrs-ejb-0.0.1-SNAPSHOT.jar:]
+	at cl.mdr.ifrs.cross.mb.MenuBackingBean.onTabChange(MenuBackingBean.java:41) [classes:]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [rt.jar:1.6.0_32]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39) [rt.jar:1.6.0_32]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25) [rt.jar:1.6.0_32]
+	at java.lang.reflect.Method.invoke(Method.java:597) [rt.jar:1.6.0_32]
+	at org.apache.el.parser.AstValue.invoke(AstValue.java:262) [jbossweb-7.0.13.Final.jar:]
+	... 32 more
+Caused by: javax.persistence.PersistenceException: org.hibernate.exception.SQLGrammarException: Tabla "TEST" no encontrada
+Table "TEST" not found; SQL statement:
+select test0_.column1 as column1_0_, test0_.column2 as column2_0_ from Test test0_ [42102-161]
+	at org.hibernate.ejb.AbstractEntityManagerImpl.convert(AbstractEntityManagerImpl.java:1361) [hibernate-entitymanager-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.ejb.AbstractEntityManagerImpl.convert(AbstractEntityManagerImpl.java:1289) [hibernate-entitymanager-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.ejb.QueryImpl.getResultList(QueryImpl.java:261) [hibernate-entitymanager-4.0.1.Final.jar:4.0.1.Final]
+	at cl.mdr.ifrs.ejb.cross.service.TestServiceBean.findAll(TestServiceBean.java:31) [ifrs-ejb-0.0.1-SNAPSHOT.jar:]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [rt.jar:1.6.0_32]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39) [rt.jar:1.6.0_32]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25) [rt.jar:1.6.0_32]
+	at java.lang.reflect.Method.invoke(Method.java:597) [rt.jar:1.6.0_32]
+	at org.jboss.as.ee.component.ManagedReferenceMethodInterceptorFactory$ManagedReferenceMethodInterceptor.processInvocation(ManagedReferenceMethodInterceptorFactory.java:72) [jboss-as-ee-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:288) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.invocation.InterceptorContext$Invocation.proceed(InterceptorContext.java:374) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.as.weld.ejb.Jsr299BindingsInterceptor.doMethodInterception(Jsr299BindingsInterceptor.java:127) [jboss-as-weld-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.as.weld.ejb.Jsr299BindingsInterceptor.processInvocation(Jsr299BindingsInterceptor.java:135) [jboss-as-weld-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.as.ee.component.interceptors.UserInterceptorFactory$1.processInvocation(UserInterceptorFactory.java:36) [jboss-as-ee-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:288) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.invocation.WeavedInterceptor.processInvocation(WeavedInterceptor.java:53) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.as.ee.component.interceptors.UserInterceptorFactory$1.processInvocation(UserInterceptorFactory.java:36) [jboss-as-ee-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:288) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.as.jpa.interceptor.SBInvocationInterceptor.processInvocation(SBInvocationInterceptor.java:47) [jboss-as-jpa-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:288) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.as.weld.ejb.EjbRequestScopeActivationInterceptor.processInvocation(EjbRequestScopeActivationInterceptor.java:82) [jboss-as-weld-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:288) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.invocation.InitialInterceptor.processInvocation(InitialInterceptor.java:21) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:288) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.invocation.ChainedInterceptor.processInvocation(ChainedInterceptor.java:61) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.as.ee.component.interceptors.ComponentDispatcherInterceptor.processInvocation(ComponentDispatcherInterceptor.java:53) [jboss-as-ee-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:288) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.as.ejb3.component.pool.PooledInstanceInterceptor.processInvocation(PooledInstanceInterceptor.java:51) [jboss-as-ejb3-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:288) [jboss-invocation-1.1.1.Final.jar:1.1.1.Final]
+	at org.jboss.as.ejb3.tx.CMTTxInterceptor.invokeInOurTx(CMTTxInterceptor.java:228) [jboss-as-ejb3-7.1.1.Final.jar:7.1.1.Final]
+	... 58 more
+Caused by: org.hibernate.exception.SQLGrammarException: Tabla "TEST" no encontrada
+Table "TEST" not found; SQL statement:
+select test0_.column1 as column1_0_, test0_.column2 as column2_0_ from Test test0_ [42102-161]
+	at org.hibernate.exception.internal.SQLStateConversionDelegate.convert(SQLStateConversionDelegate.java:122) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:47) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:125) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:110) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.engine.jdbc.internal.proxy.ConnectionProxyHandler.continueInvocation(ConnectionProxyHandler.java:146) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.engine.jdbc.internal.proxy.AbstractProxyHandler.invoke(AbstractProxyHandler.java:81) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at $Proxy31.prepareStatement(Unknown Source)	at org.hibernate.engine.jdbc.internal.StatementPreparerImpl$5.doPrepare(StatementPreparerImpl.java:147) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.engine.jdbc.internal.StatementPreparerImpl$StatementPreparationTemplate.prepareStatement(StatementPreparerImpl.java:166) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.engine.jdbc.internal.StatementPreparerImpl.prepareQueryStatement(StatementPreparerImpl.java:145) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.loader.Loader.prepareQueryStatement(Loader.java:1739) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.loader.Loader.doQuery(Loader.java:828) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.loader.Loader.doQueryAndInitializeNonLazyCollections(Loader.java:289) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.loader.Loader.doList(Loader.java:2463) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.loader.Loader.doList(Loader.java:2449) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.loader.Loader.listIgnoreQueryCache(Loader.java:2279) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.loader.Loader.list(Loader.java:2274) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.loader.hql.QueryLoader.list(QueryLoader.java:470) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.hql.internal.ast.QueryTranslatorImpl.list(QueryTranslatorImpl.java:355) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.engine.query.spi.HQLQueryPlan.performList(HQLQueryPlan.java:196) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.internal.SessionImpl.list(SessionImpl.java:1115) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.internal.QueryImpl.list(QueryImpl.java:101) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	at org.hibernate.ejb.QueryImpl.getResultList(QueryImpl.java:252) [hibernate-entitymanager-4.0.1.Final.jar:4.0.1.Final]
+	... 85 more
+Caused by: org.h2.jdbc.JdbcSQLException: Tabla "TEST" no encontrada
+Table "TEST" not found; SQL statement:
+select test0_.column1 as column1_0_, test0_.column2 as column2_0_ from Test test0_ [42102-161]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:329)
+	at org.h2.message.DbException.get(DbException.java:169)
+	at org.h2.message.DbException.get(DbException.java:146)
+	at org.h2.command.Parser.readTableOrView(Parser.java:4749)
+	at org.h2.command.Parser.readTableFilter(Parser.java:1075)
+	at org.h2.command.Parser.parseSelectSimpleFromPart(Parser.java:1681)
+	at org.h2.command.Parser.parseSelectSimple(Parser.java:1788)
+	at org.h2.command.Parser.parseSelectSub(Parser.java:1675)
+	at org.h2.command.Parser.parseSelectUnion(Parser.java:1518)
+	at org.h2.command.Parser.parseSelect(Parser.java:1506)
+	at org.h2.command.Parser.parsePrepared(Parser.java:405)
+	at org.h2.command.Parser.parse(Parser.java:279)
+	at org.h2.command.Parser.parse(Parser.java:251)
+	at org.h2.command.Parser.prepareCommand(Parser.java:217)
+	at org.h2.engine.Session.prepareLocal(Session.java:415)
+	at org.h2.engine.Session.prepareCommand(Session.java:364)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1119)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:71)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:635)
+	at org.jboss.jca.adapters.jdbc.BaseWrapperManagedConnection.doPrepareStatement(BaseWrapperManagedConnection.java:677)
+	at org.jboss.jca.adapters.jdbc.BaseWrapperManagedConnection.prepareStatement(BaseWrapperManagedConnection.java:663)
+	at org.jboss.jca.adapters.jdbc.WrappedConnection.prepareStatement(WrappedConnection.java:404)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [rt.jar:1.6.0_32]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39) [rt.jar:1.6.0_32]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25) [rt.jar:1.6.0_32]
+	at java.lang.reflect.Method.invoke(Method.java:597) [rt.jar:1.6.0_32]
+	at org.hibernate.engine.jdbc.internal.proxy.ConnectionProxyHandler.continueInvocation(ConnectionProxyHandler.java:138) [hibernate-core-4.0.1.Final.jar:4.0.1.Final]
+	... 103 more
+
+19:12:14,471 INFO  [org.jboss.weld.deployer] (MSC service thread 1-4) JBAS016009: Stopping weld service for deployment ifrs-ear.ear
+19:12:14,477 INFO  [org.jboss.as.jpa] (MSC service thread 1-4) JBAS011403: Stopping Persistence Unit Service 'ifrs-ear.ear/ifrs-ejb-0.0.1-SNAPSHOT.jar#IfrsPU'
+19:12:14,492 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-7) JBAS010409: Unbound data source [jboss/datasources/ifrsDS]
+19:12:14,513 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-7) JBAS015877: Stopped deployment ifrs-web-0.0.1-SNAPSHOT.war in 112ms
+19:12:14,515 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-7) JBAS015877: Stopped deployment ifrs-ejb-0.0.1-SNAPSHOT.jar in 114ms
+19:12:14,520 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-7) JBAS015877: Stopped deployment ifrs-ear.ear in 119ms
+19:12:14,654 INFO  [org.jboss.as.server] (DeploymentScanner-threads - 1) JBAS018558: Undeployed "ifrs-ear.ear"
+19:12:39,920 INFO  [org.jboss.as.server.deployment.scanner] (DeploymentScanner-threads - 2) JBAS015003: Found ifrs-ear.ear in deployment directory. To trigger deployment create a file called ifrs-ear.ear.dodeploy
+19:12:39,932 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-7) JBAS015876: Starting deployment of "ifrs-ear.ear"
+19:12:40,341 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-7) JBAS015876: Starting deployment of "ifrs-web-0.0.1-SNAPSHOT.war"
+19:12:40,344 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-7) JBAS015876: Starting deployment of "ifrs-ejb-0.0.1-SNAPSHOT.jar"
+19:12:40,594 INFO  [org.jboss.as.jpa] (MSC service thread 1-1) JBAS011401: Read persistence.xml for IfrsPU
+19:12:40,720 INFO  [org.jboss.weld.deployer] (MSC service thread 1-5) JBAS016002: Processing weld deployment ifrs-ear.ear
+19:12:40,729 INFO  [org.jboss.weld.deployer] (MSC service thread 1-5) JBAS016002: Processing weld deployment ifrs-ejb-0.0.1-SNAPSHOT.jar
+19:12:40,732 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-5) JNDI bindings for session bean named TestServiceBean in deployment unit subdeployment "ifrs-ejb-0.0.1-SNAPSHOT.jar" of deployment "ifrs-ear.ear" are as follows:
+
+	java:global/ifrs-ear/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean!cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal
+	java:app/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean!cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal
+	java:module/TestServiceBean!cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal
+	java:global/ifrs-ear/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean
+	java:app/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean
+	java:module/TestServiceBean
+
+19:12:40,767 INFO  [org.jboss.weld.deployer] (MSC service thread 1-1) JBAS016002: Processing weld deployment ifrs-web-0.0.1-SNAPSHOT.war
+19:12:40,773 INFO  [org.jboss.weld.deployer] (MSC service thread 1-8) JBAS016005: Starting Services for CDI deployment: ifrs-ear.ear
+19:12:41,337 INFO  [org.jboss.as.server] (DeploymentScanner-threads - 1) JBAS015870: Deploy of deployment "ifrs-ear.ear" was rolled back with failure message {"JBAS014771: Services with missing/unavailable dependencies" => ["jboss.data-source.jboss/datasources/ifrsDSjboss.jdbc-driver.ojdbc6_jarMissing[jboss.data-source.jboss/datasources/ifrsDSjboss.jdbc-driver.ojdbc6_jar]"]}
+19:12:41,424 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-1) JBAS010409: Unbound data source [jboss/datasources/ifrsDS]
+19:12:41,432 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-5) JBAS015877: Stopped deployment ifrs-ejb-0.0.1-SNAPSHOT.jar in 95ms
+19:12:41,435 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-3) JBAS015877: Stopped deployment ifrs-web-0.0.1-SNAPSHOT.war in 98ms
+19:12:41,442 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-8) JBAS015877: Stopped deployment ifrs-ear.ear in 105ms
+19:12:41,446 INFO  [org.jboss.as.controller] (DeploymentScanner-threads - 1) JBAS014774: Service status report
+JBAS014775:    New missing/unsatisfied dependencies:
+      service jboss.jdbc-driver.ojdbc6_jar (missing) dependents: [service jboss.data-source.jboss/datasources/ifrsDS] 
+
+19:12:41,451 ERROR [org.jboss.as.server.deployment.scanner] (DeploymentScanner-threads - 2) {"JBAS014653: Composite operation failed and was rolled back. Steps that failed:" => {"Operation step-2" => {"JBAS014771: Services with missing/unavailable dependencies" => ["jboss.data-source.jboss/datasources/ifrsDSjboss.jdbc-driver.ojdbc6_jarMissing[jboss.data-source.jboss/datasources/ifrsDSjboss.jdbc-driver.ojdbc6_jar]"]}}}
+19:18:25,092 INFO  [org.jboss.as.osgi] (MSC service thread 1-7) JBAS011942: Stopping OSGi Framework
+19:18:25,113 INFO  [org.apache.catalina.core.StandardContext] (MSC service thread 1-5) No se ha arrancado el Contenedor org.apache.catalina.core.ContainerBase.[jboss.web].[default-host].[/]
+19:18:25,115 WARN  [org.jboss.remoting.remote] (Remoting "pc-rreyes:MANAGEMENT" read-1) JBREM000205: Failed to accept a connection: java.nio.channels.ClosedChannelException
+19:18:53,573 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 31) JBAS010280: Activating Infinispan subsystem.
+19:18:53,608 INFO  [org.jboss.as.connector] (MSC service thread 1-4) JBAS010408: Starting JCA Subsystem (JBoss IronJacamar 1.0.9.Final)
+19:18:53,613 INFO  [org.jboss.as.configadmin] (ServerService Thread Pool -- 26) JBAS016200: Activating ConfigAdmin Subsystem
+19:18:53,632 INFO  [org.jboss.as.osgi] (ServerService Thread Pool -- 39) JBAS011940: Activating OSGi Subsystem
+19:18:53,667 INFO  [org.jboss.as.webservices] (ServerService Thread Pool -- 48) JBAS015537: Activating WebServices Extension
+19:18:53,683 INFO  [org.jboss.as.security] (ServerService Thread Pool -- 44) JBAS013101: Activating Security Subsystem
+19:18:53,705 INFO  [org.jboss.as.security] (MSC service thread 1-3) JBAS013100: Current PicketBox version=4.0.7.Final
+19:18:53,784 INFO  [org.jboss.as.naming] (ServerService Thread Pool -- 38) JBAS011800: Activating Naming Subsystem
+19:18:54,047 INFO  [org.jboss.as.connector.subsystems.datasources] (ServerService Thread Pool -- 27) JBAS010403: Deploying JDBC-compliant driver class org.h2.Driver (version 1.3)
+19:18:54,083 INFO  [org.jboss.as.naming] (MSC service thread 1-2) JBAS011802: Starting Naming Service
+19:18:54,106 INFO  [org.jboss.as.mail.extension] (MSC service thread 1-2) JBAS015400: Bound mail session [java:jboss/mail/Default]
+19:18:54,319 INFO  [org.jboss.ws.common.management.AbstractServerConfig] (MSC service thread 1-3) JBoss Web Services - Stack CXF Server 4.0.2.GA
+19:18:54,769 INFO  [org.jboss.as.server.deployment.scanner] (MSC service thread 1-7) JBAS015012: Started FileSystemDeploymentService for directory D:\server\jboss-as-7.1.1.Final\standalone\deployments
+19:18:54,833 INFO  [org.jboss.as.remoting] (MSC service thread 1-1) JBAS017100: Listening on localhost/127.0.0.1:4447
+19:18:54,836 INFO  [org.jboss.as.remoting] (MSC service thread 1-2) JBAS017100: Listening on /127.0.0.1:9999
+19:18:54,920 INFO  [org.apache.coyote.http11.Http11Protocol] (MSC service thread 1-6) Arrancando Coyote HTTP/1.1 en puerto http-localhost-127.0.0.1-80
+19:18:55,040 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-8) JBAS010400: Bound data source [java:jboss/datasources/ExampleDS]
+19:18:55,200 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015951: Admin console listening on http://127.0.0.1:9990
+19:18:55,201 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015874: JBoss AS 7.1.1.Final "Brontes" started in 4700ms - Started 133 of 208 services (74 services are passive or on-demand)
+19:18:59,801 INFO  [org.jboss.as.server.deployment.scanner] (DeploymentScanner-threads - 1) JBAS015003: Found ifrs-ear.ear in deployment directory. To trigger deployment create a file called ifrs-ear.ear.dodeploy
+19:18:59,850 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-3) JBAS015876: Starting deployment of "ifrs-ear.ear"
+19:19:00,526 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-3) JBAS015876: Starting deployment of "ifrs-web-0.0.1-SNAPSHOT.war"
+19:19:00,526 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-6) JBAS015876: Starting deployment of "ifrs-ejb-0.0.1-SNAPSHOT.jar"
+19:19:01,404 INFO  [org.jboss.as.jpa] (MSC service thread 1-8) JBAS011401: Read persistence.xml for IfrsPU
+19:19:01,500 INFO  [org.jboss.weld.deployer] (MSC service thread 1-3) JBAS016002: Processing weld deployment ifrs-ear.ear
+19:19:01,624 INFO  [org.jboss.weld.deployer] (MSC service thread 1-3) JBAS016002: Processing weld deployment ifrs-ejb-0.0.1-SNAPSHOT.jar
+19:19:01,631 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-3) JNDI bindings for session bean named TestServiceBean in deployment unit subdeployment "ifrs-ejb-0.0.1-SNAPSHOT.jar" of deployment "ifrs-ear.ear" are as follows:
+
+	java:global/ifrs-ear/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean!cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal
+	java:app/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean!cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal
+	java:module/TestServiceBean!cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal
+	java:global/ifrs-ear/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean
+	java:app/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean
+	java:module/TestServiceBean
+
+19:19:01,763 INFO  [org.jboss.weld.deployer] (MSC service thread 1-5) JBAS016002: Processing weld deployment ifrs-web-0.0.1-SNAPSHOT.war
+19:19:01,785 INFO  [org.jboss.weld.deployer] (MSC service thread 1-4) JBAS016005: Starting Services for CDI deployment: ifrs-ear.ear
+19:19:01,834 INFO  [org.jboss.weld.Version] (MSC service thread 1-4) WELD-000900 1.1.5 (AS71)
+19:19:02,424 INFO  [org.jboss.as.server] (DeploymentScanner-threads - 2) JBAS015870: Deploy of deployment "ifrs-ear.ear" was rolled back with failure message {"JBAS014771: Services with missing/unavailable dependencies" => ["jboss.data-source.jboss/datasources/ifrsDSjboss.jdbc-driver.ojdbc6_jarMissing[jboss.data-source.jboss/datasources/ifrsDSjboss.jdbc-driver.ojdbc6_jar]"]}
+19:19:02,457 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-3) JBAS010409: Unbound data source [jboss/datasources/ifrsDS]
+19:19:02,470 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-8) JBAS015877: Stopped deployment ifrs-ejb-0.0.1-SNAPSHOT.jar in 44ms
+19:19:02,474 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-4) JBAS015877: Stopped deployment ifrs-web-0.0.1-SNAPSHOT.war in 48ms
+19:19:02,482 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-6) JBAS015877: Stopped deployment ifrs-ear.ear in 58ms
+19:19:02,484 INFO  [org.jboss.as.controller] (DeploymentScanner-threads - 2) JBAS014774: Service status report
+JBAS014775:    New missing/unsatisfied dependencies:
+      service jboss.jdbc-driver.ojdbc6_jar (missing) dependents: [service jboss.data-source.jboss/datasources/ifrsDS] 
+
+19:19:02,488 ERROR [org.jboss.as.server.deployment.scanner] (DeploymentScanner-threads - 1) {"JBAS014653: Composite operation failed and was rolled back. Steps that failed:" => {"Operation step-2" => {"JBAS014771: Services with missing/unavailable dependencies" => ["jboss.data-source.jboss/datasources/ifrsDSjboss.jdbc-driver.ojdbc6_jarMissing[jboss.data-source.jboss/datasources/ifrsDSjboss.jdbc-driver.ojdbc6_jar]"]}}}
+19:27:22,857 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-1) JBAS015876: Starting deployment of "ifrs-ear.ear"
+19:27:23,340 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-1) JBAS015876: Starting deployment of "ifrs-web-0.0.1-SNAPSHOT.war"
+19:27:23,340 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-6) JBAS015876: Starting deployment of "ifrs-ejb-0.0.1-SNAPSHOT.jar"
+19:27:23,743 INFO  [org.jboss.as.jpa] (MSC service thread 1-1) JBAS011401: Read persistence.xml for IfrsPU
+19:27:23,894 INFO  [org.jboss.weld.deployer] (MSC service thread 1-8) JBAS016002: Processing weld deployment ifrs-ear.ear
+19:27:23,904 INFO  [org.jboss.weld.deployer] (MSC service thread 1-8) JBAS016002: Processing weld deployment ifrs-ejb-0.0.1-SNAPSHOT.jar
+19:27:23,906 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named TestServiceBean in deployment unit subdeployment "ifrs-ejb-0.0.1-SNAPSHOT.jar" of deployment "ifrs-ear.ear" are as follows:
+
+	java:global/ifrs-ear/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean!cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal
+	java:app/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean!cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal
+	java:module/TestServiceBean!cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal
+	java:global/ifrs-ear/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean
+	java:app/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean
+	java:module/TestServiceBean
+
+19:27:23,936 INFO  [org.jboss.weld.deployer] (MSC service thread 1-6) JBAS016002: Processing weld deployment ifrs-web-0.0.1-SNAPSHOT.war
+19:27:23,942 INFO  [org.jboss.weld.deployer] (MSC service thread 1-3) JBAS016005: Starting Services for CDI deployment: ifrs-ear.ear
+19:27:24,369 INFO  [org.jboss.as.server] (DeploymentScanner-threads - 2) JBAS015870: Deploy of deployment "ifrs-ear.ear" was rolled back with failure message {"JBAS014771: Services with missing/unavailable dependencies" => ["jboss.data-source.jboss/datasources/ifrsDSjboss.jdbc-driver.oracleMissing[jboss.data-source.jboss/datasources/ifrsDSjboss.jdbc-driver.oracle]"]}
+19:27:24,393 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-8) JBAS010409: Unbound data source [jboss/datasources/ifrsDS]
+19:27:24,402 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-8) JBAS015877: Stopped deployment ifrs-ejb-0.0.1-SNAPSHOT.jar in 33ms
+19:27:24,405 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-5) JBAS015877: Stopped deployment ifrs-web-0.0.1-SNAPSHOT.war in 36ms
+19:27:24,412 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-5) JBAS015877: Stopped deployment ifrs-ear.ear in 43ms
+19:27:24,415 INFO  [org.jboss.as.controller] (DeploymentScanner-threads - 2) JBAS014774: Service status report
+JBAS014775:    New missing/unsatisfied dependencies:
+      service jboss.jdbc-driver.oracle (missing) dependents: [service jboss.data-source.jboss/datasources/ifrsDS] 
+JBAS014776:    Newly corrected services:
+      service jboss.jdbc-driver.ojdbc6_jar (new available)
+
+19:27:24,441 ERROR [org.jboss.as.server.deployment.scanner] (DeploymentScanner-threads - 1) {"JBAS014653: Composite operation failed and was rolled back. Steps that failed:" => {"Operation step-2" => {"JBAS014771: Services with missing/unavailable dependencies" => ["jboss.data-source.jboss/datasources/ifrsDSjboss.jdbc-driver.oracleMissing[jboss.data-source.jboss/datasources/ifrsDSjboss.jdbc-driver.oracle]"]}}}
+19:27:52,254 INFO  [org.jboss.as.osgi] (MSC service thread 1-5) JBAS011942: Stopping OSGi Framework
+19:28:00,374 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 31) JBAS010280: Activating Infinispan subsystem.
+19:28:00,383 INFO  [org.jboss.as.webservices] (ServerService Thread Pool -- 48) JBAS015537: Activating WebServices Extension
+19:28:00,392 INFO  [org.jboss.as.naming] (ServerService Thread Pool -- 38) JBAS011800: Activating Naming Subsystem
+19:28:00,374 INFO  [org.jboss.as.security] (ServerService Thread Pool -- 44) JBAS013101: Activating Security Subsystem
+19:28:00,459 INFO  [org.jboss.as.security] (MSC service thread 1-5) JBAS013100: Current PicketBox version=4.0.7.Final
+19:28:00,462 INFO  [org.jboss.as.osgi] (ServerService Thread Pool -- 39) JBAS011940: Activating OSGi Subsystem
+19:28:00,670 INFO  [org.jboss.as.connector.subsystems.datasources] (ServerService Thread Pool -- 27) JBAS010403: Deploying JDBC-compliant driver class org.h2.Driver (version 1.3)
+19:28:00,708 INFO  [org.jboss.as.connector] (MSC service thread 1-6) JBAS010408: Starting JCA Subsystem (JBoss IronJacamar 1.0.9.Final)
+19:28:00,730 INFO  [org.jboss.as.naming] (MSC service thread 1-6) JBAS011802: Starting Naming Service
+19:28:00,817 INFO  [org.jboss.as.mail.extension] (MSC service thread 1-1) JBAS015400: Bound mail session [java:jboss/mail/Default]
+19:28:00,846 INFO  [org.jboss.ws.common.management.AbstractServerConfig] (MSC service thread 1-7) JBoss Web Services - Stack CXF Server 4.0.2.GA
+19:28:01,026 INFO  [org.jboss.as.connector.subsystems.datasources] (ServerService Thread Pool -- 27) JBAS010403: Deploying JDBC-compliant driver class oracle.jdbc.OracleDriver (version 11.2)
+19:28:01,546 INFO  [org.jboss.as.server.deployment.scanner] (MSC service thread 1-2) JBAS015012: Started FileSystemDeploymentService for directory D:\server\jboss-as-7.1.1.Final\standalone\deployments
+19:28:01,571 INFO  [org.jboss.as.remoting] (MSC service thread 1-4) JBAS017100: Listening on localhost/127.0.0.1:4447
+19:28:01,573 INFO  [org.jboss.as.remoting] (MSC service thread 1-6) JBAS017100: Listening on /127.0.0.1:9999
+19:28:01,590 INFO  [org.apache.coyote.http11.Http11Protocol] (MSC service thread 1-7) Arrancando Coyote HTTP/1.1 en puerto http-localhost-127.0.0.1-80
+19:28:01,767 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-7) JBAS010400: Bound data source [java:jboss/datasources/ExampleDS]
+19:28:01,903 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015951: Admin console listening on http://127.0.0.1:9990
+19:28:01,904 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015874: JBoss AS 7.1.1.Final "Brontes" started in 4194ms - Started 134 of 209 services (74 services are passive or on-demand)
+19:28:56,609 INFO  [org.jboss.as.server.deployment.scanner] (DeploymentScanner-threads - 1) JBAS015003: Found ifrs-ear.ear in deployment directory. To trigger deployment create a file called ifrs-ear.ear.dodeploy
+19:28:56,648 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-7) JBAS015876: Starting deployment of "ifrs-ear.ear"
+19:28:56,811 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-6) JBAS015876: Starting deployment of "ifrs-ejb-0.0.1-SNAPSHOT.jar"
+19:28:56,811 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-4) JBAS015876: Starting deployment of "ifrs-web-0.0.1-SNAPSHOT.war"
+19:28:57,919 INFO  [org.jboss.as.jpa] (MSC service thread 1-7) JBAS011401: Read persistence.xml for IfrsPU
+19:28:58,083 INFO  [org.jboss.weld.deployer] (MSC service thread 1-8) JBAS016002: Processing weld deployment ifrs-ear.ear
+19:28:58,229 INFO  [org.jboss.weld.deployer] (MSC service thread 1-4) JBAS016002: Processing weld deployment ifrs-ejb-0.0.1-SNAPSHOT.jar
+19:28:58,240 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-4) JNDI bindings for session bean named TestServiceBean in deployment unit subdeployment "ifrs-ejb-0.0.1-SNAPSHOT.jar" of deployment "ifrs-ear.ear" are as follows:
+
+	java:global/ifrs-ear/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean!cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal
+	java:app/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean!cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal
+	java:module/TestServiceBean!cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal
+	java:global/ifrs-ear/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean
+	java:app/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean
+	java:module/TestServiceBean
+
+19:28:58,264 INFO  [org.jboss.weld.deployer] (MSC service thread 1-8) JBAS016002: Processing weld deployment ifrs-web-0.0.1-SNAPSHOT.war
+19:28:58,285 INFO  [org.jboss.weld.deployer] (MSC service thread 1-1) JBAS016005: Starting Services for CDI deployment: ifrs-ear.ear
+19:28:58,341 INFO  [org.jboss.weld.Version] (MSC service thread 1-1) WELD-000900 1.1.5 (AS71)
+19:28:58,381 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-1) JBAS010400: Bound data source [jboss/datasources/ifrsDS]
+19:28:58,582 INFO  [org.jboss.as.jpa] (MSC service thread 1-2) JBAS011402: Starting Persistence Unit Service 'ifrs-ear.ear/ifrs-ejb-0.0.1-SNAPSHOT.jar#IfrsPU'
+19:28:58,871 INFO  [org.hibernate.annotations.common.Version] (MSC service thread 1-2) HCANN000001: Hibernate Commons Annotations {4.0.1.Final}
+19:28:58,881 INFO  [org.hibernate.Version] (MSC service thread 1-2) HHH000412: Hibernate Core {4.0.1.Final}
+19:28:58,885 INFO  [org.hibernate.cfg.Environment] (MSC service thread 1-2) HHH000206: hibernate.properties not found
+19:28:58,889 INFO  [org.hibernate.cfg.Environment] (MSC service thread 1-2) HHH000021: Bytecode provider name : javassist
+19:28:58,956 INFO  [org.hibernate.ejb.Ejb3Configuration] (MSC service thread 1-2) HHH000204: Processing PersistenceUnitInfo [
+	name: IfrsPU
+	...]
+19:28:59,224 INFO  [org.hibernate.service.jdbc.connections.internal.ConnectionProviderInitiator] (MSC service thread 1-2) HHH000130: Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+19:28:59,790 INFO  [org.hibernate.dialect.Dialect] (MSC service thread 1-2) HHH000400: Using dialect: org.hibernate.dialect.Oracle9iDialect
+19:29:00,020 INFO  [org.hibernate.engine.transaction.internal.TransactionFactoryInitiator] (MSC service thread 1-2) HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jta.CMTTransactionFactory
+19:29:00,029 INFO  [org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory] (MSC service thread 1-2) HHH000397: Using ASTQueryTranslatorFactory
+19:29:00,128 INFO  [org.hibernate.validator.util.Version] (MSC service thread 1-2) Hibernate Validator 4.2.0.Final
+19:29:00,685 INFO  [org.jboss.weld.deployer] (MSC service thread 1-1) JBAS016008: Starting weld service for deployment ifrs-ear.ear
+19:29:01,402 INFO  [javax.enterprise.resource.webcontainer.jsf.config] (MSC service thread 1-2) Inicializando Mojarra 2.1.7-jbossorg-1 (20120227-1401) para el contexto '/ifrs-web'
+19:29:04,204 INFO  [org.primefaces.webapp.PostConstructApplicationEventListener] (MSC service thread 1-2) Running on PrimeFaces 3.3
+19:29:04,282 INFO  [org.jboss.web] (MSC service thread 1-2) JBAS018210: Registering web context: /ifrs-web
+19:29:04,492 INFO  [org.jboss.as.server] (DeploymentScanner-threads - 2) JBAS018559: Deployed "ifrs-ear.ear"
+19:29:11,380 INFO  [stdout] (http-localhost-127.0.0.1-80-1) Hibernate: 
+19:29:11,381 INFO  [stdout] (http-localhost-127.0.0.1-80-1)     select
+19:29:11,382 INFO  [stdout] (http-localhost-127.0.0.1-80-1)         test0_.column1 as column1_0_,
+19:29:11,383 INFO  [stdout] (http-localhost-127.0.0.1-80-1)         test0_.column2 as column2_0_ 
+19:29:11,384 INFO  [stdout] (http-localhost-127.0.0.1-80-1)     from
+19:29:11,385 INFO  [stdout] (http-localhost-127.0.0.1-80-1)         Test test0_
+19:29:11,729 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-1) [cl.mdr.ifrs.ejb.entity.Test@14b1dbf, cl.mdr.ifrs.ejb.entity.Test@a49d4b5, cl.mdr.ifrs.ejb.entity.Test@752bbc59]
+19:29:23,844 INFO  [stdout] (http-localhost-127.0.0.1-80-1) Hibernate: 
+19:29:23,845 INFO  [stdout] (http-localhost-127.0.0.1-80-1)     select
+19:29:23,846 INFO  [stdout] (http-localhost-127.0.0.1-80-1)         test0_.column1 as column1_0_,
+19:29:23,847 INFO  [stdout] (http-localhost-127.0.0.1-80-1)         test0_.column2 as column2_0_ 
+19:29:23,848 INFO  [stdout] (http-localhost-127.0.0.1-80-1)     from
+19:29:23,849 INFO  [stdout] (http-localhost-127.0.0.1-80-1)         Test test0_
+19:29:23,854 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-1) [cl.mdr.ifrs.ejb.entity.Test@b6a6597, cl.mdr.ifrs.ejb.entity.Test@7633a25b, cl.mdr.ifrs.ejb.entity.Test@37e840fd]
+19:29:27,676 INFO  [stdout] (http-localhost-127.0.0.1-80-1) Hibernate: 
+19:29:27,677 INFO  [stdout] (http-localhost-127.0.0.1-80-1)     select
+19:29:27,678 INFO  [stdout] (http-localhost-127.0.0.1-80-1)         test0_.column1 as column1_0_,
+19:29:27,680 INFO  [stdout] (http-localhost-127.0.0.1-80-1)         test0_.column2 as column2_0_ 
+19:29:27,681 INFO  [stdout] (http-localhost-127.0.0.1-80-1)     from
+19:29:27,682 INFO  [stdout] (http-localhost-127.0.0.1-80-1)         Test test0_
+19:29:27,688 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-1) [cl.mdr.ifrs.ejb.entity.Test@5b026d9f, cl.mdr.ifrs.ejb.entity.Test@7c6b1066, cl.mdr.ifrs.ejb.entity.Test@34e671de]
+19:37:47,822 INFO  [org.jboss.as.osgi] (MSC service thread 1-7) JBAS011942: Stopping OSGi Framework
+19:37:47,895 INFO  [org.apache.coyote.http11.Http11Protocol] (MSC service thread 1-8) Pausando Coyote HTTP/1.1 en puerto http-localhost-127.0.0.1-80
+19:52:21,802 INFO  [org.jboss.as.configadmin] (ServerService Thread Pool -- 26) JBAS016200: Activating ConfigAdmin Subsystem
+19:52:21,866 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 31) JBAS010280: Activating Infinispan subsystem.
+19:52:21,903 INFO  [org.jboss.as.osgi] (ServerService Thread Pool -- 39) JBAS011940: Activating OSGi Subsystem
+19:52:21,931 INFO  [org.jboss.as.security] (ServerService Thread Pool -- 44) JBAS013101: Activating Security Subsystem
+19:52:21,969 INFO  [org.jboss.as.webservices] (ServerService Thread Pool -- 48) JBAS015537: Activating WebServices Extension
+19:52:22,012 INFO  [org.jboss.as.naming] (ServerService Thread Pool -- 38) JBAS011800: Activating Naming Subsystem
+19:52:22,030 INFO  [org.jboss.as.connector.subsystems.datasources] (ServerService Thread Pool -- 27) JBAS010403: Deploying JDBC-compliant driver class org.h2.Driver (version 1.3)
+19:52:22,083 INFO  [org.jboss.as.security] (MSC service thread 1-1) JBAS013100: Current PicketBox version=4.0.7.Final
+19:52:22,156 INFO  [org.jboss.as.naming] (MSC service thread 1-6) JBAS011802: Starting Naming Service
+19:52:22,158 INFO  [org.jboss.as.connector] (MSC service thread 1-6) JBAS010408: Starting JCA Subsystem (JBoss IronJacamar 1.0.9.Final)
+19:52:22,271 INFO  [org.jboss.ws.common.management.AbstractServerConfig] (MSC service thread 1-2) JBoss Web Services - Stack CXF Server 4.0.2.GA
+19:52:22,330 INFO  [org.jboss.as.mail.extension] (MSC service thread 1-6) JBAS015400: Bound mail session [java:jboss/mail/Default]
+19:52:22,676 INFO  [org.jboss.as.connector.subsystems.datasources] (ServerService Thread Pool -- 27) JBAS010403: Deploying JDBC-compliant driver class oracle.jdbc.OracleDriver (version 11.2)
+19:52:22,919 INFO  [org.jboss.as.server.deployment.scanner] (MSC service thread 1-5) JBAS015012: Started FileSystemDeploymentService for directory D:\server\jboss-as-7.1.1.Final\standalone\deployments
+19:52:22,944 INFO  [org.jboss.as.server.deployment.scanner] (DeploymentScanner-threads - 1) JBAS015003: Found ifrs-ear.ear in deployment directory. To trigger deployment create a file called ifrs-ear.ear.dodeploy
+19:52:23,067 INFO  [org.jboss.as.remoting] (MSC service thread 1-4) JBAS017100: Listening on /127.0.0.1:9999
+19:52:23,067 INFO  [org.jboss.as.remoting] (MSC service thread 1-8) JBAS017100: Listening on localhost/127.0.0.1:4447
+19:52:23,111 INFO  [org.apache.coyote.http11.Http11Protocol] (MSC service thread 1-6) Arrancando Coyote HTTP/1.1 en puerto http-localhost-127.0.0.1-80
+19:52:23,275 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-3) JBAS010400: Bound data source [java:jboss/datasources/ExampleDS]
+19:52:23,310 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-8) JBAS015876: Starting deployment of "ifrs-ear.ear"
+19:52:23,414 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-2) JBAS015876: Starting deployment of "ifrs-ejb-0.0.1-SNAPSHOT.jar"
+19:52:23,414 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-8) JBAS015876: Starting deployment of "ifrs-web-0.0.1-SNAPSHOT.war"
+19:52:24,620 INFO  [org.jboss.as.jpa] (MSC service thread 1-1) JBAS011401: Read persistence.xml for IfrsPU
+19:52:24,811 INFO  [org.jboss.weld.deployer] (MSC service thread 1-1) JBAS016002: Processing weld deployment ifrs-ear.ear
+19:52:24,921 INFO  [org.jboss.weld.deployer] (MSC service thread 1-3) JBAS016002: Processing weld deployment ifrs-ejb-0.0.1-SNAPSHOT.jar
+19:52:24,931 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-3) JNDI bindings for session bean named TestServiceBean in deployment unit subdeployment "ifrs-ejb-0.0.1-SNAPSHOT.jar" of deployment "ifrs-ear.ear" are as follows:
+
+	java:global/ifrs-ear/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean!cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal
+	java:app/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean!cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal
+	java:module/TestServiceBean!cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal
+	java:global/ifrs-ear/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean
+	java:app/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean
+	java:module/TestServiceBean
+
+19:52:24,982 INFO  [org.jboss.weld.deployer] (MSC service thread 1-4) JBAS016002: Processing weld deployment ifrs-web-0.0.1-SNAPSHOT.war
+19:52:25,007 INFO  [org.jboss.weld.deployer] (MSC service thread 1-6) JBAS016005: Starting Services for CDI deployment: ifrs-ear.ear
+19:52:25,096 INFO  [org.jboss.weld.Version] (MSC service thread 1-6) WELD-000900 1.1.5 (AS71)
+19:52:25,178 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-7) JBAS010400: Bound data source [jboss/datasources/ifrsDS]
+19:52:25,368 INFO  [org.jboss.as.jpa] (MSC service thread 1-7) JBAS011402: Starting Persistence Unit Service 'ifrs-ear.ear/ifrs-ejb-0.0.1-SNAPSHOT.jar#IfrsPU'
+19:52:25,637 INFO  [org.hibernate.annotations.common.Version] (MSC service thread 1-7) HCANN000001: Hibernate Commons Annotations {4.0.1.Final}
+19:52:25,647 INFO  [org.hibernate.Version] (MSC service thread 1-7) HHH000412: Hibernate Core {4.0.1.Final}
+19:52:25,650 INFO  [org.hibernate.cfg.Environment] (MSC service thread 1-7) HHH000206: hibernate.properties not found
+19:52:25,654 INFO  [org.hibernate.cfg.Environment] (MSC service thread 1-7) HHH000021: Bytecode provider name : javassist
+19:52:25,684 INFO  [org.hibernate.ejb.Ejb3Configuration] (MSC service thread 1-7) HHH000204: Processing PersistenceUnitInfo [
+	name: IfrsPU
+	...]
+19:52:25,902 INFO  [org.hibernate.service.jdbc.connections.internal.ConnectionProviderInitiator] (MSC service thread 1-7) HHH000130: Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+19:52:26,363 INFO  [org.hibernate.dialect.Dialect] (MSC service thread 1-7) HHH000400: Using dialect: org.hibernate.dialect.Oracle9iDialect
+19:52:26,446 INFO  [org.hibernate.engine.transaction.internal.TransactionFactoryInitiator] (MSC service thread 1-7) HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jta.CMTTransactionFactory
+19:52:26,454 INFO  [org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory] (MSC service thread 1-7) HHH000397: Using ASTQueryTranslatorFactory
+19:52:26,517 INFO  [org.hibernate.validator.util.Version] (MSC service thread 1-7) Hibernate Validator 4.2.0.Final
+19:52:27,115 INFO  [org.jboss.weld.deployer] (MSC service thread 1-7) JBAS016008: Starting weld service for deployment ifrs-ear.ear
+19:52:27,852 INFO  [javax.enterprise.resource.webcontainer.jsf.config] (MSC service thread 1-8) Inicializando Mojarra 2.1.7-jbossorg-1 (20120227-1401) para el contexto '/ifrs-web'
+19:52:30,285 INFO  [org.primefaces.webapp.PostConstructApplicationEventListener] (MSC service thread 1-8) Running on PrimeFaces 3.3
+19:52:30,340 INFO  [org.jboss.web] (MSC service thread 1-8) JBAS018210: Registering web context: /ifrs-web
+19:52:30,343 INFO  [org.jboss.as] (MSC service thread 1-5) JBAS015951: Admin console listening on http://127.0.0.1:9990
+19:52:30,345 INFO  [org.jboss.as] (MSC service thread 1-5) JBAS015874: JBoss AS 7.1.1.Final "Brontes" started in 11361ms - Started 251 of 332 services (80 services are passive or on-demand)
+19:52:30,535 INFO  [org.jboss.as.server] (DeploymentScanner-threads - 2) JBAS018559: Deployed "ifrs-ear.ear"
+19:52:37,961 INFO  [stdout] (http-localhost-127.0.0.1-80-5) Hibernate: 
+19:52:37,962 INFO  [stdout] (http-localhost-127.0.0.1-80-5)     select
+19:52:37,962 INFO  [stdout] (http-localhost-127.0.0.1-80-5)         test0_.column1 as column1_0_,
+19:52:37,963 INFO  [stdout] (http-localhost-127.0.0.1-80-5)         test0_.column2 as column2_0_ 
+19:52:37,964 INFO  [stdout] (http-localhost-127.0.0.1-80-5)     from
+19:52:37,965 INFO  [stdout] (http-localhost-127.0.0.1-80-5)         Test test0_
+19:52:38,121 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-5) [cl.mdr.ifrs.ejb.entity.Test@38124f9d, cl.mdr.ifrs.ejb.entity.Test@53e4a72f, cl.mdr.ifrs.ejb.entity.Test@489c29b0]
+19:54:27,233 INFO  [stdout] (http-localhost-127.0.0.1-80-5) Hibernate: 
+19:54:27,235 INFO  [stdout] (http-localhost-127.0.0.1-80-5)     select
+19:54:27,235 INFO  [stdout] (http-localhost-127.0.0.1-80-5)         test0_.column1 as column1_0_,
+19:54:27,236 INFO  [stdout] (http-localhost-127.0.0.1-80-5)         test0_.column2 as column2_0_ 
+19:54:27,238 INFO  [stdout] (http-localhost-127.0.0.1-80-5)     from
+19:54:27,238 INFO  [stdout] (http-localhost-127.0.0.1-80-5)         Test test0_
+19:54:27,246 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-5) [cl.mdr.ifrs.ejb.entity.Test@1ff5ec1f, cl.mdr.ifrs.ejb.entity.Test@4a60f79d, cl.mdr.ifrs.ejb.entity.Test@24208a91]
+19:54:33,371 INFO  [stdout] (http-localhost-127.0.0.1-80-3) Hibernate: 
+19:54:33,372 INFO  [stdout] (http-localhost-127.0.0.1-80-3)     select
+19:54:33,373 INFO  [stdout] (http-localhost-127.0.0.1-80-3)         test0_.column1 as column1_0_,
+19:54:33,374 INFO  [stdout] (http-localhost-127.0.0.1-80-3)         test0_.column2 as column2_0_ 
+19:54:33,375 INFO  [stdout] (http-localhost-127.0.0.1-80-3)     from
+19:54:33,376 INFO  [stdout] (http-localhost-127.0.0.1-80-3)         Test test0_
+19:54:33,382 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-3) [cl.mdr.ifrs.ejb.entity.Test@31ff6cb1, cl.mdr.ifrs.ejb.entity.Test@7838f21b, cl.mdr.ifrs.ejb.entity.Test@534317d]
+19:54:55,699 INFO  [org.jboss.weld.deployer] (MSC service thread 1-4) JBAS016009: Stopping weld service for deployment ifrs-ear.ear
+19:54:55,717 INFO  [org.jboss.as.jpa] (MSC service thread 1-8) JBAS011403: Stopping Persistence Unit Service 'ifrs-ear.ear/ifrs-ejb-0.0.1-SNAPSHOT.jar#IfrsPU'
+19:54:55,730 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-4) JBAS010409: Unbound data source [jboss/datasources/ifrsDS]
+19:54:55,747 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-8) JBAS015877: Stopped deployment ifrs-ejb-0.0.1-SNAPSHOT.jar in 80ms
+19:54:55,752 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-7) JBAS015877: Stopped deployment ifrs-web-0.0.1-SNAPSHOT.war in 85ms
+19:54:55,757 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-2) JBAS015877: Stopped deployment ifrs-ear.ear in 92ms
+19:54:56,065 INFO  [org.jboss.as.server] (DeploymentScanner-threads - 1) JBAS018558: Undeployed "ifrs-ear.ear"
+19:55:06,128 INFO  [org.jboss.as.server.deployment.scanner] (DeploymentScanner-threads - 1) JBAS015003: Found ifrs-ear.ear in deployment directory. To trigger deployment create a file called ifrs-ear.ear.dodeploy
+19:55:06,143 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-4) JBAS015876: Starting deployment of "ifrs-ear.ear"
+19:55:06,187 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-4) JBAS015876: Starting deployment of "ifrs-web-0.0.1-SNAPSHOT.war"
+19:55:06,189 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-4) JBAS015876: Starting deployment of "ifrs-ejb-0.0.1-SNAPSHOT.jar"
+19:55:06,605 INFO  [org.jboss.as.jpa] (MSC service thread 1-2) JBAS011401: Read persistence.xml for IfrsPU
+19:55:06,631 INFO  [org.jboss.weld.deployer] (MSC service thread 1-5) JBAS016002: Processing weld deployment ifrs-ear.ear
+19:55:06,641 INFO  [org.jboss.weld.deployer] (MSC service thread 1-5) JBAS016002: Processing weld deployment ifrs-ejb-0.0.1-SNAPSHOT.jar
+19:55:06,643 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-5) JNDI bindings for session bean named TestServiceBean in deployment unit subdeployment "ifrs-ejb-0.0.1-SNAPSHOT.jar" of deployment "ifrs-ear.ear" are as follows:
+
+	java:global/ifrs-ear/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean!cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal
+	java:app/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean!cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal
+	java:module/TestServiceBean!cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal
+	java:global/ifrs-ear/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean
+	java:app/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean
+	java:module/TestServiceBean
+
+19:55:06,666 INFO  [org.jboss.weld.deployer] (MSC service thread 1-8) JBAS016002: Processing weld deployment ifrs-web-0.0.1-SNAPSHOT.war
+19:55:06,671 INFO  [org.jboss.weld.deployer] (MSC service thread 1-8) JBAS016005: Starting Services for CDI deployment: ifrs-ear.ear
+19:55:06,686 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-5) JBAS010400: Bound data source [jboss/datasources/ifrsDS]
+19:55:06,735 INFO  [org.jboss.as.jpa] (MSC service thread 1-4) JBAS011402: Starting Persistence Unit Service 'ifrs-ear.ear/ifrs-ejb-0.0.1-SNAPSHOT.jar#IfrsPU'
+19:55:06,741 INFO  [org.hibernate.ejb.Ejb3Configuration] (MSC service thread 1-4) HHH000204: Processing PersistenceUnitInfo [
+	name: IfrsPU
+	...]
+19:55:06,899 INFO  [org.hibernate.service.jdbc.connections.internal.ConnectionProviderInitiator] (MSC service thread 1-4) HHH000130: Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+19:55:06,960 INFO  [org.hibernate.dialect.Dialect] (MSC service thread 1-4) HHH000400: Using dialect: org.hibernate.dialect.Oracle9iDialect
+19:55:07,029 INFO  [org.hibernate.engine.transaction.internal.TransactionFactoryInitiator] (MSC service thread 1-4) HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jta.CMTTransactionFactory
+19:55:07,032 INFO  [org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory] (MSC service thread 1-4) HHH000397: Using ASTQueryTranslatorFactory
+19:55:07,053 INFO  [org.jboss.weld.deployer] (MSC service thread 1-5) JBAS016008: Starting weld service for deployment ifrs-ear.ear
+19:55:07,232 INFO  [javax.enterprise.resource.webcontainer.jsf.config] (MSC service thread 1-2) Inicializando Mojarra 2.1.7-jbossorg-1 (20120227-1401) para el contexto '/ifrs-web'
+19:55:07,741 INFO  [org.primefaces.webapp.PostConstructApplicationEventListener] (MSC service thread 1-2) Running on PrimeFaces 3.3
+19:55:07,745 INFO  [org.jboss.web] (MSC service thread 1-2) JBAS018210: Registering web context: /ifrs-web
+19:55:07,883 INFO  [org.jboss.as.server] (DeploymentScanner-threads - 2) JBAS018559: Deployed "ifrs-ear.ear"
+19:55:11,944 INFO  [stdout] (http-localhost-127.0.0.1-80-3) Hibernate: 
+19:55:11,946 INFO  [stdout] (http-localhost-127.0.0.1-80-3)     select
+19:55:11,947 INFO  [stdout] (http-localhost-127.0.0.1-80-3)         test0_.column1 as column1_2_,
+19:55:11,948 INFO  [stdout] (http-localhost-127.0.0.1-80-3)         test0_.column2 as column2_2_ 
+19:55:11,949 INFO  [stdout] (http-localhost-127.0.0.1-80-3)     from
+19:55:11,951 INFO  [stdout] (http-localhost-127.0.0.1-80-3)         Test test0_
+19:55:11,998 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-3) [cl.mdr.ifrs.ejb.entity.Test@2573449c, cl.mdr.ifrs.ejb.entity.Test@329d70f9, cl.mdr.ifrs.ejb.entity.Test@7e640564]
+19:55:47,020 INFO  [stdout] (http-localhost-127.0.0.1-80-3) Hibernate: 
+19:55:47,021 INFO  [stdout] (http-localhost-127.0.0.1-80-3)     select
+19:55:47,022 INFO  [stdout] (http-localhost-127.0.0.1-80-3)         test0_.column1 as column1_2_,
+19:55:47,023 INFO  [stdout] (http-localhost-127.0.0.1-80-3)         test0_.column2 as column2_2_ 
+19:55:47,024 INFO  [stdout] (http-localhost-127.0.0.1-80-3)     from
+19:55:47,025 INFO  [stdout] (http-localhost-127.0.0.1-80-3)         Test test0_
+19:55:47,030 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-3) [cl.mdr.ifrs.ejb.entity.Test@26eb0fa1, cl.mdr.ifrs.ejb.entity.Test@124f26fd, cl.mdr.ifrs.ejb.entity.Test@a88b56f]
+19:56:41,052 INFO  [stdout] (http-localhost-127.0.0.1-80-3) Hibernate: 
+19:56:41,054 INFO  [stdout] (http-localhost-127.0.0.1-80-3)     select
+19:56:41,054 INFO  [stdout] (http-localhost-127.0.0.1-80-3)         test0_.column1 as column1_2_,
+19:56:41,056 INFO  [stdout] (http-localhost-127.0.0.1-80-3)         test0_.column2 as column2_2_ 
+19:56:41,057 INFO  [stdout] (http-localhost-127.0.0.1-80-3)     from
+19:56:41,058 INFO  [stdout] (http-localhost-127.0.0.1-80-3)         Test test0_
+19:56:41,063 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-3) [cl.mdr.ifrs.ejb.entity.Test@3e6775ae, cl.mdr.ifrs.ejb.entity.Test@7a5f1283, cl.mdr.ifrs.ejb.entity.Test@77b89538]
+19:57:10,356 INFO  [stdout] (http-localhost-127.0.0.1-80-3) Hibernate: 
+19:57:10,356 INFO  [stdout] (http-localhost-127.0.0.1-80-3)     select
+19:57:10,357 INFO  [stdout] (http-localhost-127.0.0.1-80-3)         test0_.column1 as column1_2_,
+19:57:10,358 INFO  [stdout] (http-localhost-127.0.0.1-80-3)         test0_.column2 as column2_2_ 
+19:57:10,359 INFO  [stdout] (http-localhost-127.0.0.1-80-3)     from
+19:57:10,360 INFO  [stdout] (http-localhost-127.0.0.1-80-3)         Test test0_
+19:57:10,365 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-3) [cl.mdr.ifrs.ejb.entity.Test@1731996d, cl.mdr.ifrs.ejb.entity.Test@394fcf00, cl.mdr.ifrs.ejb.entity.Test@269f2665]
+20:01:28,656 INFO  [stdout] (http-localhost-127.0.0.1-80-4) Hibernate: 
+20:01:28,657 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     select
+20:01:28,657 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column1 as column1_2_,
+20:01:28,659 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column2 as column2_2_ 
+20:01:28,660 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     from
+20:01:28,660 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         Test test0_
+20:01:28,666 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-4) [cl.mdr.ifrs.ejb.entity.Test@417baf8b, cl.mdr.ifrs.ejb.entity.Test@1f41f043, cl.mdr.ifrs.ejb.entity.Test@2204cebd]
+20:01:58,928 INFO  [stdout] (http-localhost-127.0.0.1-80-4) Hibernate: 
+20:01:58,929 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     select
+20:01:58,930 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column1 as column1_2_,
+20:01:58,931 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column2 as column2_2_ 
+20:01:58,932 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     from
+20:01:58,933 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         Test test0_
+20:01:58,939 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-4) [cl.mdr.ifrs.ejb.entity.Test@18983acc, cl.mdr.ifrs.ejb.entity.Test@323c33b1, cl.mdr.ifrs.ejb.entity.Test@e65c33b]
+20:02:13,214 INFO  [org.jboss.weld.deployer] (MSC service thread 1-8) JBAS016009: Stopping weld service for deployment ifrs-ear.ear
+20:02:13,225 INFO  [org.jboss.as.jpa] (MSC service thread 1-8) JBAS011403: Stopping Persistence Unit Service 'ifrs-ear.ear/ifrs-ejb-0.0.1-SNAPSHOT.jar#IfrsPU'
+20:02:13,236 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-8) JBAS010409: Unbound data source [jboss/datasources/ifrsDS]
+20:02:13,282 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-8) JBAS015877: Stopped deployment ifrs-web-0.0.1-SNAPSHOT.war in 91ms
+20:02:13,318 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-8) JBAS015877: Stopped deployment ifrs-ejb-0.0.1-SNAPSHOT.jar in 127ms
+20:02:13,343 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-8) JBAS015877: Stopped deployment ifrs-ear.ear in 152ms
+20:02:13,368 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-3) JBAS015876: Starting deployment of "ifrs-ear.ear"
+20:02:13,408 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-6) JBAS015876: Starting deployment of "ifrs-ejb-0.0.1-SNAPSHOT.jar"
+20:02:13,423 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-3) JBAS015876: Starting deployment of "ifrs-web-0.0.1-SNAPSHOT.war"
+20:02:13,723 INFO  [org.jboss.as.jpa] (MSC service thread 1-8) JBAS011401: Read persistence.xml for IfrsPU
+20:02:13,751 INFO  [org.jboss.weld.deployer] (MSC service thread 1-4) JBAS016002: Processing weld deployment ifrs-ear.ear
+20:02:13,761 INFO  [org.jboss.weld.deployer] (MSC service thread 1-4) JBAS016002: Processing weld deployment ifrs-ejb-0.0.1-SNAPSHOT.jar
+20:02:13,764 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-4) JNDI bindings for session bean named TestServiceBean in deployment unit subdeployment "ifrs-ejb-0.0.1-SNAPSHOT.jar" of deployment "ifrs-ear.ear" are as follows:
+
+	java:global/ifrs-ear/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean!cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal
+	java:app/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean!cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal
+	java:module/TestServiceBean!cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal
+	java:global/ifrs-ear/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean
+	java:app/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean
+	java:module/TestServiceBean
+
+20:02:13,787 INFO  [org.jboss.weld.deployer] (MSC service thread 1-3) JBAS016002: Processing weld deployment ifrs-web-0.0.1-SNAPSHOT.war
+20:02:13,801 INFO  [org.jboss.weld.deployer] (MSC service thread 1-8) JBAS016005: Starting Services for CDI deployment: ifrs-ear.ear
+20:02:13,842 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-4) JBAS010400: Bound data source [jboss/datasources/ifrsDS]
+20:02:13,890 INFO  [org.jboss.as.jpa] (MSC service thread 1-8) JBAS011402: Starting Persistence Unit Service 'ifrs-ear.ear/ifrs-ejb-0.0.1-SNAPSHOT.jar#IfrsPU'
+20:02:13,894 INFO  [org.hibernate.ejb.Ejb3Configuration] (MSC service thread 1-8) HHH000204: Processing PersistenceUnitInfo [
+	name: IfrsPU
+	...]
+20:02:13,923 INFO  [org.hibernate.service.jdbc.connections.internal.ConnectionProviderInitiator] (MSC service thread 1-8) HHH000130: Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+20:02:13,987 INFO  [org.hibernate.dialect.Dialect] (MSC service thread 1-8) HHH000400: Using dialect: org.hibernate.dialect.Oracle9iDialect
+20:02:14,045 INFO  [org.hibernate.engine.transaction.internal.TransactionFactoryInitiator] (MSC service thread 1-8) HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jta.CMTTransactionFactory
+20:02:14,048 INFO  [org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory] (MSC service thread 1-8) HHH000397: Using ASTQueryTranslatorFactory
+20:02:14,070 INFO  [org.jboss.weld.deployer] (MSC service thread 1-8) JBAS016008: Starting weld service for deployment ifrs-ear.ear
+20:02:14,239 INFO  [javax.enterprise.resource.webcontainer.jsf.config] (MSC service thread 1-3) Inicializando Mojarra 2.1.7-jbossorg-1 (20120227-1401) para el contexto '/ifrs-web'
+20:02:14,566 INFO  [org.primefaces.webapp.PostConstructApplicationEventListener] (MSC service thread 1-3) Running on PrimeFaces 3.3
+20:02:14,569 INFO  [org.jboss.web] (MSC service thread 1-3) JBAS018210: Registering web context: /ifrs-web
+20:02:14,836 INFO  [org.jboss.as.server] (DeploymentScanner-threads - 2) JBAS018565: Replaced deployment "ifrs-ear.ear" with deployment "ifrs-ear.ear"
+20:02:59,315 INFO  [stdout] (http-localhost-127.0.0.1-80-4) Hibernate: 
+20:02:59,316 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     select
+20:02:59,317 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column1 as column1_4_,
+20:02:59,318 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column2 as column2_4_ 
+20:02:59,319 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     from
+20:02:59,319 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         Test test0_
+20:02:59,327 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-4) [cl.mdr.ifrs.ejb.entity.Test@5e5fc57c, cl.mdr.ifrs.ejb.entity.Test@619e804b, cl.mdr.ifrs.ejb.entity.Test@6cf8edfe]
+20:03:32,812 INFO  [stdout] (http-localhost-127.0.0.1-80-4) Hibernate: 
+20:03:32,813 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     select
+20:03:32,814 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column1 as column1_4_,
+20:03:32,815 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column2 as column2_4_ 
+20:03:32,816 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     from
+20:03:32,817 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         Test test0_
+20:03:32,822 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-4) [cl.mdr.ifrs.ejb.entity.Test@1674f64d, cl.mdr.ifrs.ejb.entity.Test@58d644bf, cl.mdr.ifrs.ejb.entity.Test@5b3b8529]
+20:03:52,834 INFO  [stdout] (http-localhost-127.0.0.1-80-4) Hibernate: 
+20:03:52,835 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     select
+20:03:52,836 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column1 as column1_4_,
+20:03:52,837 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column2 as column2_4_ 
+20:03:52,838 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     from
+20:03:52,838 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         Test test0_
+20:03:52,844 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-4) [cl.mdr.ifrs.ejb.entity.Test@27913878, cl.mdr.ifrs.ejb.entity.Test@2f126293, cl.mdr.ifrs.ejb.entity.Test@6005b909]
+20:04:07,363 INFO  [stdout] (http-localhost-127.0.0.1-80-4) Hibernate: 
+20:04:07,364 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     select
+20:04:07,365 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column1 as column1_4_,
+20:04:07,366 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column2 as column2_4_ 
+20:04:07,367 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     from
+20:04:07,368 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         Test test0_
+20:04:07,372 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-4) [cl.mdr.ifrs.ejb.entity.Test@68c4cb0e, cl.mdr.ifrs.ejb.entity.Test@4fef39de, cl.mdr.ifrs.ejb.entity.Test@62c046d1]
+20:04:19,951 INFO  [stdout] (http-localhost-127.0.0.1-80-4) Hibernate: 
+20:04:19,952 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     select
+20:04:19,953 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column1 as column1_4_,
+20:04:19,954 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column2 as column2_4_ 
+20:04:19,955 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     from
+20:04:19,955 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         Test test0_
+20:04:19,960 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-4) [cl.mdr.ifrs.ejb.entity.Test@7ba5d968, cl.mdr.ifrs.ejb.entity.Test@45647a43, cl.mdr.ifrs.ejb.entity.Test@4796e84c]
+20:04:21,705 INFO  [stdout] (http-localhost-127.0.0.1-80-4) Hibernate: 
+20:04:21,706 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     select
+20:04:21,707 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column1 as column1_4_,
+20:04:21,708 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column2 as column2_4_ 
+20:04:21,709 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     from
+20:04:21,709 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         Test test0_
+20:04:21,715 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-4) [cl.mdr.ifrs.ejb.entity.Test@6a8b2677, cl.mdr.ifrs.ejb.entity.Test@558a8546, cl.mdr.ifrs.ejb.entity.Test@7933e289]
+20:04:23,321 INFO  [stdout] (http-localhost-127.0.0.1-80-4) Hibernate: 
+20:04:23,321 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     select
+20:04:23,322 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column1 as column1_4_,
+20:04:23,323 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column2 as column2_4_ 
+20:04:23,324 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     from
+20:04:23,325 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         Test test0_
+20:04:23,332 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-4) [cl.mdr.ifrs.ejb.entity.Test@3ec4ea15, cl.mdr.ifrs.ejb.entity.Test@71e428e4, cl.mdr.ifrs.ejb.entity.Test@3a38cb26]
+20:05:14,414 INFO  [stdout] (http-localhost-127.0.0.1-80-4) Hibernate: 
+20:05:14,414 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     select
+20:05:14,415 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column1 as column1_4_,
+20:05:14,416 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column2 as column2_4_ 
+20:05:14,417 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     from
+20:05:14,418 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         Test test0_
+20:05:14,423 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-4) [cl.mdr.ifrs.ejb.entity.Test@796b50db, cl.mdr.ifrs.ejb.entity.Test@74899823, cl.mdr.ifrs.ejb.entity.Test@75635d9a]
+20:05:46,381 INFO  [stdout] (http-localhost-127.0.0.1-80-4) Hibernate: 
+20:05:46,382 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     select
+20:05:46,383 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column1 as column1_4_,
+20:05:46,384 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column2 as column2_4_ 
+20:05:46,385 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     from
+20:05:46,386 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         Test test0_
+20:05:46,390 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-4) [cl.mdr.ifrs.ejb.entity.Test@51e38387, cl.mdr.ifrs.ejb.entity.Test@2fd03e11, cl.mdr.ifrs.ejb.entity.Test@109ae69d]
+20:06:27,828 INFO  [stdout] (http-localhost-127.0.0.1-80-4) Hibernate: 
+20:06:27,829 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     select
+20:06:27,829 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column1 as column1_4_,
+20:06:27,831 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column2 as column2_4_ 
+20:06:27,832 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     from
+20:06:27,832 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         Test test0_
+20:06:27,837 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-4) [cl.mdr.ifrs.ejb.entity.Test@4e40bc65, cl.mdr.ifrs.ejb.entity.Test@7c10b305, cl.mdr.ifrs.ejb.entity.Test@2c594ce5]
+20:06:49,847 INFO  [stdout] (http-localhost-127.0.0.1-80-4) Hibernate: 
+20:06:49,848 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     select
+20:06:49,849 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column1 as column1_4_,
+20:06:49,850 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column2 as column2_4_ 
+20:06:49,851 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     from
+20:06:49,852 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         Test test0_
+20:06:49,857 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-4) [cl.mdr.ifrs.ejb.entity.Test@5602bb86, cl.mdr.ifrs.ejb.entity.Test@4d658687, cl.mdr.ifrs.ejb.entity.Test@446330c3]
+20:07:45,515 INFO  [stdout] (http-localhost-127.0.0.1-80-4) Hibernate: 
+20:07:45,516 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     select
+20:07:45,517 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column1 as column1_4_,
+20:07:45,518 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column2 as column2_4_ 
+20:07:45,519 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     from
+20:07:45,520 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         Test test0_
+20:07:45,524 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-4) [cl.mdr.ifrs.ejb.entity.Test@5624d67a, cl.mdr.ifrs.ejb.entity.Test@c7d0fc5, cl.mdr.ifrs.ejb.entity.Test@669654ea]
+20:27:25,654 INFO  [org.jboss.weld.deployer] (MSC service thread 1-3) JBAS016009: Stopping weld service for deployment ifrs-ear.ear
+20:27:25,664 INFO  [org.jboss.as.jpa] (MSC service thread 1-3) JBAS011403: Stopping Persistence Unit Service 'ifrs-ear.ear/ifrs-ejb-0.0.1-SNAPSHOT.jar#IfrsPU'
+20:27:25,712 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-8) JBAS010409: Unbound data source [jboss/datasources/ifrsDS]
+20:27:25,726 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-3) JBAS015877: Stopped deployment ifrs-web-0.0.1-SNAPSHOT.war in 102ms
+20:27:25,727 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-3) JBAS015877: Stopped deployment ifrs-ejb-0.0.1-SNAPSHOT.jar in 103ms
+20:27:25,731 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-3) JBAS015877: Stopped deployment ifrs-ear.ear in 108ms
+20:27:25,873 INFO  [org.jboss.as.server] (DeploymentScanner-threads - 1) JBAS018558: Undeployed "ifrs-ear.ear"
+20:29:20,953 INFO  [org.jboss.as.server.deployment.scanner] (DeploymentScanner-threads - 2) JBAS015003: Found ifrs-ear.ear in deployment directory. To trigger deployment create a file called ifrs-ear.ear.dodeploy
+20:29:20,965 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-3) JBAS015876: Starting deployment of "ifrs-ear.ear"
+20:29:21,007 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-3) JBAS015876: Starting deployment of "ifrs-web-0.0.1-SNAPSHOT.war"
+20:29:21,007 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-4) JBAS015876: Starting deployment of "ifrs-ejb-0.0.1-SNAPSHOT.jar"
+20:29:21,243 INFO  [org.jboss.as.jpa] (MSC service thread 1-4) JBAS011401: Read persistence.xml for IfrsPU
+20:29:21,268 INFO  [org.jboss.weld.deployer] (MSC service thread 1-5) JBAS016002: Processing weld deployment ifrs-ear.ear
+20:29:21,276 INFO  [org.jboss.weld.deployer] (MSC service thread 1-5) JBAS016002: Processing weld deployment ifrs-ejb-0.0.1-SNAPSHOT.jar
+20:29:21,278 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-5) JNDI bindings for session bean named TestServiceBean in deployment unit subdeployment "ifrs-ejb-0.0.1-SNAPSHOT.jar" of deployment "ifrs-ear.ear" are as follows:
+
+	java:global/ifrs-ear/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean!cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal
+	java:app/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean!cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal
+	java:module/TestServiceBean!cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal
+	java:global/ifrs-ear/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean
+	java:app/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean
+	java:module/TestServiceBean
+
+20:29:21,383 INFO  [org.jboss.weld.deployer] (MSC service thread 1-8) JBAS016002: Processing weld deployment ifrs-web-0.0.1-SNAPSHOT.war
+20:29:21,390 INFO  [org.jboss.weld.deployer] (MSC service thread 1-8) JBAS016005: Starting Services for CDI deployment: ifrs-ear.ear
+20:29:21,410 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-6) JBAS010400: Bound data source [jboss/datasources/ifrsDS]
+20:29:21,503 INFO  [org.jboss.as.jpa] (MSC service thread 1-7) JBAS011402: Starting Persistence Unit Service 'ifrs-ear.ear/ifrs-ejb-0.0.1-SNAPSHOT.jar#IfrsPU'
+20:29:21,511 INFO  [org.hibernate.ejb.Ejb3Configuration] (MSC service thread 1-7) HHH000204: Processing PersistenceUnitInfo [
+	name: IfrsPU
+	...]
+20:29:21,533 INFO  [org.hibernate.service.jdbc.connections.internal.ConnectionProviderInitiator] (MSC service thread 1-7) HHH000130: Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+20:29:21,636 INFO  [org.hibernate.dialect.Dialect] (MSC service thread 1-7) HHH000400: Using dialect: org.hibernate.dialect.Oracle9iDialect
+20:29:21,682 INFO  [org.hibernate.engine.transaction.internal.TransactionFactoryInitiator] (MSC service thread 1-7) HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jta.CMTTransactionFactory
+20:29:21,685 INFO  [org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory] (MSC service thread 1-7) HHH000397: Using ASTQueryTranslatorFactory
+20:29:21,702 INFO  [org.jboss.weld.deployer] (MSC service thread 1-5) JBAS016008: Starting weld service for deployment ifrs-ear.ear
+20:29:21,902 INFO  [javax.enterprise.resource.webcontainer.jsf.config] (MSC service thread 1-8) Inicializando Mojarra 2.1.7-jbossorg-1 (20120227-1401) para el contexto '/ifrs-web'
+20:29:22,265 INFO  [org.primefaces.webapp.PostConstructApplicationEventListener] (MSC service thread 1-8) Running on PrimeFaces 3.3
+20:29:22,268 INFO  [org.jboss.web] (MSC service thread 1-8) JBAS018210: Registering web context: /ifrs-web
+20:29:22,417 INFO  [org.jboss.as.server] (DeploymentScanner-threads - 1) JBAS018559: Deployed "ifrs-ear.ear"
+20:29:36,144 INFO  [stdout] (http-localhost-127.0.0.1-80-4) Hibernate: 
+20:29:36,145 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     select
+20:29:36,146 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column1 as column1_6_,
+20:29:36,147 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column2 as column2_6_ 
+20:29:36,148 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     from
+20:29:36,149 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         Test test0_
+20:29:36,163 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-4) [cl.mdr.ifrs.ejb.entity.Test@1c84fa3e, cl.mdr.ifrs.ejb.entity.Test@5e490b12, cl.mdr.ifrs.ejb.entity.Test@d75fb1a]
+20:31:07,540 INFO  [org.jboss.weld.deployer] (MSC service thread 1-4) JBAS016009: Stopping weld service for deployment ifrs-ear.ear
+20:31:07,546 INFO  [org.jboss.as.jpa] (MSC service thread 1-4) JBAS011403: Stopping Persistence Unit Service 'ifrs-ear.ear/ifrs-ejb-0.0.1-SNAPSHOT.jar#IfrsPU'
+20:31:07,582 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-4) JBAS010409: Unbound data source [jboss/datasources/ifrsDS]
+20:31:07,593 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-4) JBAS015877: Stopped deployment ifrs-web-0.0.1-SNAPSHOT.war in 97ms
+20:31:07,595 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-4) JBAS015877: Stopped deployment ifrs-ejb-0.0.1-SNAPSHOT.jar in 99ms
+20:31:07,599 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-4) JBAS015877: Stopped deployment ifrs-ear.ear in 104ms
+20:31:07,758 INFO  [org.jboss.as.server] (DeploymentScanner-threads - 2) JBAS018558: Undeployed "ifrs-ear.ear"
+20:31:22,791 INFO  [org.jboss.as.server.deployment.scanner] (DeploymentScanner-threads - 2) JBAS015003: Found ifrs-ear.ear in deployment directory. To trigger deployment create a file called ifrs-ear.ear.dodeploy
+20:31:22,803 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-8) JBAS015876: Starting deployment of "ifrs-ear.ear"
+20:31:22,843 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-7) JBAS015876: Starting deployment of "ifrs-web-0.0.1-SNAPSHOT.war"
+20:31:22,843 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-5) JBAS015876: Starting deployment of "ifrs-ejb-0.0.1-SNAPSHOT.jar"
+20:31:23,128 INFO  [org.jboss.as.jpa] (MSC service thread 1-7) JBAS011401: Read persistence.xml for IfrsPU
+20:31:23,220 INFO  [org.jboss.weld.deployer] (MSC service thread 1-8) JBAS016002: Processing weld deployment ifrs-ear.ear
+20:31:23,230 INFO  [org.jboss.weld.deployer] (MSC service thread 1-4) JBAS016002: Processing weld deployment ifrs-ejb-0.0.1-SNAPSHOT.jar
+20:31:23,232 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-4) JNDI bindings for session bean named TestServiceBean in deployment unit subdeployment "ifrs-ejb-0.0.1-SNAPSHOT.jar" of deployment "ifrs-ear.ear" are as follows:
+
+	java:global/ifrs-ear/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean!cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal
+	java:app/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean!cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal
+	java:module/TestServiceBean!cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal
+	java:global/ifrs-ear/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean
+	java:app/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean
+	java:module/TestServiceBean
+
+20:31:23,255 INFO  [org.jboss.weld.deployer] (MSC service thread 1-8) JBAS016002: Processing weld deployment ifrs-web-0.0.1-SNAPSHOT.war
+20:31:23,263 INFO  [org.jboss.weld.deployer] (MSC service thread 1-4) JBAS016005: Starting Services for CDI deployment: ifrs-ear.ear
+20:31:23,279 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-6) JBAS010400: Bound data source [jboss/datasources/ifrsDS]
+20:31:23,322 INFO  [org.jboss.as.jpa] (MSC service thread 1-4) JBAS011402: Starting Persistence Unit Service 'ifrs-ear.ear/ifrs-ejb-0.0.1-SNAPSHOT.jar#IfrsPU'
+20:31:23,326 INFO  [org.hibernate.ejb.Ejb3Configuration] (MSC service thread 1-4) HHH000204: Processing PersistenceUnitInfo [
+	name: IfrsPU
+	...]
+20:31:23,357 INFO  [org.hibernate.service.jdbc.connections.internal.ConnectionProviderInitiator] (MSC service thread 1-4) HHH000130: Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+20:31:23,465 INFO  [org.hibernate.dialect.Dialect] (MSC service thread 1-4) HHH000400: Using dialect: org.hibernate.dialect.Oracle9iDialect
+20:31:23,519 INFO  [org.hibernate.engine.transaction.internal.TransactionFactoryInitiator] (MSC service thread 1-4) HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jta.CMTTransactionFactory
+20:31:23,522 INFO  [org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory] (MSC service thread 1-4) HHH000397: Using ASTQueryTranslatorFactory
+20:31:23,541 INFO  [org.jboss.weld.deployer] (MSC service thread 1-3) JBAS016008: Starting weld service for deployment ifrs-ear.ear
+20:31:23,744 INFO  [javax.enterprise.resource.webcontainer.jsf.config] (MSC service thread 1-5) Inicializando Mojarra 2.1.7-jbossorg-1 (20120227-1401) para el contexto '/ifrs-web'
+20:31:24,061 INFO  [org.primefaces.webapp.PostConstructApplicationEventListener] (MSC service thread 1-5) Running on PrimeFaces 3.3
+20:31:24,065 INFO  [org.jboss.web] (MSC service thread 1-5) JBAS018210: Registering web context: /ifrs-web
+20:31:24,275 INFO  [org.jboss.as.server] (DeploymentScanner-threads - 1) JBAS018559: Deployed "ifrs-ear.ear"
+20:37:54,531 INFO  [org.jboss.weld.deployer] (MSC service thread 1-1) JBAS016009: Stopping weld service for deployment ifrs-ear.ear
+20:37:54,539 INFO  [org.jboss.as.jpa] (MSC service thread 1-4) JBAS011403: Stopping Persistence Unit Service 'ifrs-ear.ear/ifrs-ejb-0.0.1-SNAPSHOT.jar#IfrsPU'
+20:37:54,563 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-1) JBAS010409: Unbound data source [jboss/datasources/ifrsDS]
+20:37:54,573 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-4) JBAS015877: Stopped deployment ifrs-ejb-0.0.1-SNAPSHOT.jar in 66ms
+20:37:54,576 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-4) JBAS015877: Stopped deployment ifrs-web-0.0.1-SNAPSHOT.war in 69ms
+20:37:54,580 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-4) JBAS015877: Stopped deployment ifrs-ear.ear in 74ms
+20:37:54,704 INFO  [org.jboss.as.server] (DeploymentScanner-threads - 2) JBAS018558: Undeployed "ifrs-ear.ear"
+20:39:54,784 INFO  [org.jboss.as.server.deployment.scanner] (DeploymentScanner-threads - 1) JBAS015003: Found ifrs-ear.ear in deployment directory. To trigger deployment create a file called ifrs-ear.ear.dodeploy
+20:39:54,801 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-4) JBAS015876: Starting deployment of "ifrs-ear.ear"
+20:39:54,839 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-4) JBAS015876: Starting deployment of "ifrs-ejb-0.0.1-SNAPSHOT.jar"
+20:39:54,841 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-4) JBAS015876: Starting deployment of "ifrs-web-0.0.1-SNAPSHOT.war"
+20:39:55,098 INFO  [org.jboss.as.jpa] (MSC service thread 1-8) JBAS011401: Read persistence.xml for IfrsPU
+20:39:55,124 INFO  [org.jboss.weld.deployer] (MSC service thread 1-3) JBAS016002: Processing weld deployment ifrs-ear.ear
+20:39:55,171 INFO  [org.jboss.weld.deployer] (MSC service thread 1-3) JBAS016002: Processing weld deployment ifrs-ejb-0.0.1-SNAPSHOT.jar
+20:39:55,174 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-3) JNDI bindings for session bean named TestServiceBean in deployment unit subdeployment "ifrs-ejb-0.0.1-SNAPSHOT.jar" of deployment "ifrs-ear.ear" are as follows:
+
+	java:global/ifrs-ear/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean!cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal
+	java:app/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean!cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal
+	java:module/TestServiceBean!cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal
+	java:global/ifrs-ear/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean
+	java:app/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean
+	java:module/TestServiceBean
+
+20:39:55,187 INFO  [org.jboss.weld.deployer] (MSC service thread 1-6) JBAS016002: Processing weld deployment ifrs-web-0.0.1-SNAPSHOT.war
+20:39:55,191 INFO  [org.jboss.weld.deployer] (MSC service thread 1-3) JBAS016005: Starting Services for CDI deployment: ifrs-ear.ear
+20:39:55,199 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-5) JBAS010400: Bound data source [jboss/datasources/ifrsDS]
+20:39:55,239 INFO  [org.jboss.as.jpa] (MSC service thread 1-6) JBAS011402: Starting Persistence Unit Service 'ifrs-ear.ear/ifrs-ejb-0.0.1-SNAPSHOT.jar#IfrsPU'
+20:39:55,243 INFO  [org.hibernate.ejb.Ejb3Configuration] (MSC service thread 1-6) HHH000204: Processing PersistenceUnitInfo [
+	name: IfrsPU
+	...]
+20:39:55,271 INFO  [org.hibernate.service.jdbc.connections.internal.ConnectionProviderInitiator] (MSC service thread 1-6) HHH000130: Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+20:39:55,323 INFO  [org.hibernate.dialect.Dialect] (MSC service thread 1-6) HHH000400: Using dialect: org.hibernate.dialect.Oracle9iDialect
+20:39:55,364 INFO  [org.hibernate.engine.transaction.internal.TransactionFactoryInitiator] (MSC service thread 1-6) HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jta.CMTTransactionFactory
+20:39:55,366 INFO  [org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory] (MSC service thread 1-6) HHH000397: Using ASTQueryTranslatorFactory
+20:39:55,380 INFO  [org.jboss.weld.deployer] (MSC service thread 1-8) JBAS016008: Starting weld service for deployment ifrs-ear.ear
+20:39:55,535 INFO  [javax.enterprise.resource.webcontainer.jsf.config] (MSC service thread 1-5) Inicializando Mojarra 2.1.7-jbossorg-1 (20120227-1401) para el contexto '/ifrs-web'
+20:39:55,800 INFO  [org.primefaces.webapp.PostConstructApplicationEventListener] (MSC service thread 1-5) Running on PrimeFaces 3.3
+20:39:55,803 INFO  [org.jboss.web] (MSC service thread 1-5) JBAS018210: Registering web context: /ifrs-web
+20:39:56,130 INFO  [org.jboss.as.server] (DeploymentScanner-threads - 2) JBAS018559: Deployed "ifrs-ear.ear"
+20:40:03,875 INFO  [stdout] (http-localhost-127.0.0.1-80-4) Hibernate: 
+20:40:03,876 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     select
+20:40:03,876 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column1 as column1_10_,
+20:40:03,877 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column2 as column2_10_ 
+20:40:03,879 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     from
+20:40:03,879 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         Test test0_
+20:40:04,002 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-4) [cl.mdr.ifrs.ejb.entity.Test@676cee80, cl.mdr.ifrs.ejb.entity.Test@209e4a8c, cl.mdr.ifrs.ejb.entity.Test@78303e0e]
+20:40:19,603 INFO  [stdout] (http-localhost-127.0.0.1-80-4) Hibernate: 
+20:40:19,604 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     select
+20:40:19,605 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column1 as column1_10_,
+20:40:19,606 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column2 as column2_10_ 
+20:40:19,607 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     from
+20:40:19,608 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         Test test0_
+20:40:19,621 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-4) [cl.mdr.ifrs.ejb.entity.Test@7454b4a0, cl.mdr.ifrs.ejb.entity.Test@651eb00a, cl.mdr.ifrs.ejb.entity.Test@41b79463]
+20:40:25,674 INFO  [stdout] (http-localhost-127.0.0.1-80-4) Hibernate: 
+20:40:25,674 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     select
+20:40:25,675 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column1 as column1_10_,
+20:40:25,676 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column2 as column2_10_ 
+20:40:25,677 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     from
+20:40:25,678 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         Test test0_
+20:40:25,683 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-4) [cl.mdr.ifrs.ejb.entity.Test@649fa75a, cl.mdr.ifrs.ejb.entity.Test@2da43952, cl.mdr.ifrs.ejb.entity.Test@78af4de6]
+20:41:08,094 INFO  [stdout] (http-localhost-127.0.0.1-80-4) Hibernate: 
+20:41:08,095 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     select
+20:41:08,096 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column1 as column1_10_,
+20:41:08,097 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column2 as column2_10_ 
+20:41:08,098 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     from
+20:41:08,099 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         Test test0_
+20:41:08,103 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-4) [cl.mdr.ifrs.ejb.entity.Test@5692953e, cl.mdr.ifrs.ejb.entity.Test@318445d9, cl.mdr.ifrs.ejb.entity.Test@6305c2f4]
+20:41:38,666 INFO  [stdout] (http-localhost-127.0.0.1-80-4) Hibernate: 
+20:41:38,667 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     select
+20:41:38,668 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column1 as column1_10_,
+20:41:38,669 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column2 as column2_10_ 
+20:41:38,670 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     from
+20:41:38,671 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         Test test0_
+20:41:38,675 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-4) [cl.mdr.ifrs.ejb.entity.Test@2e5fd671, cl.mdr.ifrs.ejb.entity.Test@15f7ac80, cl.mdr.ifrs.ejb.entity.Test@375e12c4]
+20:41:42,271 INFO  [stdout] (http-localhost-127.0.0.1-80-4) Hibernate: 
+20:41:42,272 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     select
+20:41:42,272 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column1 as column1_10_,
+20:41:42,273 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         test0_.column2 as column2_10_ 
+20:41:42,274 INFO  [stdout] (http-localhost-127.0.0.1-80-4)     from
+20:41:42,275 INFO  [stdout] (http-localhost-127.0.0.1-80-4)         Test test0_
+20:41:42,281 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-4) [cl.mdr.ifrs.ejb.entity.Test@198fcae0, cl.mdr.ifrs.ejb.entity.Test@2f50453c, cl.mdr.ifrs.ejb.entity.Test@3ef17e68]
+09:29:15,589 INFO  [org.jboss.as.naming] (MSC service thread 1-4) JBAS011802: Starting Naming Service
+09:29:15,604 INFO  [org.jboss.as.security] (MSC service thread 1-6) JBAS013100: Current PicketBox version=4.0.7.Final
+09:29:15,963 INFO  [org.jboss.as.connector] (MSC service thread 1-8) JBAS010408: Starting JCA Subsystem (JBoss IronJacamar 1.0.9.Final)
+09:29:16,026 INFO  [org.jboss.as.mail.extension] (MSC service thread 1-7) JBAS015400: Bound mail session [java:jboss/mail/Default]
+09:29:16,696 INFO  [org.apache.coyote.http11.Http11Protocol] (MSC service thread 1-7) Arrancando Coyote HTTP/1.1 en puerto http-localhost-127.0.0.1-80
+09:29:17,465 INFO  [org.jboss.as.connector.subsystems.datasources] (ServerService Thread Pool -- 27) JBAS010403: Deploying JDBC-compliant driver class org.h2.Driver (version 1.3)
+09:29:17,590 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-2) JBAS010400: Bound data source [java:jboss/datasources/ExampleDS]
+09:29:18,214 INFO  [org.jboss.as.connector.subsystems.datasources] (ServerService Thread Pool -- 27) JBAS010403: Deploying JDBC-compliant driver class oracle.jdbc.OracleDriver (version 11.2)
+09:29:19,634 INFO  [org.jboss.ws.common.management.AbstractServerConfig] (MSC service thread 1-3) JBoss Web Services - Stack CXF Server 4.0.2.GA
+09:29:20,649 INFO  [org.jboss.as.server.deployment.scanner] (MSC service thread 1-7) JBAS015012: Started FileSystemDeploymentService for directory D:\server\jboss-as-7.1.1.Final\standalone\deployments
+09:29:20,665 INFO  [org.jboss.as.remoting] (MSC service thread 1-8) JBAS017100: Listening on localhost/127.0.0.1:4447
+09:29:20,696 INFO  [org.jboss.as.server.deployment.scanner] (DeploymentScanner-threads - 1) JBAS015003: Found ifrs-ear.ear in deployment directory. To trigger deployment create a file called ifrs-ear.ear.dodeploy
+09:29:20,696 INFO  [org.jboss.as.remoting] (MSC service thread 1-4) JBAS017100: Listening on /127.0.0.1:9999
+09:29:21,071 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-6) JBAS015876: Starting deployment of "ifrs-ear.ear"
+09:29:21,259 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-4) JBAS015876: Starting deployment of "ifrs-ejb-0.0.1-SNAPSHOT.jar"
+09:29:21,259 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-2) JBAS015876: Starting deployment of "ifrs-web-0.0.1-SNAPSHOT.war"
+09:29:22,460 INFO  [org.jboss.as.jpa] (MSC service thread 1-5) JBAS011401: Read persistence.xml for IfrsPU
+09:29:22,601 INFO  [org.jboss.weld.deployer] (MSC service thread 1-7) JBAS016002: Processing weld deployment ifrs-ear.ear
+09:29:22,742 INFO  [org.jboss.weld.deployer] (MSC service thread 1-7) JBAS016002: Processing weld deployment ifrs-web-0.0.1-SNAPSHOT.war
+09:29:22,757 INFO  [org.jboss.weld.deployer] (MSC service thread 1-4) JBAS016002: Processing weld deployment ifrs-ejb-0.0.1-SNAPSHOT.jar
+09:29:22,757 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-4) JNDI bindings for session bean named TestServiceBean in deployment unit subdeployment "ifrs-ejb-0.0.1-SNAPSHOT.jar" of deployment "ifrs-ear.ear" are as follows:
+
+	java:global/ifrs-ear/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean!cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal
+	java:app/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean!cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal
+	java:module/TestServiceBean!cl.mdr.ifrs.ejb.cross.service.local.TestServiceLocal
+	java:global/ifrs-ear/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean
+	java:app/ifrs-ejb-0.0.1-SNAPSHOT/TestServiceBean
+	java:module/TestServiceBean
+
+09:29:22,788 INFO  [org.jboss.weld.deployer] (MSC service thread 1-6) JBAS016005: Starting Services for CDI deployment: ifrs-ear.ear
+09:29:22,851 INFO  [org.jboss.weld.Version] (MSC service thread 1-6) WELD-000900 1.1.5 (AS71)
+09:29:22,913 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-5) JBAS010400: Bound data source [jboss/datasources/ifrsDS]
+09:29:23,147 INFO  [org.jboss.as.jpa] (MSC service thread 1-6) JBAS011402: Starting Persistence Unit Service 'ifrs-ear.ear/ifrs-ejb-0.0.1-SNAPSHOT.jar#IfrsPU'
+09:29:23,553 INFO  [org.hibernate.annotations.common.Version] (MSC service thread 1-6) HCANN000001: Hibernate Commons Annotations {4.0.1.Final}
+09:29:23,568 INFO  [org.hibernate.Version] (MSC service thread 1-6) HHH000412: Hibernate Core {4.0.1.Final}
+09:29:23,568 INFO  [org.hibernate.cfg.Environment] (MSC service thread 1-6) HHH000206: hibernate.properties not found
+09:29:23,568 INFO  [org.hibernate.cfg.Environment] (MSC service thread 1-6) HHH000021: Bytecode provider name : javassist
+09:29:23,616 INFO  [org.hibernate.ejb.Ejb3Configuration] (MSC service thread 1-6) HHH000204: Processing PersistenceUnitInfo [
+	name: IfrsPU
+	...]
+09:29:24,287 INFO  [org.hibernate.service.jdbc.connections.internal.ConnectionProviderInitiator] (MSC service thread 1-6) HHH000130: Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+09:29:25,800 INFO  [org.hibernate.dialect.Dialect] (MSC service thread 1-6) HHH000400: Using dialect: org.hibernate.dialect.Oracle9iDialect
+09:29:25,879 INFO  [org.hibernate.engine.transaction.internal.TransactionFactoryInitiator] (MSC service thread 1-6) HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jta.CMTTransactionFactory
+09:29:25,895 INFO  [org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory] (MSC service thread 1-6) HHH000397: Using ASTQueryTranslatorFactory
+09:29:25,957 INFO  [org.hibernate.validator.util.Version] (MSC service thread 1-6) Hibernate Validator 4.2.0.Final
+09:29:26,550 INFO  [org.jboss.weld.deployer] (MSC service thread 1-1) JBAS016008: Starting weld service for deployment ifrs-ear.ear
+09:29:27,408 INFO  [javax.enterprise.resource.webcontainer.jsf.config] (MSC service thread 1-5) Inicializando Mojarra 2.1.7-jbossorg-1 (20120227-1401) para el contexto '/ifrs-web'
+09:29:31,153 INFO  [org.primefaces.webapp.PostConstructApplicationEventListener] (MSC service thread 1-5) Running on PrimeFaces 3.3
+09:29:31,251 INFO  [org.jboss.web] (MSC service thread 1-5) JBAS018210: Registering web context: /ifrs-web
+09:29:31,251 INFO  [org.jboss.as] (MSC service thread 1-5) JBAS015951: Admin console listening on http://127.0.0.1:9990
+09:29:31,251 INFO  [org.jboss.as] (MSC service thread 1-5) JBAS015874: JBoss AS 7.1.1.Final "Brontes" started in 30799ms - Started 251 of 332 services (80 services are passive or on-demand)
+09:29:31,500 INFO  [org.jboss.as.server] (DeploymentScanner-threads - 2) JBAS018559: Deployed "ifrs-ear.ear"
+09:30:10,298 INFO  [stdout] (http-localhost-127.0.0.1-80-2) Hibernate: 
+09:30:10,298 INFO  [stdout] (http-localhost-127.0.0.1-80-2)     select
+09:30:10,298 INFO  [stdout] (http-localhost-127.0.0.1-80-2)         test0_.column1 as column1_0_,
+09:30:10,298 INFO  [stdout] (http-localhost-127.0.0.1-80-2)         test0_.column2 as column2_0_ 
+09:30:10,298 INFO  [stdout] (http-localhost-127.0.0.1-80-2)     from
+09:30:10,298 INFO  [stdout] (http-localhost-127.0.0.1-80-2)         Test test0_
+09:30:10,767 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-2) [cl.mdr.ifrs.ejb.entity.Test@2bb4d74, cl.mdr.ifrs.ejb.entity.Test@1342e4a, cl.mdr.ifrs.ejb.entity.Test@8cafce4]
+09:30:41,936 INFO  [stdout] (http-localhost-127.0.0.1-80-2) Hibernate: 
+09:30:41,936 INFO  [stdout] (http-localhost-127.0.0.1-80-2)     select
+09:30:41,952 INFO  [stdout] (http-localhost-127.0.0.1-80-2)         test0_.column1 as column1_0_,
+09:30:41,952 INFO  [stdout] (http-localhost-127.0.0.1-80-2)         test0_.column2 as column2_0_ 
+09:30:41,952 INFO  [stdout] (http-localhost-127.0.0.1-80-2)     from
+09:30:41,952 INFO  [stdout] (http-localhost-127.0.0.1-80-2)         Test test0_
+09:30:41,952 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-2) [cl.mdr.ifrs.ejb.entity.Test@52395294, cl.mdr.ifrs.ejb.entity.Test@315c9cb8, cl.mdr.ifrs.ejb.entity.Test@37350d59]
+09:30:44,667 INFO  [stdout] (http-localhost-127.0.0.1-80-2) Hibernate: 
+09:30:44,667 INFO  [stdout] (http-localhost-127.0.0.1-80-2)     select
+09:30:44,667 INFO  [stdout] (http-localhost-127.0.0.1-80-2)         test0_.column1 as column1_0_,
+09:30:44,667 INFO  [stdout] (http-localhost-127.0.0.1-80-2)         test0_.column2 as column2_0_ 
+09:30:44,667 INFO  [stdout] (http-localhost-127.0.0.1-80-2)     from
+09:30:44,667 INFO  [stdout] (http-localhost-127.0.0.1-80-2)         Test test0_
+09:30:44,667 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-2) [cl.mdr.ifrs.ejb.entity.Test@107267a4, cl.mdr.ifrs.ejb.entity.Test@46f2486b, cl.mdr.ifrs.ejb.entity.Test@27148845]
+09:30:52,375 INFO  [stdout] (http-localhost-127.0.0.1-80-2) Hibernate: 
+09:30:52,375 INFO  [stdout] (http-localhost-127.0.0.1-80-2)     select
+09:30:52,375 INFO  [stdout] (http-localhost-127.0.0.1-80-2)         test0_.column1 as column1_0_,
+09:30:52,375 INFO  [stdout] (http-localhost-127.0.0.1-80-2)         test0_.column2 as column2_0_ 
+09:30:52,375 INFO  [stdout] (http-localhost-127.0.0.1-80-2)     from
+09:30:52,375 INFO  [stdout] (http-localhost-127.0.0.1-80-2)         Test test0_
+09:30:52,375 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-2) [cl.mdr.ifrs.ejb.entity.Test@63ef032c, cl.mdr.ifrs.ejb.entity.Test@60b970f5, cl.mdr.ifrs.ejb.entity.Test@2ea7166f]
+09:30:53,483 INFO  [stdout] (http-localhost-127.0.0.1-80-2) Hibernate: 
+09:30:53,483 INFO  [stdout] (http-localhost-127.0.0.1-80-2)     select
+09:30:53,483 INFO  [stdout] (http-localhost-127.0.0.1-80-2)         test0_.column1 as column1_0_,
+09:30:53,483 INFO  [stdout] (http-localhost-127.0.0.1-80-2)         test0_.column2 as column2_0_ 
+09:30:53,483 INFO  [stdout] (http-localhost-127.0.0.1-80-2)     from
+09:30:53,483 INFO  [stdout] (http-localhost-127.0.0.1-80-2)         Test test0_
+09:30:53,483 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-2) [cl.mdr.ifrs.ejb.entity.Test@26f56cd4, cl.mdr.ifrs.ejb.entity.Test@3abbe647, cl.mdr.ifrs.ejb.entity.Test@60b5d71]
+09:30:55,996 INFO  [stdout] (http-localhost-127.0.0.1-80-2) Hibernate: 
+09:30:55,996 INFO  [stdout] (http-localhost-127.0.0.1-80-2)     select
+09:30:55,996 INFO  [stdout] (http-localhost-127.0.0.1-80-2)         test0_.column1 as column1_0_,
+09:30:55,996 INFO  [stdout] (http-localhost-127.0.0.1-80-2)         test0_.column2 as column2_0_ 
+09:30:55,996 INFO  [stdout] (http-localhost-127.0.0.1-80-2)     from
+09:30:55,996 INFO  [stdout] (http-localhost-127.0.0.1-80-2)         Test test0_
+09:30:56,012 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-2) [cl.mdr.ifrs.ejb.entity.Test@44c2cef3, cl.mdr.ifrs.ejb.entity.Test@51a0d6c9, cl.mdr.ifrs.ejb.entity.Test@16754ffd]
+09:31:53,670 INFO  [stdout] (http-localhost-127.0.0.1-80-2) Hibernate: 
+09:31:53,670 INFO  [stdout] (http-localhost-127.0.0.1-80-2)     select
+09:31:53,670 INFO  [stdout] (http-localhost-127.0.0.1-80-2)         test0_.column1 as column1_0_,
+09:31:53,670 INFO  [stdout] (http-localhost-127.0.0.1-80-2)         test0_.column2 as column2_0_ 
+09:31:53,670 INFO  [stdout] (http-localhost-127.0.0.1-80-2)     from
+09:31:53,670 INFO  [stdout] (http-localhost-127.0.0.1-80-2)         Test test0_
+09:31:53,670 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-2) [cl.mdr.ifrs.ejb.entity.Test@10c7eb9d, cl.mdr.ifrs.ejb.entity.Test@353d9906, cl.mdr.ifrs.ejb.entity.Test@5f097438]
+09:31:54,966 INFO  [stdout] (http-localhost-127.0.0.1-80-2) Hibernate: 
+09:31:54,966 INFO  [stdout] (http-localhost-127.0.0.1-80-2)     select
+09:31:54,966 INFO  [stdout] (http-localhost-127.0.0.1-80-2)         test0_.column1 as column1_0_,
+09:31:54,966 INFO  [stdout] (http-localhost-127.0.0.1-80-2)         test0_.column2 as column2_0_ 
+09:31:54,966 INFO  [stdout] (http-localhost-127.0.0.1-80-2)     from
+09:31:54,966 INFO  [stdout] (http-localhost-127.0.0.1-80-2)         Test test0_
+09:31:54,982 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-2) [cl.mdr.ifrs.ejb.entity.Test@105d6633, cl.mdr.ifrs.ejb.entity.Test@63e0a6a9, cl.mdr.ifrs.ejb.entity.Test@31ddd479]
+09:31:56,137 INFO  [stdout] (http-localhost-127.0.0.1-80-2) Hibernate: 
+09:31:56,137 INFO  [stdout] (http-localhost-127.0.0.1-80-2)     select
+09:31:56,137 INFO  [stdout] (http-localhost-127.0.0.1-80-2)         test0_.column1 as column1_0_,
+09:31:56,137 INFO  [stdout] (http-localhost-127.0.0.1-80-2)         test0_.column2 as column2_0_ 
+09:31:56,137 INFO  [stdout] (http-localhost-127.0.0.1-80-2)     from
+09:31:56,137 INFO  [stdout] (http-localhost-127.0.0.1-80-2)         Test test0_
+09:31:56,153 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-2) [cl.mdr.ifrs.ejb.entity.Test@51a5aa86, cl.mdr.ifrs.ejb.entity.Test@535e6d4a, cl.mdr.ifrs.ejb.entity.Test@5c594008]
+09:33:04,451 INFO  [stdout] (http-localhost-127.0.0.1-80-2) Hibernate: 
+09:33:04,466 INFO  [stdout] (http-localhost-127.0.0.1-80-2)     select
+09:33:04,466 INFO  [stdout] (http-localhost-127.0.0.1-80-2)         test0_.column1 as column1_0_,
+09:33:04,466 INFO  [stdout] (http-localhost-127.0.0.1-80-2)         test0_.column2 as column2_0_ 
+09:33:04,466 INFO  [stdout] (http-localhost-127.0.0.1-80-2)     from
+09:33:04,466 INFO  [stdout] (http-localhost-127.0.0.1-80-2)         Test test0_
+09:33:04,466 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-2) [cl.mdr.ifrs.ejb.entity.Test@3665ea4b, cl.mdr.ifrs.ejb.entity.Test@5cf8fdd3, cl.mdr.ifrs.ejb.entity.Test@5ee05754]
+09:33:05,731 INFO  [stdout] (http-localhost-127.0.0.1-80-2) Hibernate: 
+09:33:05,731 INFO  [stdout] (http-localhost-127.0.0.1-80-2)     select
+09:33:05,731 INFO  [stdout] (http-localhost-127.0.0.1-80-2)         test0_.column1 as column1_0_,
+09:33:05,731 INFO  [stdout] (http-localhost-127.0.0.1-80-2)         test0_.column2 as column2_0_ 
+09:33:05,731 INFO  [stdout] (http-localhost-127.0.0.1-80-2)     from
+09:33:05,731 INFO  [stdout] (http-localhost-127.0.0.1-80-2)         Test test0_
+09:33:05,746 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-2) [cl.mdr.ifrs.ejb.entity.Test@42a85af8, cl.mdr.ifrs.ejb.entity.Test@3aec71f8, cl.mdr.ifrs.ejb.entity.Test@792e6f00]
+09:33:06,621 INFO  [stdout] (http-localhost-127.0.0.1-80-2) Hibernate: 
+09:33:06,621 INFO  [stdout] (http-localhost-127.0.0.1-80-2)     select
+09:33:06,621 INFO  [stdout] (http-localhost-127.0.0.1-80-2)         test0_.column1 as column1_0_,
+09:33:06,621 INFO  [stdout] (http-localhost-127.0.0.1-80-2)         test0_.column2 as column2_0_ 
+09:33:06,621 INFO  [stdout] (http-localhost-127.0.0.1-80-2)     from
+09:33:06,621 INFO  [stdout] (http-localhost-127.0.0.1-80-2)         Test test0_
+09:33:06,621 INFO  [cl.mdr.ifrs.cross.mb.MenuBackingBean] (http-localhost-127.0.0.1-80-2) [cl.mdr.ifrs.ejb.entity.Test@38ea5fcd, cl.mdr.ifrs.ejb.entity.Test@2337a8ec, cl.mdr.ifrs.ejb.entity.Test@1b333004]
