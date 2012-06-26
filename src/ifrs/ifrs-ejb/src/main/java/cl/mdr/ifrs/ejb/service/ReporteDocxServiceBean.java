@@ -218,7 +218,8 @@ public class ReporteDocxServiceBean implements ReporteDocxServiceLocal {
         InputStream inputStream = new ByteArrayInputStream(documentData);            
         
         historialReporte = new HistorialReporte();
-        historialReporte.setUsuarioOid(usuarioOid);
+        //TODO agregar el objeto usuario
+        //historialReporte.setUsuarioOid(usuarioOid);
         historialReporte.setIpUsuario(ipUsuario);
         historialReporte.setCheckSumExportacion(MD5CheckSum.getMD5Checksum(inputStream));
         historialReporte.setFechaExportacion(new Date());

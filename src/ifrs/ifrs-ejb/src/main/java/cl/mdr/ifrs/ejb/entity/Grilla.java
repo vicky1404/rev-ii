@@ -40,8 +40,8 @@ public class Grilla implements Serializable {
     private Long idGrilla;
     @Column(length = 256)
     private String titulo;
-    @OneToMany(mappedBy = "grilla",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @OrderBy("idColumna asc")            
+    @OneToMany(mappedBy = "grilla")
+    //@OrderBy("idColumna asc")            
     private List<Columna> columnaList;
     @ManyToOne(targetEntity = Estructura.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_GRILLA", insertable = false, updatable = false)

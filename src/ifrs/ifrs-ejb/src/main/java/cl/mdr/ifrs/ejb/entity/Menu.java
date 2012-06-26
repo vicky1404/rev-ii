@@ -7,12 +7,11 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import cl.mdr.ifrs.ejb.common.Constantes;
@@ -46,10 +45,7 @@ public class Menu implements Serializable {
     @Column(name = "ES_PADRE")
     private boolean padre;
     
-    @OneToMany(mappedBy = "menu")
-    private List<MenuGrupo> menuGrupoList;
-    
-  //bi-directional many-to-many association to Grupo
+  //bi-directional many-to-many association to IfrsGrupo
     @ManyToMany
 	@JoinTable(
 		name="IFRS_MENU_GRUPO"
@@ -60,17 +56,9 @@ public class Menu implements Serializable {
 			@JoinColumn(name="ID_GRUPO_ACCESO")
 			}
 		)
-	private List<Grupo> grupos;
+	private List<Grupo> grupoList;
 
-    public List<Grupo> getGrupos() {
-		return grupos;
-	}
-
-	public void setGrupos(List<Grupo> grupos) {
-		this.grupos = grupos;
-	}
-
-	public Menu() {
+    public Menu() {
     }
 
     public Menu(Long estado, Long grupo, Long idMenu, String nombre, String urlMenu) {
@@ -121,27 +109,7 @@ public class Menu implements Serializable {
     public void setUrlMenu(String urlMenu) {
         this.urlMenu = urlMenu;
     }
-
-    public List<MenuGrupo> getMenuGrupoList() {
-        return menuGrupoList;
-    }
-
-    public void setMenuGrupoList(List<MenuGrupo> menuGrupoList) {
-        this.menuGrupoList = menuGrupoList;
-    }
-
-    public MenuGrupo addMenuGrupo(MenuGrupo menuGrupo) {
-        getMenuGrupoList().add(menuGrupo);
-        menuGrupo.setMenu(this);
-        return menuGrupo;
-    }
-
-    public MenuGrupo removeMenuGrupo(MenuGrupo menuGrupo) {
-        getMenuGrupoList().remove(menuGrupo);
-        menuGrupo.setMenu(null);
-        return menuGrupo;
-    }
-    
+           
     public void setPadre(boolean padre) {
         this.padre = padre;
     }
@@ -196,6 +164,14 @@ public class Menu implements Serializable {
         result = PRIME * result + ((idMenu == null) ? 0 : idMenu.hashCode());
         return result;
     }
+
+	public List<Grupo> getGrupoList() {
+		return grupoList;
+	}
+
+	public void setGrupoList(List<Grupo> grupoList) {
+		this.grupoList = grupoList;
+	}
 
     
 }

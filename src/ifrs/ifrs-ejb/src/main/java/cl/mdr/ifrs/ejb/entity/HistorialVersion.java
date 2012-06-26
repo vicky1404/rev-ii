@@ -37,7 +37,7 @@ public class HistorialVersion implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "FECHA_PROCESO")
     private Date fechaProceso;
-    
+        
     @ManyToOne
     @JoinColumn(name = "ID_PERIODO", referencedColumnName = "ID_PERIODO")
     private Version version;
@@ -45,7 +45,6 @@ public class HistorialVersion implements Serializable {
     @JoinColumn(name = "ID_ESTADO_CUADRO")
     private EstadoCuadro estadoCuadro;
     
-    //bi-directional many-to-one association to Usuario
     @ManyToOne
 	@JoinColumn(name="NOMBRE_USUARIO")
 	private Usuario usuario;
@@ -74,18 +73,8 @@ public class HistorialVersion implements Serializable {
     public Date getFechaProceso() {
         return fechaProceso;
     }
-
-   
-
-    public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
-	public void setEstadoCuadro(EstadoCuadro estadoCuadro) {
+    
+    public void setEstadoCuadro(EstadoCuadro estadoCuadro) {
         this.estadoCuadro = estadoCuadro;
     }
 
@@ -124,4 +113,12 @@ public class HistorialVersion implements Serializable {
     public Version getVersion() {
         return version;
     }
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 }
