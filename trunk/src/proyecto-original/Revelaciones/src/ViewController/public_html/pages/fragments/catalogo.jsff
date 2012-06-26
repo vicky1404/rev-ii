@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
+                <af:panelBox id="pnBox1Periodo" text="#{msg.general_control_seleccione}" inlineStyle = "height:auto;">
+                <af:group id="groupPeriodo">                  
+                <table border="0" width="30%" align="center" id="tb1APeriodo">
+                <tr>
+                    <td colspan="3">
+                         <af:selectOneChoice label="#{msg.etiqueta_nombre}" 
+                                             id="soc1Catalogo" 
+                                             value="#{generadorFormulaBackingBean.filtro.catalogo.idCatalogo}"
+                                             showRequired="true" 
+                                             unselectedLabel="#{msg.etiqueta_catalogo}" 
+                                             required="true" 
+                                             clientComponent="true" 
+                                             requiredMessageDetail="#{msg.catalogo_mensaje_seleccione}">
+                            <f:selectItems value="#{soporteBackingBean.catalogoSelectItem}" id="catalogo"/>
+                        </af:selectOneChoice>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <af:selectOneChoice label="#{msg.etiqueta_periodo}" id="soc1Periodo" value="#{soporteBackingBean.filtro.periodo.mesPeriodo}"
+                                            showRequired="true" unselectedLabel="#{msg.etiqueta_mes_periodo}"
+                                            required="true" clientComponent="true" requiredMessageDetail="#{msg.periodo_mensaje_seleccione_mes}">
+                            <f:selectItems value="#{soporteBackingBean.meses}" id="mesesPeriodo"/>
+                        </af:selectOneChoice>
+                    </td>
+                    <td align="left">
+                        <af:selectOneChoice label=" " id="soc2Periodo" showRequired="true"
+                                            unselectedLabel="#{msg.etiqueta_anio_periodo}" value="#{soporteBackingBean.filtro.periodo.anioPeriodo}"
+                                            required="true" requiredMessageDetail="#{msg.periodo_mensaje_seleccione_anio}">
+                            <f:selectItems value="#{soporteBackingBean.anios}" id="aniosPeriodo"/>
+                        </af:selectOneChoice>
+                    </td>
+                    <td>
+                        <af:commandButton text="#{msg.general_control_buscar}" id="cbPeriodos"
+                                          action="#{soporteBackingBean.buscar}"
+                                          partialSubmit="false" blocking="true">
+                        </af:commandButton>                                                
+                    </td>
+                </tr>
+                </table>
+                <af:separator id="separator1Periodo"  inlineStyle="height:20px"
+                              rendered="#{soporteBackingBean.renderedPeriodoList}"/>
+                <div align="center">
+                 <af:table   value="#{soporteBackingBean.periodoCatalogoList}" var="row" rowBandingInterval="0" 
+                            id="n1Cat"
+                            rendered="#{soporteBackingBean.renderedPeriodoList}" width="80%" 
+                            columnStretching="column:c3Periodo" 
+                            emptyText="Sin información"
+                            rowSelection="single"
+                            binding="#{soporteBackingBean.periodoCatalogoTable}"
+                            contentDelivery="immediate" 
+                            columnResizing="enabled" 
+                            horizontalGridVisible="true"
+                            inlineStyle="height:inherit;" 
+                            columnSelection="single"
+                            partialTriggers="::cbPeriodos"
+                            summary="Tabla para el catalogo de las notas"
+                            autoHeightRows="3">
+                <af:column sortable="false" headerText="#{msg.tabla_catalogo_periodo}" align="start" id="c1Periodo">
+                        <!--h:commandLink value="#{row.periodo.mesPeriodo} - #{row.periodo.anioPeriodo}" id="cl1Periodo"
+                                       action="#{soporteBackingBean.getInformacionNota}"/-->
+                        <af:commandLink text="#{row.periodo.mesPeriodo} - #{row.periodo.anioPeriodo}" id="cl1Periodo"
+                                       action="#{generadorFormulaBackingBean.buscar}" blocking="true" useWindow="true" windowModalityType="applicationModal"/>                                       
+                    </af:column>
+                    <af:column sortable="false" headerText="#{msg.tabla_catalogo_version}" align="start" id="c5Periodo">
+                        <af:outputText value="#{row.version.version}" id="ot5Periodo"/>
+                    </af:column>
+                    <af:column sortable="false" headerText="#{msg.tabla_catalogo_nombre_nota}" align="start" id="c2Periodo">
+                        <af:outputText value="#{row.version.catalogo.nombre}" id="ot2Periodo"/>
+                    </af:column>
+                    <af:column sortable="false" headerText="#{msg.tabla_catalogo_titulo_nota}" align="start" id="c3Periodo">
+                        <af:outputText value="#{row.version.catalogo.titulo}" id="ot3Periodo"/>
+                    </af:column>
+                    <af:column sortable="false" headerText="#{msg.tabla_catalogo_estado_nota}" align="start" id="c4Periodo">
+                        <af:outputText value="#{row.estado.nombre}" id="ot4Periodo"/>
+                    </af:column>
+                    <af:column sortable="false" headerText="#{msg.tabla_catalogo_fecha_proceso}" align="start" id="c6Periodo">
+                        <af:outputText value="#{row.fechaCreacion}" id="ot6Periodo"/>
+                    </af:column>
+                    <af:column sortable="false" headerText="Vigente" align="start" id="c7Periodo">
+                        <af:outputText value="#{row.version.vigencia eq 1 ? 'Sí' : 'No'}" id="ot7Periodo"/>
+                    </af:column>
+                </af:table>
+                 </div>
+        </af:group>
+    </af:panelBox>
+</ui:composition>
