@@ -90,7 +90,62 @@
          <artifactId>arquillian-protocol-servlet</artifactId>
          <scope>test</scope>               
       </dependency>
-
+      
+      <!-- Jtidy -->
+      <dependency>
+		<groupId>net.sf.jtidy</groupId>
+		<artifactId>jtidy</artifactId>
+		<version>r938</version>
+	  </dependency>
+	  
+	  <!-- Apache Common Lang 3 -->
+	  <dependency>
+		<groupId>org.apache.commons</groupId>
+		<artifactId>commons-lang3</artifactId>
+		<version>3.0</version>
+	  </dependency>
+	  
+	  <!-- Apache Xalan -->
+	  <dependency>
+        <groupId>xalan</groupId>
+        <artifactId>xalan</artifactId>
+        <version>2.4.0</version>
+      </dependency>
+      
+      <!-- Lamda j -->
+      <dependency>
+		<groupId>com.googlecode.lambdaj</groupId>
+		<artifactId>lambdaj</artifactId>
+		<version>2.3.3</version>
+	  </dependency>
+	  
+	  <!-- Apache POI 3.8 -->
+	  <dependency>
+		<groupId>org.apache.poi</groupId>
+		<artifactId>poi-scratchpad</artifactId>
+		<version>3.8</version>
+	  </dependency>
+	  
+	  <dependency>
+        <groupId>org.apache.poi</groupId>
+        <artifactId>poi-ooxml</artifactId>
+        <version>3.8</version>
+      </dependency>
+      
+      <!-- Apache Common Bean Utils -->
+      <dependency>
+	      <groupId>commons-beanutils</groupId>
+	      <artifactId>commons-beanutils</artifactId>
+	      <version>1.7.0</version>
+	   </dependency>
+	   
+	   <!-- Docx4j -->
+	   <dependency>
+	        <groupId>org.docx4j</groupId>
+	        <artifactId>docx4j</artifactId>
+	        <version>2.7.1</version>
+	    </dependency>
+	
    </dependencies>
 
    <build>
