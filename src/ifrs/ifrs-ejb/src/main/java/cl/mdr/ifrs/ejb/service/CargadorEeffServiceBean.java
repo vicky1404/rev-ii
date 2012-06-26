@@ -29,6 +29,7 @@ import cl.mdr.ifrs.ejb.service.local.CargadorEeffServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.EstadoFinancieroServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.FecuServiceLocal;
 import cl.mdr.ifrs.exceptions.EstadoFinancieroException;
+import static cl.mdr.ifrs.ejb.cross.Constantes.PERSISTENCE_UNIT_NAME;
 
 
 @Stateless
@@ -36,7 +37,7 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
     
     @Resource
     SessionContext sessionContext;
-    @PersistenceContext(unitName = "revelacionesPU")
+    @PersistenceContext(unitName = PERSISTENCE_UNIT_NAME)
     private EntityManager em;
     
     @EJB
