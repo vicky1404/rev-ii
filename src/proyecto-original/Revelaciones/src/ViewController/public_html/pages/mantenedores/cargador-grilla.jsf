@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+xmlns:ui="http://java.sun.com/jsf/facelets">
+    <af:document title="cargador-grilla.jsf" id="d1">
+        <af:form id="f1" usesUpload="true">
+        <ui:include src="/pages/fragments/periodo-grilla.jsff"/>
+        <af:spacer width="10" height="10" id="s1"/>
+        <af:decorativeBox dimensionsFrom="auto" id="db1" styleClass="AFStretchWidth"
+                          rendered="#{cargadorGrillaBackingBean.renderedInformacion}">
+                <f:facet name="center">
+                    <af:group id="pgl1">
+                        <div align="center">
+                        <af:table value="#{cargadorGrillaBackingBean.gridList}" var="row"
+                              rowBandingInterval="1" id="t1" varStatus="tableStatus"
+                              inlineStyle="height:auto;"
+                              width="400px"
+                              rendered="#{cargadorGrillaBackingBean.renderedGridTable and not empty cargadorGrillaBackingBean.gridList}"
+                              contentDelivery="immediate" 
+                              autoHeightRows="10" 
+                              immediate="true" 
+                              columnStretching="last">
+                            <af:column id="c1" headerText="Grilla" >
+                                <af:switcher defaultFacet="#{row.tipoFormula==cargadorGrillaBackingBean.idDinamicGrid?'dinamic':'static'}">
+                                    <f:facet name="dinamic">
+                                    <af:commandLink text="Grilla #{tableStatus.count}" actionListener="#{cargadorGrillaBackingBean.selectGrillaListener}"  id="cl12" partialSubmit="false">
+                                    <f:attribute name="numGrilla" value="#{row.idGrilla}" />
+                                    </af:commandLink>
+                                    </f:facet>
+                                    <f:facet name="static">
+                                    <af:outputText value="Grilla #{tableStatus.count}" id="ot3"/>
+                                    </f:facet>
+                                </af:switcher>
+                            </af:column>
+                            <af:column sortable="false" headerText="Tipo de Fórmula" align="start" id="c3">
+                                <af:outputText value="#{row.tipoFormula==cargadorGrillaBackingBean.idDinamicGrid ?'Dinámica':'Estática'}" id="ot2"/>
+                            </af:column>
+                            <af:column sortable="false" headerText="Título" align="start" id="c2">
+                                <af:outputText value="#{row.titulo}" id="ot1"/>
+                            </af:column>
+                        </af:table>
+                        </div>
+                                <af:group id="g1" rendered="#{cargadorGrillaBackingBean.renderedSelectTable}">                                    
+                                    <af:outputText value="#{cargadorGrillaBackingBean.structure.grillaVO.grilla.titulo}" id="ottit" styleClass="x15w"/>
+                                    <af:spacer width="10" height="20" id="s5"/>
+                                        <af:panelFormLayout id="pfl1">
+                                          <af:panelGroupLayout layout="horizontal" id="pgl3">
+                                            <af:outputLabel value="Fila (#{cargadorGrillaBackingBean.rowLoad})"
+                                                            id="ol111"
+                                                            binding="#{cargadorGrillaBackingBean.rowLabel}"/>
+                                            <af:inputFile label="Archivo:" id="if1" autoSubmit="false" required="false"
+                                                          value="#{cargadorGrillaBackingBean.uploadedFile}"
+                                                          
+                                                          binding="#{cargadorGrillaBackingBean.richInputFile}"
+                                                          validator="#{cargadorGrillaBackingBean.fileStructureValidatorXls}"></af:inputFile>
+                                            <af:spacer width="10" id="s3"/>
+                                            <af:commandButton text="Cargar Archivo" id="cb1223" blocking="true"
+                                                                  partialSubmit="false"
+                                                                  actionListener="#{cargadorGrillaBackingBean.processFile}" 
+                                                                  icon="/images/icon/drive-upload.png" />
+                                            <af:spacer width="10" id="s4"/>
+                                            <af:commandButton text="Guardar Diseño de Estructura" icon="/images/icon/save2.png"
+                                            actionListener="#{cargadorGrillaBackingBean.saveListener}"
+                                            id="cb2"/>
+                                            </af:panelGroupLayout>              
+                                            
+                                        </af:panelFormLayout>
+                                    <af:spacer height="10" id="sp2"/>
+                                    <af:switcher defaultFacet="#{cargadorGrillaBackingBean.structure.grillaVO.nivel == 2 ? 'nivel2' : (cargadorGrillaBackingBean.structure.grillaVO.nivel == 1 ? 'nivel1' : 'nivel0')}" id="s2">
+                                    <f:facet name="nivel2">
+                                            <ui:include src="/pages/fragments/cargador/cuadro-nivel2.jsff"/>
+                                    </f:facet>
+                                    <f:facet name="nivel1">
+                                            <ui:include src="/pages/fragments/cargador/cuadro-nivel1.jsff"/>
+                                    </f:facet>
+                                     <f:facet name="nivel0">
+                                            <ui:include src="/pages/fragments/cargador/cuadro-nivel0.jsff"/>
+                                    </f:facet>
+                                    </af:switcher>
+                                 </af:group>
+                    </af:group>
+                </f:facet> 
+                </af:decorativeBox>
+        </af:form>
+    </af:document>
+</f:view>
