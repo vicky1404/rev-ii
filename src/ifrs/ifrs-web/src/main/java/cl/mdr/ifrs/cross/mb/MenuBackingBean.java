@@ -24,9 +24,10 @@ import org.primefaces.model.TreeNode;
 @ManagedBean
 @SessionScoped
 public class MenuBackingBean extends AbstractBackingBean implements Serializable {
-	private Logger log = Logger.getLogger(this.getClass().getName());
+	private final Logger log = Logger.getLogger(this.getClass().getName());
 	private static final long serialVersionUID = 8077481642975216680L;
-			
+	
+	
 	private UIComponent tabActivo;
 	private AccordionPanel menuAcordionPanel;
 	private String activeTabIndex;
@@ -53,7 +54,7 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 	
 	public void onTabChange(TabChangeEvent event) {  
 		this.setTabActivo(event.getTab());   
-		this.setActiveTabIndex("1");		
+		this.setActiveTabIndex("1");
     }
 	
 	
