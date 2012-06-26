@@ -1,0 +1,98 @@
+09:29:04,461 INFO  [org.jboss.modules] JBoss Modules version 1.1.1.GA
+09:29:07,613 INFO  [org.jboss.msc] JBoss MSC version 1.0.2.GA
+09:29:07,725 INFO  [org.jboss.as] JBAS015899: JBoss AS 7.1.1.Final "Brontes" starting
+09:29:07,725 DEBUG [org.jboss.as.config] Configured system properties:
+	awt.toolkit = sun.awt.windows.WToolkit
+	file.encoding = Cp1252
+	file.encoding.pkg = sun.io
+	file.separator = \
+	java.awt.graphicsenv = sun.awt.Win32GraphicsEnvironment
+	java.awt.headless = true
+	java.awt.printerjob = sun.awt.windows.WPrinterJob
+	java.class.path = D:\server\jboss-as-7.1.1.Final\jboss-modules.jar
+	java.class.version = 50.0
+	java.endorsed.dirs = C:\Program Files\Java\jdk1.6.0_32\jre\lib\endorsed
+	java.ext.dirs = C:\Program Files\Java\jdk1.6.0_32\jre\lib\ext;C:\Windows\Sun\Java\lib\ext
+	java.home = C:\Program Files\Java\jdk1.6.0_32\jre
+	java.io.tmpdir = C:\Users\rreyes\AppData\Local\Temp\
+	java.library.path = C:\Program Files\Java\jdk1.6.0_32\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;native;C:\oraclexe\app\oracle\product\10.2.0\server\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Common Files\Roxio Shared\DLLShared\;C:\Program Files\TortoiseSVN\bin;.
+	java.net.preferIPv4Stack = true
+	java.runtime.name = Java(TM) SE Runtime Environment
+	java.runtime.version = 1.6.0_32-b05
+	java.specification.name = Java Platform API Specification
+	java.specification.vendor = Sun Microsystems Inc.
+	java.specification.version = 1.6
+	java.util.logging.manager = org.jboss.logmanager.LogManager
+	java.vendor = Sun Microsystems Inc.
+	java.vendor.url = http://java.sun.com/
+	java.vendor.url.bug = http://java.sun.com/cgi-bin/bugreport.cgi
+	java.version = 1.6.0_32
+	java.vm.info = mixed mode
+	java.vm.name = Java HotSpot(TM) 64-Bit Server VM
+	java.vm.specification.name = Java Virtual Machine Specification
+	java.vm.specification.vendor = Sun Microsystems Inc.
+	java.vm.specification.version = 1.0
+	java.vm.vendor = Sun Microsystems Inc.
+	java.vm.version = 20.7-b02
+	javax.management.builder.initial = org.jboss.as.jmx.PluggableMBeanServerBuilder
+	javax.xml.datatype.DatatypeFactory = __redirected.__DatatypeFactory
+	javax.xml.parsers.DocumentBuilderFactory = __redirected.__DocumentBuilderFactory
+	javax.xml.parsers.SAXParserFactory = __redirected.__SAXParserFactory
+	javax.xml.stream.XMLEventFactory = __redirected.__XMLEventFactory
+	javax.xml.stream.XMLInputFactory = __redirected.__XMLInputFactory
+	javax.xml.stream.XMLOutputFactory = __redirected.__XMLOutputFactory
+	javax.xml.transform.TransformerFactory = __redirected.__TransformerFactory
+	javax.xml.validation.SchemaFactory:http://www.w3.org/2001/XMLSchema = __redirected.__SchemaFactory
+	javax.xml.xpath.XPathFactory:http://java.sun.com/jaxp/xpath/dom = __redirected.__XPathFactory
+	jboss.bind.address = localhost
+	jboss.home.dir = D:\server\jboss-as-7.1.1.Final
+	jboss.host.name = pc-rreyes
+	jboss.modules.dir = D:\server\jboss-as-7.1.1.Final\modules
+	jboss.modules.system.pkgs = org.jboss.byteman
+	jboss.node.name = pc-rreyes
+	jboss.qualified.host.name = pc-rreyes
+	jboss.server.base.dir = D:\server\jboss-as-7.1.1.Final\standalone
+	jboss.server.config.dir = D:\server\jboss-as-7.1.1.Final\standalone\configuration
+	jboss.server.data.dir = D:\server\jboss-as-7.1.1.Final\standalone\data
+	jboss.server.deploy.dir = D:\server\jboss-as-7.1.1.Final\standalone\data\content
+	jboss.server.log.dir = D:\server\jboss-as-7.1.1.Final\standalone\log
+	jboss.server.name = pc-rreyes
+	jboss.server.temp.dir = D:\server\jboss-as-7.1.1.Final\standalone\tmp
+	line.separator = 
+
+	logging.configuration = file:/D:/server/jboss-as-7.1.1.Final/standalone/configuration/logging.properties
+	module.path = D:/server/jboss-as-7.1.1.Final/modules
+	org.jboss.boot.log.file = D:/server/jboss-as-7.1.1.Final/standalone/log/boot.log
+	org.jboss.resolver.warning = true
+	org.xml.sax.driver = __redirected.__XMLReaderFactory
+	os.arch = amd64
+	os.name = Windows 7
+	os.version = 6.1
+	path.separator = ;
+	sun.arch.data.model = 64
+	sun.boot.class.path = C:\Program Files\Java\jdk1.6.0_32\jre\lib\resources.jar;C:\Program Files\Java\jdk1.6.0_32\jre\lib\rt.jar;C:\Program Files\Java\jdk1.6.0_32\jre\lib\sunrsasign.jar;C:\Program Files\Java\jdk1.6.0_32\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.6.0_32\jre\lib\jce.jar;C:\Program Files\Java\jdk1.6.0_32\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.6.0_32\jre\lib\modules\jdk.boot.jar;C:\Program Files\Java\jdk1.6.0_32\jre\classes
+	sun.boot.library.path = C:\Program Files\Java\jdk1.6.0_32\jre\bin
+	sun.cpu.endian = little
+	sun.cpu.isalist = amd64
+	sun.desktop = windows
+	sun.io.unicode.encoding = UnicodeLittle
+	sun.java.command = org.jboss.modules.Main -mp D:/server/jboss-as-7.1.1.Final/modules -jaxpmodule javax.xml.jaxp-provider org.jboss.as.standalone -b localhost --server-config=standalone.xml
+	sun.java.launcher = SUN_STANDARD
+	sun.jnu.encoding = Cp1252
+	sun.management.compiler = HotSpot 64-Bit Tiered Compilers
+	sun.os.patch.level = 
+	sun.rmi.dgc.client.gcInterval = 3600000
+	sun.rmi.dgc.server.gcInterval = 3600000
+	user.country = CL
+	user.dir = D:\server\jboss-as-7.1.1.Final\bin
+	user.home = C:\Users\rreyes
+	user.language = es
+	user.name = rreyes
+	user.timezone = America/Santiago
+	user.variant = 
+09:29:07,757 DEBUG [org.jboss.as.config] VM Arguments: -Xms64m -Xmx512m -XX:MaxPermSize=256m -Djava.net.preferIPv4Stack=true -Dorg.jboss.resolver.warning=true -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -Djboss.modules.system.pkgs=org.jboss.byteman -Djava.awt.headless=true -Dorg.jboss.boot.log.file=D:/server/jboss-as-7.1.1.Final/standalone/log/boot.log -Dlogging.configuration=file:/D:/server/jboss-as-7.1.1.Final/standalone/configuration/logging.properties -Djboss.home.dir=D:/server/jboss-as-7.1.1.Final -Dfile.encoding=Cp1252 
+09:29:15,089 INFO  [org.xnio] XNIO Version 3.0.3.GA
+09:29:15,089 INFO  [org.jboss.as.server] JBAS015888: Creating http management service using socket-binding (management-http)
+09:29:15,246 INFO  [org.xnio.nio] XNIO NIO Implementation Version 3.0.3.GA
+09:29:15,277 INFO  [org.jboss.remoting] JBoss Remoting version 3.2.3.GA
+09:29:15,339 INFO  [org.jboss.as.logging] JBAS011502: Removing bootstrap log handlers
