@@ -272,7 +272,7 @@ public class VersionServiceBean implements VersionServiceLocal{
 
         HistorialVersion historial = new HistorialVersion();
         historial.setFechaProceso(new Date());
-        historial.setUsuario(usuario);
+        historial.setUsuario(null); //TODO Agregar usuario
         historial.setVersion(versionVigente);
         historial.setEstadoCuadro(estadoCuado);
         historial.setComentario("CREACIÓN INICIAL");

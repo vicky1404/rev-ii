@@ -3,7 +3,7 @@ package cl.mdr.ifrs.ejb.cross;
 public class Constantes {
     
     public static final String PERSISTENCE_UNIT_NAME = "IfrsPU";
-    public static final String JDBC_DATASOURCE_NAME = "java:/app/jdbc/jdbc/RevelacionesDS";
+    public static final String JDBC_DATASOURCE_NAME = "java:jboss/datasources/ifrsDS";
     public static final String FACES_CONTEXT = "/faces";
     
     public static final String ROL_ADMIN = "IFRS_ADMINISTRADOR";

@@ -61,8 +61,21 @@ public class HistorialReporte implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_PERIODO")
     private Periodo periodo;
+    
+    //bi-directional many-to-one association to Usuario
+    @ManyToOne
+	@JoinColumn(name="NOMBRE_USUARIO")
+	private Usuario usuario;
 
-    public HistorialReporte() {
+    public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public HistorialReporte() {
     }
 
     public HistorialReporte(String checkSumExportacion, String comentario, Date fechaExportacion,

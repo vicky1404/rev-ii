@@ -7,6 +7,9 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -45,8 +48,29 @@ public class Menu implements Serializable {
     
     @OneToMany(mappedBy = "menu")
     private List<MenuGrupo> menuGrupoList;
+    
+  //bi-directional many-to-many association to Grupo
+    @ManyToMany
+	@JoinTable(
+		name="IFRS_MENU_GRUPO"
+		, joinColumns={
+			@JoinColumn(name="ID_MENU")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="ID_GRUPO_ACCESO")
+			}
+		)
+	private List<Grupo> grupos;
 
-    public Menu() {
+    public List<Grupo> getGrupos() {
+		return grupos;
+	}
+
+	public void setGrupos(List<Grupo> grupos) {
+		this.grupos = grupos;
+	}
+
+	public Menu() {
     }
 
     public Menu(Long estado, Long grupo, Long idMenu, String nombre, String urlMenu) {

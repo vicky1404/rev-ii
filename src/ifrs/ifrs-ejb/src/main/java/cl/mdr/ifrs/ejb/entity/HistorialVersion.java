@@ -38,15 +38,17 @@ public class HistorialVersion implements Serializable {
     @Column(name = "FECHA_PROCESO")
     private Date fechaProceso;
     
-    @Column(length = 256)
-    private String usuario;
-    
     @ManyToOne
     @JoinColumn(name = "ID_PERIODO", referencedColumnName = "ID_PERIODO")
     private Version version;
         
     @JoinColumn(name = "ID_ESTADO_CUADRO")
     private EstadoCuadro estadoCuadro;
+    
+    //bi-directional many-to-one association to Usuario
+    @ManyToOne
+	@JoinColumn(name="NOMBRE_USUARIO")
+	private Usuario usuario;
 
 
     public void setIdHistorial(Long idHistorial) {
@@ -73,15 +75,17 @@ public class HistorialVersion implements Serializable {
         return fechaProceso;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
+   
 
-    public String getUsuario() {
-        return usuario;
-    }
+    public Usuario getUsuario() {
+		return usuario;
+	}
 
-    public void setEstadoCuadro(EstadoCuadro estadoCuadro) {
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public void setEstadoCuadro(EstadoCuadro estadoCuadro) {
         this.estadoCuadro = estadoCuadro;
     }
 

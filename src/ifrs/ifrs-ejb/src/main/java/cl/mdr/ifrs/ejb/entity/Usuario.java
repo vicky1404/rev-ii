@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -47,12 +48,12 @@ public class Usuario implements Serializable {
 	private Long vigente;
 
 	//bi-directional many-to-one association to HistorialReporte
-	//@OneToMany(mappedBy="usuario")
-	private List<HistorialReporte> historialReportes;
+		@OneToMany(mappedBy="usuario")
+		private List<HistorialReporte> historialReportes;
 
-	//bi-directional many-to-one association to HistorialVersion
-	//@OneToMany(mappedBy="usuario")
-	private List<HistorialVersion> historialVersiones;
+		//bi-directional many-to-one association to HistorialVersion
+		@OneToMany(mappedBy="usuario")
+		private List<HistorialVersion> historialVersiones;
 
 	//bi-directional many-to-many association to Grupo
     @ManyToMany

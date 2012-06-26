@@ -50,7 +50,7 @@ public class FormulaTest {
                 }else{
                     suma = resultMap.get(cellKey);
                 }
-                System.out.println("Resultado Celda"+ celda.getIdFila() +"->"+suma);
+                //System.out.println("Resultado Celda"+ celda.getIdFila() +"->"+suma);
             }
         }
         
