@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/templates/main-template.xhtml"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="content">
+		<h:form id="f1">
+		<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" >  
+			<p:selectOneMenu value="#{generadorVersionBackingBean.tipoCuadro}" effect="fade" label="Tipo de Cuadro" >
+				<f:selectItem  itemLabel="Seleccione"/>
+            	<f:selectItems value="#{generadorVersionBackingBean.componenteBackingBean.tipoCuadroItems}" id="si1"/>
+        	</p:selectOneMenu> 
+        	<p:autoComplete value="#{generadorVersionBackingBean.catalogo}" id="ac1" completeMethod="#{generadorVersionBackingBean.completeCatalogo}"  
+                        var="p" itemLabel="#{p.nombre}" itemValue="#{p.nombre}" dropdown="true" scrollHeight="300"/>  
+		</h:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>
