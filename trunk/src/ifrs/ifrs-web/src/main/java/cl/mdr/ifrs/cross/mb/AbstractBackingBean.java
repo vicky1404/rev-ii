@@ -2,12 +2,30 @@ package cl.mdr.ifrs.cross.mb;
 
 import java.security.Principal;
 
+import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
+import cl.mdr.ifrs.ejb.facade.local.FacadeServiceLocal;
+
+@ManagedBean
+@ViewScoped
 public abstract class AbstractBackingBean {
+	
+	@ManagedProperty(value="#{componenteBackingBean}")
+	private ComponenteBackingBean componenteBackingBean;
+	
+	@EJB
+	private FacadeServiceLocal facadeService;
+
+	public FacadeServiceLocal getFacadeService() {
+		return facadeService;
+	}
 
 	public FacesContext getFacesContext(){
 		return FacesContext.getCurrentInstance();
@@ -79,4 +97,12 @@ public abstract class AbstractBackingBean {
     public String getViewId(){
         return getFacesContext().getViewRoot().getViewId();
     }
+    
+    public ComponenteBackingBean getComponenteBackingBean() {
+        return componenteBackingBean;
+    }
+
+	public void setComponenteBackingBean(ComponenteBackingBean componenteBackingBean) {
+		this.componenteBackingBean = componenteBackingBean;
+	}
 }
