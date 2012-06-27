@@ -27,7 +27,7 @@ import cl.mdr.ifrs.ejb.entity.TipoEstructura;
 import cl.mdr.ifrs.ejb.facade.local.FacadeServiceLocal;
 
 
-@ManagedBean
+@ManagedBean(name="componenteBackingBean")
 @SessionScoped
 public class ComponenteBackingBean {
 	

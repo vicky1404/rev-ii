@@ -11,7 +11,7 @@ import javax.faces.model.SelectItem;
 public class UtilBean {
 	
     @SuppressWarnings({"unchecked"})
-    public static <T> T findBean(String name) throws Exception {
+    public static <T> T findBean(String name) {
         FacesContext ctx = FacesContext.getCurrentInstance();               
         return (T)ctx.getApplication().evaluateExpressionGet(ctx, MessageFormat.format("#{{0}}", name) , Object.class);      
     }
