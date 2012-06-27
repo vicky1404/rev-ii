@@ -7,7 +7,12 @@ import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
+import cl.mdr.ifrs.cross.util.UtilBean;
+
 public abstract class AbstractBackingBean {
+	
+	/*Backing Bean*/
+	private ComponenteBackingBean componenteBackingBean;
 
 	public FacesContext getFacesContext(){
 		return FacesContext.getCurrentInstance();
@@ -40,4 +45,11 @@ public abstract class AbstractBackingBean {
 	private void addMessage(Severity severity, String summary, String detail) {
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(severity, summary, detail));
 	}
+	
+    public ComponenteBackingBean getComponenteBackingBean() {
+        if(componenteBackingBean == null){
+            componenteBackingBean = UtilBean.findBean(ComponenteBackingBean.BEAN_NAME);
+        }
+        return componenteBackingBean;
+    }
 }
