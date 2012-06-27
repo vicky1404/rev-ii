@@ -9,11 +9,11 @@ import javax.faces.model.SelectItem;
 
 public class UtilBean {
 	
-    @SuppressWarnings("unchecked")
+    /*@SuppressWarnings("unchecked")
     public static <T> T findBean(String name) {
         FacesContext ctx = FacesContext.getCurrentInstance();
         return (T)ctx.getApplication().evaluateExpressionGet(ctx, "#{" + name + "}", Object.class);      
-    }
+    }*/
     
     public static void sortSelectItemMeses(List<SelectItem> meses){
         Collections.sort(meses, new Comparator<SelectItem>(){                        
