@@ -7,12 +7,7 @@ import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import cl.mdr.ifrs.cross.util.UtilBean;
-
 public abstract class AbstractBackingBean {
-	
-	/*Backing Bean*/
-	private ComponenteBackingBean componenteBackingBean;
 
 	public FacesContext getFacesContext(){
 		return FacesContext.getCurrentInstance();
@@ -25,6 +20,15 @@ public abstract class AbstractBackingBean {
 	public Principal getPrincipal() {
 		return this.getExternalContext().getUserPrincipal();
 	}
+	
+	public String getNombreUsuario() {
+        final Principal principal = this.getPrincipal();
+        if (principal != null) {
+            return principal.getName().toUpperCase();
+        } else {
+            return "usuario.prueba".toUpperCase();
+        }
+    }
 
 	public void addErrorMessage(String summary, String detail) {
 		addMessage(FacesMessage.SEVERITY_ERROR, summary, detail);
@@ -46,10 +50,33 @@ public abstract class AbstractBackingBean {
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(severity, summary, detail));
 	}
 	
-    public ComponenteBackingBean getComponenteBackingBean() {
-        if(componenteBackingBean == null){
-            componenteBackingBean = UtilBean.findBean(ComponenteBackingBean.BEAN_NAME);
-        }
-        return componenteBackingBean;
+	/**
+     * @return String
+     */    
+    public String getIpUsuario() {  
+        String ip = this.getExternalContext().getRequestHeaderMap().get("X-Forwarded-For");  
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+            ip = this.getExternalContext().getRequestHeaderMap().get("Proxy-Client-IP");  
+        }  
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+            ip = this.getExternalContext().getRequestHeaderMap().get("WL-Proxy-Client-IP");  
+        }  
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+            ip = this.getExternalContext().getRequestHeaderMap().get("HTTP_CLIENT_IP");  
+        }  
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+            ip = this.getExternalContext().getRequestHeaderMap().get("HTTP_X_FORWARDED_FOR");  
+        }  
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+            ip = this.getExternalContext().getRequestServerName();  
+        }  
+        return ip;  
+    }  
+
+    /**
+     * @return
+     */
+    public String getViewId(){
+        return getFacesContext().getViewRoot().getViewId();
     }
 }
