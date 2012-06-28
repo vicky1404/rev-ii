@@ -32,13 +32,13 @@ import cl.mdr.ifrs.ejb.common.Constantes;
                  @NamedQuery(name = Version.VERSION_FIND_VIGENTE, query = "select o from Version o where o.vigencia = 1 and o.catalogo = :catalogo "),
                  @NamedQuery(name = Version.VERSION_FIND_ALL_BY_CATALOGO, query = "select o from Version o where o.catalogo = :catalogo order by o.vigencia, o.version, o.fechaCreacion"),
                  @NamedQuery(name = Version.VERSION_FIND_BY_VERSION, query = "select o from Version o where o = :version"),
-                 @NamedQuery(name = Version.VERSION_FIND_ULTIMO_VERSION_BY_PERIODO, query = "select o from Version o where o.idVersion in ( select max(v.idVersion) from Version v, Periodo p, CatalogoGrupo cg, UsuarioGrupo ug where ug.grupo = cg.grupo and p.idPeriodo = v.periodo.idPeriodo and p.periodo = :periodo and (:usuario is null or ug.usuarioOid = :usuario) and (:tipoCuadro is null or v.catalogo.tipoCuadro.idTipoCuadro = :tipoCuadro) and (:vigente is null or v.vigencia = :vigente) and v.catalogo.vigencia = 1 group by v.catalogo.idCatalogo) order by o.catalogo.orden"),
-                 @NamedQuery(name = Version.FIND_ULTIMA_VERSION_VIGENTE, query = "select ve from Version ve, UsuarioGrupo ug, CatalogoGrupo cg where ve.catalogo.idCatalogo = :idCatalogo and ve.vigencia = 1 and ve.catalogo.idCatalogo = cg.catalogo.idCatalogo and ug.usuarioOid = :usuario and cg.idGrupoAcceso = ug.idGrupo and ve.periodo.idPeriodo = :idPeriodo"),
+                 @NamedQuery(name = Version.VERSION_FIND_ULTIMO_VERSION_BY_PERIODO, query = "select o from Version o where o.idVersion in ( select max(v.idVersion) from Version v, Periodo p, CatalogoGrupo cg, UsuarioGrupo ug where ug.grupo = cg.grupo and p.idPeriodo = v.periodo.idPeriodo and p.periodo = :periodo and (:usuario is null or ug.nombreUsuario = :usuario) and (:tipoCuadro is null or v.catalogo.tipoCuadro.idTipoCuadro = :tipoCuadro) and (:vigente is null or v.vigencia = :vigente) and v.catalogo.vigencia = 1 group by v.catalogo.idCatalogo) order by o.catalogo.orden"),
+                 @NamedQuery(name = Version.FIND_ULTIMA_VERSION_VIGENTE, query = "select ve from Version ve, UsuarioGrupo ug, CatalogoGrupo cg where ve.catalogo.idCatalogo = :idCatalogo and ve.vigencia = 1 and ve.catalogo.idCatalogo = cg.catalogo.idCatalogo and ug.nombreUsuario = :usuario and cg.idGrupoAcceso = ug.idGrupo and ve.periodo.idPeriodo = :idPeriodo"),
                  @NamedQuery(name = Version.VERSION_FIND_BY_FILTRO,
                             query = " select distinct v from Version v , CatalogoGrupo cg, UsuarioGrupo ug where " +
                                     " v.catalogo.idCatalogo = cg.idCatalogo " + 
                                     " and ug.grupo = cg.grupo " +
-                                    " and (:usuario is null or ug.usuarioOid = :usuario) " +
+                                    " and (:usuario is null or ug.nombreUsuario = :usuario) " +
                                     " and (:tipoCuadro is null or v.catalogo.tipoCuadro.idTipoCuadro = :tipoCuadro) " +
                                     " and (:periodo is null or v.periodo.idPeriodo = :periodo) " +
                                     " and (:estado is null or v.estado.idEstado = :estado) " +

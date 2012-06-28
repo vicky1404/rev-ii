@@ -39,8 +39,19 @@ import cl.mdr.ifrs.ejb.common.Constantes;
                  @NamedQuery(name = Catalogo.CATALOGO_FIND_BY_NOTA,
                              query = "select o from Catalogo o where o = :nota"),
                  
-                /* @NamedQuery(name = Catalogo.CATALOGO_FIND_BY_FILTRO,
-                             query = " select distinct c from Catalogo c , CatalogoGrupo cg, UsuarioGrupo ug where c.idCatalogo = cg.idCatalogo and ug.grupo = cg.grupo and (:usuario is null or ug.usuarioOid = :usuario) and (:tipoCuadro is null or c.tipoCuadro.idTipoCuadro = :tipoCuadro) and (:grupo is null or cg.grupo.idGrupo = :grupo) and (:vigencia is null or c.vigencia = :vigencia) and c.vigencia = 1 order by c.orden asc")*/ 
+                @NamedQuery(name = Catalogo.CATALOGO_FIND_BY_FILTRO,
+                             query = " select distinct c from Catalogo c , " +
+                             		 " CatalogoGrupo cg, " +
+                             		 " UsuarioGrupo ug, " +
+                             		 " TipoCuadro tc "+
+                             		 " where c.idCatalogo = cg.idCatalogo " +
+                             		 " and ug.grupo = cg.grupo " +
+                             		 " and c.tipoCuadro.idTipoCuadro = tc.idTipoCuadro "+
+                             		 " and (:usuario is null or ug.nombreUsuario = :usuario) " +
+                             		// " and (:tipoCuadro is null or c.tipoCuadro = :tipoCuadro) " +
+                             		 " and (:grupo is null or cg.grupo = :grupo) " +
+                             		 " and (:vigencia is null or c.vigencia = :vigencia) " +
+                             		 " and c.vigencia = 1 order by c.orden asc") 
 
 })
 @Table(name = Constantes.CATALOGO)

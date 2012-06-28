@@ -78,7 +78,7 @@ public class CatalogoServiceBean implements CatalogoServiceLocal{
     public List<Catalogo> findCatalogoByFiltro(final String usuario, final TipoCuadro tipoCuadro, final Grupo grupo, final Long vigencia) throws Exception{        
 		List<Catalogo> catalogoByFiltro = em.createNamedQuery(Catalogo.CATALOGO_FIND_BY_FILTRO)
                                              .setParameter("usuario", usuario )
-                                             .setParameter("tipoCuadro", tipoCuadro != null ? tipoCuadro.getIdTipoCuadro() : null )   
+                                             //.setParameter("tipoCuadro", tipoCuadro != null ? tipoCuadro.getIdTipoCuadro() : null )   
                                              .setParameter("grupo", grupo != null ? grupo.getIdGrupoAcceso() : null)
                                              .setParameter("vigencia", vigencia)                                                
                                              .getResultList();
