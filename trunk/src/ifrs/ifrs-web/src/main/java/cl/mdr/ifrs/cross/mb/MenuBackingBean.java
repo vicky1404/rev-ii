@@ -6,6 +6,7 @@ package cl.mdr.ifrs.cross.mb;
 import static ch.lambdaj.Lambda.having;
 import static ch.lambdaj.Lambda.on;
 import static ch.lambdaj.Lambda.select;
+import static ch.lambdaj.Lambda.index;
 import static org.hamcrest.Matchers.equalTo;
 
 import java.io.Serializable;
@@ -15,14 +16,20 @@ import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.faces.component.UIComponent;
+import javax.faces.event.ActionEvent;
 
 import org.primefaces.component.accordionpanel.AccordionPanel;
+import org.primefaces.component.menuitem.MenuItem;
+import org.primefaces.component.submenu.Submenu;
+import org.primefaces.event.NodeSelectEvent;
 import org.primefaces.event.TabChangeEvent;
+import org.primefaces.model.DefaultMenuModel;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 
@@ -30,6 +37,7 @@ import cl.mdr.ifrs.cross.model.MenuModel;
 import cl.mdr.ifrs.cross.model.TreeItem;
 import cl.mdr.ifrs.cross.util.PropertyManager;
 import cl.mdr.ifrs.ejb.common.VigenciaEnum;
+import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
 import cl.mdr.ifrs.ejb.entity.Grupo;
 import cl.mdr.ifrs.ejb.entity.Menu;
@@ -59,11 +67,15 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
     
     private boolean sistemaBloqueado;
     private TreeItem treeItem;
+    private Map<Long, Catalogo> catalogoMap; 
+    private Catalogo catalogoSelected;
+    
+    private org.primefaces.model.MenuModel model;  
 		
 	public MenuBackingBean() {
 		super();		
 		super.getFacesContext().getViewRoot().setLocale(new Locale("es"));
-		root = new DefaultTreeNode("Proceso", null);  	
+		root = new DefaultTreeNode("Proceso", null);  					 
 	}
 	
 	@PostConstruct
@@ -71,6 +83,7 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 		try{
 			this.buildCuadroTreeMenu(this.getRoot());
 			this.buildAccordionPanelMenu();
+			this.buildCatalogoMap();
 		}catch (Exception e) {
 			addErrorMessage("Error", "Se ha producido un error al inicializar el Menú");
 			log.severe(""+e);
@@ -82,6 +95,11 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 		this.setActiveTabIndex("1");
     }
 	
+	public void buildCatalogoMap(){
+		final Map<Long, Catalogo> catalogoMap = index(this.getCatalogoList(), on(Catalogo.class).getIdCatalogo());
+		this.setCatalogoMap(catalogoMap);
+	}
+	
 	private void buildCuadroTreeMenu(TreeNode root) throws Exception{		 
         boolean bloqueado = this.isSistemaBloqueado();
         for(TipoCuadro tipoCuadro : this.getTiposCuadroFromCatalogo(this.getCatalogoList())){            
@@ -89,7 +107,7 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
             for(Catalogo catalogo : this.getCatalogoList()){
                 if(catalogo.getTipoCuadro().equals(tipoCuadro)){                    
                 	//TreeNode nodeChild =  new DefaultTreeNode(new TreeItem(catalogo, bloqueado), node);
-                	TreeNode nodeChild =  new DefaultTreeNode(catalogo, node);
+                	new DefaultTreeNode(catalogo.getIdCatalogo(), node);
                 }
             }            
         }                
@@ -160,6 +178,19 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
     	log.info("tabNumber "+tabNumber);
     	return action;
     }
+    
+    public String cargarNotaAction(){    	
+    	log.info("cargando cuadro ");
+    	log.info("idCatalogo "+this.getCatalogoSelected().getNombre());
+    	return "cuadro";
+    }
+    
+    public void onSelectNodeMenuCuadro(NodeSelectEvent event) {
+    	this.setActiveTabIndex("0");
+    	this.setCatalogoSelected(this.getCatalogoMap().get(Util.getLong(event.getTreeNode().toString(), null)));
+    	cargarNotaAction();
+    	addInfoMessage("", "nodo : "+this.getCatalogoSelected().getNombre() + " "+this.getCatalogoSelected().getTitulo() );
+    } 
     
     
     private static void ordenarMenu(List<Menu> menuList) {
@@ -265,6 +296,30 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 
 	public void setTreeItem(TreeItem treeItem) {
 		this.treeItem = treeItem;
+	}
+
+	public org.primefaces.model.MenuModel getModel() {
+		return model;
+	}
+
+	public void setModel(org.primefaces.model.MenuModel model) {
+		this.model = model;
+	}
+
+	public Map<Long, Catalogo> getCatalogoMap() {
+		return catalogoMap;
+	}
+
+	public void setCatalogoMap(Map<Long, Catalogo> catalogoMap) {
+		this.catalogoMap = catalogoMap;
+	}
+
+	public Catalogo getCatalogoSelected() {
+		return catalogoSelected;
+	}
+
+	public void setCatalogoSelected(Catalogo catalogoSelected) {
+		this.catalogoSelected = catalogoSelected;
 	}
 
 	 
