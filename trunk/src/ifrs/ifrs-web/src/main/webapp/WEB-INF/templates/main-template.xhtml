@@ -10,11 +10,15 @@
 	<h:outputStylesheet name="css/screen.css" />
 </h:head>
 <h:body>
+    <!-- p:ajaxStatus  onstart="statusDialog.show();" oncomplete="statusDialog.hide();"/>                  
+	<p:dialog modal="true" widgetVar="statusDialog" header="Status" x="10" y="10" draggable="false" close="false">
+        <h:graphicImage value="../design/ajaxloadingbar.gif" />
+	</p:dialog-->
 	<p:layout fullPage="true">
 
 		<p:layoutUnit position="north" size="100"
 			header="Sistema de Revelaciones" resizable="true" closable="false"
-			collapsible="true" id="l_north">
+			collapsible="true" id="l_north" style="border:0px;">
 
 		</p:layoutUnit>
 
