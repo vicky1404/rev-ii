@@ -105,4 +105,5 @@ public abstract class AbstractBackingBean {
 	public void setComponenteBackingBean(ComponenteBackingBean componenteBackingBean) {
 		this.componenteBackingBean = componenteBackingBean;
 	}
+	
 }
