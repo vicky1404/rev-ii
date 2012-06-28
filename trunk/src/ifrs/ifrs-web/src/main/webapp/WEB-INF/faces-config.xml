@@ -10,6 +10,7 @@
 	</managed-bean>
 	<!-- This descriptor activates the JSF 2.0 Servlet -->
 	<application>
+		<message-bundle>ifrs</message-bundle>
 		<resource-bundle>
 			<base-name>ifrs</base-name>
 			<var>msg</var>
