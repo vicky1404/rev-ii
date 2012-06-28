@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -52,7 +53,7 @@ public class Grupo implements Serializable {
 		)
 	private List<Catalogo> catalogos;
 
-	//bi-directional many-to-one association to AreaNegocio
+	//bi-directional many-to-one association to AreaNegocio    
     @ManyToOne
 	@JoinColumn(name="ID_AREA_NEGOCIO")
 	private AreaNegocio areaNegocio;
@@ -71,14 +72,25 @@ public class Grupo implements Serializable {
 	private List<Empresa> empresas;
 
 	//bi-directional many-to-many association to Menu
-	@ManyToMany(mappedBy="grupoList")
+     
+    @ManyToMany(fetch = FetchType.LAZY)    
+	@JoinTable(
+		name="IFRS_MENU_GRUPO"
+		, joinColumns={
+			@JoinColumn(name="ID_GRUPO_ACCESO")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="ID_MENU")
+			}
+		)
 	private List<Menu> menus;
 
 	//bi-directional many-to-many association to Usuario
-	@ManyToMany(mappedBy="grupos")
+	@ManyToMany(mappedBy="grupos", fetch = FetchType.LAZY)
 	private List<Usuario> usuarios;
 
-    public Grupo() {
+    
+	public Grupo() {
     }
 
 	public String getIdGrupoAcceso() {
@@ -144,5 +156,6 @@ public class Grupo implements Serializable {
 	public void setUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
+	
 	
 }

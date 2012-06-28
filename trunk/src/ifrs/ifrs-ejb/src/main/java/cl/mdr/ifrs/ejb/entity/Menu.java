@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -45,8 +46,9 @@ public class Menu implements Serializable {
     @Column(name = "ES_PADRE")
     private boolean padre;
     
-  //bi-directional many-to-many association to IfrsGrupo
-    @ManyToMany
+
+    //bi-directional many-to-many association to IfrsGrupo
+    @ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(
 		name="IFRS_MENU_GRUPO"
 		, joinColumns={
@@ -172,6 +174,8 @@ public class Menu implements Serializable {
 	public void setGrupoList(List<Grupo> grupoList) {
 		this.grupoList = grupoList;
 	}
+
+	
 
     
 }

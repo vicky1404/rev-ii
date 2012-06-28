@@ -57,7 +57,7 @@ public class Usuario implements Serializable {
 	private List<HistorialVersion> historialVersiones;
 
 	//bi-directional many-to-many association to Grupo
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY) 
 	@JoinTable(
 		name="IFRS_USUARIO_GRUPO"
 		, joinColumns={

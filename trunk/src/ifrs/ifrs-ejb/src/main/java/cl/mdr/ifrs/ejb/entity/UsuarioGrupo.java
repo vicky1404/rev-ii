@@ -20,9 +20,9 @@ import cl.mdr.ifrs.ejb.entity.pk.UsuarioGrupoPK;
 @Entity
 @NamedQueries({
     @NamedQuery(name = UsuarioGrupo.FIND_ALL , query = "select o from UsuarioGrupo o"),
-    @NamedQuery(name = UsuarioGrupo.FIND_USUARIOS_DISTINCT_ALL , query = "select distinct(o.usuarioOid) from UsuarioGrupo o order by o.usuarioOid"),
-    @NamedQuery(name = UsuarioGrupo.FIND_GRUPOS_BY_USUARIO , query = "select o.grupo from UsuarioGrupo o where o.usuarioOid =:usuarioOid"),
-    @NamedQuery(name = UsuarioGrupo.DELETE_BY_USUARIO , query = "delete from UsuarioGrupo o where upper(o.usuarioOid) =:usuarioOid")
+    @NamedQuery(name = UsuarioGrupo.FIND_USUARIOS_DISTINCT_ALL , query = "select distinct(o.nombreUsuario) from UsuarioGrupo o order by o.nombreUsuario"),
+    @NamedQuery(name = UsuarioGrupo.FIND_GRUPOS_BY_USUARIO , query = "select o.grupo from UsuarioGrupo o where o.nombreUsuario =:usuarioOid"),
+    @NamedQuery(name = UsuarioGrupo.DELETE_BY_USUARIO , query = "delete from UsuarioGrupo o where upper(o.nombreUsuario) =:usuarioOid")
 })
 @Table(name = Constantes.USUARIO_GRUPO)
 @IdClass(UsuarioGrupoPK.class)
@@ -35,60 +35,73 @@ public class UsuarioGrupo implements Serializable {
     public static final String DELETE_BY_USUARIO = "UsuarioGrupo.deleteByUsuario";
     
     @Id
-    @Column(name="ID_GRUPO_ACCESO",nullable = false,insertable = false,updatable = false)
+    @Column(name="ID_GRUPO_ACCESO",nullable = false, insertable = false,updatable = false)
     private String idGrupo;
     
     @Id
-    @Column(name="USUARIO_OID", nullable = false, length = 256)
-    private String usuarioOid;
+    @Column(name="NOMBRE_USUARIO", nullable = false, insertable = false,updatable = false)
+    private String nombreUsuario;
     
     @ManyToOne
     @JoinColumn(name = "ID_GRUPO_ACCESO")
     private Grupo grupo; 
+    
+    @ManyToOne
+    @JoinColumn(name = "NOMBRE_USUARIO")
+    private Usuario usuario; 
  
+    
  
     public UsuarioGrupo() {
     }
 
-    public UsuarioGrupo(String idGrupo, String usuarioOid, Grupo grupo) {
-        super();
-        this.idGrupo = idGrupo;
-        this.usuarioOid = usuarioOid;
-        this.grupo = grupo;
-    }
 
-    public String getUsuarioOid() {
-        return usuarioOid;
-    }
 
-    public void setUsuarioOid(String usuarioOid) {
-        this.usuarioOid = usuarioOid;
-    }
+	public String getIdGrupo() {
+		return idGrupo;
+	}
 
-    public Grupo getGrupo() {
-        return grupo;
-    }
 
-    public void setGrupo(Grupo grupo) {
-        this.grupo = grupo;
-    }
 
-    public void setIdGrupo(String idGrupo) {
-        this.idGrupo = idGrupo;
-    }
+	public void setIdGrupo(String idGrupo) {
+		this.idGrupo = idGrupo;
+	}
 
-    public String getIdGrupo() {
-        return idGrupo;
-    }
+
+
+	public String getNombreUsuario() {
+		return nombreUsuario;
+	}
+
+
+
+	public void setNombreUsuario(String nombreUsuario) {
+		this.nombreUsuario = nombreUsuario;
+	}
+
+
+
+	public Grupo getGrupo() {
+		return grupo;
+	}
+
+
+
+	public void setGrupo(Grupo grupo) {
+		this.grupo = grupo;
+	}
+
+
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
     
-    @Override
-    public String toString() {
-        StringBuffer buffer = new StringBuffer();
-        buffer.append(getClass().getName()+"@"+Integer.toHexString(hashCode()));
-        buffer.append('[');                
-        buffer.append("usuarioOid=");
-        buffer.append(getUsuarioOid());
-        buffer.append(']');
-        return buffer.toString();
-    }
 }

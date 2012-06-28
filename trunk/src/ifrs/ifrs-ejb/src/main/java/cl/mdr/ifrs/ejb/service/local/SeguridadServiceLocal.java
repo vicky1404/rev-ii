@@ -8,7 +8,7 @@ import javax.ejb.Local;
 import cl.mdr.ifrs.ejb.entity.CatalogoGrupo;
 import cl.mdr.ifrs.ejb.entity.Grupo;
 import cl.mdr.ifrs.ejb.entity.Menu;
-import cl.mdr.ifrs.ejb.entity.MenuGrupo;
+import cl.mdr.ifrs.ejb.entity.Usuario;
 import cl.mdr.ifrs.ejb.entity.UsuarioGrupo;
 
 
@@ -33,6 +33,13 @@ public interface SeguridadServiceLocal {
      * @throws Exception
      */
     List<Grupo> findGruposByUsuario(String usuario) throws Exception;
+    
+    /**
+     * @param userName
+     * @return
+     * @throws Exception
+     */
+    Usuario findUsuarioByUserName(final String userName)throws Exception;
 
     /**
      * @param usuarioGrupoList
@@ -46,6 +53,14 @@ public interface SeguridadServiceLocal {
      * @throws Exception
      */
     List<Menu> findMenuFindAll() throws Exception;
+    
+    
+    /**
+     * @param grupo
+     * @return
+     * @throws Exception
+     */
+    Grupo findGrupoById(final Grupo grupo) throws Exception;
 
 
     /**
@@ -53,14 +68,14 @@ public interface SeguridadServiceLocal {
      * @param grupo
      * @throws Exception
      */
-    void persistMenuGrupo(List<MenuGrupo> menuGrupoList, Grupo grupo) throws Exception;
+    //void persistMenuGrupo(List<MenuGrupo> menuGrupoList, Grupo grupo) throws Exception;
 
     /**
      * @param idGrupo
      * @return
      * @throws Exception
      */
-    List<MenuGrupo> findMenuAccesoByGrupo(String idGrupo) throws Exception;
+    //List<MenuGrupo> findMenuAccesoByGrupo(String idGrupo) throws Exception;
 
     /**
      * @param catalogoGrupoList
