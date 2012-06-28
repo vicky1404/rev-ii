@@ -4,25 +4,26 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
-	<h:form>
+	<h:form id="form_menu">
 
-		<p:growl id="growl" showDetail="true" />
+		<p:growl id="growl" showDetail="true"  />
 
-		<p:accordionPanel activeIndex="#{menuBackingBean.activeTabIndex}">
+		<p:accordionPanel activeIndex="#{menuBackingBean.activeTabIndex}" id="ap_menu">
 
 			<!-- p:ajax event="tabChange" listener="#{menuBackingBean.onTabChange}" /-->
 
-			<p:tab title="#{msg.label_tab_proceso}" id="m1">			    
-				<p:tree id="treeSingle" value="#{menuBackingBean.root}" var="nodo" 
+			<p:tab title="#{msg.label_tab_proceso}" id="m1">			    				
+				<p:tree id="treeSingle" value="#{menuBackingBean.root}" var="nodo"  
 					selectionMode="single" style="border: 0px; width:95%; margin-left:-30px; float:left;">
+					<p:ajax event="select" update=":form_menu:growl" listener="#{menuBackingBean.onSelectNodeMenuCuadro}" />  
 					<p:treeNode>
-					    <p:commandLink value="#{nodo.nombre}" />					
+						<h:outputText value="#{menuBackingBean.catalogoMap[nodo].nombre == null ? nodo : menuBackingBean.catalogoMap[nodo].nombre}"/>					    			
 					</p:treeNode>
 				</p:tree>
 			</p:tab>
 			
 			<c:forEach items="${menuBackingBean.menuModelList}" var="row" varStatus="status">
-				<p:tab title="#{row.menuParent.nombre}" id="m2">
+				<p:tab title="#{row.menuParent.nombre}" id="m2_${status.count}">
 					<ul>
 						<ui:repeat var="rowChild" value="#{row.menuChild}">							
 							<li style="margin-left:-40px;">

@@ -14,20 +14,20 @@
 
 		<p:layoutUnit position="north" size="100"
 			header="Sistema de Revelaciones" resizable="true" closable="false"
-			collapsible="true">
+			collapsible="true" id="l_north">
 
 		</p:layoutUnit>
 
 		<p:layoutUnit position="west" size="230" resizable="true"
-			closable="false" collapsible="true">
+			closable="false" collapsible="true" id="l_west">
 
 			<ui:include src="menu.xhtml" />
 
 		</p:layoutUnit>
 
-		<p:layoutUnit position="center">
+		<p:layoutUnit position="center" id="l_center"> 
 			<ui:insert name="content">
-                    [Template content will be inserted here]
+                    [Contenido del Template content]
          	</ui:insert>
 		</p:layoutUnit>
 
