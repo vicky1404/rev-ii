@@ -2,34 +2,40 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 	<h:form>
 
 		<p:growl id="growl" showDetail="true" />
 
 		<p:accordionPanel activeIndex="#{menuBackingBean.activeTabIndex}">
 
-			<p:ajax event="tabChange" listener="#{menuBackingBean.onTabChange}" />
+			<!-- p:ajax event="tabChange" listener="#{menuBackingBean.onTabChange}" /-->
 
-			<p:tab title="#{msg.label_tab_proceso}" id="m1">
-			    <p:commandLink value="Pagina 1" action="pagina1"></p:commandLink>
-				<p:tree id="treeSingle" value="#{menuBackingBean.root}" var="node"
-					selectionMode="single" style="border: 0px; width:95%; padding-left:auto; float:left;">
-
+			<p:tab title="#{msg.label_tab_proceso}" id="m1">			    
+				<p:tree id="treeSingle" value="#{menuBackingBean.root}" var="nodo" 
+					selectionMode="single" style="border: 0px; width:95%; margin-left:-30px; float:left;">
 					<p:treeNode>
-						<h:outputText value="#{node}" />
+					    <p:commandLink value="#{nodo.nombre}" />					
 					</p:treeNode>
 				</p:tree>
 			</p:tab>
-			<p:tab title="Mantendores" id="m2">
-				
-			</p:tab>
-			<p:tab title="Reportes" id="m3">
-				<p:commandLink value="PAgina 3" action="pagina1"></p:commandLink>
-			</p:tab>
-			<p:tab title="Parametrizacion" id="m4">
-				<p:commandLink value="PAgina 4" action="pagina2"></p:commandLink>
-			</p:tab>
+			
+			<c:forEach items="${menuBackingBean.menuModelList}" var="row" varStatus="status">
+				<p:tab title="#{row.menuParent.nombre}" id="m2">
+					<ul>
+						<ui:repeat var="rowChild" value="#{row.menuChild}">							
+							<li style="margin-left:-40px;">
+								<h:commandLink id="cl1" value="#{rowChild.nombre}" action="#{menuBackingBean.navigation}">
+									<f:param name="urlAction" value="#{rowChild.urlMenu}"/>
+									<f:param name="tabNumber" value="${status.count}"/>									
+								</h:commandLink>
+							</li>																	
+						</ui:repeat>
+					</ul>					
+				</p:tab>
+			</c:forEach>
+			
 		</p:accordionPanel>
 	</h:form>
 </ui:composition>

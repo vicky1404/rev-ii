@@ -275,7 +275,7 @@ public class ComponenteBackingBean {
     public FacadeServiceLocal getFacade() {
         return facade;
     }
-    
+        
     /*Metodos Mutadores*/
     
     public void setTipoDatoList(List<TipoDato> tipoDatoList) {
