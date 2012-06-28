@@ -40,7 +40,7 @@
 		
 		<p:toolbar style="font-size: 10px; margin-left: auto; margin-right: auto" >
       		<p:toolbarGroup align="left" >
-				<p:commandButton icon="ui-icon-document" value="#{msg.boton_nuevo}" title="#{msg.boton_nuevo}"  type="button" onclick="formula.show()" />
+				<p:commandButton icon="ui-icon-document" value="#{msg.boton_nuevo}" title="#{msg.boton_nuevo}"  type="button" onclick="ingresoRegistro.show()" />
 				<!-- p:commandButton icon="ui-icon-refresh" value="#{msg.boton_editar}" title="#{msg.boton_editar}"  type="button" onclick="formula.show()"/-->
 				<p:commandButton icon="ui-icon-trash" value="#{msg.boton_eliminar}" title="#{msg.boton_eliminar}" action="#{tipoCuadro.eliminar}" update="tabla messages" />
 				
@@ -73,7 +73,7 @@
 		 	</p:column>
 		 	
 		 	<p:column headerText="#{msg.tabla_cabecera_titulo}" id="cTitulo" >
-		 		<p:cellEditor id="ceTitulo" rendered="">
+		 		<p:cellEditor id="ceTitulo" >
 		 			<f:facet name="output">
  						<h:outputText value="#{row.titulo}" id="oTitulo" />
  					</f:facet>
@@ -93,18 +93,18 @@
 		
 		<h:form id="formIngreso">
 		<!--  POP UP -->			 
-		 <p:dialog header="Ingreso" widgetVar="formula" resizable="false"  width="500" showEffect="explode" hideEffect="explode" modal="false" >  
+		 <p:dialog header="Ingreso" widgetVar="ingresoRegistro" resizable="false"  width="500" showEffect="explode" hideEffect="explode" modal="false" >  
         	<h:panelGrid id="display" columns="2" cellpadding="4">  
             
 	            <h:outputText value="#{msg.label_nombre}" />  
-	            	<p:inputText value="#{tipoCuadro.nuevoTipoCuadro.nombre}" id="Nombre" required="true" >
+	            	<p:inputText value="#{tipoCuadro.nuevoTipoCuadro.nombre}" id="Nombre" label="#{msg.label_nombre}" required="true" >
 	            </p:inputText>	           
 	  
 	            <h:outputText value="#{msg.label_titulo}" />  
-	            <p:inputText value="#{tipoCuadro.nuevoTipoCuadro.titulo}" id="Titulo" required="true"/>  
+	            <p:inputText value="#{tipoCuadro.nuevoTipoCuadro.titulo}" id="Titulo" label="#{msg.label_titulo}" required="true"/>  
 	  
-	  			<p:commandButton icon="ui-icon-disk" value="#{msg.boton_guardar}" action="#{tipoCuadro.guardar}" id="btnGuardar" update=":form:tabla :form:messages" oncomplete="formula.hide()"></p:commandButton>
-	  			<p:commandButton icon="ui-icon-cancel" value="#{msg.boton_cancel}" id="btnCancelar" onclick="formula.hide()"></p:commandButton>
+	  			<p:commandButton icon="ui-icon-disk" value="#{msg.boton_guardar}" action="#{tipoCuadro.guardar}" id="btnGuardar" update=":form:tabla :form:messages" oncomplete="ingresoRegistro.hide()"></p:commandButton>
+	  			<p:commandButton icon="ui-icon-cancel" value="#{msg.boton_cancel}" id="btnCancelar" onclick="ingresoRegistro.hide()"></p:commandButton>
         	</h:panelGrid>
     	</p:dialog> 
     	</h:form>
