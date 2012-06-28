@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/main-template.xhtml">
+	<ui:define name="content">
+		<h:form id="form">  
+		
+		<p:growl id="messages" />
+		
+		<p:panel id="filtro" header="#{msg.titulo_mantenedor_tipo_cuadro}" toggleable="true"  closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel">  
+  		
+  		<table border="0" width="40%">
+  		<tr>
+  			<td>
+  				<h:outputLabel value="#{msg.label_nombre}"/>
+  			</td>
+  			<td>
+  				<p:inputText value="#{tipoCuadro.filtro.nombre}" id="bNombre">
+  					<p:ajax event="keyup" listener="#{tipoCuadro.obtenerLista}" update="tabla"/>
+  				</p:inputText><br/>
+  			</td>
+  		</tr>
+  		<tr>
+  			<td>
+  				<h:outputLabel value="#{msg.label_titulo}"/>
+  			</td>
+  			<td>
+  				<p:inputText value="#{tipoCuadro.filtro.titulo}" id="bTitulo">
+  					<p:ajax event="keyup" listener="#{tipoCuadro.obtenerLista}" update="tabla"/>
+  				</p:inputText>
+  			</td>
+  		</tr>  
+  				
+  		</table>
+    	</p:panel> 
+		
+		
+		<p:toolbar style="font-size: 10px; margin-left: auto; margin-right: auto" >
+      		<p:toolbarGroup align="left" >
+				<p:commandButton icon="ui-icon-document" value="#{msg.boton_nuevo}" title="#{msg.boton_nuevo}"  type="button" onclick="formula.show()" />
+				<!-- p:commandButton icon="ui-icon-refresh" value="#{msg.boton_editar}" title="#{msg.boton_editar}"  type="button" onclick="formula.show()"/-->
+				<p:commandButton icon="ui-icon-trash" value="#{msg.boton_eliminar}" title="#{msg.boton_eliminar}" action="#{tipoCuadro.eliminar}" update="tabla messages" />
+				
+				<p:separator />				  
+				<h:commandLink immediate="true">  
+            		<p:commandButton  icon="ui-icon-link" value="#{msg.boton_excel}"></p:commandButton>  
+            		<p:dataExporter type="xls" target="tabla" fileName="tiposCuadro" />  
+        		</h:commandLink>
+      		</p:toolbarGroup>
+   		</p:toolbar>
+		
+		 <p:dataTable value="#{tipoCuadro.lista}" var="row" rowKey="#{row.idTipoCuadro}" editable="true" selection="#{tipoCuadro.selectedTipoCuadro}" selectionMode="single" emptyMessage="#{msg.mensaje_tabla_sin_registros}" id="tabla" paginator="true" rows="5">
+		 	
+		 	
+		 	<p:ajax event="rowEdit" listener="#{tipoCuadro.editar}" />  
+		 	
+		 	<p:column headerText="#{msg.tabla_cabecera_id}" id="id" >
+		 		<h:outputText value="#{row.idTipoCuadro}" />
+		 	</p:column>
+		 	
+		 	<p:column headerText="#{msg.tabla_cabecera_nombre}" id="cNombre" >
+		 		<p:cellEditor id="ceNombre">
+		 			<f:facet name="output">
+						<h:outputText value="#{row.nombre}" id="oNombre"/>
+					</f:facet>
+					<f:facet name="input">
+						<p:inputText value="#{row.nombre}" id="iNombre"/>
+					</f:facet>
+				</p:cellEditor>			
+		 	</p:column>
+		 	
+		 	<p:column headerText="#{msg.tabla_cabecera_titulo}" id="cTitulo" >
+		 		<p:cellEditor id="ceTitulo" rendered="">
+		 			<f:facet name="output">
+ 						<h:outputText value="#{row.titulo}" id="oTitulo" />
+ 					</f:facet>
+ 					<f:facet name="input">
+ 						<p:inputText value="#{row.titulo}" id="iTitulo"/>
+ 					</f:facet>
+ 				</p:cellEditor>
+		 	</p:column>		
+		 	
+		 	<p:column headerText="#{msg.tabla_cabecera_editar}" id="cEditar" >
+		 		<p:rowEditor id="rEditor"/>
+		 	</p:column>
+		 	
+		 </p:dataTable>
+		
+		</h:form>
+		
+		<h:form id="formIngreso">
+		<!--  POP UP -->			 
+		 <p:dialog header="Ingreso" widgetVar="formula" resizable="false"  width="500" showEffect="explode" hideEffect="explode" modal="false" >  
+        	<h:panelGrid id="display" columns="2" cellpadding="4">  
+            
+	            <h:outputText value="#{msg.label_nombre}" />  
+	            	<p:inputText value="#{tipoCuadro.nuevoTipoCuadro.nombre}" id="Nombre" required="true" >
+	            </p:inputText>	           
+	  
+	            <h:outputText value="#{msg.label_titulo}" />  
+	            <p:inputText value="#{tipoCuadro.nuevoTipoCuadro.titulo}" id="Titulo" required="true"/>  
+	  
+	  			<p:commandButton icon="ui-icon-disk" value="#{msg.boton_guardar}" action="#{tipoCuadro.guardar}" id="btnGuardar" update=":form:tabla :form:messages" oncomplete="formula.hide()"></p:commandButton>
+	  			<p:commandButton icon="ui-icon-cancel" value="#{msg.boton_cancel}" id="btnCancelar" onclick="formula.hide()"></p:commandButton>
+        	</h:panelGrid>
+    	</p:dialog> 
+    	</h:form>
+		
+	</ui:define>
+</ui:composition>
