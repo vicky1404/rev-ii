@@ -41,6 +41,11 @@ public class MantenedoresTipoServiceBean implements MantenedoresTipoServiceLocal
         return entity;
     }
     
+    public void deleteTipoCuadro(TipoCuadro entity) throws Exception {
+    	TipoCuadro tipoCuadro = em.find(TipoCuadro.class, entity.getIdTipoCuadro());
+    	em.remove(tipoCuadro);
+    }
+    
     /**
      * @return
      */
@@ -101,6 +106,17 @@ public class MantenedoresTipoServiceBean implements MantenedoresTipoServiceLocal
     public List<TipoCuadro> findAllTipoCuadro(){
        return em.createNamedQuery(TipoCuadro.FIND_ALL).getResultList();       
     }
+    
+    /**
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+   	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public List<TipoCuadro> findByFiltro(TipoCuadro tipoCuadro){
+       return em.createNamedQuery(TipoCuadro.FIND_BY_FILTRO)
+    		   .setParameter("nombre", tipoCuadro.getNombre() != null ? "%" + tipoCuadro.getNombre().toLowerCase() + "%" : null) 
+    		   .setParameter("titulo", tipoCuadro.getTitulo() != null ?  "%" + tipoCuadro.getTitulo().toLowerCase() + "%": null) .getResultList();       
+    }
 
     /*Metodos para EstadoCuadro*/
     @SuppressWarnings("unchecked")
@@ -108,4 +124,6 @@ public class MantenedoresTipoServiceBean implements MantenedoresTipoServiceLocal
     public List<EstadoCuadro> findAllEstadoCuadro(){
         return em.createNamedQuery(EstadoCuadro.FIND_ALL).getResultList();       
     }
+    
+	    
 }

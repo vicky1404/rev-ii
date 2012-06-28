@@ -20,6 +20,8 @@ public interface MantenedoresTipoServiceLocal {
     
     Object persistEntity(Object entity);
     
+    void deleteTipoCuadro(TipoCuadro entity) throws Exception;
+    
     List<Periodo> findAllPeriodo();
     
     Periodo findByPeriodo(Long periodo) throws Exception;
@@ -33,4 +35,6 @@ public interface MantenedoresTipoServiceLocal {
     List<TipoCuadro> findAllTipoCuadro();
     
     List<EstadoCuadro> findAllEstadoCuadro();
+    
+    List<TipoCuadro> findByFiltro(TipoCuadro tipoCuadro) ;
 }

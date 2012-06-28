@@ -5,23 +5,32 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import cl.mdr.ifrs.ejb.common.Constantes;
 
 
 @Entity
-@NamedQueries( { @NamedQuery(name = TipoCuadro.FIND_ALL, query = "select o from TipoCuadro o order by o.nombre asc") })
+@NamedQueries( { 
+					@NamedQuery(name = TipoCuadro.FIND_ALL, query = "select o from TipoCuadro o order by o.idTipoCuadro asc"), 
+					@NamedQuery(name = TipoCuadro.FIND_BY_FILTRO, query = "select o from TipoCuadro o where (:nombre = null or lower(o.nombre) like :nombre) and (:titulo = null or lower(o.titulo) like :titulo) order by o.idTipoCuadro asc")
+
+})
 @Table(name = Constantes.TIPO_CUADRO)
 public class TipoCuadro implements Serializable {
     private static final long serialVersionUID = -960337295716773306L;
     
     public static final String FIND_ALL = "TipoCuadro.findAll";
+    public static final String FIND_BY_FILTRO = "TipoCuadro.findByFiltro";
     
     @Id
+    @GeneratedValue(generator="ID_GEN_TIPO_CUADRO")
+    @SequenceGenerator(name="ID_GEN_TIPO_CUADRO", sequenceName = "SEQ_TIPO_CUADRO" ,allocationSize = 1)
     @Column(name = "ID_TIPO_CUADRO", nullable = false)
     private Long idTipoCuadro;
     @Column(nullable = false, length = 256)
