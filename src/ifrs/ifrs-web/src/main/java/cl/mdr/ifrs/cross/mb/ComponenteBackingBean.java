@@ -201,7 +201,7 @@ public class ComponenteBackingBean {
      * genera una lista de objetos selectItem para llenar combo de grupos.
      * @return
      */
-    public List<SelectItem> getGrupos(){        
+    public List<SelectItem> getGrupoItems(){        
         List<SelectItem> grupos = new ArrayList<SelectItem>();
         try {
             for (Grupo grupo : this.getGrupoList()) {

@@ -3,10 +3,20 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/main-template.xhtml">
 	<ui:define name="content">
-		<h:form id="f2">  
-			menu por grupo		 
+		<h:form id="f_menu_grupo">  
+			<p:panel id="filtro_menu_grupo" header="#{msg.titulo_mantenedor_menu_por_grupo}" toggleable="true"  closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel">
+				<h:panelGrid columns="2">
+					<h:outputText value="#{msg.label_grupo}:"/>  
+			        <p:selectOneMenu value="">  
+			            <f:selectItem itemLabel="#{msg.label_seleccione}" itemValue="" />  
+			            <f:selectItems value="#{menuPorGrupoBackingBean.componenteBackingBean.grupoItems}" ></f:selectItems>
+			        </p:selectOneMenu>  
+				    <p:commandButton value="#{msg.boton_buscar}"></p:commandButton>
+				</h:panelGrid>
+			</p:panel>	 
 		</h:form>
 	</ui:define>
 </ui:composition>
