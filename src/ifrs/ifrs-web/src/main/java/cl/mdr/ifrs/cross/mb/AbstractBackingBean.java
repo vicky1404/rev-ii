@@ -12,6 +12,9 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import cl.mdr.ifrs.ejb.facade.local.FacadeServiceLocal;
+import cl.mdr.ifrs.modules.mb.GeneradorDisenoBackingBean;
+import cl.mdr.ifrs.modules.mb.GeneradorVersionBackingBean;
+import cl.mdr.ifrs.modules.mb.GeneradorVisualizadorBackingBean;
 
 @ManagedBean
 @ViewScoped
@@ -20,6 +23,40 @@ public abstract class AbstractBackingBean {
 	@ManagedProperty(value="#{componenteBackingBean}")
 	private ComponenteBackingBean componenteBackingBean;
 	
+	@ManagedProperty(value="#{generadorVersion}")
+    private GeneradorVersionBackingBean generadorVersion;
+    
+	@ManagedProperty(value="#{generadorDiseno}")
+    private GeneradorDisenoBackingBean generadorDiseno;
+    
+	@ManagedProperty(value="#{generadorVisualizador}")
+    private GeneradorVisualizadorBackingBean generadorVisualizador;
+	
+	public GeneradorVersionBackingBean getGeneradorVersion() {
+		return generadorVersion;
+	}
+
+	public void setGeneradorVersion(GeneradorVersionBackingBean generadorVersion) {
+		this.generadorVersion = generadorVersion;
+	}
+
+	public GeneradorDisenoBackingBean getGeneradorDiseno() {
+		return generadorDiseno;
+	}
+
+	public void setGeneradorDiseno(GeneradorDisenoBackingBean generadorDiseno) {
+		this.generadorDiseno = generadorDiseno;
+	}
+
+	public GeneradorVisualizadorBackingBean getGeneradorVisualizador() {
+		return generadorVisualizador;
+	}
+
+	public void setGeneradorVisualizador(
+			GeneradorVisualizadorBackingBean generadorVisualizador) {
+		this.generadorVisualizador = generadorVisualizador;
+	}
+
 	@EJB
 	private FacadeServiceLocal facadeService;
 

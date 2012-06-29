@@ -3,19 +3,17 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	template="/WEB-INF/templates/main-template.xhtml"
 	xmlns:p="http://primefaces.org/ui"
 	content='text/html; charset=ISO-8859-1' http-equiv='Content-Type'>
-	<ui:define name="content">
 		<h:form id="fGV">
 		
 		<!--  p:panel header="Seleccion de Tipo de Cuadro y Cuadro" style="width:400px;align:center"-->  
-			<h:panelGrid columns="3" style="margin-bottom:10px" cellpadding="5" >  
+			<h:panelGrid columns="4" style="margin-bottom:10px" cellpadding="5" >  
 				
-				<p:selectOneMenu value="#{generadorVersionBackingBean.tipoCuadro}" effect="fade" label="Tipo de Cuadro">
+				<p:selectOneMenu value="#{generadorVersionBackingBean.tipoCuadro}" effect="fade" label="Tipo de Cuadro" onchange="submit()">
 					<f:selectItem  itemLabel="Seleccione"/>
 	            	<f:selectItems value="#{generadorVersionBackingBean.componenteBackingBean.tipoCuadroItems}" id="si1"/>
-	            	<p:ajax update="ac1" listener="#{generadorVersionBackingBean.tipoCatalogoChangeListener}" />
+	            	<p:ajax listener="#{generadorVersionBackingBean.tipoCatalogoChange}" />
 	        	</p:selectOneMenu> 
 	        	
 	        	<!--  p:ajax  event="change" update="@form" /-->
@@ -23,6 +21,7 @@
 	        	<p:autoComplete value="#{generadorVersionBackingBean.idCatalogo}" id="ac1" completeMethod="#{generadorVersionBackingBean.completeCatalogo}"  var="c" itemLabel="#{c.nombre}" itemValue="#{c.idCatalogo}" dropdown="true" scrollHeight="300"/>
 				
 				<p:commandButton value="Buscar" actionListener="#{generadorVersionBackingBean.buscarListener}" update="dt1,dt2"/>
+	        
 	        </h:panelGrid>
 	        
 	        <p:spacer height="20px;"/>
@@ -73,7 +72,31 @@
         		
 	        </p:dataTable>
 	        
+	        <p:dataTable id="dt3" value="#{generadorVersionBackingBean.estructuraList}" var="row">
+	        	
+	        	<p:column headerText="Orden">
+	        		<h:outputText value="#{row.orden}" />
+	        	</p:column>
+				
+				<p:column headerText="Tipo de Estructura">
+			        <p:selectOneMenu value="#{row.tipoEstructura}"> 
+			        	<f:selectItem  itemLabel="Seleccione" />
+			        	<f:selectItems value="#{generadorVersionBackingBean.componenteBackingBean.tipoEstructuras}" />
+			        </p:selectOneMenu>
+	        	</p:column>
+	        	
+	        	<p:column headerText="Agregar o Eliminar">
+	        		<p:commandLink >
+	        			<p:graphicImage value="../../resources/images/icon/up_ok.png" />  
+	        		</p:commandLink>
+	        		<p:commandLink rendered="#{generadorVersionBackingBean.sizeEstructrua > 1 ? true : false}">
+	        			<p:graphicImage value="../../resources/images/icon/down_ok.png" />  
+	        		</p:commandLink>
+	        	</p:column>
+	        	
+	        </p:dataTable>
+	       
+	        
 		<div align="center"></div>
 		</h:form>
-		</ui:define>
 </ui:composition>
