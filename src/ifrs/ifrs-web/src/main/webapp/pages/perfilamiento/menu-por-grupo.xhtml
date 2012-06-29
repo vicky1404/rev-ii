@@ -6,17 +6,51 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/main-template.xhtml">
 	<ui:define name="content">
-		<h:form id="f_menu_grupo">  
-			<p:panel id="filtro_menu_grupo" header="#{msg.titulo_mantenedor_menu_por_grupo}" toggleable="true"  closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel">
+		<h:form id="f_menu_grupo">
+			<p:panel id="filtro_menu_grupo"
+				header="#{msg.titulo_mantenedor_menu_por_grupo}" toggleable="true"
+				closable="false" toggleSpeed="500" closeSpeed="2000"
+				widgetVar="panel">
 				<h:panelGrid columns="2">
-					<h:outputText value="#{msg.label_grupo}:"/>  
-			        <p:selectOneMenu value="">  
-			            <f:selectItem itemLabel="#{msg.label_seleccione}" itemValue="" />  
-			            <f:selectItems value="#{menuPorGrupoBackingBean.componenteBackingBean.grupoItems}" ></f:selectItems>
-			        </p:selectOneMenu>  
-				    <p:commandButton value="#{msg.boton_buscar}"></p:commandButton>
+					<h:outputText value="#{msg.label_grupo}:" />
+					<p:selectOneMenu value="#{menuPorGrupoBackingBean.grupoSelected}" effect="fade" converter="grupoConverter">
+						<f:selectItem itemLabel="#{msg.label_seleccione}" itemValue="" />						
+						<f:selectItems value="#{menuPorGrupoBackingBean.componenteBackingBean.grupoItems}" />	
+						<p:ajax listener="#{menuPorGrupoBackingBean.grupoChangeListener}" />												
+					</p:selectOneMenu>
+					<p:commandButton value="#{msg.boton_buscar}"
+						actionListener="#{menuPorGrupoBackingBean.buscarMenuPorGrupoAction}"
+						update="tabla_menu" ajax="false" />
 				</h:panelGrid>
-			</p:panel>	 
+			</p:panel>
+			<p:toolbar>
+				<p:toolbarGroup>
+
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:dataTable emptyMessage="#{msg.mensaje_tabla_sin_registros}"
+				value="#{menuPorGrupoBackingBean.grillaMenuList}" id="tabla_menu" var="row">
+				<h:column headerText="Seleccionar" id="c2">
+					<p:selectBooleanCheckbox value="#{row.selected}" id="sel1"
+						label=" " />
+				</h:column>
+				<h:column headerText="Id Menu" id="c3">
+					<h:outputText value="#{row.entity.idMenu}" id="t1"
+						style="#{row.entity.padre ? 'font-weight:bold' : 'a'}" />
+				</h:column>
+				<h:column headerText="Grupo" id="c6">
+					<h:outputText value="#{row.entity.grupo}" id="t4"
+						style="#{row.entity.padre ? 'font-weight:bold' : 'a'}" />
+				</h:column>
+				<h:column headerText="Nombre" id="c4">
+					<h:outputText value="#{row.entity.nombre}" id="t2"
+						style="#{row.entity.padre ? 'font-weight:bold; font-size:11px;' : 'padding-left:10px;'}" />
+				</h:column>
+				<h:column headerText="Url Menu" id="c5">
+					<h:outputText value="#{row.entity.urlMenu}" id="t3"
+						rendered="#{!row.entity.padre}" />
+				</h:column>
+			</p:dataTable>
 		</h:form>
 	</ui:define>
 </ui:composition>

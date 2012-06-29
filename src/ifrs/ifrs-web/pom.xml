@@ -19,7 +19,7 @@
 	        <name>PrimeFaces Maven Repository</name>  
 	        <url>http://repository.primefaces.org</url>  
 	        <layout>default</layout>  
-	    </repository> 
+	    </repository>  
    </repositories>
 
    <dependencies>
@@ -69,11 +69,13 @@
       </dependency>
       
       <!-- Prime faces -->
-      <dependency>
-		<groupId>org.primefaces</groupId>
-		<artifactId>primefaces</artifactId>
-		<version>3.3</version>
-	  </dependency> 
+      <dependency>  
+        <groupId>org.primefaces</groupId>  
+        <artifactId>primefaces</artifactId>  
+        <version>3.3.1</version>  
+      </dependency> 
+      
+      
 
    </dependencies>
 
