@@ -1,6 +1,7 @@
 package cl.mdr.ifrs.modules.mb;
 
 import java.io.Serializable;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import cl.mdr.ifrs.cross.model.CommonGridModel;
 import cl.mdr.ifrs.ejb.entity.Grupo;
 import cl.mdr.ifrs.ejb.entity.Menu;
 import cl.mdr.ifrs.ejb.entity.MenuGrupo;
+import cl.mdr.ifrs.ejb.entity.pk.MenuGrupoPK;
 
 @ManagedBean
 @ViewScoped
@@ -26,9 +28,7 @@ public class MenuPorGrupoBackingBean extends AbstractBackingBean implements Seri
     private List<Menu> menuList;
     private transient List<CommonGridModel<Menu>> grillaMenuList;
     private boolean renderTablaMenu;
-    private Long idGrupoSelected;
-    
-    
+    private String idGrupoSelected;
     	
 	public MenuPorGrupoBackingBean() {
 		super();		
@@ -38,9 +38,8 @@ public class MenuPorGrupoBackingBean extends AbstractBackingBean implements Seri
 	 * @return
 	 */
 	public void buscarMenuPorGrupoAction(ActionEvent event) {
-        try {
-        	System.out.println("grupo selected "+this.getGrupoSelected().getIdGrupoAcceso());
-            this.setGrillaMenuList(this.getMenuByGrupoList(super.getFacadeService().getSeguridadService().findMenuAccesoByGrupo(this.getGrupoSelected()),
+        try {        	
+            this.setGrillaMenuList(this.getMenuByGrupoList(super.getFacadeService().getSeguridadService().findMenuAccesoByGrupo(new Grupo(this.getIdGrupoSelected())),
                                                            super.getFacadeService().getSeguridadService().findMenuFindAll()));
             setRenderTablaMenu(Boolean.TRUE);
         } catch (Exception e) {
@@ -64,7 +63,7 @@ public class MenuPorGrupoBackingBean extends AbstractBackingBean implements Seri
         CommonGridModel<Menu> grillaMenu;
         for (Menu menu : menuAll) {
             grillaMenu = new CommonGridModel<Menu>();
-            grillaMenu.setEntity(menu);
+            grillaMenu.setEntity(menu);            
             for (MenuGrupo menuGrupo : menuGrupoList) {
                 if (EqualsBuilder.reflectionEquals(menu.getIdMenu(), menuGrupo.getMenu().getIdMenu())) {
                     grillaMenu.setSelected(Boolean.TRUE);
@@ -75,6 +74,36 @@ public class MenuPorGrupoBackingBean extends AbstractBackingBean implements Seri
         }
         return grillaMenuList;
     }
+    
+    /**
+     * procesa una lista con los menus asignados al grupo y los persiste en la base de datos
+     * @return
+     */
+    public void guardarMenuGrupoAction(ActionEvent event) {
+        List<MenuGrupo> menuGrupoList = new ArrayList<MenuGrupo>();
+        MenuGrupo menuGrupo = null;  
+        Menu menu = null;
+        try {
+        	final Grupo grupo = super.getFacadeService().getSeguridadService().findJustGrupoById(new Grupo(this.getIdGrupoSelected()));
+            for (CommonGridModel<Menu> grillaMenu : getGrillaMenuList()) {
+                if (grillaMenu.isSelected()) {                    
+                    menuGrupo = new MenuGrupo();
+                    menu = grillaMenu.getEntity();
+                    menuGrupo.setMenu(menu);
+                    menuGrupo.setIdMenu(menu.getIdMenu());
+                    menuGrupo.setGrupo(grupo);
+                    menuGrupo.setIdGrupoAcceso(grupo.getIdGrupoAcceso());
+                    menuGrupoList.add(menuGrupo);
+                }
+            }
+            super.getFacadeService().getSeguridadService().persistMenuGrupo(menuGrupoList, grupo);            
+            super.addInfoMessage("", (MessageFormat.format("Se actualizó correctamente la lista de accesos a los menus para el grupo  {0} ", grupo.getNombre())));
+        } catch (Exception e) {
+            logger.error(e.getCause(), e);
+            addErrorMessage("Error", "Error al agregar accesos al menu");
+        }       
+    }
+    
 
 	public Grupo getGrupoSelected() {
 		return grupoSelected;
@@ -108,11 +137,11 @@ public class MenuPorGrupoBackingBean extends AbstractBackingBean implements Seri
 		this.renderTablaMenu = renderTablaMenu;
 	}
 
-	public Long getIdGrupoSelected() {
+	public String getIdGrupoSelected() {
 		return idGrupoSelected;
 	}
 
-	public void setIdGrupoSelected(Long idGrupoSelected) {
+	public void setIdGrupoSelected(String idGrupoSelected) {
 		this.idGrupoSelected = idGrupoSelected;
 	}
 	
