@@ -20,7 +20,7 @@ import cl.mdr.ifrs.ejb.common.Constantes;
 @Entity
 @Table(name=Constantes.EMPRESA)
 public class Empresa implements Serializable {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2904448285907525542L;
 
 	@Id
 	private Long rut;
