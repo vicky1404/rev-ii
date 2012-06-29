@@ -1,17 +1,24 @@
 package cl.mdr.ifrs.modules.mb;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 
+import org.apache.xalan.trace.SelectionEvent;
+import org.primefaces.component.datatable.DataTable;
+
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
+import cl.mdr.ifrs.ejb.entity.Estructura;
 import cl.mdr.ifrs.ejb.entity.TipoCuadro;
 import cl.mdr.ifrs.ejb.entity.Version;
+import cl.mdr.ifrs.vo.GrillaModelVO;
 
 
 @ManagedBean
@@ -23,7 +30,30 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 	private Long idCatalogo;
 	private List<Catalogo> catalogoList;
 	private List<Version> versionList;
+	private List<Estructura> estructuraList;
+	private boolean almacenado = false;
+	private DataTable estructuraTable;
 	
+	public DataTable getEstructuraTable() {
+		return estructuraTable;
+	}
+
+	public void setEstructuraTable(DataTable estructuraTable) {
+		this.estructuraTable = estructuraTable;
+	}
+
+	public boolean isAlmacenado() {
+		return almacenado;
+	}
+
+	public void setAlmacenado(boolean almacenado) {
+		this.almacenado = almacenado;
+	}
+
+	public void setEstructuraList(List<Estructura> estructuraList) {
+		this.estructuraList = estructuraList;
+	}
+
 	public void buscarListener(ActionEvent event){
 		
 		System.out.println(idCatalogo);
@@ -53,11 +83,11 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 		
 		List<Catalogo> suggestions = new ArrayList<Catalogo>();  
 		
-		if(catalogoList==null)
+		if(getCatalogoList()==null)
 			return suggestions;
 		
         
-        for(Catalogo p : catalogoList) {  
+        for(Catalogo p : getCatalogoList()) {  
         	if(p.getNombre().toUpperCase().indexOf(query.toUpperCase()) >= 0)
                 suggestions.add(p);  
         }  
@@ -79,11 +109,18 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 	}
 
 	public List<Catalogo> getCatalogoList() {
+		
+		if(catalogoList==null)
+			catalogoList = getFacadeService().getCatalogoService().findCatalogoVigenteAll();
+		
 		return catalogoList;
 	}
 	
-	public void tipoCatalogoChangeListener(){
+	public void tipoCatalogoChange(){
 		try{
+			
+			System.out.println("Prueba de metodo");
+			
 			if(tipoCuadro!=null)
 				catalogoList = getFacadeService().getCatalogoService().findCatalogoByFiltro(getNombreUsuario(), tipoCuadro, null, 1L);
 		}catch(Exception e){
@@ -92,8 +129,61 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 		}
 		
 	}
+	
+    public List<Estructura> getEstructuraList() {
+        
+    	if(estructuraList==null){
+        	estructuraList = new ArrayList<Estructura>();
+            Estructura estructura = new Estructura();
+            estructura.setOrden(1L);
+            estructuraList.add(estructura);
+        }
+    	
+        return estructuraList;
+    }
+    
+    public int getSizeEstructrua(){
+        return getEstructuraList().size();
+    }
+    
+    public void agregarTipoEstructuraListener(ActionEvent actionEvent) {
+        setAlmacenado(false);    
+        Estructura estructuraSelected = (Estructura) estructuraTable.getRowData();
+        List<Estructura> estructuras = new ArrayList<Estructura>();
+        Estructura estructura;
+        Long i=0L;
+        
+        Map<Long, GrillaModelVO> grillaModelMap = getGeneradorDiseno().getGrillaModelMap();
+        Map<Long, GrillaModelVO> grillaModelPasoMap = new LinkedHashMap<Long, GrillaModelVO>();
+                
+        for(Estructura estructuraI : getEstructuraList()){
+            i++;
+            
+            if(getGeneradorDiseno().getGrillaModelMap().containsKey(estructuraI.getOrden()))
+                grillaModelPasoMap.put(i, getGeneradorDiseno().getGrillaModelMap().get(estructuraI.getOrden()));
+            else
+                grillaModelPasoMap.put(i, new GrillaModelVO());
+            
+            estructuraI.setOrden(i);
+            estructuras.add(estructuraI);
+
+            if(estructuraI.getOrden().equals(estructuraSelected.getOrden())){                
+                i++;
+                grillaModelPasoMap.put(i, new GrillaModelVO());
+                estructura = new Estructura();
+                estructura.setOrden(i);
+                estructuras.add(estructura);
+            }
+
+        }
+        grillaModelMap.putAll(grillaModelPasoMap);
+        grillaModelPasoMap.clear();
+        setEstructuraList(estructuras);
+    }
+    
 
 	public void setCatalogoList(List<Catalogo> catalogoList) {
+
 		this.catalogoList = catalogoList;
 	}
 
