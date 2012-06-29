@@ -72,31 +72,36 @@
         		
 	        </p:dataTable>
 	        
+	        <p:spacer height="20px;"/>
+	        
 	        <p:dataTable id="dt3" value="#{generadorVersionBackingBean.estructuraList}" var="row">
 	        	
-	        	<p:column headerText="Orden">
+	        	<p:column headerText="Orden" style="text-align:center">
 	        		<h:outputText value="#{row.orden}" />
 	        	</p:column>
 				
-				<p:column headerText="Tipo de Estructura">
-			        <p:selectOneMenu value="#{row.tipoEstructura}"> 
+				<p:column headerText="Tipo de Estructura" style="text-align:center">
+			        <p:selectOneMenu value="#{row.tipoEstructura}" style="width:130px"> 
 			        	<f:selectItem  itemLabel="Seleccione" />
 			        	<f:selectItems value="#{generadorVersionBackingBean.componenteBackingBean.tipoEstructuras}" />
 			        </p:selectOneMenu>
 	        	</p:column>
 	        	
-	        	<p:column headerText="Agregar o Eliminar">
+	        	<p:column headerText="Agregar o Eliminar" style="text-align:center" >
+	        		
 	        		<p:commandLink >
-	        			<p:graphicImage value="../../resources/images/icon/up_ok.png" />  
+	        			<p:graphicImage value="../../resources/images/icon/add.png" />  
 	        		</p:commandLink>
-	        		<p:commandLink rendered="#{generadorVersionBackingBean.sizeEstructrua > 1 ? true : false}">
-	        			<p:graphicImage value="../../resources/images/icon/down_ok.png" />  
+	        		
+	        		<p:spacer width="3px"/>
+	        		
+	        		<p:commandLink rendered="#{generadorVersionBackingBean.sizeEstructrua > 1 ? true : true}">
+	        			<p:graphicImage value="../../resources/images/icon/remove.png" />  
 	        		</p:commandLink>
+	        		
 	        	</p:column>
 	        	
 	        </p:dataTable>
-	       
 	        
-		<div align="center"></div>
 		</h:form>
 </ui:composition>
