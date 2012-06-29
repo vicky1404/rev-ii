@@ -23,7 +23,8 @@ import javax.persistence.Table;
  */
 @Entity
 @NamedQueries( { 
-    @NamedQuery(name = Grupo.FIND_ALL , query = "select o from Grupo o order by o.areaNegocio.nombre asc, o.nombre asc") 
+    @NamedQuery(name = Grupo.FIND_ALL , query = " select new cl.mdr.ifrs.ejb.entity.Grupo(o.idGrupoAcceso, o.nombre, o.accesoBloqueado) " +
+    											" from Grupo o order by o.areaNegocio.nombre asc, o.nombre asc") 
 })
 @Table(name="IFRS_GRUPO")
 public class Grupo implements Serializable {
@@ -92,6 +93,26 @@ public class Grupo implements Serializable {
     
 	public Grupo() {
     }
+	
+	
+
+	public Grupo(String idGrupoAcceso) {
+		super();
+		this.idGrupoAcceso = idGrupoAcceso;
+	}
+	
+	
+
+
+
+	public Grupo(String idGrupoAcceso, String nombre, Long accesoBloqueado) {
+		super();
+		this.idGrupoAcceso = idGrupoAcceso;
+		this.nombre = nombre;
+		this.accesoBloqueado = accesoBloqueado;		
+	}
+
+
 
 	public String getIdGrupoAcceso() {
 		return idGrupoAcceso;

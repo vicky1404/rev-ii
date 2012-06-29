@@ -14,6 +14,7 @@ import javax.persistence.PersistenceContext;
 import cl.mdr.ifrs.ejb.entity.CatalogoGrupo;
 import cl.mdr.ifrs.ejb.entity.Grupo;
 import cl.mdr.ifrs.ejb.entity.Menu;
+import cl.mdr.ifrs.ejb.entity.MenuGrupo;
 import cl.mdr.ifrs.ejb.entity.Usuario;
 import cl.mdr.ifrs.ejb.entity.UsuarioGrupo;
 import cl.mdr.ifrs.ejb.service.local.SeguridadServiceLocal;
@@ -87,14 +88,14 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
         for(MenuGrupo menuGrupo : menuGrupoList) {
             em.persist(menuGrupo);
         }
-    }
+    }*/
     
     @SuppressWarnings("unchecked")
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-    public List<MenuGrupo> findMenuAccesoByGrupo(final String idGrupo) throws Exception {
+    public List<MenuGrupo> findMenuAccesoByGrupo(final Grupo grupo) throws Exception {
         return em.createNamedQuery(MenuGrupo.FIND_BY_GRUPO)
-                 .setParameter("idGrupo", idGrupo).getResultList();
-    }*/
+                 .setParameter("grupo", grupo).getResultList();
+    }
     
     /*estructuras por grupo*/
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
