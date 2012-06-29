@@ -13,43 +13,52 @@
 				widgetVar="panel">
 				<h:panelGrid columns="2">
 					<h:outputText value="#{msg.label_grupo}:" />
-					<p:selectOneMenu value="#{menuPorGrupoBackingBean.grupoSelected}" effect="fade" converter="grupoConverter">
-						<f:selectItem itemLabel="#{msg.label_seleccione}" itemValue="" />						
-						<f:selectItems value="#{menuPorGrupoBackingBean.componenteBackingBean.grupoItems}" />	
-						<p:ajax listener="#{menuPorGrupoBackingBean.grupoChangeListener}" />												
+					<p:selectOneMenu label="#{msg.label_grupo}" value="#{menuPorGrupoBackingBean.idGrupoSelected}"
+						effect="fade" required="true" requiredMessage="#{msg.mensaje_seleccione_valor}">
+						<f:selectItem itemLabel="#{msg.label_seleccione}"  />
+						<f:selectItems value="#{menuPorGrupoBackingBean.componenteBackingBean.grupoList}" var="grupo" itemLabel="#{grupo.nombre}" itemValue="#{grupo.idGrupoAcceso}"/>
+						<!-- f:selectItems value="#{menuPorGrupoBackingBean.componenteBackingBean.grupoItems}" /-->
+						<!-- f:converter converterId="grupoConverter"/-->						
 					</p:selectOneMenu>
 					<p:commandButton value="#{msg.boton_buscar}"
 						actionListener="#{menuPorGrupoBackingBean.buscarMenuPorGrupoAction}"
-						update="tabla_menu" ajax="false" />
+						update="tabla_menu" ajax="true"  >						
+						</p:commandButton>
 				</h:panelGrid>
 			</p:panel>
 			<p:toolbar>
 				<p:toolbarGroup>
-
+					<p:commandButton icon="ui-icon-disk" value="#{msg.boton_guardar_menu_grupo}" id="btnGuardar" actionListener="#{menuPorGrupoBackingBean.guardarMenuGrupoAction}"></p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>
+			<p:separator></p:separator>
 			<p:dataTable emptyMessage="#{msg.mensaje_tabla_sin_registros}"
-				value="#{menuPorGrupoBackingBean.grillaMenuList}" id="tabla_menu" var="row">
-				<h:column headerText="Seleccionar" id="c2">
-					<p:selectBooleanCheckbox value="#{row.selected}" id="sel1"
+				value="#{menuPorGrupoBackingBean.grillaMenuList}" id="tabla_menu"
+				var="row" lazy="false">
+				<p:column headerText="Seleccionar" id="c2" style="text-align:center;">
+					<h:selectBooleanCheckbox value="#{row.selected}"  id="sel1"
 						label=" " />
-				</h:column>
-				<h:column headerText="Id Menu" id="c3">
+				</p:column>
+				<p:column headerText="Id Menu" id="c3">
 					<h:outputText value="#{row.entity.idMenu}" id="t1"
 						style="#{row.entity.padre ? 'font-weight:bold' : 'a'}" />
-				</h:column>
-				<h:column headerText="Grupo" id="c6">
+				</p:column>
+				<p:column headerText="Grupo" id="c6">
 					<h:outputText value="#{row.entity.grupo}" id="t4"
 						style="#{row.entity.padre ? 'font-weight:bold' : 'a'}" />
-				</h:column>
-				<h:column headerText="Nombre" id="c4">
+				</p:column>
+				<p:column headerText="Nombre" id="c4">
 					<h:outputText value="#{row.entity.nombre}" id="t2"
 						style="#{row.entity.padre ? 'font-weight:bold; font-size:11px;' : 'padding-left:10px;'}" />
-				</h:column>
-				<h:column headerText="Url Menu" id="c5">
+				</p:column>
+				<p:column headerText="Url Menu" id="c5">
 					<h:outputText value="#{row.entity.urlMenu}" id="t3"
 						rendered="#{!row.entity.padre}" />
-				</h:column>
+				</p:column>
+				
+				<f:facet name="footer">  
+		            sdasds
+		        </f:facet> 
 			</p:dataTable>
 		</h:form>
 	</ui:define>

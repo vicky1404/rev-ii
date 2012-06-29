@@ -12,6 +12,11 @@
 		<managed-bean-class>cl.mdr.ifrs.cross.mb.MenuBackingBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
+<!-- 	<managed-bean> -->
+<!-- 		<managed-bean-name>menuPorGrupoBackingBean</managed-bean-name> -->
+<!-- 		<managed-bean-class>cl.mdr.ifrs.modules.mb.MenuPorGrupoBackingBean</managed-bean-class> -->
+<!-- 		<managed-bean-scope>session</managed-bean-scope> -->
+<!-- 	</managed-bean> -->
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
