@@ -10,10 +10,13 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 
+import org.apache.log4j.Logger;
 import org.apache.xalan.trace.SelectionEvent;
 import org.primefaces.component.datatable.DataTable;
 
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
+import cl.mdr.ifrs.cross.util.GeneradorDisenoHelper;
+import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
 import cl.mdr.ifrs.ejb.entity.Estructura;
 import cl.mdr.ifrs.ejb.entity.TipoCuadro;
@@ -25,6 +28,8 @@ import cl.mdr.ifrs.vo.GrillaModelVO;
 @ViewScoped
 public class GeneradorVersionBackingBean extends AbstractBackingBean{
 	
+	private transient Logger logger = Logger.getLogger(GeneradorVersionBackingBean.class);
+	
 	private TipoCuadro tipoCuadro;
 	private Catalogo catalogo;
 	private Long idCatalogo;
@@ -33,7 +38,25 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 	private List<Estructura> estructuraList;
 	private boolean almacenado = false;
 	private DataTable estructuraTable;
+	private boolean renderBotonEditar;
+	private boolean renderEstructura;
 	
+	public boolean isRenderEstructura() {
+		return renderEstructura;
+	}
+
+	public void setRenderEstructura(boolean renderEstructura) {
+		this.renderEstructura = renderEstructura;
+	}
+
+	public boolean isRenderBotonEditar() {
+		return renderBotonEditar;
+	}
+
+	public void setRenderBotonEditar(boolean renderBotonEditar) {
+		this.renderBotonEditar = renderBotonEditar;
+	}
+
 	public DataTable getEstructuraTable() {
 		return estructuraTable;
 	}
@@ -95,26 +118,7 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
         return suggestions;  
     }
 	
-	public TipoCuadro getTipoCuadro() {
-		return tipoCuadro;
-	}
-	public void setTipoCuadro(TipoCuadro tipoCuadro) {
-		this.tipoCuadro = tipoCuadro;
-	}
-	public Catalogo getCatalogo() {
-		return catalogo;
-	}
-	public void setCatalogo(Catalogo catalogo) {
-		this.catalogo = catalogo;
-	}
-
-	public List<Catalogo> getCatalogoList() {
-		
-		if(catalogoList==null)
-			catalogoList = getFacadeService().getCatalogoService().findCatalogoVigenteAll();
-		
-		return catalogoList;
-	}
+	
 	
 	public void tipoCatalogoChange(){
 		try{
@@ -181,6 +185,62 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
         setEstructuraList(estructuras);
     }
     
+    /*
+     * Metodo que busca las estructura al hacer clink en el icono cargar
+     */
+    public void buscarEstructuraActionListener(ActionEvent event){
+        
+    	if(Util.esListaValida(getVersionList()) && getVersionList().get(getVersionList().size()-1).getVigencia().equals(1L)){
+            try {
+                
+                Version version = (Version)event.getComponent().getAttributes().get("celda");
+                
+                if(version==null)
+                    return;
+
+                List<Estructura> estructuras = getFacadeService().getEstructuraService().findEstructuraByVersion(version);
+                
+                if(estructuras==null || estructuras.size()==0){
+                        this.setEstructuraList(null);
+                        return;
+                }
+
+                getGeneradorDiseno().setGrillaModelMap(GeneradorDisenoHelper.createGrillaModel(estructuras));
+                
+                setAlmacenado(true);
+                setRenderBotonEditar(false);
+                this.setEstructuraList(estructuras);
+                
+            } catch (Exception e) {
+                addErrorMessage("Error","Error al obtener información");
+                logger.error(e.getMessage(),e);
+            }
+            
+            setRenderEstructura(true);
+        }
+    }
+    
+    public TipoCuadro getTipoCuadro() {
+		return tipoCuadro;
+	}
+	public void setTipoCuadro(TipoCuadro tipoCuadro) {
+		this.tipoCuadro = tipoCuadro;
+	}
+	public Catalogo getCatalogo() {
+		return catalogo;
+	}
+	public void setCatalogo(Catalogo catalogo) {
+		this.catalogo = catalogo;
+	}
+
+	public List<Catalogo> getCatalogoList() {
+		
+		if(catalogoList==null)
+			catalogoList = getFacadeService().getCatalogoService().findCatalogoVigenteAll();
+		
+		return catalogoList;
+	}
+	
 
 	public void setCatalogoList(List<Catalogo> catalogoList) {
 
