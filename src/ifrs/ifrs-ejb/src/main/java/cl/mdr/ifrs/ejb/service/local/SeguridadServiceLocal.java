@@ -61,7 +61,15 @@ public interface SeguridadServiceLocal {
      * @return
      * @throws Exception
      */
-    Grupo findGrupoById(final Grupo grupo) throws Exception;
+    Grupo findGrupoById(Grupo grupo) throws Exception;
+    
+    
+    /**
+     * @param grupo
+     * @return
+     * @throws Exception
+     */
+    Grupo findJustGrupoById(Grupo grupo) throws Exception;
 
 
     /**
@@ -69,7 +77,7 @@ public interface SeguridadServiceLocal {
      * @param grupo
      * @throws Exception
      */
-    //void persistMenuGrupo(List<MenuGrupo> menuGrupoList, Grupo grupo) throws Exception;
+    void persistMenuGrupo(List<MenuGrupo> menuGrupoList, Grupo grupo) throws Exception;
 
     /**
      * @param idGrupo

@@ -20,7 +20,7 @@ import cl.mdr.ifrs.ejb.entity.pk.MenuGrupoPK;
 @Entity
 @NamedQueries({
         @NamedQuery(name = MenuGrupo.FIND_ALL, query = "select o from MenuGrupo o"),        
-        @NamedQuery(name = MenuGrupo.FIND_BY_GRUPO, query = "select o from MenuGrupo o where o.grupo =:grupo"),
+        @NamedQuery(name = MenuGrupo.FIND_BY_GRUPO, query = "select o from MenuGrupo o left join fetch o.menu left join fetch o.grupo where o.grupo =:grupo"),
         @NamedQuery(name = MenuGrupo.DELETE_BY_GRUPO, query = "delete from MenuGrupo o where o.grupo =:grupo")
 })
 @Table(name = Constantes.MENU_GRUPO)
@@ -50,51 +50,38 @@ public class MenuGrupo implements Serializable {
 
     public MenuGrupo() {
     }
+
+	public String getIdGrupoAcceso() {
+		return idGrupoAcceso;
+	}
+
+	public void setIdGrupoAcceso(String idGrupoAcceso) {
+		this.idGrupoAcceso = idGrupoAcceso;
+	}
+
+	public Long getIdMenu() {
+		return idMenu;
+	}
+
+	public void setIdMenu(Long idMenu) {
+		this.idMenu = idMenu;
+	}
+
+	public Menu getMenu() {
+		return menu;
+	}
+
+	public void setMenu(Menu menu) {
+		this.menu = menu;
+	}
+
+	public Grupo getGrupo() {
+		return grupo;
+	}
+
+	public void setGrupo(Grupo grupo) {
+		this.grupo = grupo;
+	}
     
-    public String getIdGrupoAcceso() {
-        return idGrupoAcceso;
-    }
-
-    public void setIdGrupoAcceso(String idGrupoAcceso) {
-        this.idGrupoAcceso = idGrupoAcceso;
-    }
-
-    public Long getIdMenu() {
-        return idMenu;
-    }
-
-    public void setIdMenu(Long idMenu) {
-        this.idMenu = idMenu;
-    }
-
-    public Menu getMenu() {
-        return menu;
-    }
-
-    public void setMenu(Menu menu) {
-        this.menu = menu;
-        if (menu != null) {
-            this.idMenu = menu.getIdMenu();
-        }
-    }
-
-    public void setGrupo(Grupo grupo) {
-        this.grupo = grupo;
-    }
-
-    public Grupo getGrupo() {
-        return grupo;
-    }
     
-    @Override
-    public String toString() {
-        StringBuffer buffer = new StringBuffer();
-        buffer.append(getClass().getName()+"@"+Integer.toHexString(hashCode()));
-        buffer.append('[');
-        buffer.append("idGrupoAcceso=");
-        buffer.append(getIdGrupoAcceso());
-        buffer.append(',');
-        buffer.append(']');
-        return buffer.toString();
-    }
 }

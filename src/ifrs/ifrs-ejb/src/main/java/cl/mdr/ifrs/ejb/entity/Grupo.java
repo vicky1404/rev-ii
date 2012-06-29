@@ -24,13 +24,16 @@ import javax.persistence.Table;
 @Entity
 @NamedQueries( { 
     @NamedQuery(name = Grupo.FIND_ALL , query = " select new cl.mdr.ifrs.ejb.entity.Grupo(o.idGrupoAcceso, o.nombre, o.accesoBloqueado) " +
-    											" from Grupo o order by o.areaNegocio.nombre asc, o.nombre asc") 
+    											" from Grupo o order by o.areaNegocio.nombre asc, o.nombre asc"),
+	@NamedQuery(name = Grupo.FIND_BY_ID , query = " select new cl.mdr.ifrs.ejb.entity.Grupo(o.idGrupoAcceso, o.nombre, o.accesoBloqueado) " +
+												  " from Grupo o where o.idGrupoAcceso =:idGrupoAcceso")
 })
 @Table(name="IFRS_GRUPO")
 public class Grupo implements Serializable {
 	private static final long serialVersionUID = 73024457862453354L;
 
 	public static final String FIND_ALL = "Grupo.findAll";
+	public static final String FIND_BY_ID = "Grupo.findById";
 
 	@Id
 	@Column(name="ID_GRUPO_ACCESO")
@@ -42,7 +45,7 @@ public class Grupo implements Serializable {
 	private String nombre;
 
 	//bi-directional many-to-many association to Catalogo
-    @ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(
 		name="IFRS_CATALOGO_GRUPO"
 		, joinColumns={
@@ -60,7 +63,7 @@ public class Grupo implements Serializable {
 	private AreaNegocio areaNegocio;
 
 	//bi-directional many-to-many association to Empresa
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(
 		name="IFRS_GRUPO_EMPRESA"
 		, joinColumns={

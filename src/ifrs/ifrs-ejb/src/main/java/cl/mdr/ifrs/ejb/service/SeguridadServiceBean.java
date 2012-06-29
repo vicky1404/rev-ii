@@ -74,6 +74,12 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
         return (Grupo) em.createQuery("select g from Grupo g left join fetch g.menus where g =:grupo").setParameter("grupo", grupo).getSingleResult();
     }
     
+    @SuppressWarnings("unchecked")
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public Grupo findJustGrupoById(final Grupo grupo) throws Exception {
+        return (Grupo) em.find(Grupo.class, grupo.getIdGrupoAcceso());
+    }
+    
     
     @SuppressWarnings("unchecked")
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
@@ -81,20 +87,20 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
         return em.createNamedQuery(Menu.FIND_ALL).getResultList();
     }
     
-    /*
+    
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void persistMenuGrupo(final List<MenuGrupo> menuGrupoList, final Grupo grupo) throws Exception {
         em.createNamedQuery(MenuGrupo.DELETE_BY_GRUPO).setParameter("grupo", grupo).executeUpdate();
         for(MenuGrupo menuGrupo : menuGrupoList) {
-            em.persist(menuGrupo);
+            em.merge(menuGrupo);
         }
-    }*/
+    }
     
     @SuppressWarnings("unchecked")
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public List<MenuGrupo> findMenuAccesoByGrupo(final Grupo grupo) throws Exception {
         return em.createNamedQuery(MenuGrupo.FIND_BY_GRUPO)
-                 .setParameter("grupo", grupo).getResultList();
+                 .setParameter("grupo", grupo).getResultList(); 
     }
     
     /*estructuras por grupo*/

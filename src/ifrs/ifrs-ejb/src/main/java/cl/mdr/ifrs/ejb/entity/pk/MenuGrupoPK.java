@@ -2,10 +2,10 @@ package cl.mdr.ifrs.ejb.entity.pk;
 
 import java.io.Serializable;
 
-import java.math.BigDecimal;
-
 public class MenuGrupoPK implements Serializable {
-    private String idGrupoAcceso;
+	private static final long serialVersionUID = 5851436159656134922L;
+	
+	private String idGrupoAcceso;
     private Long idMenu;
 
     public MenuGrupoPK() {
