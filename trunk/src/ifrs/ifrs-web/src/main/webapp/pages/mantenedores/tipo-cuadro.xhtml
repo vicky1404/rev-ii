@@ -5,7 +5,9 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/main-template.xhtml">
+	
 	<ui:define name="content">
+	
 		<h:form id="form">  
 		
 		<p:growl id="messages" />
@@ -41,7 +43,6 @@
 		<p:toolbar style="font-size: 10px; margin-left: auto; margin-right: auto" >
       		<p:toolbarGroup align="left" >
 				<p:commandButton icon="ui-icon-document" value="#{msg.boton_nuevo}" title="#{msg.boton_nuevo}"  type="button" onclick="ingresoRegistro.show()" />
-				<!-- p:commandButton icon="ui-icon-refresh" value="#{msg.boton_editar}" title="#{msg.boton_editar}"  type="button" onclick="formula.show()"/-->
 				<p:commandButton icon="ui-icon-trash" value="#{msg.boton_eliminar}" title="#{msg.boton_eliminar}" action="#{tipoCuadro.eliminar}" update="tabla messages" />
 				
 				<p:separator />				  
@@ -52,7 +53,7 @@
       		</p:toolbarGroup>
    		</p:toolbar>
 		
-		 <p:dataTable value="#{tipoCuadro.lista}" var="row" rowKey="#{row.idTipoCuadro}" editable="true" selection="#{tipoCuadro.selectedTipoCuadro}" selectionMode="single" emptyMessage="#{msg.mensaje_tabla_sin_registros}" id="tabla" paginator="true" rows="5">
+		 <p:dataTable value="#{tipoCuadro.lista}" var="row" rowKey="#{row.idTipoCuadro}" editable="true" selection="#{tipoCuadro.selectedTipoCuadro}" selectionMode="single" emptyMessage="#{msg.mensaje_tabla_sin_registros}" id="tabla" paginator="true" rows="10">
 		 	
 		 	
 		 	<p:ajax event="rowEdit" listener="#{tipoCuadro.editar}" />  
@@ -83,31 +84,54 @@
  				</p:cellEditor>
 		 	</p:column>		
 		 	
-		 	<p:column headerText="#{msg.tabla_cabecera_editar}" id="cEditar" >
-		 		<p:rowEditor id="rEditor"/>
+		 	<p:column headerText="#{msg.tabla_cabecera_editar}" id="cEditar" style="width:5%" >
+		 		
+		 		<p:rowEditor id="rEditor" />
+		 		
+		 		
 		 	</p:column>
+		 
 		 	
 		 </p:dataTable>
 		
 		</h:form>
 		
-		<h:form id="formIngreso">
+		
 		<!--  POP UP -->			 
-		 <p:dialog header="Ingreso" widgetVar="ingresoRegistro" resizable="false"  width="500" showEffect="explode" hideEffect="explode" modal="false" >  
-        	<h:panelGrid id="display" columns="2" cellpadding="4">  
+		 <p:dialog header="Ingreso" widgetVar="ingresoRegistro" id="ingreso"  width="500" resizable="false" showEffect="drop" hideEffect="drop" dynamic="true" modal="false" >
+		 	<h:form id="formIngreso">  
+        	<h:panelGrid id="display" columns="3" cellpadding="4">  
             
-	            <h:outputText value="#{msg.label_nombre}" />  
-	            	<p:inputText value="#{tipoCuadro.nuevoTipoCuadro.nombre}" id="Nombre" label="#{msg.label_nombre}" required="true" >
-	            </p:inputText>	           
+	            <p:outputLabel for="Nombre" value="#{msg.label_nombre}" />  
+	            <p:inputText value="#{tipoCuadro.nuevoTipoCuadro.nombre}" id="Nombre" label="#{msg.label_nombre}" required="true" />
+	            <h:message for="Nombre" id="msgNombre" style="color:red"/>           
 	  
-	            <h:outputText value="#{msg.label_titulo}" />  
-	            <p:inputText value="#{tipoCuadro.nuevoTipoCuadro.titulo}" id="Titulo" label="#{msg.label_titulo}" required="true"/>  
-	  
-	  			<p:commandButton icon="ui-icon-disk" value="#{msg.boton_guardar}" action="#{tipoCuadro.guardar}" id="btnGuardar" update=":form:tabla :form:messages" oncomplete="ingresoRegistro.hide()"></p:commandButton>
+	            <p:outputLabel for="Titulo" value="#{msg.label_titulo}" />  
+	            <p:inputText value="#{tipoCuadro.nuevoTipoCuadro.titulo}" id="Titulo" label="#{msg.label_titulo}" required="true"/>
+	            <h:message for="Titulo" id="msgTitulo" style="color:red"/>	  			
+	  			
+	  			<p:commandButton icon="ui-icon-disk" value="#{msg.boton_guardar}" actionListener="#{tipoCuadro.guardar}" id="btnGuardar" update=":form:tabla :form:messages msgNombre msgTitulo" oncomplete="handleLoginRequest(xhr, status, args)"></p:commandButton>
 	  			<p:commandButton icon="ui-icon-cancel" value="#{msg.boton_cancel}" id="btnCancelar" onclick="ingresoRegistro.hide()"></p:commandButton>
         	</h:panelGrid>
+        	</h:form>
     	</p:dialog> 
-    	</h:form>
+    	<script type="text/javascript">  
+		    function handleLoginRequest(xhr, status, args) {  
+			   
+		        //if(args.validationFailed || !args.loggedIn) {  //Ejemplo de uso en http://www.primefaces.org/showcase/ui/dialogLogin.jsf
+		        if(args.validationFailed ) {
+			      
+		            jQuery('#ingreso').effect("shake", { times:3 }, 100);  
+		        } else { 
+		        	
+		        	ingresoRegistro.hide(); 
+		            //jQuery('#idDeAlgunComponente').fadeOut();  
+		        }  
+		    }  
+		</script> 
+    	
+    	
+    	
 		
 	</ui:define>
 </ui:composition>

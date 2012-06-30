@@ -9,6 +9,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 
 import org.primefaces.event.RowEditEvent;
@@ -76,7 +77,7 @@ public class TipoCuadroBackingBean extends AbstractBackingBean implements Serial
 	}
 	
 
-	public void guardar(){
+	public void guardar(ActionEvent event){
 		servicio.getMantenedoresTipoService().mergeEntity(getNuevoTipoCuadro());
 		super.addInfoMessage(PropertyManager.getInstance().getMessage("mensaje_tabla_guardar_registro"), null );
 		obtenerLista();
