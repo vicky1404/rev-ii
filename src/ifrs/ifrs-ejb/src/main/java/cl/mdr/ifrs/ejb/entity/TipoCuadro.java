@@ -18,7 +18,7 @@ import cl.mdr.ifrs.ejb.common.Constantes;
 @Entity
 @NamedQueries( { 
 					@NamedQuery(name = TipoCuadro.FIND_ALL, query = "select o from TipoCuadro o order by o.idTipoCuadro asc"), 
-					@NamedQuery(name = TipoCuadro.FIND_BY_FILTRO, query = "select o from TipoCuadro o where (:nombre = null or lower(o.nombre) like :nombre) and (:titulo = null or lower(o.titulo) like :titulo) order by o.idTipoCuadro asc")
+					@NamedQuery(name = TipoCuadro.FIND_BY_FILTRO, query = "select o from TipoCuadro o where (:nombre = null or lower(o.nombre) like :nombre) and (:titulo = null or lower(o.titulo) like :titulo) order by o.idTipoCuadro desc")
 
 })
 @Table(name = Constantes.TIPO_CUADRO)
