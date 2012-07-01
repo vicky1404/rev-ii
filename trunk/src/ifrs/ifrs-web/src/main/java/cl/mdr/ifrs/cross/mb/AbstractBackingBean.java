@@ -100,6 +100,22 @@ public abstract class AbstractBackingBean {
 	public void addWarnMessage(String summary, String detail) {
 		addMessage(FacesMessage.SEVERITY_WARN, summary, detail);
 	}
+	
+	public void addErrorMessage(String summary) {
+		addMessage(FacesMessage.SEVERITY_ERROR, summary, null);
+	}
+
+	public void addFatalMessage(String summary) {
+		addMessage(FacesMessage.SEVERITY_FATAL, summary, null);
+	}
+
+	public void addInfoMessage(String summary) {
+		addMessage(FacesMessage.SEVERITY_INFO, summary, null);
+	}
+
+	public void addWarnMessage(String summary) {
+		addMessage(FacesMessage.SEVERITY_WARN, summary, null);
+	}
 
 	private void addMessage(Severity severity, String summary, String detail) {
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(severity, summary, detail));

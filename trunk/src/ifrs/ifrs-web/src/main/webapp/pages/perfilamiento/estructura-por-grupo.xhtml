@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/main-template.xhtml">
+	<ui:define name="content">
+		<h:form id="f2">
+			<p:growl id="messages_estructura_grupo" autoUpdate="true" showDetail="true"
+				showSummary="true" />
+			<p:ajaxStatus onstart="statusDialog.show();"
+				oncomplete="statusDialog.hide();" />
+			<p:dialog modal="true" widgetVar="statusDialog"
+				header="#{msg.titulo_ventana_cargando}" x="30" y="30"
+				draggable="false" close="false">
+				<h:panelGrid columns="2">
+					<h:graphicImage value="/resources/images/img/ajax-loader.gif" />
+					<h:outputText value="#{msg.titulo_ventana_cargando}" />
+				</h:panelGrid>
+			</p:dialog>
+			<p:panel id="filtro_cuadro_grupo"
+				header="#{msg.titulo_mantenedor_estructura_por_grupo}"
+				toggleable="true" closable="false" toggleSpeed="500"
+				closeSpeed="2000" widgetVar="panel">
+				<h:panelGrid columns="3">
+					<p:outputLabel value="#{msg.label_grupo}:" for="sg" />
+					<p:selectOneMenu label="#{msg.label_grupo}" id="sg"
+						value="#{estructuraPorGrupoBackingBean.idGrupoSelected}"
+						required="true" requiredMessage="#{msg.mensaje_seleccione_valor}">
+						<f:selectItem itemLabel="#{msg.label_seleccione}" />
+						<f:selectItems
+							value="#{estructuraPorGrupoBackingBean.componenteBackingBean.grupoList}"
+							var="grupo" itemLabel="#{grupo.nombre}"
+							itemValue="#{grupo.idGrupoAcceso}" />
+					</p:selectOneMenu>
+					<p:message for="sg" />  
+					<p:outputLabel value="#{msg.label_tipo_cuadro}:" for="stc"  />
+					<p:selectOneMenu label="#{msg.label_tipo_cuadro}"
+						converter="tipoCuadroConverter" id="stc"
+						value="#{estructuraPorGrupoBackingBean.tipoCuadroSelected}"
+						required="false" requiredMessage="#{msg.mensaje_seleccione_valor}">
+						<f:selectItem itemLabel="#{msg.label_seleccione}" />
+						<f:selectItems
+							value="#{estructuraPorGrupoBackingBean.componenteBackingBean.tipoCuadroItems}" />
+					</p:selectOneMenu>
+					<p:message for="stc" />  
+					<h:panelGrid columns="2">
+						<h:outputLabel value=" " />
+						<p:commandButton value="#{msg.boton_buscar}"
+							actionListener="#{estructuraPorGrupoBackingBean.buscarEstructurasPorGrupoAction}"
+							update="tabla_menu" ajax="false">
+						</p:commandButton>
+					</h:panelGrid>
+				</h:panelGrid>
+			</p:panel>
+			<br />
+			<p:toolbar rendered="#{estructuraPorGrupoBackingBean.renderTablaCatalogo}">
+				<p:toolbarGroup>
+					<p:commandButton icon="ui-icon-disk"
+						value="#{msg.guardar_estructura_grupo}" id="btnGuardar"
+						actionListener="#{estructuraPorGrupoBackingBean.guardarCatalogoGrupoAction}"
+						update="messages_estructura_grupo">
+					</p:commandButton>
+					<p:separator />
+					<p:commandLink value="Seleccionar Todo"></p:commandLink>
+					<p:separator />
+					<p:commandLink value="No seleccionar Todo"></p:commandLink>
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:dataTable emptyMessage="#{msg.mensaje_tabla_sin_registros}"
+				value="#{estructuraPorGrupoBackingBean.grillaCatalogoList}" id="tabla_catalogo"
+				var="row" lazy="false"
+				rendered="#{estructuraPorGrupoBackingBean.renderTablaCatalogo}">
+				<p:column
+					headerText="#{msg.label_seleccionar}" style="text-align:center;" id="c2" width="100">
+					<h:selectBooleanCheckbox value="#{row.selected}" id="sel1"
+						label=" " />
+				</p:column>
+				<p:column sortable="false" headerText="#{msg.tabla_cabecera_nombre}"
+					align="left" id="c3" width="150">
+					<h:outputText value="#{row.entity.nombre}" id="ot1" />
+				</p:column>
+				<p:column sortable="false" headerText="#{msg.tabla_cabecera_titulo}"
+					align="left" id="c4">
+					<h:outputText value="#{row.entity.titulo}" id="ot2" />
+				</p:column>
+				<p:column sortable="false" headerText="#{msg.label_tipo_cuadro}"
+					align="left" id="c6" rowHeader="unstyled">
+					<h:outputText value="#{row.entity.tipoCuadro.nombre}" id="ot4" />
+				</p:column>
+				<f:facet name="footer">  
+		            <br />
+		        </f:facet>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
