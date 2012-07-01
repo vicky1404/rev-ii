@@ -53,6 +53,7 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
         .getResultList();
     }
     
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public Usuario findUsuarioByUserName(final String userName)throws Exception{
     	return (Usuario) em.createQuery("select u from Usuario u " +
     									"left join fetch u.grupos g " +
@@ -112,6 +113,12 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
         }
     }
     
+    @SuppressWarnings("unchecked")
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public Grupo findGrupoAndCatalogoById(final Grupo grupo) throws Exception {
+        return (Grupo) em.createQuery("select g from Grupo g left join fetch g.catalogos where g =:grupo").setParameter("grupo", grupo).getSingleResult();
+    }
+    
     /*grupo*/
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void mergeGrupoList(final List<Grupo> grupoList) throws Exception {        
@@ -120,6 +127,26 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
         }
     }
     
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void mergeGrupo(final Grupo grupo) throws Exception {               
+        em.merge(grupo);        
+    }
+    
+    /*Usuarios por Grupo*/
+    
+    @SuppressWarnings("unchecked")
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public List<Usuario> findUsuarioByGrupoIn(final Grupo grupo) throws Exception {
+        return em.createQuery("select ug.usuario from UsuarioGrupo ug where ug.grupo =:grupo").setParameter("grupo", grupo).getResultList(); 
+    }
+    
+    @SuppressWarnings("unchecked")
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public List<Usuario> findUsuarioByGrupoNotIn(final Grupo grupo) throws Exception {
+        return em.createQuery("select ug.usuario from UsuarioGrupo ug")
+        		//.setParameter("grupo", grupo)
+        		.getResultList(); 
+    }
         
     
     

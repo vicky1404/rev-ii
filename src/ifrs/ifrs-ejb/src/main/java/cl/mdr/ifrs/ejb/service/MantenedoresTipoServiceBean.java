@@ -117,6 +117,11 @@ public class MantenedoresTipoServiceBean implements MantenedoresTipoServiceLocal
     		   .setParameter("nombre", tipoCuadro.getNombre() != null ? "%" + tipoCuadro.getNombre().toLowerCase() + "%" : null) 
     		   .setParameter("titulo", tipoCuadro.getTitulo() != null ?  "%" + tipoCuadro.getTitulo().toLowerCase() + "%": null) .getResultList();       
     }
+    
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public TipoCuadro findTipoCuadroById(final Long idTipoCuadro) throws Exception{    	
+    	return em.find(TipoCuadro.class, idTipoCuadro);
+    }
 
     /*Metodos para EstadoCuadro*/
     @SuppressWarnings("unchecked")

@@ -37,4 +37,6 @@ public interface MantenedoresTipoServiceLocal {
     List<EstadoCuadro> findAllEstadoCuadro();
     
     List<TipoCuadro> findByFiltro(TipoCuadro tipoCuadro) ;
+    
+    TipoCuadro findTipoCuadroById(final Long idTipoCuadro) throws Exception;
 }

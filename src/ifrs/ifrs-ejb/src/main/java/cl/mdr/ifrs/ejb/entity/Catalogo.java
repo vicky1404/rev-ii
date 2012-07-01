@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -31,7 +30,9 @@ import cl.mdr.ifrs.ejb.common.Constantes;
                              query = "select o from Catalogo o where o.vigencia = 0 order by o.orden"),
                  
                  @NamedQuery(name = Catalogo.CATALOGO_FIND_ALL_VIGENTE_BY_TIPO,
-                             query = "select o from Catalogo o where (:tipoCuadro is null or o.tipoCuadro.idTipoCuadro = :tipoCuadro) and o.vigencia = 1 order by o.orden"),
+                            //TODO Solucionar problema Caused by: java.sql.SQLSyntaxErrorException: ORA-00932: tipos de dato inconsistentes: se esperaba NUMBER se ha obtenido BINARY
+                 			query = "select o from Catalogo o where (:tipoCuadro is null or o.tipoCuadro.idTipoCuadro = :tipoCuadro) and o.vigencia = 1 order by o.orden"),
+                            //query = "select o from Catalogo o where (o.tipoCuadro.idTipoCuadro = 1) and o.vigencia = 1 order by o.orden"),
                  
                  @NamedQuery(name = Catalogo.CATALOGO_FIND_ALL_BY_TIPO,
                              query = "select o from Catalogo o where (:tipoCuadro is null or o.tipoCuadro.idTipoCuadro = :tipoCuadro) and (:vigente is null or o.vigencia = :vigente) order by o.orden"),
@@ -40,18 +41,18 @@ import cl.mdr.ifrs.ejb.common.Constantes;
                              query = "select o from Catalogo o where o = :nota"),
                  
                 @NamedQuery(name = Catalogo.CATALOGO_FIND_BY_FILTRO,
+                		//TODO Solucionar problema Caused by: java.sql.SQLSyntaxErrorException: ORA-00932: tipos de dato inconsistentes: se esperaba NUMBER se ha obtenido BINARY
                              query = " select distinct c from Catalogo c , " +
                              		 " CatalogoGrupo cg, " +
                              		 " UsuarioGrupo ug, " +
                              		 " TipoCuadro tc "+
-                             		 " where c.idCatalogo = cg.idCatalogo " +
-                             		 " and ug.grupo = cg.grupo " +
+                             		 " where c.idCatalogo = cg.idCatalogo " +                             		
                              		 " and c.tipoCuadro.idTipoCuadro = tc.idTipoCuadro "+
                              		 " and (:usuario is null or ug.nombreUsuario = :usuario) " +
-                             		// " and (:tipoCuadro is null or c.tipoCuadro = :tipoCuadro) " +
+                             		 " and (:tipoCuadro is null or c.tipoCuadro.idTipoCuadro = :tipoCuadro) " +                             		 
                              		 " and (:grupo is null or cg.grupo = :grupo) " +
                              		 " and (:vigencia is null or c.vigencia = :vigencia) " +
-                             		 " and c.vigencia = 1 order by c.orden asc") 
+                             		 " order by c.orden asc" ) 
 
 })
 @Table(name = Constantes.CATALOGO)
