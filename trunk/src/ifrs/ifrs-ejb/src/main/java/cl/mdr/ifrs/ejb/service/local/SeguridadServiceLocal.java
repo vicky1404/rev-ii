@@ -98,5 +98,35 @@ public interface SeguridadServiceLocal {
      * @throws Exception
      */
     void mergeGrupoList(List<Grupo> grupoList) throws Exception;
+    
+    
+    /**
+     * @param grupo
+     * @throws Exception
+     */
+    void mergeGrupo(final Grupo grupo) throws Exception;
+    
+    
+    /**
+     * @param grupo
+     * @return
+     * @throws Exception
+     */
+    Grupo findGrupoAndCatalogoById(Grupo grupo) throws Exception;
+    
+    
+    /**
+     * @param grupo
+     * @return
+     * @throws Exception
+     */
+    List<Usuario> findUsuarioByGrupoIn(Grupo grupo) throws Exception;
+    
+    /**
+     * @param grupo
+     * @return
+     * @throws Exception
+     */
+    List<Usuario> findUsuarioByGrupoNotIn(Grupo grupo) throws Exception;
         
 }
