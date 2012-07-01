@@ -25,6 +25,7 @@ import cl.mdr.ifrs.ejb.entity.pk.MenuGrupoPK;
 })
 @Table(name = Constantes.MENU_GRUPO)
 @IdClass(MenuGrupoPK.class)
+
 public class MenuGrupo implements Serializable {    
     private static final long serialVersionUID = 1355801743738463444L;
         
