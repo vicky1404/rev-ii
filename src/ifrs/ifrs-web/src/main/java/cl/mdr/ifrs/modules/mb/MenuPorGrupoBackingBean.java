@@ -10,18 +10,18 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.log4j.Logger;
 
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
 import cl.mdr.ifrs.cross.model.CommonGridModel;
 import cl.mdr.ifrs.ejb.entity.Grupo;
 import cl.mdr.ifrs.ejb.entity.Menu;
 import cl.mdr.ifrs.ejb.entity.MenuGrupo;
-import cl.mdr.ifrs.ejb.entity.pk.MenuGrupoPK;
 
 @ManagedBean
 @ViewScoped
 public class MenuPorGrupoBackingBean extends AbstractBackingBean implements Serializable {
-	private transient org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(this.getClass().getName());
+	private transient Logger logger = Logger.getLogger(this.getClass().getName());
 	private static final long serialVersionUID = -6662762316008127812L;
 	
 	private Grupo grupoSelected;
@@ -41,7 +41,7 @@ public class MenuPorGrupoBackingBean extends AbstractBackingBean implements Seri
         try {        	
             this.setGrillaMenuList(this.getMenuByGrupoList(super.getFacadeService().getSeguridadService().findMenuAccesoByGrupo(new Grupo(this.getIdGrupoSelected())),
                                                            super.getFacadeService().getSeguridadService().findMenuFindAll()));
-            setRenderTablaMenu(Boolean.TRUE);
+            this.setRenderTablaMenu(Boolean.TRUE);
         } catch (Exception e) {
             super.addErrorMessage("Error", "Error al obtener el listado de Menus");
             logger.error(e.getCause(), e);
@@ -79,28 +79,21 @@ public class MenuPorGrupoBackingBean extends AbstractBackingBean implements Seri
      * procesa una lista con los menus asignados al grupo y los persiste en la base de datos
      * @return
      */
-    public void guardarMenuGrupoAction(ActionEvent event) {
-        List<MenuGrupo> menuGrupoList = new ArrayList<MenuGrupo>();
-        MenuGrupo menuGrupo = null;  
-        Menu menu = null;
+    public void guardarMenuGrupoAction(ActionEvent event) {       
+        List<Menu> menus = new ArrayList<Menu>();                  
         try {
-        	final Grupo grupo = super.getFacadeService().getSeguridadService().findJustGrupoById(new Grupo(this.getIdGrupoSelected()));
+        	final Grupo grupo = super.getFacadeService().getSeguridadService().findGrupoById(new Grupo(this.getIdGrupoSelected()));
             for (CommonGridModel<Menu> grillaMenu : getGrillaMenuList()) {
-                if (grillaMenu.isSelected()) {                    
-                    menuGrupo = new MenuGrupo();
-                    menu = grillaMenu.getEntity();
-                    menuGrupo.setMenu(menu);
-                    menuGrupo.setIdMenu(menu.getIdMenu());
-                    menuGrupo.setGrupo(grupo);
-                    menuGrupo.setIdGrupoAcceso(grupo.getIdGrupoAcceso());
-                    menuGrupoList.add(menuGrupo);
+                if (grillaMenu.isSelected()) {
+                	menus.add(grillaMenu.getEntity());                    
                 }
             }
-            super.getFacadeService().getSeguridadService().persistMenuGrupo(menuGrupoList, grupo);            
-            super.addInfoMessage("", (MessageFormat.format("Se actualizó correctamente la lista de accesos a los menus para el grupo  {0} ", grupo.getNombre())));
+            grupo.setMenus(menus);            
+            super.getFacadeService().getSeguridadService().mergeGrupo(grupo);
+            super.addInfoMessage("", MessageFormat.format("Se actualizó correctamente la lista de accesos a los menus para el grupo  {0} ", grupo.getNombre() )  );
         } catch (Exception e) {
             logger.error(e.getCause(), e);
-            addErrorMessage("Error", "Error al agregar accesos al menu");
+            super.addErrorMessage("Error", "Error al agregar accesos al menu");
         }       
     }
     

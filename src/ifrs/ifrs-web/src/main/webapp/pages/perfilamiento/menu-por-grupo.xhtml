@@ -7,36 +7,60 @@
 	template="/WEB-INF/templates/main-template.xhtml">
 	<ui:define name="content">
 		<h:form id="f_menu_grupo">
+			<p:growl id="messages_menu_grupo" autoUpdate="true" showDetail="true"
+				showSummary="true" />
+			<p:ajaxStatus onstart="statusDialog.show();"
+				oncomplete="statusDialog.hide();" />
+			<p:dialog modal="true" widgetVar="statusDialog"
+				header="#{msg.titulo_ventana_cargando}" x="30" y="30"
+				draggable="false" close="false">
+				<h:panelGrid columns="2">
+					<h:graphicImage value="/resources/images/img/ajax-loader.gif" />
+					<h:outputText value="#{msg.titulo_ventana_cargando}" />
+				</h:panelGrid>
+			</p:dialog>
 			<p:panel id="filtro_menu_grupo"
 				header="#{msg.titulo_mantenedor_menu_por_grupo}" toggleable="true"
 				closable="false" toggleSpeed="500" closeSpeed="2000"
 				widgetVar="panel">
 				<h:panelGrid columns="2">
 					<h:outputText value="#{msg.label_grupo}:" />
-					<p:selectOneMenu label="#{msg.label_grupo}" value="#{menuPorGrupoBackingBean.idGrupoSelected}"
-						effect="fade" required="true" requiredMessage="#{msg.mensaje_seleccione_valor}">
-						<f:selectItem itemLabel="#{msg.label_seleccione}"  />
-						<f:selectItems value="#{menuPorGrupoBackingBean.componenteBackingBean.grupoList}" var="grupo" itemLabel="#{grupo.nombre}" itemValue="#{grupo.idGrupoAcceso}"/>
-						<!-- f:selectItems value="#{menuPorGrupoBackingBean.componenteBackingBean.grupoItems}" /-->
-						<!-- f:converter converterId="grupoConverter"/-->						
+					<p:selectOneMenu label="#{msg.label_grupo}"
+						value="#{menuPorGrupoBackingBean.idGrupoSelected}" required="true"
+						requiredMessage="#{msg.mensaje_seleccione_valor}">
+						<f:selectItem itemLabel="#{msg.label_seleccione}" />
+						<f:selectItems
+							value="#{menuPorGrupoBackingBean.componenteBackingBean.grupoList}"
+							var="grupo" itemLabel="#{grupo.nombre}"
+							itemValue="#{grupo.idGrupoAcceso}" />
 					</p:selectOneMenu>
 					<p:commandButton value="#{msg.boton_buscar}"
 						actionListener="#{menuPorGrupoBackingBean.buscarMenuPorGrupoAction}"
-						update="tabla_menu" ajax="true"  >						
-						</p:commandButton>
+						update="tabla_menu" ajax="false">
+					</p:commandButton>
 				</h:panelGrid>
 			</p:panel>
-			<p:toolbar>
+			<br />
+			<p:toolbar rendered="#{menuPorGrupoBackingBean.renderTablaMenu}">
 				<p:toolbarGroup>
-					<p:commandButton icon="ui-icon-disk" value="#{msg.boton_guardar_menu_grupo}" id="btnGuardar" actionListener="#{menuPorGrupoBackingBean.guardarMenuGrupoAction}"></p:commandButton>
+					<p:commandButton icon="ui-icon-disk"
+						value="#{msg.boton_guardar_menu_grupo}" id="btnGuardar"
+						actionListener="#{menuPorGrupoBackingBean.guardarMenuGrupoAction}"
+						update="messages_menu_grupo">
+					</p:commandButton>
+					<p:separator />
+					<p:commandLink value="Seleccionar Todo"></p:commandLink>
+					<p:separator />
+					<p:commandLink value="No seleccionar Todo"></p:commandLink>
 				</p:toolbarGroup>
 			</p:toolbar>
-			<p:separator></p:separator>
 			<p:dataTable emptyMessage="#{msg.mensaje_tabla_sin_registros}"
 				value="#{menuPorGrupoBackingBean.grillaMenuList}" id="tabla_menu"
-				var="row" lazy="false">
-				<p:column headerText="Seleccionar" id="c2" style="text-align:center;">
-					<h:selectBooleanCheckbox value="#{row.selected}"  id="sel1"
+				var="row" lazy="false"
+				rendered="#{menuPorGrupoBackingBean.renderTablaMenu}">
+				<p:column headerText="#{msg.label_seleccionar}" id="c2"
+					style="text-align:center;">
+					<h:selectBooleanCheckbox value="#{row.selected}" id="sel1"
 						label=" " />
 				</p:column>
 				<p:column headerText="Id Menu" id="c3">
@@ -49,16 +73,15 @@
 				</p:column>
 				<p:column headerText="Nombre" id="c4">
 					<h:outputText value="#{row.entity.nombre}" id="t2"
-						style="#{row.entity.padre ? 'font-weight:bold; font-size:11px;' : 'padding-left:10px;'}" />
+						style="#{row.entity.padre ? 'font-weight:bold;' : 'padding-left:10px;'}" />
 				</p:column>
 				<p:column headerText="Url Menu" id="c5">
 					<h:outputText value="#{row.entity.urlMenu}" id="t3"
 						rendered="#{!row.entity.padre}" />
 				</p:column>
-				
 				<f:facet name="footer">  
-		            sdasds
-		        </f:facet> 
+		            <br />
+		        </f:facet>
 			</p:dataTable>
 		</h:form>
 	</ui:define>

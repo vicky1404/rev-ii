@@ -23,7 +23,7 @@
 			</p:tab>
 			
 			<c:forEach items="${menuBackingBean.menuModelList}" var="row" varStatus="status">
-				<p:tab title="#{row.menuParent.nombre}" id="m2_${status.count}">
+				<p:tab title="#{row.menuParent.nombre}" id="m2_${status.count}">					
 					<ul>
 						<ui:repeat var="rowChild" value="#{row.menuChild}">							
 							<li style="margin-left:-40px;">

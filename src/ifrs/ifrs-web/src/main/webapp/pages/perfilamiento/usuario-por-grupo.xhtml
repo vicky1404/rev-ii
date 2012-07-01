@@ -3,10 +3,57 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/main-template.xhtml">
 	<ui:define name="content">
-		<h:form id="f1">  
-			usuario por grupo		 
+		<h:form id="f_usuario_grupo">
+			<p:growl id="messages_usuario_grupo" autoUpdate="true"
+				showDetail="true" showSummary="true" />
+			<p:ajaxStatus onstart="statusDialog.show();"
+				oncomplete="statusDialog.hide();" />
+			<p:dialog modal="true" widgetVar="statusDialog"
+				header="#{msg.titulo_ventana_cargando}" x="30" y="30"
+				draggable="false" close="false">
+				<h:panelGrid columns="2">
+					<h:graphicImage value="/resources/images/img/ajax-loader.gif" />
+					<h:outputText value="#{msg.titulo_ventana_cargando}" />
+				</h:panelGrid>
+			</p:dialog>
+			<p:panel id="filtro_usuario_grupo"
+				header="#{msg.titulo_mantenedor_usuario_por_grupo}"
+				toggleable="true" closable="false" toggleSpeed="500"
+				closeSpeed="2000" widgetVar="panel">
+				<h:panelGrid columns="2">
+					<h:outputText value="#{msg.label_grupo}:" />
+					<p:selectOneMenu label="#{msg.label_grupo}"
+						value="#{usuarioPorGrupoBackingBean.idGrupoSelected}"
+						required="true" requiredMessage="#{msg.mensaje_seleccione_valor}">
+						<f:selectItem itemLabel="#{msg.label_seleccione}" />
+						<f:selectItems
+							value="#{usuarioPorGrupoBackingBean.componenteBackingBean.grupoList}"
+							var="grupo" itemLabel="#{grupo.nombre}"
+							itemValue="#{grupo.idGrupoAcceso}" />
+					</p:selectOneMenu>
+					<p:commandButton value="#{msg.boton_buscar}"
+						actionListener="#{usuarioPorGrupoBackingBean.buscarUsuarioPorGrupoAction}"
+						update="tabla_menu" ajax="false">
+					</p:commandButton>
+				</h:panelGrid>
+			</p:panel>
+			<br />
+			<p:panel id="pickList_usuario_grupo" header="Anadir Usuarios al Grupo"				
+				toggleable="false" closable="false" toggleSpeed="500"
+				closeSpeed="2000" widgetVar="panel" rendered="#{usuarioPorGrupoBackingBean.renderDualList}">
+				
+				<p:pickList id="pickList"
+					value="#{usuarioPorGrupoBackingBean.dualListModelUsuarios}"
+					var="usuario"
+					rendered="#{usuarioPorGrupoBackingBean.renderDualList}"
+					itemLabel="#{usuario}" itemValue="#{usuario}" >
+					<f:facet name="sourceCaption">#{msg.label_todos_los_usuarios}</f:facet>
+					<f:facet name="targetCaption">#{msg.label_usuarios_en_grupo}</f:facet>
+				</p:pickList>
+			</p:panel>
 		</h:form>
 	</ui:define>
 </ui:composition>
