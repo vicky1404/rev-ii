@@ -17,7 +17,7 @@
   		<table border="0" width="40%">
   		<tr>
   			<td>
-  				<h:outputLabel value="#{msg.label_nombre}"/>
+  				<p:outputLabel value="#{msg.label_nombre}" for="bNombre"/>
   			</td>
   			<td>
   				<p:inputText value="#{tipoCuadro.filtro.nombre}" id="bNombre">
@@ -27,7 +27,7 @@
   		</tr>
   		<tr>
   			<td>
-  				<h:outputLabel value="#{msg.label_titulo}"/>
+  				<p:outputLabel value="#{msg.label_titulo}" for="bTitulo"/>
   			</td>
   			<td>
   				<p:inputText value="#{tipoCuadro.filtro.titulo}" id="bTitulo">
@@ -85,12 +85,8 @@
 		 	</p:column>		
 		 	
 		 	<p:column headerText="#{msg.tabla_cabecera_editar}" id="cEditar" style="width:5%" >
-		 		
 		 		<p:rowEditor id="rEditor" />
-		 		
-		 		
 		 	</p:column>
-		 
 		 	
 		 </p:dataTable>
 		
@@ -115,6 +111,7 @@
         	</h:panelGrid>
         	</h:form>
     	</p:dialog> 
+    	
     	<script type="text/javascript">  
 		    function handleLoginRequest(xhr, status, args) {  
 			   
@@ -123,15 +120,13 @@
 			      
 		            jQuery('#ingreso').effect("shake", { times:3 }, 100);  
 		        } else { 
+
 		        	
 		        	ingresoRegistro.hide(); 
 		            //jQuery('#idDeAlgunComponente').fadeOut();  
 		        }  
 		    }  
 		</script> 
-    	
-    	
-    	
 		
 	</ui:define>
 </ui:composition>

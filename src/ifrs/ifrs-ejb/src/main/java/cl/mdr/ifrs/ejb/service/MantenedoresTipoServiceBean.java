@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import cl.mdr.ifrs.ejb.entity.Catalogo;
 import cl.mdr.ifrs.ejb.entity.EstadoCuadro;
 import cl.mdr.ifrs.ejb.entity.Periodo;
 import cl.mdr.ifrs.ejb.entity.TipoCelda;
@@ -44,6 +45,11 @@ public class MantenedoresTipoServiceBean implements MantenedoresTipoServiceLocal
     public void deleteTipoCuadro(TipoCuadro entity) throws Exception {
     	TipoCuadro tipoCuadro = em.find(TipoCuadro.class, entity.getIdTipoCuadro());
     	em.remove(tipoCuadro);
+    }
+    
+    public void deleteCuadro(Catalogo entity) throws Exception {
+    	Catalogo cuadro = em.find(Catalogo.class, entity.getIdCatalogo());
+    	em.remove(cuadro);
     }
     
     /**

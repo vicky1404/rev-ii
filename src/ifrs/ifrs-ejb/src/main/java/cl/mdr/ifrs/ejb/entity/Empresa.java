@@ -5,10 +5,18 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.FetchProfile;
 
 import cl.mdr.ifrs.ejb.common.Constantes;
 
@@ -18,8 +26,14 @@ import cl.mdr.ifrs.ejb.common.Constantes;
  * 
  */
 @Entity
+@NamedQueries( { @NamedQuery(name = Empresa.EMPRESA_FIND_ALL, 
+query = "select o from Empresa o order by o.razonSocial")
+})
 @Table(name=Constantes.EMPRESA)
 public class Empresa implements Serializable {
+	
+	public static final String EMPRESA_FIND_ALL = "Empresa.findAll";
+	
 	private static final long serialVersionUID = 2904448285907525542L;
 
 	@Id
@@ -34,8 +48,8 @@ public class Empresa implements Serializable {
 	@Column(name="RAZON_SOCIAL")
 	private String razonSocial;
 
-	//bi-directional many-to-one association to Catalogo
-	@OneToMany(mappedBy="empresa")
+	//bi-directional many-to-one association to Catalogo	
+	@OneToMany(mappedBy="empresa")	
 	private List<Catalogo> catalogos;
 
 	//bi-directional many-to-many association to Grupo
@@ -43,6 +57,11 @@ public class Empresa implements Serializable {
 	private List<Grupo> grupos;
 
     public Empresa() {
+    }
+    
+    public Empresa(Long rut) {
+    	super();
+    	this.rut = rut;
     }
 
 	public Long getRut() {
