@@ -40,8 +40,13 @@ public class TipoCuadro implements Serializable {
 
     public TipoCuadro() {
     }
+    
+    public TipoCuadro(Long idTipoCuadro) {
+		super();
+		this.idTipoCuadro = idTipoCuadro;
+	}
 
-    public TipoCuadro(Long idTipoCuadro, String nombre, String titulo) {
+	public TipoCuadro(Long idTipoCuadro, String nombre, String titulo) {
         this.idTipoCuadro = idTipoCuadro;
         this.nombre = nombre;
         this.titulo = titulo;

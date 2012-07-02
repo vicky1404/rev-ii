@@ -71,6 +71,13 @@ public class Usuario implements Serializable {
 
     public Usuario() {
     }
+    
+	public Usuario(String nombreUsuario) {
+		super();
+		this.nombreUsuario = nombreUsuario;
+	}
+
+
 
 	public String getNombreUsuario() {
 		return nombreUsuario;
