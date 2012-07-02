@@ -41,19 +41,24 @@
 				</h:panelGrid>
 			</p:panel>
 			<br />
-			<p:panel id="pickList_usuario_grupo" header="Anadir Usuarios al Grupo"				
-				toggleable="false" closable="false" toggleSpeed="500"
-				closeSpeed="2000" widgetVar="panel" rendered="#{usuarioPorGrupoBackingBean.renderDualList}">
-				
+			<p:fieldset legend="#{msg.titulo_agregar_usuarios_grupo}"
+				id="fieldset_usuario_grupo"
+				rendered="#{usuarioPorGrupoBackingBean.renderDualList}"
+				>
 				<p:pickList id="pickList"
 					value="#{usuarioPorGrupoBackingBean.dualListModelUsuarios}"
 					var="usuario"
 					rendered="#{usuarioPorGrupoBackingBean.renderDualList}"
-					itemLabel="#{usuario}" itemValue="#{usuario}" >
+					itemLabel="#{usuario}" itemValue="#{usuario}"
+					addAllLabel="#{msg.label_agregar_todos}"
+					removeAllLabel="#{msg.label_remover_todos}" removeLabel="#{msg.label_remover}" addLabel="#{msg.boton_agregar}">
 					<f:facet name="sourceCaption">#{msg.label_todos_los_usuarios}</f:facet>
 					<f:facet name="targetCaption">#{msg.label_usuarios_en_grupo}</f:facet>
 				</p:pickList>
-			</p:panel>
+				<h:panelGrid>
+					<p:commandButton value="#{msg.boton_guardar}" actionListener="#{usuarioPorGrupoBackingBean.guardarUsuarioPorGrupoAction}"></p:commandButton>
+				</h:panelGrid>
+			</p:fieldset>
 		</h:form>
 	</ui:define>
 </ui:composition>
