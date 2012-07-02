@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import cl.mdr.ifrs.ejb.entity.Catalogo;
 import cl.mdr.ifrs.ejb.entity.EstadoCuadro;
 import cl.mdr.ifrs.ejb.entity.Periodo;
 import cl.mdr.ifrs.ejb.entity.TipoCelda;
@@ -21,6 +22,8 @@ public interface MantenedoresTipoServiceLocal {
     Object persistEntity(Object entity);
     
     void deleteTipoCuadro(TipoCuadro entity) throws Exception;
+    
+    void deleteCuadro(Catalogo entity) throws Exception;
     
     List<Periodo> findAllPeriodo();
     

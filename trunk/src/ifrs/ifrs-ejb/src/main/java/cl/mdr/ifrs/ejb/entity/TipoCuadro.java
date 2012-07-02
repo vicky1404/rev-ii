@@ -30,7 +30,7 @@ public class TipoCuadro implements Serializable {
     
     @Id
     @GeneratedValue(generator="ID_GEN_TIPO_CUADRO")
-    @SequenceGenerator(name="ID_GEN_TIPO_CUADRO", sequenceName = "SEQ_TIPO_CUADRO" ,allocationSize = 1)
+    @SequenceGenerator(name="ID_GEN_TIPO_CUADRO", sequenceName = "SEQ_TIPO_CUADRO")
     @Column(name = "ID_TIPO_CUADRO", nullable = false)
     private Long idTipoCuadro;
     @Column(nullable = false, length = 256)

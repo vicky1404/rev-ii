@@ -35,7 +35,7 @@ import cl.mdr.ifrs.ejb.common.Constantes;
                             //query = "select o from Catalogo o where (o.tipoCuadro.idTipoCuadro = 1) and o.vigencia = 1 order by o.orden"),
                  
                  @NamedQuery(name = Catalogo.CATALOGO_FIND_ALL_BY_TIPO,
-                             query = "select o from Catalogo o where (:tipoCuadro is null or o.tipoCuadro.idTipoCuadro = :tipoCuadro) and (:vigente is null or o.vigencia = :vigente) order by o.orden"),
+                             query = "select o from Catalogo o where (o.tipoCuadro.idTipoCuadro = :tipoCuadro or :tipoCuadro is null ) and (o.vigencia = :vigente or :vigente is null ) order by o.orden"),
                  
                  @NamedQuery(name = Catalogo.CATALOGO_FIND_BY_NOTA,
                              query = "select o from Catalogo o where o = :nota"),

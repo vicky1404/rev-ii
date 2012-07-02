@@ -5,13 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 
+import org.apache.log4j.Logger;
 import org.primefaces.event.RowEditEvent;
 
 
@@ -19,7 +20,7 @@ import org.primefaces.event.RowEditEvent;
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
 import cl.mdr.ifrs.cross.mb.PropertyManager;
 import cl.mdr.ifrs.ejb.entity.TipoCuadro;
-import cl.mdr.ifrs.ejb.facade.local.FacadeServiceLocal;
+
 
 /**
  * @author Manuel Gutierrez C.
@@ -34,9 +35,8 @@ public class TipoCuadroBackingBean extends AbstractBackingBean implements Serial
 	/**
 	 * 
 	 */
+	private static Logger logger = Logger.getLogger(TipoCuadroBackingBean.class);
 	private static final long serialVersionUID = 406193825104693528L;
-	@EJB
-	private FacadeServiceLocal servicio; 
 	private List<TipoCuadro> lista;
 	private TipoCuadro selectedTipoCuadro;
 	private TipoCuadro nuevoTipoCuadro;
@@ -78,14 +78,21 @@ public class TipoCuadroBackingBean extends AbstractBackingBean implements Serial
 	
 
 	public void guardar(ActionEvent event){
-		servicio.getMantenedoresTipoService().mergeEntity(getNuevoTipoCuadro());
-		super.addInfoMessage(PropertyManager.getInstance().getMessage("mensaje_tabla_guardar_registro"), null );
-		obtenerLista();
-		setNuevoTipoCuadro(null);
+		try
+		{
+			getFacadeService().getMantenedoresTipoService().mergeEntity(getNuevoTipoCuadro());
+			super.addInfoMessage(PropertyManager.getInstance().getMessage("mensaje_tabla_guardar_registro"), null );
+			obtenerLista();
+			setNuevoTipoCuadro(null);
+
+		} catch (Exception ex){
+            logger.error(ex);
+            super.addErrorMessage(PropertyManager.getInstance().getMessage("mensaje_error_generico"), null );
+		}
 	}
 	
 	public void editar(RowEditEvent event){
-		servicio.getMantenedoresTipoService().mergeEntity((TipoCuadro) event.getObject());
+		getFacadeService().getMantenedoresTipoService().mergeEntity((TipoCuadro) event.getObject());
 		obtenerLista();
 		setSelectedTipoCuadro(null);
 	}
@@ -94,7 +101,7 @@ public class TipoCuadroBackingBean extends AbstractBackingBean implements Serial
 		
 			
 			try {
-				servicio.getMantenedoresTipoService().deleteTipoCuadro(getSelectedTipoCuadro());
+				getFacadeService().getMantenedoresTipoService().deleteTipoCuadro(getSelectedTipoCuadro());
 				super.addInfoMessage(PropertyManager.getInstance().getMessage("mensaje_tabla_eliminar_registro"), null );
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -134,6 +141,6 @@ public class TipoCuadroBackingBean extends AbstractBackingBean implements Serial
 	}
 	
 	public void obtenerLista(){
-		setLista(servicio.getMantenedoresTipoService().findByFiltro(getFiltro()));
+		setLista(getFacadeService().getMantenedoresTipoService().findByFiltro(getFiltro()));
 	}
 }

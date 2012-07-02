@@ -1,5 +1,6 @@
 package cl.mdr.ifrs.cross.mb;
 
+import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,6 +18,7 @@ import cl.mdr.ifrs.cross.util.UtilBean;
 import cl.mdr.ifrs.ejb.common.TipoImpresionEnum;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
+import cl.mdr.ifrs.ejb.entity.Empresa;
 import cl.mdr.ifrs.ejb.entity.EstadoCuadro;
 import cl.mdr.ifrs.ejb.entity.Grupo;
 import cl.mdr.ifrs.ejb.entity.Periodo;
@@ -29,9 +31,14 @@ import cl.mdr.ifrs.ejb.facade.local.FacadeServiceLocal;
 
 @ManagedBean(name="componenteBackingBean")
 @SessionScoped
-public class ComponenteBackingBean {
+public class ComponenteBackingBean implements Serializable {
 	
-    public static final String BEAN_NAME = "componenteBackingBean";
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4793929287251572773L;
+
+	public static final String BEAN_NAME = "componenteBackingBean";
     
     private transient Logger logger = Logger.getLogger(ComponenteBackingBean.class);
 
@@ -48,6 +55,7 @@ public class ComponenteBackingBean {
     private List<TipoCuadro> tipoCuadroList;
     private List<EstadoCuadro> estadoCuadroList;
     private List<Grupo> grupoList;
+    private List<Empresa> empresaList;
     private List<TipoDato> tipoDatoList;
     private List<Catalogo> catalogoList;
     
@@ -160,7 +168,8 @@ public class ComponenteBackingBean {
     public List<SelectItem> getTipoCuadroItems() {
         List<SelectItem> tipoCuadroItems = new ArrayList<SelectItem>();
         for (TipoCuadro tipoCuadro : getTipoCuadroList()) {
-            tipoCuadroItems.add(new SelectItem(tipoCuadro, Util.capitalizar(tipoCuadro.getNombre())));
+            tipoCuadroItems.add(new SelectItem(tipoCuadro, Util.capitalizar(tipoCuadro.getNombre()))); 
+            
         }
         return tipoCuadroItems;
     }
@@ -212,7 +221,22 @@ public class ComponenteBackingBean {
             //agregarErrorMessage(PropertyManager.getInstance().getMessage("general_mensaje_init_services_error"));
         }
         return grupos;
-    }   
+    }
+
+    
+    public List<SelectItem> getEmpresasItems(){
+    	
+    	 List<SelectItem> empresas = new ArrayList<SelectItem>();
+         try {
+             for (Empresa empresa : this.getEmpresaList()) {
+            	 empresas.add(new SelectItem(empresa, empresa.getRazonSocial()));
+             }
+         } catch (Exception e) {
+             logger.error(e.getMessage(), e);
+             //agregarErrorMessage(PropertyManager.getInstance().getMessage("general_mensaje_init_services_error"));
+         }
+         return empresas;
+    }
     
     /*Metodos accesadores para mantenedores*/
     
@@ -270,6 +294,15 @@ public class ComponenteBackingBean {
             grupoList = getFacade().getSeguridadService().findGruposAll();
         }
         return grupoList;
+    }
+    
+    public List<Empresa> getEmpresaList(){
+    	if (empresaList == null){
+    		empresaList = getFacade().getEmpresaService().findAll();
+    	}
+    	
+    	return empresaList;
+    	
     }
     
     public FacadeServiceLocal getFacade() {
