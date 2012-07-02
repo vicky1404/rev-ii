@@ -42,12 +42,13 @@ public interface SeguridadServiceLocal {
      */
     Usuario findUsuarioByUserName(final String userName)throws Exception;
 
+    
     /**
      * @param usuarioGrupoList
-     * @param usuario
+     * @param grupo
      * @throws Exception
      */
-    void persistUsuarioOidGrupo(List<UsuarioGrupo> usuarioGrupoList, String usuario) throws Exception;
+    void persistUsuarioGrupo(List<UsuarioGrupo> usuarioGrupoList, Grupo grupo) throws Exception;
 
     /**
      * @return
@@ -114,6 +115,12 @@ public interface SeguridadServiceLocal {
      */
     Grupo findGrupoAndCatalogoById(Grupo grupo) throws Exception;
     
+    /**
+     * @param grupo
+     * @return
+     * @throws Exception
+     */
+    Grupo findGrupoAndUsuariosById(Grupo grupo) throws Exception;
     
     /**
      * @param grupo
@@ -128,5 +135,7 @@ public interface SeguridadServiceLocal {
      * @throws Exception
      */
     List<Usuario> findUsuarioByGrupoNotIn(Grupo grupo) throws Exception;
+    
+    List<Usuario> findUsuarioAll() throws Exception;
         
 }

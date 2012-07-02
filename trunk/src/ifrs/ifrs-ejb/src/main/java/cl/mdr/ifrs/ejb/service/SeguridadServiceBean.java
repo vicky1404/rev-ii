@@ -11,6 +11,7 @@ import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import cl.mdr.ifrs.ejb.common.Constantes;
 import cl.mdr.ifrs.ejb.entity.CatalogoGrupo;
 import cl.mdr.ifrs.ejb.entity.Grupo;
 import cl.mdr.ifrs.ejb.entity.Menu;
@@ -38,7 +39,7 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
     }
     
     
-    /*usuario por grupo*/
+    /*Usuarios por Grupo*/
     @SuppressWarnings("unchecked")
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public List<String> findUsuariosDistinctAll()throws Exception{
@@ -61,21 +62,53 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
     }
     
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void persistUsuarioOidGrupo(final List<UsuarioGrupo> usuarioGrupoList, final String usuario) throws Exception {
-        em.createNamedQuery(UsuarioGrupo.DELETE_BY_USUARIO).setParameter("usuarioOid", usuario).executeUpdate();
+    public void persistUsuarioGrupo(final List<UsuarioGrupo> usuarioGrupoList, final Grupo grupo) throws Exception {
+        em.createNamedQuery(UsuarioGrupo.DELETE_BY_GRUPO).setParameter("grupo", grupo).executeUpdate();
         for (UsuarioGrupo usuarioGrupo : usuarioGrupoList) {
-            em.persist(usuarioGrupo);
+            //em.persist(usuarioGrupo);
+        	em.createNativeQuery("INSERT INTO "+Constantes.USUARIO_GRUPO+" (NOMBRE_USUARIO, ID_GRUPO_ACCESO ) VALUES(?, ? )")
+								 .setParameter(1, usuarioGrupo.getUsuario().getNombreUsuario())
+								 .setParameter(2, usuarioGrupo.getGrupo().getIdGrupoAcceso()).executeUpdate();
         }
+    }
+   
+    @SuppressWarnings("unchecked")
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public List<Usuario> findUsuarioByGrupoIn(final Grupo grupo) throws Exception {
+    	return em.createQuery(" select u from Usuario u "+
+							  " where u.nombreUsuario in " +
+							  " (select ug.nombreUsuario " +
+							  "	from UsuarioGrupo ug " +
+							  "	where ug.grupo =:grupo)")
+				.setParameter("grupo", grupo)
+				.getResultList();  
+			    }
+    
+    @SuppressWarnings("unchecked")
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public List<Usuario> findUsuarioByGrupoNotIn(final Grupo grupo) throws Exception {
+        return em.createQuery(" select u from Usuario u "+
+        					  " where u.nombreUsuario not in " +
+        					  " (select ug.nombreUsuario " +
+        					  "	from UsuarioGrupo ug " +
+        					  "	where ug.grupo =:grupo)")
+        		.setParameter("grupo", grupo)
+        		.getResultList(); 
+    }
+        
+    
+    @SuppressWarnings("unchecked")
+   	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public List<Usuario> findUsuarioAll() throws Exception {
+        return em.createQuery("from Usuario u order by u.nombreUsuario").getResultList(); 
     }
     
     /*menu por grupo*/
-    @SuppressWarnings("unchecked")
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public Grupo findGrupoById(final Grupo grupo) throws Exception {
         return (Grupo) em.createQuery("select g from Grupo g left join fetch g.menus where g =:grupo").setParameter("grupo", grupo).getSingleResult();
     }
     
-    @SuppressWarnings("unchecked")
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public Grupo findJustGrupoById(final Grupo grupo) throws Exception {
         return (Grupo) em.find(Grupo.class, grupo.getIdGrupoAcceso());
@@ -112,11 +145,16 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
             em.persist(catalogoGrupo);
         }
     }
-    
-    @SuppressWarnings("unchecked")
+        
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public Grupo findGrupoAndCatalogoById(final Grupo grupo) throws Exception {
         return (Grupo) em.createQuery("select g from Grupo g left join fetch g.catalogos where g =:grupo").setParameter("grupo", grupo).getSingleResult();
+    }
+    
+    
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public Grupo findGrupoAndUsuariosById(final Grupo grupo) throws Exception {
+        return (Grupo) em.createQuery("select g from Grupo g left join fetch g.usuarios where g =:grupo").setParameter("grupo", grupo).getSingleResult();
     }
     
     /*grupo*/
@@ -131,26 +169,6 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
     public void mergeGrupo(final Grupo grupo) throws Exception {               
         em.merge(grupo);        
     }
-    
-    /*Usuarios por Grupo*/
-    
-    @SuppressWarnings("unchecked")
-	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-    public List<Usuario> findUsuarioByGrupoIn(final Grupo grupo) throws Exception {
-        return em.createQuery("select ug.usuario from UsuarioGrupo ug where ug.grupo =:grupo").setParameter("grupo", grupo).getResultList(); 
-    }
-    
-    @SuppressWarnings("unchecked")
-	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-    public List<Usuario> findUsuarioByGrupoNotIn(final Grupo grupo) throws Exception {
-        return em.createQuery("select ug.usuario from UsuarioGrupo ug")
-        		//.setParameter("grupo", grupo)
-        		.getResultList(); 
-    }
-        
-    
-    
-    
-
+   
 
 }
