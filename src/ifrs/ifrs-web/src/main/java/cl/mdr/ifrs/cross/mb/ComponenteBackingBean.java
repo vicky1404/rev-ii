@@ -226,7 +226,7 @@ public class ComponenteBackingBean implements Serializable {
         
     
     
-    public List<SelectItem> getEmpresasItems(){
+    /*public List<SelectItem> getEmpresasItems(){
     	 List<SelectItem> empresas = new ArrayList<SelectItem>();
          try {
              for (Empresa empresa : this.getEmpresaList()) {
@@ -237,7 +237,7 @@ public class ComponenteBackingBean implements Serializable {
              //agregarErrorMessage(PropertyManager.getInstance().getMessage("general_mensaje_init_services_error"));
          }
          return empresas;
-    }
+    }*/
     
     public List<SelectItem> getFiltroBloqueoSelectItem() {
         List<SelectItem> bloqueoItems = new ArrayList<SelectItem>();
@@ -304,13 +304,13 @@ public class ComponenteBackingBean implements Serializable {
         return grupoList;
     }
     
-    public List<Empresa> getEmpresaList(){
+    /*public List<Empresa> getEmpresaList(){
     	if (empresaList == null){
     		empresaList = getFacade().getEmpresaService().findAll();
     	}    	
     	return empresaList;
     	
-    }
+    }*/
     
     public FacadeServiceLocal getFacade() {
         return facade;

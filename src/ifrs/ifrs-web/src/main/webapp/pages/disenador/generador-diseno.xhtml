@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	content='text/html; charset=ISO-8859-1' http-equiv='Content-Type'>
+	
+	<h:form id="fGD">
+		
+	
+	<p:dataTable binding="#{generadorDisenoBackingBean.disenoEstructuraTable}"  value="#{generadorVersionBackingBean.estructuraList}">
+		
+		<p:column  headerText="#{msg.generador_numero_estructura}">
+			<h:outputText value="#{row.orden}" id="ot1"/>
+		</p:column>
+		
+		<p:column headerText="#{msg.generador_tipo_estructura}">
+			<h:outputText value="#{row.tipoEstructura.nombre}" id="ot2"/>
+		</p:column>	
+		
+		<p:column headerText="#{msg.generador_editar_grilla}">
+			<p:commandLink text="Editar" action="#{generadorDisenoBackingBean.editarGrillaAction}" rendered="#{generadorVersionBackingBean.almacenado and row.tipoEstructura.idTipoEstructura == 0}" />
+			<p:commandLink text="Editar" action="#{generadorDisenoBackingBean.editarTextoAction}" rendered="#{generadorVersionBackingBean.almacenado and row.tipoEstructura.idTipoEstructura == 1}" />
+			<p:commandLink text="Editar" action="#{generadorDisenoBackingBean.editarHtmlAction}" rendered="#{generadorVersionBackingBean.almacenado and row.tipoEstructura.idTipoEstructura == 2}" />
+		</p:column>
+	</p:dataTable>	
+
+	</h:form>
+
+</ui:composition>

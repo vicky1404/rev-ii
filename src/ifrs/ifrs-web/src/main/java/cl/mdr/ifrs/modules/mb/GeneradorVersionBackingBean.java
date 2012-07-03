@@ -1,6 +1,7 @@
 package cl.mdr.ifrs.modules.mb;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -219,6 +220,62 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
             setRenderEstructura(true);
         }
     }
+    
+    public void guardarEstructuraListener(ActionEvent event){
+        
+        Long version = 1L;
+        
+        for(int i=0; i<versionList.size()-1; i++){
+        	versionList.get(i).setCatalogo(catalogo);
+        	versionList.get(i).setVigencia(0L);
+        	versionList.get(i).setVersion(version);
+            version++;
+        }
+        versionList.get(versionList.size()-1).setVigencia(1L);
+        versionList.get(versionList.size()-1).setCatalogo(catalogo);
+        versionList.get(versionList.size()-1).setVersion(version);
+        
+        /*Se limpia modelo de grillas*/
+        getGeneradorDiseno().initBackingBean();
+        
+        for(Estructura estructura : getEstructuraList()){
+            estructura.setVersion(versionList.get(versionList.size()-1));
+            
+            if(getGeneradorDiseno().getGrillaModelMap().containsKey(estructura.getOrden())){
+                getGeneradorDiseno().getGrillaModelMap().get(estructura.getOrden()).setTipoEstructura(estructura.getTipoEstructura().getIdTipoEstructura());
+            }else{
+                getGeneradorDiseno().getGrillaModelMap().put(estructura.getOrden(), new GrillaModelVO(estructura.getTipoEstructura().getIdTipoEstructura()));
+            }
+        }
+        setAlmacenado(true);
+    }
+    
+    public void agregarVersionListener(ActionEvent actionEvent) {
+        
+        getGeneradorDiseno().setGrillaModelMap(null);
+        
+         if(getVersionList().size() > 0){
+             
+             Version version = getVersionList().get(getVersionList().size()-1);
+             
+             if(version.getIdVersion()!=null){
+                 for(Version versionPaso : getVersionList()){
+                     versionPaso.setVigencia(0L);
+                 }
+                 setEstructuraList(null);
+                 getVersionList().add(new Version(version.getVersion()+1,true,new Date(),1L));
+                 setRenderEstructura(true);
+             }
+         }else{
+             Version version = new Version(1L, true, new Date(),1L);
+             versionList = new ArrayList<Version>();
+             versionList.add(version);
+             setRenderEstructura(true);
+             setEstructuraList(null);
+         }
+         setAlmacenado(false);
+         setRenderBotonEditar(true);
+     }
     
     public TipoCuadro getTipoCuadro() {
 		return tipoCuadro;
