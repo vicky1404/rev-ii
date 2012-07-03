@@ -6,6 +6,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/main-template.xhtml">
 	<ui:define name="content">
+		<h:outputScript name="js/util/form-util.js"/>
 		<h:form id="f_menu_grupo">
 			<p:growl id="messages_menu_grupo" autoUpdate="true" showDetail="true"
 				showSummary="true" />
@@ -49,9 +50,9 @@
 						update="messages_menu_grupo">
 					</p:commandButton>
 					<p:separator />
-					<p:commandLink value="Seleccionar Todo"></p:commandLink>
+					<p:commandLink value="#{msg.label_seleccionar_todo}" onclick="selectAll()"></p:commandLink>
 					<p:separator />
-					<p:commandLink value="No seleccionar Todo"></p:commandLink>
+					<p:commandLink value="#{msg.label_no_seleccionar_todo}" onclick="unSelectAll()"></p:commandLink>
 				</p:toolbarGroup>
 			</p:toolbar>
 			<p:dataTable emptyMessage="#{msg.mensaje_tabla_sin_registros}"

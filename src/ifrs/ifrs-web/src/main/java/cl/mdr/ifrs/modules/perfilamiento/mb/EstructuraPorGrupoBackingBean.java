@@ -1,4 +1,4 @@
-package cl.mdr.ifrs.modules.mb;
+package cl.mdr.ifrs.modules.perfilamiento.mb;
 
 import java.io.Serializable;
 import java.text.MessageFormat;
@@ -18,6 +18,10 @@ import cl.mdr.ifrs.ejb.entity.Catalogo;
 import cl.mdr.ifrs.ejb.entity.Grupo;
 import cl.mdr.ifrs.ejb.entity.TipoCuadro;
 
+/**
+* @author rreyes
+* @link http://cl.linkedin.com/in/rreyesc
+*/
 @ManagedBean
 @ViewScoped
 public class EstructuraPorGrupoBackingBean extends AbstractBackingBean implements Serializable {

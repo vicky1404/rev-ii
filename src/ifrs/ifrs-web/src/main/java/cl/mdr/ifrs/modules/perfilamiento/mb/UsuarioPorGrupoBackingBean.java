@@ -1,4 +1,4 @@
-package cl.mdr.ifrs.modules.mb;
+package cl.mdr.ifrs.modules.perfilamiento.mb;
 
 import static ch.lambdaj.Lambda.extract;
 import static ch.lambdaj.Lambda.index;
@@ -7,7 +7,6 @@ import static ch.lambdaj.Lambda.on;
 import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +21,10 @@ import cl.mdr.ifrs.ejb.entity.Grupo;
 import cl.mdr.ifrs.ejb.entity.Usuario;
 import cl.mdr.ifrs.ejb.entity.UsuarioGrupo;
 
+/**
+* @author rreyes
+* @link http://cl.linkedin.com/in/rreyesc
+*/
 @ManagedBean
 @ViewScoped
 public class UsuarioPorGrupoBackingBean extends AbstractBackingBean implements Serializable {
