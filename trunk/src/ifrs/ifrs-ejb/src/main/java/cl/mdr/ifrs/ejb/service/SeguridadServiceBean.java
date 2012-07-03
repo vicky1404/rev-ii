@@ -169,6 +169,17 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
     public void mergeGrupo(final Grupo grupo) throws Exception {               
         em.merge(grupo);        
     }
-   
-
+    
+    /*Bloqueo por Grupo*/
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void updateBloqueoGrupo(final List<Grupo> grupoList) throws Exception {        
+        for(Grupo grupo : grupoList) {
+            em.createQuery("UPDATE Grupo g set g.accesoBloqueado = ? WHERE g.idGrupoAcceso = ?")
+            				.setParameter(1, grupo.getAccesoBloqueado())
+            				.setParameter(2, grupo.getIdGrupoAcceso())
+            				.executeUpdate();
+        }
+    }
+    
+       
 }

@@ -136,6 +136,16 @@ public interface SeguridadServiceLocal {
      */
     List<Usuario> findUsuarioByGrupoNotIn(Grupo grupo) throws Exception;
     
+    /**
+     * @return
+     * @throws Exception
+     */
     List<Usuario> findUsuarioAll() throws Exception;
+    
+    /**
+     * @param grupoList
+     * @throws Exception
+     */
+    void updateBloqueoGrupo(List<Grupo> grupoList) throws Exception;
         
 }
