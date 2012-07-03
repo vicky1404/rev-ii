@@ -44,6 +44,7 @@
       		<p:toolbarGroup align="left" >
 				<p:commandButton icon="ui-icon-document" value="#{msg.boton_nuevo}" title="#{msg.boton_nuevo}"  type="button" onclick="ingresoRegistro.show()" />
 				<p:commandButton icon="ui-icon-trash" value="#{msg.boton_eliminar}" title="#{msg.boton_eliminar}" action="#{tipoCuadro.eliminar}" update="tabla messages" />
+				<p:commandButton icon="ui-icon-trash" value="Tabla"  action="#{tipoCuadro.verTabla}" />
 				
 				<p:separator />				  
 				<h:commandLink immediate="true">  
@@ -53,7 +54,7 @@
       		</p:toolbarGroup>
    		</p:toolbar>
 		
-		 <p:dataTable value="#{tipoCuadro.lista}" var="row" rowKey="#{row.idTipoCuadro}" editable="true" selection="#{tipoCuadro.selectedTipoCuadro}" selectionMode="single" emptyMessage="#{msg.mensaje_tabla_sin_registros}" id="tabla" paginator="true" rows="10">
+		 <p:dataTable value="#{tipoCuadro.lista}" var="row" rowKey="#{row.idTipoCuadro}" binding="#{tipoCuadro.tabla}" editable="true" selection="#{tipoCuadro.selectedTipoCuadro}" selectionMode="single" emptyMessage="#{msg.mensaje_tabla_sin_registros}" id="tabla" paginator="true" rows="10">
 		 	
 		 	
 		 	<p:ajax event="rowEdit" listener="#{tipoCuadro.editar}" />  
