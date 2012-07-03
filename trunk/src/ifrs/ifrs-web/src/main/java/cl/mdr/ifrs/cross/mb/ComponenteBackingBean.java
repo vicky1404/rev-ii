@@ -221,21 +221,28 @@ public class ComponenteBackingBean implements Serializable {
             //agregarErrorMessage(PropertyManager.getInstance().getMessage("general_mensaje_init_services_error"));
         }
         return grupos;
-    }
-
+    }  
+        
     
-    public List<SelectItem> getEmpresasItems(){
-    	
-    	 List<SelectItem> empresas = new ArrayList<SelectItem>();
-         try {
-             for (Empresa empresa : this.getEmpresaList()) {
-            	 empresas.add(new SelectItem(empresa, empresa.getRazonSocial()));
-             }
-         } catch (Exception e) {
-             logger.error(e.getMessage(), e);
-             //agregarErrorMessage(PropertyManager.getInstance().getMessage("general_mensaje_init_services_error"));
-         }
-         return empresas;
+    
+//    public List<SelectItem> getEmpresasItems(){
+//    	 List<SelectItem> empresas = new ArrayList<SelectItem>();
+//         try {
+//             for (Empresa empresa : this.getEmpresaList()) {
+//            	 empresas.add(new SelectItem(empresa, empresa.getRazonSocial()));
+//             }
+//         } catch (Exception e) {
+//             logger.error(e.getMessage(), e);
+//             //agregarErrorMessage(PropertyManager.getInstance().getMessage("general_mensaje_init_services_error"));
+//         }
+//         return empresas;
+//    }
+    
+    public List<SelectItem> getFiltroBloqueoSelectItem() {
+        List<SelectItem> bloqueoItems = new ArrayList<SelectItem>();
+        bloqueoItems.add(new SelectItem(0L, "Habilitados"));
+        bloqueoItems.add(new SelectItem(1L, "Bloqueados"));
+        return bloqueoItems;
     }
     
     /*Metodos accesadores para mantenedores*/
@@ -296,14 +303,13 @@ public class ComponenteBackingBean implements Serializable {
         return grupoList;
     }
     
-    public List<Empresa> getEmpresaList(){
-    	if (empresaList == null){
-    		empresaList = getFacade().getEmpresaService().findAll();
-    	}
-    	
-    	return empresaList;
-    	
-    }
+//    public List<Empresa> getEmpresaList(){
+//    	if (empresaList == null){
+//    		empresaList = getFacade().getEmpresaService().findAll();
+//    	}    	
+//    	return empresaList;
+//    	
+//    }
     
     public FacadeServiceLocal getFacade() {
         return facade;

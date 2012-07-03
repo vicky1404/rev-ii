@@ -3,10 +3,87 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/main-template.xhtml">
 	<ui:define name="content">
-		<h:form id="f2"> 
-			bloqueo por grupo 		 
+	    <h:outputScript name="js/util/form-util.js"/>
+		<h:form id="f2">
+			<p:growl id="messages_estructura_grupo" autoUpdate="true"
+				showDetail="true" showSummary="true" />
+			<p:ajaxStatus onstart="statusDialog.show();"
+				oncomplete="statusDialog.hide();" />
+			<p:dialog modal="true" widgetVar="statusDialog"
+				header="#{msg.titulo_ventana_cargando}" x="30" y="30"
+				draggable="false" close="false">
+				<h:panelGrid columns="2">
+					<h:graphicImage value="/resources/images/img/ajax-loader.gif" />
+					<h:outputText value="#{msg.titulo_ventana_cargando}" />
+				</h:panelGrid>
+			</p:dialog>
+			<p:panel id="filtro_bloqueo_grupo"
+				header="#{msg.titulo_bloqueo_sistema_por_grupo}"
+				toggleable="true" closable="false" toggleSpeed="500"
+				closeSpeed="2000" widgetVar="panel">
+				<h:panelGrid columns="3">
+					<p:outputLabel value="#{msg.label_acceso}" for="soc1" />
+					<p:selectOneMenu id="soc1"
+						unselectedLabel="#{msg.label_seleccione}"
+						value="#{bloqueoPorGrupoBackingBean.accesoBloqueado}"
+						required="false">
+						<f:selectItem itemLabel="#{msg.label_todos}" itemValue="100" />
+						<f:selectItems
+							value="#{bloqueoPorGrupoBackingBean.componenteBackingBean.filtroBloqueoSelectItem}"
+							id="si1" />
+					</p:selectOneMenu>
+					<p:message for="soc1" />					
+					<h:panelGrid columns="2">
+						<h:outputLabel value=" " />
+						<p:commandButton value="#{msg.boton_buscar}"
+							actionListener="#{bloqueoPorGrupoBackingBean.buscarBloqueoPorGrupo}"
+							update="tabla_grupos" ajax="false">
+						</p:commandButton>
+					</h:panelGrid>
+				</h:panelGrid>
+			</p:panel>
+			<br />
+			<p:toolbar
+				rendered="#{bloqueoPorGrupoBackingBean.renderTablaGruposBloqueados}">
+				<p:toolbarGroup>
+					<p:commandButton icon="ui-icon-disk"
+						value="Actializar Bloqueo de Grupos" id="btnGuardar"
+						actionListener="#{bloqueoPorGrupoBackingBean.guardarBloqueoGrupoAction}"
+						update="messages_estructura_grupo">
+					</p:commandButton>
+					<p:separator />
+					<p:commandLink value="#{msg.label_seleccionar_todo}" onclick="selectAll()"></p:commandLink>
+					<p:separator />
+					<p:commandLink value="#{msg.label_no_seleccionar_todo}" onclick="unSelectAll()"></p:commandLink>
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:dataTable emptyMessage="#{msg.mensaje_tabla_sin_registros}"
+				value="#{bloqueoPorGrupoBackingBean.grillaBloqueoGrupoList}"
+				id="tabla_grupos" var="row" lazy="false"
+				rendered="#{bloqueoPorGrupoBackingBean.renderTablaGruposBloqueados}">
+				<p:column headerText="#{msg.titulo_tabla_bloquear}" id="c2" width="100" style="text-align:center;">
+					<h:selectBooleanCheckbox value="#{row.selected}" id="sel1"
+						label=" " />
+				</p:column>
+				<p:column headerText="#{msg.label_grupo}" align="left" id="c3" width="150">
+					<h:outputText value="#{row.entity.idGrupoAcceso}" id="t1"
+						style="font-weight:bold;" />
+				</p:column>
+				<p:column sortable="false" headerText="#{msg.titulo_nombre_grupo}" align="left"
+					id="c5" width="400">
+					<h:outputText value="#{row.entity.nombre}" id="t3" />
+				</p:column>
+				<p:column headerText="#{msg.label_area_negocio}" align="left" id="c6"
+					rowHeader="unstyled" width="200">
+					<h:outputText value="#{row.entity.areaNegocio.nombre}" id="t4" />
+				</p:column>
+				<f:facet name="footer">  
+		            <br />
+		        </f:facet>
+			</p:dataTable>
 		</h:form>
 	</ui:define>
 </ui:composition>
