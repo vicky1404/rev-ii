@@ -12,27 +12,33 @@
 				showDetail="true" showSummary="true" />
 			<p:ajaxStatus onstart="statusDialog.show();"
 				oncomplete="statusDialog.hide();" />
-			<p:dialog modal="true" widgetVar="statusDialog"
-				header="#{msg.titulo_ventana_cargando}" x="30" y="30"
-				draggable="false" close="false" width="300" height="50">
+			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
+			
+			<!-- dialogo de descarga word -->
+			<p:dialog id="popUpDownWord" header="#{msg.label_descargar}"
+				widgetVar="p_down_word" width="300" height="50" modal="false"
+				draggable="false" resizable="false">
 				<h:panelGrid columns="2">
-					<h:graphicImage value="/resources/images/img/ajax-loader.gif" />
-					<h:outputText value="#{msg.titulo_ventana_cargando}" />
+					<h:graphicImage value="/resources/images/icon/word.png" />
+					<h:commandLink action="#{reporteBackingBean.downloadWord}" id="cl2"
+						value="#{msg.label_descargar_word_generado}"
+						onblur="p_down_word.hide();" style="text-decoration:underline;" />
 				</h:panelGrid>
 			</p:dialog>
-			<!-- dialogo de descarga word -->
-			<p:dialog id="popUpDownWord" header="Descargar" widgetVar="p_down_word" width="300" height="50" modal="false" draggable="false">  
-			    <h:commandLink action="#{reporteBackingBean.downloadWord}" id="cl2" value="Descargar Archivo Word Generado" onblur="p_down_word.hide();">                        
-                </h:commandLink>  
-			</p:dialog>
-			
+
 			<!-- dialogo de descarga excel -->
-			<p:dialog id="popUpDownExcel" header="Descargar" widgetVar="p_down_excel" width="300" height="50" modal="false" draggable="false">  
-			    <h:commandLink  action="#{reporteBackingBean.downloadExcel}" id="cl1" value="Descargar Archivo Excel Generado" onblur="p_down_excel.hide();">                            
-                </h:commandLink> 
+			<p:dialog id="popUpDownExcel" header="#{msg.label_descargar}"
+				widgetVar="p_down_excel" width="300" height="50" modal="false"
+				draggable="false" resizable="false">
+				<h:panelGrid columns="2">
+					<h:graphicImage value="/resources/images/icon/excel_16x16.png" />
+					<h:commandLink action="#{reporteBackingBean.downloadExcel}"
+						id="cl1" value="#{msg.lavel_descargar_excel_generado}"
+						onblur="p_down_excel.hide();" style="text-decoration:underline;" />
+				</h:panelGrid>
 			</p:dialog>
-			
-			
+
+
 			<p:panel id="filtro_reporte_cuadro" header="Reporte"
 				toggleable="true" closable="false" toggleSpeed="500"
 				closeSpeed="2000" widgetVar="panel">
@@ -70,7 +76,7 @@
 					<h:panelGrid columns="2">
 						<h:outputLabel value=" " />
 						<p:commandButton value="#{msg.boton_buscar}"
-							action="#{reporteBackingBean.buscarAction}" update="tabla_grupos"
+							action="#{reporteBackingBean.buscarAction}" update="tabla_catalogo_export"
 							ajax="false">
 						</p:commandButton>
 					</h:panelGrid>
@@ -79,12 +85,12 @@
 			<br />
 			<p:toolbar rendered="#{reporteBackingBean.renderCatalogoReportes}">
 				<p:toolbarGroup>
-					<p:commandButton value="Exportar a MS Word" id="wordbtn1" icon="ui-icon-word"
-						action="#{reporteBackingBean.generarDocx}">						
+					<p:commandButton value="#{msg.label_exportar_a_word}" id="wordbtn1"
+						icon="ui-icon-word" action="#{reporteBackingBean.generarDocx}">
 					</p:commandButton>
 					<p:separator />
-					<p:commandButton value="Exportar a MS Excel" id="excbtn1" icon="ui-icon-xls"
-						action="#{reporteBackingBean.generarExcel}">						
+					<p:commandButton value="#{msg.label_exportar_a_excel}" id="excbtn1"
+						icon="ui-icon-xls" action="#{reporteBackingBean.generarExcel}">
 					</p:commandButton>
 					<p:separator />
 					<p:commandLink value="#{msg.label_seleccionar_todo}"
@@ -95,30 +101,32 @@
 				</p:toolbarGroup>
 			</p:toolbar>
 			<p:dataTable value="#{reporteBackingBean.catalogoReportes}"
-				emptyMessage="#{msg.mensaje_tabla_sin_registros}" id="tabla_grupos"
+				emptyMessage="#{msg.mensaje_tabla_sin_registros}" id="tabla_catalogo_export"
 				var="row" lazy="true"
-				rendered="#{reporteBackingBean.renderCatalogoReportes}" selectionMode="single" rowKey="#{row.entity.catalogo.idCatalogo}">
-				<p:column sortable="true" headerText="Seleccionar" id="c2"
+				rendered="#{reporteBackingBean.renderCatalogoReportes}"
+				selectionMode="single" rowKey="#{row.entity.catalogo.idCatalogo}">
+				<p:column sortable="true" headerText="#{msg.label_seleccionar}" id="c2"
 					style="text-align:center;">
 					<h:selectBooleanCheckbox value="#{row.selected}" id="sel1"
 						label=" " />
 				</p:column>
-				<p:column headerText="Nombre" align="start" id="c3">
+				<p:column headerText="#{msg.label_nombre}" align="start" id="c3">
 					<h:outputText value="#{row.entity.catalogo.nombre}" id="ot3" />
 				</p:column>
-				<p:column headerText="Titulo" id="c4">
+				<p:column headerText="#{msg.tabla_cabecera_titulo}" id="c4">
 					<h:outputText value="#{row.entity.catalogo.titulo}" id="ot4" />
 				</p:column>
-				<p:column headerText="Tipo de Impresion" id="c1">
+				<p:column headerText="#{msg.label_tipo_de_impresion}" id="c1">
 					<f:facet name="header">
-						<h:selectOneMenu label="Tipo de Impresion:" id="cmb_tc5"
-							required="false">
+						<h:selectOneMenu label="#{msg.label_tipo_de_impresion}:" id="cmb_tc5"
+							required="false" value="#{reporteBackingBean.tipoImpresionHeader}">
 							<f:selectItems
 								value="#{reporteBackingBean.componenteBackingBean.tipoImpresionItems}"
 								id="tipos_c5" />
+								<p:ajax listener="#{reporteBackingBean.tipoImpresionChange}" update="tabla_catalogo_export" />
 						</h:selectOneMenu>
 					</f:facet>
-					<h:selectOneMenu label="Tipo de Impresion:" id="soc3"
+					<h:selectOneMenu label="#{msg.label_tipo_de_impresion}:" id="soc3"
 						value="#{row.entity.catalogo.impresionHorizontal}"
 						required="false">
 						<f:selectItems
@@ -126,7 +134,7 @@
 							id="si1" />
 					</h:selectOneMenu>
 				</p:column>
-				<p:column sortable="false" headerText="Version" align="right"
+				<p:column sortable="false" headerText="#{msg.label_version}" align="right"
 					id="c8">
 					<h:outputText value="#{row.entity.version}" id="ot8" />
 				</p:column>
@@ -134,15 +142,14 @@
                         <af:outputText value="#{row.entity.periodo.anioPeriodo}-#{row.entity.periodo.mesPeriodo}"
                                        id="ot8_1"/>
                     </af:column-->
-				<p:column sortable="false" headerText="Vigente" align="start"
+				<p:column sortable="false" headerText="#{msg.label_vigencia}" align="start"
 					id="c10" sortProperty="entity.vigencia" width="70">
 					<h:outputText value="#{row.entity.vigencia eq 1 ? 'SI' : 'NO'}"
 						id="ot10" />
-				</p:column>
-				<!--af:column sortable="true" align="start" id="c6" rowHeader="unstyled" width="150"
-                               headerText="Estado" sortProperty="entity.estado.idEstado">
-                        <af:outputText value="#{row.entity.estado.nombre}" id="ot9"/>
-                    </af:column-->
+				</p:column>	
+				<f:facet name="footer">
+					<br />
+				</f:facet>			
 			</p:dataTable>
 		</h:form>
 	</ui:define>

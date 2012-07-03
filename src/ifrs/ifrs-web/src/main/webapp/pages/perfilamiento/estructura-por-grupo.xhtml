@@ -12,14 +12,7 @@
 				showSummary="true" />
 			<p:ajaxStatus onstart="statusDialog.show();"
 				oncomplete="statusDialog.hide();" />
-			<p:dialog modal="true" widgetVar="statusDialog"
-				header="#{msg.titulo_ventana_cargando}" x="30" y="30"
-				draggable="false" close="false">
-				<h:panelGrid columns="2">
-					<h:graphicImage value="/resources/images/img/ajax-loader.gif" />
-					<h:outputText value="#{msg.titulo_ventana_cargando}" />
-				</h:panelGrid>
-			</p:dialog>
+			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
 			<p:panel id="filtro_cuadro_grupo"
 				header="#{msg.titulo_mantenedor_estructura_por_grupo}"
 				toggleable="true" closable="false" toggleSpeed="500"

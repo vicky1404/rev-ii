@@ -6,6 +6,6 @@
  </welcome-file-list>
  <error-page>
   <exception-type>javax.faces.application.ViewExpiredException</exception-type>
-  <location>/pages/home.jsf?expired=1</location>
+  <location>/index.jsp?expired=1</location>
  </error-page>
 </web-app>
