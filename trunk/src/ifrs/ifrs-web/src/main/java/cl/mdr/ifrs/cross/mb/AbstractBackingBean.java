@@ -11,6 +11,8 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
+import cl.mdr.ifrs.ejb.cross.Util;
+import cl.mdr.ifrs.ejb.entity.Periodo;
 import cl.mdr.ifrs.ejb.facade.local.FacadeServiceLocal;
 import cl.mdr.ifrs.modules.mb.GeneradorDisenoBackingBean;
 import cl.mdr.ifrs.modules.mb.GeneradorVersionBackingBean;
@@ -19,6 +21,9 @@ import cl.mdr.ifrs.modules.mb.GeneradorVisualizadorBackingBean;
 @ManagedBean
 @ViewScoped
 public abstract class AbstractBackingBean {
+	
+	@EJB
+	private FacadeServiceLocal facadeService;
 	
 	@ManagedProperty(value="#{componenteBackingBean}")
 	private ComponenteBackingBean componenteBackingBean;
@@ -61,9 +66,6 @@ public abstract class AbstractBackingBean {
 		this.generadorVisualizador = generadorVisualizador;
 	}
 
-	@EJB
-	private FacadeServiceLocal facadeService;
-
 	public FacadeServiceLocal getFacadeService() {
 		return facadeService;
 	}
@@ -80,6 +82,9 @@ public abstract class AbstractBackingBean {
 		return this.getExternalContext().getUserPrincipal();
 	}
 	
+	/**
+	 * @return
+	 */
 	public String getNombreUsuario() {
         final Principal principal = this.getPrincipal();
         if (principal != null) {
@@ -87,6 +92,16 @@ public abstract class AbstractBackingBean {
         } else {
             return "usuario.prueba".toUpperCase();
         }
+    }
+	
+	/**
+     * Obtiene un objeto desde la persistencia a partir del filtro de periodo en sesion.
+     * @return
+     * @throws Exception
+     */
+    public Periodo getFiltroPeriodo() throws Exception{                           
+        this.getFiltroBackingBean().setPeriodo(this.getFacadeService().getMantenedoresTipoService().findByPeriodo(Util.getLong(getFiltroBackingBean().getPeriodo().getAnioPeriodo().concat(getFiltroBackingBean().getPeriodo().getMesPeriodo()), null)));                                                 
+        return this.getFiltroBackingBean().getPeriodo();        
     }
 
 	public void addErrorMessage(String summary, String detail) {
@@ -170,5 +185,7 @@ public abstract class AbstractBackingBean {
 	public void setFiltroBackingBean(FiltroBackingBean filtroBackingBean) {
 		this.filtroBackingBean = filtroBackingBean;
 	}
+	
+    
 	
 }

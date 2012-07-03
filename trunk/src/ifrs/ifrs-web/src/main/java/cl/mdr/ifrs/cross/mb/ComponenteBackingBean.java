@@ -61,9 +61,10 @@ public class ComponenteBackingBean implements Serializable {
     
     public ComponenteBackingBean() {
     }
-
+    
     /*Metodos utiles para aplicacion*/
-
+    
+    
     /**Metodo retorna el periodo actual vigente de la aplicacion
      * @return
      */
