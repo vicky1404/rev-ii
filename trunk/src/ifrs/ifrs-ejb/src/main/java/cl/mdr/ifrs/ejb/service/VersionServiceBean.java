@@ -413,10 +413,10 @@ public class VersionServiceBean implements VersionServiceLocal{
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public List<Version> findUltimoVersionByPeriodo(final Long periodo, final String usuario, final TipoCuadro tipoCuadro, final Long vigente) throws Exception{
         Query query = em.createNamedQuery(Version.VERSION_FIND_ULTIMO_VERSION_BY_PERIODO);
-        query.setParameter("periodo", periodo);
+        query.setParameter("periodo", periodo != null ? periodo.longValue() : "");
         query.setParameter("usuario", usuario);
-        query.setParameter("tipoCuadro", tipoCuadro != null ? tipoCuadro.getIdTipoCuadro() : null ) ; 
-        query.setParameter("vigente", vigente);        
+        query.setParameter("tipoCuadro", tipoCuadro.getIdTipoCuadro() != null ? tipoCuadro.getIdTipoCuadro().longValue() : "" ) ; 
+        query.setParameter("vigente", vigente != null ? vigente.longValue() : "" );        
         return query.getResultList();
     }
     
