@@ -82,12 +82,12 @@ public class GeneradorDisenoHelper {
                 GrillaModelVO grillaModel = grillaModelMap.get(estructura.getOrden());
                 if(estructura.getTipoEstructura().getIdTipoEstructura() == TipoEstructura.ESTRUCTURA_TIPO_GRILLA){
                     Grilla grilla = new Grilla();
-                    grilla.setEstructura1(estructura);
+                    grilla.setEstructura(estructura);
                     grilla.setColumnaList(grillaModel.getColumnas());
                     estructura.setGrilla(grilla);
                 }else if(estructura.getTipoEstructura().getIdTipoEstructura() == TipoEstructura.ESTRUCTURA_TIPO_TEXTO){
                     Texto texto = new Texto();
-                    texto.setEstructura2(estructura);
+                    texto.setEstructura(estructura);
                     estructura.setTexto(texto);
                 }else{
                     Html html = new Html();
@@ -424,7 +424,7 @@ public class GeneradorDisenoHelper {
                 List<Long> niveles = new ArrayList<Long>();
                 grillaNew.setTitulo(estructura.getGrilla() .getTitulo());
                 grillaNew.setColumnaList(estructura.getGrilla() .getColumnaList());
-                grillaNew.setEstructura1(estructura.getGrilla() .getEstructura1());
+                grillaNew.setEstructura(estructura.getGrilla() .getEstructura());
                 
                 GrillaModelVO grillaModel = new GrillaModelVO();
                 grillaModel.setTituloGrilla(grillaNew.getTitulo());

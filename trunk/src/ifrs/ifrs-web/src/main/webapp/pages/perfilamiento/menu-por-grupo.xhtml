@@ -57,7 +57,7 @@
 			</p:toolbar>
 			<p:dataTable emptyMessage="#{msg.mensaje_tabla_sin_registros}"
 				value="#{menuPorGrupoBackingBean.grillaMenuList}" id="tabla_menu"
-				var="row" lazy="false"
+				var="row" lazy="false" selectionMode="single" rowKey="#{row.entity.idMenu}"
 				rendered="#{menuPorGrupoBackingBean.renderTablaMenu}">
 				<p:column headerText="#{msg.label_seleccionar}" id="c2"
 					style="text-align:center;">

@@ -5,6 +5,7 @@ import static ch.lambdaj.Lambda.sort;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
+import org.primefaces.context.RequestContext;
 
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
 import cl.mdr.ifrs.cross.mb.FiltroBackingBean;
@@ -130,7 +132,7 @@ public class ReporteBackingBean extends AbstractBackingBean implements Serializa
                 return null;
             }
             this.setVersionDownloadList(versionList);                                     
-            //this.displayPopup(POPUP_DOWNLOAD_EXCEL);
+            this.displayPopUp(POPUP_DOWNLOAD_EXCEL);
         } catch (Exception e) {
             logger.error(e.getCause(), e);
             addErrorMessage("", "Se ha producido un error al exportar a formato MS Excel");
@@ -151,7 +153,7 @@ public class ReporteBackingBean extends AbstractBackingBean implements Serializa
                 return null;
             }
             this.setVersionDownloadList(versionList);                                     
-            //this.displayPopup(POPUP_DOWNLOAD_WORD);              
+            this.displayPopUp(POPUP_DOWNLOAD_WORD);              
         } catch (Exception e) {
             logger.error(e.getCause(), e);
             addErrorMessage("Se ha producido un error al exportar a formato MS Word "+e);
@@ -159,31 +161,45 @@ public class ReporteBackingBean extends AbstractBackingBean implements Serializa
         return null;
     }
     
-    public void downloadExcel(ActionEvent event){
+    public String downloadExcel(){
         logger.info("descargando archivo excel");
         try{
-            List<ReportePrincipalVO> reportes = getReporteUtilBackingBean().getGenerarListReporteVO(this.getVersionDownloadList());                            
+            final List<ReportePrincipalVO> reportes = this.getReporteUtilBackingBean().getGenerarListReporteVO(this.getVersionDownloadList());                            
             XSSFWorkbook wb = super.getFacadeService().getServiceReporte().createXLSX(reportes);        
-            this.getReporteUtilBackingBean().setOuputStreamWorkBook(wb);
-            super.getFacesContext().responseComplete();
+            this.getReporteUtilBackingBean().setOuputStreamWorkBook(wb);                      
+            super.getFacesContext().responseComplete();            
         } catch (Exception e) {
             logger.error(e.getCause(), e);
             addErrorMessage("Se ha producido un error al exportar a formato MS Excel");
-        }     
+        }
+        return null;
     }
     
-    public void downloadWord(ActionEvent event){
+    public String downloadWord(){
         logger.info("descargando archivo word");
         try{
-            List<ReportePrincipalVO> reportes = this.getReporteUtilBackingBean().getGenerarListReporteVO(this.getVersionDownloadList());
+            final List<ReportePrincipalVO> reportes = this.getReporteUtilBackingBean().getGenerarListReporteVO(this.getVersionDownloadList());
             final String nombreArchivo = SoporteReporte.getNombreReporteDocx(new Date());                        
             WordprocessingMLPackage wordMLPackage = super.getFacadeService().getReporteDocxService().createDOCX(reportes, this.getLogoReporte(), super.getNombreUsuario(), super.getIpUsuario(), nombreArchivo, super.getFiltroBackingBean().getPeriodo());              
             this.getReporteUtilBackingBean().setOutPutStreamDocx(wordMLPackage, nombreArchivo);
-            super.getFacesContext().responseComplete();
+            super.getFacesContext().responseComplete();            
         } catch (Exception e) {
             logger.error(e.getCause(), e);
             addErrorMessage("Se ha producido un error al exportar a formato MS Word "+e);
-        }  
+        }
+        return null;
+    }
+    
+    private void displayPopUp(final String idDialog){
+    	RequestContext context = RequestContext.getCurrentInstance();
+    	context.execute(""+idDialog+".show();");  
+        context.update("f_reporte_cuadro");  
+    }
+    
+    private void hidePopUp(final String idDialog){
+    	RequestContext context = RequestContext.getCurrentInstance();
+    	context.execute(""+idDialog+".hide();");  
+        context.update("f_reporte_cuadro");  
     }
     
     /**

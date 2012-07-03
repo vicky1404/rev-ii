@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.docx4j.openpackaging.io.SaveToZipFile;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
@@ -21,7 +24,8 @@ import cl.mdr.ifrs.ejb.reporte.util.SoporteReporte;
 import cl.mdr.ifrs.ejb.reporte.vo.PropiedadesReporteVO;
 import cl.mdr.ifrs.ejb.reporte.vo.ReportePrincipalVO;
 
-
+@ManagedBean(name = "reporteUtilBackingBean")
+@ViewScoped
 public class ReporteUtilBackingBean extends AbstractBackingBean implements Serializable{
 	private static final long serialVersionUID = 8047774764060502702L;	    
     private String sufijoNombreReporte = "_".concat(new SimpleDateFormat("dd-MM-yyyy_HH-mm").format(new Date()));
@@ -71,8 +75,7 @@ public class ReporteUtilBackingBean extends AbstractBackingBean implements Seria
         OutputStream outputStream = super.getExternalContext().getResponseOutputStream();
         xSSFWorkbook.write(outputStream);              
         outputStream.flush();
-        outputStream.close();
-        super.getFacesContext().responseComplete();
+        outputStream.close();        
     }
     
     /**
@@ -87,8 +90,7 @@ public class ReporteUtilBackingBean extends AbstractBackingBean implements Seria
         OutputStream outputStream = super.getExternalContext().getResponseOutputStream();
         xSSFWorkbook.write(outputStream);              
         outputStream.flush();
-        outputStream.close();        
-        super.getFacesContext().responseComplete();
+        outputStream.close();               
     }
 
     /**
@@ -104,8 +106,7 @@ public class ReporteUtilBackingBean extends AbstractBackingBean implements Seria
         OutputStream outputStream = super.getExternalContext().getResponseOutputStream();
         saver.save(outputStream);
         outputStream.flush();
-        outputStream.close();        
-        super.getFacesContext().responseComplete();
+        outputStream.close();              
     }
 
     public void setSufijoNombreReporte(String sufijoNombreReporte) {
