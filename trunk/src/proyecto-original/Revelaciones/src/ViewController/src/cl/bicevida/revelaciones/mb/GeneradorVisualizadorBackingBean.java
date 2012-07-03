@@ -52,7 +52,7 @@ public class GeneradorVisualizadorBackingBean extends SoporteBackingBean{
         }
         try{
             getFacade().getVersionService().persistVersion(getGeneradorVersion().getVersiones(), getGeneradorVersion().getEstructuras(), getGeneradorDiseno().getGrillaModelMap(), super.getNombreUsuario());   
-            agregarSuccesMessage("Se ha almacenado correctamente la informacion");
+            agregarSuccesMessage("Se ha Almacenado correctamente la Información ");
         }catch(PeriodoException e){
             agregarErrorMessage("Error, no se ha almacenado la información");
             agregarErrorMessage(e.getMessage());

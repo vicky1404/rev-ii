@@ -39,7 +39,8 @@
         <af:group id="g2" rendered="#{generadorVersionBackingBean.renderedVersiones}">
         <div align="center">
         <af:table rowBandingInterval="1" value="#{generadorVersionBackingBean.filtro.catalogo}" 
-        contentDelivery="immediate" id="t1" inlineStyle="width:720px; height:auto;">
+        contentDelivery="immediate" id="t1" inlineStyle="width:720px; height:auto;"
+        emptyText="#{msg.general_sin_informacion}">
             <af:column sortable="false" headerText="Código Cuadro" align="center" id="c11" width="120px" inlineStyle="height:22px;">
                  <af:outputText value="#{generadorVersionBackingBean.catalogo.codigoCuadro}" id="ot211"/>
             </af:column>
@@ -136,7 +137,8 @@
             var="row"
             binding="#{generadorVersionBackingBean.estruturaTable}"
             partialTriggers="cl2 ::cb2"
-            varStatus="status">
+            varStatus="status"
+            emptyText="#{msg.general_sin_informacion}">
             <af:column sortable="false" headerText="#{msg.generador_orden}" align="center" id="c111" width="50px" inlineStyle="height:32px;">
                     <af:outputText value="#{row.orden}" id="ot112"/>
             </af:column>

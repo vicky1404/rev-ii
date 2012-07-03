@@ -733,21 +733,22 @@ public class GeneradorDisenoHelper {
     
     public static UploadedFile archivoEstructuraValidator(FacesContext facesContext, UploadedFile uploadedFile, RichInputFile inputFile) throws Exception{
         uploadedFile.getInputStream();
-        if (!uploadedFile.getFilename().endsWith(EXCEL_EXTENSION)) {   
+        if (!uploadedFile.getFilename().endsWith(EXCEL_EXTENSION)) {
             FacesMessage message = new FacesMessage();
             message.setSeverity(FacesMessage.SEVERITY_ERROR);
             message.setSummary(MessageFormat.format(PropertyManager.getInstance().getMessage("general_mensaje_validacion_upload_excel_detail"),uploadedFile.getFilename()));
             message.setDetail(PropertyManager.getInstance().getMessage("general_mensaje_validacion_upload_excel_mensaje"));        
             facesContext.addMessage(inputFile.getClientId(facesContext.getCurrentInstance()), message);  
             inputFile.resetValue();             
-            inputFile.setValid(Boolean.FALSE);
+            inputFile.clearInitialState();
+            //inputFile.setValid(Boolean.FALSE);
             return null;
         }
         if (uploadedFile.getLength() > cl.bicevida.revelaciones.ejb.cross.Util.getLong(PropertyManager.getInstance().getMessage("constantes_max_excel_file_bytes"),new Long(0)).longValue()) {
             FacesContext.getCurrentInstance().addMessage((inputFile).getClientId(FacesContext.getCurrentInstance()),
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, null, PropertyManager.getInstance().getMessage("general_mensaje_validacion_upload_excel_maximo_permitido")));
             inputFile.resetValue();
-            inputFile.setValid(Boolean.FALSE);
+            //inputFile.setValid(Boolean.FALSE);
             return null;
         }        
         return uploadedFile;

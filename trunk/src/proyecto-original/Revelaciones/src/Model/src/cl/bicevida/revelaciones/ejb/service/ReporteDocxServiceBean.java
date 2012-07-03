@@ -88,6 +88,7 @@ import word.w2004.elements.ParagraphPiece;
 import word.w2004.elements.TableV2;
 import word.w2004.elements.tableElements.TableCell;
 import word.w2004.elements.tableElements.TableRow;
+import word.w2004.elements.tableElements.TableRowHeader;
 import word.w2004.style.ParagraphStyle;
 
 
@@ -278,7 +279,7 @@ public class ReporteDocxServiceBean implements ReporteDocxServiceLocal {
                 headerNivel2Cells.add(TableCell.with(Paragraph.withPieces(ParagraphPiece.with(agrupacion.getTitulo()).withStyle().bold().fontSize(HEADER_FONT_SIZE).create()).create()).withStyle().gridSpan(((hasta-desde)+1)).bgColor(HEADER_FONT_COLOR).create());
                 
             }            
-            table.addRow(TableRow.with(Boolean.TRUE, headerNivel2Cells.toArray()));        
+            table.addRow(TableRowHeader.with(Boolean.TRUE, headerNivel2Cells.toArray()));        
         }
         //agrupacion columnas nivel 1
         List<AgrupacionColumna> agrupacionesNivel1 = facadeService.getEstructuraService().findAgrupacionColumnaByGrillaNivel(grilla.getIdGrilla(), 1L);
@@ -298,7 +299,7 @@ public class ReporteDocxServiceBean implements ReporteDocxServiceLocal {
                 headerNivel1Cells.add(TableCell.with(Paragraph.withPieces(ParagraphPiece.with(agrupacion.getTitulo()).withStyle().bold().fontSize(HEADER_FONT_SIZE).create()).create()).withStyle().gridSpan(((hasta-desde)+1)).bgColor(HEADER_FONT_COLOR).create());
                 
             }            
-            table.addRow(TableRow.with(Boolean.TRUE, headerNivel1Cells.toArray()));
+            table.addRow(TableRowHeader.with(Boolean.TRUE, headerNivel1Cells.toArray()));
         }
         
         //agrega los titulos de columna para la grilla
@@ -313,7 +314,7 @@ public class ReporteDocxServiceBean implements ReporteDocxServiceLocal {
             }
         }  
         
-        table.addRow(TableRow.with(Boolean.TRUE, headerCells.toArray()));
+        table.addRow(TableRowHeader.with(Boolean.TRUE, headerCells.toArray()));
                         
         for(FilaVO fila : this.buildGrilla(grilla)){
             List<IElement> rowCells = new ArrayList<IElement>();
