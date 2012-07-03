@@ -19,6 +19,9 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import cl.mdr.ifrs.ejb.common.Constantes;
 import cl.mdr.ifrs.ejb.entity.pk.ColumnaPK;
 
@@ -46,6 +49,7 @@ public class Columna implements Serializable {
     @Column(name = "TITULO_COLUMNA", nullable = false, length = 128)
     private String tituloColumna;
     
+    @Fetch(FetchMode.JOIN)
     @OneToMany(mappedBy = "columna")
     //@OrderBy("idColumna asc ,idFila asc")
     private List<Celda> celdaList;

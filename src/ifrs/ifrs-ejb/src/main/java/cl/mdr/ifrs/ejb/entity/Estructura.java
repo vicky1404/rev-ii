@@ -17,6 +17,9 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import cl.mdr.ifrs.ejb.common.Constantes;
 import cl.mdr.ifrs.vo.GrillaVO;
 import cl.mdr.ifrs.vo.HtmlVO;
@@ -65,19 +68,22 @@ public class Estructura implements Serializable {
     @JoinColumn(name = "ID_VERSION")
     private Version version;
     
+    
     //@OneToMany(mappedBy = "estructura", targetEntity = Html.class, fetch = FetchType.EAGER)                
-    @OneToOne(fetch = FetchType.EAGER)        
-    @JoinColumn(name = "ID_HTML", insertable = false, updatable = false)
+    @OneToOne(mappedBy = "estructura", fetch = FetchType.EAGER, targetEntity = Html.class)        
+    //@JoinColumn(name = "ID_HTML", referencedColumnName="ID_ESTRUCTURA", insertable = false, updatable = false)
     private Html html;
     
+    
     //@OneToMany(mappedBy = "estructura1", targetEntity = Grilla.class, fetch = FetchType.EAGER)        
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ID_GRILLA", insertable = false, updatable = false)
+    @OneToOne(mappedBy = "estructura", fetch = FetchType.EAGER)
+    //@JoinColumn(name = "ID_GRILLA", referencedColumnName="ID_ESTRUCTURA",  insertable = false, updatable = false)
     private Grilla grilla;
-        
+       
+    
     //@OneToMany(mappedBy = "estructura2", targetEntity = Texto.class, fetch = FetchType.EAGER)        
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ID_TEXTO", insertable = false, updatable = false)
+    @OneToOne(mappedBy = "estructura", fetch = FetchType.EAGER)
+    //@JoinColumn(name = "ID_TEXTO", referencedColumnName="ID_ESTRUCTURA", insertable = false, updatable = false)
     private Texto texto;
        
     @Transient

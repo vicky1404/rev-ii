@@ -4,18 +4,19 @@ package cl.mdr.ifrs.ejb.entity;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import cl.mdr.ifrs.ejb.common.Constantes;
 
@@ -35,17 +36,23 @@ public class Grilla implements Serializable {
     public static final Long TIPO_GRILLA_DINAMICA = 1L;
     
     private static final long serialVersionUID = -6769823371555303401L;
-    @Id
+    
+    @Id    
     @Column(name = "ID_GRILLA",insertable = true)
     private Long idGrilla;
+    
     @Column(length = 256)
     private String titulo;
+    
+    
     @OneToMany(mappedBy = "grilla")
     //@OrderBy("idColumna asc")            
     private List<Columna> columnaList;
-    @ManyToOne(targetEntity = Estructura.class, fetch = FetchType.EAGER)
+    
+    @OneToOne(targetEntity = Estructura.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_GRILLA", insertable = false, updatable = false)
-    private Estructura estructura1;
+    private Estructura estructura;
+    
     @Column(name="TIPO_FORMULA")
     private Long tipoFormula;
    
@@ -55,7 +62,7 @@ public class Grilla implements Serializable {
     }
 
     public Grilla(Estructura estructura, Long idGrilla, String titulo) {
-        this.estructura1 = estructura;
+        this.estructura = estructura;
         this.idGrilla = idGrilla;
         this.titulo = titulo;
     }
@@ -100,12 +107,12 @@ public class Grilla implements Serializable {
         return columna;
     }
 
-    public Estructura getEstructura1() {
-        return estructura1;
+    public Estructura getEstructura() {
+        return estructura;
     }
 
-    public void setEstructura1(Estructura estructuraNota) {
-        this.estructura1 = estructuraNota;
+    public void setEstructura(Estructura estructuraNota) {
+        this.estructura = estructuraNota;
     }
     
     
@@ -137,7 +144,7 @@ public class Grilla implements Serializable {
         gridNew.setIdGrilla(grid.getIdGrilla());
         gridNew.setTitulo(grid.getTitulo());
         gridNew.setColumnaList(grid.getColumnaList());
-        gridNew.setEstructura1(grid.getEstructura1());
+        gridNew.setEstructura(grid.getEstructura());
         gridNew.setTipoFormula(grid.getTipoFormula());
         return gridNew;
     }

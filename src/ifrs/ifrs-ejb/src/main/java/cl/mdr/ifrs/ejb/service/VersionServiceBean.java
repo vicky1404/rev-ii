@@ -290,7 +290,7 @@ public class VersionServiceBean implements VersionServiceLocal{
                 if(estructura.getTipoEstructura().getIdTipoEstructura() == TipoEstructura.ESTRUCTURA_TIPO_GRILLA){                    
                     Grilla grilla = new Grilla();
                     grilla.setIdGrilla(estructura.getIdEstructura());
-                    grilla.setEstructura1(estructura);
+                    grilla.setEstructura(estructura);
                     grilla.setTitulo(grillaModel.getTituloGrilla());
                     //System.out.println("Borrando Grilla -> " + grilla.getIdGrilla());
                     int returnDelete = em.createQuery("delete from Celda c where c.idGrilla = :idGrilla").setParameter("idGrilla", grilla.getIdGrilla()).executeUpdate();
@@ -339,7 +339,7 @@ public class VersionServiceBean implements VersionServiceLocal{
                 }else if(estructura.getTipoEstructura().getIdTipoEstructura() == TipoEstructura.ESTRUCTURA_TIPO_TEXTO){
                     Texto texto = grillaModel.getTexto();
                     texto.setIdTexto(estructura.getIdEstructura());
-                    texto.setEstructura2(estructura);
+                    texto.setEstructura(estructura);
                     texto = em.merge(texto);
                     estructura.setTexto(texto);
                 }else{
