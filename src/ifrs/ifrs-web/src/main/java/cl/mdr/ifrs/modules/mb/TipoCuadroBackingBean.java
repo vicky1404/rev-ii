@@ -8,11 +8,15 @@ import javax.annotation.PostConstruct;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIComponentBase;
 
 import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 
 import org.apache.log4j.Logger;
+import org.primefaces.component.column.Column;
+import org.primefaces.component.datatable.DataTable;
 import org.primefaces.event.RowEditEvent;
 
 
@@ -40,6 +44,7 @@ public class TipoCuadroBackingBean extends AbstractBackingBean implements Serial
 	private List<TipoCuadro> lista;
 	private TipoCuadro selectedTipoCuadro;
 	private TipoCuadro nuevoTipoCuadro;
+	private DataTable tabla;
 	
 	
 	public TipoCuadro getNuevoTipoCuadro() {
@@ -47,10 +52,9 @@ public class TipoCuadroBackingBean extends AbstractBackingBean implements Serial
 		if (nuevoTipoCuadro == null){
 			nuevoTipoCuadro = new TipoCuadro();
 		}
-		
 		return nuevoTipoCuadro;
 	}
-
+	
 	public void setNuevoTipoCuadro(TipoCuadro nuevoTipoCuadro) {
 		this.nuevoTipoCuadro = nuevoTipoCuadro;
 	}
@@ -142,5 +146,13 @@ public class TipoCuadroBackingBean extends AbstractBackingBean implements Serial
 	
 	public void obtenerLista(){
 		setLista(getFacadeService().getMantenedoresTipoService().findByFiltro(getFiltro()));
+	}
+
+	public DataTable getTabla() {
+		return tabla;
+	}
+
+	public void setTabla(DataTable tabla) {
+		this.tabla = tabla;
 	}
 }
