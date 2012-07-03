@@ -10,8 +10,7 @@
 		<h:form id="f_bloqueo">
 			<p:growl id="messages_estructura_grupo" autoUpdate="true"
 				showDetail="true" showSummary="true" />
-			<p:ajaxStatus onstart="statusDialog.show();"
-				oncomplete="statusDialog.hide();" />
+			<p:ajaxStatus onstart="statusDialog.show();" oncomplete="statusDialog.hide();" />
 			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
 			<p:panel id="filtro_bloqueo_grupo"
 				header="#{msg.titulo_bloqueo_sistema_por_grupo}"
