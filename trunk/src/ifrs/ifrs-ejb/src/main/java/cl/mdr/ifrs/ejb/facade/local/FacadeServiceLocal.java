@@ -8,6 +8,7 @@ import cl.mdr.ifrs.ejb.service.local.CargadorEstructuraServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.CatalogoServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.CeldaServiceLocal;
 //import cl.mdr.ifrs.ejb.service.local.EmpresaServiceLocal;
+import cl.mdr.ifrs.ejb.service.local.EmpresaServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.EstadoFinancieroServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.EstructuraServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.FormulaServiceLocal;
@@ -97,7 +98,7 @@ public interface FacadeServiceLocal{
      * 
      * @return  Interfaz local de EmpresaServiceLocal
      */
-    //EmpresaServiceLocal getEmpresaService();
+    EmpresaServiceLocal getEmpresaService();
     
     
 }

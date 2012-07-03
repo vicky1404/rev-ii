@@ -7,9 +7,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -22,15 +23,21 @@ import cl.mdr.ifrs.ejb.cross.Util;
 @Table(name = Constantes.HTML)
 public class Html implements Serializable {
 	private static final long serialVersionUID = -1177959335360734640L;
+	
+	@Lob()
 	private byte[] contenido;
-    @Id
+   
+	@Id
     @Column(name = "ID_HTML", nullable = false)
     private Long idHtml;
+    
     @Column(length = 256)
     private String titulo;
-    @ManyToOne(targetEntity = Estructura.class)
+    
+    @OneToOne(targetEntity = Estructura.class)
     @JoinColumn(name = "ID_HTML", insertable = false, updatable = false)
     private Estructura estructura;
+    
     @SuppressWarnings("unused")
 	@Transient
     private String contenidoStr;

@@ -327,8 +327,8 @@ public class EstructuraServiceBean implements EstructuraServiceLocal {
             //for (Grilla grilla : grillas){
                 
                     grillaPaso = new Grilla();
-                    grillaPaso.setIdGrilla(grilla.getEstructura1().getIdEstructura());
-                    grillaPaso.setEstructura1(grilla.getEstructura1());
+                    grillaPaso.setIdGrilla(grilla.getEstructura().getIdEstructura());
+                    grillaPaso.setEstructura(grilla.getEstructura());
                     grillaPaso.setTitulo(grilla.getTitulo());
                     grillaPaso.setColumnaList(grilla.getColumnaList());
                 
@@ -341,7 +341,7 @@ public class EstructuraServiceBean implements EstructuraServiceLocal {
                         if(returnDelete > 0){
                             for(Columna columna : grillaPaso.getColumnaList()){
                                 columna.setGrilla(grillaPaso);
-                                columna.setIdGrilla(grillaPaso.getEstructura1().getIdEstructura());
+                                columna.setIdGrilla(grillaPaso.getEstructura().getIdEstructura());
                                 for(Celda celda : columna.getCeldaList()){
                                     celda.setIdColumna(columna.getIdColumna());
                                     celda.setIdGrilla(grillaPaso.getIdGrilla());
