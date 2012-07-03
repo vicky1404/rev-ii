@@ -14,12 +14,25 @@
 				oncomplete="statusDialog.hide();" />
 			<p:dialog modal="true" widgetVar="statusDialog"
 				header="#{msg.titulo_ventana_cargando}" x="30" y="30"
-				draggable="false" close="false">
+				draggable="false" close="false" width="300" height="50">
 				<h:panelGrid columns="2">
 					<h:graphicImage value="/resources/images/img/ajax-loader.gif" />
 					<h:outputText value="#{msg.titulo_ventana_cargando}" />
 				</h:panelGrid>
 			</p:dialog>
+			<!-- dialogo de descarga word -->
+			<p:dialog id="popUpDownWord" header="Descargar" widgetVar="p_down_word" width="300" height="50" modal="false" draggable="false">  
+			    <h:commandLink action="#{reporteBackingBean.downloadWord}" id="cl2" value="Descargar Archivo Word Generado" onblur="p_down_word.hide();">                        
+                </h:commandLink>  
+			</p:dialog>
+			
+			<!-- dialogo de descarga excel -->
+			<p:dialog id="popUpDownExcel" header="Descargar" widgetVar="p_down_excel" width="300" height="50" modal="false" draggable="false">  
+			    <h:commandLink  action="#{reporteBackingBean.downloadExcel}" id="cl1" value="Descargar Archivo Excel Generado" onblur="p_down_excel.hide();">                            
+                </h:commandLink> 
+			</p:dialog>
+			
+			
 			<p:panel id="filtro_reporte_cuadro" header="Reporte"
 				toggleable="true" closable="false" toggleSpeed="500"
 				closeSpeed="2000" widgetVar="panel">
@@ -84,7 +97,7 @@
 			<p:dataTable value="#{reporteBackingBean.catalogoReportes}"
 				emptyMessage="#{msg.mensaje_tabla_sin_registros}" id="tabla_grupos"
 				var="row" lazy="true"
-				rendered="#{reporteBackingBean.renderCatalogoReportes}">
+				rendered="#{reporteBackingBean.renderCatalogoReportes}" selectionMode="single" rowKey="#{row.entity.catalogo.idCatalogo}">
 				<p:column sortable="true" headerText="Seleccionar" id="c2"
 					style="text-align:center;">
 					<h:selectBooleanCheckbox value="#{row.selected}" id="sel1"
