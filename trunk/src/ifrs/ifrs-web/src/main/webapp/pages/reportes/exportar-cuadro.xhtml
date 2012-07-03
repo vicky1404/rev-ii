@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/main-template.xhtml">
+	<ui:define name="content">
+		<h:outputScript name="js/util/form-util.js" />
+		<h:form id="f_reporte_cuadro">
+			<p:growl id="messages_reporte_cuadro" autoUpdate="true"
+				showDetail="true" showSummary="true" />
+			<p:ajaxStatus onstart="statusDialog.show();"
+				oncomplete="statusDialog.hide();" />
+			<p:dialog modal="true" widgetVar="statusDialog"
+				header="#{msg.titulo_ventana_cargando}" x="30" y="30"
+				draggable="false" close="false">
+				<h:panelGrid columns="2">
+					<h:graphicImage value="/resources/images/img/ajax-loader.gif" />
+					<h:outputText value="#{msg.titulo_ventana_cargando}" />
+				</h:panelGrid>
+			</p:dialog>
+			<p:panel id="filtro_reporte_cuadro" header="Reporte"
+				toggleable="true" closable="false" toggleSpeed="500"
+				closeSpeed="2000" widgetVar="panel">
+				<h:panelGrid columns="3">
+					<h:outputLabel value="Periodo:" />
+					<p:selectOneMenu id="soc1"
+						unselectedLabel="#{msg.label_seleccione}"
+						value="#{reporteBackingBean.filtroBackingBean.periodo.mesPeriodo}"
+						required="true">
+						<f:selectItem itemLabel="#{msg.label_seleccione}" />
+						<f:selectItems
+							value="#{reporteBackingBean.componenteBackingBean.meses}"
+							id="si1" />
+					</p:selectOneMenu>
+					<p:selectOneMenu id="soc2"
+						unselectedLabel="#{msg.label_seleccione}"
+						value="#{reporteBackingBean.filtroBackingBean.periodo.anioPeriodo}"
+						required="true">
+						<f:selectItem itemLabel="#{msg.label_seleccione}" />
+						<f:selectItems
+							value="#{reporteBackingBean.componenteBackingBean.anios}"
+							id="si2" />
+					</p:selectOneMenu>
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<p:outputLabel value="#{msg.label_tipo_cuadro}:" for="stc" />
+					<p:selectOneMenu label="#{msg.label_tipo_cuadro}"
+						converter="tipoCuadroConverter" id="stc"
+						value="#{reporteBackingBean.filtroBackingBean.tipoCuadro}"
+						required="false" requiredMessage="#{msg.mensaje_seleccione_valor}">
+						<f:selectItem itemLabel="#{msg.label_seleccione}" />
+						<f:selectItems
+							value="#{reporteBackingBean.componenteBackingBean.tipoCuadroItems}" />
+					</p:selectOneMenu>
+					<h:panelGrid columns="2">
+						<h:outputLabel value=" " />
+						<p:commandButton value="#{msg.boton_buscar}"
+							action="#{reporteBackingBean.buscarAction}" update="tabla_grupos"
+							ajax="false">
+						</p:commandButton>
+					</h:panelGrid>
+				</h:panelGrid>
+			</p:panel>
+			<br />
+			<p:toolbar rendered="#{reporteBackingBean.renderCatalogoReportes}">
+				<p:toolbarGroup>
+					<p:commandButton value="Exportar a MS Word" id="wordbtn1" icon="ui-icon-word"
+						action="#{reporteBackingBean.generarDocx}">						
+					</p:commandButton>
+					<p:separator />
+					<p:commandButton value="Exportar a MS Excel" id="excbtn1" icon="ui-icon-xls"
+						action="#{reporteBackingBean.generarExcel}">						
+					</p:commandButton>
+					<p:separator />
+					<p:commandLink value="#{msg.label_seleccionar_todo}"
+						onclick="selectAll()"></p:commandLink>
+					<p:separator />
+					<p:commandLink value="#{msg.label_no_seleccionar_todo}"
+						onclick="unSelectAll()"></p:commandLink>
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:dataTable value="#{reporteBackingBean.catalogoReportes}"
+				emptyMessage="#{msg.mensaje_tabla_sin_registros}" id="tabla_grupos"
+				var="row" lazy="true"
+				rendered="#{reporteBackingBean.renderCatalogoReportes}">
+				<p:column sortable="true" headerText="Seleccionar" id="c2"
+					style="text-align:center;">
+					<h:selectBooleanCheckbox value="#{row.selected}" id="sel1"
+						label=" " />
+				</p:column>
+				<p:column headerText="Nombre" align="start" id="c3">
+					<h:outputText value="#{row.entity.catalogo.nombre}" id="ot3" />
+				</p:column>
+				<p:column headerText="Titulo" id="c4">
+					<h:outputText value="#{row.entity.catalogo.titulo}" id="ot4" />
+				</p:column>
+				<p:column headerText="Tipo de Impresion" id="c1">
+					<f:facet name="header">
+						<h:selectOneMenu label="Tipo de Impresion:" id="cmb_tc5"
+							required="false">
+							<f:selectItems
+								value="#{reporteBackingBean.componenteBackingBean.tipoImpresionItems}"
+								id="tipos_c5" />
+						</h:selectOneMenu>
+					</f:facet>
+					<h:selectOneMenu label="Tipo de Impresion:" id="soc3"
+						value="#{row.entity.catalogo.impresionHorizontal}"
+						required="false">
+						<f:selectItems
+							value="#{reporteBackingBean.componenteBackingBean.tipoImpresionItems}"
+							id="si1" />
+					</h:selectOneMenu>
+				</p:column>
+				<p:column sortable="false" headerText="Version" align="right"
+					id="c8">
+					<h:outputText value="#{row.entity.version}" id="ot8" />
+				</p:column>
+				<!--af:column sortable="false" headerText="Periodo" align="right" id="c9">
+                        <af:outputText value="#{row.entity.periodo.anioPeriodo}-#{row.entity.periodo.mesPeriodo}"
+                                       id="ot8_1"/>
+                    </af:column-->
+				<p:column sortable="false" headerText="Vigente" align="start"
+					id="c10" sortProperty="entity.vigencia" width="70">
+					<h:outputText value="#{row.entity.vigencia eq 1 ? 'SI' : 'NO'}"
+						id="ot10" />
+				</p:column>
+				<!--af:column sortable="true" align="start" id="c6" rowHeader="unstyled" width="150"
+                               headerText="Estado" sortProperty="entity.estado.idEstado">
+                        <af:outputText value="#{row.entity.estado.nombre}" id="ot9"/>
+                    </af:column-->
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -258,3 +258,11 @@ img.right {
 .ui-widget {
     font-size: 12px !important;
 }
+
+.ui-state-default .ui-icon-xls {
+    background-image: url(/ifrs-web/resources/images/icon/excel_16x16.png);
+}
+
+.ui-state-default .ui-icon-word {
+    background-image: url(/ifrs-web/resources/images/icon/word.png);
+}

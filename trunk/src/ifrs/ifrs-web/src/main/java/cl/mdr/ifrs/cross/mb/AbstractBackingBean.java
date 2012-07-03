@@ -32,6 +32,10 @@ public abstract class AbstractBackingBean {
 	@ManagedProperty(value="#{generadorVisualizador}")
     private GeneradorVisualizadorBackingBean generadorVisualizador;
 	
+	@ManagedProperty(value="#{filtroBackingBean}")
+    private FiltroBackingBean filtroBackingBean;
+	
+	
 	public GeneradorVersionBackingBean getGeneradorVersion() {
 		return generadorVersion;
 	}
@@ -157,6 +161,14 @@ public abstract class AbstractBackingBean {
 
 	public void setComponenteBackingBean(ComponenteBackingBean componenteBackingBean) {
 		this.componenteBackingBean = componenteBackingBean;
+	}
+
+	public FiltroBackingBean getFiltroBackingBean() {
+		return filtroBackingBean;
+	}
+
+	public void setFiltroBackingBean(FiltroBackingBean filtroBackingBean) {
+		this.filtroBackingBean = filtroBackingBean;
 	}
 	
 }
