@@ -23,8 +23,8 @@ import javax.persistence.Table;
  */
 @Entity
 @NamedQueries( { 
-    @NamedQuery(name = Grupo.FIND_ALL , query = " select new cl.mdr.ifrs.ejb.entity.Grupo(o.idGrupoAcceso, o.nombre, o.accesoBloqueado) " +
-    											" from Grupo o order by o.areaNegocio.nombre asc, o.nombre asc"),
+    @NamedQuery(name = Grupo.FIND_ALL , query = " select new cl.mdr.ifrs.ejb.entity.Grupo(o.idGrupoAcceso, o.nombre, o.accesoBloqueado, o.areaNegocio) " +
+    											" from Grupo o order by o.areaNegocio asc, o.nombre asc"),
 	@NamedQuery(name = Grupo.FIND_BY_ID , query = " select new cl.mdr.ifrs.ejb.entity.Grupo(o.idGrupoAcceso, o.nombre, o.accesoBloqueado) " +
 												  " from Grupo o where o.idGrupoAcceso =:idGrupoAcceso")
 })
@@ -75,8 +75,7 @@ public class Grupo implements Serializable {
 		)
 	private List<Empresa> empresas;
 
-	//bi-directional many-to-many association to Menu
-     
+	//bi-directional many-to-many association to Menu     
     @ManyToMany(fetch = FetchType.LAZY)    
 	@JoinTable(
 		name="IFRS_MENU_GRUPO"
@@ -113,6 +112,18 @@ public class Grupo implements Serializable {
 		this.idGrupoAcceso = idGrupoAcceso;
 		this.nombre = nombre;
 		this.accesoBloqueado = accesoBloqueado;		
+	}
+	
+	
+
+
+
+	public Grupo(String idGrupoAcceso, String nombre, Long accesoBloqueado, AreaNegocio areaNegocio) {
+		super();
+		this.idGrupoAcceso = idGrupoAcceso;
+		this.nombre = nombre;
+		this.accesoBloqueado = accesoBloqueado;	
+		this.areaNegocio = areaNegocio;
 	}
 
 
