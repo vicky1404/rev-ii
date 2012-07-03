@@ -72,6 +72,10 @@
         		
 	        </p:dataTable>
 	        
+	        <div align="right" style="width:720px;">
+            	<p:commandButton id="cb2" value="#{msg.generador_nueva_version}" style="width:124px;" actionListener="#{generadorVersionBackingBean.agregarVersionListener}"/>
+        	</div>
+	        
 	        <p:spacer height="20px;"/>
 	        
 	        <p:dataTable id="dt3" value="#{generadorVersionBackingBean.estructuraList}" var="row">
@@ -102,6 +106,9 @@
 	        	</p:column>
 	        	
 	        </p:dataTable>
+	        <div align="right" style="width:410px;">
+            	<p:commandButton id="cb3" text="#{msg.generador_guardar_estructura}" style="width:150px" actionListener="#{generadorVersionBackingBean.guardarEstructuraListener}" rendered="#{generadorVersionBackingBean.renderBotonEditar}"/>
+        	</div>
 	        
 		</h:form>
 </ui:composition>
