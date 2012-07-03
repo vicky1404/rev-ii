@@ -5,7 +5,6 @@ import static ch.lambdaj.Lambda.sort;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -16,7 +15,6 @@ import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.event.ActionEvent;
 import javax.persistence.NoResultException;
 
 import org.apache.commons.io.IOUtils;
@@ -53,6 +51,7 @@ public class ReporteBackingBean extends AbstractBackingBean implements Serializa
     private boolean renderCatalogoReportes = Boolean.FALSE;
     private boolean renderBotonExportarWord;    
     private List<Version> versionDownloadList;
+    private Long tipoImpresionHeader;
 	
     
 	/**
@@ -84,7 +83,7 @@ public class ReporteBackingBean extends AbstractBackingBean implements Serializa
             this.setRenderCatalogoReportes(Boolean.TRUE);
         } catch (Exception e) {
             logger.error(e.getCause(), e);
-            super.addErrorMessage("", "Se ha producido un error al buscar el catálogo para la generación de reportes");
+            super.addErrorMessage("Error", "Se ha producido un error al buscar el catálogo para la generación de reportes");
         }        
     }
     
@@ -97,7 +96,7 @@ public class ReporteBackingBean extends AbstractBackingBean implements Serializa
     public List<CommonGridModel<Version>> getGrillaReportes(List<Version> versionList){
         catalogoReportes = new ArrayList<CommonGridModel<Version>>();
         for(Version version  : versionList){
-            catalogoReportes.add(new CommonGridModel(version, Boolean.FALSE));
+            catalogoReportes.add(new CommonGridModel<Version>(version, Boolean.FALSE));
         }
         return catalogoReportes;
     }
@@ -128,14 +127,14 @@ public class ReporteBackingBean extends AbstractBackingBean implements Serializa
                 version.setEstructuraList(estructuras);
             }
             if(versionList.isEmpty() || versionList == null){
-                addWarnMessage("", "Seleccione al menos un elemento del Catálogo para exportar a MS Excel");
+                addWarnMessage("Atención", "Seleccione al menos un elemento del Catálogo para exportar a MS Excel");
                 return null;
             }
             this.setVersionDownloadList(versionList);                                     
             this.displayPopUp(POPUP_DOWNLOAD_EXCEL);
         } catch (Exception e) {
             logger.error(e.getCause(), e);
-            addErrorMessage("", "Se ha producido un error al exportar a formato MS Excel");
+            addErrorMessage("Error", "Se ha producido un error al exportar a formato MS Excel");
         }     
         return null;
     }
@@ -156,7 +155,7 @@ public class ReporteBackingBean extends AbstractBackingBean implements Serializa
             this.displayPopUp(POPUP_DOWNLOAD_WORD);              
         } catch (Exception e) {
             logger.error(e.getCause(), e);
-            addErrorMessage("Se ha producido un error al exportar a formato MS Word "+e);
+            addErrorMessage("Error", "Se ha producido un error al exportar a formato MS Word "+e);
         }  
         return null;
     }
@@ -170,7 +169,7 @@ public class ReporteBackingBean extends AbstractBackingBean implements Serializa
             super.getFacesContext().responseComplete();            
         } catch (Exception e) {
             logger.error(e.getCause(), e);
-            addErrorMessage("Se ha producido un error al exportar a formato MS Excel");
+            addErrorMessage("Error", "Se ha producido un error al exportar a formato MS Excel");
         }
         return null;
     }
@@ -180,12 +179,12 @@ public class ReporteBackingBean extends AbstractBackingBean implements Serializa
         try{
             final List<ReportePrincipalVO> reportes = this.getReporteUtilBackingBean().getGenerarListReporteVO(this.getVersionDownloadList());
             final String nombreArchivo = SoporteReporte.getNombreReporteDocx(new Date());                        
-            WordprocessingMLPackage wordMLPackage = super.getFacadeService().getReporteDocxService().createDOCX(reportes, this.getLogoReporte(), super.getNombreUsuario(), super.getIpUsuario(), nombreArchivo, super.getFiltroBackingBean().getPeriodo());              
+            WordprocessingMLPackage wordMLPackage = super.getFacadeService().getReporteDocxService().createDOCX(reportes, getLogoReporte(), super.getNombreUsuario(), super.getIpUsuario(), nombreArchivo, super.getFiltroBackingBean().getPeriodo());              
             this.getReporteUtilBackingBean().setOutPutStreamDocx(wordMLPackage, nombreArchivo);
             super.getFacesContext().responseComplete();            
         } catch (Exception e) {
             logger.error(e.getCause(), e);
-            addErrorMessage("Se ha producido un error al exportar a formato MS Word "+e);
+            addErrorMessage("Error", "Se ha producido un error al exportar a formato MS Word "+e);
         }
         return null;
     }
@@ -196,11 +195,33 @@ public class ReporteBackingBean extends AbstractBackingBean implements Serializa
         context.update("f_reporte_cuadro");  
     }
     
-    private void hidePopUp(final String idDialog){
+    @SuppressWarnings("unused")
+	private void hidePopUp(final String idDialog){
     	RequestContext context = RequestContext.getCurrentInstance();
     	context.execute(""+idDialog+".hide();");  
         context.update("f_reporte_cuadro");  
     }
+    
+    /**
+     * 
+     */
+    public void tipoImpresionChange(){
+		try{						
+			Long tipoImpresion = this.getTipoImpresionHeader();
+	        if(tipoImpresion != null){
+	            List<CommonGridModel<Version>> grillaList = new ArrayList<CommonGridModel<Version>>();
+	            for(CommonGridModel<Version> grillaReporte : this.getCatalogoReportes()) {                                                 
+	                grillaReporte.getEntity().getCatalogo().setImpresionHorizontal(tipoImpresion);
+	                grillaList.add(grillaReporte);
+	            }
+	            this.setCatalogoReportes(grillaList);	            
+	        }       
+		}catch(Exception e){
+			addErrorMessage("Error", "Se ha producido un error al Cambiar la Horientación de Impresión");
+			logger.error(e.getCause(), e);
+		}
+		
+	}
     
     /**
      * obtiene la imagen a utilizar en la cabecera del reporte.
@@ -259,5 +280,13 @@ public class ReporteBackingBean extends AbstractBackingBean implements Serializa
 	public void setReporteUtilBackingBean(
 			ReporteUtilBackingBean reporteUtilBackingBean) {
 		this.reporteUtilBackingBean = reporteUtilBackingBean;
+	}
+
+	public Long getTipoImpresionHeader() {
+		return tipoImpresionHeader;
+	}
+
+	public void setTipoImpresionHeader(Long tipoImpresionHeader) {
+		this.tipoImpresionHeader = tipoImpresionHeader;
 	}
 }
