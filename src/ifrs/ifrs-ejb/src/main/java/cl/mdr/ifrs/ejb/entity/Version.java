@@ -21,6 +21,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import cl.mdr.ifrs.ejb.common.Constantes;
 
 
@@ -81,17 +84,21 @@ public class Version implements Serializable {
     
     private String comentario;
     
+    @Fetch(FetchMode.JOIN)
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_PERIODO")
     private Periodo periodo;
     
+    @Fetch(FetchMode.JOIN)
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_CATALOGO")
     private Catalogo catalogo;
     
+    @Fetch(FetchMode.JOIN)
     @ManyToOne
     @JoinColumn(name = "ID_ESTADO_CUADRO")
     private EstadoCuadro estado;
+    
     
     @OneToMany(mappedBy = "version", targetEntity = Estructura.class)
     private List<Estructura> estructuraList;
