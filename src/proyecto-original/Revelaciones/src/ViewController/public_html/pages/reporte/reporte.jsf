@@ -26,6 +26,15 @@
                   }
               }
           }
+          
+          function cerrarPopUpExcel(evt){
+              AdfPage.PAGE.findComponent('p_down_excel').hide();
+          }
+          
+          function cerrarPopUpWord(evt){
+              AdfPage.PAGE.findComponent('p_down_word').hide();
+          }
+          
         </af:resource>
         <af:form id="f1">
             <af:popup id="p1_loading" contentDelivery="immediate" animate="default">
@@ -39,21 +48,23 @@
                 </af:dialog>
             </af:popup>
             
-            <af:popup id="p_down_excel" contentDelivery="immediate" animate="default">
+            <af:popup id="p_down_excel" contentDelivery="immediate" animate="false">
                 <af:dialog id="d3" type="cancel" title="Descargar" closeIconVisible="true" inlineStyle="width:300px;"
                            modal="false" titleIconSource="/images/icon/page_excel_16x16.png" >
                     <af:panelGroupLayout id="pgl2" layout="horizontal">                        
-                        <af:commandLink actionListener="#{reporteBackingBean.downloadExcel}" id="cl1" text="Descargar Archivo Excel Generado">                            
+                        <af:commandLink actionListener="#{reporteBackingBean.downloadExcel}" id="cl1" text="Descargar Archivo Excel Generado" inlineStyle="text-decoration:underline;">
+                            <af:clientListener method="cerrarPopUpExcel" type="blur"/>
                         </af:commandLink>
                     </af:panelGroupLayout>
                 </af:dialog>
             </af:popup>
             
-            <af:popup id="p_down_word" contentDelivery="immediate" animate="default">
+            <af:popup id="p_down_word" contentDelivery="immediate" animate="false">
                 <af:dialog id="d4" type="cancel" title="Descargar" closeIconVisible="true" inlineStyle="width:300px;"
                            modal="false" titleIconSource="/images/icon/word.png" >
                     <af:panelGroupLayout id="pgl3" layout="horizontal">                        
-                        <af:commandLink actionListener="#{reporteBackingBean.downloadWord}" id="cl2" text="Descargar Archivo Word Generado">                        
+                        <af:commandLink actionListener="#{reporteBackingBean.downloadWord}" id="cl2" text="Descargar Archivo Word Generado" inlineStyle="text-decoration:underline;">  
+                            <af:clientListener method="cerrarPopUpWord" type="blur"/>
                         </af:commandLink>
                     </af:panelGroupLayout>
                 </af:dialog>

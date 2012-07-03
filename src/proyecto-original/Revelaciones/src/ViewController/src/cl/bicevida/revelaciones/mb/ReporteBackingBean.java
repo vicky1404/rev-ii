@@ -178,12 +178,12 @@ public class ReporteBackingBean extends SoporteBackingBean implements Serializab
     }
     
     public void downloadExcel(ActionEvent event){
-        logger.info("descargando archivo excel");
+        logger.info("descargando archivo Excel");
         try{
             List<ReportePrincipalVO> reportes = getReporteUtilBackingBean().getGenerarListReporteVO(this.getVersionDownloadList());                            
             XSSFWorkbook wb = super.getFacade().getServiceReporte().createXLSX(reportes);        
             this.getReporteUtilBackingBean().setOuputStreamWorkBook(wb);
-            super.getFacesContext().responseComplete();
+            super.getFacesContext().responseComplete();            
         } catch (Exception e) {
             logger.error(e.getCause(), e);
             agregarErrorMessage("Se ha producido un error al exportar a formato MS Excel");
@@ -191,13 +191,13 @@ public class ReporteBackingBean extends SoporteBackingBean implements Serializab
     }
     
     public void downloadWord(ActionEvent event){
-        logger.info("descargando archivo word");
+        logger.info("descargando archivo Word");
         try{
             List<ReportePrincipalVO> reportes = getReporteUtilBackingBean().getGenerarListReporteVO(this.getVersionDownloadList());
             final String nombreArchivo = SoporteReporte.getNombreReporteDocx(new Date());                        
             WordprocessingMLPackage wordMLPackage = super.getFacade().getReporteDocxService().createDOCX(reportes, this.getLogoReporte(), super.getNombreUsuario(), super.getIpUsuario(), nombreArchivo, super.getFiltro().getPeriodo());              
             this.getReporteUtilBackingBean().setOutPutStreamDocx(wordMLPackage, nombreArchivo);
-            super.getFacesContext().responseComplete();
+            super.getFacesContext().responseComplete();            
         } catch (Exception e) {
             logger.error(e.getCause(), e);
             agregarErrorMessage("Se ha producido un error al exportar a formato MS Word "+e);
@@ -209,6 +209,13 @@ public class ReporteBackingBean extends SoporteBackingBean implements Serializab
         ExtendedRenderKitService extRenderKitSrvc =
         Service.getRenderKitService(context, ExtendedRenderKitService.class);
         extRenderKitSrvc.addScript(context, "AdfPage.PAGE.findComponent('" + popupId + "').show();");
+    }
+    
+    private void closePopup(String popupId){
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExtendedRenderKitService extRenderKitSrvc =
+        Service.getRenderKitService(context, ExtendedRenderKitService.class);
+        extRenderKitSrvc.addScript(context, "AdfPage.PAGE.findComponent('" + popupId + "').hide();");
     }
     
     @Deprecated

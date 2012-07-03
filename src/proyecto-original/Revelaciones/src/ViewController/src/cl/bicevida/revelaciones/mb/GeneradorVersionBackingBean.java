@@ -105,12 +105,12 @@ public class GeneradorVersionBackingBean extends SoporteBackingBean{
                 }
             }catch(Exception e){
                 getBusquedaInputText().setValue("");
-                agregarWarnMessage("Busqueda sin resultados");
+                agregarWarnMessage("Búsqueda sin resultados");
             }
             
             if(catalogo==null){
                 init();
-                agregarWarnMessage("Busqueda sin resultados");
+                agregarWarnMessage("Búsqueda sin resultados");
             }else{
                 setCatalogoBusqueda(catalogo);
                 getBusquedaInputText().setReadOnly(true);

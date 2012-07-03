@@ -42,7 +42,9 @@ import org.apache.log4j.Logger;
 
 
 public class CuadroBackingBean extends SoporteBackingBean implements Serializable{
+    
     private transient Logger logger = Logger.getLogger(CuadroBackingBean.class);
+    
     @SuppressWarnings("compatibility:-7656952128317697995")
     private static final long serialVersionUID = -8524005303834461862L;
     
@@ -78,9 +80,15 @@ public class CuadroBackingBean extends SoporteBackingBean implements Serializabl
             logger.error(e.getCause(), e);
             agregarErrorMessage(PropertyManager.getInstance().getMessage("general_mensaje_cuadro_formula_loop_error"));  
             agregarErrorMessage(e.getFormula());  
+        }catch(EJBException e){
+            if(e.getCause() instanceof NoResultException){
+                agregarWarnMessage("No existen Versiones creadas para el Cuadro");
+            }else{
+                agregarErrorMessage("Error al cargar información de página");
+            }
         }catch(Exception e){
             agregarErrorMessage("Error al cargar información de página");
-            logger.error(e.getMessage());
+        logger.error(e.getMessage());
         }
     }
     
