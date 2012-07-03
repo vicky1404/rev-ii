@@ -5,29 +5,40 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<title>IFRS - Notas</title>
+	<title>#{msg.titulo_principal_aplicacion}</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<h:outputStylesheet name="css/screen.css" />
 </h:head>
 <h:body>
-    <!-- p:ajaxStatus  onstart="statusDialog.show();" oncomplete="statusDialog.hide();"/>                  
+	<!-- p:ajaxStatus  onstart="statusDialog.show();" oncomplete="statusDialog.hide();"/>                  
 	<p:dialog modal="true" widgetVar="statusDialog" header="Status" x="10" y="10" draggable="false" close="false">
         <h:graphicImage value="../design/ajaxloadingbar.gif" />
 	</p:dialog-->
-	<p:layout fullPage="true">
+	<p:layout fullPage="true" resizeTitle="#{msg.label_redimensionar}"
+		collapseTitle="#{msg.label_colapsar}" closeTitle="#{msg.label_cerrar}">
 
-		<p:layoutUnit position="north" size="100"
-			header="Sistema de Revelaciones" resizable="true" closable="false"
-			collapsible="true" id="l_north" style="border:0px;">
+		<p:layoutUnit position="north" size="50"
+			resizable="true" closable="false"
+			collapsible="false" id="l_north" style="border:0px;"
+			resizeTitle="#{msg.label_redimensionar}"
+			collapseTitle="#{msg.label_colapsar}" 
+			closeTitle="#{msg.label_cerrar}">
 
 		</p:layoutUnit>
 
 		<p:layoutUnit position="west" size="230" resizable="true"
-			closable="false" collapsible="true" id="l_west" header="> #{msg.titulo_panel_menu}">
+			closable="false" collapsible="true" id="l_west"
+			header="> #{msg.titulo_panel_menu}"
+			resizeTitle="#{msg.label_redimensionar}"
+			collapseTitle="#{msg.label_colapsar}"
+			closeTitle="#{msg.label_cerrar}">
 			<ui:include src="menu.xhtml" />
 		</p:layoutUnit>
 
-		<p:layoutUnit position="center" id="l_center"> 
+		<p:layoutUnit position="center" id="l_center"
+			resizeTitle="#{msg.label_redimensionar}"
+			collapseTitle="#{msg.label_colapsar}"
+			closeTitle="#{msg.label_cerrar}">
 			<ui:insert name="content">
                     [Contenido del Template content]
          	</ui:insert>
