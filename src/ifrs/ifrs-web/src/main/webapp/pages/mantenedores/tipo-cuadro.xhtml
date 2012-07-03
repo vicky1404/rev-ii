@@ -100,11 +100,15 @@
         	<h:panelGrid id="display" columns="3" cellpadding="4">  
             
 	            <p:outputLabel for="Nombre" value="#{msg.label_nombre}" />  
-	            <p:inputText value="#{tipoCuadro.nuevoTipoCuadro.nombre}" id="Nombre" label="#{msg.label_nombre}" required="true" />
+	            <p:inputText value="#{tipoCuadro.nuevoTipoCuadro.nombre}" id="Nombre" label="#{msg.label_nombre}" required="true" >
+	            	<f:validateLength minimum="1" maximum="256"></f:validateLength>
+	            </p:inputText>
 	            <h:message for="Nombre" id="msgNombre" style="color:red"/>           
 	  
 	            <p:outputLabel for="Titulo" value="#{msg.label_titulo}" />  
-	            <p:inputText value="#{tipoCuadro.nuevoTipoCuadro.titulo}" id="Titulo" label="#{msg.label_titulo}" required="true"/>
+	            <p:inputText value="#{tipoCuadro.nuevoTipoCuadro.titulo}" id="Titulo" label="#{msg.label_titulo}" required="true">
+	            	<f:validateLength minimum="1" maximum="512"></f:validateLength>
+	            </p:inputText>
 	            <h:message for="Titulo" id="msgTitulo" style="color:red"/>	  			
 	  			
 	  			<p:commandButton icon="ui-icon-disk" value="#{msg.boton_guardar}" actionListener="#{tipoCuadro.guardar}" id="btnGuardar" update=":form:tabla :form:messages msgNombre msgTitulo" oncomplete="handleLoginRequest(xhr, status, args)"></p:commandButton>
