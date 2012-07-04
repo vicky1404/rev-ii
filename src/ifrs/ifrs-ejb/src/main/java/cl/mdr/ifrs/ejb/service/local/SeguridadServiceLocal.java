@@ -4,6 +4,7 @@ package cl.mdr.ifrs.ejb.service.local;
 import java.util.List;
 
 import javax.ejb.Local;
+import javax.persistence.NoResultException;
 
 import cl.mdr.ifrs.ejb.entity.CatalogoGrupo;
 import cl.mdr.ifrs.ejb.entity.Grupo;
@@ -147,5 +148,12 @@ public interface SeguridadServiceLocal {
      * @throws Exception
      */
     void updateBloqueoGrupo(List<Grupo> grupoList) throws Exception;
+    
+    /**
+     * @param nombreUsuario
+     * @return
+     * @throws Exception
+     */
+    Usuario authenticateUser(String nombreUsuario) throws Exception, NoResultException;
         
 }
