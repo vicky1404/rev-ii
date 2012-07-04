@@ -260,9 +260,9 @@ img.right {
 }
 
 .ui-state-default .ui-icon-xls {
-    background-image: url(/ifrs-web/resources/images/icon/excel_16x16.png);
+    background-image: url(#{request.contextPath}/resources/images/icon/excel_16x16.png);
 }
 
 .ui-state-default .ui-icon-word {
-    background-image: url(/ifrs-web/resources/images/icon/word.png);
+    background-image: url(#{request.contextPath}/resources/images/icon/word.png);
 }
