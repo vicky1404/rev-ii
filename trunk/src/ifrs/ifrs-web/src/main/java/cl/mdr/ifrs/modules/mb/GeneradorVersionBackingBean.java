@@ -165,6 +165,23 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
         setEstructuraList(estructuras);
     }
     
+    public void eliminarTipoEstructuraListener(ActionEvent actionEvent) {        
+        setAlmacenado(false);
+        if(getEstructuraList().size()<=1)
+            return;
+        Estructura estructuraSelected = (Estructura)estructuraTable.getRowData();
+        getEstructuraList().remove(estructuraSelected);
+        getGeneradorDiseno().getGrillaModelMap().remove(estructuraSelected.getOrden());
+        Long i=1L;
+        for(Estructura estructura : getEstructuraList()){
+            GrillaModelVO grillaModel = getGeneradorDiseno().getGrillaModelMap().get(estructura.getOrden());
+            getGeneradorDiseno().getGrillaModelMap().put(i, grillaModel);
+            estructura.setOrden(i);
+            i++;
+        }
+        getGeneradorDiseno().initBackingBean();
+    }
+    
     /*
      * Metodo que busca las estructura al hacer clink en el icono cargar
      */

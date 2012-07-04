@@ -24,9 +24,7 @@
 					var="c" itemLabel="#{c.nombre}" itemValue="#{c.idCatalogo}"
 					dropdown="true" scrollHeight="300" />
 
-				<p:commandButton value="Buscar"
-					actionListener="#{generadorVersionBackingBean.buscarListener}"
-					update="dt1,dt2" />
+				<p:commandButton value="Buscar" actionListener="#{generadorVersionBackingBean.buscarListener}" update="dt1,dt2" />
 
 			</h:panelGrid>
 
@@ -70,7 +68,8 @@
 				</p:column>
 
 				<p:column id="c3" headerText="Comentario Creacion">
-					<h:inputText value="#{ver.comentario}" />
+					<p:inputText value="#{ver.comentario}" rendered="#{ver.editable}" />
+					<h:outputText value="#{ver.comentario}" rendered="#{!ver.editable}" />
 				</p:column>
 
 				<p:column id="c4" headerText="Fecha Creacion">
@@ -86,31 +85,28 @@
 
 			<p:spacer height="20px;" />
 
-			<p:dataTable id="dt3"
-				value="#{generadorVersionBackingBean.estructuraList}" var="row">
+			<p:dataTable id="dt3" value="#{generadorVersionBackingBean.estructuraList}" var="row">
 
 				<p:column headerText="Orden" style="text-align:center">
 					<h:outputText value="#{row.orden}" />
 				</p:column>
 
 				<p:column headerText="Tipo de Estructura" style="text-align:center">
-					<p:selectOneMenu value="#{row.tipoEstructura}" style="width:130px">
-						<f:selectItem itemLabel="Seleccione" />
-						<f:selectItems
-							value="#{generadorVersionBackingBean.componenteBackingBean.tipoEstructuras}" />
+					<p:selectOneMenu value="#{row.tipoEstructura}" style="width:130px" converter="tipoEstructuraConverter">
+						<f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
+						<f:selectItems value="#{generadorVersionBackingBean.componenteBackingBean.tipoEstructuras}" />
 					</p:selectOneMenu>
 				</p:column>
 
 				<p:column headerText="Agregar o Eliminar" style="text-align:center">
 
-					<p:commandLink>
+					<p:commandLink id="cl1" actionListener="#{generadorVersionBackingBean.agregarTipoEstructuraListener}" update="dt3" partialSubmit="true" >
 						<p:graphicImage value="../../resources/images/icon/add.png" />
 					</p:commandLink>
 
 					<p:spacer width="3px" />
 
-					<p:commandLink
-						rendered="#{generadorVersionBackingBean.sizeEstructrua > 1 ? true : true}">
+					<p:commandLink ajax="true" id="cl2" title="Agregar" actionListener="#{generadorVersionBackingBean.eliminarTipoEstructuraListener}" rendered="#{generadorVersionBackingBean.sizeEstructrua > 1 ? 'true' : 'false'} " update="dt3" partialSubmit="true">
 						<p:graphicImage value="../../resources/images/icon/remove.png" />
 					</p:commandLink>
 
@@ -118,13 +114,16 @@
 				
 				<p:column headerText="Ordenar" style="text-align:center">
 
-					<p:commandLink rendered="#{(generadorVersionBackingBean.sizeEstructrua > 1 ? true : false) and (status.count == 1 ? false : true)}">
+					<p:commandLink rendered="#{(generadorVersionBackingBean.sizeEstructrua > 1 ? true : false) and (status.count == 1 ? false : true)}" update="dt3" partialSubmit="true">
 						<p:graphicImage value="../../resources/images/icon/up_ok.png" />
 					</p:commandLink>
 
 					<p:spacer width="3px" />
 
-					<p:commandLink rendered="#{(generadorVersionBackingBean.sizeEstructrua > 1 ? true : false) and (status.count == generadorVersionBackingBean.sizeEstructrua ? false : true) and (generadorVersionBackingBean.sizeEstructrua > status.count)}">
+					<p:commandLink rendered="#{(generadorVersionBackingBean.sizeEstructrua > 1 ? true : false) and 
+											   (status.count == generadorVersionBackingBean.sizeEstructrua ? false : true) and 
+											   (generadorVersionBackingBean.sizeEstructrua > status.count)}"
+											   update="dt3" partialSubmit="true">
 						<p:graphicImage value="../../resources/images/icon/down_ok.png" />
 					</p:commandLink>
 
