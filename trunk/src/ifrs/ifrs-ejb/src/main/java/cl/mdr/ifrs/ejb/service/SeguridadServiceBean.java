@@ -9,6 +9,7 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import cl.mdr.ifrs.ejb.common.Constantes;
@@ -32,6 +33,9 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
     }
     
         
+    /* (non-Javadoc)
+     * @see cl.mdr.ifrs.ejb.service.local.SeguridadServiceLocal#findGruposAll()
+     */
     @SuppressWarnings("unchecked")
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public List<Grupo> findGruposAll()throws Exception{
@@ -40,12 +44,18 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
     
     
     /*Usuarios por Grupo*/
+    /* (non-Javadoc)
+     * @see cl.mdr.ifrs.ejb.service.local.SeguridadServiceLocal#findUsuariosDistinctAll()
+     */
     @SuppressWarnings("unchecked")
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public List<String> findUsuariosDistinctAll()throws Exception{
         return em.createNamedQuery(UsuarioGrupo.FIND_USUARIOS_DISTINCT_ALL).getResultList();        
     } 
     
+    /* (non-Javadoc)
+     * @see cl.mdr.ifrs.ejb.service.local.SeguridadServiceLocal#findGruposByUsuario(java.lang.String)
+     */
     @SuppressWarnings("unchecked")
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public List<Grupo> findGruposByUsuario(final String usuario) throws Exception{        
@@ -54,6 +64,9 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
         .getResultList();
     }
     
+    /* (non-Javadoc)
+     * @see cl.mdr.ifrs.ejb.service.local.SeguridadServiceLocal#findUsuarioByUserName(java.lang.String)
+     */
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public Usuario findUsuarioByUserName(final String userName)throws Exception{
     	return (Usuario) em.createQuery("select u from Usuario u " +
@@ -61,6 +74,9 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
     									"where u.nombreUsuario =:userName").setParameter("userName", userName).getSingleResult();
     }
     
+    /* (non-Javadoc)
+     * @see cl.mdr.ifrs.ejb.service.local.SeguridadServiceLocal#persistUsuarioGrupo(java.util.List, cl.mdr.ifrs.ejb.entity.Grupo)
+     */
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void persistUsuarioGrupo(final List<UsuarioGrupo> usuarioGrupoList, final Grupo grupo) throws Exception {
         em.createNamedQuery(UsuarioGrupo.DELETE_BY_GRUPO).setParameter("grupo", grupo).executeUpdate();
@@ -72,6 +88,9 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
         }
     }
    
+    /* (non-Javadoc)
+     * @see cl.mdr.ifrs.ejb.service.local.SeguridadServiceLocal#findUsuarioByGrupoIn(cl.mdr.ifrs.ejb.entity.Grupo)
+     */
     @SuppressWarnings("unchecked")
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public List<Usuario> findUsuarioByGrupoIn(final Grupo grupo) throws Exception {
@@ -84,6 +103,9 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
 				.getResultList();  
 			    }
     
+    /* (non-Javadoc)
+     * @see cl.mdr.ifrs.ejb.service.local.SeguridadServiceLocal#findUsuarioByGrupoNotIn(cl.mdr.ifrs.ejb.entity.Grupo)
+     */
     @SuppressWarnings("unchecked")
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public List<Usuario> findUsuarioByGrupoNotIn(final Grupo grupo) throws Exception {
@@ -97,6 +119,9 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
     }
         
     
+    /* (non-Javadoc)
+     * @see cl.mdr.ifrs.ejb.service.local.SeguridadServiceLocal#findUsuarioAll()
+     */
     @SuppressWarnings("unchecked")
    	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public List<Usuario> findUsuarioAll() throws Exception {
@@ -104,17 +129,26 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
     }
     
     /*menu por grupo*/
+	/* (non-Javadoc)
+	 * @see cl.mdr.ifrs.ejb.service.local.SeguridadServiceLocal#findGrupoById(cl.mdr.ifrs.ejb.entity.Grupo)
+	 */
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public Grupo findGrupoById(final Grupo grupo) throws Exception {
         return (Grupo) em.createQuery("select g from Grupo g left join fetch g.menus where g =:grupo").setParameter("grupo", grupo).getSingleResult();
     }
     
+	/* (non-Javadoc)
+	 * @see cl.mdr.ifrs.ejb.service.local.SeguridadServiceLocal#findJustGrupoById(cl.mdr.ifrs.ejb.entity.Grupo)
+	 */
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public Grupo findJustGrupoById(final Grupo grupo) throws Exception {
         return (Grupo) em.find(Grupo.class, grupo.getIdGrupoAcceso());
     }
     
     
+    /* (non-Javadoc)
+     * @see cl.mdr.ifrs.ejb.service.local.SeguridadServiceLocal#findMenuFindAll()
+     */
     @SuppressWarnings("unchecked")
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public List<Menu> findMenuFindAll() throws Exception {
@@ -122,6 +156,9 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
     }
     
     
+    /* (non-Javadoc)
+     * @see cl.mdr.ifrs.ejb.service.local.SeguridadServiceLocal#persistMenuGrupo(java.util.List, cl.mdr.ifrs.ejb.entity.Grupo)
+     */
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void persistMenuGrupo(final List<MenuGrupo> menuGrupoList, final Grupo grupo) throws Exception {
         em.createNamedQuery(MenuGrupo.DELETE_BY_GRUPO).setParameter("grupo", grupo).executeUpdate();
@@ -130,6 +167,9 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
         }
     }
     
+    /* (non-Javadoc)
+     * @see cl.mdr.ifrs.ejb.service.local.SeguridadServiceLocal#findMenuAccesoByGrupo(cl.mdr.ifrs.ejb.entity.Grupo)
+     */
     @SuppressWarnings("unchecked")
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public List<MenuGrupo> findMenuAccesoByGrupo(final Grupo grupo) throws Exception {
@@ -138,6 +178,9 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
     }
     
     /*estructuras por grupo*/
+    /* (non-Javadoc)
+     * @see cl.mdr.ifrs.ejb.service.local.SeguridadServiceLocal#persistCatalogoGrupo(java.util.List, cl.mdr.ifrs.ejb.entity.Grupo)
+     */
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void persistCatalogoGrupo(final List<CatalogoGrupo> catalogoGrupoList, final Grupo grupo) throws Exception {
         em.createNamedQuery(CatalogoGrupo.DELETE_BY_GRUPO).setParameter("grupo", grupo).executeUpdate();
@@ -146,18 +189,27 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
         }
     }
         
+	/* (non-Javadoc)
+	 * @see cl.mdr.ifrs.ejb.service.local.SeguridadServiceLocal#findGrupoAndCatalogoById(cl.mdr.ifrs.ejb.entity.Grupo)
+	 */
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public Grupo findGrupoAndCatalogoById(final Grupo grupo) throws Exception {
         return (Grupo) em.createQuery("select g from Grupo g left join fetch g.catalogos where g =:grupo").setParameter("grupo", grupo).getSingleResult();
     }
     
     
+	/* (non-Javadoc)
+	 * @see cl.mdr.ifrs.ejb.service.local.SeguridadServiceLocal#findGrupoAndUsuariosById(cl.mdr.ifrs.ejb.entity.Grupo)
+	 */
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public Grupo findGrupoAndUsuariosById(final Grupo grupo) throws Exception {
         return (Grupo) em.createQuery("select g from Grupo g left join fetch g.usuarios where g =:grupo").setParameter("grupo", grupo).getSingleResult();
     }
     
     /*grupo*/
+    /* (non-Javadoc)
+     * @see cl.mdr.ifrs.ejb.service.local.SeguridadServiceLocal#mergeGrupoList(java.util.List)
+     */
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void mergeGrupoList(final List<Grupo> grupoList) throws Exception {        
         for(Grupo grupo : grupoList) {
@@ -165,12 +217,18 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
         }
     }
     
+    /* (non-Javadoc)
+     * @see cl.mdr.ifrs.ejb.service.local.SeguridadServiceLocal#mergeGrupo(cl.mdr.ifrs.ejb.entity.Grupo)
+     */
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void mergeGrupo(final Grupo grupo) throws Exception {               
         em.merge(grupo);        
     }
     
     /*Bloqueo por Grupo*/
+    /* (non-Javadoc)
+     * @see cl.mdr.ifrs.ejb.service.local.SeguridadServiceLocal#updateBloqueoGrupo(java.util.List)
+     */
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void updateBloqueoGrupo(final List<Grupo> grupoList) throws Exception {        
         for(Grupo grupo : grupoList) {
@@ -179,6 +237,16 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
             				.setParameter(2, grupo.getIdGrupoAcceso())
             				.executeUpdate();
         }
+    }
+    
+    /* (non-Javadoc)
+     * @see cl.mdr.ifrs.ejb.service.local.SeguridadServiceLocal#authenticateUser(java.lang.String)
+     */
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public Usuario authenticateUser(final String nombreUsuario) throws Exception, NoResultException{
+    	return (Usuario) em.createNamedQuery(Usuario.AUTHENTICATE_USER)
+    							  .setParameter("nombreUsuario", nombreUsuario)    							  
+    							  .getSingleResult();
     }
     
        

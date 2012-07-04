@@ -11,10 +11,20 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.validator.constraints.Email;
 
 
 /**
@@ -22,14 +32,24 @@ import javax.persistence.TemporalType;
  * 
  */
 @Entity
+@NamedQueries( { 
+    @NamedQuery(name = Usuario.AUTHENTICATE_USER , query = " select u from Usuario u left join fetch u.grupos " +
+    													   " where u.nombreUsuario =:nombreUsuario ")
+})    
 @Table(name="IFRS_USUARIO")
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = -2179335821042652705L;
+	
+	public static final String AUTHENTICATE_USER = "Usuario.authenticateUser";
 
 	@Id
 	@Column(name="NOMBRE_USUARIO")
+	@NotNull
+    @Size(min = 1, max = 255)
+    @Pattern(regexp = "[A-Za-z  .]*", message = "Puede contener solo letras y puntos")
 	private String nombreUsuario;
-
+	
+	@Email
 	private String email;
 
     @Temporal( TemporalType.TIMESTAMP)
@@ -43,10 +63,17 @@ public class Usuario implements Serializable {
     @Temporal( TemporalType.TIMESTAMP)
 	@Column(name="FECHA_ULTIMO_ACCESO")
 	private Date fechaUltimoAcceso;
-
+    
+    @NotNull
+    @Size(min = 1, max = 255)
 	private String password;
 
 	private Long vigente;
+	
+	//bi-directional many-to-one association to Rol
+    @ManyToOne
+	@JoinColumn(name="ID_ROL")
+	private Rol rol;
 
 	//bi-directional many-to-one association to HistorialReporte
 	@OneToMany(mappedBy="usuario", fetch = FetchType.LAZY)
@@ -57,6 +84,7 @@ public class Usuario implements Serializable {
 	private List<HistorialVersion> historialVersiones;
 
 	//bi-directional many-to-many association to Grupo
+	@Fetch(FetchMode.JOIN)
     @ManyToMany(fetch = FetchType.LAZY) 
 	@JoinTable(
 		name="IFRS_USUARIO_GRUPO"
@@ -76,8 +104,24 @@ public class Usuario implements Serializable {
 		super();
 		this.nombreUsuario = nombreUsuario;
 	}
+	
+	
 
 
+
+	public Usuario(String nombreUsuario, String email, Date fechaActualizacion,
+				   Date fechaCreacion, Date fechaUltimoAcceso, String password,
+				   Long vigente, List<Grupo> grupos) {
+		super();
+		this.nombreUsuario = nombreUsuario;
+		this.email = email;
+		this.fechaActualizacion = fechaActualizacion;
+		this.fechaCreacion = fechaCreacion;
+		this.fechaUltimoAcceso = fechaUltimoAcceso;
+		this.password = password;
+		this.vigente = vigente;
+		this.grupos = grupos;
+	}
 
 	public String getNombreUsuario() {
 		return nombreUsuario;
@@ -157,6 +201,14 @@ public class Usuario implements Serializable {
 
 	public void setGrupos(List<Grupo> grupos) {
 		this.grupos = grupos;
+	}
+
+	public Rol getRol() {
+		return rol;
+	}
+
+	public void setRol(Rol rol) {
+		this.rol = rol;
 	}
 
 	
