@@ -29,43 +29,8 @@ public abstract class AbstractBackingBean {
 	@ManagedProperty(value="#{componenteBackingBean}")
 	private ComponenteBackingBean componenteBackingBean;
 	
-	@ManagedProperty(value="#{generadorVersion}")
-    private GeneradorVersionBackingBean generadorVersion;
-    
-	@ManagedProperty(value="#{generadorDiseno}")
-    private GeneradorDisenoBackingBean generadorDiseno;
-    
-	@ManagedProperty(value="#{generadorVisualizador}")
-    private GeneradorVisualizadorBackingBean generadorVisualizador;
-	
 	@ManagedProperty(value="#{filtroBackingBean}")
     private FiltroBackingBean filtroBackingBean;
-	
-	
-	public GeneradorVersionBackingBean getGeneradorVersion() {
-		return generadorVersion;
-	}
-
-	public void setGeneradorVersion(GeneradorVersionBackingBean generadorVersion) {
-		this.generadorVersion = generadorVersion;
-	}
-
-	public GeneradorDisenoBackingBean getGeneradorDiseno() {
-		return generadorDiseno;
-	}
-
-	public void setGeneradorDiseno(GeneradorDisenoBackingBean generadorDiseno) {
-		this.generadorDiseno = generadorDiseno;
-	}
-
-	public GeneradorVisualizadorBackingBean getGeneradorVisualizador() {
-		return generadorVisualizador;
-	}
-
-	public void setGeneradorVisualizador(
-			GeneradorVisualizadorBackingBean generadorVisualizador) {
-		this.generadorVisualizador = generadorVisualizador;
-	}
 
 	public FacadeServiceLocal getFacadeService() {
 		return facadeService;

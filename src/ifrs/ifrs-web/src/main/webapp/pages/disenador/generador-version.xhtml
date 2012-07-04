@@ -1,109 +1,145 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/main-template.xhtml">
+
+	<ui:define name="content">
 	
-		
-		<!--  p:panel header="Seleccion de Tipo de Cuadro y Cuadro" style="width:400px;align:center" <f:selectItem  itemLabel="Seleccione" noSelectionOption="true"/>-->  
-			<h:panelGrid columns="4" style="margin-bottom:10px" cellpadding="5" >  
-				
+		<h:form id="fGV1">
+
+			<!--  p:panel header="Seleccion de Tipo de Cuadro y Cuadro" style="width:400px;align:center" -->
+			<h:panelGrid columns="4" style="margin-bottom:10px" cellpadding="5">
+
 				<p:selectOneMenu value="#{generadorVersionBackingBean.tipoCuadro}" label="Tipo de Cuadro" id="som1" converter="tipoCuadroConverter">
-					<f:selectItems value="#{cuadro.componenteBackingBean.tipoCuadroList}" id="tc1" var="var" itemValue="#{var}" itemLabel="#{var.nombre}"/>
-	            	<p:ajax  listener="#{generadorVersionBackingBean.tipoCuadroChange}" />
-	        	</p:selectOneMenu>
-					
-	        	<p:autoComplete value="#{generadorVersionBackingBean.idCatalogo}" id="ac1" completeMethod="#{generadorVersionBackingBean.completeCatalogo}"  var="c" itemLabel="#{c.nombre}" itemValue="#{c.idCatalogo}" dropdown="true" scrollHeight="300"/>
-				
-				<p:commandButton value="Buscar" actionListener="#{generadorVersionBackingBean.buscarListener}" update="dt1,dt2"/>
-	        
-	        </h:panelGrid>
-	       
-	        <p:spacer height="20px;"/>
-	        
-	        <p:dataTable id="dt1" var="var" value="#{generadorVersionBackingBean.catalogo}">
-	        
-	        	<p:column id="c1" headerText="Codigo Cuadro">
-	        		<h:outputText value="#{var.codigoCuadro}" />
-	        	</p:column>
-	        	
-	        	<p:column id="c2" headerText="Codigo Sub Cuadro">
-	        		<h:outputText value="#{var.codigoSubcuadro}" />
-	        	</p:column>
-	        	
-	        	<p:column id="c3" headerText="Nombre Cuadro">
-	        		<h:outputText value="#{var.nombre}" />
-	        	</p:column>
-	        	
-	        	<p:column id="c4" headerText="Titulo Cuadro">
-	        		<h:outputText value="#{var.titulo}" />
-	        	</p:column>
-	        	
-	        	<p:column id="c5" headerText="Vigente">
-	        		<h:outputText value="#{var.vigencia}" />
-	        	</p:column>
-	        	
-	        </p:dataTable>
-	        
-	        <p:spacer height="20px;"/>
-	        
-	        <p:dataTable id="dt2" var="ver" value="#{generadorVersionBackingBean.versionList}">
-	        
-	        	<p:column id="c1" headerText="Version">
-            		<h:outputText value="#{ver.version}" />  
-        		</p:column>
-        		
-        		<p:column id="c2" headerText="Vigencia">
-            		<h:outputText value="#{ver.vigencia}" />  
-        		</p:column>
-        		
-        		<p:column id="c3" headerText="Comentario Creacion">
-            		<h:outputText value="#{ver.comentario}" />  
-        		</p:column>
-        		
-        		<p:column id="c4" headerText="Fecha Creacion">
-            		<h:outputText value="#{ver.fechaCreacion}" />  
-        		</p:column>
-        		
-	        </p:dataTable>
-	        
-	        <div align="right" style="width:720px;">
-            	<p:commandButton id="cb2" value="#{msg.generador_nueva_version}" style="width:124px;" actionListener="#{generadorVersionBackingBean.agregarVersionListener}"/>
-        	</div>
-	        
-	        <p:spacer height="20px;"/>
-	        
-	        <p:dataTable id="dt3" value="#{generadorVersionBackingBean.estructuraList}" var="row">
-	        	
-	        	<p:column headerText="Orden" style="text-align:center">
-	        		<h:outputText value="#{row.orden}" />
-	        	</p:column>
-				
+					<f:selectItem  itemLabel="Seleccione" noSelectionOption="true"/>
+					<f:selectItems value="#{cuadro.componenteBackingBean.tipoCuadroItems}"/>
+					<p:ajax listener="#{generadorVersionBackingBean.tipoCuadroChange}" />
+				</p:selectOneMenu>
+
+				<p:autoComplete value="#{generadorVersionBackingBean.idCatalogo}"
+					id="ac1"
+					completeMethod="#{generadorVersionBackingBean.completeCatalogo}"
+					var="c" itemLabel="#{c.nombre}" itemValue="#{c.idCatalogo}"
+					dropdown="true" scrollHeight="300" />
+
+				<p:commandButton value="Buscar"
+					actionListener="#{generadorVersionBackingBean.buscarListener}"
+					update="dt1,dt2" />
+
+			</h:panelGrid>
+
+			<p:spacer height="20px;" />
+
+			<p:dataTable id="dt1" var="var"
+				value="#{generadorVersionBackingBean.catalogo}">
+
+				<p:column id="c1" headerText="Codigo Cuadro">
+					<h:outputText value="#{var.codigoCuadro}" />
+				</p:column>
+
+				<p:column id="c2" headerText="Codigo Sub Cuadro">
+					<h:outputText value="#{var.codigoSubcuadro}" />
+				</p:column>
+
+				<p:column id="c3" headerText="Nombre Cuadro">
+					<h:outputText value="#{var.nombre}" />
+				</p:column>
+
+				<p:column id="c4" headerText="Titulo Cuadro">
+					<h:outputText value="#{var.titulo}" />
+				</p:column>
+
+				<p:column id="c5" headerText="Vigente">
+					<h:outputText value="#{var.vigencia}" />
+				</p:column>
+
+			</p:dataTable>
+
+			<p:spacer height="20px;" />
+
+			<p:dataTable id="dt2" var="ver" value="#{generadorVersionBackingBean.versionList}">
+
+				<p:column id="c1" headerText="Version">
+					<h:outputText value="#{ver.version}" />
+				</p:column>
+
+				<p:column id="c2" headerText="Vigencia">
+					<h:outputText value="#{ver.vigencia}" />
+				</p:column>
+
+				<p:column id="c3" headerText="Comentario Creacion">
+					<h:inputText value="#{ver.comentario}" />
+				</p:column>
+
+				<p:column id="c4" headerText="Fecha Creacion">
+					<h:outputText value="#{ver.fechaCreacion}" />
+				</p:column>
+
+			</p:dataTable>
+
+			<div align="right" style="width: 720px;">
+				<p:commandButton id="cb2" value="#{msg.generador_nueva_version}" style="width:124px;" actionListener="#{generadorVersionBackingBean.agregarVersionListener}" partialSubmit="true" 
+				update="dt2"/>
+			</div>
+
+			<p:spacer height="20px;" />
+
+			<p:dataTable id="dt3"
+				value="#{generadorVersionBackingBean.estructuraList}" var="row">
+
+				<p:column headerText="Orden" style="text-align:center">
+					<h:outputText value="#{row.orden}" />
+				</p:column>
+
 				<p:column headerText="Tipo de Estructura" style="text-align:center">
-			        <p:selectOneMenu value="#{row.tipoEstructura}" style="width:130px" > 
-			        	<f:selectItem  itemLabel="Seleccione" />
-			        	<f:selectItems value="#{generadorVersionBackingBean.componenteBackingBean.tipoEstructuras}" />
-			        </p:selectOneMenu>
-	        	</p:column>
-	        	
-	        	<p:column headerText="Agregar o Eliminar" style="text-align:center" >
-	        		
-	        		<p:commandLink >
-	        			<p:graphicImage value="../../resources/images/icon/add.png" />  
-	        		</p:commandLink>
-	        		
-	        		<p:spacer width="3px"/>
-	        		
-	        		<p:commandLink rendered="#{generadorVersionBackingBean.sizeEstructrua > 1 ? true : true}">
-	        			<p:graphicImage value="../../resources/images/icon/remove.png" />  
-	        		</p:commandLink>
-	        		
-	        	</p:column>
-	        	
-	        </p:dataTable>
-	        <div align="right" style="width:410px;">
-            	<p:commandButton id="cb3" text="#{msg.generador_guardar_estructura}" style="width:150px" actionListener="#{generadorVersionBackingBean.guardarEstructuraListener}" rendered="#{generadorVersionBackingBean.renderBotonEditar}"/>
-        	</div>
-	        
-</ui:composition>	
+					<p:selectOneMenu value="#{row.tipoEstructura}" style="width:130px">
+						<f:selectItem itemLabel="Seleccione" />
+						<f:selectItems
+							value="#{generadorVersionBackingBean.componenteBackingBean.tipoEstructuras}" />
+					</p:selectOneMenu>
+				</p:column>
+
+				<p:column headerText="Agregar o Eliminar" style="text-align:center">
+
+					<p:commandLink>
+						<p:graphicImage value="../../resources/images/icon/add.png" />
+					</p:commandLink>
+
+					<p:spacer width="3px" />
+
+					<p:commandLink
+						rendered="#{generadorVersionBackingBean.sizeEstructrua > 1 ? true : true}">
+						<p:graphicImage value="../../resources/images/icon/remove.png" />
+					</p:commandLink>
+
+				</p:column>
+				
+				<p:column headerText="Ordenar" style="text-align:center">
+
+					<p:commandLink rendered="#{(generadorVersionBackingBean.sizeEstructrua > 1 ? true : false) and (status.count == 1 ? false : true)}">
+						<p:graphicImage value="../../resources/images/icon/up_ok.png" />
+					</p:commandLink>
+
+					<p:spacer width="3px" />
+
+					<p:commandLink rendered="#{(generadorVersionBackingBean.sizeEstructrua > 1 ? true : false) and (status.count == generadorVersionBackingBean.sizeEstructrua ? false : true) and (generadorVersionBackingBean.sizeEstructrua > status.count)}">
+						<p:graphicImage value="../../resources/images/icon/down_ok.png" />
+					</p:commandLink>
+
+				</p:column>
+
+			</p:dataTable>
+			<div align="right" style="width: 410px;">
+				<p:commandButton id="cb3" text="#{msg.generador_guardar_estructura}"
+					style="width:150px"
+					actionListener="#{generadorVersionBackingBean.guardarEstructuraListener}"
+					rendered="#{generadorVersionBackingBean.renderBotonEditar}" />
+			</div>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

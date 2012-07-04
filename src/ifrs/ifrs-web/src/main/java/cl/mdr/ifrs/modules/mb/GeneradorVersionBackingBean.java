@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
@@ -24,7 +25,7 @@ import cl.mdr.ifrs.ejb.entity.Version;
 import cl.mdr.ifrs.vo.GrillaModelVO;
 
 
-@ManagedBean
+@ManagedBean(name = "generadorVersionBackingBean")
 @ViewScoped
 public class GeneradorVersionBackingBean extends AbstractBackingBean{
 	
@@ -44,7 +45,16 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 	private boolean renderBotonEditar;
 	private boolean renderEstructura;
 	
-	
+	@ManagedProperty(value="#{generadorDisenoBackingBean}")
+    private GeneradorDisenoBackingBean generadorDiseno;
+
+	public GeneradorDisenoBackingBean getGeneradorDiseno() {
+		return generadorDiseno;
+	}
+
+	public void setGeneradorDiseno(GeneradorDisenoBackingBean generadorDiseno) {
+		this.generadorDiseno = generadorDiseno;
+	}
 
 	public void buscarListener(ActionEvent event){
 		
@@ -103,14 +113,6 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 		
 	}
 	
-	public void tipoImpresionChange(){
-		
-		System.out.println("Prueba de metodo 2");
-		System.out.println("Prueba de metodo 2");
-		System.out.println("Prueba de metodo 2");
-		System.out.println("Prueba de metodo 2");
-	}
-		
 	
     public List<Estructura> getEstructuraList() {
         
@@ -254,6 +256,97 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
          setRenderBotonEditar(true);
      }
     
+    
+    public void subirEstructuraListener(ActionEvent event){
+        
+        List<Estructura> estructurasTemp = new ArrayList<Estructura>();
+        Map<Long, GrillaModelVO> grillaModelMap = getGeneradorDiseno().getGrillaModelMap();
+        Map<Long, GrillaModelVO> grillaModelMapTemp = new LinkedHashMap<Long, GrillaModelVO>();
+        Estructura estructuraSelected = (Estructura)estructuraTable.getRowData();
+        setAlmacenado(false);
+        
+        if(!estructuraSelected.getOrden().equals(1L)){
+            getEstructuraList().remove(estructuraSelected);
+            
+            Long contador = 0L;
+            for(Estructura estructura : getEstructuraList()){
+                contador++;
+                Long orden = estructuraSelected.getOrden() -1L;
+                
+                if(estructura.getOrden().equals(orden)){
+                    
+                    if(grillaModelMap.containsKey(estructuraSelected.getOrden())){
+                        grillaModelMapTemp.put(contador, grillaModelMap.get(estructuraSelected.getOrden()));
+                    }else{
+                        grillaModelMapTemp.put(contador, new GrillaModelVO());
+                    }
+                    
+                    estructuraSelected.setOrden(contador);
+                    estructurasTemp.add(estructuraSelected);
+                    contador++;
+                }
+                
+                if(grillaModelMap.containsKey(estructura.getOrden()))
+                    grillaModelMapTemp.put(contador, grillaModelMap.get(estructura.getOrden()));
+                else
+                    grillaModelMapTemp.put(contador, new GrillaModelVO());
+                
+                estructura.setOrden(contador);
+                estructurasTemp.add(estructura);
+            }
+            grillaModelMap.putAll(grillaModelMapTemp);
+            setEstructuraList(estructurasTemp);        
+            getGeneradorDiseno().initBackingBean();
+        }
+    }
+    
+    public void bajarEstructuraListener(ActionEvent event){
+        
+        List<Estructura> estructurasTemp = new ArrayList<Estructura>();
+        Estructura estructuraSelected = (Estructura)estructuraTable.getRowData();
+        Map<Long, GrillaModelVO> grillaModelMap = getGeneradorDiseno().getGrillaModelMap();
+        Map<Long, GrillaModelVO> grillaModelMapTemp = new LinkedHashMap<Long, GrillaModelVO>();
+        setAlmacenado(false);
+        
+        if(estructuraSelected.getOrden().intValue() < getEstructuraList().size()){
+            
+            Long orden = estructuraSelected.getOrden();
+            getEstructuraList().remove(estructuraSelected);
+            Long contador = 0L;
+            
+            for(Estructura estructura : getEstructuraList()){
+                
+                contador++;
+                
+                if(grillaModelMap.containsKey(estructura.getOrden()))
+                    grillaModelMapTemp.put(contador, grillaModelMap.get(estructura.getOrden()));
+                else
+                    grillaModelMapTemp.put(contador, new GrillaModelVO());
+                
+                estructura.setOrden(contador);
+                estructurasTemp.add(estructura);
+                
+                if(estructura.getOrden().equals(orden)){
+                    
+                    contador++;
+                    
+                    if(grillaModelMap.containsKey(estructuraSelected.getOrden()))
+                        grillaModelMapTemp.put(contador, grillaModelMap.get(estructuraSelected.getOrden()));
+                    else
+                        grillaModelMapTemp.put(contador, new GrillaModelVO());
+                    
+                    
+                    estructuraSelected.setOrden(contador);
+                    estructurasTemp.add(estructuraSelected);
+
+                }
+                
+            }
+            grillaModelMap.putAll(grillaModelMapTemp);
+            setEstructuraList(estructurasTemp);        
+            getGeneradorDiseno().initBackingBean();
+        }
+    }
     
     public boolean isRenderEstructura() {
 		return renderEstructura;

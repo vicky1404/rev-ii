@@ -42,7 +42,7 @@ import cl.mdr.ifrs.vo.AgrupacionColumnaModelVO;
 import cl.mdr.ifrs.vo.GrillaModelVO;
 import cl.mdr.ifrs.vo.GrillaVO;
 
-@ManagedBean
+@ManagedBean(name="generadorDisenoBackingBean")
 @ViewScoped
 public class GeneradorDisenoBackingBean extends AbstractBackingBean {
 	
