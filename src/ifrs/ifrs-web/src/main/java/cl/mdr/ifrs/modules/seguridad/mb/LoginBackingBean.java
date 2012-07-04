@@ -1,5 +1,6 @@
 package cl.mdr.ifrs.modules.seguridad.mb;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.text.MessageFormat;
 
@@ -29,6 +30,9 @@ public class LoginBackingBean extends AbstractBackingBean implements Serializabl
 		usuarioLogin = new Usuario();
 	}
 	
+	/**
+	 * @return
+	 */
 	public String loginAction(){
 		logger.info("autentificando usuario");
 		try {
@@ -57,6 +61,21 @@ public class LoginBackingBean extends AbstractBackingBean implements Serializabl
 		}
 		return null;
 	}
+	
+	/**
+	 * @return
+	 */
+	public String logoutAction() {		
+		try{
+			super.getExternalContext().invalidateSession();
+			super.getExternalContext().redirect("login.jsf?faces-redirect=true");
+		} catch (IOException e) {		
+			super.addErrorMessage("Se ha producido un Error al realizar el proceso de Logout");
+			logger.error(e.getCause(), e);
+		}
+        return null;
+    }
+
 		
 	public Usuario getUsuarioLogin() {
 		return usuarioLogin;

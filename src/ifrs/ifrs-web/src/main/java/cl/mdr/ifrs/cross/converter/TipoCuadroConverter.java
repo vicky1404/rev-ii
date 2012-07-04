@@ -17,7 +17,7 @@ import com.google.gson.Gson;
 @FacesConverter(value = "tipoCuadroConverter", forClass= TipoCuadro.class)
 public class TipoCuadroConverter implements Converter{
 	
-	private static final Logger LOGGER = Logger.getLogger(CatalogoConverter.class);
+	private static final Logger LOGGER = Logger.getLogger(TipoCuadroConverter.class);
 	
 	@Override
 	public Object getAsObject(FacesContext facesContext, UIComponent uiComponent, String string) {		
