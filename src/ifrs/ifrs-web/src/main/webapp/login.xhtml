@@ -16,16 +16,17 @@
 		<div class="dualbrand">
 			<!-- p:graphicImage value="/resources/gfx/dualbrand_logo.png"></p:graphicImage--> 
 		</div>
-		<div id="content">
-			<h3>#{msg.titulo_principal_aplicacion}</h3>
+		<div id="content">			
+			<h3>#{msg.titulo_principal_aplicacion}</h3>			
 			<h:form id="form_login">
+			<p:messages id="mensajes_login" globalOnly="true" escape="false"></p:messages>
 				<p:panel id="panel_login" header="#{msg.label_acceso}">
 					<h:panelGrid columns="3" columnClasses="titleCell">
 						<p:outputLabel value="#{msg.label_usuario}" for="user" />
-						<p:inputText id="user" required="true" value="#{loginBackingBean.usuario.nombreUsuario}" />
+						<p:inputText id="user" required="true" value="#{loginBackingBean.usuarioLogin.nombreUsuario}" />
 						<h:message for="user" styleClass="invalid"/>						
 						<p:outputLabel value="#{msg.label_clave}" for="clave" />
-						<p:password id="clave" required="true" value="#{loginBackingBean.usuario.password}"  />
+						<p:password id="clave" required="true" value="#{loginBackingBean.usuarioLogin.password}"  />
 						<h:message for="clave" styleClass="invalid"/>
 					</h:panelGrid>
 					<f:facet name="footer">
@@ -34,7 +35,7 @@
                             <p:commandButton value="#{msg.boton_acceder}" action="#{loginBackingBean.loginAction}" update="form_login"/>
                         </h:panelGroup>
                     </f:facet>
-				</p:panel>
+				</p:panel>				
 			</h:form>
 		</div>
 		<div id="aside">

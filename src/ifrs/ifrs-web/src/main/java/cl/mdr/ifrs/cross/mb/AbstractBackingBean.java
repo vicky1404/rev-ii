@@ -10,6 +10,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Periodo;
@@ -79,7 +80,8 @@ public abstract class AbstractBackingBean {
 	}
 
 	public Principal getPrincipal() {
-		return this.getExternalContext().getUserPrincipal();
+		//return this.getExternalContext().getUserPrincipal();
+		return this.getRequest().getUserPrincipal();
 	}
 	
 	/**
@@ -93,6 +95,10 @@ public abstract class AbstractBackingBean {
             return "usuario.prueba".toUpperCase();
         }
     }
+	
+	public HttpServletRequest getRequest(){
+		return (HttpServletRequest) this.getExternalContext().getRequest();
+	}
 	
 	/**
      * Obtiene un objeto desde la persistencia a partir del filtro de periodo en sesion.
