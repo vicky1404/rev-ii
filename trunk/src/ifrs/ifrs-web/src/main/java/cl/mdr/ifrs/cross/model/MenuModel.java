@@ -7,7 +7,7 @@ import cl.mdr.ifrs.ejb.entity.Menu;
 
 /**
  * Clase que representa un model para construir el menu de la aplicacion.
- * @author rodrigo.reyes@bicevida.cl
+ * @author 
  * @since 02/01/2012
  */
 public class MenuModel implements Serializable {

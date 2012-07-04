@@ -11,7 +11,7 @@
         </head>
         <body>
             <jsp:scriptlet>
-                response.sendRedirect(request.getContextPath().concat("/pages/home.jsf"));       
+                response.sendRedirect(request.getContextPath().concat("/login.jsf"));       
             </jsp:scriptlet>             
         </body>
     </html>
