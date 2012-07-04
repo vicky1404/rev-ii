@@ -9,13 +9,12 @@ import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
-import javax.faces.event.ValueChangeEvent;
 
 import org.apache.log4j.Logger;
-import org.apache.xalan.trace.SelectionEvent;
 import org.primefaces.component.datatable.DataTable;
 
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
+import cl.mdr.ifrs.cross.model.CommonGridModel;
 import cl.mdr.ifrs.cross.util.GeneradorDisenoHelper;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
@@ -29,9 +28,12 @@ import cl.mdr.ifrs.vo.GrillaModelVO;
 @ViewScoped
 public class GeneradorVersionBackingBean extends AbstractBackingBean{
 	
-	private transient Logger logger = Logger.getLogger(GeneradorVersionBackingBean.class);
+	private transient Logger LOG = Logger.getLogger(GeneradorVersionBackingBean.class);
 	
 	private TipoCuadro tipoCuadro;
+	private Long idTipoCuadro;
+	
+
 	private Catalogo catalogo;
 	private Long idCatalogo;
 	private List<Catalogo> catalogoList;
@@ -42,41 +44,7 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 	private boolean renderBotonEditar;
 	private boolean renderEstructura;
 	
-	public boolean isRenderEstructura() {
-		return renderEstructura;
-	}
-
-	public void setRenderEstructura(boolean renderEstructura) {
-		this.renderEstructura = renderEstructura;
-	}
-
-	public boolean isRenderBotonEditar() {
-		return renderBotonEditar;
-	}
-
-	public void setRenderBotonEditar(boolean renderBotonEditar) {
-		this.renderBotonEditar = renderBotonEditar;
-	}
-
-	public DataTable getEstructuraTable() {
-		return estructuraTable;
-	}
-
-	public void setEstructuraTable(DataTable estructuraTable) {
-		this.estructuraTable = estructuraTable;
-	}
-
-	public boolean isAlmacenado() {
-		return almacenado;
-	}
-
-	public void setAlmacenado(boolean almacenado) {
-		this.almacenado = almacenado;
-	}
-
-	public void setEstructuraList(List<Estructura> estructuraList) {
-		this.estructuraList = estructuraList;
-	}
+	
 
 	public void buscarListener(ActionEvent event){
 		
@@ -121,7 +89,7 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 	
 	
 	
-	public void tipoCatalogoChange(){
+	public void tipoCuadroChange(){
 		try{
 			
 			System.out.println("Prueba de metodo");
@@ -134,6 +102,15 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 		}
 		
 	}
+	
+	public void tipoImpresionChange(){
+		
+		System.out.println("Prueba de metodo 2");
+		System.out.println("Prueba de metodo 2");
+		System.out.println("Prueba de metodo 2");
+		System.out.println("Prueba de metodo 2");
+	}
+		
 	
     public List<Estructura> getEstructuraList() {
         
@@ -214,7 +191,7 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
                 
             } catch (Exception e) {
                 addErrorMessage("Error","Error al obtener información");
-                logger.error(e.getMessage(),e);
+                LOG.error(e.getMessage(),e);
             }
             
             setRenderEstructura(true);
@@ -277,6 +254,43 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
          setRenderBotonEditar(true);
      }
     
+    
+    public boolean isRenderEstructura() {
+		return renderEstructura;
+	}
+
+	public void setRenderEstructura(boolean renderEstructura) {
+		this.renderEstructura = renderEstructura;
+	}
+
+	public boolean isRenderBotonEditar() {
+		return renderBotonEditar;
+	}
+
+	public void setRenderBotonEditar(boolean renderBotonEditar) {
+		this.renderBotonEditar = renderBotonEditar;
+	}
+
+	public DataTable getEstructuraTable() {
+		return estructuraTable;
+	}
+
+	public void setEstructuraTable(DataTable estructuraTable) {
+		this.estructuraTable = estructuraTable;
+	}
+
+	public boolean isAlmacenado() {
+		return almacenado;
+	}
+
+	public void setAlmacenado(boolean almacenado) {
+		this.almacenado = almacenado;
+	}
+
+	public void setEstructuraList(List<Estructura> estructuraList) {
+		this.estructuraList = estructuraList;
+	}
+    
     public TipoCuadro getTipoCuadro() {
 		return tipoCuadro;
 	}
@@ -291,10 +305,6 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 	}
 
 	public List<Catalogo> getCatalogoList() {
-		
-		if(catalogoList==null)
-			catalogoList = getFacadeService().getCatalogoService().findCatalogoVigenteAll();
-		
 		return catalogoList;
 	}
 	
@@ -310,6 +320,14 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 
 	public void setVersionList(List<Version> versionList) {
 		this.versionList = versionList;
+	}
+	
+	public Long getIdTipoCuadro() {
+		return idTipoCuadro;
+	}
+
+	public void setIdTipoCuadro(Long idTipoCuadro) {
+		this.idTipoCuadro = idTipoCuadro;
 	}
 	
 

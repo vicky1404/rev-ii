@@ -50,13 +50,13 @@ public class CuadroBackingBean extends AbstractBackingBean implements Serializab
 	
 	public void obtenerLista(){
 		
-		try {
+		/*try {
 			
 			this.setCatalogoList(super.getFacadeService().getCatalogoService().findAllByTipo( new TipoCuadro(getIdCuadro()) , null));
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
 		
 	}
 	
