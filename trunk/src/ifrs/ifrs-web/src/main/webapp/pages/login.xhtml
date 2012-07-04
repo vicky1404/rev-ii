@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>#{msg.titulo_principal_aplicacion}</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<h:outputStylesheet name="css/screen-login.css" />
+</h:head>
+<h:body>
+	<div id="container">
+		<div class="dualbrand">
+			<!-- p:graphicImage value="/resources/gfx/dualbrand_logo.png"></p:graphicImage--> 
+		</div>
+		<div id="content">
+			<h3>#{msg.titulo_principal_aplicacion}</h3>
+			<h:form id="form_login">
+				<p:panel id="panel_login" header="#{msg.label_acceso}">
+					<h:panelGrid columns="3" columnClasses="titleCell">
+						<p:outputLabel value="#{msg.label_usuario}" for="user" />
+						<p:inputText id="user" required="true" value="#{loginBackingBean.usuario.nombreUsuario}" />
+						<h:message for="user" styleClass="invalid"/>						
+						<p:outputLabel value="#{msg.label_clave}" for="clave" />
+						<p:password id="clave" required="true" value="#{loginBackingBean.usuario.password}"  />
+						<h:message for="clave" styleClass="invalid"/>
+					</h:panelGrid>
+					<f:facet name="footer">
+                        <h:panelGroup
+                            style="display:block; text-align:center; border:0px;">
+                            <p:commandButton value="#{msg.boton_acceder}" action="#{loginBackingBean.loginAction}" update="form_login"/>
+                        </h:panelGroup>
+                    </f:facet>
+				</p:panel>
+			</h:form>
+		</div>
+		<div id="aside">
+			<p>Opciones de Recuperacion de Clave</p>
+			<ul>
+				<li><a href="http://red.ht/jbeap-6-docs">Documentation</a></li>
+				<li><a href="http://red.ht/jbeap-6">Product Information</a></li>
+			</ul>
+			<p>Learn more about JBoss AS 7.</p>
+			<ul>
+				<li><a
+					href="https://docs.jboss.org/author/display/AS7/Getting+Started+Developing+Applications+Guide">Getting
+						Started Developing Applications Guide</a></li>
+				<li><a href="http://jboss.org/jbossas">Community Project
+						Information</a></li>
+			</ul>
+		</div>
+		<div id="footer">
+			<p>
+				#{msg.titulo_principal_aplicacion}<br />
+			</p>
+		</div>
+	</div>
+</h:body>
+</html>
