@@ -5,30 +5,48 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
+import org.apache.log4j.Logger;
+
 import cl.mdr.ifrs.ejb.cross.Util;
+import cl.mdr.ifrs.ejb.entity.Catalogo;
 import cl.mdr.ifrs.ejb.entity.TipoCuadro;
 
 import com.google.common.base.Strings;
+import com.google.gson.Gson;
 
-@FacesConverter(value = "tipoCuadroConverter")
+@FacesConverter(value = "tipoCuadroConverter", forClass= TipoCuadro.class)
 public class TipoCuadroConverter implements Converter{
 	
+	private static final Logger LOGGER = Logger.getLogger(CatalogoConverter.class);
+	
 	@Override
-	public Object getAsObject(FacesContext arg0, UIComponent arg1, String string) {
+	public Object getAsObject(FacesContext facesContext, UIComponent uiComponent, String string) {		
+		
 		TipoCuadro tipoCuadro = null;
+		
 		if(!Strings.isNullOrEmpty(string)){
-			tipoCuadro = new TipoCuadro(Util.getLong(string, 0L));
+			final Gson gson = new Gson();
+			try {
+				tipoCuadro = gson.fromJson(string, TipoCuadro.class);
+			} catch (final Exception e) {
+				LOGGER.error("Error con conversion de valor " + string);
+			}
 		}
 		return tipoCuadro;
+		
 	}
 
 	@Override
-	public String getAsString(FacesContext arg0, UIComponent arg1, Object object) {			
-		String id = "";		
+	public String getAsString(FacesContext facesContext, UIComponent uiComponent, Object object) {
+		
+		String json = "";
+		
 		if(object instanceof TipoCuadro){
-			id = Util.getString(((TipoCuadro)object).getIdTipoCuadro(), "");
-		}		
-		return id;
+			final Gson gson = new Gson();
+			json = gson.toJson(object, TipoCuadro.class);
+		}
+
+		return json;
 	}
 
 }
