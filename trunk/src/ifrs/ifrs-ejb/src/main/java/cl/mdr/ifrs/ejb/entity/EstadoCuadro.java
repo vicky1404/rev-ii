@@ -30,9 +30,7 @@ public class EstadoCuadro implements Serializable {
     @Column(nullable = false, length = 128)
     private String nombre;
     
-    @OneToMany(mappedBy = "estado")
-    private List<Version> versionList;
-
+    
     public EstadoCuadro() {
     }
     
@@ -99,12 +97,5 @@ public class EstadoCuadro implements Serializable {
         buffer.append(']');
         return buffer.toString();
     }
-
-    public void setVersionList(List<Version> versionList) {
-        this.versionList = versionList;
-    }
-
-    public List<Version> getVersionList() {
-        return versionList;
-    }
+    
 }

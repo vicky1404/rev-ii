@@ -46,9 +46,9 @@ import cl.mdr.ifrs.ejb.common.Constantes;
                                     " and (:periodo is null or v.periodo.idPeriodo = :periodo) " +
                                     " and (:estado is null or v.estado.idEstado = :estado) " +
                                     " and (:vigente is null or v.vigencia = :vigente) "+
-                                    " and v.catalogo.vigencia = 1 "+
-                                    " order by v.catalogo.tipoCuadro.nombre , " +
-                                    " v.catalogo.orden asc") 
+                                    " and v.catalogo.vigencia = 1")
+                                    //" order by v.catalogo.tipoCuadro.nombre , " +
+                                    //" v.catalogo.orden asc") 
                  })
 @Table(name = Constantes.VERSION)
 public class Version implements Serializable {
