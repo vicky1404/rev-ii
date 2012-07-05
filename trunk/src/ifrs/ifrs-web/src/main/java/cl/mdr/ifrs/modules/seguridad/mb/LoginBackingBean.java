@@ -69,6 +69,7 @@ public class LoginBackingBean extends AbstractBackingBean implements Serializabl
 		try{
 			super.getExternalContext().invalidateSession();
 			super.getExternalContext().redirect("login.jsf?faces-redirect=true");
+			super.addInfoMessage("", "Se ha Cerrado correctamente su Sesión en el Sistema");
 		} catch (IOException e) {		
 			super.addErrorMessage("Se ha producido un Error al realizar el proceso de Logout");
 			logger.error(e.getCause(), e);

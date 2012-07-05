@@ -14,28 +14,42 @@
 <h:body>
 	<div id="container">
 		<div class="dualbrand">
-			<!-- p:graphicImage value="/resources/gfx/dualbrand_logo.png"></p:graphicImage--> 
+			<!-- p:graphicImage value="/resources/gfx/dualbrand_logo.png"></p:graphicImage-->
 		</div>
-		<div id="content">			
+		<div id="content">
 			<h3>#{msg.titulo_principal_aplicacion}</h3>			
 			<h:form id="form_login">
-			<p:messages id="mensajes_login" globalOnly="true" escape="false"></p:messages>
+				<c:if test="${param.unauthorized eq 1}">
+					<div class="ui-messages ui-widget">
+						<div class="ui-messages-error ui-corner-all">
+							<span class="ui-messages-error-icon"></span>
+							<ul>
+								<li><span class="ui-messages-error-summary"
+									style="font-size: 11px;">#{msg.mensaje_iniciar_sesion_en_el_sistema}</span></li>
+							</ul>
+						</div>
+					</div>
+				</c:if>
+				<p:messages id="mensajes_login" globalOnly="true" escape="false"></p:messages>
 				<p:panel id="panel_login" header="#{msg.label_acceso}">
 					<h:panelGrid columns="3" columnClasses="titleCell">
 						<p:outputLabel value="#{msg.label_usuario}" for="user" />
-						<p:inputText id="user" required="true" value="#{loginBackingBean.usuarioLogin.nombreUsuario}" />
-						<h:message for="user" styleClass="invalid"/>						
+						<p:inputText id="user" required="true"
+							value="#{loginBackingBean.usuarioLogin.nombreUsuario}" />
+						<h:message for="user" styleClass="invalid" />
 						<p:outputLabel value="#{msg.label_clave}" for="clave" />
-						<p:password id="clave" required="true" value="#{loginBackingBean.usuarioLogin.password}"  />
-						<h:message for="clave" styleClass="invalid"/>
+						<p:password id="clave" required="true"
+							value="#{loginBackingBean.usuarioLogin.password}" />
+						<h:message for="clave" styleClass="invalid" />
 					</h:panelGrid>
 					<f:facet name="footer">
-                        <h:panelGroup
-                            style="display:block; text-align:center; border:0px;">
-                            <p:commandButton value="#{msg.boton_acceder}" action="#{loginBackingBean.loginAction}" update="form_login"/>
-                        </h:panelGroup>
-                    </f:facet>
-				</p:panel>				
+						<h:panelGroup
+							style="display:block; text-align:center; border:0px;">
+							<p:commandButton value="#{msg.boton_acceder}"
+								action="#{loginBackingBean.loginAction}" update="form_login" />
+						</h:panelGroup>
+					</f:facet>
+				</p:panel>
 			</h:form>
 		</div>
 		<div id="aside">

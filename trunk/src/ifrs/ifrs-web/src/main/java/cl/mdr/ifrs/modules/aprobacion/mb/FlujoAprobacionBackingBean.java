@@ -3,16 +3,19 @@
  */
 package cl.mdr.ifrs.modules.aprobacion.mb;
 
+import static ch.lambdaj.Lambda.on;
+import static ch.lambdaj.Lambda.sort;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.event.ActionEvent;
+import javax.faces.component.html.HtmlSelectOneMenu;
 
 import org.apache.log4j.Logger;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
 import cl.mdr.ifrs.cross.mb.FiltroBackingBean;
@@ -26,7 +29,6 @@ import cl.mdr.ifrs.modules.reporte.mb.ReporteUtilBackingBean;
 /**
  * @author rreyes
  * @link http://cl.linkedin.com/in/rreyesc
- *
  */
 @ManagedBean
 @ViewScoped
@@ -44,6 +46,7 @@ public class FlujoAprobacionBackingBean extends AbstractBackingBean implements S
     private Version rowSelected;
     private boolean renderFlujo = Boolean.FALSE;
     private transient FiltroBackingBean filtro;
+    private HtmlSelectOneMenu comboEstadoCuadroHeader;
 	
     
     public String limpiarAction(){
@@ -52,12 +55,13 @@ public class FlujoAprobacionBackingBean extends AbstractBackingBean implements S
         return null;
     }
 	
-    /*
+    
     public String buscarAction() {
         logger.info("buscando cuadros para workflow de aprobación");
         try{              
             limpiarAction();
-            this.setCatalogoFlujoAprobacion(super.getFacadeService().getPeriodoService().findPeriodoByFiltro(super.getNombreUsuario(), this.getTipoCuadro(), super.getFiltroPeriodo(), this.getEstadoCuadro(), VigenciaEnum.VIGENTE.getKey()));           
+            this.setCatalogoFlujoAprobacion(super.getFacadeService().getVersionService().findVersionByFiltro(super.getNombreUsuario(), this.getTipoCuadro(), super.getFiltroPeriodo(), this.getEstadoCuadro(), VigenciaEnum.VIGENTE.getKey()));           
+            sort(this.getCatalogoFlujoAprobacion(), on(Version.class).getCatalogo().getOrden());
             this.setRenderFlujo(Boolean.TRUE);
         }catch(javax.ejb.EJBException e){
             addWarnMessage("El período consultado no existe");
@@ -69,6 +73,7 @@ public class FlujoAprobacionBackingBean extends AbstractBackingBean implements S
         return null;
     }
     
+    /*
     public String guardarAction(){        
         List<HistorialVersionPeriodo> historialVersionPeriodoList = new ArrayList<HistorialVersionPeriodo>();
         HistorialVersionPeriodo historialVersionPeriodo = null;
@@ -127,6 +132,17 @@ public class FlujoAprobacionBackingBean extends AbstractBackingBean implements S
         }           
     }
     */
+    public void onchangeEstadoCuadroHeader(){
+    	EstadoCuadro estadoCuadro = (EstadoCuadro) this.getComboEstadoCuadroHeader().getValue();
+	    if(estadoCuadro != null){
+	        List<Version> versionList = new ArrayList<Version>();
+	        for(Version version : this.getCatalogoFlujoAprobacion()){
+	            version.setEstado(estadoCuadro);
+	            versionList.add(version);
+	        }
+	        this.setCatalogoFlujoAprobacion(versionList);	        
+	    }
+    }
 
 	public ReporteUtilBackingBean getReporteUtilBackingBean() {
 		return reporteUtilBackingBean;
@@ -191,6 +207,16 @@ public class FlujoAprobacionBackingBean extends AbstractBackingBean implements S
 
 	public void setFiltro(FiltroBackingBean filtro) {
 		this.filtro = filtro;
+	}
+
+
+	public HtmlSelectOneMenu getComboEstadoCuadroHeader() {
+		return comboEstadoCuadroHeader;
+	}
+
+
+	public void setComboEstadoCuadroHeader(HtmlSelectOneMenu comboEstadoCuadroHeader) {
+		this.comboEstadoCuadroHeader = comboEstadoCuadroHeader;
 	}
 
 }
