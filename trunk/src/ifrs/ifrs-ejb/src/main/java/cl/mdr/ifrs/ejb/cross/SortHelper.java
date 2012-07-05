@@ -7,6 +7,7 @@ import java.util.List;
 
 import cl.mdr.ifrs.ejb.entity.Celda;
 import cl.mdr.ifrs.ejb.entity.Columna;
+import cl.mdr.ifrs.ejb.entity.Version;
 import cl.mdr.ifrs.vo.FilaVO;
 
 
@@ -45,6 +46,14 @@ public class SortHelper {
         Collections.sort(columnas, new Comparator<Columna>(){                        
             public int compare(Columna c1, Columna c2){                
                 return c1.getOrden().compareTo(c2.getOrden());
+            }
+        });
+    }
+    
+    public static void sortVersionByOrdenCatalogo(List<Version> versiones){
+        Collections.sort(versiones, new Comparator<Version>(){                        
+            public int compare(Version v1, Version v2){                
+                return v1.getCatalogo().getOrden().compareTo(v2.getCatalogo().getOrden());
             }
         });
     }
