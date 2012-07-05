@@ -13,6 +13,7 @@ import javax.faces.event.ActionEvent;
 
 import org.apache.log4j.Logger;
 import org.primefaces.component.datatable.DataTable;
+import org.primefaces.context.RequestContext;
 
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
 import cl.mdr.ifrs.cross.model.CommonGridModel;
@@ -131,7 +132,8 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
     }
     
     public void agregarTipoEstructuraListener(ActionEvent actionEvent) {
-        setAlmacenado(false);    
+        setAlmacenado(false);
+        //final Estructura estructuraSelected = (Estructura)actionEvent.getComponent().getAttributes().get("estructura");
         Estructura estructuraSelected = (Estructura) estructuraTable.getRowData();
         List<Estructura> estructuras = new ArrayList<Estructura>();
         Estructura estructura;
@@ -163,6 +165,8 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
         grillaModelMap.putAll(grillaModelPasoMap);
         grillaModelPasoMap.clear();
         setEstructuraList(estructuras);
+        estructuraTable.setValue(estructuras);
+        RequestContext.getCurrentInstance().update("dt3");
     }
     
     public void eliminarTipoEstructuraListener(ActionEvent actionEvent) {        

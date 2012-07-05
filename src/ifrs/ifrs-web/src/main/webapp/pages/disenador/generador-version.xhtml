@@ -79,13 +79,12 @@
 			</p:dataTable>
 
 			<div align="right" style="width: 720px;">
-				<p:commandButton id="cb2" value="#{msg.generador_nueva_version}" style="width:124px;" actionListener="#{generadorVersionBackingBean.agregarVersionListener}" partialSubmit="true" 
-				update="dt2"/>
+				<p:commandButton id="cb2" value="#{msg.generador_nueva_version}" style="width:124px;" actionListener="#{generadorVersionBackingBean.agregarVersionListener}" partialSubmit="true"  update="dt2"/>
 			</div>
 
 			<p:spacer height="20px;" />
 
-			<p:dataTable id="dt3" value="#{generadorVersionBackingBean.estructuraList}" var="row">
+			<p:dataTable id="dt3" value="#{generadorVersionBackingBean.estructuraList}" var="row" binding="#{generadorVersionBackingBean.estructuraTable}" >
 
 				<p:column headerText="Orden" style="text-align:center">
 					<h:outputText value="#{row.orden}" />
@@ -100,8 +99,9 @@
 
 				<p:column headerText="Agregar o Eliminar" style="text-align:center">
 
-					<p:commandLink id="cl1" actionListener="#{generadorVersionBackingBean.agregarTipoEstructuraListener}" update="dt3" partialSubmit="true" >
+					<p:commandLink id="cl1" ajax="true" actionListener="#{generadorVersionBackingBean.agregarTipoEstructuraListener}" update="dt3" partialSubmit="true" >
 						<p:graphicImage value="../../resources/images/icon/add.png" />
+						<f:attribute name="estructura" value="#{row}" />
 					</p:commandLink>
 
 					<p:spacer width="3px" />
