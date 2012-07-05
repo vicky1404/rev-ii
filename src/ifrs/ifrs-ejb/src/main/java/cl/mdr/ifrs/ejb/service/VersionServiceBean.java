@@ -233,10 +233,10 @@ public class VersionServiceBean implements VersionServiceLocal{
     public List<Version> findVersionByFiltro(final String usuario, final TipoCuadro tipoCuadro, final Periodo periodo, final EstadoCuadro estadoCuadro, final Long vigente) throws Exception{
         return em.createNamedQuery(Version.VERSION_FIND_BY_FILTRO)
         .setParameter("usuario", usuario)
-        .setParameter("tipoCuadro", tipoCuadro != null ? tipoCuadro.getIdTipoCuadro() : null )     
-        .setParameter("periodo", periodo != null ? periodo.getIdPeriodo() : null)
-        .setParameter("estado", estadoCuadro != null ? estadoCuadro.getIdEstado() : null)
-        .setParameter("vigente", vigente)        
+        .setParameter("tipoCuadro", tipoCuadro != null ? tipoCuadro.getIdTipoCuadro().longValue() : "" )     
+        .setParameter("periodo", periodo != null ? periodo.getIdPeriodo().longValue() : "")
+        .setParameter("estado", estadoCuadro != null ? estadoCuadro.getIdEstado().longValue() : "")
+        .setParameter("vigente", vigente != null ? vigente.longValue() : "")        
         .getResultList();
     }
 
