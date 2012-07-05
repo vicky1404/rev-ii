@@ -2,26 +2,23 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	template="/WEB-INF/templates/main-template.xhtml">
+	xmlns:p="http://primefaces.org/ui">
 
-	<ui:define name="content">
+	<h:form id="fGV1" >
 	
-		<h:form id="fGV1">
-
-			<!--  p:panel header="Seleccion de Tipo de Cuadro y Cuadro" style="width:400px;align:center" -->
-			<h:panelGrid columns="4" style="margin-bottom:10px" cellpadding="5">
+		<h:panelGrid columns="4" style="margin-bottom:10px" cellpadding="5">
 
 				<p:selectOneMenu value="#{generadorVersionBackingBean.tipoCuadro}" label="Tipo de Cuadro" id="som1" converter="tipoCuadroConverter">
 					<f:selectItem  itemLabel="Seleccione" noSelectionOption="true"/>
 					<f:selectItems value="#{cuadro.componenteBackingBean.tipoCuadroItems}"/>
-					<p:ajax listener="#{generadorVersionBackingBean.tipoCuadroChange}" />
+					<p:ajax listener="#{generadorVersionBackingBean.tipoCuadroChange}" partialSubmit="false" />
 				</p:selectOneMenu>
-
-				<p:autoComplete value="#{generadorVersionBackingBean.idCatalogo}"
+				
+				<p:autoComplete value="#{generadorVersionBackingBean.catalogo}"
 					id="ac1"
 					completeMethod="#{generadorVersionBackingBean.completeCatalogo}"
-					var="c" itemLabel="#{c.nombre}" itemValue="#{c.idCatalogo}"
+					var="c" itemLabel="#{c.nombre}" itemValue="#{c}"
+					converter="catalogoConverter"
 					dropdown="true" scrollHeight="300" />
 
 				<p:commandButton value="Buscar" actionListener="#{generadorVersionBackingBean.buscarListener}" update="dt1,dt2" />
@@ -84,7 +81,7 @@
 
 			<p:spacer height="20px;" />
 
-			<p:dataTable id="dt3" value="#{generadorVersionBackingBean.estructuraList}" var="row" binding="#{generadorVersionBackingBean.estructuraTable}" >
+			<p:dataTable id="dt3" value="#{generadorVersionBackingBean.estructuraList}" var="row" >
 
 				<p:column headerText="Orden" style="text-align:center">
 					<h:outputText value="#{row.orden}" />
@@ -99,14 +96,14 @@
 
 				<p:column headerText="Agregar o Eliminar" style="text-align:center">
 
-					<p:commandLink id="cl1" ajax="true" actionListener="#{generadorVersionBackingBean.agregarTipoEstructuraListener}" update="dt3" partialSubmit="true" >
+					<p:commandLink id="cl1" actionListener="#{generadorVersionBackingBean.agregarTipoEstructuraListener}" update="@form" >
 						<p:graphicImage value="../../resources/images/icon/add.png" />
 						<f:attribute name="estructura" value="#{row}" />
 					</p:commandLink>
 
 					<p:spacer width="3px" />
 
-					<p:commandLink ajax="true" id="cl2" title="Agregar" actionListener="#{generadorVersionBackingBean.eliminarTipoEstructuraListener}" rendered="#{generadorVersionBackingBean.sizeEstructrua > 1 ? 'true' : 'false'} " update="dt3" partialSubmit="true">
+					<p:commandLink ajax="true" id="cl2" title="Eliminar" actionListener="#{generadorVersionBackingBean.eliminarTipoEstructuraListener}" rendered="#{generadorVersionBackingBean.sizeEstructrua > 1 ? 'true' : 'false'} " update="@form" partialSubmit="true">
 						<p:graphicImage value="../../resources/images/icon/remove.png" />
 					</p:commandLink>
 
@@ -114,7 +111,7 @@
 				
 				<p:column headerText="Ordenar" style="text-align:center">
 
-					<p:commandLink rendered="#{(generadorVersionBackingBean.sizeEstructrua > 1 ? true : false) and (status.count == 1 ? false : true)}" update="dt3" partialSubmit="true">
+					<p:commandLink rendered="#{(generadorVersionBackingBean.sizeEstructrua > 1 ? true : false) and (status.count == 1 ? false : true)}" update="@form" partialSubmit="true">
 						<p:graphicImage value="../../resources/images/icon/up_ok.png" />
 					</p:commandLink>
 
@@ -135,10 +132,9 @@
 					style="width:150px"
 					actionListener="#{generadorVersionBackingBean.guardarEstructuraListener}"
 					rendered="#{generadorVersionBackingBean.renderBotonEditar}" />
-			</div>
+			</div>				
+
 
 		</h:form>
-
-	</ui:define>
 
 </ui:composition>

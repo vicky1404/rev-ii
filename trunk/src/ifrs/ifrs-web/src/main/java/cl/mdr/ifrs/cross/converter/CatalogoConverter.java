@@ -11,6 +11,7 @@ import cl.mdr.ifrs.ejb.entity.Catalogo;
 
 import com.google.common.base.Strings;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 @FacesConverter(value = "catalogoConverter")
 public class CatalogoConverter implements Converter {
@@ -23,7 +24,7 @@ public class CatalogoConverter implements Converter {
 		Catalogo catalogo = null;
 		
 		if(!Strings.isNullOrEmpty(string)){
-			final Gson gson = new Gson();
+			final Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 			try {
 				catalogo = gson.fromJson(string, Catalogo.class);
 			} catch (final Exception e) {
@@ -40,7 +41,8 @@ public class CatalogoConverter implements Converter {
 		String json = "";
 		
 		if(object instanceof Catalogo){
-			final Gson gson = new Gson();
+			final Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+
 			json = gson.toJson(object, Catalogo.class);
 		}
 
