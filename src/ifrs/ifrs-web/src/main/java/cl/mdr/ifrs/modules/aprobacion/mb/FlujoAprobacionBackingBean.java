@@ -3,9 +3,6 @@
  */
 package cl.mdr.ifrs.modules.aprobacion.mb;
 
-import static ch.lambdaj.Lambda.on;
-import static ch.lambdaj.Lambda.sort;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +18,7 @@ import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
 import cl.mdr.ifrs.cross.mb.FiltroBackingBean;
 import cl.mdr.ifrs.cross.util.PropertyManager;
 import cl.mdr.ifrs.ejb.common.VigenciaEnum;
+import cl.mdr.ifrs.ejb.cross.SortHelper;
 import cl.mdr.ifrs.ejb.entity.EstadoCuadro;
 import cl.mdr.ifrs.ejb.entity.TipoCuadro;
 import cl.mdr.ifrs.ejb.entity.Version;
@@ -60,8 +58,9 @@ public class FlujoAprobacionBackingBean extends AbstractBackingBean implements S
         logger.info("buscando cuadros para workflow de aprobación");
         try{              
             limpiarAction();
-            this.setCatalogoFlujoAprobacion(super.getFacadeService().getVersionService().findVersionByFiltro(super.getNombreUsuario(), this.getTipoCuadro(), super.getFiltroPeriodo(), this.getEstadoCuadro(), VigenciaEnum.VIGENTE.getKey()));           
-            sort(this.getCatalogoFlujoAprobacion(), on(Version.class).getCatalogo().getOrden());
+            this.setCatalogoFlujoAprobacion(super.getFacadeService().getVersionService().findVersionByFiltro(super.getNombreUsuario(), super.getFiltroBackingBean().getTipoCuadro(), super.getFiltroPeriodo(), this.getEstadoCuadro(), VigenciaEnum.VIGENTE.getKey()));           
+            //sort(this.getCatalogoFlujoAprobacion(), on(Version.class).getCatalogo().getOrden());
+            SortHelper.sortVersionByOrdenCatalogo(this.getCatalogoFlujoAprobacion());
             this.setRenderFlujo(Boolean.TRUE);
         }catch(javax.ejb.EJBException e){
             addWarnMessage("El período consultado no existe");

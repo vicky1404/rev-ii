@@ -8,8 +8,11 @@
 	<ui:define name="content">
 		<h:form id="f1">
 			<h:outputScript name="js/util/form-util.js" />
-			<p:growl id="messages_reporte_cuadro" autoUpdate="true"
-				showDetail="true" showSummary="true" />
+			<p:messages id="messages_reporte_cuadro" autoUpdate="true"
+				showDetail="true" showSummary="true"></p:messages>
+			
+			<!-- p:growl id="messages_reporte_cuadro" autoUpdate="true"
+				showDetail="true" showSummary="true" /-->
 			<p:ajaxStatus onstart="statusDialog.show();"
 				oncomplete="statusDialog.hide();" />
 			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
@@ -18,8 +21,11 @@
 				header="#{msg.titulo_flujo_aprobacion}" toggleable="true"
 				closable="false" toggleSpeed="500" closeSpeed="2000"
 				widgetVar="panel">
-				<h:panelGrid columns="4" border="1" >
-					<h:outputLabel value="#{msg.label_periodo}:" />
+				<h:panelGrid border="0" columns="2" style="width:41%;"  >
+				<h:column headerClass="ancho250">
+					<h:outputLabel value="#{msg.label_periodo}:" style="width:200px;" />
+				</h:column>
+				<h:column>					
 					<p:selectOneMenu id="soc1"
 						unselectedLabel="#{msg.label_seleccione}"
 						value="#{flujoAprobacionBackingBean.filtroBackingBean.periodo.mesPeriodo}"
@@ -29,7 +35,7 @@
 							value="#{flujoAprobacionBackingBean.componenteBackingBean.meses}"
 							id="si1" />
 					</p:selectOneMenu>
-					<p:selectOneMenu id="soc2"
+					<p:selectOneMenu id="soc2" style="margin-left:5px;"
 						unselectedLabel="#{msg.label_seleccione}"
 						value="#{flujoAprobacionBackingBean.filtroBackingBean.periodo.anioPeriodo}"
 						required="true">
@@ -38,6 +44,7 @@
 							value="#{flujoAprobacionBackingBean.componenteBackingBean.anios}"
 							id="si2" />
 					</p:selectOneMenu>
+				  </h:column>	
 				</h:panelGrid>
 				<h:panelGrid columns="2">
 					<p:outputLabel value="#{msg.label_tipo_cuadro}:" for="stc" />
@@ -53,19 +60,19 @@
 					<p:outputLabel value="#{msg.label_estado_cuadro}:" for="soc3" />
 					<p:selectOneMenu label="#{msg.label_estado_cuadro}:" id="soc3"						
 						value="#{flujoAprobacionBackingBean.estadoCuadro}"
-						required="false" >
-						<f:selectItem itemLabel="#{msg.label_seleccione}" itemDisabled="true" />
+						required="false" converter="estadoCuadroConverter">
+						<f:selectItem itemLabel="#{msg.label_seleccione}"/>
 						<f:selectItems
 							value="#{flujoAprobacionBackingBean.componenteBackingBean.estadoCuadroItems}"
 							id="estados" />
-							<f:converter converterId="estadoCuadroConverter" for="soc3"></f:converter>
+							<!-- f:converter converterId="estadoCuadroConverter" for="soc3"></f:converter-->
 					</p:selectOneMenu>
 
 					<h:panelGrid columns="2">
 						<h:outputLabel value=" " />
 						<p:commandButton value="#{msg.boton_buscar}"
 							action="#{flujoAprobacionBackingBean.buscarAction}"
-							update="tabla_catalogo_export" ajax="false">
+							update="tabla_catalogo_flujo" ajax="false">
 						</p:commandButton>
 					</h:panelGrid>
 				</h:panelGrid>
@@ -121,7 +128,7 @@
 						</h:selectOneMenu>
 					</f:facet>
 					<h:selectOneMenu label=" " value="#{row.estado}" id="ce1"
-						required="true"
+						required="true" converter="estadoCuadroConverter"
 						requiredMessage="Seleccione el estado de: #{row.catalogo.nombre}"
 						styleClass="x6 cmbEstadoNota" autoSubmit="true">
 						<f:selectItem itemLabel="#{msg.label_seleccione}" />

@@ -21,7 +21,7 @@ public class EstadoCuadroConverter implements Converter {
 	@Override
 	public Object getAsObject(FacesContext facesContext, UIComponent uiComponent, String string) {		
 		
-		EstadoCuadro estadoCuadro = null;
+		EstadoCuadro estadoCuadro = new EstadoCuadro();
 		
 		if(!Strings.isNullOrEmpty(string)){
 			final Gson gson = new Gson();
