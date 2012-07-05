@@ -91,6 +91,13 @@ public interface VersionServiceLocal {
      */
     List<Version> findVersionAllByCatalogo(Catalogo catalogo);
     
+    
+    /**
+     * @param idCatalogo
+     * @return
+     */
+    List<Version> findVersionAllByIdCatalogo(Long idCatalogo);
+    
     /**
      * @param version
      * @return

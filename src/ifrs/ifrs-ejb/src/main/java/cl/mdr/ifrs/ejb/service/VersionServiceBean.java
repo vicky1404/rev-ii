@@ -403,6 +403,14 @@ public class VersionServiceBean implements VersionServiceLocal{
     
     @SuppressWarnings("unchecked")
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public List<Version> findVersionAllByIdCatalogo(Long idCatalogo){
+        Query query = em.createNamedQuery(Version.VERSION_FIND_ALL_BY_ID_CATALOGO);
+        query.setParameter("idCatalogo",idCatalogo);
+        return query.getResultList();
+    }
+    
+    @SuppressWarnings("unchecked")
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public Version findVersionByVersion(Version version){
         Query query = em.createNamedQuery(Version.VERSION_FIND_BY_VERSION);
         query.setParameter("version",version);

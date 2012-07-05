@@ -34,6 +34,7 @@ import cl.mdr.ifrs.ejb.common.Constantes;
                  @NamedQuery(name = Version.VERSION_FIND_NO_VIGENTE, query = "select o from Version o where o.vigencia = 0 and o.catalogo = :catalogo"),
                  @NamedQuery(name = Version.VERSION_FIND_VIGENTE, query = "select o from Version o where o.vigencia = 1 and o.catalogo = :catalogo "),
                  @NamedQuery(name = Version.VERSION_FIND_ALL_BY_CATALOGO, query = "select o from Version o where o.catalogo = :catalogo order by o.vigencia, o.version, o.fechaCreacion"),
+                 @NamedQuery(name = Version.VERSION_FIND_ALL_BY_ID_CATALOGO, query = "select o from Version o where o.catalogo.idCatalogo = :idCatalogo order by o.vigencia, o.version, o.fechaCreacion"),
                  @NamedQuery(name = Version.VERSION_FIND_BY_VERSION, query = "select o from Version o where o = :version"),
                  @NamedQuery(name = Version.VERSION_FIND_ULTIMO_VERSION_BY_PERIODO, query = "select o from Version o where o.idVersion in ( select max(v.idVersion) from Version v, Periodo p, CatalogoGrupo cg, UsuarioGrupo ug where ug.grupo = cg.grupo and p.idPeriodo = v.periodo.idPeriodo and p.periodo = :periodo and (:usuario is null or ug.nombreUsuario = :usuario) and (:tipoCuadro is null or v.catalogo.tipoCuadro.idTipoCuadro = :tipoCuadro) and (:vigente is null or v.vigencia = :vigente) and v.catalogo.vigencia = 1 group by v.catalogo.idCatalogo) order by o.catalogo.orden"),
                  @NamedQuery(name = Version.FIND_ULTIMA_VERSION_VIGENTE, query = "select ve from Version ve, UsuarioGrupo ug, CatalogoGrupo cg where ve.catalogo.idCatalogo = :idCatalogo and ve.vigencia = 1 and ve.catalogo.idCatalogo = cg.catalogo.idCatalogo and ug.nombreUsuario = :usuario and cg.idGrupoAcceso = ug.idGrupo and ve.periodo.idPeriodo = :idPeriodo"),
@@ -59,6 +60,7 @@ public class Version implements Serializable {
     public static final String VERSION_FIND_NO_VIGENTE = "Version.findNoVigente";
     public static final String VERSION_FIND_VIGENTE = "Version.findVigente";
     public static final String VERSION_FIND_ALL_BY_CATALOGO = "Version.findAllByCatalogo";
+    public static final String VERSION_FIND_ALL_BY_ID_CATALOGO = "Version.findAllByIdCatalogo";
     public static final String VERSION_FIND_BY_VERSION = "Version.findByVersion";
     public static final String VERSION_FIND_ULTIMO_VERSION_BY_PERIODO = "Version.findUltimoVersionByPeriodo";
     public static final String FIND_ULTIMA_VERSION_VIGENTE = "Version.findUltimaVersionVigente";

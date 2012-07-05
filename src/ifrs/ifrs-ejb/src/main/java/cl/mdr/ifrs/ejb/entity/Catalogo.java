@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -15,6 +16,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import com.google.gson.annotations.Expose;
 
 import cl.mdr.ifrs.ejb.common.Constantes;
 
@@ -69,44 +72,55 @@ public class Catalogo implements Serializable {
     
     private static final long serialVersionUID = 5519999923709341563L;
 
-
+    @Expose
     @Column(name = "COD_CUADRO", nullable = false)
     private Long codigoCuadro;
     
+    @Expose
     @Column(name = "COD_SUBCUADRO", nullable = false)
     private Long codigoSubcuadro;
     
+    @Expose
     @Id
     @GeneratedValue(generator="ID_GEN_CATALOGO")
     @SequenceGenerator(name="ID_GEN_CATALOGO", sequenceName = "SEQ_CATALOGO" ,allocationSize = 1)
     @Column(name = "ID_CATALOGO", nullable = false)
     private Long idCatalogo;
     
+    @Expose
     @Column(name = "NOMBRE", nullable = false, length = 256)
     private String nombre;
     
+    @Expose
     @Column(nullable = false)
     private Long orden;
     
+    @Expose
     @Column(name = "TITULO", length = 256)
     private String titulo;
     
+    @Expose
     @Column(nullable = false)
     private Long vigencia;
     
     @Column(name = "IMPRESION_HORIZONTAL")
     private Long impresionHorizontal;
     
+    
     @OneToMany(mappedBy = "catalogo")
     private List<Version> versionList;
+    
     
     @OneToMany(mappedBy = "catalogo")
     private List<CatalogoGrupo> catalogoGrupoList;
     
+    
+    @Expose
     @ManyToOne
     @JoinColumn(name = "ID_TIPO_CUADRO")
     private TipoCuadro tipoCuadro;
     
+    @Expose
     @ManyToOne
     @JoinColumn(name="RUT")
     private Empresa empresa;
