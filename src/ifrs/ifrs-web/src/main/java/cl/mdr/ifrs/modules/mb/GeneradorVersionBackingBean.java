@@ -10,6 +10,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.ValueChangeEvent;
 
 import org.apache.log4j.Logger;
 import org.primefaces.component.datatable.DataTable;
@@ -37,7 +38,6 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 	
 
 	private Catalogo catalogo;
-	private Long idCatalogo;
 	private List<Catalogo> catalogoList;
 	private List<Version> versionList;
 	private List<Estructura> estructuraList;
@@ -58,28 +58,16 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 	}
 
 	public void buscarListener(ActionEvent event){
-		
-		System.out.println(idCatalogo);
-		
 		try{
-			catalogo = getFacadeService().getCatalogoService().findCatalogoByCatalogo(new Catalogo(idCatalogo));
 			
 			if(catalogo!=null)
-				versionList = getFacadeService().getVersionService().findVersionAllByCatalogo(catalogo);
+				versionList = getFacadeService().getVersionService().findVersionAllByIdCatalogo(catalogo.getIdCatalogo());
 			else
 				addInfoMessage("Sin versiones", "No existen versiones para catalogo seleccionado");
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		
-	}
-
-	public Long getIdCatalogo() {
-		return idCatalogo;
-	}
-
-	public void setIdCatalogo(Long idCatalogo) {
-		this.idCatalogo = idCatalogo;
 	}
 
 	public List<Catalogo> completeCatalogo(String query) {
@@ -98,6 +86,10 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
         return suggestions;  
     }
 	
+	
+	public void tipoCuadroChangeValue(ValueChangeEvent event){
+		System.out.println("tipoCuadroChangeValue");
+	}
 	
 	
 	public void tipoCuadroChange(){
@@ -133,8 +125,8 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
     
     public void agregarTipoEstructuraListener(ActionEvent actionEvent) {
         setAlmacenado(false);
-        //final Estructura estructuraSelected = (Estructura)actionEvent.getComponent().getAttributes().get("estructura");
-        Estructura estructuraSelected = (Estructura) estructuraTable.getRowData();
+        final Estructura estructuraSelected = (Estructura)actionEvent.getComponent().getAttributes().get("estructura");
+        //Estructura estructuraSelected = (Estructura) estructuraTable.getRowData();
         List<Estructura> estructuras = new ArrayList<Estructura>();
         Estructura estructura;
         Long i=0L;
@@ -165,8 +157,6 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
         grillaModelMap.putAll(grillaModelPasoMap);
         grillaModelPasoMap.clear();
         setEstructuraList(estructuras);
-        estructuraTable.setValue(estructuras);
-        RequestContext.getCurrentInstance().update("dt3");
     }
     
     public void eliminarTipoEstructuraListener(ActionEvent actionEvent) {        

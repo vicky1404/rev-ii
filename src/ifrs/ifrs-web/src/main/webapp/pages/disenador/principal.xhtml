@@ -6,40 +6,38 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/main-template.xhtml">
 	<ui:define name="content">
-		<h:form id="f1">
-
-			<p:tabView effect="slide" id="tv1">
-
-				<p:tab title="Versión de Cuadro" id="tb1">
-					<div align="center">
-						<ui:include src="/pages/disenador/generador-version.xhtml"  />					
-					</div>
-				</p:tab>
-
-				<p:tab title="Diseño de Cuadro" id="tb2">
-					<div align="center">
-						<ui:include src="/pages/disenador/generador-diseno.xhtml" />
-					</div>
-				</p:tab>
-
-
-				<p:tab title="Agrupación de Columnas" id="tb3">
-					<h:panelGrid columns="1" cellpadding="10" id="pg3">
-						<h:outputText value="Probando 3" id="ot3" />
-					</h:panelGrid>
-				</p:tab>
-
-				<p:tab title="Previsualizador" id="tb4">
-					<h:panelGrid columns="1" cellpadding="10" id="pg4">
-						<h:outputText value="Probando 4" id="ot4" />
-					</h:panelGrid>
-				</p:tab>
-
-
-			</p:tabView>
-
-		</h:form>
-
+		
+<p:tabView effect="slide" id="tv1" >  
+		
+			<p:tab title="Versión de Cuadro" id="tb001" > 
+					<ui:include src="/pages/disenador/generador-version.xhtml" />
+	        </p:tab>
+	        
+<!-- DISEÑO DE CUADRO -->	        
+  
+  			<p:tab title="Diseño de Cuadro" id="tb2">
+    			<div align="center"> 
+	            	<ui:include src="/pages/disenador/generador-diseno.xhtml" />
+				</div>
+	        </p:tab>
+	        
+	        
+	        <p:tab title="Agrupación de Columnas" id="tb3">
+    			<h:panelGrid columns="1" cellpadding="10" id="pg3">
+	            	<h:outputText  value="Probando 3" id="ot3"/>  
+	            </h:panelGrid>
+	        </p:tab>
+	        
+	        <p:tab title="Previsualizador" id="tb4">
+    			<h:panelGrid columns="1" cellpadding="10" id="pg4">
+	            	<h:outputText  value="Probando 4" id="ot4"/>  
+	            </h:panelGrid>
+	        </p:tab>
+	        
+        
+        </p:tabView>
+		
 	</ui:define>
 </ui:composition>
 
+  
