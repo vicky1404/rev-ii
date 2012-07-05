@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -26,13 +27,17 @@ public class TipoEstructura implements Serializable {
     public static final Long ESTRUCTURA_TIPO_TEXTO = 2L;
     
     private static final long serialVersionUID = 4553286198690512390L;
+    
     @Id
     @Column(name = "ID_TIPO_ESTRUCTURA", nullable = false)
     private Long idTipoEstructura;
-    @Column(nullable = false, length = 64)
+    
+
+	@Column(nullable = false, length = 64)
     private String nombre;
-    @OneToMany(mappedBy = "tipoEstructura")
-    private List<Estructura> estructuraList;
+    
+	/*@OneToMany(mappedBy = "tipoEstructura")
+    private List<Estructura> estructuraList;*/
 
     public TipoEstructura() {
     }
@@ -62,25 +67,13 @@ public class TipoEstructura implements Serializable {
         this.nombre = nombre;
     }
 
-    public List<Estructura> getEstructuraList() {
+    /*public List<Estructura> getEstructuraList() {
         return estructuraList;
     }
 
     public void setEstructuraList(List<Estructura> estructuraList) {
         this.estructuraList = estructuraList;
-    }
-
-    public Estructura addEstructuraNota(Estructura estructura) {
-        getEstructuraList().add(estructura);
-        estructura.setTipoEstructura(this);
-        return estructura;
-    }
-
-    public Estructura removeEstructuraNota(Estructura estructura) {
-        getEstructuraList().remove(estructura);
-        estructura.setTipoEstructura(null);
-        return estructura;
-    }
+    }*/
 
     @Override
     public String toString() {
@@ -95,4 +88,31 @@ public class TipoEstructura implements Serializable {
         buffer.append(']');
         return buffer.toString();
     }
+    
+    @Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime
+				* result
+				+ ((idTipoEstructura == null) ? 0 : idTipoEstructura.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TipoEstructura other = (TipoEstructura) obj;
+		if (idTipoEstructura == null) {
+			if (other.idTipoEstructura != null)
+				return false;
+		} else if (!idTipoEstructura.equals(other.idTipoEstructura))
+			return false;
+		return true;
+	}
 }
