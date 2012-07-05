@@ -2,6 +2,7 @@ body {
 	margin: 0px;
 	padding: 0;
 	color: #616161;
+	font-size: 10px;
 }
 
 h1, h2, h3 {
@@ -189,7 +190,7 @@ img.right {
 }
 
 #sidebar table {
-    width: 100%;
+    width: 95%;
 }
 
 #sidebar table td {
@@ -266,3 +267,8 @@ img.right {
 .ui-state-default .ui-icon-word {
     background-image: url(#{request.contextPath}/resources/images/icon/word.png);
 }
+
+.ancho250 {
+   width: 250px;
+}
+
