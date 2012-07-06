@@ -34,8 +34,8 @@ public interface VersionServiceLocal {
      * @param vigente
      * @return
      * @throws Exception
-     */
     List<Version> findVersionByFiltro(final String usuario, final TipoCuadro tipoCuadro, final Periodo periodo, final EstadoCuadro estadoCuadro, final Long vigente) throws Exception;
+     */
 
     /**
      * @param entity
@@ -122,4 +122,12 @@ public interface VersionServiceLocal {
      * @return
      */
     Version findUltimaVersionVigente(final Long idPeriodo, final String usuario, final Long idCatalogo);
+    
+    
+    /**
+     * @param idCatalogo
+     * @param idPeriodo
+     * @return
+     */
+    List<Version> findVersionByCatalogoPeriodo(Long idCatalogo, Long idPeriodo);
 }

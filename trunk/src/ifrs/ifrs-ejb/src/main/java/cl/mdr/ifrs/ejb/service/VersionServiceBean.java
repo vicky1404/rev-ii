@@ -438,17 +438,12 @@ public class VersionServiceBean implements VersionServiceLocal{
         return (Version)query.getSingleResult();
     }
     
-    
-    
-    public EstructuraServiceLocal getEstructuraService() {
-        return estructuraService;
-    }
-
-    public CeldaServiceLocal getCeldaService() {
-        return celdaService;
-    }
-
-    public GrillaServiceLocal getGrillaService() {
-        return grillaService;
+    @SuppressWarnings("unchecked")
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public List<Version> findVersionByCatalogoPeriodo(Long idCatalogo, Long idPeriodo){
+	    Query query = em.createNamedQuery(Version.VERSION_FIND_BY_ID_CATALOGO_ID_PERIODO);
+	    query.setParameter("idCatalogo",idCatalogo);
+	    query.setParameter("idPeriodo",idPeriodo);
+	    return query.getResultList();
     }
 }
