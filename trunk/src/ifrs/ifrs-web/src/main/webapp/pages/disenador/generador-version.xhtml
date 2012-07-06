@@ -27,26 +27,25 @@
 
 			<p:spacer height="20px;" />
 
-			<p:dataTable id="dt1" var="var"
-				value="#{generadorVersionBackingBean.catalogo}">
+			<p:dataTable id="dt1" var="var" value="#{generadorVersionBackingBean.catalogo}" style="width:720px">
 
-				<p:column id="c1" headerText="Codigo Cuadro">
+				<p:column id="c1" headerText="Codigo Cuadro" width="80">
 					<h:outputText value="#{var.codigoCuadro}" />
 				</p:column>
 
-				<p:column id="c2" headerText="Codigo Sub Cuadro">
+				<p:column id="c2" headerText="Codigo Sub Cuadro" width="100">
 					<h:outputText value="#{var.codigoSubcuadro}" />
 				</p:column>
 
-				<p:column id="c3" headerText="Nombre Cuadro">
+				<p:column id="c3" headerText="Nombre Cuadro" width="130">
 					<h:outputText value="#{var.nombre}" />
 				</p:column>
 
-				<p:column id="c4" headerText="Titulo Cuadro">
+				<p:column id="c4" headerText="Titulo Cuadro" >
 					<h:outputText value="#{var.titulo}" />
 				</p:column>
 
-				<p:column id="c5" headerText="Vigente">
+				<p:column id="c5" headerText="Vigente" width="70">
 					<h:outputText value="#{var.vigencia}" />
 				</p:column>
 
@@ -54,7 +53,7 @@
 
 			<p:spacer height="20px;" />
 
-			<p:dataTable id="dt2" var="ver" value="#{generadorVersionBackingBean.versionList}">
+			<p:dataTable id="dt2" var="ver" value="#{generadorVersionBackingBean.versionList}" style="width:720px">
 
 				<p:column id="c1" headerText="Version">
 					<h:outputText value="#{ver.version}" />
@@ -74,6 +73,8 @@
 				</p:column>
 
 			</p:dataTable>
+			
+			<p:spacer height="20px;" />
 
 			<div align="right" style="width: 720px;">
 				<p:commandButton id="cb2" value="#{msg.generador_nueva_version}" style="width:124px;" actionListener="#{generadorVersionBackingBean.agregarVersionListener}" partialSubmit="true"  update="dt2"/>
@@ -81,7 +82,7 @@
 
 			<p:spacer height="20px;" />
 
-			<p:dataTable id="dt3" value="#{generadorVersionBackingBean.estructuraList}" var="row" >
+			<p:dataTable id="dt3" value="#{generadorVersionBackingBean.estructuraList}" var="row" style="width:465px">
 
 				<p:column headerText="Orden" style="text-align:center">
 					<h:outputText value="#{row.orden}" />
@@ -127,8 +128,9 @@
 				</p:column>
 
 			</p:dataTable>
-			<div align="right" style="width: 410px;">
-				<p:commandButton id="cb3" text="#{msg.generador_guardar_estructura}"
+			
+			<div align="right" style="width:410px;">
+				<p:commandButton id="cb3" value="#{msg.generador_guardar_estructura}" 
 					style="width:150px"
 					actionListener="#{generadorVersionBackingBean.guardarEstructuraListener}"
 					rendered="#{generadorVersionBackingBean.renderBotonEditar}" />

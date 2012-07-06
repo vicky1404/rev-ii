@@ -14,10 +14,8 @@ import javax.faces.event.ValueChangeEvent;
 
 import org.apache.log4j.Logger;
 import org.primefaces.component.datatable.DataTable;
-import org.primefaces.context.RequestContext;
 
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
-import cl.mdr.ifrs.cross.model.CommonGridModel;
 import cl.mdr.ifrs.cross.util.GeneradorDisenoHelper;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
