@@ -356,7 +356,7 @@ public class GeneradorDisenoBackingBean extends AbstractBackingBean {
                                 .createValueExpression(getFacesContext().getELContext(), "#{row["+(columna.getIdColumna())+"].valor}", Object.class);
         column.getChildren().add(getRichOutputText(value));
         getEditarGrillaTable().getChildren().add(column);
-        //getEditarGrillaTable().setWidth(widthEditarGrillaTable.intValue());
+        getEditarGrillaTable().setStyle("width:"+widthEditarGrillaTable);
         procesarColumnas(grillaModel.getColumnas());
         setTableModel(createTableModel(grillaModel.getColumnas(),grillaModel.getAgrupacionesMap()));
         getEditarGrillaTable().setValue(getTableModel(grillaModel).getRows());
@@ -367,6 +367,7 @@ public class GeneradorDisenoBackingBean extends AbstractBackingBean {
         //setAdfPartialTargetTableEditor();
         setCampoEdicionGrillas(createCampoModel(getFilaSelected()));
         getCampoEdicionGrillas();
+        getFacesContext().renderResponse();
         return null;
     }
     
@@ -828,7 +829,7 @@ public class GeneradorDisenoBackingBean extends AbstractBackingBean {
         getGrillaModelByEstructuraSelected().getTexto().setNegrita(isNegrita());
     }
     
-    public void guardarGrilaListener(ActionEvent event){
+    public void guardarTituloGrillaListener(ActionEvent event){
         getGrillaModelByEstructuraSelected().setTituloGrilla(getTituloGrilla());
     }
     

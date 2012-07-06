@@ -209,7 +209,7 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
         }
     }
     
-    public void guardarEstructuraListener(ActionEvent event){
+    public String guardarEstructura(){
         
         Long version = 1L;
         
@@ -236,6 +236,8 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
             }
         }
         setAlmacenado(true);
+        
+        return null;
     }
     
     public void agregarVersionListener(ActionEvent actionEvent) {
