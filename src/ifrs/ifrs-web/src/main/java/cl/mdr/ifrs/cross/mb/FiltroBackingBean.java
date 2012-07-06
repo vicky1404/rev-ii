@@ -13,7 +13,7 @@ import cl.mdr.ifrs.ejb.entity.Periodo;
 import cl.mdr.ifrs.ejb.entity.TipoCuadro;
 import cl.mdr.ifrs.ejb.entity.Version;
 
-@ManagedBean
+@ManagedBean(name="filtroBackingBean")
 @SessionScoped
 public class FiltroBackingBean implements Serializable{
 	private static final long serialVersionUID = -7043367923658986045L;
