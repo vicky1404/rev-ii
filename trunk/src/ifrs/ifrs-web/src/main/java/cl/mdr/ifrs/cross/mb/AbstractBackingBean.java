@@ -15,9 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Periodo;
 import cl.mdr.ifrs.ejb.facade.local.FacadeServiceLocal;
-import cl.mdr.ifrs.modules.mb.GeneradorDisenoBackingBean;
-import cl.mdr.ifrs.modules.mb.GeneradorVersionBackingBean;
-import cl.mdr.ifrs.modules.mb.GeneradorVisualizadorBackingBean;
 
 @ManagedBean
 @ViewScoped
