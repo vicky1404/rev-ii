@@ -184,6 +184,7 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
     public void onSelectNodeMenuCuadro(NodeSelectEvent event) {
     	this.setActiveTabIndex("0");
     	this.setCatalogoSelected(this.getCatalogoMap().get(Util.getLong(event.getTreeNode().toString(), null)));
+    	getFiltroBackingBean().setCatalogo(this.catalogoSelected);
     	cargarNotaAction();
     	addInfoMessage("", "nodo : "+this.getCatalogoSelected().getNombre() + " "+this.getCatalogoSelected().getTitulo() );
     } 
