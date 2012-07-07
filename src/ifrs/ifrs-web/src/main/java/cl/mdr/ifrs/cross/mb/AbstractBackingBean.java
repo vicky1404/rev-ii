@@ -1,6 +1,7 @@
 package cl.mdr.ifrs.cross.mb;
 
 import java.security.Principal;
+import java.text.MessageFormat;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -12,8 +13,11 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.primefaces.context.RequestContext;
+
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Periodo;
+import cl.mdr.ifrs.ejb.entity.Usuario;
 import cl.mdr.ifrs.ejb.facade.local.FacadeServiceLocal;
 
 @ManagedBean
@@ -44,6 +48,10 @@ public abstract class AbstractBackingBean {
 	public Principal getPrincipal() {
 		//return this.getExternalContext().getUserPrincipal();
 		return this.getRequest().getUserPrincipal();
+	}
+	
+	public boolean isUserInRole(String role){
+		return this.getRequest().isUserInRole(role);
 	}
 	
 	/**
@@ -152,6 +160,35 @@ public abstract class AbstractBackingBean {
 
 	public void setFiltroBackingBean(FiltroBackingBean filtroBackingBean) {
 		this.filtroBackingBean = filtroBackingBean;
+	}
+	
+	/**
+	 * Muestra un componente de tipo pop up definido en la vista
+	 * @param idDialog
+	 * @param idUpdate
+	 */
+	public void displayPopUp(final String idDialog, final String idUpdate){
+    	RequestContext context = RequestContext.getCurrentInstance();
+    	//context.execute(""+idDialog+".show();");
+    	context.execute(MessageFormat.format("{0}.show();", idDialog));
+        context.update(idUpdate);  
+    }
+    
+    
+	/**
+	 * Esconde un componente de tipo pop up definido en la vista
+	 * @param idDialog
+	 * @param idUpdate
+	 */
+	public void hidePopUp(final String idDialog, final String idUpdate){
+    	RequestContext context = RequestContext.getCurrentInstance();
+    	//context.execute(""+idDialog+".hide();");
+    	context.execute(MessageFormat.format("{0}.hide();", idDialog));
+        context.update(idUpdate);  
+    }
+	
+	public Usuario getUsuarioSesion(){
+		return (Usuario) this.getExternalContext().getSessionMap().get(Usuario.class.getName());
 	}
 	
     

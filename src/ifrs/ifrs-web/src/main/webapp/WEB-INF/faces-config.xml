@@ -11,17 +11,10 @@
   <managed-bean-name>menuBackingBean</managed-bean-name>
   <managed-bean-class>cl.mdr.ifrs.cross.mb.MenuBackingBean</managed-bean-class>
   <managed-bean-scope>session</managed-bean-scope>
- </managed-bean>
- <navigation-rule>
-  <from-view-id>*</from-view-id>
-  <navigation-case>
-   <from-outcome>cuadro</from-outcome>
-   <to-view-id>/pages/cuadro/cuadro.xhtml</to-view-id>
-  </navigation-case>
- </navigation-rule>
+ </managed-bean> 
  <!-- This descriptor activates the JSF 2.0 Servlet -->
  <application>
-  <message-bundle>ifrs</message-bundle>
+  <message-bundle>ifrs_es_CL</message-bundle>
   <resource-bundle>
    <base-name>ifrs</base-name>
    <var>msg</var>

@@ -32,7 +32,7 @@ public class RequestWrapper extends HttpServletRequestWrapper {
 	@Override
 	public boolean isUserInRole(String role) {
 		Usuario usuario = (Usuario) getSession().getAttribute(Usuario.class.getName());
-		return usuario.getRol().equals(role);	
+		return usuario.getRol().getIdRol().equals(role);	
 	}
 
 }
