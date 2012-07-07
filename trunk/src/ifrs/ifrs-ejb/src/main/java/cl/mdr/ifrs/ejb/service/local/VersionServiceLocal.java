@@ -33,9 +33,8 @@ public interface VersionServiceLocal {
      * @param estadoCuadro
      * @param vigente
      * @return
-     * @throws Exception
-    List<Version> findVersionByFiltro(final String usuario, final TipoCuadro tipoCuadro, final Periodo periodo, final EstadoCuadro estadoCuadro, final Long vigente) throws Exception;
-     */
+     * @throws Exception*/
+    List<Version> findVersionByFiltro(final String usuario, final TipoCuadro tipoCuadro, final Periodo periodo, final EstadoCuadro estadoCuadro, final Long vigente) throws Exception;     
 
     /**
      * @param entity
@@ -123,11 +122,11 @@ public interface VersionServiceLocal {
      */
     Version findUltimaVersionVigente(final Long idPeriodo, final String usuario, final Long idCatalogo);
     
-    
     /**
-     * @param idCatalogo
-     * @param idPeriodo
+     * @param versionesModificadas
      * @return
+     * @throws Exception
      */
-    List<Version> findVersionByCatalogoPeriodo(Long idCatalogo, Long idPeriodo);
+    List<Version> findVersionListActualToCompare(final List<Version> versionesModificadas) throws Exception;
 }
+

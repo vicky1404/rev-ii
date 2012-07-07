@@ -335,7 +335,7 @@ public class ReporteServiceBean implements ReporteServiceLocal {
         XSSFCellStyle style = wb.createCellStyle();
         XSSFCellStyle styleDate = wb.createCellStyle();        
         CreationHelper createHelper = wb.getCreationHelper();
-        XSSFSheet sheet = wb.createSheet("Reporte Flujo de Aprobaci�n");
+        XSSFSheet sheet = wb.createSheet("Reporte Flujo de Aprobación");
         sheet.setZoom(6,7);
         sheet.setFitToPage(true);
         sheet.createFreezePane(0, 1, 0, 1);
@@ -402,7 +402,7 @@ public class ReporteServiceBean implements ReporteServiceLocal {
             }
             
             cell8.setCellValue(MessageFormat.format("{0}-{1}", versionPeriodo.getPeriodo().getAnioPeriodo(), versionPeriodo.getPeriodo().getMesPeriodo()));
-            cell9.setCellValue((versionPeriodo.getVigencia().equals(1L) ? "S�" : "NO"));
+            cell9.setCellValue((versionPeriodo.getVigencia().equals(1L) ? "SI" : "NO"));
             
         }
         return wb;

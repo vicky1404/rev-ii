@@ -3,6 +3,7 @@ package cl.mdr.ifrs.ejb.service;
 
 import static cl.mdr.ifrs.ejb.cross.Constantes.PERSISTENCE_UNIT_NAME;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -14,7 +15,9 @@ import javax.persistence.Query;
 
 import org.apache.log4j.Logger;
 
+import cl.mdr.ifrs.ejb.entity.HistorialVersion;
 import cl.mdr.ifrs.ejb.entity.Periodo;
+import cl.mdr.ifrs.ejb.entity.Version;
 import cl.mdr.ifrs.ejb.service.local.PeriodoServiceLocal;
 
 @Stateless
@@ -99,6 +102,18 @@ public class PeriodoServiceBean implements PeriodoServiceLocal{
             periodo = periodoResult.get(0);           
         }
         return periodo;
+    }
+   	
+   	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void persistFlujoAprobacion(final List<Version> versionList, final List<HistorialVersion> historialVersionList)throws Exception{
+        for(Version version : versionList){
+            version.setFechaUltimoProceso(new Date());
+            em.merge(version);
+        }
+        
+        for(HistorialVersion historialVersion : historialVersionList){
+            em.merge(historialVersion);
+        }
     }
    
 }

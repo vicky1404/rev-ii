@@ -1,9 +1,13 @@
 package cl.mdr.ifrs.ejb.service.local;
 
 
+import java.util.List;
+
 import javax.ejb.Local;
 
+import cl.mdr.ifrs.ejb.entity.HistorialVersion;
 import cl.mdr.ifrs.ejb.entity.Periodo;
+import cl.mdr.ifrs.ejb.entity.Version;
 
 
 @Local
@@ -57,5 +61,14 @@ public interface PeriodoServiceLocal {
      * @throws Exception
      */
     Periodo findMaxPeriodoIniciado() throws Exception;
+    
+    /**
+     * Persiste un set de versiones con su estado modificado
+     * y un registro en el historial para cada una.
+     * @param versionList
+     * @param historialVersionList
+     * @throws Exception
+     */
+    void persistFlujoAprobacion(List<Version> versionList, List<HistorialVersion> historialVersionList) throws Exception ;
 
 }

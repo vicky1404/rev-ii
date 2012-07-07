@@ -39,9 +39,10 @@ public class HistorialVersion implements Serializable {
     private Date fechaProceso;
         
     @ManyToOne
-    @JoinColumn(name = "ID_PERIODO", referencedColumnName = "ID_PERIODO")
+    @JoinColumn(name = "ID_VERSION", referencedColumnName = "ID_VERSION")
     private Version version;
-        
+      
+    @ManyToOne
     @JoinColumn(name = "ID_ESTADO_CUADRO")
     private EstadoCuadro estadoCuadro;
     

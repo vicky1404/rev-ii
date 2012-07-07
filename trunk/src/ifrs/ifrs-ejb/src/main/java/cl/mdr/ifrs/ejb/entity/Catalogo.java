@@ -17,6 +17,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import com.google.gson.annotations.Expose;
 
 import cl.mdr.ifrs.ejb.common.Constantes;
@@ -111,7 +114,8 @@ public class Catalogo implements Serializable {
     private List<Version> versionList;
     
     
-    @OneToMany(mappedBy = "catalogo")
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(mappedBy = "catalogo" , fetch=FetchType.EAGER)
     private List<CatalogoGrupo> catalogoGrupoList;
     
     

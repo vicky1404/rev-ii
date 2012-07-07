@@ -1,6 +1,5 @@
 package cl.mdr.ifrs.ejb.entity;
 
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -102,10 +101,13 @@ public class Version implements Serializable {
     @ManyToOne
     @JoinColumn(name = "ID_ESTADO_CUADRO")
     private EstadoCuadro estado;
-    
-    
+        
     @OneToMany(mappedBy = "version", targetEntity = Estructura.class)
     private List<Estructura> estructuraList;
+        
+    @Fetch(FetchMode.SUBSELECT)
+  	@OneToMany(mappedBy="version", fetch=FetchType.EAGER)
+  	private List<HistorialVersion> historialVersionList;
     
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "FECHA_ULTIMO_PROCESO", nullable = false)
@@ -115,7 +117,10 @@ public class Version implements Serializable {
     
     @Transient
     private boolean editable;
-
+    
+    @Transient
+    private boolean estadoCambiado;
+    
     public Version() {
     }
 
@@ -267,4 +272,20 @@ public class Version implements Serializable {
     public String getUsuario() {
         return usuario;
     }
+
+	public List<HistorialVersion> getHistorialVersionList() {
+		return historialVersionList;
+	}
+
+	public void setHistorialVersioList(List<HistorialVersion> historialVersionList) {
+		this.historialVersionList = historialVersionList;
+	}
+
+	public boolean isEstadoCambiado() {
+		return estadoCambiado;
+	}
+
+	public void setEstadoCambiado(boolean estadoCambiado) {
+		this.estadoCambiado = estadoCambiado;
+	}
 }
