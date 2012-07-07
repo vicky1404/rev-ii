@@ -1,5 +1,8 @@
 package cl.mdr.ifrs.ejb.service;
 
+import static ch.lambdaj.Lambda.extract;
+import static ch.lambdaj.Lambda.on;
+import static cl.mdr.ifrs.ejb.cross.Constantes.PERSISTENCE_UNIT_NAME;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -7,9 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.ejb.EJB;
-import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -39,8 +40,6 @@ import cl.mdr.ifrs.ejb.service.local.PeriodoServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.VersionServiceLocal;
 import cl.mdr.ifrs.exceptions.PeriodoException;
 import cl.mdr.ifrs.vo.GrillaModelVO;
-
-import static cl.mdr.ifrs.ejb.cross.Constantes.PERSISTENCE_UNIT_NAME;
 
 
 @Stateless
@@ -239,6 +238,15 @@ public class VersionServiceBean implements VersionServiceLocal{
         .setParameter("vigente", vigente != null ? vigente.longValue() : "")        
         .getResultList();
     }
+    
+    @SuppressWarnings("unchecked")
+   	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public List<Version> findVersionListActualToCompare(final List<Version> versionesModificadas){
+    	final List<Long> idVersionList = extract(versionesModificadas, on(Version.class).getIdVersion());
+    	return em.createQuery("select v from Version v where v.idVersion in (:idVersionList)")
+    			.setParameter("idVersionList", idVersionList)
+    			.getResultList();
+    }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void persistVersion(List<Version> versiones, List<Estructura> estructuras, Map<Long, GrillaModelVO> grillaModelMap, String usuario) throws PeriodoException, Exception{
@@ -403,14 +411,6 @@ public class VersionServiceBean implements VersionServiceLocal{
     
     @SuppressWarnings("unchecked")
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-    public List<Version> findVersionAllByIdCatalogo(Long idCatalogo){
-        Query query = em.createNamedQuery(Version.VERSION_FIND_ALL_BY_ID_CATALOGO);
-        query.setParameter("idCatalogo",idCatalogo);
-        return query.getResultList();
-    }
-    
-    @SuppressWarnings("unchecked")
-	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public Version findVersionByVersion(Version version){
         Query query = em.createNamedQuery(Version.VERSION_FIND_BY_VERSION);
         query.setParameter("version",version);
@@ -446,4 +446,10 @@ public class VersionServiceBean implements VersionServiceLocal{
 	    query.setParameter("idPeriodo",idPeriodo);
 	    return query.getResultList();
     }
+
+	@Override
+	public List<Version> findVersionAllByIdCatalogo(Long idCatalogo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
