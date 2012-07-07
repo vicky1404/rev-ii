@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PROCESS model-entity="JSFProcess">
- <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="133,51,0,0" model-entity="JSFProcessGroup">
-  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT ID="cuadro::#pages#cuadro#cuadro.xhtml"
-    NAME="output" PATH="/pages/cuadro/cuadro.xhtml"
-    TARGET="rules:#pages#cuadro#cuadro.xhtml" TITLE="cuadro" model-entity="JSFProcessItemOutput"/>
-  </PROCESS-ITEM>
- </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#pages#cuadro#cuadro.xhtml"
   PATH="/pages/cuadro/cuadro.xhtml" SHAPE="253,153,0,0"
   model-entity="JSFProcessGroup" persistent="true"/>

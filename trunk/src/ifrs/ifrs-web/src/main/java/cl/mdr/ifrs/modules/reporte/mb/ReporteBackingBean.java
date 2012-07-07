@@ -21,7 +21,6 @@ import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
-import org.primefaces.context.RequestContext;
 
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
 import cl.mdr.ifrs.cross.mb.FiltroBackingBean;
@@ -46,6 +45,7 @@ public class ReporteBackingBean extends AbstractBackingBean implements Serializa
 	private static final String IMAGEN_HEADER_REPORTE = "logo-bice.jpg";
     private static final String POPUP_DOWNLOAD_WORD = "p_down_word";
     private static final String POPUP_DOWNLOAD_EXCEL = "p_down_excel";
+    private static final String FORMULARIO_EXPORTAR_CUADROS = "f_reporte_cuadro";
     private List<Version> versiones;
     private List<CommonGridModel<Version>> catalogoReportes;    
     private boolean renderCatalogoReportes = Boolean.FALSE;
@@ -131,7 +131,7 @@ public class ReporteBackingBean extends AbstractBackingBean implements Serializa
                 return null;
             }
             this.setVersionDownloadList(versionList);                                     
-            this.displayPopUp(POPUP_DOWNLOAD_EXCEL);
+            this.displayPopUp(POPUP_DOWNLOAD_EXCEL, FORMULARIO_EXPORTAR_CUADROS);
         } catch (Exception e) {
             logger.error(e.getCause(), e);
             addErrorMessage("Error", "Se ha producido un error al exportar a formato MS Excel");
@@ -152,7 +152,7 @@ public class ReporteBackingBean extends AbstractBackingBean implements Serializa
                 return null;
             }
             this.setVersionDownloadList(versionList);                                     
-            this.displayPopUp(POPUP_DOWNLOAD_WORD);              
+            this.displayPopUp(POPUP_DOWNLOAD_WORD, FORMULARIO_EXPORTAR_CUADROS);              
         } catch (Exception e) {
             logger.error(e.getCause(), e);
             addErrorMessage("Error", "Se ha producido un error al exportar a formato MS Word "+e);
@@ -188,20 +188,7 @@ public class ReporteBackingBean extends AbstractBackingBean implements Serializa
         }
         return null;
     }
-    
-    private void displayPopUp(final String idDialog){
-    	RequestContext context = RequestContext.getCurrentInstance();
-    	context.execute(""+idDialog+".show();");  
-        context.update("f_reporte_cuadro");  
-    }
-    
-    @SuppressWarnings("unused")
-	private void hidePopUp(final String idDialog){
-    	RequestContext context = RequestContext.getCurrentInstance();
-    	context.execute(""+idDialog+".hide();");  
-        context.update("f_reporte_cuadro");  
-    }
-    
+
     /**
      * 
      */

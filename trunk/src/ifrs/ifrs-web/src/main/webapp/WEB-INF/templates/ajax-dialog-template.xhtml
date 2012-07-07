@@ -6,7 +6,16 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 	<p:dialog modal="true" widgetVar="statusDialog"
 		header="#{msg.titulo_ventana_cargando}" x="30" y="30"
-		draggable="false" close="false" closable="false" width="300" height="50">
+		draggable="true" close="true" closable="true" width="300" height="50" resizable="false">
+		<h:panelGrid columns="2">
+			<h:graphicImage value="/resources/images/img/ajax-loader.gif" />
+			<h:outputText value="#{msg.titulo_ventana_cargando}" />
+		</h:panelGrid>
+	</p:dialog>
+	
+	<p:dialog modal="false" widgetVar="statusDialogNoModal"
+		header="#{msg.titulo_ventana_cargando}" x="30" y="30"
+		draggable="true" close="true" closable="true" width="300" height="50" resizable="false">
 		<h:panelGrid columns="2">
 			<h:graphicImage value="/resources/images/img/ajax-loader.gif" />
 			<h:outputText value="#{msg.titulo_ventana_cargando}" />

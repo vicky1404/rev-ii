@@ -5,11 +5,21 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 	<h:form id="form_session">
-		<h:panelGrid columns="1" style="text-align : right; width: 99%; padding-top:10px;">
+		<h:panelGrid columns="1"
+			style="text-align : right; width: 99%; padding-top:10px;">
 			<h:panelGroup>
-			    <h:graphicImage value="/resources/images/icon/user.png"  />
-				<h:outputText value="#{menuBackingBean.nombreUsuario}" style="font-size:10px;" />				
-				<h:commandLink value="#{msg.label_logout}" action="#{loginBackingBean.logoutAction}" style="font-weight:bold; color: #900000; " />
+				<h:graphicImage value="/resources/images/icon/user.png" />
+				<h:outputText value="#{menuBackingBean.nombreUsuario}"
+					style="font-size:10px;" />
+				<h:commandLink value="#{msg.label_logout}"
+					action="#{loginBackingBean.logoutAction}"
+					style="font-weight:bold; color: #900000; margin-bottom: 15px;" />
+				<p:themeSwitcher value="#{themeBackingBean.theme}"
+					style="text-align : left; margin-left:10px;" effect="fade" id="statefulSwitcher">
+					<f:selectItem itemLabel="#{msg.label_seleccione_tema}" itemValue="" />
+					<f:selectItems value="#{themeBackingBean.themes}" />
+					<p:ajax listener="#{themeBackingBean.saveTheme}" />
+				</p:themeSwitcher>
 			</h:panelGroup>
 		</h:panelGrid>
 	</h:form>

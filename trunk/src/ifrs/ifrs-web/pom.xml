@@ -74,7 +74,13 @@
         <artifactId>primefaces</artifactId>  
         <version>3.3.1</version>  
       </dependency> 
-      
+      <!-- Prime faces theme  -->
+      <dependency>  
+	    <groupId>org.primefaces.themes</groupId>  
+	    <artifactId>bluesky</artifactId>  
+	    <version>1.0.6</version>  
+	  </dependency>
+	  	       
       <!-- Servlet Api 2.5 -->
       <dependency>
 		<groupId>javax.servlet</groupId>

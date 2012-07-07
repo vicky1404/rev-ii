@@ -66,8 +66,8 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
     private Map<Long, Catalogo> catalogoMap; 
     private Catalogo catalogoSelected;
     
-    private org.primefaces.model.MenuModel model;  
-		
+    private org.primefaces.model.MenuModel model; 
+                  		
 	public MenuBackingBean() {
 		super();		
 		super.getFacesContext().getViewRoot().setLocale(new Locale("es"));
