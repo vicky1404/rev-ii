@@ -18,13 +18,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.Email;
+
+import com.google.common.base.Strings;
 
 
 /**
@@ -34,17 +34,14 @@ import org.hibernate.validator.constraints.Email;
 @NamedQueries( { 
     @NamedQuery(name = Usuario.AUTHENTICATE_USER , query = " select u from Usuario u left join fetch u.grupos " +
     													   " where u.nombreUsuario =:nombreUsuario "),
-    @NamedQuery(name = Usuario.FIND_BY_FILTRO , query = " select " +
-    													" new cl.mdr.ifrs.ejb.entity.Usuario(u.nombreUsuario, " +
-    													" u.nombre, u.apellidoPaterno,"+
-														" u.apellidoMaterno, u.email, u.fechaActualizacion,"+
-														" u.fechaCreacion, u.fechaUltimoAcceso, u.vigente, u.rol) from Usuario u" +
+    @NamedQuery(name = Usuario.FIND_BY_FILTRO , query = " select u from Usuario u " +
+    													" left join fetch u.grupos " +
     													" where 1 = 1 " +
     													" and (:nombreUsuario is null or upper(u.nombreUsuario) like :nombreUsuario) " +
     													" and (:nombre is null or upper(u.nombre) like :nombre) " +
     													" and (:apellidoPaterno is null or upper(u.apellidoPaterno) like :apellidoPaterno)" +
     													" and (:apellidoMaterno is null or upper(u.apellidoMaterno) like :apellidoMaterno)" +
-    													" and (:rol is null or u.rol = :rol)")
+    													" and (:rol is null or u.rol = :rol) ORDER BY u.nombreUsuario ASC")
 })    
 @Table(name="IFRS_USUARIO")
 public class Usuario implements Serializable {
@@ -103,7 +100,7 @@ public class Usuario implements Serializable {
 	private List<HistorialVersion> historialVersiones;
 
 	//bi-directional many-to-many association to Grupo
-	@Fetch(FetchMode.JOIN)
+	@Fetch(FetchMode.JOIN)	
     @ManyToMany(fetch = FetchType.LAZY) 
 	@JoinTable(
 		name="IFRS_USUARIO_GRUPO"
@@ -145,7 +142,7 @@ public class Usuario implements Serializable {
 	
 
 	public Usuario(String nombreUsuario, String nombre, String apellidoPaterno,
-			String apellidoMaterno, String email, Date fechaActualizacion,
+			String apellidoMaterno, String email, String password, Date fechaActualizacion,
 			Date fechaCreacion, Date fechaUltimoAcceso, Long vigente, Rol rol) {
 		super();
 		this.nombreUsuario = nombreUsuario;
@@ -153,6 +150,7 @@ public class Usuario implements Serializable {
 		this.apellidoPaterno = apellidoPaterno;
 		this.apellidoMaterno = apellidoMaterno;
 		this.email = email;
+		this.password = password;
 		this.fechaActualizacion = fechaActualizacion;
 		this.fechaCreacion = fechaCreacion;
 		this.fechaUltimoAcceso = fechaUltimoAcceso;
@@ -164,7 +162,7 @@ public class Usuario implements Serializable {
 		return nombreUsuario;
 	}
 
-	public void setNombreUsuario(String nombreUsuario) {
+	public void setNombreUsuario(String nombreUsuario) {		
 		this.nombreUsuario = nombreUsuario;
 	}
 
@@ -173,6 +171,9 @@ public class Usuario implements Serializable {
 	}
 
 	public void setEmail(String email) {
+		if(!Strings.isNullOrEmpty(email)){
+			email = email.toLowerCase();
+		}
 		this.email = email;
 	}
 
@@ -272,6 +273,127 @@ public class Usuario implements Serializable {
 		this.apellidoMaterno = apellidoMaterno;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((apellidoMaterno == null) ? 0 : apellidoMaterno.hashCode());
+		result = prime * result
+				+ ((apellidoPaterno == null) ? 0 : apellidoPaterno.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime
+				* result
+				+ ((fechaActualizacion == null) ? 0 : fechaActualizacion
+						.hashCode());
+		result = prime * result
+				+ ((fechaCreacion == null) ? 0 : fechaCreacion.hashCode());
+		result = prime
+				* result
+				+ ((fechaUltimoAcceso == null) ? 0 : fechaUltimoAcceso
+						.hashCode());
+		result = prime * result + ((grupos == null) ? 0 : grupos.hashCode());
+		result = prime
+				* result
+				+ ((historialReportes == null) ? 0 : historialReportes
+						.hashCode());
+		result = prime
+				* result
+				+ ((historialVersiones == null) ? 0 : historialVersiones
+						.hashCode());
+		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		result = prime * result
+				+ ((nombreUsuario == null) ? 0 : nombreUsuario.hashCode());
+		result = prime * result
+				+ ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((rol == null) ? 0 : rol.hashCode());
+		result = prime * result + ((vigente == null) ? 0 : vigente.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		if (apellidoMaterno == null) {
+			if (other.apellidoMaterno != null)
+				return false;
+		} else if (!apellidoMaterno.equals(other.apellidoMaterno))
+			return false;
+		if (apellidoPaterno == null) {
+			if (other.apellidoPaterno != null)
+				return false;
+		} else if (!apellidoPaterno.equals(other.apellidoPaterno))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (fechaActualizacion == null) {
+			if (other.fechaActualizacion != null)
+				return false;
+		} else if (!fechaActualizacion.equals(other.fechaActualizacion))
+			return false;
+		if (fechaCreacion == null) {
+			if (other.fechaCreacion != null)
+				return false;
+		} else if (!fechaCreacion.equals(other.fechaCreacion))
+			return false;
+		if (fechaUltimoAcceso == null) {
+			if (other.fechaUltimoAcceso != null)
+				return false;
+		} else if (!fechaUltimoAcceso.equals(other.fechaUltimoAcceso))
+			return false;
+		if (grupos == null) {
+			if (other.grupos != null)
+				return false;
+		} else if (!grupos.equals(other.grupos))
+			return false;
+		if (historialReportes == null) {
+			if (other.historialReportes != null)
+				return false;
+		} else if (!historialReportes.equals(other.historialReportes))
+			return false;
+		if (historialVersiones == null) {
+			if (other.historialVersiones != null)
+				return false;
+		} else if (!historialVersiones.equals(other.historialVersiones))
+			return false;
+		if (nombre == null) {
+			if (other.nombre != null)
+				return false;
+		} else if (!nombre.equals(other.nombre))
+			return false;
+		if (nombreUsuario == null) {
+			if (other.nombreUsuario != null)
+				return false;
+		} else if (!nombreUsuario.equals(other.nombreUsuario))
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		if (rol == null) {
+			if (other.rol != null)
+				return false;
+		} else if (!rol.equals(other.rol))
+			return false;
+		if (vigente == null) {
+			if (other.vigente != null)
+				return false;
+		} else if (!vigente.equals(other.vigente))
+			return false;
+		return true;
+	}
+
+	
 	
 	
 }
