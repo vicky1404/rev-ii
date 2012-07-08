@@ -22,6 +22,7 @@ import cl.mdr.ifrs.ejb.entity.Empresa;
 import cl.mdr.ifrs.ejb.entity.EstadoCuadro;
 import cl.mdr.ifrs.ejb.entity.Grupo;
 import cl.mdr.ifrs.ejb.entity.Periodo;
+import cl.mdr.ifrs.ejb.entity.Rol;
 import cl.mdr.ifrs.ejb.entity.TipoCelda;
 import cl.mdr.ifrs.ejb.entity.TipoCuadro;
 import cl.mdr.ifrs.ejb.entity.TipoDato;
@@ -58,6 +59,8 @@ public class ComponenteBackingBean implements Serializable {
     private List<Empresa> empresaList;
     private List<TipoDato> tipoDatoList;
     private List<Catalogo> catalogoList;
+    private List<Rol> rolList;
+    
     
     public ComponenteBackingBean() {
     }
@@ -246,6 +249,22 @@ public class ComponenteBackingBean implements Serializable {
         return bloqueoItems;
     }
     
+    /**
+     * genera una lista de objetos selectItem para llenar combo de roles.
+     * @return
+     */
+    public List<SelectItem> getRolItems(){        
+        List<SelectItem> roles = new ArrayList<SelectItem>();
+        try {
+            for (Rol rol : this.getRolList()) {
+            	roles.add(new SelectItem(rol, rol.getIdRol()));
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);            
+        }
+        return roles;
+    }  
+    
     /*Metodos accesadores para mantenedores*/
     
     public List<TipoDato> getTipoDatoList() {
@@ -312,6 +331,14 @@ public class ComponenteBackingBean implements Serializable {
     	
     }*/
     
+    public List<Rol> getRolList() throws Exception {
+    	if(rolList == null){
+    		rolList = this.getFacade().getMantenedoresTipoService().findAllRol();
+    	}
+		return rolList;
+	}
+    
+    
     public FacadeServiceLocal getFacade() {
         return facade;
     }
@@ -347,6 +374,10 @@ public class ComponenteBackingBean implements Serializable {
     public void setGrupoList(List<Grupo> grupoList) {
         this.grupoList = grupoList;
     }
+
+	public void setRolList(List<Rol> rolList) {
+		this.rolList = rolList;
+	}
 
 
 }
