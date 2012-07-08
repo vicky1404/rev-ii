@@ -191,3 +191,7 @@ input {
   color:#3883ce;
   text-decoration:none; 
 }
+
+.ui-panel-title{
+	margin-bottom:10px;
+}
