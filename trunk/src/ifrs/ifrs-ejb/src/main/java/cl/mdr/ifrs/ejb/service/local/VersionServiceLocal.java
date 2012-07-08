@@ -128,5 +128,7 @@ public interface VersionServiceLocal {
      * @throws Exception
      */
     List<Version> findVersionListActualToCompare(final List<Version> versionesModificadas) throws Exception;
+    
+    List<Version> findVersionByCatalogoPeriodo(Long idCatalogo, Long idPeriodo) throws Exception;
 }
 

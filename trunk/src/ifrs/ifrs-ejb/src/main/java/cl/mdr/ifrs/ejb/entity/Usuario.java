@@ -29,25 +29,46 @@ import org.hibernate.validator.constraints.Email;
 
 /**
  * The persistent class for the IFRS_USUARIO database table.
- * 
  */
 @Entity
 @NamedQueries( { 
     @NamedQuery(name = Usuario.AUTHENTICATE_USER , query = " select u from Usuario u left join fetch u.grupos " +
-    													   " where u.nombreUsuario =:nombreUsuario ")
+    													   " where u.nombreUsuario =:nombreUsuario "),
+    @NamedQuery(name = Usuario.FIND_BY_FILTRO , query = " select " +
+    													" new cl.mdr.ifrs.ejb.entity.Usuario(u.nombreUsuario, " +
+    													" u.nombre, u.apellidoPaterno,"+
+														" u.apellidoMaterno, u.email, u.fechaActualizacion,"+
+														" u.fechaCreacion, u.fechaUltimoAcceso, u.vigente, u.rol) from Usuario u" +
+    													" where 1 = 1 " +
+    													" and (:nombreUsuario is null or upper(u.nombreUsuario) like :nombreUsuario) " +
+    													" and (:nombre is null or upper(u.nombre) like :nombre) " +
+    													" and (:apellidoPaterno is null or upper(u.apellidoPaterno) like :apellidoPaterno)" +
+    													" and (:apellidoMaterno is null or upper(u.apellidoMaterno) like :apellidoMaterno)" +
+    													" and (:rol is null or u.rol = :rol)")
 })    
 @Table(name="IFRS_USUARIO")
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = -2179335821042652705L;
 	
 	public static final String AUTHENTICATE_USER = "Usuario.authenticateUser";
+	public static final String FIND_BY_FILTRO = "Usuario.findByFiltro";
 
 	@Id
-	@Column(name="NOMBRE_USUARIO")
-	@NotNull
-    @Size(min = 1, max = 255)
+	@Column(name="NOMBRE_USUARIO")	
     @Pattern(regexp = "[A-Za-z  .]*", message = "Puede contener solo letras y puntos")
 	private String nombreUsuario;
+	
+	@Column(name="NOMBRE")	
+    @Pattern(regexp = "[A-Za-z  ]*", message = "Puede contener solo letras")
+	private String nombre;
+	
+	@Column(name="APELLIDO_PATERNO")	
+    @Pattern(regexp = "[A-Za-z  ]*", message = "Puede contener solo letras")
+	private String apellidoPaterno;
+	
+	@Column(name="APELLIDO_MATERNO")	
+    @Pattern(regexp = "[A-Za-z  ]*", message = "Puede contener solo letras")
+	private String apellidoMaterno;
 	
 	@Email
 	private String email;
@@ -63,9 +84,7 @@ public class Usuario implements Serializable {
     @Temporal( TemporalType.TIMESTAMP)
 	@Column(name="FECHA_ULTIMO_ACCESO")
 	private Date fechaUltimoAcceso;
-    
-    @NotNull
-    @Size(min = 1, max = 255)
+           
 	private String password;
 
 	private Long vigente;
@@ -121,6 +140,24 @@ public class Usuario implements Serializable {
 		this.password = password;
 		this.vigente = vigente;
 		this.grupos = grupos;
+	}
+	
+	
+
+	public Usuario(String nombreUsuario, String nombre, String apellidoPaterno,
+			String apellidoMaterno, String email, Date fechaActualizacion,
+			Date fechaCreacion, Date fechaUltimoAcceso, Long vigente, Rol rol) {
+		super();
+		this.nombreUsuario = nombreUsuario;
+		this.nombre = nombre;
+		this.apellidoPaterno = apellidoPaterno;
+		this.apellidoMaterno = apellidoMaterno;
+		this.email = email;
+		this.fechaActualizacion = fechaActualizacion;
+		this.fechaCreacion = fechaCreacion;
+		this.fechaUltimoAcceso = fechaUltimoAcceso;
+		this.vigente = vigente;
+		this.rol = rol;
 	}
 
 	public String getNombreUsuario() {
@@ -209,6 +246,30 @@ public class Usuario implements Serializable {
 
 	public void setRol(Rol rol) {
 		this.rol = rol;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getApellidoPaterno() {
+		return apellidoPaterno;
+	}
+
+	public void setApellidoPaterno(String apellidoPaterno) {
+		this.apellidoPaterno = apellidoPaterno;
+	}
+
+	public String getApellidoMaterno() {
+		return apellidoMaterno;
+	}
+
+	public void setApellidoMaterno(String apellidoMaterno) {
+		this.apellidoMaterno = apellidoMaterno;
 	}
 
 	

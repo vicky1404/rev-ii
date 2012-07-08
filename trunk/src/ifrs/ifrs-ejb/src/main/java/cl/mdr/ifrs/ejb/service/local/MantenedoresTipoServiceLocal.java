@@ -8,6 +8,7 @@ import javax.ejb.Local;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
 import cl.mdr.ifrs.ejb.entity.EstadoCuadro;
 import cl.mdr.ifrs.ejb.entity.Periodo;
+import cl.mdr.ifrs.ejb.entity.Rol;
 import cl.mdr.ifrs.ejb.entity.TipoCelda;
 import cl.mdr.ifrs.ejb.entity.TipoCuadro;
 import cl.mdr.ifrs.ejb.entity.TipoDato;
@@ -42,4 +43,6 @@ public interface MantenedoresTipoServiceLocal {
     List<TipoCuadro> findByFiltro(TipoCuadro tipoCuadro) ;
     
     TipoCuadro findTipoCuadroById(final Long idTipoCuadro) throws Exception;
+    
+    List<Rol> findAllRol() throws Exception;
 }

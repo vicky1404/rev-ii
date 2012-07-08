@@ -17,7 +17,28 @@ import cl.mdr.ifrs.ejb.entity.UsuarioGrupo;
 @Local
 public interface SeguridadServiceLocal {
 
+	/**
+	 * @param usuario
+	 * @return
+	 * @throws Exception
+	 */
+	List<Usuario> findUsuariosByFiltro(Usuario usuario) throws Exception;
+	
+	
     /**
+     * @param usuario
+     * @throws Exception
+     */
+    void persistUsuario(Usuario usuario) throws Exception;
+    
+    
+    /**
+     * @param usuario
+     * @throws Exception
+     */
+    void mergeUsuario(Usuario usuario) throws Exception;
+	
+	/**
      * @return
      * @throws Exception
      */
