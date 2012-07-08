@@ -3,6 +3,7 @@ package cl.mdr.ifrs.ejb.service;
 
 import static cl.mdr.ifrs.ejb.cross.Constantes.PERSISTENCE_UNIT_NAME;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -11,6 +12,8 @@ import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+
+import org.apache.commons.lang3.StringUtils;
 
 import cl.mdr.ifrs.ejb.common.Constantes;
 import cl.mdr.ifrs.ejb.entity.CatalogoGrupo;
@@ -30,6 +33,38 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
     
     public SeguridadServiceBean() {
         super();
+    }
+    
+    /*Mantenedor de Usuaario*/
+    /* (non-Javadoc)
+     * @see cl.mdr.ifrs.ejb.service.local.SeguridadServiceLocal#findUsuariosByFiltro(cl.mdr.ifrs.ejb.entity.Usuario)
+     */
+    @SuppressWarnings("unchecked")
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public List<Usuario> findUsuariosByFiltro(final Usuario usuario) throws Exception{
+    	return em.createNamedQuery(Usuario.FIND_BY_FILTRO)
+    		.setParameter("nombreUsuario", usuario.getNombreUsuario() != StringUtils.EMPTY ? MessageFormat.format("%{0}%", usuario.getNombreUsuario().toUpperCase()) : null)
+    		.setParameter("nombre", usuario.getNombre() != StringUtils.EMPTY ? MessageFormat.format("%{0}%", usuario.getNombre().toUpperCase()) : null)
+    		.setParameter("apellidoPaterno", usuario.getApellidoPaterno() != StringUtils.EMPTY ? MessageFormat.format("%{0}%", usuario.getApellidoPaterno().toUpperCase()) : null)
+    		.setParameter("apellidoMaterno", usuario.getApellidoMaterno() != StringUtils.EMPTY ? MessageFormat.format("%{0}%", usuario.getApellidoMaterno().toUpperCase()) : null)
+    		.setParameter("rol", usuario.getRol())
+    		.getResultList();    	
+    }
+    
+    /* (non-Javadoc)
+     * @see cl.mdr.ifrs.ejb.service.local.SeguridadServiceLocal#persistUsuario(cl.mdr.ifrs.ejb.entity.Usuario)
+     */
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void persistUsuario(final Usuario usuario) throws Exception{
+    	em.persist(usuario);
+    }
+    
+    /* (non-Javadoc)
+     * @see cl.mdr.ifrs.ejb.service.local.SeguridadServiceLocal#mergeUsuario(cl.mdr.ifrs.ejb.entity.Usuario)
+     */
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void mergeUsuario(final Usuario usuario) throws Exception{
+    	em.merge(usuario);
     }
     
         

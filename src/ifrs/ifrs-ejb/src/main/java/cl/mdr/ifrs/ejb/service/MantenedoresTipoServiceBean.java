@@ -15,6 +15,7 @@ import javax.persistence.Query;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
 import cl.mdr.ifrs.ejb.entity.EstadoCuadro;
 import cl.mdr.ifrs.ejb.entity.Periodo;
+import cl.mdr.ifrs.ejb.entity.Rol;
 import cl.mdr.ifrs.ejb.entity.TipoCelda;
 import cl.mdr.ifrs.ejb.entity.TipoCuadro;
 import cl.mdr.ifrs.ejb.entity.TipoDato;
@@ -134,6 +135,12 @@ public class MantenedoresTipoServiceBean implements MantenedoresTipoServiceLocal
    	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public List<EstadoCuadro> findAllEstadoCuadro(){
         return em.createNamedQuery(EstadoCuadro.FIND_ALL).getResultList();       
+    }
+    
+    @SuppressWarnings("unchecked")
+   	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public List<Rol> findAllRol() throws Exception{
+    	return em.createNamedQuery(Rol.FIND_ALL).getResultList();
     }
     
 	    
