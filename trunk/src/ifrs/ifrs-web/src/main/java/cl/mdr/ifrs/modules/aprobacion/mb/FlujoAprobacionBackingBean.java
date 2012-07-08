@@ -22,6 +22,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
+import javax.persistence.NoResultException;
 
 import org.apache.log4j.Logger;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -83,12 +84,15 @@ public class FlujoAprobacionBackingBean extends AbstractBackingBean implements S
             this.setCatalogoFlujoAprobacion(super.getFacadeService().getVersionService().findVersionByFiltro(super.getNombreUsuario(), super.getFiltroBackingBean().getTipoCuadro(), super.getFiltroPeriodo(), this.getEstadoCuadro(), VigenciaEnum.VIGENTE.getKey()));                       
             SortHelper.sortVersionByOrdenCatalogo(this.getCatalogoFlujoAprobacion());
             this.setRenderFlujo(Boolean.TRUE);
+        } catch (NoResultException e) {	
+			super.addWarnMessage("No se encontraron resultados para los criterios de búsqueda ingresados.");
+			logger.error(e.getCause(), e);		
         }catch(javax.ejb.EJBException e){
-            addWarnMessage("El período consultado no existe");
+            super.addWarnMessage("El período consultado no existe");
             return;                    
         } catch(Exception e){
             logger.error(e.getCause(), e);
-            addErrorMessage(PropertyManager.getInstance().getMessage("workflow_mensaje_buscar_catalogo_error"));
+            super.addErrorMessage(PropertyManager.getInstance().getMessage("workflow_mensaje_buscar_catalogo_error"));
         }        
     }
     

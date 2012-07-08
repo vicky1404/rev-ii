@@ -160,8 +160,8 @@ public class ComponenteBackingBean implements Serializable {
 
     public List<SelectItem> getVigencias(){        
             List<SelectItem> vigencias = new ArrayList<SelectItem>();
-            vigencias.add(new SelectItem(1L, "Sí"));
-            vigencias.add(new SelectItem(0L, "No"));
+            vigencias.add(new SelectItem(1L, "SI"));
+            vigencias.add(new SelectItem(0L, "NO"));
             return vigencias;
     }
 
@@ -254,17 +254,18 @@ public class ComponenteBackingBean implements Serializable {
      * @return
      */
     public List<SelectItem> getRolItems(){        
-        List<SelectItem> roles = new ArrayList<SelectItem>();
+        List<SelectItem> rolItems = new ArrayList<SelectItem>();
         try {
             for (Rol rol : this.getRolList()) {
-            	roles.add(new SelectItem(rol, rol.getIdRol()));
+            	rolItems.add(new SelectItem(rol, rol.getIdRol()));
             }
         } catch (Exception e) {
             logger.error(e.getMessage(), e);            
         }
-        return roles;
-    }  
-    
+        return rolItems;
+    } 
+
+      
     /*Metodos accesadores para mantenedores*/
     
     public List<TipoDato> getTipoDatoList() {
