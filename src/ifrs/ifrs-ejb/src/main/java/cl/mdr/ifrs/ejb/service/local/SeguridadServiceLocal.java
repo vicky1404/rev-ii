@@ -10,6 +10,7 @@ import cl.mdr.ifrs.ejb.entity.CatalogoGrupo;
 import cl.mdr.ifrs.ejb.entity.Grupo;
 import cl.mdr.ifrs.ejb.entity.Menu;
 import cl.mdr.ifrs.ejb.entity.MenuGrupo;
+import cl.mdr.ifrs.ejb.entity.Rol;
 import cl.mdr.ifrs.ejb.entity.Usuario;
 import cl.mdr.ifrs.ejb.entity.UsuarioGrupo;
 
@@ -22,7 +23,7 @@ public interface SeguridadServiceLocal {
 	 * @return
 	 * @throws Exception
 	 */
-	List<Usuario> findUsuariosByFiltro(Usuario usuario) throws Exception;
+	List<Usuario> findUsuariosByFiltro(Usuario usuario , Rol rol) throws Exception;
 	
 	
     /**

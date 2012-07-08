@@ -20,6 +20,7 @@ import cl.mdr.ifrs.ejb.entity.CatalogoGrupo;
 import cl.mdr.ifrs.ejb.entity.Grupo;
 import cl.mdr.ifrs.ejb.entity.Menu;
 import cl.mdr.ifrs.ejb.entity.MenuGrupo;
+import cl.mdr.ifrs.ejb.entity.Rol;
 import cl.mdr.ifrs.ejb.entity.Usuario;
 import cl.mdr.ifrs.ejb.entity.UsuarioGrupo;
 import cl.mdr.ifrs.ejb.service.local.SeguridadServiceLocal;
@@ -41,13 +42,13 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
      */
     @SuppressWarnings("unchecked")
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-    public List<Usuario> findUsuariosByFiltro(final Usuario usuario) throws Exception{
+    public List<Usuario> findUsuariosByFiltro(final Usuario usuario, final Rol rol) throws Exception{
     	return em.createNamedQuery(Usuario.FIND_BY_FILTRO)
     		.setParameter("nombreUsuario", usuario.getNombreUsuario() != StringUtils.EMPTY ? MessageFormat.format("%{0}%", usuario.getNombreUsuario().toUpperCase()) : null)
     		.setParameter("nombre", usuario.getNombre() != StringUtils.EMPTY ? MessageFormat.format("%{0}%", usuario.getNombre().toUpperCase()) : null)
     		.setParameter("apellidoPaterno", usuario.getApellidoPaterno() != StringUtils.EMPTY ? MessageFormat.format("%{0}%", usuario.getApellidoPaterno().toUpperCase()) : null)
     		.setParameter("apellidoMaterno", usuario.getApellidoMaterno() != StringUtils.EMPTY ? MessageFormat.format("%{0}%", usuario.getApellidoMaterno().toUpperCase()) : null)
-    		.setParameter("rol", usuario.getRol())
+    		.setParameter("rol", rol)
     		.getResultList();    	
     }
     

@@ -1,11 +1,15 @@
 package cl.mdr.ifrs.ejb.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 import com.google.gson.annotations.Expose;
-
-import java.util.List;
 
 
 /**
@@ -31,11 +35,7 @@ public class Rol implements Serializable {
 	@Column(name="NOMBRE_ROL")
 	@Expose
 	private String nombreRol;
-
-	//bi-directional many-to-one association to Usuario
-	@OneToMany(mappedBy="rol")
-	private List<Usuario> usuarios;
-
+	
     public Rol() {
     }
 
@@ -53,15 +53,7 @@ public class Rol implements Serializable {
 
 	public void setNombreRol(String nombreRol) {
 		this.nombreRol = nombreRol;
-	}
-
-	public List<Usuario> getUsuarios() {
-		return usuarios;
-	}
-
-	public void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
-	}
+	}	
 
 	
 	

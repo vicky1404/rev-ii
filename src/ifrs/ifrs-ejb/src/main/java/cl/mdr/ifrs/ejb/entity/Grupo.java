@@ -191,6 +191,85 @@ public class Grupo implements Serializable {
 	public void setUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
+
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((accesoBloqueado == null) ? 0 : accesoBloqueado.hashCode());
+		result = prime * result
+				+ ((areaNegocio == null) ? 0 : areaNegocio.hashCode());
+		result = prime * result
+				+ ((catalogos == null) ? 0 : catalogos.hashCode());
+		result = prime * result
+				+ ((empresas == null) ? 0 : empresas.hashCode());
+		result = prime * result
+				+ ((idGrupoAcceso == null) ? 0 : idGrupoAcceso.hashCode());
+		result = prime * result + ((menus == null) ? 0 : menus.hashCode());
+		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		result = prime * result
+				+ ((usuarios == null) ? 0 : usuarios.hashCode());
+		return result;
+	}
+
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Grupo other = (Grupo) obj;
+		if (accesoBloqueado == null) {
+			if (other.accesoBloqueado != null)
+				return false;
+		} else if (!accesoBloqueado.equals(other.accesoBloqueado))
+			return false;
+		if (areaNegocio == null) {
+			if (other.areaNegocio != null)
+				return false;
+		} else if (!areaNegocio.equals(other.areaNegocio))
+			return false;
+		if (catalogos == null) {
+			if (other.catalogos != null)
+				return false;
+		} else if (!catalogos.equals(other.catalogos))
+			return false;
+		if (empresas == null) {
+			if (other.empresas != null)
+				return false;
+		} else if (!empresas.equals(other.empresas))
+			return false;
+		if (idGrupoAcceso == null) {
+			if (other.idGrupoAcceso != null)
+				return false;
+		} else if (!idGrupoAcceso.equals(other.idGrupoAcceso))
+			return false;
+		if (menus == null) {
+			if (other.menus != null)
+				return false;
+		} else if (!menus.equals(other.menus))
+			return false;
+		if (nombre == null) {
+			if (other.nombre != null)
+				return false;
+		} else if (!nombre.equals(other.nombre))
+			return false;
+		if (usuarios == null) {
+			if (other.usuarios != null)
+				return false;
+		} else if (!usuarios.equals(other.usuarios))
+			return false;
+		return true;
+	}
+	
+	
 	
 	
 }
