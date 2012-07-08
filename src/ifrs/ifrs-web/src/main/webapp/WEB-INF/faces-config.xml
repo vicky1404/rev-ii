@@ -7,11 +7,15 @@
   <converter-id>estadoCuadroConverter</converter-id>
   <converter-class>cl.mdr.ifrs.cross.converter.EstadoCuadroConverter</converter-class>
  </converter>
+ <converter>
+  <converter-id>rolConverter</converter-id>
+  <converter-class>cl.mdr.ifrs.cross.converter.RolConverter</converter-class>
+ </converter>
  <managed-bean>
   <managed-bean-name>menuBackingBean</managed-bean-name>
   <managed-bean-class>cl.mdr.ifrs.cross.mb.MenuBackingBean</managed-bean-class>
   <managed-bean-scope>session</managed-bean-scope>
- </managed-bean> 
+ </managed-bean>
  <!-- This descriptor activates the JSF 2.0 Servlet -->
  <application>
   <message-bundle>ifrs_es_CL</message-bundle>

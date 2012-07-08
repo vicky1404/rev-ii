@@ -3,7 +3,6 @@ package cl.mdr.ifrs.cross.converter;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
 
 import org.apache.log4j.Logger;
 
@@ -13,7 +12,6 @@ import com.google.common.base.Strings;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-@FacesConverter(value = "rolConverter")
 public class RolConverter implements Converter {
 	
 	private static final Logger LOGGER = Logger.getLogger(RolConverter.class);
@@ -21,7 +19,7 @@ public class RolConverter implements Converter {
 	@Override
 	public Object getAsObject(FacesContext facesContext, UIComponent uiComponent, String string) {		
 		
-		Rol rol = null;
+		Rol rol = new Rol();
 		
 		if(!Strings.isNullOrEmpty(string)){
 			final Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
