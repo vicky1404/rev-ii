@@ -2,11 +2,44 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 	
-	<p:dataTable value="#{item.grillaVO.rows}" var="row">
+	
+	<div class="ui-datatable ui-widget ui-datatable-resizable">
+	<table role="grid">
+	<thead>
+	<tr role="row">
+	<ui:repeat var="col" value="#{item.grillaVO.columnas}">
+		<th class="ui-state-default ui-resizable-column" role="columnheader">
+			<div class="ui-dt-c">
+				<span><h:outputText value="#{col.tituloColumna}" /></span>
+			</div> 
+		</th>
+	</ui:repeat>
+	</tr>
+	</thead>
+	<tbody class="ui-datatable-data ui-widget-content">
+	<ui:repeat var="col" value="#{item.grillaVO.celdaList}" varStatus="status">
+		<tr class="ui-widget-content ui-datatable-even" role="row" data-ri="1">
+			<ui:repeat var="cel" value="#{col}">
+			<td role="gridcell" >
+			<div class="ui-dt-c"> 
+			<span style="padding-left:10px">
+				<h:outputText value="#{cel.valor}" /> 
+			</span>
+			</div></td>
+			</ui:repeat>
+		</tr>
+	</ui:repeat>
+	</tbody>
+	</table>
+	</div>
+
+	
+	<p:dataTable value="#{item.grillaVO.rows}" var="row" resizableColumns="true">
        		
-	         <p:columns value="#{item.grillaVO.columnas}" var="col" columnIndexVar="colIndex">  
+	         <p:columns value="#{item.grillaVO.columnas}" var="col" columnIndexVar="colIndex" >  
 	            
 	            <f:facet name="header">  
 	                 <h:outputText value="#{col.tituloColumna}" />
@@ -29,7 +62,7 @@
                               style="#{row[col.idColumna].tipoCelda.idTipoCelda == 4 or row[col.idColumna].tipoCelda.idTipoCelda == 5 ? 'border:none;background-color: white;font-weight:bold;color:black':''}"
                               maxlength="#{msg.constantes_text_length_long}">
                     
-                    <f:convertNumber integerOnly="true" type="number" maxFractionDigits="0" groupingUsed="true" locale="#{cuadroBackingBean.localeCL}"
+                    <f:convertNumber integerOnly="true" type="number" maxFractionDigits="0" groupingUsed="true" locale="#{procesoBackingBean.localeCL}"
                     maxIntegerDigits="#{msg.constantes_max_lenght_number}" pattern="##,###,###,###" />
                     <f:validateLongRange maximum="#{msg.constantes_maximum_validate_long_range}" />
                 </p:inputText>
@@ -42,7 +75,7 @@
                     <f:convertNumber integerOnly="false" type="number"
                                       maxIntegerDigits="#{msg.constantes_max_lenght_number}"
                                       maxFractionDigits="4"
-                                      locale="#{cuadroBackingBean.localeCL}" pattern="##,###,###,###.####"/>
+                                      locale="#{procesoBackingBean.localeCL}" pattern="##,###,###,###.####"/>
                     <f:validateDoubleRange maximum="#{msg.constantes_maximum_validate_long_range}"  />
                 </p:inputText>
                 <p:inputText value="#{row[col.idColumna].valorDate}" id="it10" label=" "
@@ -50,13 +83,13 @@
                     <f:convertDateTime pattern="dd-MM-yyyy" type="date"/>
                 </p:inputText>
                 <p:panelGrid columns="3" rendered="#{row[col.idColumna].tipoCelda.idTipoCelda == 3}" >  
-                    <p:commandLink actionListener="#{cuadroBackingBean.addRowListener}" id="cl2" rendered="true" partialSubmit="false">
+                    <p:commandLink actionListener="#{procesoBackingBean.addRowListener}" id="cl2" rendered="true" update="@form">
                     	<p:graphicImage id="gVgi1" value="../../resources/images/icon/add2.png" title="#{msg.general_control_agregarFila}" />     
                         <f:param name="idFila" value="#{row[col.idColumna].idFila}" id="p1"/>
                         <f:param name="idGrilla" value="#{row[col.idColumna].idGrilla}" id="p2"/>
                     </p:commandLink>
                     <p:spacer width="10" id="s1"/>
-                    <p:commandLink actionListener="#{cuadroBackingBean.deleteRowListener}" id="cl3" rendered="true" partialSubmit="false">
+                    <p:commandLink actionListener="#{procesoBackingBean.deleteRowListener}" id="cl3" rendered="true" update="@form">
                         <p:graphicImage id="gVgi2" value="../../resources/images/icon/remove2.png" title="#{msg.generador_eliminar_fila}" />
                         <f:param name="idFila" value="#{row[col.idColumna].idFila}" id="p3"/>
                         <f:param name="idGrilla" value="#{row[col.idColumna].idGrilla}" id="p4"/>
@@ -66,5 +99,8 @@
 	        </p:columns>  
        			
     </p:dataTable>
+    
+    <p:spacer height="20px"/>
+    
        		
 </ui:composition>
