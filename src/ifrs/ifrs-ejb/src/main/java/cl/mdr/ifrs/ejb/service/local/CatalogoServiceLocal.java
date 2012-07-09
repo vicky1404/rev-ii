@@ -23,7 +23,7 @@ public interface CatalogoServiceLocal {
     
     List<Catalogo> findCatalogoNoVigente();
     
-    Catalogo findCatalogoByCatalogo(Catalogo catalogo);
+    Catalogo findCatalogoByCatalogo(Long idCatalogo);
     
     void persistEntity(List<Catalogo> lista) throws Exception;
     

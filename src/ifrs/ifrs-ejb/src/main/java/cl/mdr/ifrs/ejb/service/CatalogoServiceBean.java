@@ -60,9 +60,9 @@ public class CatalogoServiceBean implements CatalogoServiceLocal{
     }
     
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-    public Catalogo findCatalogoByCatalogo(Catalogo nota){
+    public Catalogo findCatalogoByCatalogo(Long idCatalogo){
         Query query = em.createNamedQuery(Catalogo.CATALOGO_FIND_BY_NOTA);
-        query.setParameter("nota", nota);
+        query.setParameter("idCatalogo", idCatalogo);
         return (Catalogo)query.getSingleResult();
     }
     
