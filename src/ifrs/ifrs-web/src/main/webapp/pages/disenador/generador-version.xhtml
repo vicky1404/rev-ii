@@ -9,6 +9,7 @@
 				<p:selectOneMenu value="#{generadorVersionBackingBean.tipoCuadro}" label="Tipo de Cuadro" id="gVsom1" converter="tipoCuadroConverter">
 					<f:selectItem  itemLabel="Seleccione" noSelectionOption="true" id="gVsi1"/>
 					<f:selectItems value="#{cuadro.componenteBackingBean.tipoCuadroItems}" id="gVsi2"/>
+					
 					<p:ajax listener="#{generadorVersionBackingBean.tipoCuadroChange}" partialSubmit="false" />
 				</p:selectOneMenu>
 				

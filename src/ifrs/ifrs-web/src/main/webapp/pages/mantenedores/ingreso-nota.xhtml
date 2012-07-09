@@ -19,7 +19,7 @@
 	  				<p:outputLabel value="#{msg.label_tipo_cuadro}" for="somTipoCuadro"/>
 	  			</td>
 	  			<td>
-	  				<p:selectOneMenu value="#{cuadro.idCuadro}" id="somTipoCuadro">
+	  				<p:selectOneMenu value="#{cuadroBackinBean.idCuadro}" id="somTipoCuadro">
 	  					<f:selectItem itemLabel="#{msg.label_todos}" />
 	  					<f:selectItems value="#{cuadro.componenteBackingBean.tipoCuadroList}" id="siTipoCuadro" var="tipoCuadroVar" itemValue="#{tipoCuadroVar.idTipoCuadro}" itemLabel="#{tipoCuadroVar.nombre}"/>
 	  					<p:ajax update="tabla" listener="#{cuadro.actualizaLista}" event="change"/>
