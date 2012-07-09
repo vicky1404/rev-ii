@@ -21,6 +21,8 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 
 import org.primefaces.component.accordionpanel.AccordionPanel;
@@ -44,6 +46,8 @@ import cl.mdr.ifrs.ejb.entity.TipoCuadro;
  * @link http://cl.linkedin.com/in/rreyesc
  *
  */
+@ManagedBean(name="menuBackingBean")
+@SessionScoped
 public class MenuBackingBean extends AbstractBackingBean implements Serializable {
 	private final Logger log = Logger.getLogger(this.getClass().getName());
 	private static final long serialVersionUID = 8077481642975216680L;
@@ -184,6 +188,15 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
     public void onSelectNodeMenuCuadro(NodeSelectEvent event) {
     	this.setActiveTabIndex("0");
     	this.setCatalogoSelected(this.getCatalogoMap().get(Util.getLong(event.getTreeNode().toString(), null)));
+    	if(getComponenteBackingBean()==null){
+    		System.out.println("Null componente");
+    	}else{
+    		System.out.println("No es null componente");
+    	}
+    	if(getFiltroBackingBean()==null){
+    		System.out.println("No es null filtro");
+    	}
+    	
     	getFiltroBackingBean().setCatalogo(this.catalogoSelected);
     	cargarNotaAction();
     	addInfoMessage("", "nodo : "+this.getCatalogoSelected().getNombre() + " "+this.getCatalogoSelected().getTitulo() );

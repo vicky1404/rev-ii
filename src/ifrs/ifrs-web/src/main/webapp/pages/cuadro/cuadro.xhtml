@@ -8,7 +8,8 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 	<ui:define name="content">
 	        
-<af:form id="f1">
+<h:form id="f1">
+
     <p:fieldset id="pnBox1Periodo" text="#{msg.general_titulo_busqueda_aplicacion}"  shortDesc="Seleccione criterios de búsqueda para desplegar otra Versión de : #{cuadroBackingBean.filtro.catalogo.titulo}">
 
             <table border="0" width="30%" align="center" id="tb1APeriodo">
@@ -36,7 +37,7 @@
                         </p:selectOneMenu>
                     </td>
                     <td>
-                        <p:commandButton text="#{msg.general_control_buscar}" id="cbPeriodos" action="#{cuadroBackingBean.buscarVersion}" partialSubmit="false" />
+                        <p:commandButton value="#{msg.general_control_buscar}" id="cbPeriodos" action="#{cuadroBackingBean.buscarVersion}" update="@form" />
                     </td>
                 </tr>
             </table>
@@ -48,12 +49,12 @@
                 <p:dataTable value="#{cuadroBackingBean.versionList}" var="row" rowBandingInterval="0" id="n1Cat" rendered="#{cuadroBackingBean.renderVersionList}" emptyMessage="#{msg.periodo_busqueda_sin_resultado}">
                           
                     <p:column id="c1" headerText="#{msg.tabla_catalogo_periodo}"  >
-                        <p:commandLink id="cl1" value="#{row.periodo.mesPeriodo} - #{row.periodo.anioPeriodo}"   action="#{cuadroBackingBean.buscarCuadro}" partialSubmit="false">
+                        <p:commandLink id="cl1" value="#{row.periodo.mesPeriodo} - #{row.periodo.anioPeriodo}"   actionListener="#{cuadroBackingBean.buscarCuadro}" partialSubmit="false" update="@form">
                             <f:attribute name="version" value="#{row}"/>
                         </p:commandLink>
                     </p:column>
                     <p:column id="c2" headerText="#{msg.tabla_catalogo_version}">
-                        <p:outputText value="#{row.version}" id="ot5Periodo"/>
+                        <h:outputText value="#{row.version}" id="ot5Periodo"/>
                     </p:column>
                     <p:column headerText="#{msg.tabla_catalogo_nombre_nota}" id="c2Periodo">
                         <h:outputText value="#{row.catalogo.nombre}" id="ot2Periodo"/>
@@ -64,7 +65,7 @@
                     <p:column headerText="#{msg.tabla_catalogo_estado_nota}" id="c4Periodo">
                         <h:outputText value="#{row.estado.nombre}" id="ot4Periodo"/>
                     </p:column>
-                    <p:column headerText="#{msg.tabla_catalogo_fecha_proceso}"id="c6Periodo">
+                    <p:column headerText="#{msg.tabla_catalogo_fecha_proceso}" id="c6Periodo">
                         <h:outputText value="#{row.fechaCreacion}" id="ot6Periodo"/>
                     </p:column>
                     <p:column headerText="Vigente" id="c7Periodo">
@@ -86,13 +87,24 @@
          </table>
          <p:spacer height="30" id="sp1" width="10"/>
          
-         <ui:repeat value="#{cuadroBackingBean.estructuraList}" var="item" varStatus="status">
+         <ui:repeat  value="#{cuadroBackingBean.estructuraList}" var="item" varStatus="status">
          
-         		<h:outputText value="asdasdasdasdasd" />
+         		<p:dataTable value="#{item.grillaVO.rows}" var="row">
+         		
+			         <p:columns value="#{item.grillaVO.columnas}" var="column" columnIndexVar="colIndex">  
+			            
+			            <f:facet name="header">  
+			                 <h:outputText value="#{column.tituloColumna}" />
+			            </f:facet>  
+			  
+			           <h:outputText value="#{row[column.idColumna].valor}"/>
+			        </p:columns>  
+         			
+         		</p:dataTable>
          
          </ui:repeat>
          
-</af:form>
+</h:form>
          	
 	
 	
