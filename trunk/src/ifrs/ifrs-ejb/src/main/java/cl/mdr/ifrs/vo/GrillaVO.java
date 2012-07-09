@@ -29,6 +29,7 @@ public class GrillaVO implements Serializable {
     private transient List<Map<Long,Celda>> rows;
     private transient Long nivel;    
     private transient List<Long> registros;
+    private List<List<Celda>> celdaList;
     
 
     public GrillaVO() {
@@ -135,4 +136,14 @@ public class GrillaVO implements Serializable {
     public String getTitulo() {
         return titulo;
     }
+
+
+	public List<List<Celda>> getCeldaList() {
+		return celdaList;
+	}
+
+
+	public void setCeldaList(List<List<Celda>> celdaList) {
+		this.celdaList = celdaList;
+	}
 }
