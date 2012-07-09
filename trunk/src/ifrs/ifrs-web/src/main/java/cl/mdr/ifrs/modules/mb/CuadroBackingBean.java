@@ -55,9 +55,7 @@ public class CuadroBackingBean extends AbstractBackingBean implements Serializab
 	private Long idEmpresa;
 	private Long idCuadro;
 	private Logger logger = Logger.getLogger(CuadroBackingBean.class);
-	public boolean isRenderVersionList() {
-		return renderVersionList;
-	}
+	
 
 	private List<Estructura> estructuraList;
 	private ComponenteBackingBean componenteBackingBean;
@@ -66,7 +64,13 @@ public class CuadroBackingBean extends AbstractBackingBean implements Serializab
 	private Catalogo nuevoCuadro;
 	private boolean renderVersionList = false;
 	private List<Version> versionList;
-
+	
+	
+	@PostConstruct
+	public void cargarCuadro(){
+		System.out.println("Cargando Cuadro");
+		System.out.println("Catalogo ->" + getFiltroBackingBean().getCatalogo().getIdCatalogo());
+	}
 
 	
     public Object buscarVersion(){
@@ -88,13 +92,22 @@ public class CuadroBackingBean extends AbstractBackingBean implements Serializab
                 	addNotFoundMessage();
                     return null;
                 }
+                
                 //CREAR METODO QUE BUSQUE POR PERMISOS - PERIODO - CUADRO
-                versionList = getFacadeService().getVersionService().findVersionByCatalogoPeriodo(filtroPaso.getCatalogo().getIdCatalogo(), periodo);
+                System.out.println("valores");
+                System.out.println(filtroPaso.getCatalogo().getIdCatalogo());
+                System.out.println(getFiltroBackingBean().getPeriodo().getIdPeriodo());
+                versionList = getFacadeService().getVersionService().findVersionByCatalogoPeriodo(filtroPaso.getCatalogo().getIdCatalogo(), getFiltroBackingBean().getPeriodo().getIdPeriodo());
                 
                 if(versionList == null){  
+                	System.out.println("version nullR");
                     this.renderVersionList = false;
                     addWarnMessage(MessageFormat.format(PropertyManager.getInstance().getMessage("periodo_busqueda_sin_resultado_periodo"), getFiltroBackingBean().getPeriodo().getAnioPeriodo(), getFiltroBackingBean().getPeriodo().getMesPeriodo()));
+                }else{
+                	System.out.println(versionList.size());
+                	this.renderVersionList = true;
                 }
+                
             }catch(Exception e){
                 logger.error(e.getCause(), e);
                 addErrorMessage("Error al consultar Versiones para el Período");
@@ -105,8 +118,10 @@ public class CuadroBackingBean extends AbstractBackingBean implements Serializab
         return null;
     }
     
-    public String buscarCuadro(ActionEvent event){
+    public void buscarCuadro(ActionEvent event){
         try{
+        	
+        	System.out.println("metodo buscar cuadro");
             final Version version = (Version)event.getComponent().getAttributes().get("version");
             
             estructuraList = getFacadeService().getEstructuraService().getEstructuraByVersion(version, true);
@@ -126,7 +141,6 @@ public class CuadroBackingBean extends AbstractBackingBean implements Serializab
             logger.error(e.getCause(), e);
             addErrorMessage(PropertyManager.getInstance().getMessage("general_mensaje_nota_get_catalogo_error"));  
         }
-        return null;
     }
     
     private void addNotFoundMessage(){
@@ -255,6 +269,8 @@ public class CuadroBackingBean extends AbstractBackingBean implements Serializab
 	
 	//TODO cambiar metodo de posicion
     public void setListGrilla(List<Estructura> estructuraList) throws Exception {
+    	
+    	System.out.println("entro a metodo list grilla");
         
         for(Estructura estructuras : estructuraList){
         	
@@ -264,6 +280,8 @@ public class CuadroBackingBean extends AbstractBackingBean implements Serializab
                 List<AgrupacionColumna> agrupaciones = getFacadeService().getEstructuraService().findAgrupacionColumnaByGrilla(grilla);
                 List<AgrupacionColumnaModelVO> agrupacionColumnaList = soporteAgrupacionColumna(grilla.getIdGrilla(), grilla.getColumnaList(),agrupaciones);                        
                 if(agrupacionColumnaList==null || agrupacionColumnaList.isEmpty()){
+                	System.out.println("tiene grilla");
+                	System.out.println(grilla.getColumnaList().size());
                     estructuras.getGrillaVO().setColumnas(grilla.getColumnaList());
                     estructuras.getGrillaVO().setNivel(0L);
                 }else if(agrupacionColumnaList.get(0).getNivel() == 1L){
@@ -398,6 +416,8 @@ public class CuadroBackingBean extends AbstractBackingBean implements Serializab
     }
 	
 	
-
+    public boolean isRenderVersionList() {
+		return renderVersionList;
+	}
     
 }
