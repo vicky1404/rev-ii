@@ -38,7 +38,11 @@ import cl.mdr.ifrs.exceptions.FormulaException;
 import cl.mdr.ifrs.vo.AgrupacionColumnaModelVO;
 import cl.mdr.ifrs.vo.AgrupacionModelVO;
 
-
+/**
+ * @author Manuel Gutierrez C.
+ * @since 29/06/2012
+ * Maneja la pagina mantenedora de cuadros * 
+ */
 @ManagedBean(name="cuadroBackingBean")
 @ViewScoped
 public class CuadroBackingBean extends AbstractBackingBean implements Serializable {

@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.primefaces.context.RequestContext;
 
 import cl.mdr.ifrs.ejb.cross.Util;
+import cl.mdr.ifrs.ejb.entity.Grilla;
 import cl.mdr.ifrs.ejb.entity.Periodo;
 import cl.mdr.ifrs.ejb.entity.Usuario;
 import cl.mdr.ifrs.ejb.facade.local.FacadeServiceLocal;
@@ -191,6 +192,12 @@ public abstract class AbstractBackingBean {
 		return (Usuario) this.getExternalContext().getSessionMap().get(Usuario.class.getName());
 	}
 	
+	public Long getTipoFormulaEstatica(){
+        return Grilla.TIPO_GRILLA_ESTATICA;
+    }
     
+    public Long getTipoFormulaDinamica(){
+        return Grilla.TIPO_GRILLA_DINAMICA;
+    }
 	
 }
