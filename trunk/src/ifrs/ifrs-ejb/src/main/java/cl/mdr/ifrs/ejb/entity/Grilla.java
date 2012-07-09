@@ -44,8 +44,8 @@ public class Grilla implements Serializable {
     @Column(length = 256)
     private String titulo;
     
-    
-    @OneToMany(mappedBy = "grilla")
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(mappedBy = "grilla", fetch = FetchType.EAGER)
     //@OrderBy("idColumna asc")            
     private List<Columna> columnaList;
     

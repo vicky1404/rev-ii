@@ -107,7 +107,7 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
     public Usuario findUsuarioByUserName(final String userName)throws Exception{
     	return (Usuario) em.createQuery("select u from Usuario u " +
     									"left join fetch u.grupos g " +
-    									"where u.nombreUsuario =:userName").setParameter("userName", userName).getSingleResult();
+    									"where u.nombreUsuario =:userName").setParameter("userName", userName.toUpperCase()).getSingleResult();
     }
     
     /* (non-Javadoc)

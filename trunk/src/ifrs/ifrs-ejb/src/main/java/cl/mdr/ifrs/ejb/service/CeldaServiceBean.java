@@ -56,6 +56,20 @@ public class CeldaServiceBean implements CeldaServiceLocal{
         query.setParameter("columna",columna);
         return query.getResultList();
     }
+    
+    @SuppressWarnings("unchecked")
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public Celda findCeldaByColumnaGrilla(Columna columna){
+        Query query = em.createNamedQuery(Celda.CELDA_FIND_BY_COLUMNA);
+        query.setParameter("columna",columna);
+        
+        if (query.getResultList().size() > 0){
+        	
+        	return (Celda) query.getSingleResult();
+        }
+        
+        return null;
+    }
    
     @SuppressWarnings("unchecked")
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)

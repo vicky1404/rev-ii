@@ -229,13 +229,14 @@ public class VersionServiceBean implements VersionServiceLocal{
     
     @SuppressWarnings("unchecked")
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-    public List<Version> findVersionByFiltro(final String usuario, final TipoCuadro tipoCuadro, final Periodo periodo, final EstadoCuadro estadoCuadro, final Long vigente) throws Exception{
+    public List<Version> findVersionByFiltro(final String usuario, final TipoCuadro tipoCuadro, final Periodo periodo, final EstadoCuadro estadoCuadro, final Long vigente, final Catalogo catalogo) throws Exception{
         return em.createNamedQuery(Version.VERSION_FIND_BY_FILTRO)
         .setParameter("usuario", usuario)
-        .setParameter("tipoCuadro", tipoCuadro.getIdTipoCuadro() != null ? tipoCuadro.getIdTipoCuadro().longValue() : "" )     
-        .setParameter("periodo", periodo.getIdPeriodo() != null ? periodo.getIdPeriodo().longValue() : "")
-        .setParameter("estado", estadoCuadro != null ? estadoCuadro.getIdEstado().longValue() : "")
-        .setParameter("vigente", vigente != null ? vigente.longValue() : "")        
+        .setParameter("tipoCuadro", tipoCuadro.getIdTipoCuadro() != null ? tipoCuadro.getIdTipoCuadro() : null )     
+        .setParameter("catalogo", catalogo != null ? catalogo.getIdCatalogo() : null )
+        .setParameter("periodo", periodo.getIdPeriodo() != null ? periodo.getIdPeriodo() : null)
+        .setParameter("estado", estadoCuadro != null ? estadoCuadro.getIdEstado() : null)
+        .setParameter("vigente", vigente != null ? vigente : null)        
         .getResultList();
     }
     

@@ -41,11 +41,12 @@ import cl.mdr.ifrs.ejb.common.Constantes;
                             query = " select distinct v from Version v , CatalogoGrupo cg, UsuarioGrupo ug where " +
                                     " v.catalogo.idCatalogo = cg.idCatalogo " + 
                                     " and ug.grupo = cg.grupo " +
-                                    " and (:usuario is null or ug.nombreUsuario = :usuario) " +
-                                    " and (:tipoCuadro is null or v.catalogo.tipoCuadro.idTipoCuadro = :tipoCuadro) " +
-                                    " and (:periodo is null or v.periodo.idPeriodo = :periodo) " +
-                                    " and (:estado is null or v.estado.idEstado = :estado) " +
-                                    " and (:vigente is null or v.vigencia = :vigente) "+
+                                    " and (ug.nombreUsuario = :usuario or :usuario is null) " +
+                                    " and (v.catalogo.tipoCuadro.idTipoCuadro = :tipoCuadro or :tipoCuadro is null) " +
+                                    " and (v.catalogo.idCatalogo = :catalogo or :catalogo is null) " +
+                                    " and (v.periodo.idPeriodo = :periodo or :periodo is null) " +
+                                    " and (v.estado.idEstado = :estado or :estado is null) " +
+                                    " and (v.vigencia = :vigente or :vigente is null) "+
                                     " and v.catalogo.vigencia = 1"),
                                     //" order by v.catalogo.tipoCuadro.nombre , " +
                                     //" v.catalogo.orden asc")
@@ -101,8 +102,9 @@ public class Version implements Serializable {
     @ManyToOne
     @JoinColumn(name = "ID_ESTADO_CUADRO")
     private EstadoCuadro estado;
-        
-    @OneToMany(mappedBy = "version", targetEntity = Estructura.class)
+    
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(mappedBy = "version", targetEntity = Estructura.class, fetch = FetchType.EAGER)
     private List<Estructura> estructuraList;
         
     @Fetch(FetchMode.SUBSELECT)
