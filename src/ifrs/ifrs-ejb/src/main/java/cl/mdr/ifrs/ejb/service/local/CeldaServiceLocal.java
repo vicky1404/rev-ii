@@ -35,4 +35,6 @@ public interface CeldaServiceLocal {
     void persistFormulaDinamicaMap(Grilla grilla, Map<Celda, List<Celda>> formulaDinamicaMap) throws Exception;
     
     void deleteFormulaDinamica(Celda celdaParent, List<Celda> celdaChildList) throws Exception;
+    
+    Celda findCeldaByColumnaGrilla(Columna columna);
 }

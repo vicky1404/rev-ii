@@ -101,6 +101,9 @@ public class GrillaVO implements Serializable {
     }
 
     public List<Columna> getColumnas() {
+    	if (columnas == null){
+    		columnas = new ArrayList<Columna>();
+    	}
         return columnas;
     }
 
@@ -117,6 +120,11 @@ public class GrillaVO implements Serializable {
     }
 
     public List<Map<Long, Celda>> getRows() {
+    	
+    	if (rows == null){
+    		rows = new ArrayList<Map<Long,Celda>>();
+    	}
+    	
         return rows;
     }
 
