@@ -15,11 +15,13 @@ import javax.faces.model.SelectItem;
 import org.apache.log4j.Logger;
 
 import cl.mdr.ifrs.cross.util.UtilBean;
+import cl.mdr.ifrs.cross.vo.TipoFormulaVO;
 import cl.mdr.ifrs.ejb.common.TipoImpresionEnum;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
 import cl.mdr.ifrs.ejb.entity.Empresa;
 import cl.mdr.ifrs.ejb.entity.EstadoCuadro;
+import cl.mdr.ifrs.ejb.entity.Grilla;
 import cl.mdr.ifrs.ejb.entity.Grupo;
 import cl.mdr.ifrs.ejb.entity.Periodo;
 import cl.mdr.ifrs.ejb.entity.Rol;
@@ -48,6 +50,7 @@ public class ComponenteBackingBean implements Serializable {
     
     /*variables generales*/
     private Periodo periodoActual;
+    
     
     /*Listas para llenar combos*/
     private List<Periodo> periodoList;
@@ -374,6 +377,17 @@ public class ComponenteBackingBean implements Serializable {
     
     public void setGrupoList(List<Grupo> grupoList) {
         this.grupoList = grupoList;
+    }
+    
+ 
+    
+    public List<TipoFormulaVO> getTipoFormulaList() {
+    	
+        final List<TipoFormulaVO> lista = new ArrayList<TipoFormulaVO>();        
+        lista.add(new TipoFormulaVO(Grilla.TIPO_GRILLA_ESTATICA, "Fórmula Estática"));
+        lista.add(new TipoFormulaVO(Grilla.TIPO_GRILLA_DINAMICA, "Fórmula Dinámica"));    
+       
+        return lista;
     }
 
 	public void setRolList(List<Rol> rolList) {
