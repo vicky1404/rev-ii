@@ -61,9 +61,9 @@ public abstract class AbstractBackingBean {
 	public String getNombreUsuario() {
         final Principal principal = this.getPrincipal();
         if (principal != null) {
-            return principal.getName().toLowerCase();
+            return principal.getName();
         } else {
-            return "usuario.prueba".toLowerCase();
+            return "USUARIO.PRUEBA";
         }
     }
 	
