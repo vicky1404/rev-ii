@@ -95,12 +95,11 @@
 	      
 	      </p:toolbar>
 	      
-	       <ui:repeat  value="#{procesoBackingBean.estructuraList}" var="item" varStatus="status">
-	        
-	        	<h:panelGrid rendered="#{item.grillaVO.nivel == 0}" >
-	        		<ui:include src="/pages/proceso/grilla/grilla0.xhtml" />
-	      		</h:panelGrid>
-	      		
+	   
+	   
+	       
+	       <ui:repeat  value="#{procesoBackingBean.estructuraList}" var="item" varStatus="status">	        	        	    
+	      		 	<ui:include src="/pages/proceso/grilla/grilla0.xhtml" />  		
 			</ui:repeat>
 	      		
 	</div>
