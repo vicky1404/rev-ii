@@ -2,6 +2,7 @@ package cl.mdr.ifrs.cross.mb;
 
 import java.security.Principal;
 import java.text.MessageFormat;
+import java.util.Locale;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -33,6 +34,8 @@ public abstract class AbstractBackingBean {
 	
 	@ManagedProperty(value="#{filtroBackingBean}")
     private FiltroBackingBean filtroBackingBean;
+	
+	private Locale localeCL = new Locale("es", "CL");
 
 	public FacadeServiceLocal getFacadeService() {
 		return facadeService;
@@ -199,5 +202,13 @@ public abstract class AbstractBackingBean {
     public Long getTipoFormulaDinamica(){
         return Grilla.TIPO_GRILLA_DINAMICA;
     }
+
+	public Locale getLocaleCL() {
+		return localeCL;
+	}
+
+	public void setLocaleCL(Locale localeCL) {
+		this.localeCL = localeCL;
+	}
 	
 }

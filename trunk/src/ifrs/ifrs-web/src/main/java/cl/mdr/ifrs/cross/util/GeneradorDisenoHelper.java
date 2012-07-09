@@ -760,5 +760,34 @@ public class GeneradorDisenoHelper {
         }
         return horizontalParent + 1L;
     }
+    
+    public static List<List<Celda>> builHtmlGrilla(List<Columna> columnasE){
+		
+		List<List<Celda>> celdaDobleList = new ArrayList<List<Celda>>();
+		
+		int i=0;
+		for(Columna columna : columnasE){
+			
+			for(Celda celda : columna.getCeldaList()){
+				
+				try{
+					
+					celdaDobleList.get(i).add(celda);
+					
+				}catch(IndexOutOfBoundsException e){
+					List<Celda> celdas = new ArrayList<Celda>();
+					celdas.add(celda);
+					celdaDobleList.add(celdas);
+				}
+				
+				i++;
+			}
+			
+			i=0;
+		}
+		
+		return celdaDobleList;
+		
+	}
 
 }

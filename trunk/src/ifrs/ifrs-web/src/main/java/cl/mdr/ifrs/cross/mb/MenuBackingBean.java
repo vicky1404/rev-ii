@@ -182,24 +182,15 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
     public String cargarNotaAction(){    	
     	log.info("cargando cuadro ");
     	log.info("idCatalogo "+this.getCatalogoSelected().getNombre());
-    	return "cuadro";
+    	return "/pages/cuadro/cuadroBackingBean.jsf";
     }
     
     public void onSelectNodeMenuCuadro(NodeSelectEvent event) {
     	this.setActiveTabIndex("0");
     	this.setCatalogoSelected(this.getCatalogoMap().get(Util.getLong(event.getTreeNode().toString(), null)));
-    	if(getComponenteBackingBean()==null){
-    		System.out.println("Null componente");
-    	}else{
-    		System.out.println("No es null componente");
-    	}
-    	if(getFiltroBackingBean()==null){
-    		System.out.println("No es null filtro");
-    	}
-    	
-    	getFiltroBackingBean().setCatalogo(this.catalogoSelected);
-    	cargarNotaAction();
-    	addInfoMessage("", "nodo : "+this.getCatalogoSelected().getNombre() + " "+this.getCatalogoSelected().getTitulo() );
+    	getFiltroBackingBean().setCatalogo(this.catalogoSelected);    	
+    	addInfoMessage("", "nodo 1a: "+this.getCatalogoSelected().getNombre() + " "+this.getCatalogoSelected().getTitulo() );
+    	return cargarNotaAction();
     } 
     
     
