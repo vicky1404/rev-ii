@@ -95,4 +95,11 @@ public class AgrupacionModelVO implements Serializable{
     public Long getIdGrilla() {
         return idGrilla;
     }
+    
+    public Long getColSpan(){
+    	if(this.desde!=null && this.hasta != null)
+    		return hasta-desde;
+    	else
+    		return 1L;
+    }
 }
