@@ -3,6 +3,7 @@ package cl.mdr.ifrs.modules.mb;
 import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -31,7 +32,9 @@ import cl.mdr.ifrs.ejb.entity.Catalogo;
 import cl.mdr.ifrs.ejb.entity.Columna;
 import cl.mdr.ifrs.ejb.entity.Estructura;
 import cl.mdr.ifrs.ejb.entity.Grilla;
+import cl.mdr.ifrs.ejb.entity.HistorialVersion;
 import cl.mdr.ifrs.ejb.entity.TipoEstructura;
+import cl.mdr.ifrs.ejb.entity.Usuario;
 import cl.mdr.ifrs.ejb.entity.Version;
 import cl.mdr.ifrs.exceptions.FormulaException;
 import cl.mdr.ifrs.vo.AgrupacionColumnaModelVO;
@@ -57,6 +60,7 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
 	private Catalogo nuevoCuadro;
 	private boolean renderVersionList = false;
 	private List<Version> versionList;
+	private Version versionSeleccionada;
 	
 	
 	@PostConstruct
@@ -115,13 +119,11 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
         try{
         	
         	System.out.println("metodo buscar cuadro");
-            final Version version = (Version)event.getComponent().getAttributes().get("version");
+        	versionSeleccionada = (Version)event.getComponent().getAttributes().get("version");
             
-            estructuraList = getFacadeService().getEstructuraService().getEstructuraByVersion(version, true);
+            estructuraList = getFacadeService().getEstructuraService().getEstructuraByVersion(versionSeleccionada, true);
             
             setListGrilla(estructuraList);
-            
-            setEstructuraList(estructuraList);
             
             if(getEstructuraList().isEmpty()){
                 addWarnMessage(PropertyManager.getInstance().getMessage("general_mensaje_version_sin_registros"));
@@ -214,6 +216,35 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
             logger.error(e);
             addErrorMessage("Se ha producido un error al Eliminar una fila del Cuadro");
         }
+    }
+    
+    
+    public String guardar() {
+        try{
+            //if(super.validaModificarCuadro(getVersionSeleccionada())){
+                //super.getFacade().getEstructuraService().persistEstructuraList(estructuraList);
+                
+                //if(!super.validateContent(estructuraList))
+                //    return null;
+                Version version = this.getVersionSeleccionada() ;
+                version.setFechaUltimoProceso(new Date());
+                
+                HistorialVersion historialVersion = new HistorialVersion();
+                historialVersion.setVersion(version);
+                historialVersion.setEstadoCuadro(version.getEstado());
+                historialVersion.setFechaProceso(new Date());
+                historialVersion.setUsuario(new Usuario(getNombreUsuario()));
+                historialVersion.setComentario(PropertyManager.getInstance().getMessage("general_mensaje_historial_nota_datos_modificados"));   
+
+                getFacadeService().getEstructuraService().persistEstructura(estructuraList, version, historialVersion); 
+                
+                super.addInfoMessage(PropertyManager.getInstance().getMessage("general_mensaje_nota_guardar_exito"));  
+            //}            
+        } catch(Exception e){
+            logger.error(e.getCause(), e);
+            super.addErrorMessage(PropertyManager.getInstance().getMessage("general_mensaje_nota_guardar_error"));
+        }
+        return null;
     }
     
     private void addNotFoundMessage(){
@@ -443,6 +474,16 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
 	
     public boolean isRenderVersionList() {
 		return renderVersionList;
+	}
+
+
+	public Version getVersionSeleccionada() {
+		return versionSeleccionada;
+	}
+
+
+	public void setVersionSeleccionada(Version versionSeleccionada) {
+		this.versionSeleccionada = versionSeleccionada;
 	}
     
 }
