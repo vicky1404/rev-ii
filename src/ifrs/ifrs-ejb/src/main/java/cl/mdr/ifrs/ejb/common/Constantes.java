@@ -19,6 +19,7 @@ public class Constantes {
     public static final String FORMULA_GRILLA = PREFIX + "FORMULA_GRILLA";
     public static final String GRILLA = PREFIX + "GRILLA";
     public static final String GRUPO = PREFIX + "GRUPO";
+    public static final String GRUPO_EMPRESA = PREFIX + "GRUPO_EMPRESA";
     public static final String GRUPO_OID = PREFIX + "GRUPO_OID";
     public static final String HISTORIAL_VERSION = PREFIX + "HISTORIAL_VERSION";
     public static final String HTML = PREFIX + "HTML";
