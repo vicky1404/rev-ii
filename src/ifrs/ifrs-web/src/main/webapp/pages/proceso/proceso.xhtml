@@ -7,107 +7,125 @@
 	template="/WEB-INF/templates/main-template.xhtml"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 	<ui:define name="content">
-	        
-<h:form id="f1">
+		<h:form id="f1">
+			<p:messages globalOnly="true" id="mensajes_proceso" autoUpdate="true"/>
+			<p:ajaxStatus onstart="statusDialog.show();" oncomplete="statusDialog.hide();" />
+			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
+			<p:panel id="pb1" header="#{msg.general_titulo_busqueda_aplicacion}"
+				toggleable="true" closable="false">
+				<table border="0" width="30%" align="center" id="tb1APeriodo">
+					<tr>
+						<td><p:selectOneMenu label="#{msg.etiqueta_periodo}"
+								id="soc1Periodo"
+								value="#{procesoBackingBean.filtroBackingBean.periodo.mesPeriodo}"
+								showRequired="true" required="true"
+								requiredMessage="#{msg.periodo_mensaje_seleccione_mes}">
 
-	<p:panel id="pb1" header="#{msg.general_titulo_busqueda_aplicacion}" toggleable="true" closable="false">  
-         <table border="0" width="30%" align="center" id="tb1APeriodo">
-             <tr>
-                 <td>
-                     <p:selectOneMenu    label="#{msg.etiqueta_periodo}" id="soc1Periodo"
-                                         value="#{procesoBackingBean.filtroBackingBean.periodo.mesPeriodo}" showRequired="true"
-                                         required="true"
-                                         requiredMessage="#{msg.periodo_mensaje_seleccione_mes}">
-                         
-                         <f:selectItem itemLabel="#{msg.etiqueta_mes_periodo}" noSelectionOption="true"/>
-                         <f:selectItems value="#{procesoBackingBean.componenteBackingBean.meses}" id="mesesPeriodo"/>
-                         
-                     </p:selectOneMenu>
-                 </td>
-                 <td align="left">
-                     <p:selectOneMenu id="soc2Periodo"
-                                         value="#{procesoBackingBean.filtroBackingBean.periodo.anioPeriodo}" 
-                                         required="true"
-                                         requiredMessage="#{msg.periodo_mensaje_seleccione_anio}">
-                                         
-				<f:selectItem itemLabel="#{msg.etiqueta_anio_periodo}" noSelectionOption="true"/>
-                         <f:selectItems value="#{procesoBackingBean.componenteBackingBean.anios}" id="aniosPeriodo"/>
-                         
-                     </p:selectOneMenu>
-                 </td>
-                 <td>
-                     <p:commandButton value="#{msg.general_control_buscar}" id="cbPeriodos" action="#{procesoBackingBean.buscarVersion}" update="@form" />
-                 </td>
-             </tr>
-         </table>
-         
-         <p:spacer height="10px"/>
-         
-         <div align="center">
-         
-             <p:dataTable value="#{procesoBackingBean.versionList}" var="row" rowBandingInterval="0" id="n1Cat" rendered="#{procesoBackingBean.renderVersionList}" emptyMessage="#{msg.periodo_busqueda_sin_resultado}">
-                       
-                 <p:column id="c1" headerText="#{msg.tabla_catalogo_periodo}"  >
-                     <p:commandLink id="cl1" value="#{row.periodo.mesPeriodo} - #{row.periodo.anioPeriodo}"   actionListener="#{procesoBackingBean.buscarCuadro}" partialSubmit="false" update="@form">
-                         <f:attribute name="version" value="#{row}"/>
-                     </p:commandLink>
-                 </p:column>
-                 <p:column id="c2" headerText="#{msg.tabla_catalogo_version}">
-                     <h:outputText value="#{row.version}" id="ot5Periodo"/>
-                 </p:column>
-                 <p:column headerText="#{msg.tabla_catalogo_nombre_nota}" id="c2Periodo">
-                     <h:outputText value="#{row.catalogo.nombre}" id="ot2Periodo"/>
-                 </p:column>
-                 <p:column headerText="#{msg.tabla_catalogo_titulo_nota}" id="c3Periodo">
-                     <h:outputText value="#{row.catalogo.titulo}" id="ot3Periodo"/>
-                 </p:column>
-                 <p:column headerText="#{msg.tabla_catalogo_estado_nota}" id="c4Periodo">
-                     <h:outputText value="#{row.estado.nombre}" id="ot4Periodo"/>
-                 </p:column>
-                 <p:column headerText="#{msg.tabla_catalogo_fecha_proceso}" id="c6Periodo">
-                     <h:outputText value="#{row.fechaCreacion}" id="ot6Periodo"/>
-                 </p:column>
-                 <p:column headerText="Vigente" id="c7Periodo">
-                     <h:outputText value="#{row.vigencia eq 1 ? 'SI' : 'NO'}" id="ot7Periodo"/>
-                 </p:column>
-             </p:dataTable>
-         </div>
-    </p:panel>
-            
-       <p:spacer width="10" height="10" id="s1"/>
+								<f:selectItem itemLabel="#{msg.etiqueta_mes_periodo}"
+									noSelectionOption="true" />
+								<f:selectItems
+									value="#{procesoBackingBean.componenteBackingBean.meses}"
+									id="mesesPeriodo" />
 
-       <table cellspacing="2" cellpadding="3" border="0" align="left" width="99%">
-           <tr>
-               <td width="100%">
-                   
-               </td>
-           </tr>
-       </table>
-       
-       <p:spacer height="30" id="sp1" width="10"/>
-       
-       <div align="left">
-	 <p:toolbar>  
-	  		
-	  	<p:toolbarGroup align="left">
-	  		<p:commandButton value="#{msg.general_control_guardar}" icon="../../resources/images/icon/save.png" id="btn1" action="#{procesoBackingBean.guardar}" partialSubmit="false" />
-	      </p:toolbarGroup>   
-	      
-	      </p:toolbar>
-	      
-	   
-	   
-	       
-	       <ui:repeat  value="#{procesoBackingBean.estructuraList}" var="item" varStatus="status">	        	        	    
-	      		 	<ui:include src="/pages/proceso/grilla/grilla0.xhtml" />  		
-			</ui:repeat>
-	      		
-	</div>
-         
-</h:form>
-         	
-	
-	
-	
-</ui:define>
-</ui:composition>	
+							</p:selectOneMenu></td>
+						<td align="left"><p:selectOneMenu id="soc2Periodo"
+								value="#{procesoBackingBean.filtroBackingBean.periodo.anioPeriodo}"
+								required="true"
+								requiredMessage="#{msg.periodo_mensaje_seleccione_anio}">
+
+								<f:selectItem itemLabel="#{msg.etiqueta_anio_periodo}"
+									noSelectionOption="true" />
+								<f:selectItems
+									value="#{procesoBackingBean.componenteBackingBean.anios}"
+									id="aniosPeriodo" />
+
+							</p:selectOneMenu></td>
+						<td><p:commandButton value="#{msg.general_control_buscar}"
+								id="cbPeriodos" action="#{procesoBackingBean.buscarVersion}"
+								icon="ui-icon-search" update="@form" /></td>
+					</tr>
+				</table>
+
+				<p:spacer height="10px" />
+
+				<div align="center">
+
+					<p:dataTable value="#{procesoBackingBean.versionList}" var="row"
+						rowBandingInterval="0" id="n1Cat"
+						rendered="#{procesoBackingBean.renderVersionList}"
+						emptyMessage="#{msg.periodo_busqueda_sin_resultado}">
+
+						<p:column id="c1" headerText="#{msg.tabla_catalogo_periodo}">
+							<p:commandLink id="cl1"
+								value="#{row.periodo.mesPeriodo} - #{row.periodo.anioPeriodo}"
+								actionListener="#{procesoBackingBean.buscarCuadro}"
+								partialSubmit="false" update="@form">
+								<f:attribute name="version" value="#{row}" />
+							</p:commandLink>
+						</p:column>
+						<p:column id="c2" headerText="#{msg.tabla_catalogo_version}">
+							<h:outputText value="#{row.version}" id="ot5Periodo" />
+						</p:column>
+						<p:column headerText="#{msg.tabla_catalogo_nombre_nota}"
+							id="c2Periodo">
+							<h:outputText value="#{row.catalogo.nombre}" id="ot2Periodo" />
+						</p:column>
+						<p:column headerText="#{msg.tabla_catalogo_titulo_nota}"
+							id="c3Periodo">
+							<h:outputText value="#{row.catalogo.titulo}" id="ot3Periodo" />
+						</p:column>
+						<p:column headerText="#{msg.tabla_catalogo_estado_nota}"
+							id="c4Periodo">
+							<h:outputText value="#{row.estado.nombre}" id="ot4Periodo" />
+						</p:column>
+						<p:column headerText="#{msg.tabla_catalogo_fecha_proceso}"
+							id="c6Periodo">
+							<h:outputText value="#{row.fechaCreacion}" id="ot6Periodo" />
+						</p:column>
+						<p:column headerText="Vigente" id="c7Periodo">
+							<h:outputText value="#{row.vigencia eq 1 ? 'SI' : 'NO'}"
+								id="ot7Periodo" />
+						</p:column>
+					</p:dataTable>
+				</div>
+			</p:panel>
+
+			<p:spacer width="10" height="10" id="s1" />
+
+			<table cellspacing="2" cellpadding="3" border="0" align="left"
+				width="99%">
+				<tr>
+					<td width="100%"></td>
+				</tr>
+			</table>
+
+			<p:spacer height="30" id="sp1" width="10" />
+
+			<div align="left">
+				<p:toolbar>
+
+					<p:toolbarGroup align="left">
+						<p:commandButton value="#{msg.general_control_guardar}"
+							icon="ui-icon-disk" id="btn1"
+							action="#{procesoBackingBean.guardar}" partialSubmit="false" update=":f1:mensajes_proceso" />
+					</p:toolbarGroup>
+
+				</p:toolbar>
+
+
+
+
+				<ui:repeat value="#{procesoBackingBean.estructuraList}" var="item"
+					varStatus="status">
+					<ui:include src="/pages/proceso/grilla/grilla0.xhtml" />
+				</ui:repeat>
+
+			</div>
+
+		</h:form>
+
+
+
+
+	</ui:define>
+</ui:composition>

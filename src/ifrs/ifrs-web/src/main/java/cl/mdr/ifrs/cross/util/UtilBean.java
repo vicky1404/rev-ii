@@ -1,6 +1,5 @@
 package cl.mdr.ifrs.cross.util;
 
-import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -11,9 +10,13 @@ import javax.faces.model.SelectItem;
 public class UtilBean {
 	
     @SuppressWarnings({"unchecked"})
-    public static <T> T findBean(String name) {
+    public static <T> T findBean(String beanName) {
         FacesContext ctx = FacesContext.getCurrentInstance();               
-        return (T)ctx.getApplication().evaluateExpressionGet(ctx, MessageFormat.format("#{{0}}", name) , Object.class);      
+        StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append("#{");
+		stringBuilder.append(beanName);
+		stringBuilder.append("}");
+		return (T)ctx.getApplication().evaluateExpressionGet(ctx, stringBuilder.toString() , Object.class);      
     }
     
     public static void sortSelectItemMeses(List<SelectItem> meses){
