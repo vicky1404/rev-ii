@@ -200,12 +200,80 @@ public class GeneradorDisenoHelper {
         }
         
     }
+    /**
+     * Crea una lista de agrupaciones para representarla en html ya que html se contruye por fila
+     * la lista de agrupaciones debe venir ordenada
+     * @param agrupaciones
+     * @return
+     */
+    public static List<List<AgrupacionModelVO>> crearAgrupadorHTMLVO(List<AgrupacionColumna> agrupaciones){
+    	
+    	List<List<AgrupacionModelVO>> agrupacionesVO = new ArrayList<List<AgrupacionModelVO>>();
+    	Map<Long,List<AgrupacionModelVO>> agrupacionMap = new HashMap<Long,List<AgrupacionModelVO>>();
+        
+        if(!Util.esListaValida(agrupaciones))
+            return agrupacionesVO;
+        
+        Long min=100L;
+        Long max=0L;
+        AgrupacionColumna agrupacionPaso =null;
+        int contador = 0;
+        
+        for(AgrupacionColumna agrupacion : agrupaciones){
+        	
+            contador++;
+            
+            if(agrupacionPaso !=null && agrupacion.getGrupo()==agrupacionPaso.getGrupo()){
+                if(min>agrupacion.getIdColumna()){
+                    min=agrupacion.getIdColumna();
+                }
+                if(max<agrupacion.getIdColumna()){
+                    max=agrupacion.getIdColumna();
+                }
+            }else{
+                if(agrupacionPaso!=null){
+                	setAgrupadorMap(agrupacionMap, new AgrupacionModelVO(min, max, agrupacionPaso.getGrupo(), agrupacionPaso.getAncho(), agrupacionPaso.getTitulo(),agrupacionPaso.getIdGrilla(),agrupacionPaso.getIdNivel()));
+                }
+                agrupacionPaso = agrupacion;
+                min = agrupacion.getIdColumna();
+                max = agrupacion.getIdColumna();
+            }
+            if(contador == agrupaciones.size()){
+            	setAgrupadorMap(agrupacionMap,new AgrupacionModelVO(min, max, agrupacionPaso.getGrupo(), agrupacion.getAncho(), agrupacion.getTitulo(),agrupacionPaso.getIdGrilla(),agrupacionPaso.getIdNivel()));
+            }
+            
+        }
+        
+        for(List<AgrupacionModelVO> agrupacionesNew : agrupacionMap.values()){
+        	agrupacionesVO.add(agrupacionesNew);
+        }
+        
+        return agrupacionesVO;
+    	
+    }
     
-    public static List<AgrupacionVO> crearAgrupadorVO(List<AgrupacionColumna> agrupaciones,Long nivel){
+    private static void setAgrupadorMap(Map<Long,List<AgrupacionModelVO>> agrupacionMap, AgrupacionModelVO agrupacion){
+    	
+    	if(agrupacionMap.containsKey(agrupacion.getNivel())){
+    		agrupacionMap.get(agrupacion.getNivel()).add(agrupacion);
+    	}else{
+    		List<AgrupacionModelVO> agrupaciones = new ArrayList<AgrupacionModelVO>();
+    		agrupaciones.add(agrupacion);
+    		agrupacionMap.put(agrupacion.getNivel(), agrupaciones);
+    	}
+    }
+    
+    
+    /**
+     * Crea una lista de agrupaciones para representarla en dataTable, ya que jsf construye por columna
+     * @param agrupaciones
+     * @return
+     */
+    public static List<AgrupacionVO> crearAgrupadorVO(List<AgrupacionColumna> agrupaciones){
         
         List<AgrupacionVO> agrupacionesVO = new ArrayList<AgrupacionVO>();
         
-        if(!cl.mdr.ifrs.ejb.cross.Util.esListaValida(agrupaciones) || nivel==null)
+        if(!Util.esListaValida(agrupaciones))
             return agrupacionesVO;
         
         Long min=100L;
@@ -486,122 +554,18 @@ public class GeneradorDisenoHelper {
         return grillaModelMap;
     }
     
-    public static List<AgrupacionColumnaModelVO> soporteAgrupacionColumna(List<Columna> columnas , List<AgrupacionColumna> agrupaciones) {
-
-        Map<Long, Columna> columnaMap = new LinkedHashMap<Long, Columna>();
-        Map<Long, AgrupacionColumnaModelVO> nivel1Map = new LinkedHashMap<Long, AgrupacionColumnaModelVO>();
-        Map<Long, AgrupacionColumnaModelVO> nivel2Map = new LinkedHashMap<Long, AgrupacionColumnaModelVO>();
-        List<AgrupacionColumnaModelVO> nivelesList = new ArrayList<AgrupacionColumnaModelVO>();
-        Map<Long,Long> nivel = new HashMap<Long,Long>();
-        Long niveles = 0L;
-        
-        try {
-            
-            for(Columna columna : columnas){
-                columnaMap.put(columna.getIdColumna(), columna);
-            }
-            
-            List<AgrupacionVO> agrupacionesNivel = GeneradorDisenoHelper.crearAgrupadorVO(agrupaciones, 1L);
-            
-            List<AgrupacionModelVO> agrupacionesModel = new ArrayList<AgrupacionModelVO>();
-            
-            for(AgrupacionVO agrupacion : agrupacionesNivel){
-                
-                AgrupacionModelVO agrupacionModel = new AgrupacionModelVO();
-                agrupacionModel.setDesde(agrupacion.getDesde());
-                agrupacionModel.setHasta(agrupacion.getHasta());
-                agrupacionModel.setGrupo(agrupacion.getGrupo());
-                agrupacionModel.setAncho(agrupacion.getAncho());
-                agrupacionModel.setNivel(agrupacion.getNivel());
-                agrupacionModel.setIdGrilla(agrupacion.getIdGrilla());
-                agrupacionModel.setTitulo(agrupacion.getTitulo());
-                agrupacionesModel.add(agrupacionModel);
-            }
-            
-            
-            
-            for(AgrupacionModelVO agrupacion : agrupacionesModel){
-                
-                if(agrupacion.getNivel() == 1L){
-                    
-                    List<Columna> columnasNew = new ArrayList<Columna>();
-                    AgrupacionColumnaModelVO agrupacionN1VO = new AgrupacionColumnaModelVO();
-                    agrupacionN1VO.setTituloNivel(agrupacion.getTitulo());
-                    agrupacionN1VO.setNivel(1L);
-                    agrupacionN1VO.setAgrupacion(agrupacion);
-                    for(Long i=agrupacion.getDesde(); i<= agrupacion.getHasta(); i++){
-                        if(columnaMap.containsKey(i)){
-                            columnasNew.add(columnaMap.get(i));
-                            niveles = 1L;
-                        }
-                    }
-                    agrupacionN1VO.setColumnas(columnasNew);
-                    nivel1Map.put(agrupacion.getGrupo(), agrupacionN1VO);
-                    
-                }else  if(agrupacion.getNivel() == 2L){
-
-                    AgrupacionColumnaModelVO agrupacionN2VO = new AgrupacionColumnaModelVO();
-                    
-                    List<AgrupacionColumnaModelVO> niveles1New = new ArrayList<AgrupacionColumnaModelVO>();
-                    
-                    for(Long i=agrupacion.getDesde(); i<= agrupacion.getHasta(); i++){
-                        
-                        Long grupoNivel1 = getGrupoNivel1(nivel1Map,i);
-                        
-                        if(grupoNivel1 != null && !nivel.containsKey(grupoNivel1)){
-                            nivel.put(grupoNivel1, grupoNivel1);
-                            niveles1New.add(nivel1Map.get(grupoNivel1));
-                            niveles = 2L;
-                        }
-                    }
-                    
-                    agrupacionN2VO.setTituloNivel(agrupacion.getTitulo());
-                    agrupacionN2VO.setNivel(2L);
-                    agrupacionN2VO.setNiveles(niveles1New);
-                    
-                    nivel2Map.put(agrupacion.getGrupo(), agrupacionN2VO);
-              }
-            }
-            
-            if (niveles == 0L) {
-                return null;   
-            }
-            
-            if (niveles == 1L) {
-                Iterator it = nivel1Map.entrySet().iterator();
-                while (it.hasNext()) {
-                    Map.Entry entry = (Map.Entry)it.next();
-                    nivelesList.add((AgrupacionColumnaModelVO)entry.getValue());
-                    
-                }
-            }
-
-            if (niveles == 2L) {
-                Iterator it = nivel2Map.entrySet().iterator();
-                while (it.hasNext()) {
-                    Map.Entry entry = (Map.Entry)it.next();
-                    nivelesList.add((AgrupacionColumnaModelVO)entry.getValue());
-                }
-            }
-
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-        
-        return nivelesList;
-    }
+    
     
     public static void setListaPorNivelUsado(List<AgrupacionColumnaModelVO> agrupacionColumnaList, GrillaVO grilla){
-        if(agrupacionColumnaList==null || agrupacionColumnaList.isEmpty()){
-            grilla.setNivel(0L);
-        }else if(agrupacionColumnaList.get(0).getNivel() == 1L){
-            grilla.setNivel(agrupacionColumnaList.get(0).getNivel());
-            grilla.setNivel1List(agrupacionColumnaList);
-        }else if(agrupacionColumnaList.get(0).getNivel() == 2L){
-            grilla.setNivel(agrupacionColumnaList.get(0).getNivel());
-            grilla.setNivel2List(agrupacionColumnaList);    
+    	if (agrupacionColumnaList !=null && agrupacionColumnaList.isEmpty() ){
+    		grilla.setNivel(agrupacionColumnaList.get(0).getNivel());
+        }else{
+        	grilla.setNivel(0L);
         }
     }
+    
+  //TODO cambiar metodo de posicion
+    
     
     private static boolean listaValida(List list){
         
@@ -789,5 +753,113 @@ public class GeneradorDisenoHelper {
 		return celdaDobleList;
 		
 	}
+    
+    
+    
+   
+    public static List<AgrupacionColumnaModelVO> soporteAgrupacionColumna(List<Columna> columnas , List<AgrupacionColumna> agrupaciones) {
+
+        Map<Long, Columna> columnaMap = new LinkedHashMap<Long, Columna>();
+        Map<Long, AgrupacionColumnaModelVO> nivel1Map = new LinkedHashMap<Long, AgrupacionColumnaModelVO>();
+        Map<Long, AgrupacionColumnaModelVO> nivel2Map = new LinkedHashMap<Long, AgrupacionColumnaModelVO>();
+        List<AgrupacionColumnaModelVO> nivelesList = new ArrayList<AgrupacionColumnaModelVO>();
+        Map<Long,Long> nivel = new HashMap<Long,Long>();
+        Long niveles = 0L;
+        
+        try {
+            
+            for(Columna columna : columnas){
+                columnaMap.put(columna.getIdColumna(), columna);
+            }
+            
+            List<AgrupacionVO> agrupacionesNivel = GeneradorDisenoHelper.crearAgrupadorVO(agrupaciones);
+            
+            List<AgrupacionModelVO> agrupacionesModel = new ArrayList<AgrupacionModelVO>();
+            
+            for(AgrupacionVO agrupacion : agrupacionesNivel){
+                
+                AgrupacionModelVO agrupacionModel = new AgrupacionModelVO();
+                agrupacionModel.setDesde(agrupacion.getDesde());
+                agrupacionModel.setHasta(agrupacion.getHasta());
+                agrupacionModel.setGrupo(agrupacion.getGrupo());
+                agrupacionModel.setAncho(agrupacion.getAncho());
+                agrupacionModel.setNivel(agrupacion.getNivel());
+                agrupacionModel.setIdGrilla(agrupacion.getIdGrilla());
+                agrupacionModel.setTitulo(agrupacion.getTitulo());
+                agrupacionesModel.add(agrupacionModel);
+            }
+            
+            
+            
+            for(AgrupacionModelVO agrupacion : agrupacionesModel){
+                
+                if(agrupacion.getNivel() == 1L){
+                    
+                    List<Columna> columnasNew = new ArrayList<Columna>();
+                    AgrupacionColumnaModelVO agrupacionN1VO = new AgrupacionColumnaModelVO();
+                    agrupacionN1VO.setTituloNivel(agrupacion.getTitulo());
+                    agrupacionN1VO.setNivel(1L);
+                    agrupacionN1VO.setAgrupacion(agrupacion);
+                    for(Long i=agrupacion.getDesde(); i<= agrupacion.getHasta(); i++){
+                        if(columnaMap.containsKey(i)){
+                            columnasNew.add(columnaMap.get(i));
+                            niveles = 1L;
+                        }
+                    }
+                    agrupacionN1VO.setColumnas(columnasNew);
+                    nivel1Map.put(agrupacion.getGrupo(), agrupacionN1VO);
+                    
+                }else  if(agrupacion.getNivel() == 2L){
+
+                    AgrupacionColumnaModelVO agrupacionN2VO = new AgrupacionColumnaModelVO();
+                    
+                    List<AgrupacionColumnaModelVO> niveles1New = new ArrayList<AgrupacionColumnaModelVO>();
+                    
+                    for(Long i=agrupacion.getDesde(); i<= agrupacion.getHasta(); i++){
+                        
+                        Long grupoNivel1 = getGrupoNivel1(nivel1Map,i);
+                        
+                        if(grupoNivel1 != null && !nivel.containsKey(grupoNivel1)){
+                            nivel.put(grupoNivel1, grupoNivel1);
+                            niveles1New.add(nivel1Map.get(grupoNivel1));
+                            niveles = 2L;
+                        }
+                    }
+                    
+                    agrupacionN2VO.setTituloNivel(agrupacion.getTitulo());
+                    agrupacionN2VO.setNivel(2L);
+                    agrupacionN2VO.setNiveles(niveles1New);
+                    
+                    nivel2Map.put(agrupacion.getGrupo(), agrupacionN2VO);
+              }
+            }
+            
+            if (niveles == 0L) {
+                return null;   
+            }
+            
+            if (niveles == 1L) {
+                Iterator it = nivel1Map.entrySet().iterator();
+                while (it.hasNext()) {
+                    Map.Entry entry = (Map.Entry)it.next();
+                    nivelesList.add((AgrupacionColumnaModelVO)entry.getValue());
+                    
+                }
+            }
+
+            if (niveles == 2L) {
+                Iterator it = nivel2Map.entrySet().iterator();
+                while (it.hasNext()) {
+                    Map.Entry entry = (Map.Entry)it.next();
+                    nivelesList.add((AgrupacionColumnaModelVO)entry.getValue());
+                }
+            }
+
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        
+        return nivelesList;
+    }
 
 }

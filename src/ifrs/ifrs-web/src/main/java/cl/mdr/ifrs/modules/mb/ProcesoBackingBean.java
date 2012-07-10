@@ -150,15 +150,15 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
             Estructura estructura = getEstructuraList().get(i);
 
             if (estructura.getTipoEstructura().getIdTipoEstructura().equals(TipoEstructuraEnum.GRILLA.getKey()) &&
-                estructura.getGrillaVO().getGrilla().getIdGrilla().equals(idGrilla)) {
-                if(estructura.getGrillaVO().getGrilla().getTipoFormula()==null || 
-                   !estructura.getGrillaVO().getGrilla().getTipoFormula().equals(Grilla.TIPO_GRILLA_DINAMICA)){
+                estructura.getGrilla().getIdGrilla().equals(idGrilla)) {
+                if(estructura.getGrilla().getTipoFormula()==null || 
+                   !estructura.getGrilla().getTipoFormula().equals(Grilla.TIPO_GRILLA_DINAMICA)){
                     addWarnMessage("No se puede agregar fila, primero debe ingresar fórmula dinámica en mantenedor de fórmulas");
                     return;
                 }
-                GeneradorDisenoHelper.agregarFilaGrillaByFilaSelected(estructura.getGrillaVO().getGrilla(), idFila);
+                GeneradorDisenoHelper.agregarFilaGrillaByFilaSelected(estructura.getGrilla(), idFila);
                 try {
-                    estructura.setGrillaVO(getFacadeService().getEstructuraService().getGrillaVO(estructura.getGrillaVO().getGrilla(), true));
+                    estructura.setGrillaVO(getFacadeService().getEstructuraService().getGrillaVO(estructura.getGrilla(), true));
                 } catch (Exception e) {
                     logger.error(e);
                     addErrorMessage("Se ha producido un error al agregar una fila al cuadro");
@@ -189,17 +189,17 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
         for (Estructura estructura : getEstructuraList()) {
 
             if (estructura.getTipoEstructura().getIdTipoEstructura().equals(TipoEstructuraEnum.GRILLA.getKey()) &&
-                estructura.getGrillaVO().getGrilla().getIdGrilla().equals(idGrilla)) {
-                if(estructura.getGrillaVO().getGrilla().getTipoFormula()==null || 
-                   !estructura.getGrillaVO().getGrilla().getTipoFormula().equals(Grilla.TIPO_GRILLA_DINAMICA)){
+                estructura.getGrilla().getIdGrilla().equals(idGrilla)) {
+                if(estructura.getGrilla().getTipoFormula()==null || 
+                   !estructura.getGrilla().getTipoFormula().equals(Grilla.TIPO_GRILLA_DINAMICA)){
                     addWarnMessage("No se puede eliminar fila, primero debe ingresar fórmula dinámica en mantenedor de fórmulas");
                     return;
                 }
-                if(GeneradorDisenoHelper.deleteRowValidator(estructura.getGrillaVO().getGrilla(), idFila)){
-                    GeneradorDisenoHelper.eliminarUnaFila(estructura.getGrillaVO().getGrilla(), idFila);
+                if(GeneradorDisenoHelper.deleteRowValidator(estructura.getGrilla(), idFila)){
+                    GeneradorDisenoHelper.eliminarUnaFila(estructura.getGrilla(), idFila);
                 }
                 try {
-                    estructura.setGrillaVO(getFacadeService().getEstructuraService().getGrillaVO(estructura.getGrillaVO().getGrilla(),true));
+                    estructura.setGrillaVO(getFacadeService().getEstructuraService().getGrillaVO(estructura.getGrilla(),true));
                 } catch (Exception e) {
                     logger.error(e);
                     addErrorMessage("Se ha producido un error al Eliminar una fila del Cuadro");
@@ -247,75 +247,7 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
         return null;
     }
     
-    private void addNotFoundMessage(){
-    	addWarnMessage(MessageFormat.format(PropertyManager.getInstance().getMessage("periodo_busqueda_sin_resultado_periodo"), getFiltroBackingBean().getPeriodo().getAnioPeriodo(), getFiltroBackingBean().getPeriodo().getMesPeriodo()));
-        this.renderVersionList = false;  
-    }
-
-	public List<Catalogo> getCatalogoList() {
-		return catalogoList;
-	}
-
-	public void setCatalogoList(List<Catalogo> catalogoList) {
-		this.catalogoList = catalogoList;
-	}
-
-	public ComponenteBackingBean getComponenteBackingBean() {
-		return componenteBackingBean;
-	}
-
-	public void setComponenteBackingBean(ComponenteBackingBean componenteBackingBean) {
-		this.componenteBackingBean = componenteBackingBean;
-	}
-  
-	public List<Estructura> getEstructuraList() {
-		return estructuraList;
-	}
-
-	public void setEstructuraList(List<Estructura> estructuraList) {
-		this.estructuraList = estructuraList;
-	}
-
-	public Catalogo getSelectedCuadro() {
-		return selectedCuadro;
-	}
-
-
-	public void setSelectedCuadro(Catalogo selectedCuadro) {
-		this.selectedCuadro = selectedCuadro;
-	}
-
-
-	public Catalogo getNuevoCuadro() {
-		if (nuevoCuadro == null){
-			nuevoCuadro = new Catalogo();
-		}
-		
-		return nuevoCuadro;
-	}
-
-
-	public void setNuevoCuadro(Catalogo nuevoCuadro) {
-		this.nuevoCuadro = nuevoCuadro;
-	}
-
-
-	public Long getIdEmpresa() {
-		return idEmpresa;
-	}
-
-
-	public void setIdEmpresa(Long idEmpresa) {
-		this.idEmpresa = idEmpresa;
-	}
-
-	public List<Version> getVersionList() {
-		return versionList;
-	}
-
-	public void setVersionList(List<Version> versionList) {
-		this.versionList = versionList;
-	}
+    
 	
 	//TODO cambiar metodo de posicion
     public void setListGrilla(List<Estructura> estructuraList) throws Exception {
@@ -323,7 +255,6 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
     	System.out.println("entro a metodo list grilla");
         
         for(Estructura estructuras : estructuraList){
-        	
 
             if(estructuras.getTipoEstructura().getIdTipoEstructura().equals(TipoEstructura.ESTRUCTURA_TIPO_GRILLA)){
             	Grilla grilla = estructuras.getGrilla();
@@ -334,24 +265,18 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
             	estructuras.getGrillaVO().setCeldaList(GeneradorDisenoHelper.builHtmlGrilla(grilla.getColumnaList()));
             		
                 List<AgrupacionColumna> agrupaciones = getFacadeService().getEstructuraService().findAgrupacionColumnaByGrilla(grilla);
-                List<AgrupacionColumnaModelVO> agrupacionColumnaList = soporteAgrupacionColumna(grilla.getIdGrilla(), grilla.getColumnaList(),agrupaciones);                        
-                if(agrupacionColumnaList==null || agrupacionColumnaList.isEmpty()){
-                	System.out.println("tiene grilla");
-                	System.out.println(grilla.getColumnaList().size());
-                    estructuras.getGrillaVO().setColumnas(grilla.getColumnaList());
-                    estructuras.getGrillaVO().setNivel(0L);
-                }else if(agrupacionColumnaList.get(0).getNivel() == 1L){
-                    estructuras.getGrillaVO().setNivel(agrupacionColumnaList.get(0).getNivel());
-                    estructuras.getGrillaVO().setNivel1List(agrupacionColumnaList);
-                }else if(agrupacionColumnaList.get(0).getNivel() == 2L){
-                    estructuras.getGrillaVO().setNivel(agrupacionColumnaList.get(0).getNivel());
-                    estructuras.getGrillaVO().setNivel2List(agrupacionColumnaList);    
+                
+                if(Util.esListaValida(agrupaciones)){
+                	List<List<AgrupacionModelVO>> agrupacionesNivel = GeneradorDisenoHelper.crearAgrupadorHTMLVO(agrupaciones);
+                	estructuras.getGrillaVO().setAgrupaciones(agrupacionesNivel);
                 }
             }
         }
     }
     
-    //TODO mover metodo solo para prueba esta aqui    
+    
+    
+    //TODO Mover metodo
     private List<AgrupacionColumnaModelVO> soporteAgrupacionColumna(Long idGrilla, List<Columna> columnas , List<AgrupacionColumna> agrupaciones) {
 
         Map<Long, Columna> columnaMap = new LinkedHashMap<Long, Columna>();
@@ -367,7 +292,7 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
                 columnaMap.put(columna.getIdColumna(), columna);
             }
             
-            List<AgrupacionVO> agrupacionesNivel = GeneradorDisenoHelper.crearAgrupadorVO(agrupaciones, 1L);
+            List<AgrupacionVO> agrupacionesNivel = GeneradorDisenoHelper.crearAgrupadorVO(agrupaciones);
             
             List<AgrupacionModelVO> agrupacionesModel = new ArrayList<AgrupacionModelVO>();
             
@@ -470,7 +395,77 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
         
         return nivelesList;
     }
-	
+    
+    private void addNotFoundMessage(){
+    	addWarnMessage(MessageFormat.format(PropertyManager.getInstance().getMessage("periodo_busqueda_sin_resultado_periodo"), getFiltroBackingBean().getPeriodo().getAnioPeriodo(), getFiltroBackingBean().getPeriodo().getMesPeriodo()));
+        this.renderVersionList = false;  
+    }
+
+	public List<Catalogo> getCatalogoList() {
+		return catalogoList;
+	}
+
+	public void setCatalogoList(List<Catalogo> catalogoList) {
+		this.catalogoList = catalogoList;
+	}
+
+	public ComponenteBackingBean getComponenteBackingBean() {
+		return componenteBackingBean;
+	}
+
+	public void setComponenteBackingBean(ComponenteBackingBean componenteBackingBean) {
+		this.componenteBackingBean = componenteBackingBean;
+	}
+  
+	public List<Estructura> getEstructuraList() {
+		return estructuraList;
+	}
+
+	public void setEstructuraList(List<Estructura> estructuraList) {
+		this.estructuraList = estructuraList;
+	}
+
+	public Catalogo getSelectedCuadro() {
+		return selectedCuadro;
+	}
+
+
+	public void setSelectedCuadro(Catalogo selectedCuadro) {
+		this.selectedCuadro = selectedCuadro;
+	}
+
+
+	public Catalogo getNuevoCuadro() {
+		if (nuevoCuadro == null){
+			nuevoCuadro = new Catalogo();
+		}
+		
+		return nuevoCuadro;
+	}
+
+
+	public void setNuevoCuadro(Catalogo nuevoCuadro) {
+		this.nuevoCuadro = nuevoCuadro;
+	}
+
+
+	public Long getIdEmpresa() {
+		return idEmpresa;
+	}
+
+
+	public void setIdEmpresa(Long idEmpresa) {
+		this.idEmpresa = idEmpresa;
+	}
+
+	public List<Version> getVersionList() {
+		return versionList;
+	}
+
+	public void setVersionList(List<Version> versionList) {
+		this.versionList = versionList;
+	}
+    
 	
     public boolean isRenderVersionList() {
 		return renderVersionList;

@@ -224,7 +224,7 @@ public class EstructuraServiceBean implements EstructuraServiceLocal {
         }
         
         grillaNotaVO.setColumnas(columnaList); 
-        grillaNotaVO.setGrilla(grilla);
+        //grillaNotaVO.setGrilla(grilla);
         grillaNotaVO.setRows(rows);
         return grillaNotaVO;
     }
