@@ -16,17 +16,18 @@
 				header="#{msg.titulo_mantenedor_usuario_por_grupo}"
 				toggleable="true" closable="false" toggleSpeed="500"
 				closeSpeed="2000" widgetVar="panel">
-				<h:panelGrid columns="2">
-					<h:outputText value="#{msg.label_grupo}:" />
+				<h:panelGrid columns="3">
+					<p:outputLabel value="#{msg.label_grupo}:" for="som1" />
 					<p:selectOneMenu label="#{msg.label_grupo}"
 						value="#{usuarioPorGrupoBackingBean.idGrupoSelected}"
-						required="true" requiredMessage="#{msg.mensaje_seleccione_valor}">
+						required="true" requiredMessage="#{msg.mensaje_seleccione_valor}" id="som1">
 						<f:selectItem itemLabel="#{msg.label_seleccione}" />
 						<f:selectItems
 							value="#{usuarioPorGrupoBackingBean.componenteBackingBean.grupoList}"
 							var="grupo" itemLabel="#{grupo.nombre}"
 							itemValue="#{grupo.idGrupoAcceso}" />
 					</p:selectOneMenu>
+					<h:message for="som1" styleClass="ui-outputlabel ui-state-error" />
 					<p:commandButton value="#{msg.boton_buscar}"
 						actionListener="#{usuarioPorGrupoBackingBean.buscarUsuarioPorGrupoAction}"
 						update="tabla_menu" ajax="false">
