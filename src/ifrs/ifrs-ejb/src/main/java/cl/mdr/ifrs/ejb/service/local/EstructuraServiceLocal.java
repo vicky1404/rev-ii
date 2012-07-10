@@ -57,4 +57,6 @@ public interface EstructuraServiceLocal {
     
     public List<AgrupacionColumna> findAgrupacionColumnaByGrillaNivel(Long idGrilla, Long idNivel) throws Exception;
     
+    public void persistEstructura(List<Estructura> estructuras, Version version, HistorialVersion historialVersion) throws Exception;
+    
 }
