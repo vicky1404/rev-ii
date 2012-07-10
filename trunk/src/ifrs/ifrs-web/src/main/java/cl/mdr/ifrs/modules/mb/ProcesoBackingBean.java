@@ -277,7 +277,7 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
     
     
     //TODO Mover metodo
-    private List<AgrupacionColumnaModelVO> soporteAgrupacionColumna(Long idGrilla, List<Columna> columnas , List<AgrupacionColumna> agrupaciones) {
+    /*private List<AgrupacionColumnaModelVO> soporteAgrupacionColumna(Long idGrilla, List<Columna> columnas , List<AgrupacionColumna> agrupaciones) {
 
         Map<Long, Columna> columnaMap = new LinkedHashMap<Long, Columna>();
         Map<Long, AgrupacionColumnaModelVO> nivel1Map = new LinkedHashMap<Long, AgrupacionColumnaModelVO>();
@@ -349,11 +349,7 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
                             nivel.put(grupoNivel1, grupoNivel1);
                             niveles1New.add(nivel1Map.get(grupoNivel1));
                             niveles = 2L;
-                        }/*else if(grupoNivel1 != null){                            
-                            if(nivel1Map.containsKey(grupoNivel1)){
-                                niveles1New.add(nivel1Map.get(grupoNivel1));
-                            }
-                        }*/
+                        }
                     }
                     
                     agrupacionN2VO.setTituloNivel(agrupacion.getTitulo());
@@ -394,7 +390,7 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
         }
         
         return nivelesList;
-    }
+    }*/
     
     private void addNotFoundMessage(){
     	addWarnMessage(MessageFormat.format(PropertyManager.getInstance().getMessage("periodo_busqueda_sin_resultado_periodo"), getFiltroBackingBean().getPeriodo().getAnioPeriodo(), getFiltroBackingBean().getPeriodo().getMesPeriodo()));
