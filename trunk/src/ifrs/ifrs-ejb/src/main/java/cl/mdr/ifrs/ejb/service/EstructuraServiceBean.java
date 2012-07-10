@@ -379,7 +379,11 @@ public class EstructuraServiceBean implements EstructuraServiceLocal {
         		if (estructura.getGrilla().getTipoFormula() != null && estructura.getGrilla().getTipoFormula().equals(Grilla.TIPO_GRILLA_DINAMICA)){
                     persistGrillaList(estructura.getGrilla());
                 } else {
-                    em.merge(estructura.getGrilla());
+                    for(Columna columna : estructura.getGrilla().getColumnaList()){
+                    	for(Celda celda : columna.getCeldaList()){
+                    		em.merge(celda);
+                    	}
+                    }
                 }
         		
         	}

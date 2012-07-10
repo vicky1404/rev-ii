@@ -18,7 +18,7 @@ public class AgrupacionModelVO implements Serializable{
         super();
     }
 
-    public AgrupacionModelVO(Long desde, Long hasta, Long grupo, Long ancho, String titulo, Long idGrilla) {
+	public AgrupacionModelVO(Long desde, Long hasta, Long grupo, Long ancho, String titulo, Long idGrilla) {
         super();
         this.desde = desde;
         this.hasta = hasta;
@@ -102,4 +102,11 @@ public class AgrupacionModelVO implements Serializable{
     	else
     		return 1L;
     }
+    
+    @Override
+   	public String toString() {
+   		return "AgrupacionModelVO [desde=" + desde + ", hasta=" + hasta
+   				+ ", grupo=" + grupo + ", ancho=" + ancho + ", nivel=" + nivel
+   				+ ", idGrilla=" + idGrilla + ", titulo=" + titulo + "]";
+   	}
 }

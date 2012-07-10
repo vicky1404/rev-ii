@@ -22,7 +22,7 @@ import cl.mdr.ifrs.ejb.entity.pk.AgrupacionColumnaPK;
 
 @Entity
 @NamedQueries( { @NamedQuery(name = AgrupacionColumna.FIND_ALL, query = "select o from AgrupacionColumna o") ,
-                 @NamedQuery(name = AgrupacionColumna.FIND_BY_GRILLA, query = "select o from AgrupacionColumna o where o.idGrilla = :idGrilla order by o.idNivel, o.idColumna, o.grupo "),
+                 @NamedQuery(name = AgrupacionColumna.FIND_BY_GRILLA, query = "select o from AgrupacionColumna o where o.idGrilla = :idGrilla order by o.idNivel desc, o.idColumna asc"),
                  @NamedQuery(name = AgrupacionColumna.FIND_BY_ID, query = "select o from AgrupacionColumna o where o.idColumna =:idColumna and o.idGrilla =:idGrilla and o.idNivel =:idNivel"),
                  @NamedQuery(name = AgrupacionColumna.FIND_BY_GRILLA_GRUPO, query = "select o from AgrupacionColumna o where o.idGrilla = :idGrilla and o.idNivel = :idNivel order by o.idNivel, o.idColumna, o.grupo ")
                  })
