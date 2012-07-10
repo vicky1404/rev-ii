@@ -224,26 +224,24 @@ public class ComponenteBackingBean implements Serializable {
                 grupos.add(new SelectItem(grupo, MessageFormat.format("{0} - {1}", grupo.getIdGrupoAcceso(), grupo.getNombre())));
             }
         } catch (Exception e) {
-            logger.error(e.getMessage(), e);
-            //agregarErrorMessage(PropertyManager.getInstance().getMessage("general_mensaje_init_services_error"));
+            logger.error(e.getMessage(), e);            
         }
         return grupos;
     }  
         
     
     
-    /*public List<SelectItem> getEmpresasItems(){
+    public List<SelectItem> getEmpresasItems(){
     	 List<SelectItem> empresas = new ArrayList<SelectItem>();
          try {
              for (Empresa empresa : this.getEmpresaList()) {
             	 empresas.add(new SelectItem(empresa, empresa.getRazonSocial()));
              }
          } catch (Exception e) {
-             logger.error(e.getMessage(), e);
-             //agregarErrorMessage(PropertyManager.getInstance().getMessage("general_mensaje_init_services_error"));
+             logger.error(e.getMessage(), e);             
          }
          return empresas;
-    }*/
+    }
     
     public List<SelectItem> getFiltroBloqueoSelectItem() {
         List<SelectItem> bloqueoItems = new ArrayList<SelectItem>();
@@ -327,13 +325,12 @@ public class ComponenteBackingBean implements Serializable {
         return grupoList;
     }
     
-    /*public List<Empresa> getEmpresaList(){
+    public List<Empresa> getEmpresaList(){
     	if (empresaList == null){
-    		empresaList = getFacade().getEmpresaService().findAll();
+    		empresaList = this.getFacade().getEmpresaService().findAll();
     	}    	
-    	return empresaList;
-    	
-    }*/
+    	return empresaList;    	
+    }
     
     public List<Rol> getRolList() throws Exception {
     	if(rolList == null){
