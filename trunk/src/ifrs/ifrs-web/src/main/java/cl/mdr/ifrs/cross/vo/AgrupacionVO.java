@@ -3,7 +3,6 @@ package cl.mdr.ifrs.cross.vo;
 import java.io.Serializable;
 
 import org.primefaces.component.column.Column;
-import org.primefaces.component.datatable.DataTable;
 
 
 

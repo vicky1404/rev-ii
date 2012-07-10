@@ -11,21 +11,23 @@
 	<div class="ui-datatable ui-widget ui-datatable-resizable">
 	<table role="grid">
 	<thead>
-	<h:panelGroup rendered="#{item.grillaVO.nivel == 1}">
+	<h:panelGroup rendered="#{item.grillaVO.agrupaciones != null}">
 	<tr>
-	<ui:repeat var="col" value="#{item.grillaVO.nivel1List}">
-		<th class="ui-state-default ui-resizable-column" role="columnheader" colspan="#{col.agrupacion.colSpan + 1}">
-			<div class="ui-dt-c">
-				<span><h:outputText value="#{col.tituloNivel}" /></span>
-			</div> 
-		</th>
+	<ui:repeat var="agr" value="#{item.grillaVO.agrupaciones}">
+		<ui:repeat var="agrN" value="#{agr}">
+			<th class="ui-state-default ui-resizable-column" role="columnheader" colspan="#{agrN.colSpan + 1}">
+				<div class="ui-dt-c">
+					<span><h:outputText value="#{agrN.titulo}" /></span>
+				</div> 
+			</th>
+		</ui:repeat>
 	</ui:repeat>
-	</tr>	
+	</tr>
 	</h:panelGroup>
 	<tr role="row">
 	<ui:repeat var="col" value="#{item.grillaVO.columnas}">
 		<th class="ui-state-default ui-resizable-column" role="columnheader">
-			<div class="ui-dt-c">
+			<div class="ui-dt-c" style="width:#{col.ancho}px">
 				<span><h:outputText value="#{col.tituloColumna}" /></span>
 			</div> 
 		</th>
@@ -38,7 +40,7 @@
 			<ui:repeat var="row" value="#{col}">
 			<td role="gridcell" >
 			<div class="ui-dt-c"> 
-			<span style="padding-left:10px">
+			<span style="padding-left:5px">
 				
 
 				<h:outputText value="#{row.valor}" id="ot7"

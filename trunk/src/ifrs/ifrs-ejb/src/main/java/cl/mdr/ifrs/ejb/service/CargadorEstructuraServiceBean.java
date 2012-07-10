@@ -523,7 +523,7 @@ public class CargadorEstructuraServiceBean implements CargadorEstructuraServiceL
         }
         
         grillaNotaVO.setColumnas(columnaList); 
-        grillaNotaVO.setGrilla(grilla);
+        //grillaNotaVO.setGrilla(grilla);
         grillaNotaVO.setRows(rows);
         return grillaNotaVO;
     }

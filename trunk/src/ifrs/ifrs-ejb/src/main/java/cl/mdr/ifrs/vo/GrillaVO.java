@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Celda;
 import cl.mdr.ifrs.ejb.entity.Columna;
 import cl.mdr.ifrs.ejb.entity.Grilla;
@@ -18,18 +19,34 @@ import cl.mdr.ifrs.ejb.entity.Grilla;
 public class GrillaVO implements Serializable {
     private static final long serialVersionUID = -2599361993445052185L;
     
-    private String titulo;
-    private Grilla grilla;
-    private transient List<Map<String, Object>> columns;    
-    private transient List<Map<String, Object>> grupos;
-    private transient List<Map<String, Object>> gruposResultado;
-    private transient List<AgrupacionColumnaModelVO> nivel2List;
-    private transient List<AgrupacionColumnaModelVO> nivel1List;
+    //private String titulo;
+    //private Grilla grilla;
+    //private transient List<Map<String, Object>> columns;    
+    //private transient List<Map<String, Object>> grupos;
+    //private transient List<Map<String, Object>> gruposResultado;
+    //private transient List<AgrupacionColumnaModelVO> nivel2List;
+    //private transient List<AgrupacionColumnaModelVO> nivel1List;
+    //private transient List<Long> registros;
+    
     private List<Columna> columnas;
-    private transient List<Map<Long,Celda>> rows;
-    private transient Long nivel;    
-    private transient List<Long> registros;
-    private List<List<Celda>> celdaList;
+    private List<Map<Long,Celda>> rows;
+    private List<List<AgrupacionModelVO>> agrupaciones;
+    
+    public Long getNivel() {
+		return nivel;
+	}
+
+
+	public void setNivel(Long nivel) {
+		this.nivel = nivel;
+	}
+
+
+	private List<List<Celda>> celdaList;
+    private Long nivel = 0L;
+    
+
+    
     
 
     public GrillaVO() {
@@ -37,14 +54,14 @@ public class GrillaVO implements Serializable {
     }
 
 
-    public void setGrilla(Grilla grilla) {
+    /*public void setGrilla(Grilla grilla) {
         this.grilla = grilla;
     }
 
     public Grilla getGrilla() {
         return grilla;
-    }
-
+    }*/
+/*
     public void setColumns(List<Map<String, Object>> columns) {
         this.columns = columns;
     }
@@ -68,8 +85,8 @@ public class GrillaVO implements Serializable {
     public List<Map<String, Object>> getGruposResultado() {
         return gruposResultado;
     }
-
-    public void setRegistros(List<Long> registros) {
+*/
+    /*public void setRegistros(List<Long> registros) {
         this.registros = registros;
     }
 
@@ -79,9 +96,9 @@ public class GrillaVO implements Serializable {
         registros.add(1L);
                   
             return registros;
-    }
+    }*/
 
-    public void setNivel2List(List<AgrupacionColumnaModelVO> nivel2List) {
+    /*public void setNivel2List(List<AgrupacionColumnaModelVO> nivel2List) {
         this.nivel2List = nivel2List;
     }
 
@@ -95,7 +112,7 @@ public class GrillaVO implements Serializable {
 
     public List<AgrupacionColumnaModelVO> getNivel1List() {
         return nivel1List;
-    }
+    }*/
 
     public void setColumnas(List<Columna> columnas) {
         this.columnas = columnas;
@@ -107,15 +124,15 @@ public class GrillaVO implements Serializable {
     	}
         return columnas;
     }
-
+    /*
     public void setNivel(Long nivel) {
         this.nivel = nivel;
     }
 
     public Long getNivel() {
         return nivel;
-    }
-
+    }*/
+    
     public void setRows(List<Map<Long, Celda>> rows) {
         this.rows = rows;
     }
@@ -129,13 +146,13 @@ public class GrillaVO implements Serializable {
         return rows;
     }
 
-    public void setTitulo(String titulo) {
+    /*public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
 
     public String getTitulo() {
         return titulo;
-    }
+    }*/
 
 
 	public List<List<Celda>> getCeldaList() {
@@ -145,5 +162,19 @@ public class GrillaVO implements Serializable {
 
 	public void setCeldaList(List<List<Celda>> celdaList) {
 		this.celdaList = celdaList;
+	}
+
+
+	public List<List<AgrupacionModelVO>> getAgrupaciones() {
+		return agrupaciones;
+	}
+
+
+	public void setAgrupaciones(List<List<AgrupacionModelVO>> agrupaciones) {
+		this.agrupaciones = agrupaciones;
+	}
+	
+	public boolean isRendererAgrupaciones(){
+		return Util.esListaValida(this.agrupaciones);
 	}
 }
