@@ -75,22 +75,6 @@ public class EstructuraServiceBean implements EstructuraServiceLocal {
         } 
     }
     
-    
-   
-
-    /**
-     * Guarda en la base de datos una lista de HTML.
-     * @param htmlList
-     * @author Manuel Gutierrez C.
-     * @since 18/01/2011
-     * @throws Exception
-     */
-    public void mergeHTMLList(List<Html> htmlList) throws Exception{
-        
-        for (Html html : htmlList){
-                em.merge(html);
-            }
-    }
 
     /**
      * @param grilla
@@ -383,6 +367,27 @@ public class EstructuraServiceBean implements EstructuraServiceLocal {
         query.setParameter("idNivel", idNivel);
         return query.getResultList();
     }
-
+    
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void persistEstructura(List<Estructura> estructuras, Version version, HistorialVersion historialVersion) throws Exception {
+        for (Estructura estructura : estructuras){
+                
+        	if (estructura.getTipoEstructura().getIdTipoEstructura().equals(TipoEstructuraEnum.GRILLA.getKey())){
+        		
+        		estructura.setGrillaVO(this.getGrillaVO(estructura.getGrilla(),true));
+                
+        		if (estructura.getGrilla().getTipoFormula() != null && estructura.getGrilla().getTipoFormula().equals(Grilla.TIPO_GRILLA_DINAMICA)){
+                    persistGrillaList(estructura.getGrilla());
+                } else {
+                    em.merge(estructura.getGrilla());
+                }
+        		
+        	}
+                
+            if (estructura.getTipoEstructura().getIdTipoEstructura().equals(TipoEstructuraEnum.HTML.getKey()))
+                em.merge(estructura.getHtml());            
+        }
+        em.merge(historialVersion);
+    }
    
 }
