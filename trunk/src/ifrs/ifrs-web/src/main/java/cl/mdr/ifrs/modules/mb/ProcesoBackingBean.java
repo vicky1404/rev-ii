@@ -233,10 +233,10 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
                 historialVersion.setVersion(version);
                 historialVersion.setEstadoCuadro(version.getEstado());
                 historialVersion.setFechaProceso(new Date());
-                historialVersion.setUsuario(new Usuario(getNombreUsuario()));
+                historialVersion.setUsuario(new Usuario(super.getNombreUsuario()));
                 historialVersion.setComentario(PropertyManager.getInstance().getMessage("general_mensaje_historial_nota_datos_modificados"));   
 
-                getFacadeService().getEstructuraService().persistEstructura(estructuraList, version, historialVersion); 
+                super.getFacadeService().getEstructuraService().persistEstructura(estructuraList, version, historialVersion); 
                 
                 super.addInfoMessage(PropertyManager.getInstance().getMessage("general_mensaje_nota_guardar_exito"));  
             //}            

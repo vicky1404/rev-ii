@@ -35,10 +35,6 @@ import cl.mdr.ifrs.ejb.facade.local.FacadeServiceLocal;
 @ManagedBean(name="componenteBackingBean")
 @SessionScoped
 public class ComponenteBackingBean implements Serializable {
-	
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = -4793929287251572773L;
 
 	public static final String BEAN_NAME = "componenteBackingBean";

@@ -18,14 +18,13 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 
+import org.apache.log4j.Logger;
 import org.primefaces.component.accordionpanel.AccordionPanel;
+import org.primefaces.component.tree.Tree;
 import org.primefaces.event.NodeSelectEvent;
 import org.primefaces.event.TabChangeEvent;
 import org.primefaces.model.DefaultTreeNode;
@@ -34,6 +33,7 @@ import org.primefaces.model.TreeNode;
 import cl.mdr.ifrs.cross.model.MenuModel;
 import cl.mdr.ifrs.cross.model.TreeItem;
 import cl.mdr.ifrs.cross.util.PropertyManager;
+import cl.mdr.ifrs.cross.util.UtilBean;
 import cl.mdr.ifrs.ejb.common.VigenciaEnum;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
@@ -46,12 +46,11 @@ import cl.mdr.ifrs.ejb.entity.TipoCuadro;
  * @link http://cl.linkedin.com/in/rreyesc
  *
  */
-@ManagedBean(name="menuBackingBean")
-@SessionScoped
 public class MenuBackingBean extends AbstractBackingBean implements Serializable {
 	private final Logger log = Logger.getLogger(this.getClass().getName());
 	private static final long serialVersionUID = 8077481642975216680L;
 	
+	private FiltroBackingBean filtroBackingBean;
 	
 	private UIComponent tabActivo;
 	private AccordionPanel menuAcordionPanel;
@@ -63,8 +62,8 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
     private List<MenuModel> menuModelList;    
 	
 	//tree catalogo
-    private List<Catalogo> catalogoList;
-    
+    private Tree treeCatalogo;
+    private List<Catalogo> catalogoList;    
     private boolean sistemaBloqueado;
     private TreeItem treeItem;
     private Map<Long, Catalogo> catalogoMap; 
@@ -86,7 +85,7 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 			this.buildCatalogoMap();
 		}catch (Exception e) {
 			addErrorMessage("Error", "Se ha producido un error al inicializar el Menú");
-			log.severe(""+e);
+			log.error(e.getCause(), e);
 		}
 	}
 	
@@ -164,7 +163,7 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
                     menuList.add(menu);
                 }
             } catch (Exception e) {
-                log.severe(""+e);
+            	log.error(e.getCause(), e);
             }
         }
         return menuList;
@@ -179,17 +178,19 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
     	return action;
     }
     
+    @Deprecated
     public String cargarNotaAction(){    	
     	log.info("cargando cuadro ");
-    	log.info("idCatalogo "+this.getCatalogoSelected().getNombre());
+    	log.info("idCatalogo "+this.getCatalogoSelected().getNombre());    	
     	return "/pages/cuadro/cuadroBackingBean.jsf";
     }
     
-    public void onSelectNodeMenuCuadro(NodeSelectEvent event) {
+    public void onSelectNodeMenuCuadro(NodeSelectEvent event) throws Exception {
     	this.setActiveTabIndex("0");
+    	event.getTreeNode().getParent().setExpanded(Boolean.TRUE);
     	this.setCatalogoSelected(this.getCatalogoMap().get(Util.getLong(event.getTreeNode().toString(), null)));
-    	getFiltroBackingBean().setCatalogo(this.catalogoSelected);    	
-    	addInfoMessage("", "nodo 1a: "+this.getCatalogoSelected().getNombre() + " "+this.getCatalogoSelected().getTitulo() );
+    	this.getFiltroBackingBean().setCatalogo(this.catalogoSelected);    	    
+    	super.getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat("/pages/proceso/proceso.jsf"));
     } 
     
     
@@ -320,6 +321,25 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 
 	public void setCatalogoSelected(Catalogo catalogoSelected) {
 		this.catalogoSelected = catalogoSelected;
+	}
+
+	public FiltroBackingBean getFiltroBackingBean() {
+		if(filtroBackingBean == null){
+			filtroBackingBean = UtilBean.findBean(FiltroBackingBean.FILTRO_BEAN_NAME);
+		}
+		return filtroBackingBean;
+	}
+
+	public void setFiltroBackingBean(FiltroBackingBean filtroBackingBean) {
+		this.filtroBackingBean = filtroBackingBean;
+	}
+
+	public Tree getTreeCatalogo() {
+		return treeCatalogo;
+	}
+
+	public void setTreeCatalogo(Tree treeCatalogo) {
+		this.treeCatalogo = treeCatalogo;
 	}
 
 	 
