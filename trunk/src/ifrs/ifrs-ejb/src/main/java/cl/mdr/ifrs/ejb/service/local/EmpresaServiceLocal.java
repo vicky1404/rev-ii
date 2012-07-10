@@ -10,4 +10,8 @@ import cl.mdr.ifrs.ejb.entity.Empresa;
 public interface EmpresaServiceLocal {
 	
 	List<Empresa> findAll();
+	
+	Empresa findById(Empresa empresa) throws Exception;
+	
+	Empresa mergeEmpresa(Empresa empresa) throws Exception;
 }

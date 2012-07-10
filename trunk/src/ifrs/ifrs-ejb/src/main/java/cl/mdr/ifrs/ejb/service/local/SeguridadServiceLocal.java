@@ -7,7 +7,9 @@ import javax.ejb.Local;
 import javax.persistence.NoResultException;
 
 import cl.mdr.ifrs.ejb.entity.CatalogoGrupo;
+import cl.mdr.ifrs.ejb.entity.Empresa;
 import cl.mdr.ifrs.ejb.entity.Grupo;
+import cl.mdr.ifrs.ejb.entity.GrupoEmpresa;
 import cl.mdr.ifrs.ejb.entity.Menu;
 import cl.mdr.ifrs.ejb.entity.MenuGrupo;
 import cl.mdr.ifrs.ejb.entity.Rol;
@@ -177,5 +179,26 @@ public interface SeguridadServiceLocal {
      * @throws Exception
      */
     Usuario authenticateUser(String nombreUsuario) throws Exception, NoResultException;
+    
+    /**
+     * @param empresa
+     * @return
+     * @throws Exception
+     */
+    List<Grupo> findGrupoByEmpresaIn(Empresa empresa) throws Exception;
+    
+    /**
+     * @param empresa
+     * @return
+     * @throws Exception
+     */
+    List<Grupo> findGrupoByEmpresaNotIn(Empresa empresa) throws Exception;
+    
+    /**
+     * @param grupoEmpresaList
+     * @param empresa
+     * @throws Exception
+     */
+    void persistGrupoEmpresa(List<GrupoEmpresa> grupoEmpresaList, Empresa empresa) throws Exception;
         
 }

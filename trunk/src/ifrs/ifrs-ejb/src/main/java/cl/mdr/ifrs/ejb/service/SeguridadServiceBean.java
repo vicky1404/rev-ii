@@ -17,7 +17,9 @@ import org.apache.commons.lang3.StringUtils;
 
 import cl.mdr.ifrs.ejb.common.Constantes;
 import cl.mdr.ifrs.ejb.entity.CatalogoGrupo;
+import cl.mdr.ifrs.ejb.entity.Empresa;
 import cl.mdr.ifrs.ejb.entity.Grupo;
+import cl.mdr.ifrs.ejb.entity.GrupoEmpresa;
 import cl.mdr.ifrs.ejb.entity.Menu;
 import cl.mdr.ifrs.ejb.entity.MenuGrupo;
 import cl.mdr.ifrs.ejb.entity.Rol;
@@ -107,7 +109,7 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
     public Usuario findUsuarioByUserName(final String userName)throws Exception{
     	return (Usuario) em.createQuery("select u from Usuario u " +
     									"left join fetch u.grupos g " +
-    									"where u.nombreUsuario =:userName").setParameter("userName", userName.toUpperCase()).getSingleResult();
+    									"where u.nombreUsuario =:userName").setParameter("userName", userName).getSingleResult();
     }
     
     /* (non-Javadoc)
@@ -283,6 +285,51 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
     	return (Usuario) em.createNamedQuery(Usuario.AUTHENTICATE_USER)
     							  .setParameter("nombreUsuario", nombreUsuario)    							  
     							  .getSingleResult();
+    }
+    
+    //Grupos por empresas   
+    
+    /* (non-Javadoc)
+     * @see cl.mdr.ifrs.ejb.service.local.SeguridadServiceLocal#findGrupoByEmpresaIn(cl.mdr.ifrs.ejb.entity.Empresa)
+     */
+    @SuppressWarnings("unchecked")
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public List<Grupo> findGrupoByEmpresaIn(final Empresa empresa) throws Exception {
+    	return em.createQuery(" select g from Grupo g "+
+							  " where g.idGrupoAcceso in " +
+							  " (select ge.idGrupoAcceso " +
+							  "	from GrupoEmpresa ge " +
+							  "	where ge.empresa =:empresa) " +
+							  " order by g.areaNegocio asc, g.nombre asc")
+				.setParameter("empresa", empresa)
+				.getResultList();
+    }
+    
+    
+    /* (non-Javadoc)
+     * @see cl.mdr.ifrs.ejb.service.local.SeguridadServiceLocal#findGrupoByEmpresaNotIn(cl.mdr.ifrs.ejb.entity.Empresa)
+     */
+    @SuppressWarnings("unchecked")
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public List<Grupo> findGrupoByEmpresaNotIn(final Empresa empresa) throws Exception {
+        return em.createQuery(" select g from Grupo g "+
+        					  " where g.idGrupoAcceso not in " +
+        					  " (select ge.idGrupoAcceso " +
+        					  "	from GrupoEmpresa ge " +
+        					  "	where ge.empresa =:empresa) " +
+        					  " order by g.areaNegocio asc, g.nombre asc")
+        		.setParameter("empresa", empresa)
+        		.getResultList(); 
+    }
+    
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void persistGrupoEmpresa(final List<GrupoEmpresa> grupoEmpresaList, final Empresa empresa) throws Exception {
+        em.createQuery("delete from GrupoEmpresa ge where ge.rut =:rut").setParameter("rut", empresa.getRut()).executeUpdate();
+        for (GrupoEmpresa grupoEmpresa : grupoEmpresaList) {            
+        	em.createNativeQuery("INSERT INTO "+Constantes.GRUPO_EMPRESA+" (ID_GRUPO_ACCESO, RUT) VALUES(?, ? )")
+								 .setParameter(1, grupoEmpresa.getGrupo().getIdGrupoAcceso())
+								 .setParameter(2, grupoEmpresa.getEmpresa().getRut()).executeUpdate();
+        }
     }
     
        
