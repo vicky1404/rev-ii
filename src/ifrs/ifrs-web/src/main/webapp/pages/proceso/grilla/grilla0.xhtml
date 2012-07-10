@@ -12,17 +12,17 @@
 	<table role="grid">
 	<thead>
 	<h:panelGroup rendered="#{item.grillaVO.agrupaciones != null}">
-	<tr>
 	<ui:repeat var="agr" value="#{item.grillaVO.agrupaciones}">
+	<tr>
 		<ui:repeat var="agrN" value="#{agr}">
 			<th class="ui-state-default ui-resizable-column" role="columnheader" colspan="#{agrN.colSpan + 1}">
 				<div class="ui-dt-c">
-					<span><h:outputText value="#{agrN.titulo}" /></span>
+					<span><h:outputText value="#{agrN.titulo == null ? ' ' : agrN.titulo}" /></span>
 				</div> 
 			</th>
-		</ui:repeat>
-	</ui:repeat>
+		</ui:repeat>	
 	</tr>
+	</ui:repeat>
 	</h:panelGroup>
 	<tr role="row">
 	<ui:repeat var="col" value="#{item.grillaVO.columnas}">
@@ -41,8 +41,6 @@
 			<td role="gridcell" >
 			<div class="ui-dt-c"> 
 			<span style="padding-left:5px">
-				
-
 				<h:outputText value="#{row.valor}" id="ot7"
                                style="#{row.tipoCelda.idTipoCelda == 4 or row.tipoCelda.idTipoCelda == 5 ? 'text-align:right;font-weight:bold;color:black' : 'text-align:right;'}"
                                rendered="#{ (row.tipoCelda.idTipoCelda == 0 or row.tipoCelda.idTipoCelda == 4 or row.tipoCelda.idTipoCelda == 5) and (row.tipoDato.idTipoDato != 2 and row.tipoDato.idTipoDato != 3) }"></h:outputText>

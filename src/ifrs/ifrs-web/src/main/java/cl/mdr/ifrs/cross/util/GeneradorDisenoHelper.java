@@ -209,7 +209,7 @@ public class GeneradorDisenoHelper {
     public static List<List<AgrupacionModelVO>> crearAgrupadorHTMLVO(List<AgrupacionColumna> agrupaciones){
     	
     	List<List<AgrupacionModelVO>> agrupacionesVO = new ArrayList<List<AgrupacionModelVO>>();
-    	Map<Long,List<AgrupacionModelVO>> agrupacionMap = new HashMap<Long,List<AgrupacionModelVO>>();
+    	Map<Long,List<AgrupacionModelVO>> agrupacionMap = new LinkedHashMap<Long,List<AgrupacionModelVO>>();
         
         if(!Util.esListaValida(agrupaciones))
             return agrupacionesVO;
