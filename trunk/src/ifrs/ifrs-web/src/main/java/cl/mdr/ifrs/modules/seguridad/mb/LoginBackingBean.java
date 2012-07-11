@@ -38,16 +38,15 @@ public class LoginBackingBean extends AbstractBackingBean implements Serializabl
 		try {
 			final Usuario usuario = super.getFacadeService().getSeguridadService().authenticateUser(this.getUsuarioLogin().getNombreUsuario());
 			if(!usuario.getVigente().equals(1L)){
-				super.addErrorMessage("El Usuario se encuentra suspendido, por favor, consulte al Administrador");				
+				super.addErrorMessage("<p>El Usuario se encuentra suspendido del sistema,</p> <p>por favor, consulte al Administrador</p>");				
 				return null;
 			}
 			else if(!usuario.getPassword().equals(this.getUsuarioLogin().getPassword())){
-				super.addErrorMessage("La Clave es incorrecta");
+				super.addErrorMessage("La Clave ingresada es incorrecta");
 				this.getUsuarioLogin().setPassword(null);				
 				return null;
 			}
-			
-			
+						
 			logger.info("Login OK");			
 			super.getExternalContext().getSessionMap().put(Usuario.class.getName(), usuario);			
 			super.getExternalContext().redirect("pages/home.jsf");
@@ -56,7 +55,7 @@ public class LoginBackingBean extends AbstractBackingBean implements Serializabl
 			super.addWarnMessage(MessageFormat.format("El Usuario <u>{0}</u> no existe", this.getUsuarioLogin().getNombreUsuario()));
 			logger.error(e.getCause(), e);
 		} catch (Exception e) {
-			super.addErrorMessage("Se ha producido un Error al realizar el proceso de Autenticación");
+			super.addErrorMessage("Se ha producido un Error al realizar el proceso de Autentificación");
 			logger.error(e.getCause(), e);
 		}
 		return null;
@@ -68,7 +67,7 @@ public class LoginBackingBean extends AbstractBackingBean implements Serializabl
 	public String logoutAction() {		
 		try{
 			super.getExternalContext().invalidateSession();
-			super.getExternalContext().redirect("login.jsf?faces-redirect=true");
+			super.getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat("/login.jsf?logout=1"));
 			super.addInfoMessage("", "Se ha Cerrado correctamente su Sesión en el Sistema");
 		} catch (IOException e) {		
 			super.addErrorMessage("Se ha producido un Error al realizar el proceso de Logout");

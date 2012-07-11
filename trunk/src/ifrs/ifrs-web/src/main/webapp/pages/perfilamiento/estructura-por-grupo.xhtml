@@ -6,10 +6,10 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/main-template.xhtml">
 	<ui:define name="content">
-		<h:outputScript name="js/util/form-util.js"/>
+		<h:outputScript name="js/util/form-util.js" />
 		<h:form id="f_estructura_grupo">
-			<p:growl id="messages_estructura_grupo" autoUpdate="true" showDetail="true"
-				showSummary="true" />
+			<p:growl id="messages_estructura_grupo" autoUpdate="true"
+				showDetail="true" showSummary="true" />
 			<p:ajaxStatus onstart="statusDialog.show();"
 				oncomplete="statusDialog.hide();" />
 			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
@@ -28,8 +28,8 @@
 							var="grupo" itemLabel="#{grupo.nombre}"
 							itemValue="#{grupo.idGrupoAcceso}" />
 					</p:selectOneMenu>
-					<p:message for="sg" />  
-					<p:outputLabel value="#{msg.label_tipo_cuadro}:" for="stc"  />
+					<h:message for="sg" styleClass="ui-outputlabel ui-state-error" />
+					<!-- p:outputLabel value="#{msg.label_tipo_cuadro}:" for="stc"  />
 					<p:selectOneMenu label="#{msg.label_tipo_cuadro}"
 						converter="tipoCuadroConverter" id="stc"
 						value="#{estructuraPorGrupoBackingBean.tipoCuadroSelected}"
@@ -38,18 +38,24 @@
 						<f:selectItems
 							value="#{estructuraPorGrupoBackingBean.componenteBackingBean.tipoCuadroItems}" />
 					</p:selectOneMenu>
-					<p:message for="stc" />  
-					<h:panelGrid columns="2">
-						<h:outputLabel value=" " />
-						<p:commandButton value="#{msg.boton_buscar}"
-							actionListener="#{estructuraPorGrupoBackingBean.buscarEstructurasPorGrupoAction}"
-							update="tabla_menu" ajax="false">
-						</p:commandButton>
-					</h:panelGrid>
+					<p:message for="stc" /-->
 				</h:panelGrid>
+				<h:panelGrid columns="3">
+					<h:outputLabel value=" " />
+					<p:commandButton value="#{msg.boton_buscar}" icon="ui-icon-search"
+						actionListener="#{estructuraPorGrupoBackingBean.buscarEstructurasPorGrupoAction}"
+						update="tabla_menu" ajax="false">
+					</p:commandButton>
+					<p:commandButton icon="ui-icon-cancel" value="#{msg.boton_cancel}"
+						id="btnCancelar11" immediate="true"
+						action="estructura-por-grupo?faces-redirect=true">
+					</p:commandButton>
+				</h:panelGrid>
+
 			</p:panel>
 			<br />
-			<p:toolbar rendered="#{estructuraPorGrupoBackingBean.renderTablaCatalogo}">
+			<p:toolbar
+				rendered="#{estructuraPorGrupoBackingBean.renderTablaCatalogo}">
 				<p:toolbarGroup>
 					<p:commandButton icon="ui-icon-disk"
 						value="#{msg.guardar_estructura_grupo}" id="btnGuardar"
@@ -57,22 +63,24 @@
 						update="messages_estructura_grupo">
 					</p:commandButton>
 					<p:separator />
-					<p:commandLink value="#{msg.label_seleccionar_todo}" onclick="selectAll()"></p:commandLink>
+					<p:commandLink value="#{msg.label_seleccionar_todo}"
+						onclick="selectAll()"></p:commandLink>
 					<p:separator />
-					<p:commandLink value="#{msg.label_no_seleccionar_todo}" onclick="unSelectAll()"></p:commandLink>
+					<p:commandLink value="#{msg.label_no_seleccionar_todo}"
+						onclick="unSelectAll()"></p:commandLink>
 				</p:toolbarGroup>
 			</p:toolbar>
 			<p:dataTable emptyMessage="#{msg.mensaje_tabla_sin_registros}"
-				value="#{estructuraPorGrupoBackingBean.grillaCatalogoList}" id="tabla_catalogo"
-				var="row" lazy="false"
+				value="#{estructuraPorGrupoBackingBean.grillaCatalogoList}"
+				id="tabla_catalogo" var="row" lazy="false"
 				rendered="#{estructuraPorGrupoBackingBean.renderTablaCatalogo}">
-				<p:column
-					headerText="#{msg.label_seleccionar}" style="text-align:center;" id="c2" width="100">
+				<p:column headerText="#{msg.label_seleccionar}"
+					style="text-align:center;" id="c2" width="100">
 					<h:selectBooleanCheckbox value="#{row.selected}" id="sel1"
 						label=" " />
 				</p:column>
 				<p:column sortable="false" headerText="#{msg.tabla_cabecera_nombre}"
-					align="left" id="c3" width="150">
+					align="left" id="c3" width="150" sortBy="#{row.entity.orden}">
 					<h:outputText value="#{row.entity.nombre}" id="ot1" />
 				</p:column>
 				<p:column sortable="false" headerText="#{msg.tabla_cabecera_titulo}"
@@ -83,9 +91,9 @@
 					align="left" id="c6" rowHeader="unstyled">
 					<h:outputText value="#{row.entity.tipoCuadro.nombre}" id="ot4" />
 				</p:column>
-				<f:facet name="footer">  
-		            <br />
-		        </f:facet>
+				<f:facet name="footer">
+					<br />
+				</f:facet>
 			</p:dataTable>
 		</h:form>
 	</ui:define>

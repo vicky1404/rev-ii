@@ -20,7 +20,7 @@ public class ThemeBackingBean implements Serializable {
 	
 	//theme
     private Map<String, String> themes;
-    private String theme = "aristo";
+    private String theme = "bluesky";
     private GuestPreferences gp = new GuestPreferences();
     
 	@PostConstruct  

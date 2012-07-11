@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/main-template.xhtml">
 	<ui:define name="content">
-		<h:outputScript name="js/util/form-util.js"/>
+		<h:outputScript name="js/util/form-util.js" />
 		<h:form id="f_menu_grupo">
 			<p:growl id="messages_menu_grupo" autoUpdate="true" showDetail="true"
 				showSummary="true" />
@@ -17,9 +17,9 @@
 				header="#{msg.titulo_mantenedor_menu_por_grupo}" toggleable="true"
 				closable="false" toggleSpeed="500" closeSpeed="2000"
 				widgetVar="panel">
-				<h:panelGrid columns="2">
-					<h:outputText value="#{msg.label_grupo}:" />
-					<p:selectOneMenu label="#{msg.label_grupo}"
+				<h:panelGrid columns="3">
+					<p:outputLabel value="#{msg.label_grupo}:" for="som1" />
+					<p:selectOneMenu label="#{msg.label_grupo}" id="som1"
 						value="#{menuPorGrupoBackingBean.idGrupoSelected}" required="true"
 						requiredMessage="#{msg.mensaje_seleccione_valor}">
 						<f:selectItem itemLabel="#{msg.label_seleccione}" />
@@ -28,9 +28,17 @@
 							var="grupo" itemLabel="#{grupo.nombre}"
 							itemValue="#{grupo.idGrupoAcceso}" />
 					</p:selectOneMenu>
-					<p:commandButton value="#{msg.boton_buscar}"
+					<h:message for="som1" styleClass="ui-outputlabel ui-state-error" />
+				</h:panelGrid>
+				<h:panelGrid columns="3">
+					<h:outputLabel value="" />
+					<p:commandButton value="#{msg.boton_buscar}" icon="ui-icon-search"
 						actionListener="#{menuPorGrupoBackingBean.buscarMenuPorGrupoAction}"
 						update="tabla_menu" ajax="false">
+					</p:commandButton>
+					<p:commandButton icon="ui-icon-cancel" value="#{msg.boton_cancel}"
+						id="btnCancelar11" immediate="true"
+						action="menu-por-grupo?faces-redirect=true">
 					</p:commandButton>
 				</h:panelGrid>
 			</p:panel>
@@ -43,14 +51,17 @@
 						update="messages_menu_grupo">
 					</p:commandButton>
 					<p:separator />
-					<p:commandLink value="#{msg.label_seleccionar_todo}" onclick="selectAll()"></p:commandLink>
+					<p:commandLink value="#{msg.label_seleccionar_todo}"
+						onclick="selectAll()"></p:commandLink>
 					<p:separator />
-					<p:commandLink value="#{msg.label_no_seleccionar_todo}" onclick="unSelectAll()"></p:commandLink>
+					<p:commandLink value="#{msg.label_no_seleccionar_todo}"
+						onclick="unSelectAll()"></p:commandLink>
 				</p:toolbarGroup>
 			</p:toolbar>
 			<p:dataTable emptyMessage="#{msg.mensaje_tabla_sin_registros}"
 				value="#{menuPorGrupoBackingBean.grillaMenuList}" id="tabla_menu"
-				var="row" lazy="false" selectionMode="single" rowKey="#{row.entity.idMenu}"
+				var="row" lazy="false" selectionMode="single"
+				rowKey="#{row.entity.idMenu}"
 				rendered="#{menuPorGrupoBackingBean.renderTablaMenu}">
 				<p:column headerText="#{msg.label_seleccionar}" id="c2"
 					style="text-align:center;">
@@ -73,9 +84,9 @@
 					<h:outputText value="#{row.entity.urlMenu}" id="t3"
 						rendered="#{!row.entity.padre}" />
 				</p:column>
-				<f:facet name="footer">  
-		            <br />
-		        </f:facet>
+				<f:facet name="footer">
+					<br />
+				</f:facet>
 			</p:dataTable>
 		</h:form>
 	</ui:define>

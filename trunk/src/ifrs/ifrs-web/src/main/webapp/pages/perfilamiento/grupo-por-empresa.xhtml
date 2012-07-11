@@ -16,7 +16,7 @@
 				header="Grupo de Usuario por Empresa" toggleable="true"
 				closable="false" toggleSpeed="500" closeSpeed="2000"
 				widgetVar="panel">
-				<h:panelGrid columns="2">
+				<h:panelGrid columns="3">
 					<p:outputLabel value="Empresa:" for="som1" />
 					<p:selectOneMenu label="Empresa"
 						value="#{grupoPorEmpresaBackingBean.empresa.rut}" required="true"
@@ -28,9 +28,16 @@
 							itemLabel="#{empresa.razonSocial}" />
 					</p:selectOneMenu>
 					<h:message for="som1" styleClass="ui-outputlabel ui-state-error" />
-					<p:commandButton value="#{msg.boton_buscar}"
+				</h:panelGrid>
+				<h:panelGrid columns="3">
+					<h:outputLabel value="" />
+					<p:commandButton value="#{msg.boton_buscar}" icon="ui-icon-search"
 						actionListener="#{grupoPorEmpresaBackingBean.buscarAction}"
 						ajax="false">
+					</p:commandButton>
+					<p:commandButton icon="ui-icon-cancel" value="#{msg.boton_cancel}"
+						id="btnCancelar11" immediate="true"
+						action="grupo-por-empresa?faces-redirect=true">
 					</p:commandButton>
 				</h:panelGrid>
 			</p:panel>

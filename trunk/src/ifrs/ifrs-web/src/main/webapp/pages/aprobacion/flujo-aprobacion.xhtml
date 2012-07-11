@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	template="/WEB-INF/templates/main-template.xhtml">
-	<ui:define name="content">		
+	<ui:define name="content">
 		<h:form id="form_flujo">
 			<h:outputScript name="js/util/form-util.js" />
 			<p:messages id="messages_reporte_cuadro" autoUpdate="true"
@@ -39,11 +39,11 @@
 				widgetVar="panel">
 				<h:panelGrid border="0" columns="2" style="width:400px;">
 					<h:column headerClass="ancho250">
-						<p:outputLabel value="#{msg.label_periodo}:" style="width:200px;" for="soc1" />
+						<p:outputLabel value="#{msg.label_periodo}:" style="width:200px;"
+							for="soc1" />
 					</h:column>
 					<h:column>
-						<p:selectOneMenu id="soc1"
-							label="#{msg.label_mes_periodo}"
+						<p:selectOneMenu id="soc1" label="#{msg.label_mes_periodo}"
 							value="#{flujoAprobacionBackingBean.filtroBackingBean.periodo.mesPeriodo}"
 							required="true">
 							<f:selectItem itemLabel="#{msg.label_seleccione}" />
@@ -51,7 +51,8 @@
 								value="#{flujoAprobacionBackingBean.componenteBackingBean.meses}"
 								id="si1" />
 						</p:selectOneMenu>
-						<p:selectOneMenu id="soc2" style="margin-left:5px;" label="#{msg.label_anio_periodo}"							
+						<p:selectOneMenu id="soc2" style="margin-left:5px;"
+							label="#{msg.label_anio_periodo}"
 							value="#{flujoAprobacionBackingBean.filtroBackingBean.periodo.anioPeriodo}"
 							required="true">
 							<f:selectItem itemLabel="#{msg.label_seleccione}" />
@@ -81,23 +82,28 @@
 							value="#{flujoAprobacionBackingBean.componenteBackingBean.estadoCuadroItems}"
 							id="estados" />
 					</p:selectOneMenu>
-
-					<h:panelGrid columns="2">
-						<h:outputLabel value=" " />
-						<p:commandButton value="#{msg.boton_buscar}"
-							actionListener="#{flujoAprobacionBackingBean.buscarAction}"
-							update="form_flujo:tabla_catalogo_flujo" ajax="false"
-							onclick="statusDialogNoModal.show();">
-						</p:commandButton>
-					</h:panelGrid>
 				</h:panelGrid>
+				<h:panelGrid columns="3">
+					<h:outputLabel value=" " />
+					<p:commandButton value="#{msg.boton_buscar}" icon="ui-icon-search"
+						actionListener="#{flujoAprobacionBackingBean.buscarAction}"
+						update="form_flujo:tabla_catalogo_flujo" ajax="false"
+						onclick="statusDialogNoModal.show();">
+					</p:commandButton>
+					<p:commandButton icon="ui-icon-cancel" value="#{msg.boton_cancel}"
+						id="btnCancelar1" immediate="true"
+						action="flujo-aprobacion?faces-redirect=true">
+					</p:commandButton>
+				</h:panelGrid>
+
 			</p:panel>
 			<br />
 			<p:toolbar rendered="#{flujoAprobacionBackingBean.renderFlujo}">
 				<p:toolbarGroup>
 					<p:commandButton icon="ui-icon-disk"
 						value="#{msg.workflow_control_cambiar_estado}" id="btnGuardar"
-						actionListener="#{flujoAprobacionBackingBean.guardarAction}" update="form_flujo:tabla_catalogo_flujo">
+						actionListener="#{flujoAprobacionBackingBean.guardarAction}"
+						update="form_flujo:tabla_catalogo_flujo">
 					</p:commandButton>
 					<p:separator />
 					<p:commandButton value="#{msg.label_exportar_a_excel}" id="excbtn1"
@@ -141,7 +147,7 @@
 						<f:selectItems
 							value="#{flujoAprobacionBackingBean.componenteBackingBean.estadoCuadroItems}"
 							id="est" />
-						<f:ajax render="@form" execute="@this"/>
+						<f:ajax render="@form" execute="@this" />
 					</h:selectOneMenu>
 				</p:column>
 				<p:column sortable="false" headerText="#{msg.label_titulo}"
@@ -163,10 +169,10 @@
 					align="start" id="c5">
 					<h:outputText value="#{row.comentario}" id="ot18"
 						rendered="#{row.estado.idEstado == 5 ? false : true}" />
-					<h:inputTextarea id="txt_obs" rows="4" wrap="hard"
-						inlineStyle="width: 90%" label=" "
+					<p:inputTextarea id="txt_obs" rows="4" wrap="hard"
+						autoResize="true"
 						required="#{row.estado.idEstado == 5 ? true : false}"
-						requiredMessage="#{msg.ingrese_observacion_para}: #{row.catalogo.nombre}"
+						requiredMessage="#{msg.mensaje_ingrese_observacion_apertura_contingencia}: #{row.catalogo.nombre}"
 						rendered="#{row.estado.idEstado == 5 ? true : false}"
 						value="#{row.comentario}" />
 
