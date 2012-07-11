@@ -54,6 +54,7 @@ import cl.mdr.ifrs.ejb.common.Constantes;
                              		 " TipoCuadro tc "+
                              		 " where c.idCatalogo = cg.idCatalogo " +                             		
                              		 " and c.tipoCuadro.idTipoCuadro = tc.idTipoCuadro "+
+                             		 " and ug.idGrupo = cg.idGrupoAcceso "+
                              		 " and (:usuario is null or ug.nombreUsuario = :usuario) " +
                              		 " and (:tipoCuadro is null or c.tipoCuadro.idTipoCuadro = :tipoCuadro) " +                             		 
                              		 " and (:grupo is null or cg.grupo = :grupo) " +
