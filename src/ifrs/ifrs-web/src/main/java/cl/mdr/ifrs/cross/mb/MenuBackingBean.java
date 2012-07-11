@@ -7,6 +7,7 @@ import static ch.lambdaj.Lambda.having;
 import static ch.lambdaj.Lambda.index;
 import static ch.lambdaj.Lambda.on;
 import static ch.lambdaj.Lambda.select;
+import static ch.lambdaj.Lambda.sort;
 import static org.hamcrest.Matchers.equalTo;
 
 import java.io.Serializable;
@@ -49,6 +50,7 @@ import cl.mdr.ifrs.ejb.entity.TipoCuadro;
 public class MenuBackingBean extends AbstractBackingBean implements Serializable {
 	private final Logger log = Logger.getLogger(this.getClass().getName());
 	private static final long serialVersionUID = 8077481642975216680L;
+	private static final String PROCESO_VIEW_ID = "/pages/proceso/proceso.jsf";
 	
 	private FiltroBackingBean filtroBackingBean;
 	
@@ -77,6 +79,9 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 		root = new DefaultTreeNode("Proceso", null);  					 
 	}
 	
+	/**
+	 * 
+	 */
 	@PostConstruct
 	void init(){	
 		try{
@@ -89,11 +94,17 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 		}
 	}
 	
+	/**
+	 * @param event
+	 */
 	public void onTabChange(TabChangeEvent event) {  
 		this.setTabActivo(event.getTab());   
 		this.setActiveTabIndex("1");
     }
 	
+	/**
+	 * 
+	 */
 	public void buildCatalogoMap(){
 		final Map<Long, Catalogo> catalogoMap = index(this.getCatalogoList(), on(Catalogo.class).getIdCatalogo());
 		this.setCatalogoMap(catalogoMap);
@@ -122,7 +133,7 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
         MenuModel menuModel = null;
         List<Menu> menuChildModelList = null;
         List<MenuModel> menuModelList = new ArrayList<MenuModel>();
-        ordenarMenu(menuList);
+        ordenarMenuByGrupo(menuList);
         for (Menu m : menuList) {
             if (m.getUrlMenu().equals("#") && m.getEstado().equals(1L) && m.isPadre()) {
                 menuParentList.add(m);
@@ -141,12 +152,16 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
                     menuChildModelList.add(menuChild);
                 }
             }
+            ordenarMenuByNombre(menuChildModelList);
             menuModel.setMenuChild(menuChildModelList);
             menuModelList.add(menuModel);
         }
         this.setMenuModelList(menuModelList);
 	}
 	    
+    /**
+     * @return
+     */
     public List<Menu> getMenuList() {
         if (menuList == null) {
             final List<Grupo> grupoList;
@@ -169,6 +184,9 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
         return menuList;
     }
     
+    /**
+     * @return
+     */
     public String navigation(){    
     	final String action = super.getExternalContext().getRequestParameterMap().get("urlAction");
     	final String tabNumber = super.getExternalContext().getRequestParameterMap().get("tabNumber");
@@ -178,6 +196,9 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
     	return action;
     }
     
+    /**
+     * @return
+     */
     @Deprecated
     public String cargarNotaAction(){    	
     	log.info("cargando cuadro ");
@@ -185,16 +206,26 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
     	return "/pages/cuadro/cuadroBackingBean.jsf";
     }
     
+    /**
+     * @param event
+     * @throws Exception
+     */
     public void onSelectNodeMenuCuadro(NodeSelectEvent event) throws Exception {
     	this.setActiveTabIndex("0");
     	event.getTreeNode().getParent().setExpanded(Boolean.TRUE);
+    	event.getTreeNode().getParent().setSelected(Boolean.TRUE);
     	this.setCatalogoSelected(this.getCatalogoMap().get(Util.getLong(event.getTreeNode().toString(), null)));
-    	this.getFiltroBackingBean().setCatalogo(this.catalogoSelected);    	    
-    	super.getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat("/pages/proceso/proceso.jsf"));
+    	if(this.getCatalogoSelected() != null){
+    		this.getFiltroBackingBean().setCatalogo(this.getCatalogoSelected());    	    
+    		super.getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(PROCESO_VIEW_ID));
+    	}
     } 
     
     
-    private static void ordenarMenu(List<Menu> menuList) {
+    /**
+     * @param menuList
+     */
+    private static void ordenarMenuByGrupo(List<Menu> menuList) {
         Collections.sort(menuList, new Comparator<Menu>() {
             public int compare(Menu m1, Menu m2) {
                 return m1.getGrupo().compareTo(m2.getGrupo());
@@ -202,6 +233,21 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
         });
     }
     
+    /**
+     * @param menuList
+     */
+    private static void ordenarMenuByNombre(List<Menu> menuList) {
+        Collections.sort(menuList, new Comparator<Menu>() {
+            public int compare(Menu m1, Menu m2) {
+                return m1.getNombre().compareTo(m2.getNombre());
+            }
+        });
+    }
+    
+    /**
+     * @param catalogoList
+     * @return
+     */
     private List<TipoCuadro> getTiposCuadroFromCatalogo(final List<Catalogo> catalogoList){
         Set<TipoCuadro> tipoCuadroSet = new LinkedHashSet<TipoCuadro>();
         List<TipoCuadro> tipoCuadroList = new ArrayList<TipoCuadro>();
@@ -214,6 +260,9 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
         return tipoCuadroList;
     }
     
+    /**
+     * @return
+     */
     public List<Catalogo> getCatalogoList() {
         if(catalogoList==null){
             try{
@@ -229,6 +278,10 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
         this.sistemaBloqueado = sistemaBloqueado;
     }
 
+    /**
+     * @return
+     * @throws Exception
+     */
     public boolean isSistemaBloqueado() throws Exception {
         sistemaBloqueado = Boolean.FALSE;
         final List<Grupo> grupoList = select(this.getFacadeService().getSeguridadService().findUsuarioByUserName(super.getNombreUsuario()).getGrupos(), having(on(Grupo.class).getAccesoBloqueado(), equalTo(1L)));            

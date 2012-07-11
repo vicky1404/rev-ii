@@ -2,32 +2,35 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #F1F1F1;
+  /*background-color: #F1F1F1;*/
   font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
   font-size: 0.8em;
   color:#363636;
 }
 
 #container {
-  margin: 0 auto;
-  padding: 0 20px 10px 20px;
-  border-top: 5px solid #000000;
-  border-left: 5px solid #8c8f91;
-  border-right: 5px solid #8c8f91;
-  border-bottom: 25px solid #8c8f91;
+  margin: 0 auto; 
+  /*padding: 0 20px 10px 20px;*/
+  border-top: 0px solid #000000;
+  border-left: 0px solid #8c8f91;
+  border-right: 0px solid #8c8f91;
+  /*border-bottom: 25px solid #8c8f91;*/
+  border-bottom: 0px solid #8c8f91;
   /*width: 865px;*/ /* subtract 40px from banner width for padding */
   width: 70%;
   background: #FFFFFF;
   background-image: url(#{request.contextPath}/resources/gfx/headerbkg.png);
   background-repeat: repeat-x;
-  padding-top: 30px;
-  box-shadow: 3px 3px 15px #d5d5d5;
+  /*padding-top: 30px;*/
+  box-shadow: 10px 10px 15px #d5d5d5;  
 }
+
 #content {
   float: left;
   width: 500px;
   margin: 20px;
 }
+
 #aside {
   font-size: 0.9em;
   width: 275px;
@@ -43,27 +46,33 @@ body {
 #aside ul {
   padding-left: 30px;
 }
+
 .dualbrand {
   float: right;
   padding-right: 10px;
 }
+
 #footer {
   clear: both;
   text-align: center;
   color: #666666;
   font-size: 0.85em;
 }
+
 code {
   font-size: 1.1em;
 }
+
 a {
   color: #4a5d75;
   text-decoration: none;
 }
+
 a:hover {
   color: #369;
   text-decoration: underline;
 }
+
 h1 {
   color:#243446;
   font-size: 2.25em;
@@ -71,9 +80,11 @@ h1 {
 h2 {
   font-size: 1em;
 }
+
 h3 {
   color:#243446;
 }
+
 h4 {
 }
 h5 {
@@ -94,7 +105,7 @@ error{
 form {
   padding: 1em;
   font: 80%/1 sans-serif;
-  width: 375px;
+  width: 450px;
   border: 0px solid #D5D5D5;
 }
 label {

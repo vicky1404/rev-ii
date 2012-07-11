@@ -43,7 +43,10 @@
 						actionListener="#{usuarioBackingBean.buscarAction}"
 						update="tabla_usuario" ajax="false">
 					</p:commandButton>
-					<p:separator />
+					<p:commandButton icon="ui-icon-cancel" value="#{msg.boton_cancel}"
+						id="btnCancelar11" immediate="true"
+						action="administracion-de-usuario?faces-redirect=true">
+					</p:commandButton>
 					<p:commandButton onclick="dialogNuevoUsuario.show();"
 						icon="ui-icon-document" type="button" value="Nuevo Usuario">
 					</p:commandButton>
@@ -75,7 +78,7 @@
 				</p:column>
 				<p:column headerText="Editar">
 					<div style="text-align: center;">
-					    <p:tooltip for="cleu" value="Editar Usuario: #{row.nombreUsuario}"></p:tooltip>
+						<p:tooltip for="cleu" value="Editar Usuario: #{row.nombreUsuario}"></p:tooltip>
 						<p:commandLink id="cleu"
 							actionListener="#{usuarioBackingBean.editRowListener}">
 							<p:graphicImage styleClass="ui-icon ui-icon-pencil"></p:graphicImage>
@@ -86,7 +89,7 @@
 		</h:form>
 
 		<!-- popup de creacion de usuario -->
-		<p:dialog id="pd1" widgetVar="dialogNuevoUsuario"
+		<p:dialog id="pd1" widgetVar="dialogNuevoUsuario" showEffect="drop" hideEffect="drop"
 			header="Agregar Nuevo Usuario" modal="false" closable="true"
 			dynamic="true">
 			<h:form id="form_newusuario">
@@ -166,7 +169,7 @@
 		</p:dialog>
 
 		<!-- popup de edicion de usuario -->
-		<p:dialog id="pd2" widgetVar="dialogEditarUsuario"
+		<p:dialog id="pd2" widgetVar="dialogEditarUsuario" showEffect="drop" hideEffect="drop"
 			header="Editar Usuario" modal="false" closable="true" dynamic="true">
 			<h:form id="form_editusuario">
 				<h:panelGrid columns="3">
