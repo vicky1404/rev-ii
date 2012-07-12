@@ -61,6 +61,9 @@ public abstract class AbstractBackingBean {
 	/**
 	 * @return
 	 */
+	/**
+	 * @return
+	 */
 	public String getNombreUsuario() {
         final Principal principal = this.getPrincipal();
         if (principal != null) {
