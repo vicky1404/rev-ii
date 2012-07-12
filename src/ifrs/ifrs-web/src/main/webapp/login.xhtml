@@ -12,31 +12,22 @@
 	<h:outputStylesheet name="css/screen-login.css" />
 </h:head>
 <h:body>
+	
+		<center>
+	
 	<div id="container">
 		<p:panel id="filtro_usuario"
 			header="#{msg.titulo_principal_aplicacion}" toggleable="false"
 			closable="false" toggleSpeed="500" closeSpeed="2000"
 			widgetVar="panel">
-			<div class="dualbrand">
-				<!-- p:graphicImage value="/resources/gfx/dualbrand_logo.png"></p:graphicImage-->
-			</div>
-			<div id="content">
+			
+			
 				<!-- h3>#{msg.titulo_principal_aplicacion}</h3-->
 				<h:form id="form_login">
 					<p:ajaxStatus onstart="statusDialog.show();"
 						oncomplete="statusDialog.hide();" />
 					<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
-					<c:if test="${param.unauthorized eq 1}">
-						<div class="ui-messages ui-widget">
-							<div class="ui-messages-error ui-corner-all">
-								<span class="ui-messages-error-icon"></span>
-								<ul>
-									<li><span class="ui-messages-error-summary"
-										style="font-size: 11px;">#{msg.mensaje_iniciar_sesion_en_el_sistema}</span></li>
-								</ul>
-							</div>
-						</div>
-					</c:if>
+					
 
 					<c:if test="${param.logout eq 1}">
 						<div class="ui-messages ui-widget">
@@ -73,7 +64,7 @@
 						<h:outputLabel value="" />
 					</p:panel>
 				</h:form>
-			</div>
+			
 			<!-- div id="aside">
 			<p>Opciones de Recuperacion de Clave</p>
 			<ul>
@@ -96,5 +87,9 @@
 			</div>
 		</p:panel>
 	</div>
+	
+		</center>
+	
+	
 </h:body>
 </html>

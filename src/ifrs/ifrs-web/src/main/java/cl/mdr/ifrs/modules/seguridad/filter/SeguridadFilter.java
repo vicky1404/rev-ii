@@ -20,6 +20,7 @@ import cl.mdr.ifrs.ejb.entity.Usuario;
 public class SeguridadFilter implements Filter {
 	private transient Logger logger = Logger.getLogger(this.getClass().getName());
 	private static final String LOGIN_PAGE = "/login.jsf";
+	
 
     /**
      * Default constructor. 
@@ -47,7 +48,7 @@ public class SeguridadFilter implements Filter {
 				logger.error("Usuario No autorizado");
 				((HttpServletResponse) response).sendRedirect(requestWrapper.getContextPath().concat(LOGIN_PAGE.concat("?unauthorized=1")));
 			}		
-		}
+		} 
 	}
 
 	/**
