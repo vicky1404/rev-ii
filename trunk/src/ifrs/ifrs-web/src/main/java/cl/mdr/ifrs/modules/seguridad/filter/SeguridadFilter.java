@@ -20,7 +20,7 @@ import cl.mdr.ifrs.ejb.entity.Usuario;
 public class SeguridadFilter implements Filter {
 	private transient Logger logger = Logger.getLogger(this.getClass().getName());
 	private static final String LOGIN_PAGE = "/login.jsf";
-	
+	private static final String INDEX_PAGE = "/index.jsp";
 
     /**
      * Default constructor. 
@@ -41,14 +41,14 @@ public class SeguridadFilter implements Filter {
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		RequestWrapper requestWrapper = new RequestWrapper(((HttpServletRequest) request));
-		if(!(requestWrapper.getRequestURI().indexOf(LOGIN_PAGE) > 0)){
+		if(!(requestWrapper.getRequestURI().indexOf(LOGIN_PAGE) > 0) || !(requestWrapper.getRequestURI().indexOf(INDEX_PAGE) > 0)){
 			if(requestWrapper.getSession().getAttribute(Usuario.class.getName()) != null){
 				chain.doFilter(requestWrapper, response);
 			}else{
 				logger.error("Usuario No autorizado");
 				((HttpServletResponse) response).sendRedirect(requestWrapper.getContextPath().concat(LOGIN_PAGE.concat("?unauthorized=1")));
 			}		
-		} 
+		}
 	}
 
 	/**
