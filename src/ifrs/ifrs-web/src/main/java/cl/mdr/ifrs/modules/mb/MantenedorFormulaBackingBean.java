@@ -27,6 +27,7 @@ import javax.faces.event.ValueChangeEvent;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.log4j.Logger;
+import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.fieldset.Fieldset;
 import org.primefaces.component.inputtext.InputText;
 import org.primefaces.component.selectonemenu.SelectOneMenu;
@@ -87,6 +88,13 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
     private boolean renderTablaFormula = Boolean.FALSE;
     private boolean renderBarraFormula = Boolean.FALSE;
     private Celda celda;
+    private TreeNode selectedNode;  
+    private DataTable dataTableRow;
+    private List<Version> versionList;
+    private SelectOneMenu comboBuscarIdTipoCuadro;
+    private SelectOneMenu comboBuscarIdCatalogo;
+    private SelectOneMenu comboBuscarMeses;
+    private SelectOneMenu comboBuscarAnio;
 	
 	private TreeNode root;
 	
@@ -131,7 +139,8 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
     	Long periodoLong = Long.parseLong( getAnioPeriodo() ) * 100 + Long.parseLong( getMesPeriodo() );
         Periodo periodo = getFacadeService().getPeriodoService().findPeriodoByPeriodo(periodoLong);
         try {
-			setTreeNode( getFacadeService().getVersionService().findVersionByFiltro(null, new TipoCuadro(getIdTipoCuadro()) , periodo, null, null, new Catalogo(getIdCatalogo())) );
+        		List<Version> lista = getFacadeService().getVersionService().findVersionByFiltro(null, new TipoCuadro(getIdTipoCuadro()) , periodo, null, null, new Catalogo(getIdCatalogo()));
+        		setTreeNode(lista);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e);
@@ -1630,7 +1639,87 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
 	public void setCelda(Celda celda) {
 		this.celda = celda;
 	}
-    
 
+
+	public TreeNode getSelectedNode() {
+		return selectedNode;
+	}
+
+
+	public void setSelectedNode(TreeNode selectedNode) {
+		this.selectedNode = selectedNode;
+	}
+
+
+	public DataTable getDataTableRow() {
+		return dataTableRow;
+	}
+
+
+	public void setDataTableRow(DataTable dataTableRow) {
+		this.dataTableRow = dataTableRow;
+	}
+
+
+	public List<Version> getVersionList() {
+		return versionList;
+	}
+
+
+	public void setVersionList(List<Version> versionList) {
+		this.versionList = versionList;
+	}
+    
+	public String limpiarResultadoGrilla(){
+		
+		this.setRenderedCatalogoTree(Boolean.FALSE);
+        this.setRenderBarraFormula(Boolean.FALSE);
+        this.setRenderTablaFormula(Boolean.FALSE);
+        this.getComboBuscarIdTipoCuadro().setValue(null);
+        this.getComboBuscarIdCatalogo().setValue(null);
+        this.getComboBuscarMeses().setValue(null);
+        this.getComboBuscarAnio().setValue(null);
+        return "mantenedor-formula";
+    }
+
+
+	public SelectOneMenu getComboBuscarIdTipoCuadro() {
+		return comboBuscarIdTipoCuadro;
+	}
+
+
+	public void setComboBuscarIdTipoCuadro(SelectOneMenu comboBuscarIdTipoCuadro) {
+		this.comboBuscarIdTipoCuadro = comboBuscarIdTipoCuadro;
+	}
+
+
+	public SelectOneMenu getComboBuscarIdCatalogo() {
+		return comboBuscarIdCatalogo;
+	}
+
+
+	public void setComboBuscarIdCatalogo(SelectOneMenu comboBuscarIdCatalogo) {
+		this.comboBuscarIdCatalogo = comboBuscarIdCatalogo;
+	}
+
+
+	public SelectOneMenu getComboBuscarMeses() {
+		return comboBuscarMeses;
+	}
+
+
+	public void setComboBuscarMeses(SelectOneMenu comboBuscarMeses) {
+		this.comboBuscarMeses = comboBuscarMeses;
+	}
+
+
+	public SelectOneMenu getComboBuscarAnio() {
+		return comboBuscarAnio;
+	}
+
+
+	public void setComboBuscarAnio(SelectOneMenu comboBuscarAnio) {
+		this.comboBuscarAnio = comboBuscarAnio;
+	}
 	
 }

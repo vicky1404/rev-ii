@@ -21,7 +21,7 @@
 	  				<p:outputLabel value="#{msg.label_tipo_cuadro}" for="somTipoCuadro"/>
 	  			</td>
 	  			<td>
-	  				<p:selectOneMenu value="#{formula.idTipoCuadro}" id="somTipoCuadro" required="true">
+	  				<p:selectOneMenu value="#{formula.idTipoCuadro}" id="somTipoCuadro" required="true" binding="#{formula.comboBuscarIdTipoCuadro}">
 	  					<f:selectItem itemLabel="#{msg.label_seleccionar}" />
 	  					<f:selectItems value="#{formula.componenteBackingBean.tipoCuadroList}" id="siTipoCuadro" var="tipoCuadroVar" itemValue="#{tipoCuadroVar.idTipoCuadro}" itemLabel="#{tipoCuadroVar.nombre}"/>
 	  					<p:ajax update="somCatalogo" listener="#{formula.changeTipoCuadro}" event="change"  onstart="statusDialog.show();" oncomplete="statusDialog.hide();"/>
@@ -34,7 +34,7 @@
 	  				<p:outputLabel value="#{msg.label_nombre}" for="somCatalogo"/>
 	  			</td>
 	  			<td>		
-	  				<p:selectOneMenu value="#{formula.idCatalogo}" id="somCatalogo" required="true">
+	  				<p:selectOneMenu value="#{formula.idCatalogo}" id="somCatalogo" required="true" binding="#{formula.comboBuscarIdCatalogo}">
 	  					<f:selectItem itemLabel="#{msg.label_seleccionar}" />
 	  					<f:selectItems value="#{formula.catalogoList}" id="siCatalogo" var="catalogoVar" itemValue="#{catalogoVar.idCatalogo}" itemLabel="#{catalogoVar.nombre}"/>	  					
 	  				</p:selectOneMenu>
@@ -46,12 +46,12 @@
 	  				<p:outputLabel value="#{msg.label_periodo}" for="somMesPeriodo"/>
 	  			</td>
 	  			<td>		
-	  				<p:selectOneMenu value="#{formula.mesPeriodo}" id="somMesPeriodo" required="true" label="#{msg.label_mes_periodo}">
+	  				<p:selectOneMenu value="#{formula.mesPeriodo}" id="somMesPeriodo" required="true" label="#{msg.label_mes_periodo}" binding="#{formula.comboBuscarMeses}">
 	  					<f:selectItem itemLabel="#{msg.label_mes_periodo}" />
 	  					<f:selectItems value="#{formula.componenteBackingBean.periodoList}" id="siMeses" var="mesesVar" itemValue="#{mesesVar.mesPeriodo}" itemLabel="#{mesesVar.mesPeriodo}"/>	  					
 	  				</p:selectOneMenu>
 	  				<p:spacer width="10"></p:spacer>
-	  				<p:selectOneMenu value="#{formula.anioPeriodo}" id="somAnioPeriodo" required="true" label="#{msg.label_anio_periodo}">
+	  				<p:selectOneMenu value="#{formula.anioPeriodo}" id="somAnioPeriodo" required="true" label="#{msg.label_anio_periodo}" binding="#{formula.comboBuscarAnio}">
 	  					<f:selectItem itemLabel="#{msg.label_anio_periodo}" />
 	  					<f:selectItems value="#{formula.componenteBackingBean.periodoList}" id="siAnios" var="aniosVar" itemValue="#{aniosVar.anioPeriodo}" itemLabel="#{aniosVar.anioPeriodo}"/>	  					
 	  				</p:selectOneMenu>
@@ -61,14 +61,16 @@
 	  		</table>
 	  		
 	  		<p:commandButton actionListener="#{formula.buscar}" icon="ui-icon-search" value="#{msg.boton_buscar}" update="@form"></p:commandButton>
+	  		<p:commandButton actionListener="#{formula.limpiarResultadoGrilla}" icon="ui-icon-cancel" value="#{msg.boton_cancel}" update="@form" immediate="true"></p:commandButton>
 	  		
     	</p:panel>
     	
     	<p:spacer height="10"></p:spacer>
     	
-    	<p:treeTable id="tabla" value="#{formula.root}" var="tree" rendered="#{formula.renderedCatalogoTree}">
+    	<p:treeTable id="tabla" value="#{formula.root}" var="tree" rendered="#{formula.renderedCatalogoTree}" selectionMode="single" selection="#{formula.selectedNode}">
     		 
-    		<p:column headerText="Cuadros editables">
+    		<p:column headerText="Cuadros editables" resizable="true" selectionMode="single">
+    		
     			<h:outputText value="#{tree.col1}" style="font-weight:bold;"/>
     			    <p:commandLink actionListener="#{formula.buscarEstructuraGrilla}" update="@form" rendered="#{tree.image != null}">    			    	
 	    				<p:graphicImage value="/resources/images/icon/#{tree.image}" />	 
@@ -76,7 +78,8 @@
 	    				<h:outputText value="Editar (#{tree.estructura.grilla.titulo})"/> 
     			    	<f:attribute name="estructura" value="#{tree.estructura}"/>
 	                    <f:attribute name="catalogo" value="#{tree.catalogo}"/>	 
-    			    </p:commandLink>    				
+    			    </p:commandLink>
+    			        				
     		</p:column>
     		<p:column headerText="#{msg.tabla_cabecera_version}" >
     			<h:outputText value="#{tree.col2}" />
@@ -94,7 +97,6 @@
     			<h:outputText value="#{tree.col6 eq 1 ? 'SI' : tree.col6 eq 0 ? 'NO' : '' }" rendered="#{tree.image == null}"/>
     		</p:column>    	
     	</p:treeTable>  
-    	
     	
     	<p:spacer height="10"></p:spacer>
     	
@@ -177,7 +179,7 @@
     	<p:fieldset legend="Cuadro" id="fs1" binding="#{formula.panelGroupLayoutTablaFormula}" rendered="#{formula.renderTablaFormula}">
     	  
 	    	<h:outputText value="versión: #{formula.estructura.version.version} - " id="ot2"/>
-    		<h:outputText value="#{formula.grillaVO.grilla.titulo}" id="of1"/> 
+    		<h:outputText value="#{formula.grilla.titulo}" id="of1"/> 
     		
     		<f:verbatim>
     			<br></br><br></br>
@@ -196,7 +198,7 @@
     		   
     		<p:spacer height="10"></p:spacer>
     		
-    		<p:dataTable id="dt1" value="#{formula.grillaVO.rows}" var="row"  >
+    		<p:dataTable id="dt1" value="#{formula.grillaVO.rows}" var="row" selection="#{formula.dataTableRow}" selectionMode="single" >
     		
     		
     		 <p:columns value="#{formula.grillaVO.columnas}" var="col" columnIndexVar="index" id="columnas">	 
