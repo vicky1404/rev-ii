@@ -1,12 +1,10 @@
 package cl.mdr.ifrs.modules.mb;
 
 import static ch.lambdaj.Lambda.having;
-import static ch.lambdaj.Lambda.on;
-import static ch.lambdaj.Lambda.select;
 import static ch.lambdaj.Lambda.maxFrom;
 import static ch.lambdaj.Lambda.minFrom;
-
-
+import static ch.lambdaj.Lambda.on;
+import static ch.lambdaj.Lambda.select;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
@@ -21,17 +19,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-import javax.enterprise.inject.Default;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
+import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.ValueChangeEvent;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.log4j.Logger;
-import org.primefaces.component.commandlink.CommandLink;
 import org.primefaces.component.fieldset.Fieldset;
 import org.primefaces.component.inputtext.InputText;
 import org.primefaces.component.selectonemenu.SelectOneMenu;
@@ -42,6 +37,7 @@ import org.primefaces.model.TreeNode;
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
 import cl.mdr.ifrs.cross.model.TreeFormula;
 import cl.mdr.ifrs.cross.util.PropertyManager;
+import cl.mdr.ifrs.ejb.common.TipoCeldaEnum;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
 import cl.mdr.ifrs.ejb.entity.Celda;
@@ -51,7 +47,6 @@ import cl.mdr.ifrs.ejb.entity.Grilla;
 import cl.mdr.ifrs.ejb.entity.Periodo;
 import cl.mdr.ifrs.ejb.entity.TipoCuadro;
 import cl.mdr.ifrs.ejb.entity.Version;
-import cl.mdr.ifrs.ejb.entity.pk.ColumnaPK;
 import cl.mdr.ifrs.vo.GrillaVO;
 
 
@@ -88,6 +83,10 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
     private int countFormulasSinGrabar = 0;
     private Map<Celda, Map<Celda, Boolean>> camposFormula = new LinkedHashMap<Celda, Map<Celda, Boolean>>();
     private boolean renderedCatalogoTree;
+    private Estructura estructura;
+    private boolean renderTablaFormula = Boolean.FALSE;
+    private boolean renderBarraFormula = Boolean.FALSE;
+    private Celda celda;
 	
 	private TreeNode root;
 	
@@ -100,8 +99,8 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
     private static final String SIGNO_RESTA = "-";
     private static final String COMA = ",";
     private static final String PUNTO_COMA = ";";
-    private static final String DOS_PUNTOS = ":";
-    private SelectOneMenu tipoFormulaCombo;
+    private static final String DOS_PUNTOS = ":";    
+    private HtmlSelectOneMenu tipoFormulaCombo;
 
     
     private Fieldset panelGroupLayoutTablaFormula;
@@ -127,6 +126,8 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
      */
     public void buscar(){ 
     	 this.setRenderedCatalogoTree(Boolean.TRUE);
+    	 this.setRenderTablaFormula(Boolean.FALSE);
+    	 this.setRenderBarraFormula(Boolean.FALSE);
     	Long periodoLong = Long.parseLong( getAnioPeriodo() ) * 100 + Long.parseLong( getMesPeriodo() );
         Periodo periodo = getFacadeService().getPeriodoService().findPeriodoByPeriodo(periodoLong);
         try {
@@ -150,7 +151,7 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
     				
     					if (estructura.getTipoEstructura().getNombre().toUpperCase().equals("GRILLA")){
     						
-    						new DefaultTreeNode( new TreeFormula(null, null, null, null, null, null, "function_16x16.png", version.getCatalogo() , estructura) , nodoVersion);
+    						new DefaultTreeNode( new TreeFormula("", "", "", "", "", "", "function_16x16.png", version.getCatalogo() , estructura) , nodoVersion);
     					} 
     			}
     		
@@ -171,7 +172,17 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
         final Estructura estructura = (Estructura)event.getComponent().getAttributes().get("estructura");
         final Catalogo catalogo = (Catalogo)event.getComponent().getAttributes().get("catalogo");
         
+        this.setBarraFormula(null);
+        this.setCeldaTarget(null);
+        getTipoFormulaCombo().setValue(null);
+        this.getCamposFormulaByCeldaTarget().clear();
         this.getFormulaMap().clear();
+        this.setCountFormulasSinGrabar(this.getFormulaMap().size());
+        this.desMarcarCeldasSelecionadasByTarget();
+        this.setEstructura(estructura);
+        this.setRenderTablaFormula(Boolean.TRUE);
+        this.setRenderBarraFormula(Boolean.FALSE);
+        //this.buscar();
         
         try {
         	
@@ -181,61 +192,28 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
 		    getTipoFormulaCombo().setValue(estructura.getGrilla().getTipoFormula());
 		    setIdTipoFormula(estructura.getGrilla().getTipoFormula());
 		    
+		    
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e);
+			super.addErrorMessage(PropertyManager.getInstance().getMessage("general_mensaje_nota_get_catalogo_error"));
 		}
         
-        
-        /*
-        this.setBarraFormula(null);
-        this.setCeldaTarget(null);
-        super.getFiltro().setTipoFormula(null);
-        this.getCamposFormulaByCeldaTarget().clear();
-        this.getFormulaMap().clear();
-        this.setCountFormulasSinGrabar(this.getFormulaMap().size());
-        this.desMarcarCeldasSelecionadasByTarget();
-        this.updateTipoFormulaCombo(this.getTipoFormulaCombo(), super.getFiltro().getTipoFormula());  
-        try {
-            this.setCatalogo(catalogo);
-            this.setEstructura(estructura);
-            this.setGrilla(this.getFacade().getGrillaService().findGrillaById(estructura.getIdEstructura()));
-            
-            super.getFiltro().setTipoFormula(this.getGrilla().getTipoFormula());
-            this.buildCeldaMap();
-            this.setRenderGrilla(Boolean.TRUE);
-            this.updateTipoFormulaCombo(this.getTipoFormulaCombo(), super.getFiltro().getTipoFormula());              
-        } catch (Exception e) {
-            logger.error(e.getMessage(), e);
-            super.agregarErrorMessage(PropertyManager.getInstance().getMessage("general_mensaje_nota_get_catalogo_error"));
-        } 
-        AdfFacesContext.getCurrentInstance().addPartialTarget(this.getBarraFormulaOutput());
-        AdfFacesContext.getCurrentInstance().addPartialTarget(this.getPanelGroupLayoutBarraFormula()); 
-        AdfFacesContext.getCurrentInstance().addPartialTarget(this.getPanelGroupLayoutTablaFormula());
-        */
     }
     
-    /**
-     * Actualiza el valor del combo tipo de formula en la vista
-     * @param combo
-     * @param tipoFormula
-     */
-    private void updateTipoFormulaCombo(SelectOneMenu combo, Long tipoFormula){
-        //combo.setValue(tipoFormula);
-        //AdfFacesContext.getCurrentInstance().addPartialTarget(combo);
-        //RequestContext.getCurrentInstance().update("somTipoFormula");
-    }
-    
+   
     /**
      * Metodo listener del boton agregar o quitar celda a una formula estatica.
      * @param event
      */
     public void selectCeldaEstatica(){
     	
-    	String idColumna = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("idColumna");
-    	String idGrilla = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("idGrilla");
-    	String idFila = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("idFila");
-    	String selected = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("selected");
+    	String idColumna = super.getExternalContext().getRequestParameterMap().get("idColumna");
+    	String idGrilla = super.getExternalContext().getRequestParameterMap().get("idGrilla");
+    	String idFila = super.getExternalContext().getRequestParameterMap().get("idFila");
+    	String selected = super.getExternalContext().getRequestParameterMap().get("selected");
+    	this.getCelda();
+    	
     	
     	Celda celda = new Celda();
     		celda.setIdColumna(Long.parseLong(idColumna));
@@ -258,7 +236,9 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
         
         final String parOrdenado = CORCHETE_IZQUIERDO.concat(""+celda.getIdColumna()).concat(COMA).concat(""+celda.getIdFila()).concat(CORCHETE_DERECHO).concat(PUNTO_COMA); 
         final String formulaSaved = this.getFormulaMap().get(this.getCeldaTarget());
-        this.setFormula(formulaSaved == null ? this.getCeldaTarget().getFormula() : formulaSaved);                         
+        
+        
+        this.setFormula(formulaSaved == null ? this.getCeldaTarget().getFormula() : formulaSaved);     //TODO: Que pasa si this.getCeldaTarget() viene nula?                     
         if(EqualsBuilder.reflectionEquals(this.getCeldaTarget(), celda, true)){
             super.addWarnMessage(MessageFormat.format(PropertyManager.getInstance().getMessage("general_mensaje_celda_destino_existe_en_formula"), parOrdenado));             
             return;
@@ -297,14 +277,240 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
         this.updateFormulaMap(this.getCeldaTarget(), this.getFormula()); 
         this.setCountFormulasSinGrabar(this.getFormulaMap().size()); 
         
-        this.updateCamposFormulaMap(this.getCeldaTarget(), this.getCamposFormulaByCeldaTarget());                
-        
+        this.updateCamposFormulaMap(this.getCeldaTarget(), this.getCamposFormulaByCeldaTarget());
+        this.desMarcarCeldasSelecionadasByTarget();
+        this.marcarCeldasSelecionadasByCadenaFormulaEstatica();
        
-        //RequestContext.getCurrentInstance().update(this.getContadorFormulasUnsavedOutput().getId());
-        RequestContext.getCurrentInstance().update(this.getPanelGroupLayoutBarraFormula().getId());        
-        RequestContext.getCurrentInstance().update(this.getPanelGroupLayoutTablaFormula().getId());
+       
     }
-	
+    
+    
+    /**
+     * Metodo listener del boton agregar o quitar celda a una formula estatica.
+     * @param event
+     */
+    public void selectCeldaDinamica(){
+       
+        
+    	String idColumna = super.getExternalContext().getRequestParameterMap().get("idColumna");
+    	String idGrilla = super.getExternalContext().getRequestParameterMap().get("idGrilla");
+    	String idFila = super.getExternalContext().getRequestParameterMap().get("idFila");
+    	String selected = super.getExternalContext().getRequestParameterMap().get("selected");
+    	
+    	
+    	Celda celda = new Celda();
+    		celda.setIdColumna(Long.parseLong(idColumna));
+    		celda.setIdGrilla(Long.parseLong(idGrilla));
+    		celda.setIdFila(Long.parseLong(idFila));
+    	
+    	
+			try {
+				
+				celda = getFacadeService().getCeldaService().findCeldaById(celda);
+				
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			}
+
+		
+        
+        final boolean celdaSelected = Boolean.parseBoolean(selected );
+        
+        
+        final String parOrdenado = CORCHETE_IZQUIERDO.concat(""+celda.getIdColumna()).concat(COMA).concat(""+celda.getIdFila()).concat(CORCHETE_DERECHO); 
+        final String formulaSaved = this.getFormulaMap().get(this.getCeldaTarget());        
+        this.setFormula(formulaSaved == null ? this.getCeldaTarget().getFormula() : formulaSaved);                         
+        if(EqualsBuilder.reflectionEquals(this.getCeldaTarget(), celda, true)){
+            super.addWarnMessage(MessageFormat.format(PropertyManager.getInstance().getMessage("general_mensaje_celda_destino_existe_en_formula"), parOrdenado));             
+            return;
+        }        
+        if(this.getCeldaTarget() == null && celdaSelected){
+            super.addWarnMessage(PropertyManager.getInstance().getMessage("general_mensaje_formula_sin_celda_destino"));                       
+            
+            return;
+        }
+        if(this.getFormula() == null){
+            this.setFormula("");
+        }
+        if(celdaSelected){            
+            if(!this.isCeldaTotal(celda)){
+                if(this.getCamposFormulaByCeldaTarget().size() >= 2){               
+                    super.addWarnMessage(PropertyManager.getInstance().getMessage("general_mensaje_rango_formado_formula"));
+                    return;
+                }
+                if (this.getFormula().contains(parOrdenado)) {
+                    super.addWarnMessage(MessageFormat.format(PropertyManager.getInstance().getMessage("general_mensaje_celda_existe_en_formula"), parOrdenado));
+                    return;
+                }
+                //RDV Valida que se seleccione en misma columan
+                if(!validarOperacionDinamica(this.getCeldaTarget(), celda)){
+                    return; 
+                }
+                if(!this.getFormula().equals("")){
+                    this.setFormula(this.getFormula().concat(DOS_PUNTOS)); 
+                }
+                this.setFormula(this.getFormula().concat(parOrdenado));                        
+                this.getCamposFormulaByCeldaTarget().put(celda, Boolean.TRUE);
+                celda.setSelectedByFormula(Boolean.TRUE);
+                this.setBarraFormula(this.getFormula());
+                this.updateFormulaMap(this.getCeldaTarget(), this.getFormula());  
+            } else if(this.isCeldaTotal(celda)){
+                
+                final String parOrdenado2 = CORCHETE_IZQUIERDO.concat(""+celda.getIdColumna()).concat(COMA).concat(""+celda.getIdFila()).concat(CORCHETE_DERECHO).concat(PUNTO_COMA);
+                
+                if(!validarOperacionDinamica(this.getCeldaTarget(), celda)){
+                    return; 
+                }
+                if(this.getFormula().contains(parOrdenado2)){
+                    super.addWarnMessage(MessageFormat.format(PropertyManager.getInstance().getMessage("general_mensaje_celda_existe_en_formula"), parOrdenado));
+                    return;
+                }               
+                this.setFormula(this.getFormula().concat(SIGNO_SUMA));
+                this.setFormula(this.getFormula().concat(parOrdenado2));            
+                this.updateCamposFormulaByCeldaTargetMap(celda, Boolean.TRUE);            
+                celda.setSelectedByFormula(Boolean.TRUE);                            
+                this.setBarraFormula(this.getFormula());
+                this.updateFormulaMap(this.getCeldaTarget(), this.getFormula());  
+                
+            }
+            
+        } else {   
+            if(!this.isCeldaTotal(celda)){
+                if (this.getFormula().contains(DOS_PUNTOS.concat(parOrdenado))) {
+                    this.setFormula(this.getFormula().replace(DOS_PUNTOS.concat(parOrdenado), ""));
+                }            
+                if (this.getFormula().contains(parOrdenado)) {
+                    this.setFormula(this.getFormula().replace(parOrdenado, ""));
+                }            
+                this.getCamposFormulaByCeldaTarget().remove(celda);
+                celda.setSelectedByFormula(Boolean.FALSE);
+                this.setBarraFormula(this.getFormula());
+                this.updateFormulaMap(this.getCeldaTarget(), this.getFormula());
+                            
+                if(this.getCamposFormulaByCeldaTarget().size() == 2 || this.getCamposFormulaByCeldaTarget().size() == 1){
+                    this.desMarcarCeldasSelecionadasByTarget();
+                    this.getCamposFormulaByCeldaTarget().clear();
+                    this.setFormula("");
+                    this.setBarraFormula(this.getFormula());
+                    this.getFormulaMap().remove(this.getCeldaTarget());                 
+                }
+            }
+            else if (this.isCeldaTotal(celda)) {
+                final String parOrdenado2 = CORCHETE_IZQUIERDO.concat("" + celda.getIdColumna()).concat(COMA).concat("" +celda.getIdFila()).concat(CORCHETE_DERECHO).concat(PUNTO_COMA);
+                if (this.getFormula().contains(SIGNO_SUMA.concat(parOrdenado2))) {
+                    this.setFormula(this.getFormula().replace(SIGNO_SUMA.concat(parOrdenado2), ""));
+                }
+                if (this.getFormula().contains(SIGNO_RESTA.concat(parOrdenado2))) {
+                    this.setFormula(this.getFormula().replace(SIGNO_RESTA.concat(parOrdenado2), ""));
+                }
+                if (this.getFormula().contains(parOrdenado2)) {
+                    this.setFormula(this.getFormula().replace(parOrdenado2, ""));
+                }
+                this.updateCamposFormulaByCeldaTargetMap(celda, Boolean.FALSE);
+                celda.setSelectedByFormula(Boolean.FALSE);
+                this.setBarraFormula(this.getFormula());
+                this.updateFormulaMap(this.getCeldaTarget(), this.getFormula());
+            }
+
+        }
+
+
+        this.setCountFormulasSinGrabar(this.getFormulaMap().size());
+        this.updateCamposFormulaMap(this.getCeldaTarget(), this.getCamposFormulaByCeldaTarget());
+        
+        
+        if((this.getCamposFormulaByCeldaTarget().size() == 2) && (!this.isCeldaTotal(celda))){
+            this.marcarCeldasSelecionadasByCadenaFormulaDinamica();
+        }
+        
+        
+    }
+    
+    private boolean validarOperacionDinamica(final Celda celdaParent, final Celda celdaChild){
+        //RDV Valida que se seleccione en misma columna
+        if(!celdaParent.getIdColumna().equals(celdaChild.getIdColumna()) && !celdaParent.getIdFila().equals(celdaChild.getIdFila())){
+            super.addWarnMessage("El rango debe ser en la misma columna o fila");
+            return false; 
+        }
+        
+        return true;
+    }
+    
+    private boolean isCeldaTotal(final Celda celda) {
+        if (celda.isEsNumero() &&
+            (celda.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.SUBTOTAL.getKey()) || celda.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.TOTAL.getKey()))) {
+            return Boolean.TRUE;
+        } else {
+            return Boolean.FALSE;
+        }
+    }
+
+    /**
+     * Marca como seleccionado en la grilla de formula dinamica 
+     * las celdas seleccionadas en la formula de destino
+     */
+    private void marcarCeldasSelecionadasByCadenaFormulaDinamica(){
+        logger.info("marcando celdas para formula dinamica");
+        List<Celda> celdaRangoList = new ArrayList<Celda>();
+        if(this.getFormulaMap().get(this.getCeldaTarget()) == null && this.getCeldaTarget().getFormula() == null){
+            logger.info("no existe formula para la celda de resultado");
+            return;
+        }
+        final String formulaSaved = this.getFormulaMap().get(this.getCeldaTarget());        
+        StringTokenizer cellKeys = new StringTokenizer(formulaSaved == null ? this.getCeldaTarget().getFormula() : formulaSaved, DOS_PUNTOS);   
+        while (cellKeys.hasMoreTokens()) {
+            String cellKey = cellKeys.nextToken()
+                             .replace(DOS_PUNTOS, "");
+                             
+            logger.info(cellKey);   
+            if (this.getCeldaMap().containsKey(cellKey)) {
+                Celda celda = this.getCeldaMap().get(cellKey);
+                if(EqualsBuilder.reflectionEquals(this.getCeldaTarget(), celda, true)){
+                    super.addWarnMessage(MessageFormat.format(PropertyManager.getInstance().getMessage("general_mensaje_celda_destino_existe_en_formula"), cellKey));             
+                    return;
+                }
+                celdaRangoList.add(celda);
+            }else{
+                super.addErrorMessage("La celda "+cellKey+" no existe en el cuadro");
+                return;                            
+            }
+        }
+    
+        if(!celdaRangoList.isEmpty()){
+            List<Celda> celdaList = this.celdaMapToList(); 
+            List<Celda> celdasByColumna = new ArrayList<Celda>();
+            List<Celda> celdasByFila = new ArrayList<Celda>();
+            if(celdaRangoList.get(0).getIdColumna().equals(celdaRangoList.get(1).getIdColumna())){
+                //seleccion vertical
+                celdasByColumna = select(celdaList ,having(on(Celda.class).getIdColumna(), equalTo(celdaRangoList.get(0).getIdColumna()))
+                                         .and(having(on(Celda.class).getIdFila(), greaterThanOrEqualTo(celdaRangoList.get(0).getIdFila())))
+                                         .and(having(on(Celda.class).getIdFila(), lessThanOrEqualTo(celdaRangoList.get(1).getIdFila()))));
+                if(celdasByColumna.isEmpty()){
+                    celdasByColumna = select(celdaList ,having(on(Celda.class).getIdColumna(), equalTo(celdaRangoList.get(0).getIdColumna()))
+                                             .and(having(on(Celda.class).getIdFila(), lessThanOrEqualTo(celdaRangoList.get(0).getIdFila())))
+                                             .and(having(on(Celda.class).getIdFila(), greaterThanOrEqualTo(celdaRangoList.get(1).getIdFila()))));    
+                }
+                for(Celda celda : celdasByColumna){                                        
+                    celda.setSelectedByFormula(Boolean.TRUE);  
+                }
+            }
+            else if(celdaRangoList.get(0).getIdFila().equals(celdaRangoList.get(1).getIdFila())){
+                //seleccion horizontal 
+                celdasByFila = select(celdaList ,having(on(Celda.class).getIdFila(), equalTo(celdaRangoList.get(0).getIdFila()))
+                                      .and(having(on(Celda.class).getIdColumna(), greaterThanOrEqualTo(celdaRangoList.get(0).getIdColumna())))
+                                      .and(having(on(Celda.class).getIdColumna(), lessThanOrEqualTo(celdaRangoList.get(1).getIdColumna()))));
+                if(celdasByFila.isEmpty()){
+                    celdasByFila = select(celdaList ,having(on(Celda.class).getIdFila(), equalTo(celdaRangoList.get(0).getIdFila()))
+                                          .and(having(on(Celda.class).getIdColumna(), lessThanOrEqualTo(celdaRangoList.get(0).getIdColumna())))
+                                          .and(having(on(Celda.class).getIdColumna(), greaterThanOrEqualTo(celdaRangoList.get(1).getIdColumna()))));
+                }
+                for (Celda celda : celdasByFila) {
+                    celda.setSelectedByFormula(Boolean.TRUE);
+                }
+            }
+        }
+    }
 
 	public Long getIdCatalogo() {
 		return idCatalogo;
@@ -442,16 +648,8 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
 		this.celdaMap = celdaMap;
 	}
 
-
-	public SelectOneMenu getTipoFormulaCombo() {
-		return tipoFormulaCombo;
-	}
-
-
-	public void setTipoFormulaCombo(SelectOneMenu tipoFormulaCombo) {
-		this.tipoFormulaCombo = tipoFormulaCombo;
-	}
-
+	
+	
 
 	public Map<Celda, String> getFormulaMap() {
 		return formulaMap;
@@ -642,9 +840,11 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
     public void fijarCeldaEstaticaTarget(){  
     	
     	
-    	String idColumna = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("idColumna");
-    	String idGrilla = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("idGrilla");
-    	String idFila = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("idFila");
+    	String idColumna = super.getExternalContext().getRequestParameterMap().get("idColumna");
+    	String idGrilla = super.getExternalContext().getRequestParameterMap().get("idGrilla");
+    	String idFila = super.getExternalContext().getRequestParameterMap().get("idFila");
+    	
+    	
     	
     	Celda celdaTarget = new Celda();
     		celdaTarget.setIdColumna(Long.parseLong(idColumna));
@@ -672,12 +872,99 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
         this.setBarraFormula(this.getFormula());         
         this.desMarcarCeldasSelecionadasByTarget();        
         this.marcarCeldasSelecionadasByCadenaFormulaEstatica();
+        this.setRenderBarraFormula(Boolean.TRUE);
         
-        RequestContext.getCurrentInstance().update(this.getPanelGroupLayoutBarraFormula().getId());
-        RequestContext.getCurrentInstance().update(this.getPanelGroupLayoutTablaFormula().getId());
         this.getCamposFormulaByCeldaTarget().clear();
     }
     
+    /**
+     * fija la celda de destino en la cual sera configurada una formula dinamica
+     * @param event
+     */
+    public void fijarCeldaDinamicaTarget(){
+    	
+    	String idColumna = super.getExternalContext().getRequestParameterMap().get("idColumna");
+    	String idGrilla = super.getExternalContext().getRequestParameterMap().get("idGrilla");
+    	String idFila = super.getExternalContext().getRequestParameterMap().get("idFila");
+    	
+    	Celda celdaTarget = new Celda();
+    		celdaTarget.setIdColumna(Long.parseLong(idColumna));
+    		celdaTarget.setIdGrilla(Long.parseLong(idGrilla));
+    		celdaTarget.setIdFila(Long.parseLong(idFila));
+    	
+    	
+			try {
+				
+				celdaTarget = getFacadeService().getCeldaService().findCeldaById(celdaTarget);
+				
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			}
+			
+        this.setCeldaTarget(celdaTarget);
+        final String formulaSaved = this.getFormulaMap().get(this.getCeldaTarget());        
+        this.setFormula(formulaSaved == null ? this.getCeldaTarget().getFormula() : formulaSaved);             
+        if(this.getFormula() == null){
+            this.setFormula("");
+        }        
+        this.setBarraFormula(null);
+        this.setBarraFormula(this.getFormula());         
+        this.desMarcarCeldasSelecionadasByTarget();
+        if(celdaTarget.getParentVertical() != null || celdaTarget.getParentHorizontal() != null){
+            this.marcarCeldasSelecionadasByCeldaTarget();
+        }else{
+            this.marcarCeldasSelecionadasByCadenaFormulaDinamica();
+        }
+        this.setRenderBarraFormula(Boolean.TRUE);
+        this.getCamposFormulaByCeldaTarget().clear();       
+            
+    }
+    
+    
+    /**
+     * Marca como seleccionado en la grilla de formula dinamica 
+     * las celdas seleccionadas en la formula de destino
+     */
+    private void marcarCeldasSelecionadasByCeldaTarget(){
+        logger.info("marcando celdas para formula dinamica desde el parent");
+        List<Celda> celdas = null;
+        StringBuffer formula = new StringBuffer();
+        if(this.getCeldaTarget().getParentVertical() != null){
+            celdas = select(this.celdaMapToList() ,having(on(Celda.class).getChildVertical(), equalTo(this.getCeldaTarget().getParentVertical())));
+            final Long columna = maxFrom(celdas).getIdColumna();
+            final Long filaMin = minFrom(celdas).getIdFila();
+            final Long filaMax = maxFrom(celdas).getIdFila();
+            formula.append(CORCHETE_IZQUIERDO)
+                   .append(columna).append(COMA).append(filaMin).append(CORCHETE_DERECHO)
+                   .append(DOS_PUNTOS)
+                   .append(CORCHETE_IZQUIERDO)
+                   .append(columna).append(COMA).append(filaMax).append(CORCHETE_DERECHO);
+            this.setFormula(formula.toString());
+            this.setBarraFormula(this.getFormula());
+            
+        }
+        else if(this.getCeldaTarget().getParentHorizontal() != null){
+            celdas = select(this.celdaMapToList() ,having(on(Celda.class).getChildHorizontal(), equalTo(this.getCeldaTarget().getParentHorizontal())));
+            final Long fila = maxFrom(celdas).getIdFila();
+            final Long columnaMin = minFrom(celdas).getIdColumna();
+            final Long columnaMax = maxFrom(celdas).getIdColumna();
+            formula.append(CORCHETE_IZQUIERDO)
+                   .append(columnaMin).append(COMA).append(fila).append(CORCHETE_DERECHO)
+                   .append(DOS_PUNTOS)
+                   .append(CORCHETE_IZQUIERDO)
+                   .append(columnaMax).append(COMA).append(fila).append(CORCHETE_DERECHO);
+            this.setFormula(formula.toString());
+            this.setBarraFormula(this.getFormula());
+           
+        }
+        
+        if(celdas != null && celdas.size() > 0){
+            for(Celda celda : celdas){
+                celda.setSelectedByFormula(Boolean.TRUE);
+            }
+        }
+    }
     
    
     
@@ -769,8 +1056,8 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
             this.getFormulaMap().clear();
             this.setCountFormulasSinGrabar(this.getFormulaMap().size());
             
-            RequestContext.getCurrentInstance().update(this.getContadorFormulasUnsavedOutput().getId());
-            RequestContext.getCurrentInstance().update(this.getPanelGroupLayoutTablaFormula().getId());
+          
+           
             
             
         } catch (Exception e) {
@@ -823,8 +1110,7 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
             this.getFormulaMap().clear();
             this.setCountFormulasSinGrabar(this.getFormulaMap().size()); 
             
-            RequestContext.getCurrentInstance().update(this.getContadorFormulasUnsavedOutput().getId());
-            RequestContext.getCurrentInstance().update(this.getPanelGroupLayoutTablaFormula().getId());
+          
             
             
         } catch (Exception e) {
@@ -998,6 +1284,7 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
         this.getFormulaMap().clear();
         this.setCountFormulasSinGrabar(0);
         this.desMarcarCeldasSelecionadasByTarget();
+        this.setRenderBarraFormula(Boolean.FALSE);
         return null;
     }
     
@@ -1008,6 +1295,342 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
         this.getFormulaMap().clear();
         this.setCountFormulasSinGrabar(0);
         this.desMarcarCeldasSelecionadasByTarget();
+        this.setRenderBarraFormula(Boolean.FALSE);
         return null;
     }
+
+
+	public Estructura getEstructura() {
+		return estructura;
+	}
+
+
+	public void setEstructura(Estructura estructura) {
+		this.estructura = estructura;
+	}
+
+	public void eliminarFormulaEstaticaAll(){
+		
+        List<Celda> celdaList = new ArrayList<Celda>();
+        try{
+            for(final Columna columna : this.getGrillaVO().getColumnas()){
+                for(final Celda celda : columna.getCeldaList()){
+                    celda.setFormula(null);                
+                    celdaList.add(celda);
+                }
+            }            
+            this.getGrilla().setTipoFormula(null);
+            this.getCamposFormulaByCeldaTarget().clear();
+            this.setIdTipoFormula(null);
+            this.getTipoFormulaCombo().setValue(this.getIdTipoFormula());
+            this.setBarraFormula(null); 
+            this.getFacadeService().getCeldaService().persistFormulaEstaticaList(this.getGrilla(), celdaList);            
+            super.addInfoMessage("Se han eliminado correctamente todas las Fórmulas Estáticas de la Grilla");
+            
+        } catch (Exception e) {
+            super.addErrorMessage("Se ha producido un error al eliminar la fórmula");
+            logger.error("Error al eliminar la formula ",e);
+        }
+    }
+	
+	public void eliminarFormulaDinamicaAll(){ 
+        List<Celda> celdaList = new ArrayList<Celda>();
+        try{
+            for(final Columna columna : this.getGrillaVO().getColumnas()){
+                for(final Celda celda : columna.getCeldaList()){
+                    celda.setParentHorizontal(null);                
+                    celda.setParentVertical(null);
+                    celda.setChildHorizontal(null);
+                    celda.setChildVertical(null);
+                    celdaList.add(celda);
+                }
+            }            
+            this.getGrilla().setTipoFormula(null);
+            this.getCamposFormulaByCeldaTarget().clear();
+            this.setIdTipoFormula(null);
+            this.getTipoFormulaCombo().setValue(this.getIdTipoFormula());
+            this.setBarraFormula(null); 
+            this.getFacadeService().getCeldaService().persistFormulaEstaticaList(this.getGrilla(), celdaList);
+           
+            super.addInfoMessage("Se han eliminado correctamente todas las Fórmulas Dinámicas de la Grilla");
+        } catch (Exception e) {
+            super.addErrorMessage("Se ha producido un error al eliminar la fórmula");
+            logger.error("Error al eliminar la formula ",e);
+        }
+    }
+
+
+	public boolean isRenderTablaFormula() {
+		return renderTablaFormula;
+	}
+
+
+	public void setRenderTablaFormula(boolean renderTablaFormula) {
+		this.renderTablaFormula = renderTablaFormula;
+	}
+
+
+	public boolean isRenderBarraFormula() {
+		return renderBarraFormula;
+	}
+
+
+	public void setRenderBarraFormula(boolean renderBarraFormula) {
+		this.renderBarraFormula = renderBarraFormula;
+	}
+	
+	 
+    /**
+     * metodo listener del evento ValueChangeEvent del combo tipo de formula.
+     * @param valueChangeEvent
+     */    
+    public void onChangeTipoFormula(ValueChangeEvent valueChangeEvent) {
+       
+        Long tipoGrillaNewValue = valueChangeEvent.getNewValue()==null?null:(Long)valueChangeEvent.getNewValue();
+        Long tipoGrillaOldValue = valueChangeEvent.getOldValue()==null?null:(Long)valueChangeEvent.getOldValue();
+        
+        if(tipoGrillaOldValue != null && this.getCountFormulasSinGrabar() > 0){
+            
+            super.addWarnMessage("Tiene Fórmulas sin guardar, para no almacenar presione cancelar.");
+            this.setIdTipoFormula(tipoGrillaOldValue);
+            this.getTipoFormulaCombo().setValue(this.getIdTipoFormula());
+            return;
+            
+        }
+        
+        if(tipoGrillaNewValue != null && tipoGrillaNewValue.equals(Grilla.TIPO_GRILLA_ESTATICA)){
+            
+            if(tieneFormulaDinamica()){
+                
+                super.addWarnMessage("El cuadro posee Fórmulas Dinámicas configuradas, antes de configurar una Fórmula Estática debe eliminar las otras Fórmulas.");
+                this.setIdTipoFormula(tipoGrillaOldValue);
+                this.getTipoFormulaCombo().setValue(this.getIdTipoFormula());
+                return;
+            }
+                
+        }else if(tipoGrillaNewValue != null && tipoGrillaNewValue.equals(Grilla.TIPO_GRILLA_DINAMICA)){
+            
+            if(tieneFormulaEstatica()){
+                
+                super.addWarnMessage("El cuadro posee Fórmulas Estáticas configuradas, antes de configurar una Fórmula Dinámica debe eliminar las otras Fórmulas.");
+                this.setIdTipoFormula(tipoGrillaOldValue);
+                this.getTipoFormulaCombo().setValue(this.getIdTipoFormula());                
+                return;
+                
+            }
+        }
+        
+        this.celdaTarget = null;
+        
+        this.setIdTipoFormula(tipoGrillaNewValue);
+        this.getTipoFormulaCombo().setValue(this.getIdTipoFormula());
+        
+    }
+    
+    
+    /**
+     * Evalua si una grilla contiene formulas dinamicas
+     * @return
+     */
+    public boolean tieneFormulaDinamica(){
+        final List<Celda> celdas = this.celdaMapToList();
+        final List<Celda> celdaParentVerticalList = select(celdas ,having(on(Celda.class).getChildVertical(), notNullValue()));
+        final List<Celda> celdaParentHorizontalList = select(celdas ,having(on(Celda.class).getChildHorizontal(), notNullValue()));
+        if((celdaParentVerticalList != null || celdaParentHorizontalList != null) && (celdaParentVerticalList.size() > 0 || celdaParentHorizontalList.size() > 0)){
+            return Boolean.TRUE;
+        }else{
+            return Boolean.FALSE;
+        }
+    }
+    
+    /**
+     * Evalua si una grilla contiene formulas estaticas
+     * @return
+     */
+    public boolean tieneFormulaEstatica(){
+        final List<Celda> celdas = this.celdaMapToList();
+        final List<Celda> celdaFormulaList = select(celdas ,having(on(Celda.class).getFormula(), notNullValue()));
+        if((celdaFormulaList != null) && (celdaFormulaList.size() > 0)){
+            return Boolean.TRUE;
+        }else{
+            return Boolean.FALSE;
+        }
+    }
+
+
+	public HtmlSelectOneMenu getTipoFormulaCombo() {
+		return tipoFormulaCombo;
+	}
+
+
+	public void setTipoFormulaCombo(HtmlSelectOneMenu tipoFormulaCombo) {
+		this.tipoFormulaCombo = tipoFormulaCombo;
+	}
+	
+	/**
+     * Elimina una formula estatica perteneciente a una celda de resultado
+     * @param event
+     */
+    public void eliminarFormulaEstatica(){        
+        try {
+        	
+        	String idColumna = super.getExternalContext().getRequestParameterMap().get("idColumna");
+        	String idGrilla = super.getExternalContext().getRequestParameterMap().get("idGrilla");
+        	String idFila = super.getExternalContext().getRequestParameterMap().get("idFila");
+        	
+        	Celda celda = new Celda();
+        		celda.setIdColumna(Long.parseLong(idColumna));
+        		celda.setIdGrilla(Long.parseLong(idGrilla));
+        		celda.setIdFila(Long.parseLong(idFila));
+        	
+        	
+    			try {
+    				
+    				celda = getFacadeService().getCeldaService().findCeldaById(celda);
+    				
+    			} catch (Exception e) {
+    				
+    				e.printStackTrace();
+    			}
+            
+            
+            celda.setFormula(null);
+            this.getFacadeService().getCeldaService().mergeEntity(celda);
+            this.desMarcarCeldasSelecionadasByTarget();
+            if(!this.tieneFormulaEstatica()){
+                this.getGrilla().setTipoFormula(null);
+                this.getFacadeService().getGrillaService().mergeEntity(this.getGrilla());
+                this.getCamposFormulaByCeldaTarget().clear();
+                setIdTipoFormula(null);
+                this.getTipoFormulaCombo().setValue(this.getIdTipoFormula());
+            }
+            this.setCeldaTarget(celda);
+            this.setBarraFormula(null);     
+            this.setRenderBarraFormula(Boolean.FALSE);
+            super.addInfoMessage("Se ha eliminado la Fórmula correctamente");
+            
+        } catch (Exception e) {
+            super.addErrorMessage("Se ha producido un error al eliminar la fórmula");
+            logger.error("Error al eliminar la formula ",e);
+        }
+    }
+    
+    /**
+     * Elimina una formula dinamica vertical
+     * @param event
+     */
+    public void eliminarFormulaDinamicaVertical(){        
+        try {
+        	String idColumna = super.getExternalContext().getRequestParameterMap().get("idColumna");
+        	String idGrilla = super.getExternalContext().getRequestParameterMap().get("idGrilla");
+        	String idFila = super.getExternalContext().getRequestParameterMap().get("idFila");
+        	
+        	Celda celdaParent = new Celda();
+        	celdaParent.setIdColumna(Long.parseLong(idColumna));
+        	celdaParent.setIdGrilla(Long.parseLong(idGrilla));
+        	celdaParent.setIdFila(Long.parseLong(idFila));
+        	
+        	
+    			try {
+    				
+    				celdaParent = getFacadeService().getCeldaService().findCeldaById(celdaParent);
+    				
+    			} catch (Exception e) {
+    				
+    				e.printStackTrace();
+    			}
+                        
+            //obtiene la lista de celdas pertenecientes al parent vertical
+            final List<Celda> celdaChildList = select(this.celdaMapToList() ,having(on(Celda.class).getChildVertical(), equalTo(celdaParent.getParentVertical())));
+            //eliminamos la referencia del parent.            
+            celdaParent.setParentVertical(null);
+            for(Celda celdaChild : celdaChildList){
+                celdaChild.setChildVertical(null);
+            }                        
+            this.getFacadeService().getCeldaService().deleteFormulaDinamica(celdaParent, celdaChildList);
+            this.desMarcarCeldasSelecionadasByTarget();
+            if(!this.tieneFormulaDinamica()){
+                this.getGrilla().setTipoFormula(null);
+                this.getFacadeService().getGrillaService().mergeEntity(this.getGrilla());                
+                this.getCamposFormulaByCeldaTarget().clear();    
+                this.setIdTipoFormula(null);
+                this.getTipoFormulaCombo().setValue(this.getIdTipoFormula());
+            }
+            celdaParent.setFormula(null);
+            this.setCeldaTarget(celdaParent);
+            this.setBarraFormula(null);   
+            this.setRenderBarraFormula(Boolean.FALSE);
+            super.addInfoMessage("Se ha eliminado la Fórmula Vertical correctamente");
+            
+        } catch (Exception e) {
+            super.addErrorMessage("Se ha producido un error al eliminar la Fórmula");
+            logger.error("Error al eliminar la fórmula ",e);
+        }
+    }
+            
+    /**
+     * Elimina una formula dinamica vertical
+     * @param event
+     */
+    public void eliminarFormulaDinamicaHorizontal(){        
+        try {
+        	
+        	String idColumna = super.getExternalContext().getRequestParameterMap().get("idColumna");
+        	String idGrilla = super.getExternalContext().getRequestParameterMap().get("idGrilla");
+        	String idFila = super.getExternalContext().getRequestParameterMap().get("idFila");
+        	
+        	Celda celdaParent = new Celda();
+        	celdaParent.setIdColumna(Long.parseLong(idColumna));
+        	celdaParent.setIdGrilla(Long.parseLong(idGrilla));
+        	celdaParent.setIdFila(Long.parseLong(idFila));
+        	
+        	
+    			try {
+    				
+    				celdaParent = getFacadeService().getCeldaService().findCeldaById(celdaParent);
+    				
+    			} catch (Exception e) {
+    				
+    				e.printStackTrace();
+    			}
+                             
+            //obtiene la lista de celdas pertenecientes al parent Horizontal
+            final List<Celda> celdaChildList = select(this.celdaMapToList() ,having(on(Celda.class).getChildHorizontal(), equalTo(celdaParent.getParentHorizontal())));
+            //eliminamos la referencia del parent.            
+            celdaParent.setParentHorizontal(null);
+            for(Celda celdaChild : celdaChildList){
+                celdaChild.setChildHorizontal(null);
+            }                        
+            this.getFacadeService().getCeldaService().deleteFormulaDinamica(celdaParent, celdaChildList);
+            this.desMarcarCeldasSelecionadasByTarget();
+            if(!this.tieneFormulaDinamica()){
+                this.getGrilla().setTipoFormula(null);
+                this.getFacadeService().getGrillaService().mergeEntity(this.getGrilla());
+                this.getCamposFormulaByCeldaTarget().clear();               
+                this.setIdTipoFormula(null);
+                this.getTipoFormulaCombo().setValue(this.getIdTipoFormula());
+            }
+            this.setCeldaTarget(celdaParent);
+            this.setBarraFormula(null);     
+            this.setRenderBarraFormula(Boolean.FALSE);
+            super.addInfoMessage("Se ha eliminado la Fórmula Horizontal correctamente");
+            
+        } catch (Exception e) {
+            super.addErrorMessage("Se ha producido un error al eliminar la fórmula");
+            logger.error("Error al eliminar la formula ",e);
+        }
+    }
+
+
+	public Celda getCelda() {
+		return celda;
+	}
+
+
+	public void setCelda(Celda celda) {
+		this.celda = celda;
+	}
+    
+
+	
 }
