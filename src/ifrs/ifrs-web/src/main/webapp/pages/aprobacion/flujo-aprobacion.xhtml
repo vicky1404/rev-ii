@@ -33,6 +33,31 @@
 				</h:panelGrid>
 			</p:dialog>
 
+			<!-- dialogo de despliague de grafico por usuario-->
+			<p:dialog id="p3" widgetVar="popUpChartByUser" modal="false"
+				showEffect="drop" hideEffect="drop"
+				header="#{msg.label_resumen_de_avance_para_el_periodo}: #{flujoAprobacionBackingBean.filtroBackingBean.periodo.mesPeriodo}-#{flujoAprobacionBackingBean.filtroBackingBean.periodo.anioPeriodo}">
+				<p:pieChart id="pch1"
+					value="#{flujoAprobacionBackingBean.cuadrosByUsuarioPieModel}"
+					legendPosition="w"
+					seriesColors="#{msg.flujo_aprobacion_grafico_series_colors}"
+					title="#{msg.label_resumen_de_cuadros_por_usuario}"
+					style="width:400px;height:300px"
+					rendered="#{flujoAprobacionBackingBean.renderChartByUser}" />
+			</p:dialog>
+
+			<!-- dialogo de despliague de grafico general-->
+			<p:dialog id="p4" widgetVar="popUpChartAll" modal="false"
+				showEffect="drop" hideEffect="drop"
+				header="#{msg.label_resumen_de_avance_para_el_periodo}: #{flujoAprobacionBackingBean.filtroBackingBean.periodo.mesPeriodo}-#{flujoAprobacionBackingBean.filtroBackingBean.periodo.anioPeriodo}">
+				<p:pieChart id="pch2"
+					value="#{flujoAprobacionBackingBean.cuadrosAllPieModel}"
+					legendPosition="w"
+					seriesColors="#{msg.flujo_aprobacion_grafico_series_colors}"
+					title="#{msg.label_resumen_general_de_cuadros}" style="width:400px;height:300px"
+					rendered="#{flujoAprobacionBackingBean.renderChartAll}" />
+			</p:dialog>
+
 			<p:panel id="filtro_flujo_aprobacion"
 				header="#{msg.titulo_flujo_aprobacion}" toggleable="true"
 				closable="false" toggleSpeed="500" closeSpeed="2000"
@@ -110,6 +135,14 @@
 						icon="ui-icon-xls"
 						actionListener="#{flujoAprobacionBackingBean.generarReporteFlujoAprobacionAction}">
 					</p:commandButton>
+					<p:separator />
+					<p:commandLink
+						actionListener="#{flujoAprobacionBackingBean.graficoCuadrosByUsuarioAction}"
+						value="#{msg.label_ver_mi_estado_de_avance}"></p:commandLink>
+					<p:separator />
+					<p:commandLink
+						actionListener="#{flujoAprobacionBackingBean.graficoCuadrosAllAction}"
+						value="#{msg.label_ver_estado_de_avance_general}"></p:commandLink>
 				</p:toolbarGroup>
 			</p:toolbar>
 			<p:dataTable

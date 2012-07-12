@@ -27,6 +27,7 @@ import javax.persistence.NoResultException;
 import org.apache.log4j.Logger;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.primefaces.component.datatable.DataTable;
+import org.primefaces.model.chart.PieChartModel;
 
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
 import cl.mdr.ifrs.cross.mb.FiltroBackingBean;
@@ -68,7 +69,12 @@ public class FlujoAprobacionBackingBean extends AbstractBackingBean implements S
     private transient FiltroBackingBean filtro;
     private HtmlSelectOneMenu comboEstadoCuadroHeader;
     private DataTable catalogoFlujoTable;
-	
+    
+    //graficos
+    private PieChartModel cuadrosByUsuarioPieModel;  
+    private PieChartModel cuadrosAllPieModel; 
+    boolean renderChartByUser;
+    boolean renderChartAll;
     
     public String limpiarAction(){
         FiltroBackingBean filtroPaso = super.getFiltroBackingBean();
@@ -81,7 +87,7 @@ public class FlujoAprobacionBackingBean extends AbstractBackingBean implements S
         logger.info("buscando cuadros para workflow de aprobación");
         try{              
             limpiarAction();
-            this.setCatalogoFlujoAprobacion(super.getFacadeService().getVersionService().findVersionByFiltro(super.getNombreUsuario(), super.getFiltroBackingBean().getTipoCuadro(), super.getFiltroPeriodo(), this.getEstadoCuadro(), VigenciaEnum.VIGENTE.getKey(), null));                       
+            this.setCatalogoFlujoAprobacion(super.getFacadeService().getVersionService().findVersionByFiltro(super.getNombreUsuario(), super.getFiltroBackingBean().getTipoCuadro(), super.getFiltroPeriodo(), this.getEstadoCuadro(), VigenciaEnum.VIGENTE.getKey(), null));            
             SortHelper.sortVersionByOrdenCatalogo(this.getCatalogoFlujoAprobacion());
             this.setRenderFlujo(Boolean.TRUE);
         } catch (NoResultException e) {	
@@ -140,7 +146,7 @@ public class FlujoAprobacionBackingBean extends AbstractBackingBean implements S
                     historialVersionList.add(historialVersion);
                 }        
                 super.getFacadeService().getPeriodoService().persistFlujoAprobacion(versionListChanged, historialVersionList);
-                this.setCatalogoFlujoAprobacion(super.getFacadeService().getVersionService().findVersionByFiltro(super.getNombreUsuario(), super.getFiltroBackingBean().getTipoCuadro(), super.getFiltroPeriodo(), this.getEstadoCuadro(), VigenciaEnum.VIGENTE.getKey(), null));
+                this.setCatalogoFlujoAprobacion(super.getFacadeService().getVersionService().findVersionByFiltro(super.getNombreUsuario(), super.getFiltroBackingBean().getTipoCuadro(), super.getFiltroPeriodo(), this.getEstadoCuadro(), VigenciaEnum.VIGENTE.getKey(), null));                
                 SortHelper.sortVersionByOrdenCatalogo(this.getCatalogoFlujoAprobacion());
             }
             addInfoMessage(PropertyManager.getInstance().getMessage("workflow_mensaje_guardar_notas_exito"));            
@@ -286,7 +292,43 @@ public class FlujoAprobacionBackingBean extends AbstractBackingBean implements S
             super.addWarnMessage(version.getCatalogo().getNombre().concat(" a estado ").concat(Util.capitalizar(version.getEstado().getNombre())));            
         }
         return mensaje.toString();
-    }    
+    }
+    
+    public void graficoCuadrosByUsuarioAction(){
+    	try {
+			final List<Version> versiones = super.getFacadeService().getVersionService().findVersionByFiltro(super.getNombreUsuario(), super.getFiltroBackingBean().getTipoCuadro(), super.getFiltroPeriodo(), this.getEstadoCuadro(), VigenciaEnum.VIGENTE.getKey(), null);
+			cuadrosByUsuarioPieModel = new PieChartModel();  			  
+			cuadrosByUsuarioPieModel.set(EstadoCuadroEnum.INICIADO.getValue(), select(versiones ,having(on(Version.class).getEstado().getIdEstado(), equalTo(EstadoCuadroEnum.INICIADO.getKey()))).size() );  
+			cuadrosByUsuarioPieModel.set(EstadoCuadroEnum.MODIFICADO.getValue(), select(versiones ,having(on(Version.class).getEstado().getIdEstado(), equalTo(EstadoCuadroEnum.MODIFICADO.getKey()))).size());  
+			cuadrosByUsuarioPieModel.set(EstadoCuadroEnum.POR_APROBAR.getValue(), select(versiones ,having(on(Version.class).getEstado().getIdEstado(), equalTo(EstadoCuadroEnum.POR_APROBAR.getKey()))).size());  
+			cuadrosByUsuarioPieModel.set(EstadoCuadroEnum.APROBADO.getValue(), select(versiones ,having(on(Version.class).getEstado().getIdEstado(), equalTo(EstadoCuadroEnum.APROBADO.getKey()))).size());  
+			cuadrosByUsuarioPieModel.set(EstadoCuadroEnum.CERRADO.getValue(), select(versiones ,having(on(Version.class).getEstado().getIdEstado(), equalTo(EstadoCuadroEnum.CERRADO.getKey()))).size());
+			cuadrosByUsuarioPieModel.set(EstadoCuadroEnum.CONTINGENCIA.getValue(), select(versiones ,having(on(Version.class).getEstado().getIdEstado(), equalTo(EstadoCuadroEnum.CONTINGENCIA.getKey()))).size());
+			this.setRenderChartByUser(Boolean.TRUE);
+			this.displayPopUp("popUpChartByUser", FORMULARIO_FLUJO_APROBACION);
+    	} catch (Exception e) {
+			 logger.error(e.getCause(), e);
+	         addErrorMessage("Error", "Se ha producido un error al Generar el Grafico");
+		}
+    }
+    
+    public void graficoCuadrosAllAction(){
+    	try {
+			final List<Version> versiones = super.getFacadeService().getVersionService().findAllVersionVigente();
+			cuadrosAllPieModel = new PieChartModel();  			  
+			cuadrosAllPieModel.set(EstadoCuadroEnum.INICIADO.getValue(), select(versiones ,having(on(Version.class).getEstado().getIdEstado(), equalTo(EstadoCuadroEnum.INICIADO.getKey()))).size() );  
+			cuadrosAllPieModel.set(EstadoCuadroEnum.MODIFICADO.getValue(), select(versiones ,having(on(Version.class).getEstado().getIdEstado(), equalTo(EstadoCuadroEnum.MODIFICADO.getKey()))).size());  
+			cuadrosAllPieModel.set(EstadoCuadroEnum.POR_APROBAR.getValue(), select(versiones ,having(on(Version.class).getEstado().getIdEstado(), equalTo(EstadoCuadroEnum.POR_APROBAR.getKey()))).size());  
+			cuadrosAllPieModel.set(EstadoCuadroEnum.APROBADO.getValue(), select(versiones ,having(on(Version.class).getEstado().getIdEstado(), equalTo(EstadoCuadroEnum.APROBADO.getKey()))).size());  
+			cuadrosAllPieModel.set(EstadoCuadroEnum.CERRADO.getValue(), select(versiones ,having(on(Version.class).getEstado().getIdEstado(), equalTo(EstadoCuadroEnum.CERRADO.getKey()))).size());
+			cuadrosAllPieModel.set(EstadoCuadroEnum.CONTINGENCIA.getValue(), select(versiones ,having(on(Version.class).getEstado().getIdEstado(), equalTo(EstadoCuadroEnum.CONTINGENCIA.getKey()))).size());
+			this.setRenderChartAll(Boolean.TRUE);
+			this.displayPopUp("popUpChartAll", FORMULARIO_FLUJO_APROBACION);
+    	} catch (Exception e) {
+			 logger.error(e.getCause(), e);
+	         addErrorMessage("Error", "Se ha producido un error al Generar el Grafico");
+		}
+    }
 
 	public ReporteUtilBackingBean getReporteUtilBackingBean() {
 		return reporteUtilBackingBean;
@@ -382,6 +424,46 @@ public class FlujoAprobacionBackingBean extends AbstractBackingBean implements S
 	public void setCatalogoFlujoAprobacionReporte(
 			List<Version> catalogoFlujoAprobacionReporte) {
 		this.catalogoFlujoAprobacionReporte = catalogoFlujoAprobacionReporte;
+	}
+
+
+	public PieChartModel getCuadrosByUsuarioPieModel() {
+		return cuadrosByUsuarioPieModel;
+	}
+
+
+	public void setCuadrosByUsuarioPieModel(PieChartModel cuadrosByUsuarioPieModel) {
+		this.cuadrosByUsuarioPieModel = cuadrosByUsuarioPieModel;
+	}
+
+
+	public PieChartModel getCuadrosAllPieModel() {
+		return cuadrosAllPieModel;
+	}
+
+
+	public void setCuadrosAllPieModel(PieChartModel cuadrosAllPieModel) {
+		this.cuadrosAllPieModel = cuadrosAllPieModel;
+	}
+
+
+	public boolean isRenderChartByUser() {
+		return renderChartByUser;
+	}
+
+
+	public void setRenderChartByUser(boolean renderChartByUser) {
+		this.renderChartByUser = renderChartByUser;
+	}
+
+
+	public boolean isRenderChartAll() {
+		return renderChartAll;
+	}
+
+
+	public void setRenderChartAll(boolean renderChartAll) {
+		this.renderChartAll = renderChartAll;
 	}
 
 }
