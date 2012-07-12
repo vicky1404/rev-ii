@@ -11,6 +11,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import cl.mdr.ifrs.ejb.common.Constantes;
 
@@ -22,8 +23,7 @@ public class TipoCelda implements Serializable {
     
     public static final String QUERY_FIND_CELDA_ALL = "TipoCelda.findAll";
     public static final Long TIPO_CELDA_TEXTO = 0L;
-    public static final Long TIPO_CELDA_NUMERO = 1L;
-        
+    public static final Long TIPO_CELDA_NUMERO = 1L;           
     private static final long serialVersionUID = 7453861536937128669L;
     @Id
     @Column(name = "ID_TIPO_CELDA", nullable = false)
@@ -32,6 +32,8 @@ public class TipoCelda implements Serializable {
     private String nombre;
     @OneToMany(mappedBy = "tipoCelda")
     private List<Celda> celdaList;
+
+   
 
     public TipoCelda() {
     }
@@ -113,4 +115,5 @@ public class TipoCelda implements Serializable {
         buffer.append(']');
         return buffer.toString();
     }
+
 }
