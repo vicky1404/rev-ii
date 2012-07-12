@@ -8,8 +8,9 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 	<ui:define name="content">
 		<h:form id="f1">
-			<p:messages globalOnly="true" id="mensajes_proceso" autoUpdate="true"/>
-			<p:ajaxStatus onstart="statusDialog.show();" oncomplete="statusDialog.hide();" />
+			<p:messages globalOnly="true" id="mensajes_proceso" autoUpdate="true" />
+			<p:ajaxStatus onstart="statusDialog.show();"
+				oncomplete="statusDialog.hide();" />
 			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
 			<p:panel id="pb1" header="#{msg.general_titulo_busqueda_aplicacion}"
 				toggleable="true" closable="false">
@@ -89,25 +90,15 @@
 					</p:dataTable>
 				</div>
 			</p:panel>
-
-			<p:spacer width="10" height="10" id="s1" />
-
-			<table cellspacing="2" cellpadding="3" border="0" align="left"
-				width="99%">
-				<tr>
-					<td width="100%"></td>
-				</tr>
-			</table>
-
 			<p:spacer height="30" id="sp1" width="10" />
-
 			<div align="left">
 				<p:toolbar>
 
 					<p:toolbarGroup align="left">
 						<p:commandButton value="#{msg.general_control_guardar}"
 							icon="ui-icon-disk" id="btn1"
-							action="#{procesoBackingBean.guardar}" partialSubmit="false" update=":f1:mensajes_proceso" />
+							action="#{procesoBackingBean.guardar}" partialSubmit="false"
+							update=":f1:mensajes_proceso" />
 					</p:toolbarGroup>
 
 				</p:toolbar>
@@ -115,9 +106,16 @@
 
 
 
-				<ui:repeat value="#{procesoBackingBean.estructuraList}" var="item"
-					varStatus="status">
-					<ui:include src="/pages/proceso/grilla/grilla0.xhtml" />
+				<ui:repeat value="#{procesoBackingBean.estructuraList}" var="item" varStatus="status">
+					<ui:fragment rendered="#{item.tipoEstructura.idTipoEstructura eq 0}">
+						<ui:include src="/pages/proceso/grilla/grilla0.xhtml" />
+					</ui:fragment>
+					<ui:fragment rendered="#{item.tipoEstructura.idTipoEstructura eq 1}">
+						<ui:include src="/pages/proceso/html/html.xhtml" />
+					</ui:fragment>
+					<ui:fragment rendered="#{item.tipoEstructura.idTipoEstructura eq 2}">
+					    <ui:include src="/pages/proceso/texto/texto.xhtml" />
+					</ui:fragment>								
 				</ui:repeat>
 
 			</div>
