@@ -8,12 +8,11 @@
 		<h:panelGrid columns="1"
 			style="text-align : right; width: 99%; padding-top:10px;">
 			<h:panelGroup>
-				<h:graphicImage value="/resources/images/icon/user.png" />
-				<h:outputText value="#{menuBackingBean.nombreUsuario}"
-					style="font-size:10px;" /><p:spacer width="10"></p:spacer>
+				<h:graphicImage value="/resources/images/icon/usuario.gif" title="Nombre : #{menuBackingBean.nombreUsuario}" width="15"/>
+				<p:spacer width="10"></p:spacer>				
 				<h:commandLink value="#{msg.label_logout}"
 					action="#{loginBackingBean.logoutAction}"
-					style="font-weight:bold; color: #900000; margin-bottom: 15px;" />
+					style="text-decoration: none;"  onmouseover="javascript:this.style.color='SlateGray';" onmouseout="javascript:this.style.color='black';" />
 				<p:themeSwitcher value="#{themeBackingBean.theme}"
 					style="text-align : left; margin-left:10px;" effect="fade" id="statefulSwitcher">
 					<f:selectItem itemLabel="#{msg.label_seleccione_tema}" itemValue="" />
