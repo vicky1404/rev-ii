@@ -392,7 +392,8 @@ public class GeneradorDisenoBackingBean extends AbstractBackingBean {
         }
     }*/
     
-    private Column getColumnSelected(){
+    @SuppressWarnings("rawtypes")
+	private Column getColumnSelected(){
         //TODO a
         Column column = null;
         Collection col = null;

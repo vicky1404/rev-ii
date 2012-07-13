@@ -58,7 +58,7 @@
 				var="row" lazy="false" rows="10" paginator="true"
 				rendered="#{usuarioBackingBean.renderTablaUsuarios}"
 				binding="#{usuarioBackingBean.usuariosTable}">
-				<p:column headerText="Nombre de Usuario">
+				<p:column headerText="Nombre de Usuario" sortBy="#{row.nombreUsuario}">
 					<h:outputText value="#{row.nombreUsuario}" />
 				</p:column>
 				<p:column headerText="Nombre">
