@@ -128,7 +128,8 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
     }
     
     
-    public void persistRelaccionEeff(Map<String, String[]> relacionMap, Long idPeriodo, Grilla grilla){
+    @SuppressWarnings("rawtypes")
+	public void persistRelaccionEeff(Map<String, String[]> relacionMap, Long idPeriodo, Grilla grilla){
         
         VersionEeff version =  getVersionEeffVigenteFindByPeriodo(idPeriodo);
         

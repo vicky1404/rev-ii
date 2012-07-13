@@ -3,7 +3,6 @@ package cl.mdr.ifrs.exceptions;
 import java.util.List;
 
 public class CargaGrillaExcelException extends Exception {
-    @SuppressWarnings("compatibility:-5365994143978373544")
     private static final long serialVersionUID = 4217452240477601475L;
     
     private List<String> detailErrors;

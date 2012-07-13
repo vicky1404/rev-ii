@@ -2,7 +2,6 @@ package cl.mdr.ifrs.exceptions;
 
 public class FormulaException extends Exception {
     
-    @SuppressWarnings("compatibility:-1575932753173567732")
     private static final long serialVersionUID = 186653637317671225L;
     
     public static final int STACK_OVERFLOW = 1;
