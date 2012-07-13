@@ -43,10 +43,10 @@ public class MantenedorBackingBean extends SoporteBackingBean implements Seriali
         try {            
             super.getFacade().getCatalogoService().persistEntity(this.getCatalogoList());
             this.setCatalogoList(super.getFacade().getCatalogoService().findAllByTipo(this.getTipoCuadro(), null));
-            super.agregarSuccesMessage("Se han guardado los datos del Catálogo con éxito");
+            super.agregarSuccesMessage("Se han guardado los datos del Catalogo con éxito");
         } catch (Exception e) {
             logger.error(e);
-            super.agregarErrorMessage("Se ha producido un error al guardar el Catálogo de cuadros");
+            super.agregarErrorMessage("Se ha producido un error al guardar el catalogo de cuadros");
         }
     }
     public void agregarFilaCatalogoNota(ActionEvent event){

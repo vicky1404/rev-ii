@@ -110,7 +110,7 @@
         <managed-bean-class>cl.bicevida.revelaciones.mb.MantenedorFormulaBackingBean</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
-    <!--managed-bean>
+    <managed-bean>
         <managed-bean-name>cargadorEeffBackingBean</managed-bean-name>
         <managed-bean-class>cl.bicevida.revelaciones.mb.CargadorEeffBackingBean</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
@@ -119,7 +119,7 @@
         <managed-bean-name>validadorEeffBackingBean</managed-bean-name>
         <managed-bean-class>cl.bicevida.revelaciones.mb.ValidadorEeffBackingBean</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
-    </managed-bean-->
+    </managed-bean>
     <managed-bean>
         <managed-bean-name>componenteBackingBean</managed-bean-name>
         <managed-bean-class>cl.bicevida.revelaciones.common.mb.ComponenteBackingBean</managed-bean-class>

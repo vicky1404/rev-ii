@@ -142,7 +142,21 @@ public class CeldaServiceBean implements CeldaServiceLocal{
         }
     }
     
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public List<Celda> findCeldaByEeff(Long idPeriodo, Long idFecu){
+        Query query = em.createNamedQuery(Celda.FIND_BY_EEFF);
+        query.setParameter("idPeriodo",idPeriodo);
+        query.setParameter("idFecu",idFecu);
+        return query.getResultList();
+    }
     
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public List<Celda> findCeldaByEeffDet(Long idPeriodo, Long idCuenta){
+        Query query = em.createNamedQuery(Celda.FIND_BY_EEFF_DET);
+        query.setParameter("idPeriodo",idPeriodo);
+        query.setParameter("idCuenta",idCuenta);
+        return query.getResultList();
+    }
     
     
 }

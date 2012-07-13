@@ -5,6 +5,8 @@ import static cl.bicevida.revelaciones.ejb.cross.Constantes.PERSISTENCE_UNIT_NAM
 import cl.bicevida.revelaciones.ejb.entity.Columna;
 import cl.bicevida.revelaciones.ejb.service.local.ColumnaServiceLocal;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import javax.ejb.SessionContext;
@@ -12,6 +14,7 @@ import javax.ejb.Stateless;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 
 @Stateless
@@ -33,5 +36,19 @@ public class ColumnaServiceBean implements ColumnaServiceLocal{
     public Object persistEntity(Columna entity){
         em.persist(entity);
         return entity;
+    }
+    
+    public List<Columna> getColumnaByGrillaFila(Long idGrilla, Long idFila){
+        Query query = em.createNamedQuery(Columna.FIND_BY_GRILLA_FILA);
+        query.setParameter("idGrilla", idGrilla);
+        query.setParameter("idFila", idFila);
+        return query.getResultList();
+    }
+    
+    
+    public List<Columna> getColumnaByGrilla(Long idGrilla){
+        Query query = em.createNamedQuery(Columna.FIND_BY_GRILLA);
+        query.setParameter("idGrilla", idGrilla);
+        return query.getResultList();   
     }
 }

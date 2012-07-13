@@ -155,7 +155,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			for (Iterator iter = getReport().getAutoTexts().iterator(); iter.hasNext();) {
 				AutoText text = (AutoText) iter.next();
 				if (text.getPosition() == AutoText.POSITION_HEADER && text.getAlignment().equals(currentAlignment)) {
-					CommonExpressionsHelper.add(yOffset,(DynamicJasperDesign) getDesign(), this, headerband, text);
+                    CommonExpressionsHelper.add(yOffset,(DynamicJasperDesign) getDesign(), this, headerband, text);
 					yOffset += text.getHeight().intValue();
 				}
 			}
@@ -218,7 +218,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			for (Iterator iter = getReport().getAutoTexts().iterator(); iter.hasNext();) {
 				AutoText autotext = (AutoText) iter.next();
 				if (autotext.getPosition() == AutoText.POSITION_FOOTER && autotext.getAlignment().equals(currentAlignment) ) {
-					CommonExpressionsHelper.add(yOffset,(DynamicJasperDesign) getDesign(), this, footerband, autotext);
+                    CommonExpressionsHelper.add(yOffset,(DynamicJasperDesign) getDesign(), this, footerband, autotext);
 					yOffset += autotext.getHeight().intValue();
 				}
 			}

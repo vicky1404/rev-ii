@@ -9,8 +9,7 @@
                 <div align="center">
                     <af:table rowBandingInterval="1" value="#{generadorVersionBackingBean.estructuras}"
                               contentDelivery="immediate" id="t90" inlineStyle="width:517px; height:auto;" var="row"
-                              binding="#{generadorAgrupacionBackinBean.disenoEstructuraTable}"
-                              emptyText="#{msg.general_sin_informacion}">
+                              binding="#{generadorAgrupacionBackinBean.disenoEstructuraTable}">
                         <af:column sortable="false" headerText="#{msg.generador_numero_estructura}" align="center"
                                    id="c223" width="150px" inlineStyle="height:22px;">
                             <af:outputText value="#{row.orden}" id="ot2"/>
@@ -40,7 +39,7 @@
                     <div align="center">
                     <af:table value="#{generadorAgrupacionBackinBean.grillaModelByEstructuraSelected}" id="t1"
                               columnBandingInterval="1" contentDelivery="immediate" var="row"
-                              inlineStyle="width:530px; height:auto;" emptyText="#{msg.general_sin_informacion}">
+                              inlineStyle="width:530px; height:auto;">
                         <af:column sortable="false" headerText="Nivel" align="center" id="c7" width="95px">
                             <af:selectOneChoice id="s3oc6" unselectedLabel="#{msg.general_control_seleccione}"
                                                 value="#{generadorAgrupacionBackinBean.grillaModelByEstructuraSelected.nivel}"
@@ -67,7 +66,7 @@
                                                id="si6"/>
                             </af:selectOneChoice>
                         </af:column>
-                        <af:column sortable="false" headerText="Título" align="center" id="c6" width="150px">
+                        <af:column sortable="false" headerText="Titulo" align="center" id="c6" width="150px">
                             <af:inputText id="it7"
                                           value="#{generadorAgrupacionBackinBean.grillaModelByEstructuraSelected.tituloAgrupacion}"/>
                         </af:column>
