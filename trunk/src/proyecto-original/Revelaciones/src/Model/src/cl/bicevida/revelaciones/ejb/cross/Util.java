@@ -18,6 +18,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -382,7 +383,7 @@ public class Util{
         if(valor==null || token == null)
             return 0;
         
-        StringTokenizer str = new StringTokenizer(valor, ";");
+        StringTokenizer str = new StringTokenizer(valor, token);
         
         return str.countTokens();
     }
@@ -426,5 +427,50 @@ public class Util{
         
         return false;
         
+    }
+    
+    public static Long getOnlyNumbers(final String str) {
+    
+        String numeros = "";
+
+        if (str == null || str.length() == 0)
+            return 0L;
+
+        for (int i = 0; i < str.length(); i++) {
+
+            if (Character.isDigit(str.charAt(i)))
+                numeros = numeros + str.charAt(i);
+        
+        }
+        
+        return Util.getLong(numeros, 0L);
+    }
+    
+    public static List<List<Celda>> builHtmlGrilla(List<Columna> columnasE){
+                    
+            List<List<Celda>> celdaDobleList = new ArrayList<List<Celda>>();
+            
+            int i=0;
+            for(Columna columna : columnasE){
+                    
+                for(Celda celda : columna.getCeldaList()){
+                        
+                        try{
+                                celdaDobleList.get(i).add(celda);
+                                
+                        }catch(IndexOutOfBoundsException e){
+                                List<Celda> celdas = new ArrayList<Celda>();
+                                celdas.add(celda);
+                                celdaDobleList.add(celdas);
+                        }
+                        
+                        i++;
+                }
+                
+                i=0;
+            }
+            
+            return celdaDobleList;
+            
     }
 }

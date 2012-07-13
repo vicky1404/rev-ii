@@ -10,7 +10,7 @@
         <table align="center">
         <tr>
         <td>
-            <af:selectOneChoice label="#{msg.generador_tipo_cuadro}:" id="soc01" required="true"
+            <af:selectOneChoice label="#{msg.generador_tipo_cuadro}" id="soc01" required="true"
                                 requiredMessageDetail="#{msg.generador_required_tipo_cuadro}"
                                 valueChangeListener="#{generadorVersionBackingBean.tipoCuadroChangeListener}"
                                 unselectedLabel="#{msg.general_control_seleccione}" changed="false" immediate="true" autoSubmit="true"
@@ -19,7 +19,7 @@
             </af:selectOneChoice>
         </td>
         <td>
-            <af:inputText  autoComplete="on" shortDesc="ej: Nota 1" label="#{msg.generador_cuadro}:" 
+            <af:inputText  autoComplete="on" shortDesc="ej: Nota 1" label="#{msg.generador_cuadro}" 
             required="true"  requiredMessageDetail="Ingrese nota" id="it1"   validator="#{generadorVersionBackingBean.catalogoValidator}" 
             value="#{generadorVersionBackingBean.busqueda}"
             binding="#{generadorVersionBackingBean.busquedaInputText}"
@@ -39,23 +39,22 @@
         <af:group id="g2" rendered="#{generadorVersionBackingBean.renderedVersiones}">
         <div align="center">
         <af:table rowBandingInterval="1" value="#{generadorVersionBackingBean.filtro.catalogo}" 
-        contentDelivery="immediate" id="t1" inlineStyle="width:720px; height:auto;"
-        emptyText="#{msg.general_sin_informacion}">
-            <af:column sortable="false" headerText="Código Cuadro" align="center" id="c11" width="120px" inlineStyle="height:22px;">
+        contentDelivery="immediate" id="t1" inlineStyle="width:720px; height:auto;">
+            <af:column sortable="false" headerText="Código Nota" align="center" id="c11" width="120px" inlineStyle="height:22px;">
                  <af:outputText value="#{generadorVersionBackingBean.catalogo.codigoCuadro}" id="ot211"/>
             </af:column>
-            <af:column sortable="false" headerText="Código Sub Cuadro" align="center" id="c22" width="120px" inlineStyle="height:22px;">
+            <af:column sortable="false" headerText="Código SubNota" align="center" id="c22" width="120px" inlineStyle="height:22px;">
                 <af:outputText value="#{generadorVersionBackingBean.catalogo.codigoSubcuadro}" id="ot212"/>
             </af:column>
-            <af:column sortable="false" headerText="Nombre Cuadro" align="center" id="c33" width="120px" inlineStyle="height:22px;">
+            <af:column sortable="false" headerText="Nombre Nota" align="center" id="c33" width="120px" inlineStyle="height:22px;">
                 <af:outputText value="#{generadorVersionBackingBean.catalogo.nombre}" id="ot222"/>
             </af:column>
-             <af:column sortable="false" headerText="Título Cuadro" align="center" id="c44" width="215px" inlineStyle="height:22px;">
+             <af:column sortable="false" headerText="Titulo Nota" align="center" id="c44" width="215px" inlineStyle="height:22px;">
                 <af:outputText value="#{generadorVersionBackingBean.catalogo.titulo}" id="ot233"/>
             </af:column>
-             <af:column sortable="false" headerText="Vigente" align="center" id="c55" width="120px" inlineStyle="height:22px;">
+             <af:column sortable="false" headerText="Vigencia" align="center" id="c55" width="120px" inlineStyle="height:22px;">
                 <af:outputText value="#{generadorVersionBackingBean.catalogo.vigencia==1?'Sí':'No'}" id="ot244"/>
-             </af:column>
+            </af:column>
         </af:table>
         <af:spacer width="10" height="20" id="s2"/>
         <af:table value="#{generadorVersionBackingBean.versiones}" var="row" rowBandingInterval="1" id="t2"
@@ -63,7 +62,7 @@
                   binding="#{generadorVersionBackingBean.versionTable}"
                   emptyText="No hay versiones creadas"
                   contentDelivery="immediate">
-            <af:column sortable="false" headerText="Versión" align="center" id="c1" width="120px" inlineStyle="height:22px;">
+            <af:column sortable="false" headerText="Version" align="center" id="c1" width="120px" inlineStyle="height:22px;">
             <af:switcher defaultFacet="#{(row.vigencia == 1 and row.idVersion != null) ? 'linkVersion' : 'outputVersion'}" id="s3">
                 <f:facet name="outputVersion">
                     <af:outputText value="#{row.version}" id="ot3"/>
@@ -137,8 +136,7 @@
             var="row"
             binding="#{generadorVersionBackingBean.estruturaTable}"
             partialTriggers="cl2 ::cb2"
-            varStatus="status"
-            emptyText="#{msg.general_sin_informacion}">
+            varStatus="status">
             <af:column sortable="false" headerText="#{msg.generador_orden}" align="center" id="c111" width="50px" inlineStyle="height:32px;">
                     <af:outputText value="#{row.orden}" id="ot112"/>
             </af:column>

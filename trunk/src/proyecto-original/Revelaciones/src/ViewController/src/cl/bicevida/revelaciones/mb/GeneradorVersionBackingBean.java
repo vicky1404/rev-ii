@@ -38,7 +38,7 @@ public class GeneradorVersionBackingBean extends SoporteBackingBean{
     @SuppressWarnings("compatibility:-6828780374993653527")
     private static final long serialVersionUID = -3810406642581474883L;
     
-    private transient Logger logger = Logger.getLogger(SoporteBackingBean.class);
+    private transient Logger logger = Logger.getLogger(GeneradorVersionBackingBean.class);
     public static final String BEAN_NAME = "generadorVersionBackingBean";
     private String busqueda;
     private Version versionSelected;
@@ -105,12 +105,12 @@ public class GeneradorVersionBackingBean extends SoporteBackingBean{
                 }
             }catch(Exception e){
                 getBusquedaInputText().setValue("");
-                agregarWarnMessage("Búsqueda sin resultados");
+                agregarWarnMessage("Busqueda sin resultados");
             }
             
             if(catalogo==null){
                 init();
-                agregarWarnMessage("Búsqueda sin resultados");
+                agregarWarnMessage("Busqueda sin resultados");
             }else{
                 setCatalogoBusqueda(catalogo);
                 getBusquedaInputText().setReadOnly(true);

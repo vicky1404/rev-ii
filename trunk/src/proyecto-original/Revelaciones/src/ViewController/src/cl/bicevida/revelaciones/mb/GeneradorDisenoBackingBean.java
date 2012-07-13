@@ -230,8 +230,7 @@ public class GeneradorDisenoBackingBean extends SoporteBackingBean{
     public Object editarColumnaAction() {
         RichColumn column = getRichColumnSelected();
         if(column!=null){
-            
-            if(column.getHeaderText() != null && column.getHeaderText().equals("#"))
+            if(column.getHeaderText().equals("#"))
                 return null;
             Long valor =null;
             try{
@@ -250,10 +249,7 @@ public class GeneradorDisenoBackingBean extends SoporteBackingBean{
                 columna.setTituloColumna(getColumnaAgregada().getTituloColumna());
                 columna.setAncho(getColumnaAgregada().getAncho());
                 columna.setRowHeader(getColumnaAgregada().isRowHeader());
-                setCampoEdicionGrillas(createCampoModel(getFilaSelected()));
             }
-            
-            setAdfPartialTargetTableEditor();
         }
         return null;
     }
@@ -271,18 +267,9 @@ public class GeneradorDisenoBackingBean extends SoporteBackingBean{
                 setInitialEditarGrillaTable();
                 addChildrenToEditarGrillaTable(getGrillaModelByEstructuraSelected().getColumnas());
                 getEditarGrillaTable().setValue(createTableModel(getGrillaModelByEstructuraSelected().getColumnas(),getGrillaModelByEstructuraSelected().getAgrupacionesMap()).getRows());
-                setCampoEdicionGrillas(createCampoModel(getFilaSelected()));
             }
-            setAdfPartialTargetTableEditor();
         }
         return null;
-    }
-    
-    private void setAdfPartialTargetTableEditor(){
-        setADFPartialTarget(getEditarGrillaTable());
-        setADFPartialTarget(getEditorTable1());
-        setADFPartialTarget(getEditorTable2());
-        setADFPartialTarget(getEditorTable2());
     }
     
     private Integer getPosicionColumnaByColumna(RichColumn column){
@@ -371,8 +358,11 @@ public class GeneradorDisenoBackingBean extends SoporteBackingBean{
         getEditarGrillaTable().setValue(getTableModel(grillaModel).getRows());
         setRenderdEditarGrillaTable(true);
         getAgregarFilaChoice().resetValue();
+        setADFPartialTarget(getEditarGrillaTable());
         setADFPartialTarget(getAgregarFilaChoice());
-        setAdfPartialTargetTableEditor();
+        setADFPartialTarget(getEditorTable1());
+        setADFPartialTarget(getEditorTable2());
+        setADFPartialTarget(getEditorTable3());
         setCampoEdicionGrillas(createCampoModel(getFilaSelected()));
         getCampoEdicionGrillas();
         return null;
@@ -605,8 +595,7 @@ public class GeneradorDisenoBackingBean extends SoporteBackingBean{
         List<EdicionVO> tipoCeldaList = new ArrayList<EdicionVO>();
         GrillaModelVO grillaModel = getGrillaModelByEstructuraSelected();
         
-        if ( !Util.getLong(filaSelected, -1L).equals(-1L) ) {
-        
+        if (filaSelected != -1L) {
             GrillaVO grillaVO = getTableModel(grillaModel);
             for (Columna columna : getColumnasAgregadas(grillaModel)) {
                 Celda celdaValor = GeneradorDisenoHelper.cloneCelda(getCeldaByColumnaFilaSelected(columna.getIdColumna(), filaSelected,grillaVO));

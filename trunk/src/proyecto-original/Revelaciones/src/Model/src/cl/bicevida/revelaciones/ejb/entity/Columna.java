@@ -27,10 +27,16 @@ import javax.persistence.Transient;
 
 
 @Entity
-@NamedQueries( { @NamedQuery(name = "Columna.findAll", query = "select o from Columna o") })
+@NamedQueries( { @NamedQuery(name = Columna.FIND_ALL, query = "select o from Columna o"),
+                 @NamedQuery(name = Columna.FIND_BY_GRILLA_FILA, query = "select o from Columna o, Celda c where c.idGrilla = o.idGrilla and c.idColumna = o.idColumna and o.idGrilla = :idGrilla and c.idFila = :idFila order by o.idColumna, c.idFila"),
+                 @NamedQuery(name = Columna.FIND_BY_GRILLA, query = "select o from Columna o where o.idGrilla = :idGrilla order by o.idColumna")})
 @Table(name = Constantes.REV_COLUMNA)
 @IdClass(ColumnaPK.class)
 public class Columna implements Serializable {
+    
+    public static final String FIND_ALL = "Columna.findAll";
+    public static final String FIND_BY_GRILLA_FILA = "Columna.findByGrillaColumna";
+    public static final String FIND_BY_GRILLA = "Columna.findByGrilla";
 
     @SuppressWarnings("compatibility")
     private static final long serialVersionUID = 8480508449730276846L;
@@ -60,7 +66,6 @@ public class Columna implements Serializable {
     
     @Column(name = "ROW_HEADER")
     private boolean rowHeader;
-    
     
     
     @OneToMany(mappedBy = "columna", fetch = FetchType.EAGER)

@@ -35,7 +35,9 @@ import javax.persistence.Transient;
                  @NamedQuery(name = Celda.CELDA_FIND_BY_COLUMNA, query = "select o from Celda o where o.columna = :columna"),
                  /*@NamedQuery(name = Celda.CELDA_FIND_BY_GRUPO, query = "select o from Celda o where o.grupo = :grupo and o.idGrilla = :idGrilla "),
                  @NamedQuery(name = Celda.CELDA_FIND_MAX_GRUPO, query = "select max(o.grupo) from Celda o where o.idGrilla = :idGrilla "),*/
-                 @NamedQuery(name = Celda.CELDA_FIND_BY_ID_FILA, query = "select o from Celda o where o.idGrilla = :idGrilla and o.idFila = :idFila order by o.idColumna")                 
+                 @NamedQuery(name = Celda.CELDA_FIND_BY_ID_FILA, query = "select o from Celda o where o.idGrilla = :idGrilla and o.idFila = :idFila order by o.idColumna"),
+                 @NamedQuery(name = Celda.FIND_BY_EEFF, query =     "select c from Celda c, RelacionEeff        r where c.idGrilla = r.idGrilla and c.idColumna = r.idColumna and c.idFila = r.idFila and r.periodo.idPeriodo = :idPeriodo and r.idFecu = :idFecu order by c.idColumna , c.idFila"),
+                 @NamedQuery(name = Celda.FIND_BY_EEFF_DET, query = "select c from Celda c, RelacionDetalleEeff r where c.idGrilla = r.idGrilla and c.idColumna = r.idColumna and c.idFila = r.idFila and r.periodo.idPeriodo = :idPeriodo and r.idCuenta = :idCuenta order by c.idColumna , c.idFila")
                  })
 @Table(name = Constantes.REV_CELDA)
 @IdClass(CeldaPK.class)
@@ -45,6 +47,9 @@ public class Celda implements Serializable {
     public final static String CELDA_FIND_BY_GRUPO = "Celda.findCeldaByGrupo";
     public final static String CELDA_FIND_MAX_GRUPO = "Celda.findCeldaMaxGrupo";
     public final static String CELDA_FIND_BY_ID_FILA = "Celda.findCeldaByIdFila";
+    public final static String FIND_BY_EEFF = "Celda.findCeldaByEeff";
+    public final static String FIND_BY_EEFF_DET = "Celda.findCeldaByEeffDet";
+    
     @SuppressWarnings("compatibility:7756436096828081048")
     private static final long serialVersionUID = -3518647074958736787L;
 
@@ -93,7 +98,11 @@ public class Celda implements Serializable {
     @Column(name="FORMULA")
     private String formula;
     
+    @OneToMany(mappedBy = "celda2")
+    private List<RelacionEeff> relacionEeffList;
     
+    @OneToMany(mappedBy = "celda5")
+    private List<RelacionDetalleEeff> relacionDetalleEeffList;
     
     @Transient
     private boolean esNumero;
@@ -109,6 +118,9 @@ public class Celda implements Serializable {
     
     @Transient
     private boolean selectedByFormula;
+    
+    @Transient
+    private boolean tieneRelEeff = false;
     
     public Celda() {
     }
@@ -352,5 +364,42 @@ public class Celda implements Serializable {
         return esNumero;
     }
 
+    public void setRelacionEeffList(List<RelacionEeff> relacionEeffList) {
+        this.relacionEeffList = relacionEeffList;
+    }
+
+    public List<RelacionEeff> getRelacionEeffList() {
+        return relacionEeffList;
+    }
+
+    public void setRelacionDetalleEeffList(List<RelacionDetalleEeff> relacionDetalleEeffList) {
+        this.relacionDetalleEeffList = relacionDetalleEeffList;
+    }
+
+    public List<RelacionDetalleEeff> getRelacionDetalleEeffList() {
+        return relacionDetalleEeffList;
+    }
     
+    public int getSizeRelacionEeffList(){
+        
+        if(relacionEeffList==null)
+            return 0;
+        else
+            return relacionEeffList.size();
+    }
+    
+    public int getSizeRelacionDetalleEeffList(){
+        if(getRelacionDetalleEeffList()==null)
+            return 0;
+        else
+            return getRelacionDetalleEeffList().size();
+    }
+
+    public void setTieneRelEeff(boolean tieneRelEeff) {
+        this.tieneRelEeff = tieneRelEeff;
+    }
+
+    public boolean isTieneRelEeff() {
+        return tieneRelEeff;
+    }
 }

@@ -10,8 +10,7 @@
                 <div align="center">
                     <af:table rowBandingInterval="1" value="#{generadorVersionBackingBean.estructuras}"
                               contentDelivery="immediate" id="t90" inlineStyle="width:517px; height:auto;" var="row"
-                              binding="#{generadorDisenoBackingBean.disenoEstructuraTable}"
-                              emptyText="#{msg.general_sin_informacion}">
+                              binding="#{generadorDisenoBackingBean.disenoEstructuraTable}">
                         <af:column sortable="false" headerText="#{msg.generador_numero_estructura}" align="center"
                                    id="c223" width="150px" inlineStyle="height:22px;">
                             <af:outputText value="#{row.orden}" id="ot2"/>
@@ -53,8 +52,7 @@
                                         <af:table value="#{generadorDisenoBackingBean.columnasAgregadasSelected}"
                                                   id="t1" columnBandingInterval="1" contentDelivery="immediate"
                                                   var="row" binding="#{generadorDisenoBackingBean.agregarColumnaTable}"
-                                                  inlineStyle="width:540px; height:auto;"
-                                                  emptyText="#{msg.general_sin_informacion}">
+                                                  inlineStyle="width:540px; height:auto;">
                                             <af:column sortable="false" headerText="#{msg.generador_titulo_columna}"
                                                        align="center" id="c323" width="200px"
                                                        inlineStyle="height:22px;">
@@ -140,8 +138,7 @@
                                                 </tr>
                                             </table>
                                             <af:spacer width="10" height="10" id="s04"/>
-                                            <af:panelGroupLayout layout="scroll" id="pgl12" styleClass="AFStretchWidth"
-                                                                 partialTriggers="t90:cl1 t1:cl4 t1:cl6 t1:cl5">
+                                            <af:panelGroupLayout layout="scroll" id="pgl12" styleClass="AFStretchWidth" partialTriggers="t90:cl1">
                                                 <af:table binding="#{generadorDisenoBackingBean.editarGrillaTable}"
                                                           id="tblD01" emptyText="#{msg.generador_sin_contenido}"
                                                           disableColumnReordering="true" inlineStyle="height:auto;"
@@ -207,7 +204,7 @@
                                                         <af:spacer height="20" id="s9"/>
                                                         <div align="center">
                                                             <af:panelGroupLayout id="pgl4"
-                                                                                 partialTriggers="t90:cl1 cl113 t1:cl4 t1:cl6 t1:cl5"
+                                                                                 partialTriggers="t90:cl1 cl113 ::t1:cl4"
                                                                                  layout="scroll"
                                                                                  styleClass="AFStretchWidth">
                                                                 <af:forEach items="#{generadorDisenoBackingBean.campoEdicionGrillas}"
@@ -223,8 +220,7 @@
                                                                                   disableColumnReordering="true"
                                                                                   columnSelection="none"
                                                                                   rowSelection="none"
-                                                                                  binding="#{generadorDisenoBackingBean.editorTable1}"
-                                                                                  emptyText="#{msg.general_sin_informacion}">
+                                                                                  binding="#{generadorDisenoBackingBean.editorTable1}">
                                                                             <af:forEach items="#{itemColumna.columnas}"
                                                                                         var="subItemColumna"
                                                                                         varStatus="status1">
@@ -251,8 +247,7 @@
                                                                                   disableColumnReordering="true"
                                                                                   columnSelection="none"
                                                                                   rowSelection="none"
-                                                                                  binding="#{generadorDisenoBackingBean.editorTable2}"
-                                                                                  emptyText="#{msg.general_sin_informacion}">
+                                                                                  binding="#{generadorDisenoBackingBean.editorTable2}">
                                                                             <af:forEach items="#{itemColumna.columnas}"
                                                                                         var="subItemColumna"
                                                                                         varStatus="status2">
@@ -281,8 +276,7 @@
                                                                                   disableColumnReordering="true"
                                                                                   columnSelection="none"
                                                                                   rowSelection="none"
-                                                                                  binding="#{generadorDisenoBackingBean.editorTable3}"
-                                                                                  emptyText="#{msg.general_sin_informacion}">
+                                                                                  binding="#{generadorDisenoBackingBean.editorTable3}">
                                                                             <af:forEach items="#{itemColumna.columnas}"
                                                                                         var="subItemColumna"
                                                                                         varStatus="status3">

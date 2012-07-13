@@ -88,8 +88,14 @@ public class Periodo implements Serializable {
     @OneToMany(mappedBy = "periodo")
     private List<VersionPeriodo> versionPeriodoList;
     
+    @OneToMany(mappedBy = "periodo", fetch = FetchType.LAZY)
+    private List<VersionEeff> versionEeffList1;
     
-
+    @OneToMany(mappedBy = "periodo", fetch = FetchType.LAZY)
+    private List<RelacionEeff> relacionEeffList;
+    
+    @OneToMany(mappedBy = "periodo", fetch = FetchType.LAZY)
+    private List<RelacionDetalleEeff> relacionDetalleEeffList;
     
     @Transient
     private String mesPeriodo;
@@ -111,7 +117,8 @@ public class Periodo implements Serializable {
         this.idPeriodo = periodo.idPeriodo;
         this.periodo = periodo.periodo;
         this.estadoPeriodo = periodo.estadoPeriodo;
-        this.versionPeriodoList = periodo.versionPeriodoList;        
+        this.versionPeriodoList = periodo.versionPeriodoList;
+        this.versionEeffList1 = periodo.versionEeffList1;
     }
 
 
@@ -189,6 +196,30 @@ public class Periodo implements Serializable {
         }
         return null;
     }
+
+    public void setVersionEeffList1(List<VersionEeff> versionEeffList) {
+        this.versionEeffList1 = versionEeffList;
+    }
+
+    public List<VersionEeff> getVersionEeffList1() {
+        return versionEeffList1;
+    }
+
+    public void setRelacionEeffList(List<RelacionEeff> relacionEeffList) {
+        this.relacionEeffList = relacionEeffList;
+    }
+
+    public List<RelacionEeff> getRelacionEeffList() {
+        return relacionEeffList;
+    }
+
+    public void RelacionDetalleEeff(List<RelacionDetalleEeff> relacionDetalleEeffList) {
+        this.relacionDetalleEeffList = relacionDetalleEeffList;
+    }
+
+    public List<RelacionDetalleEeff> getRelacionDetalleEeffList() {
+        return relacionDetalleEeffList;
+    }
     
     @Override
     public String toString() {
@@ -204,6 +235,4 @@ public class Periodo implements Serializable {
         buffer.append(']');
         return buffer.toString();
     }
-
-    
 }

@@ -374,7 +374,9 @@ public class ReporteUtilBackingBean extends SoporteBackingBean{
         super.getResponse().addHeader("content-disposition","attachment; "+fileName);
         xSSFWorkbook.write(super.getResponse().getOutputStream());              
         super.getResponse().getOutputStream().flush();
-        super.getResponse().getOutputStream().close();                
+        super.getResponse().getOutputStream().close();
+        if (!getFacesContext().getResponseComplete())
+        getFacesContext().responseComplete();
     }
     
     /**

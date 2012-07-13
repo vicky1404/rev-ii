@@ -46,6 +46,22 @@
    <value n="defaultPackage" v="model"/>
    <hash n="ejbModuleContainer">
       <value n="cmpProvider" v="EJB 3.0"/>
+      <value n="dbConnection" v="Rev"/>
+      <hash n="ejbDiagramToPuMap">
+         <hash n="model">
+            <hash n="cl">
+               <hash n="bicevida">
+                  <hash n="revelaciones">
+                     <hash n="doc">
+                        <hash n="classdiagram">
+                           <value n="EJBDiagram_HistorialReporte.ejb_diagram" v="revelacionesPU"/>
+                        </hash>
+                     </hash>
+                  </hash>
+               </hash>
+            </hash>
+         </hash>
+      </hash>
       <value n="ejbMetaDataPrefs" v="PREFASANNON"/>
       <value n="ejbVersion" v="3.0"/>
       <url n="weblogicEjbJarNodeURL" path="src/META-INF/weblogic-ejb-jar.xml"/>
@@ -55,16 +71,21 @@
    </hash>
    <hash n="oracle.ide.model.TechnologyScopeConfiguration">
       <list n="technologyScope">
+         <string v="ADFbc-Modeling"/>
          <string v="Ant"/>
          <string v="Database"/>
+         <string v="Database-Modeling"/>
          <string v="EJB"/>
+         <string v="EJB-Modeling"/>
          <string v="Java"/>
          <string v="Java-Modeling"/>
          <string v="Maven"/>
          <string v="TopLink"/>
+         <string v="UML"/>
          <string v="XML"/>
       </list>
    </hash>
+   <hash n="oracle.jdeveloper.compiler.ant.AntConfiguration"/>
    <hash n="oracle.jdeveloper.compiler.OjcConfiguration">
       <value n="internalEncoding" v="Cp1252"/>
       <list n="Javac.commandline.optionlist">
@@ -1112,6 +1133,9 @@
          <hash n="src$META-INF$persistence.xml">
             <hash n="Revelaciones">
                <value n="development-database" v="REVELACIONES_DESARROLLO"/>
+            </hash>
+            <hash n="revelacionesPU">
+               <value n="development-database" v="Rev"/>
             </hash>
          </hash>
       </hash>

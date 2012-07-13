@@ -9,6 +9,10 @@ import java.util.List;
 import java.util.Map;
 
 import javax.ejb.Local;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+
+import javax.persistence.Query;
 
 
 @Local
@@ -35,4 +39,8 @@ public interface CeldaServiceLocal {
     void persistFormulaDinamicaMap(Grilla grilla, Map<Celda, List<Celda>> formulaDinamicaMap) throws Exception;
     
     void deleteFormulaDinamica(Celda celdaParent, List<Celda> celdaChildList) throws Exception;
+    
+    List<Celda> findCeldaByEeff(Long idPeriodo, Long idFecu);
+    
+    List<Celda> findCeldaByEeffDet(Long idPeriodo, Long idCuenta);
 }

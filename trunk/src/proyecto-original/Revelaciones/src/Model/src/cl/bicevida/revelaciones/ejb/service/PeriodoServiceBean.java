@@ -110,7 +110,6 @@ public class PeriodoServiceBean implements PeriodoServiceLocal{
         }
     }
     
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Integer abrirPeriodo(String usuario) throws Exception {
         
             Query query = em.createNamedQuery(Periodo.CALL_SP_ABRIR_PERIODO);    

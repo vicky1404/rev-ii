@@ -305,10 +305,10 @@ public class EstructuraServiceBean implements EstructuraServiceLocal {
     public void persistEstructura(List<Estructura> estructuras, VersionPeriodo versionPeriodo, HistorialVersionPeriodo historialVersionPeriodo) throws Exception {
         for (Estructura estructura : estructuras){
                 if (estructura.getTipoEstructura().getIdTipoEstructura().equals(TipoEstructuraEnum.GRILLA.getKey())){
-                    guardarGrillas(estructura); }
+                    guardarGrillas(estructura.getGrillaList()); }
                 if (estructura.getTipoEstructura().getIdTipoEstructura().equals(TipoEstructuraEnum.HTML.getKey())){
                     mergeHTMLList(estructura.getHtmlList());}            
-        }
+        }        
         em.merge(versionPeriodo);
         em.merge(historialVersionPeriodo);
     }
@@ -320,19 +320,16 @@ public class EstructuraServiceBean implements EstructuraServiceLocal {
      * @param grillaList
      * @throws Exception
      */
-     public void guardarGrillas(Estructura estructura) throws Exception {
-
-             for (Grilla grilla : estructura.getGrillaList()){
-                 
-                 estructura.setGrillaVO(this.getGrillaVO(grilla,true));
-                 
-                 if (grilla.getTipoFormula() != null && grilla.getTipoFormula().equals(Grilla.TIPO_GRILLA_DINAMICA)){
-                     persistGrillaList(grilla);
-                 } else {
-                     facadeService.getGrillaService().mergeEntity(grilla);
-                 }
-             }
-             
+    public void guardarGrillas(List<Grilla> grillaList) throws Exception {
+        
+        for (Grilla grilla : grillaList){
+            if (grilla.getTipoFormula() != null && grilla.getTipoFormula().equals(Grilla.TIPO_GRILLA_DINAMICA)){
+                persistGrillaList(grilla);
+            } else {
+                facadeService.getGrillaService().mergeEntity(grilla);
+            }
+        }
+        
     }
     
     

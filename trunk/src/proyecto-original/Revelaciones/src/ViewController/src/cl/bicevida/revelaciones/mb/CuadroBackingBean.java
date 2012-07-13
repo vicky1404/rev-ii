@@ -42,9 +42,7 @@ import org.apache.log4j.Logger;
 
 
 public class CuadroBackingBean extends SoporteBackingBean implements Serializable{
-    
     private transient Logger logger = Logger.getLogger(CuadroBackingBean.class);
-    
     @SuppressWarnings("compatibility:-7656952128317697995")
     private static final long serialVersionUID = -8524005303834461862L;
     
@@ -80,15 +78,9 @@ public class CuadroBackingBean extends SoporteBackingBean implements Serializabl
             logger.error(e.getCause(), e);
             agregarErrorMessage(PropertyManager.getInstance().getMessage("general_mensaje_cuadro_formula_loop_error"));  
             agregarErrorMessage(e.getFormula());  
-        }catch(EJBException e){
-            if(e.getCause() instanceof NoResultException){
-                agregarWarnMessage("No existen Versiones creadas para el Cuadro");
-            }else{
-                agregarErrorMessage("Error al cargar información de página");
-            }
         }catch(Exception e){
             agregarErrorMessage("Error al cargar información de página");
-        logger.error(e.getMessage());
+            logger.error(e.getMessage());
         }
     }
     
@@ -182,12 +174,10 @@ public class CuadroBackingBean extends SoporteBackingBean implements Serializabl
                 historialVersionPeriodo.setEstadoCuadro(versionPeriodo.getEstado());
                 historialVersionPeriodo.setFechaProceso(new Date());
                 historialVersionPeriodo.setUsuario(super.getNombreUsuario());
-                historialVersionPeriodo.setComentario(PropertyManager.getInstance().getMessage("general_mensaje_historial_nota_datos_modificados"));   
-
-                super.getFacade().getEstructuraService().persistEstructura(estructuraList, versionPeriodo, historialVersionPeriodo); 
+                historialVersionPeriodo.setComentario(PropertyManager.getInstance().getMessage("general_mensaje_historial_nota_datos_modificados"));
                 
-                //List<Estructura> estructuraList = super.getFacade().getEstructuraService().getEstructuraByVersion(super.getFiltro().getVersion(), true);
-                
+                super.getFacade().getEstructuraService().persistEstructura(estructuraList, versionPeriodo, historialVersionPeriodo);
+                List<Estructura> estructuraList = super.getFacade().getEstructuraService().getEstructuraByVersion(super.getFiltro().getVersion(), true);
                 setListGrilla(estructuraList);
                 this.setEstructuraList(estructuraList);
                 super.agregarSuccesMessage(PropertyManager.getInstance().getMessage("general_mensaje_nota_guardar_exito"));  
@@ -272,7 +262,7 @@ public class CuadroBackingBean extends SoporteBackingBean implements Serializabl
                 estructura.getGrillaVO().getGrilla().getIdGrilla().equals(idGrilla)) {
                 if(estructura.getGrillaVO().getGrilla().getTipoFormula()==null || 
                    !estructura.getGrillaVO().getGrilla().getTipoFormula().equals(Grilla.TIPO_GRILLA_DINAMICA)){
-                    agregarWarnMessage("No se puede agregar fila, primero debe ingresar fórmula dinámica en mantenedor de fórmulas");
+                    agregarWarnMessage("No se puede agregar fila, primero debe ingresar formula dinámica en mantenedor de formulas");
                     return;
                 }
                 GeneradorDisenoHelper.agregarFilaGrillaByFilaSelected(estructura.getGrillaVO().getGrilla(), idFila);
@@ -311,7 +301,7 @@ public class CuadroBackingBean extends SoporteBackingBean implements Serializabl
                 estructura.getGrillaVO().getGrilla().getIdGrilla().equals(idGrilla)) {
                 if(estructura.getGrillaVO().getGrilla().getTipoFormula()==null || 
                    !estructura.getGrillaVO().getGrilla().getTipoFormula().equals(Grilla.TIPO_GRILLA_DINAMICA)){
-                    agregarWarnMessage("No se puede eliminar fila, primero debe ingresar fórmula dinámica en mantenedor de fórmulas");
+                    agregarWarnMessage("No se puede eliminar fila, primero debe ingresar formula dinámica en mantenedor de formulas");
                     return;
                 }
                 if(GeneradorDisenoHelper.deleteRowValidator(estructura.getGrillaVO().getGrilla(), idFila)){

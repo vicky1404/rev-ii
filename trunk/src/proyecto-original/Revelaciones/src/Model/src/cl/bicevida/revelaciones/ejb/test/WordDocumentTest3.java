@@ -1,3 +1,4 @@
+package cl.bicevida.revelaciones.ejb.test;
 /*
  *  Copyright 2007-2008, Plutext Pty Ltd.
  *

@@ -4,8 +4,8 @@
                   xmlns="http://xmlns.oracle.com/weblogic/jdbc-data-source">
     <name>Revelaciones</name>
     <jdbc-driver-params>
-        <!--url>jdbc:oracle:thin:@//pollux:1521/orcl</url-->
-        <url>jdbc:oracle:thin:@(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST = 10.50.100.118)(PORT = 1521))(ADDRESS = (PROTOCOL = TCP)(HOST = 10.50.100.119)(PORT = 1521))(ADDRESS = (PROTOCOL = TCP)(HOST = 10.50.100.120)(PORT = 1521))(LOAD_BALANCE = yes)(CONNECT_DATA =(FAILOVER_MODE=(TYPE=select)(METHOD=basic)(RETRIES=180)(DELAY=5))(SERVER = DEDICATED)(SERVICE_NAME = ifrs.bicevida.cl)))</url>        
+        <url>jdbc:oracle:thin:@//pollux:1521/orcl</url>
+        <!--url>jdbc:oracle:thin:@(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST = 10.50.100.118)(PORT = 1521))(ADDRESS = (PROTOCOL = TCP)(HOST = 10.50.100.119)(PORT = 1521))(ADDRESS = (PROTOCOL = TCP)(HOST = 10.50.100.120)(PORT = 1521))(LOAD_BALANCE = yes)(CONNECT_DATA =(FAILOVER_MODE=(TYPE=select)(METHOD=basic)(RETRIES=180)(DELAY=5))(SERVER = DEDICATED)(SERVICE_NAME = ifrs.bicevida.cl)))</url-->
         <driver-name>oracle.jdbc.OracleDriver</driver-name>
         <properties>
             <property>
@@ -14,8 +14,8 @@
             </property>
             <property>
                 <name>password</name>
-                <value>2011revel01</value>
-                <!--value>revelaciones</value-->
+                <!--value>2011revel01</value-->
+                <value>revelaciones</value>
             </property>
         </properties>        
     </jdbc-driver-params>

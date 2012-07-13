@@ -184,7 +184,7 @@ public class AbrirPeriodoBackingBean extends SoporteBackingBean implements Seria
                     //if (version.getCatalogo().getTipoCuadro().getIdTipoCuadro().equals(1L)){ //Si la version es una nota (Nota ; TipoCuadro = 1 )
                         for (VersionPeriodo versionPeriodo : version.getVersionPeriodoList()){
                             if (versionPeriodo.getPeriodo().getPeriodo().equals(periodo)){
-                                if (!versionPeriodo.getEstado().getIdEstado().equals(EstadoCuadroEnum.CERRADO.getKey())){ //Todos los cuadros deben estar cerrados
+                                if (!versionPeriodo.getEstado().getIdEstado().equals(EstadoCuadroEnum.CERRADO.getKey()) ){ //Todos los cuadros deben estar cerrados
                                        abrir = false;
                                 }  
                             }
@@ -203,7 +203,7 @@ public class AbrirPeriodoBackingBean extends SoporteBackingBean implements Seria
                 //if (version.getCatalogo().getTipoCuadro().getIdTipoCuadro().equals(1L)){ //Si la version es una nota (Nota ; TipoCuadro = 1 )
                     for (VersionPeriodo versionPeriodo : version.getVersionPeriodoList()){
                         if (versionPeriodo.getPeriodo().getPeriodo().equals(periodo)){
-                            if (!versionPeriodo.getEstado().getIdEstado().equals(EstadoCuadroEnum.CERRADO.getKey())  ){ //Todos los cuadros deben estar cerrados
+                            if (!versionPeriodo.getEstado().getIdEstado().equals(EstadoCuadroEnum.CERRADO.getKey()) ){ //Todos los cuadros deben estar cerrados
                                    if (notasAbiertas.length() > 0){
                                            notasAbiertas.append(" , ");
                                    } else {

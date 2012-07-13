@@ -103,8 +103,7 @@ public class ReporteServiceBean implements ReporteServiceLocal {
 
             XSSFSheet sheet =
                 wb.createSheet(reporte.getPropiedades().getNombreHoja() == null ? "" : reporte.getPropiedades().getNombreHoja());
-            sheet.setZoom(6,7);
-            sheet.setFitToPage(true);
+
             int posRow = 2;
             int grillaMayor = 1;
             int tituloPrincipal = 1;

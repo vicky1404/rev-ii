@@ -1,11 +1,11 @@
 package cl.bicevida.revelaciones.ejb.facade.local;
 
 
-
+import cl.bicevida.revelaciones.ejb.service.local.CargadorEeffServiceLocal;
 import cl.bicevida.revelaciones.ejb.service.local.CargadorEstructuraServiceLocal;
 import cl.bicevida.revelaciones.ejb.service.local.CatalogoServiceLocal;
 import cl.bicevida.revelaciones.ejb.service.local.CeldaServiceLocal;
-
+import cl.bicevida.revelaciones.ejb.service.local.EstadoFinancieroServiceLocal;
 import cl.bicevida.revelaciones.ejb.service.local.EstructuraServiceLocal;
 import cl.bicevida.revelaciones.ejb.service.local.FormulaServiceLocal;
 import cl.bicevida.revelaciones.ejb.service.local.GrillaServiceLocal;
@@ -84,7 +84,15 @@ public interface FacadeServiceLocal {
      */
     FormulaServiceLocal getFormulaService();
     
+    /**
+     * @return Interfaz local de EstadoFinancieroServiceLocal
+     */
+    EstadoFinancieroServiceLocal getEstadoFinancieroService();
     
+    /**
+     * @return Interfaz local de CargadorEeffServiceLocal
+     */
+    CargadorEeffServiceLocal getCargadorEeffService();
     
     
 }

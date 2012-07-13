@@ -144,8 +144,7 @@ true);
                                   summary="Tabla para el catalogo de estructuras" columnResizing="enabled" width="100%"
                                   columnStretching="column:c3Periodo" contentDelivery="immediate" fetchSize="50"
                                   autoHeightRows="100" disableColumnReordering="true" expandAllEnabled="true"
-                                  binding="#{mantenedorFormulaBackingBean.tablaCatalogoTree}"
-                                  emptyText="#{msg.general_estructura_not_found}">
+                                  binding="#{mantenedorFormulaBackingBean.tablaCatalogoTree}">
                         <f:facet name="nodeStamp">
                             <af:column headerText="Detalle de Estructuras" align="start" id="c5Periodo"></af:column>
                         </f:facet>
@@ -312,7 +311,7 @@ true);
                             <af:inputText label=" "
                                           value="Usted posee: #{mantenedorFormulaBackingBean.countFormulasSinGrabar} Fórmula(s) sin guardar."
                                           id="it2" readOnly="true" contentStyle="color:red;"
-                                          visible="#{mantenedorFormulaBackingBean.celdaTarget != null and mantenedorFormulaBackingBean.countFormulasSinGrabar > 0}"
+                                          visible="#{mantenedorFormulaBackingBean.celdaTarget != null}"
                                           binding="#{mantenedorFormulaBackingBean.contadorFormulasUnsavedOutput}"/>
                         </af:panelGroupLayout>
                         <af:spacer height="10" id="s10"/>
