@@ -3,9 +3,10 @@ package cl.mdr.ifrs.exceptions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EstadoFinancieroException extends Exception{
-    
-    private List<String> detailErrors;
+public class EstadoFinancieroException extends Exception{   
+	private static final long serialVersionUID = 6545257404766101294L;
+	
+	private List<String> detailErrors;
     
     public EstadoFinancieroException() {
         super();

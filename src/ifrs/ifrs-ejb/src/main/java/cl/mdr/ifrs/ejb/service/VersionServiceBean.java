@@ -428,8 +428,7 @@ public class VersionServiceBean implements VersionServiceLocal{
         query.setParameter("vigente", vigente != null ? vigente.longValue() : "" );        
         return query.getResultList();
     }
-    
-    @SuppressWarnings("unchecked")
+        
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public Version findUltimaVersionVigente(final Long idPeriodo, final String usuario, final Long idCatalogo){
         Query query = em.createNamedQuery(Version.FIND_ULTIMA_VERSION_VIGENTE);
@@ -448,9 +447,11 @@ public class VersionServiceBean implements VersionServiceLocal{
 	    return query.getResultList();
     }
 
-	@Override
+    @SuppressWarnings("unchecked")
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public List<Version> findVersionAllByIdCatalogo(Long idCatalogo) {
-		// TODO Auto-generated method stub
-		return null;
+		 Query query = em.createNamedQuery(Version.VERSION_FIND_ALL_BY_ID_CATALOGO);
+	     query.setParameter("idCatalogo",idCatalogo);
+	     return query.getResultList();
 	}
 }

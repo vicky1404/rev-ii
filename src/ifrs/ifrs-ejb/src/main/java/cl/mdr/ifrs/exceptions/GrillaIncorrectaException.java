@@ -3,8 +3,9 @@ package cl.mdr.ifrs.exceptions;
 import java.util.List;
 
 public class GrillaIncorrectaException extends Exception {
-    
-    private List<String> errores;
+	private static final long serialVersionUID = 2681829979654712703L;
+	
+	private List<String> errores;
     
     public GrillaIncorrectaException(String error) {
         super(error);
