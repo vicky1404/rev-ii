@@ -4,9 +4,8 @@
 
 <Workspace>
 	<Local Expanded="Yes">
-		<Model Expanded="Yes" ID="{5E3015EB-B0E5-476B-946C-8371561E2575}" Loaded="No" Name="ObjectOrientedModel_CargaEEFF" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="../../v2/diagramas_UML/ObjectOrientedModel_CargaEEFF.oom"/>
-		<Model Expanded="Yes" ID="{E4C236F2-A5D5-4138-A9D9-0E0C32810BFC}" Loaded="No" Name="ObjectOrientedModel_Formula" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="../../v2/diagramas_UML/ObjectOrientedModel_Formula.OOM"/>
-		<Model Expanded="Yes" ID="{E4C236F2-A5D5-4138-A9D9-0E0C32810BFC}" Name="ObjectOrientedModel_Formula" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="../../v2/diagramas_UML/ObjectOrientedModel_Formula.OOM"/>
+		<Model Expanded="Yes" ID="{D9317645-A4DD-450A-B9E5-923A2F21BBD6}" Loaded="No" Name="Modelo_Fisico" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="Modelo_Fisico.pdm"/>
+		<Model Expanded="Yes" ID="{D9317645-A4DD-450A-B9E5-923A2F21BBD6}" Name="Modelo_Fisico" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="Modelo_Fisico.pdm"/>
 	</Local>
 	<BrowserModule Name="Repository"/>
 </Workspace>
