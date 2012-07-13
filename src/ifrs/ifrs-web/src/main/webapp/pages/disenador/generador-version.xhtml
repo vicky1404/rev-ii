@@ -1,141 +1,181 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
-	
-		<h:panelGrid columns="4" style="margin-bottom:10px" cellpadding="5">
 
-				<p:selectOneMenu value="#{generadorVersionBackingBean.tipoCuadro}" label="Tipo de Cuadro" id="gVsom1" converter="tipoCuadroConverter">
-					<f:selectItem  itemLabel="Seleccione" noSelectionOption="true" id="gVsi1"/>
-					<f:selectItems value="#{cuadro.componenteBackingBean.tipoCuadroItems}" id="gVsi2"/>
-					
-					<p:ajax listener="#{generadorVersionBackingBean.tipoCuadroChange}" partialSubmit="false" />
-				</p:selectOneMenu>
-				
-				<p:autoComplete value="#{generadorVersionBackingBean.catalogo}"
-					id="gVac1"
-					completeMethod="#{generadorVersionBackingBean.completeCatalogo}"
-					var="c" itemLabel="#{c.nombre}" itemValue="#{c}"
-					converter="catalogoConverter"
-					dropdown="true" scrollHeight="300" />
+	<h:panelGrid columns="4">
 
-				<p:commandButton id="gVcb1" value="Buscar" actionListener="#{generadorVersionBackingBean.buscarListener}" update="gVdt1,gVdt2" />
+		<p:outputLabel for="gVsom1" value="#{msg.label_tipo_y_nombre_cuadro}"></p:outputLabel>
+		<p:selectOneMenu value="#{generadorVersionBackingBean.tipoCuadro}"
+			label="#{msg.label_tipo_cuadro}" required="true" id="gVsom1" effect="fade"
+			converter="tipoCuadroConverter">
+			<f:selectItem itemLabel="#{msg.label_seleccione}"
+				noSelectionOption="true" id="gVsi1" />
+			<f:selectItems
+				value="#{generadorVersionBackingBean.componenteBackingBean.tipoCuadroItems}"
+				id="gVsi2" />
+			<p:ajax listener="#{generadorVersionBackingBean.tipoCuadroChange}"
+				partialSubmit="false" />
+		</p:selectOneMenu>
 
-			</h:panelGrid>
+		<p:autoComplete value="#{generadorVersionBackingBean.catalogo}"
+			id="gVac1" required="true" label="#{msg.label_nombre}" effect="fade"
+			completeMethod="#{generadorVersionBackingBean.completeCatalogo}"
+			var="c" itemLabel="#{c.nombre}" itemValue="#{c}"
+			converter="catalogoConverter" dropdown="true" scrollHeight="300" />
 
-			<p:spacer id="gVsp1" height="20px;" />
+		<p:commandButton id="gVcb1" value="#{msg.boton_buscar}"
+			icon="ui-icon-search"
+			actionListener="#{generadorVersionBackingBean.buscarListener}"
+			update="@form">
+		</p:commandButton>
 
-			<p:dataTable id="gVdt1" var="var" value="#{generadorVersionBackingBean.catalogo}" style="width:720px">
+	</h:panelGrid>
 
-				<p:column id="gVc1" headerText="Codigo Cuadro" width="80">
-					<h:outputText value="#{var.codigoCuadro}" />
-				</p:column>
+	<p:spacer id="gVsp1" height="20px;" />
 
-				<p:column id="gVc2" headerText="Codigo Sub Cuadro" width="100">
-					<h:outputText value="#{var.codigoSubcuadro}" />
-				</p:column>
+	<p:dataTable id="gVdt1" var="var" emptyMessage=" " rendered="#{not empty generadorVersionBackingBean.catalogo}"
+		value="#{generadorVersionBackingBean.catalogo}" style="width:720px">
 
-				<p:column id="gVc3" headerText="Nombre Cuadro" width="130">
-					<h:outputText value="#{var.nombre}" />
-				</p:column>
+		<p:column id="gVc1" headerText="Codigo Cuadro" width="80">
+			<h:outputText value="#{var.codigoCuadro}" />
+		</p:column>
 
-				<p:column id="gVc4" headerText="Titulo Cuadro" >
-					<h:outputText value="#{var.titulo}" />
-				</p:column>
+		<p:column id="gVc2" headerText="Codigo Sub Cuadro" width="100">
+			<h:outputText value="#{var.codigoSubcuadro}" />
+		</p:column>
 
-				<p:column id="gVc5" headerText="Vigente" width="70">
-					<h:outputText value="#{var.vigencia}" />
-				</p:column>
+		<p:column id="gVc3" headerText="Nombre Cuadro" width="130">
+			<h:outputText value="#{var.nombre}" />
+		</p:column>
 
-			</p:dataTable>
+		<p:column id="gVc4" headerText="Titulo Cuadro">
+			<h:outputText value="#{var.titulo}" />
+		</p:column>
 
-			<p:spacer id="gVsp2" height="20px;" />
+		<p:column id="gVc5" headerText="Vigente" width="70">
+			<h:outputText value="#{var.vigencia eq 1 ? 'SI' : 'NO'}" />
+		</p:column>
 
-			<p:dataTable id="gVdt2" var="ver" value="#{generadorVersionBackingBean.versionList}" style="width:720px">
+	</p:dataTable>
 
-				<p:column id="gVc1" headerText="Version">
-					<h:outputText value="#{ver.version}" />
-				</p:column>
+	<p:spacer id="gVsp2" height="20px;" />
 
-				<p:column id="gVc2" headerText="Vigencia">
-					<h:outputText value="#{ver.vigencia}" />
-				</p:column>
+	<p:dataTable id="gVdt2" var="ver" emptyMessage=" " rendered="#{not empty generadorVersionBackingBean.versionList}"
+		value="#{generadorVersionBackingBean.versionList}" style="width:720px">
 
-				<p:column id="gVc3" headerText="Comentario Creacion">
-					<p:inputText value="#{ver.comentario}" rendered="#{ver.editable}" />
-					<h:outputText value="#{ver.comentario}" rendered="#{!ver.editable}" />
-				</p:column>
+		<p:column id="gVc1" headerText="Versión">
+			<h:outputText value="#{ver.version}" />
+		</p:column>
 
-				<p:column id="gVc4" headerText="Fecha Creacion">
-					<h:outputText value="#{ver.fechaCreacion}" />
-				</p:column>
+		<p:column id="gVc2" headerText="Vigente">
+			<h:outputText value="#{ver.vigencia eq 1 ? 'SI' : 'NO'}" />
+		</p:column>
 
-			</p:dataTable>
-			
-			<p:spacer id="gVsp3" height="20px;" />
+		<p:column id="gVc3" headerText="Comentario Creación">
+			<p:inputTextarea value="#{ver.comentario}" rendered="#{ver.editable}"
+				autoResize="true" maxlength="255" style="width:90%;" />
+			<h:outputText
+				value="#{ver.comentario == null ? 'SIN COMENTARIO' : ver.comentario}"
+				rendered="#{!ver.editable}" />
+		</p:column>
 
-			<div id="gVdv1" align="right" style="width: 720px;">
-				<p:commandButton id="gVcb2" value="#{msg.generador_nueva_version}" style="width:124px;" actionListener="#{generadorVersionBackingBean.agregarVersionListener}" partialSubmit="true"  update="@form"/>
-			</div>
+		<p:column id="gVc4" headerText="Fecha Creación">
+			<h:outputText value="#{ver.fechaCreacion}">
+				<f:convertDateTime pattern="#{msg.fecha_hora_pattern}" />
+			</h:outputText>
+		</p:column>
 
-			<p:spacer height="20px;" />
+	</p:dataTable>
 
-			<p:dataTable id="gVdt3" value="#{generadorVersionBackingBean.estructuraList}" var="row" style="width:465px">
+	<p:spacer id="gVsp3" height="20px;" />
 
-				<p:column id="gVc1" headerText="Orden" style="text-align:center">
-					<h:outputText value="#{row.orden}" />
-				</p:column>
+	<div id="gVdv1" align="right" style="width: 720px;">
+		<p:commandButton id="gVcb2" value="#{msg.generador_nueva_version}" icon="ui-icon-document"
+			rendered="#{not empty generadorVersionBackingBean.versionList}"
+			actionListener="#{generadorVersionBackingBean.agregarVersionListener}"
+			partialSubmit="true" update="@form" />
+	</div>
 
-				<p:column id="gVc2" headerText="Tipo de Estructura" style="text-align:center">
-					<p:selectOneMenu value="#{row.tipoEstructura}" style="width:130px" converter="tipoEstructuraConverter">
-						<f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
-						<f:selectItems value="#{generadorVersionBackingBean.componenteBackingBean.tipoEstructuras}" />
-					</p:selectOneMenu>
-				</p:column>
+	<p:spacer height="20px;" />
 
-				<p:column id="gVc3" headerText="Agregar o Eliminar" style="text-align:center">
+	<p:dataTable id="gVdt3" emptyMessage=" "
+		value="#{generadorVersionBackingBean.estructuraList}" var="row"
+		style="width:720px"
+		rendered="#{generadorVersionBackingBean.renderBotonEditar}">
 
-					<p:commandLink id="gVcl1" actionListener="#{generadorVersionBackingBean.agregarTipoEstructuraListener}" update="@form" >
-						<p:graphicImage id="gVgi1" value="../../resources/images/icon/add.png" />
-						<f:attribute name="estructura" value="#{row}" />
-					</p:commandLink>
+		<p:column id="gVc1" headerText="Orden" style="text-align:center">
+			<h:outputText value="#{row.orden}" />
+		</p:column>
 
-					<p:spacer id="gVsp5" width="3px" />
+		<p:column id="gVc2" headerText="Tipo de Estructura"
+			style="text-align:center">
+			<p:selectOneMenu value="#{row.tipoEstructura}" style="width:130px"
+				converter="tipoEstructuraConverter">
+				<f:selectItem itemLabel="Seleccione" noSelectionOption="true" />
+				<f:selectItems
+					value="#{generadorVersionBackingBean.componenteBackingBean.tipoEstructuras}" />
+			</p:selectOneMenu>
+		</p:column>
 
-					<p:commandLink ajax="true" id="gVcl2" title="Eliminar" actionListener="#{generadorVersionBackingBean.eliminarTipoEstructuraListener}" rendered="#{generadorVersionBackingBean.sizeEstructrua > 1 ? 'true' : 'false'} " update="@form" partialSubmit="true">
-						<p:graphicImage id="gVgi2" value="../../resources/images/icon/remove.png" />
-					</p:commandLink>
+		<p:column id="gVc3" headerText="Agregar o Eliminar"
+			style="text-align:center">
 
-				</p:column>
-				
-				<p:column id="gVc5" headerText="Ordenar" style="text-align:center">
+			<p:commandLink id="gVcl1"
+				actionListener="#{generadorVersionBackingBean.agregarTipoEstructuraListener}"
+				update="@form">
+				<p:graphicImage id="gVgi1"
+					value="../../resources/images/icon/add.png" />
+				<f:attribute name="estructura" value="#{row}" />
+			</p:commandLink>
 
-					<p:commandLink id="gVcl5" rendered="#{(generadorVersionBackingBean.sizeEstructrua > 1 ? true : false) and (status.count == 1 ? false : true)}" update="@form" partialSubmit="true">
-						<p:graphicImage id="gVgi5" value="../../resources/images/icon/up_ok.png" />
-					</p:commandLink>
+			<p:spacer id="gVsp5" width="3px" />
 
-					<p:spacer id="gVsp6" width="3px" />
+			<p:commandLink ajax="true" id="gVcl2" title="Eliminar"
+				actionListener="#{generadorVersionBackingBean.eliminarTipoEstructuraListener}"
+				rendered="#{generadorVersionBackingBean.sizeEstructrua > 1 ? 'true' : 'false'} "
+				update="@form" partialSubmit="true">
+				<p:graphicImage id="gVgi2"
+					value="../../resources/images/icon/remove.png" />
+			</p:commandLink>
 
-					<p:commandLink id="gVcl6" rendered="#{(generadorVersionBackingBean.sizeEstructrua > 1 ? true : false) and 
+		</p:column>
+
+		<p:column id="gVc5" headerText="Ordenar" style="text-align:center">
+
+			<p:commandLink id="gVcl5"
+				rendered="#{(generadorVersionBackingBean.sizeEstructrua > 1 ? true : false) and (status.count == 1 ? false : true)}"
+				update="@form" partialSubmit="true">
+				<p:graphicImage id="gVgi5"
+					value="../../resources/images/icon/up_ok.png" />
+			</p:commandLink>
+
+			<p:spacer id="gVsp6" width="3px" />
+
+			<p:commandLink id="gVcl6"
+				rendered="#{(generadorVersionBackingBean.sizeEstructrua > 1 ? true : false) and 
 											   (status.count == generadorVersionBackingBean.sizeEstructrua ? false : true) and 
 											   (generadorVersionBackingBean.sizeEstructrua > status.count)}"
-											   update="dt3" partialSubmit="true">
-						<p:graphicImage id="gVgi6" value="../../resources/images/icon/down_ok.png" />
-					</p:commandLink>
+				update="dt3" partialSubmit="true">
+				<p:graphicImage id="gVgi6"
+					value="../../resources/images/icon/down_ok.png" />
+			</p:commandLink>
 
-				</p:column>
+		</p:column>
 
-			</p:dataTable>
-			
-			<p:spacer id="gVsp6" height="10px;" />
-			
-			<div id="gVsv3" align="right" style="width:410px;">
-				<p:commandButton id="gVcb3" value="#{msg.generador_guardar_estructura}" 
-					style="width:150px"
-					action="#{generadorVersionBackingBean.guardarEstructura}"
-					rendered="#{generadorVersionBackingBean.renderBotonEditar}" update="@form" />
-			</div>				
+	</p:dataTable>
+
+	<p:spacer id="gVsp6" height="10px;" />
+
+	<div id="gVsv3" align="right" style="width: 720px;">
+		<p:commandButton id="gVcb3" icon="ui-icon-disk"
+			value="#{msg.generador_guardar_estructura}"
+			action="#{generadorVersionBackingBean.guardarEstructura}"
+			rendered="#{generadorVersionBackingBean.renderBotonEditar}"
+			update="@form" />
+	</div>
 
 
 </ui:composition>

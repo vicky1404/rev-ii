@@ -56,14 +56,14 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 	}
 
 	public void buscarListener(ActionEvent event){
-		try{
-			
+		try{			
 			if(catalogo!=null)
-				versionList = getFacadeService().getVersionService().findVersionAllByIdCatalogo(catalogo.getIdCatalogo());
+				versionList = super.getFacadeService().getVersionService().findVersionAllByIdCatalogo(catalogo.getIdCatalogo());
 			else
-				addInfoMessage("Sin versiones", "No existen versiones para catalogo seleccionado");
+				super.addInfoMessage("No existen versiones para Catálogo seleccionado");
 		}catch(Exception e){
-			e.printStackTrace();
+			super.addErrorMessage("Se ha producido un error al buscar desde el Catálogo para configurar el Cuadro");
+			LOG.error(e);
 		}
 		
 	}
@@ -91,29 +91,23 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 	
 	
 	public void tipoCuadroChange(){
-		try{
-			
-			System.out.println("Prueba de metodo");
-			
-			if(tipoCuadro!=null)
-				catalogoList = getFacadeService().getCatalogoService().findCatalogoByFiltro(getNombreUsuario(), tipoCuadro, null, 1L);
+		try{								
+			if(tipoCuadro != null)
+				catalogoList = getFacadeService().getCatalogoService().findCatalogoByFiltro(getNombreUsuario(), this.getTipoCuadro() , null, 1L);
 		}catch(Exception e){
-			addErrorMessage("Error al buscar catalogo", "Error al buscar catalogo");
-			e.printStackTrace();
+			addErrorMessage("Error al buscar Catálogo");
+			LOG.error(e);
 		}
 		
-	}
+	}	
 	
-	
-    public List<Estructura> getEstructuraList() {
-        
+    public List<Estructura> getEstructuraList() {        
     	if(estructuraList==null){
         	estructuraList = new ArrayList<Estructura>();
             Estructura estructura = new Estructura();
             estructura.setOrden(1L);
             estructuraList.add(estructura);
-        }
-    	
+        }    	
         return estructuraList;
     }
     
@@ -201,7 +195,7 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
                 this.setEstructuraList(estructuras);
                 
             } catch (Exception e) {
-                addErrorMessage("Error","Error al obtener información");
+                super.addErrorMessage("Error al obtener información");
                 LOG.error(e.getMessage(),e);
             }
             
@@ -209,10 +203,8 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
         }
     }
     
-    public String guardarEstructura(){
-        
-        Long version = 1L;
-        
+    public String guardarEstructura(){        
+        Long version = 1L;        
         for(int i=0; i<versionList.size()-1; i++){
         	versionList.get(i).setCatalogo(catalogo);
         	versionList.get(i).setVigencia(0L);
@@ -252,8 +244,8 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
                  for(Version versionPaso : getVersionList()){
                      versionPaso.setVigencia(0L);
                  }
-                 setEstructuraList(null);
-                 getVersionList().add(new Version(version.getVersion()+1,true,new Date(),1L));
+                 this.setEstructuraList(null);
+                 getVersionList().add(new Version(version.getVersion()+1, true, new Date(), 1L));
                  setRenderEstructura(true);
              }
          }else{
@@ -418,7 +410,7 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 		this.catalogoList = catalogoList;
 	}
 
-	public List<Version> getVersionList() {
+	public List<Version> getVersionList() {		
 		return versionList;
 	}
 
