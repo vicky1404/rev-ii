@@ -28,6 +28,17 @@
 						oncomplete="statusDialog.hide();" />
 					<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
 					
+					<c:if test="${param.unauthorized eq 1}">
+						<div class="ui-messages ui-widget">
+							<div class="ui-messages-error ui-corner-all">
+								<span class="ui-messages-error-icon"></span>
+								<ul>
+									<li><span class="ui-messages-error-summary"
+										style="font-size: 11px;">#{msg.mensaje_iniciar_sesion_en_el_sistema}</span></li>
+								</ul>
+							</div>
+						</div>
+					</c:if>
 
 					<c:if test="${param.logout eq 1}">
 						<div class="ui-messages ui-widget">
@@ -40,6 +51,7 @@
 							</div>
 						</div>
 					</c:if>
+					
 					<p:messages id="mensajes_login" globalOnly="true" escape="false"></p:messages>
 					<p:panel id="panel_login" header="#{msg.label_acceso}" >
 						<h:panelGrid columns="3" columnClasses="titleCell" border="0">
