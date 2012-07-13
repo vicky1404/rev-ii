@@ -72,14 +72,14 @@
     		<p:column headerText="Cuadros editables" resizable="true" selectionMode="single">
     		
     			<h:outputText value="#{tree.col1}" style="font-weight:bold;"/>
-    			    <p:commandLink actionListener="#{formula.buscarEstructuraGrilla}" update="@form" rendered="#{tree.image != null}">    			    	
+    			    <p:commandLink actionListener="#{formula.buscarEstructuraGrilla}" update="@form" rendered="#{tree.image != null}"
+    			    style="text-decoration: none;"  onmouseover="javascript:this.style.color='SlateGray';" onmouseout="javascript:this.style.color='black';">    			    	
 	    				<p:graphicImage value="/resources/images/icon/#{tree.image}" />	 
 	    				<p:spacer width="10"></p:spacer>   
-	    				<h:outputText value="Editar (#{tree.estructura.grilla.titulo})"/> 
+	    				<h:outputText value="Configurar fórmula"/> 
     			    	<f:attribute name="estructura" value="#{tree.estructura}"/>
 	                    <f:attribute name="catalogo" value="#{tree.catalogo}"/>	 
-    			    </p:commandLink>
-    			        				
+    			    </p:commandLink>    			        				
     		</p:column>
     		<p:column headerText="#{msg.tabla_cabecera_version}" >
     			<h:outputText value="#{tree.col2}" />
@@ -104,8 +104,8 @@
        
        						
        					    
-       						<p:inputText  id="ot5"
-                                          readonly="true" style="font-weight:bold;"
+       						<h:inputText  id="ot5"
+                                          readonly="true" style="font-weight:bold;border:none;"
                                           title="El resultado de la celda [#{formula.celdaTarget.idColumna},#{formula.celdaTarget.idFila}] se compone de:"
                                           value="Fórmula : [#{formula.celdaTarget.idColumna},#{formula.celdaTarget.idFila}] ="
                                           binding="#{formula.formulaTargetOutput}"/>
@@ -113,11 +113,8 @@
                             <p:spacer width="10" id="s7" />
                             
                             <p:inputText id="it1" 
-                                          value="#{formula.barraFormula}" size="50"
-                                          binding="#{formula.barraFormulaOutput}">
-                                          
-                                
-                            </p:inputText>
+                                          value="#{formula.barraFormula}" size="#{formula.largoBarraFormula}"
+                                          binding="#{formula.barraFormulaOutput}" readonly="true"/>
                             
                             <p:spacer width="10" id="s9" />
                             
@@ -178,8 +175,10 @@
     	
     	<p:fieldset legend="Cuadro" id="fs1" binding="#{formula.panelGroupLayoutTablaFormula}" rendered="#{formula.renderTablaFormula}">
     	  
-	    	<h:outputText value="versión: #{formula.estructura.version.version} - " id="ot2"/>
-    		<h:outputText value="#{formula.grilla.titulo}" id="of1"/> 
+    	  
+    	  		<h:outputText value="(versión: #{formula.estructura.version.version})" id="ot2"/>
+    	  		<p:spacer width="10"></p:spacer>
+    	  		<h:outputText value="#{formula.grilla.titulo}" id="of1"/>
     		
     		<f:verbatim>
     			<br></br><br></br>
@@ -198,7 +197,7 @@
     		   
     		<p:spacer height="10"></p:spacer>
     		
-    		<p:dataTable id="dt1" value="#{formula.grillaVO.rows}" var="row" selection="#{formula.dataTableRow}" selectionMode="single" >
+    		<p:dataTable id="dt1" value="#{formula.grillaVO.rows}" var="row" >
     		
     		
     		 <p:columns value="#{formula.grillaVO.columnas}" var="col" columnIndexVar="index" id="columnas">	 
@@ -218,7 +217,7 @@
                                                 <h:outputText value="#{row[col.idColumna].valor}" id="ot2b"  
                                                 			   style="padding-left:10px; text-align:left; border: 0px solid;"                                                             
                                                                disabled="true"
-                                                               rendered="#{(row[col.idColumna].tipoCelda.idTipoCelda == 0)}"></h:outputText>
+                                                               rendered="#{(row[col.idColumna].tipoCelda.idTipoCelda == 0) or (row[col.idColumna].tipoCelda.idTipoCelda == 6)}"></h:outputText>
                                             </div>	
                                             
                                             
@@ -300,7 +299,7 @@
                                                                      title="Columna: #{col.idColumna} , Fila: #{row[col.idColumna].idFila}"
                                                                      update="@form"                                                                     
                                                                      id="cil5">
-                                                   
+                                                    
                                              		<p:graphicImage value="/resources/images/icon/uncheck_obj_16x16.gif" rendered="#{row[col.idColumna].esNumero and not row[col.idColumna].selectedByFormula and (formula.idTipoFormula == formula.tipoFormulaDinamica)}" />
                                                     <f:param name="idColumna" value="#{col.idColumna}" />
                                                     <f:param name="idGrilla" value="#{col.idGrilla}" />
@@ -309,14 +308,13 @@
                                                     
                                                 </p:commandLink>
                                                  
-                                                <p:commandLink actionListener="#{formula.selectCeldaDinamica}"
-                                                                     icon="/images/icon/checked_16x16.gif"
+                                                <p:commandLink actionListener="#{formula.selectCeldaDinamica}"                                                                    
                                                                      style="border: 0px solid;"
                                                                      title="Columna: #{col.idColumna} , Fila: #{row[col.idColumna].idFila}"
                                                                      update="@form"
                                                                      id="cil6">
                                                                      
-                                                    <p:graphicImage value="/resources/images/icon/uncheck_obj_16x16.gif" rendered="#{row[col.idColumna].esNumero and row[col.idColumna].selectedByFormula and (formula.idTipoFormula == formula.tipoFormulaDinamica)}" />
+                                                    <p:graphicImage value="/resources/images/icon/checked_16x16.gif" rendered="#{row[col.idColumna].esNumero and row[col.idColumna].selectedByFormula and (formula.idTipoFormula == formula.tipoFormulaDinamica)}" />
                                                     <f:param name="idColumna" value="#{col.idColumna}" />
                                                     <f:param name="idGrilla" value="#{col.idGrilla}" />
                                                     <f:param name="idFila" value="#{row[col.idColumna].idFila}" />                                                    
@@ -328,7 +326,8 @@
                                                 <p:commandLink actionListener="#{formula.fijarCeldaDinamicaTarget}"
                                                                      style="border: 0px solid;"
                                                                      title="Seleccionar como resultado la Columna: #{col.idColumna} , Fila: #{row[col.idColumna].idFila}"
-                                                                     update="@form">                                                    
+                                                                     update="@form"
+                                                                     id="fijarCeldaDinamica1">                                                    
                                                      <p:graphicImage value="/resources/images/icon/function.png" rendered="#{((row[col.idColumna].tipoCelda.idTipoCelda == 4) or (row[col.idColumna].tipoCelda.idTipoCelda == 5)) and (formula.idTipoFormula == formula.tipoFormulaDinamica)}" />
                                                     <f:param name="idColumna" value="#{col.idColumna}" />
                                                     <f:param name="idGrilla" value="#{col.idGrilla}" />

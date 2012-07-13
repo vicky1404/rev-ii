@@ -21,6 +21,7 @@ import java.util.StringTokenizer;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.html.HtmlInputText;
 import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
@@ -78,7 +79,8 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
 	private String formula = "";
 	private Map<Celda, Boolean> camposFormulaByCeldaTarget = new LinkedHashMap<Celda, Boolean>();
 	private Map<Celda, Boolean> camposFormulaByCeldaDisplay = new LinkedHashMap<Celda, Boolean>(); 
-	private transient InputText formulaTargetOutput;
+	//private transient InputText formulaTargetOutput;
+	private transient HtmlInputText formulaTargetOutput;
     private transient InputText barraFormulaOutput;
     private String barraFormula;
     private int countFormulasSinGrabar = 0;
@@ -95,6 +97,7 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
     private SelectOneMenu comboBuscarIdCatalogo;
     private SelectOneMenu comboBuscarMeses;
     private SelectOneMenu comboBuscarAnio;
+    private int largoBarraFormula;
 	
 	private TreeNode root;
 	
@@ -335,12 +338,15 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
             return;
         }        
         if(this.getCeldaTarget() == null && celdaSelected){
-            super.addWarnMessage(PropertyManager.getInstance().getMessage("general_mensaje_formula_sin_celda_destino"));                       
-            
+            super.addWarnMessage(PropertyManager.getInstance().getMessage("general_mensaje_formula_sin_celda_destino")); 
+            RequestContext.getCurrentInstance().update(this.getPanelGroupLayoutTablaFormula().getClientId());
             return;
         }
+        
+        String formulaOld = getBarraFormula();
+        
         if(this.getFormula() == null){
-            this.setFormula("");
+            this.setFormula(getBarraFormula());
         }
         if(celdaSelected){            
             if(!this.isCeldaTotal(celda)){
@@ -395,7 +401,7 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
                 this.getCamposFormulaByCeldaTarget().remove(celda);
                 celda.setSelectedByFormula(Boolean.FALSE);
                 this.setBarraFormula(this.getFormula());
-                this.updateFormulaMap(this.getCeldaTarget(), this.getFormula());
+                this.updateFormulaMap(this.getCeldaTarget(), this.getFormula());                
                             
                 if(this.getCamposFormulaByCeldaTarget().size() == 2 || this.getCamposFormulaByCeldaTarget().size() == 1){
                     this.desMarcarCeldasSelecionadasByTarget();
@@ -428,12 +434,14 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
         this.setCountFormulasSinGrabar(this.getFormulaMap().size());
         this.updateCamposFormulaMap(this.getCeldaTarget(), this.getCamposFormulaByCeldaTarget());
         
-        
         if((this.getCamposFormulaByCeldaTarget().size() == 2) && (!this.isCeldaTotal(celda))){
             this.marcarCeldasSelecionadasByCadenaFormulaDinamica();
+        } else {
+        	this.marcarCeldasSelecionadasByCadenaFormulaDinamica();
         }
         
-        
+        RequestContext.getCurrentInstance().update(this.getPanelGroupLayoutBarraFormula().getClientId());
+        RequestContext.getCurrentInstance().update(this.getPanelGroupLayoutTablaFormula().getClientId());
     }
     
     private boolean validarOperacionDinamica(final Celda celdaParent, final Celda celdaChild){
@@ -490,6 +498,36 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
             List<Celda> celdaList = this.celdaMapToList(); 
             List<Celda> celdasByColumna = new ArrayList<Celda>();
             List<Celda> celdasByFila = new ArrayList<Celda>();
+            
+            if (celdaRangoList.size() == 1){
+            	//Vertical
+            	celdasByColumna = select(celdaList ,having(on(Celda.class).getIdColumna(), equalTo(celdaRangoList.get(0).getIdColumna()))
+                        .and(having(on(Celda.class).getIdFila(), greaterThanOrEqualTo(celdaRangoList.get(0).getIdFila())))
+                        .and(having(on(Celda.class).getIdFila(), lessThanOrEqualTo(celdaRangoList.get(0).getIdFila()))));
+            	if(celdasByColumna.isEmpty()){
+            	celdasByColumna = select(celdaList ,having(on(Celda.class).getIdColumna(), equalTo(celdaRangoList.get(0).getIdColumna()))
+                            .and(having(on(Celda.class).getIdFila(), lessThanOrEqualTo(celdaRangoList.get(0).getIdFila())))
+                            .and(having(on(Celda.class).getIdFila(), greaterThanOrEqualTo(celdaRangoList.get(0).getIdFila()))));    
+				}
+				for(Celda celda : celdasByColumna){                                        
+				   celda.setSelectedByFormula(Boolean.TRUE);  
+				}
+				//Horizontal
+				celdasByFila = select(celdaList ,having(on(Celda.class).getIdFila(), equalTo(celdaRangoList.get(0).getIdFila()))
+                        .and(having(on(Celda.class).getIdColumna(), greaterThanOrEqualTo(celdaRangoList.get(0).getIdColumna())))
+                        .and(having(on(Celda.class).getIdColumna(), lessThanOrEqualTo(celdaRangoList.get(0).getIdColumna()))));
+				  if(celdasByFila.isEmpty()){
+				      celdasByFila = select(celdaList ,having(on(Celda.class).getIdFila(), equalTo(celdaRangoList.get(0).getIdFila()))
+				                            .and(having(on(Celda.class).getIdColumna(), lessThanOrEqualTo(celdaRangoList.get(0).getIdColumna())))
+				                            .and(having(on(Celda.class).getIdColumna(), greaterThanOrEqualTo(celdaRangoList.get(0).getIdColumna()))));
+				  }
+				  for (Celda celda : celdasByFila) {
+				      celda.setSelectedByFormula(Boolean.TRUE);
+				  }
+            	
+            	
+            } else 
+            
             if(celdaRangoList.get(0).getIdColumna().equals(celdaRangoList.get(1).getIdColumna())){
                 //seleccion vertical
                 celdasByColumna = select(celdaList ,having(on(Celda.class).getIdColumna(), equalTo(celdaRangoList.get(0).getIdColumna()))
@@ -517,8 +555,8 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
                 for (Celda celda : celdasByFila) {
                     celda.setSelectedByFormula(Boolean.TRUE);
                 }
-            }
-        }
+            } 
+        } 
     }
 
 	public Long getIdCatalogo() {
@@ -735,7 +773,7 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
 		this.camposFormulaByCeldaDisplay = camposFormulaByCeldaDisplay;
 	}
 
-
+	/*
 	public InputText getFormulaTargetOutput() {
 		return formulaTargetOutput;
 	}
@@ -743,8 +781,9 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
 
 	public void setFormulaTargetOutput(InputText formulaTargetOutput) {
 		this.formulaTargetOutput = formulaTargetOutput;
-	}
+	}*/
 
+	
 
 	public InputText getBarraFormulaOutput() {
 		return barraFormulaOutput;
@@ -941,6 +980,7 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
         StringBuffer formula = new StringBuffer();
         if(this.getCeldaTarget().getParentVertical() != null){
             celdas = select(this.celdaMapToList() ,having(on(Celda.class).getChildVertical(), equalTo(this.getCeldaTarget().getParentVertical())));
+            if (celdas != null && celdas.size() > 0){
             final Long columna = maxFrom(celdas).getIdColumna();
             final Long filaMin = minFrom(celdas).getIdFila();
             final Long filaMax = maxFrom(celdas).getIdFila();
@@ -949,12 +989,14 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
                    .append(DOS_PUNTOS)
                    .append(CORCHETE_IZQUIERDO)
                    .append(columna).append(COMA).append(filaMax).append(CORCHETE_DERECHO);
+            }
             this.setFormula(formula.toString());
             this.setBarraFormula(this.getFormula());
             
         }
         else if(this.getCeldaTarget().getParentHorizontal() != null){
             celdas = select(this.celdaMapToList() ,having(on(Celda.class).getChildHorizontal(), equalTo(this.getCeldaTarget().getParentHorizontal())));
+            if (celdas != null && celdas.size() > 0){
             final Long fila = maxFrom(celdas).getIdFila();
             final Long columnaMin = minFrom(celdas).getIdColumna();
             final Long columnaMax = maxFrom(celdas).getIdColumna();
@@ -963,6 +1005,7 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
                    .append(DOS_PUNTOS)
                    .append(CORCHETE_IZQUIERDO)
                    .append(columnaMax).append(COMA).append(fila).append(CORCHETE_DERECHO);
+            }
             this.setFormula(formula.toString());
             this.setBarraFormula(this.getFormula());
            
@@ -1118,9 +1161,6 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
             super.addInfoMessage(MessageFormat.format(PropertyManager.getInstance().getMessage("general_mensaje_exito_guardar_formula"), this.getFormulaMap().size()));
             this.getFormulaMap().clear();
             this.setCountFormulasSinGrabar(this.getFormulaMap().size()); 
-            
-          
-            
             
         } catch (Exception e) {
             super.addErrorMessage(PropertyManager.getInstance().getMessage("general_mensaje_error_guardar_formula"));
@@ -1679,6 +1719,7 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
         this.getComboBuscarIdCatalogo().setValue(null);
         this.getComboBuscarMeses().setValue(null);
         this.getComboBuscarAnio().setValue(null);
+        
         return "mantenedor-formula";
     }
 
@@ -1720,6 +1761,32 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
 
 	public void setComboBuscarAnio(SelectOneMenu comboBuscarAnio) {
 		this.comboBuscarAnio = comboBuscarAnio;
+	}
+
+
+	public HtmlInputText getFormulaTargetOutput() {
+		return formulaTargetOutput;
+	}
+
+
+	public void setFormulaTargetOutput(HtmlInputText formulaTargetOutput) {
+		this.formulaTargetOutput = formulaTargetOutput;
+	}
+
+
+	public int getLargoBarraFormula() {
+		
+		if (this.getFormula() != null )
+			largoBarraFormula = this.getFormula().length();
+		else 
+			largoBarraFormula = 2;
+		
+		return largoBarraFormula;
+	}
+
+
+	public void setLargoBarraFormula(int largoBarraFormula) {
+		this.largoBarraFormula = largoBarraFormula;
 	}
 	
 }
