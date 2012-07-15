@@ -120,7 +120,7 @@ public class ComponenteBackingBean implements Serializable {
                 anios.add(new SelectItem(periodo.getAnioPeriodo(), periodo.getAnioPeriodo()));
             }
         }
-
+        UtilBean.sortSelectItemAnios(anios);
         return anios;
     }
 
