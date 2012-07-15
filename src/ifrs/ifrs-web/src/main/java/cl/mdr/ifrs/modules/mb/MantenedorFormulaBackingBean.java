@@ -49,6 +49,7 @@ import cl.mdr.ifrs.ejb.entity.Grilla;
 import cl.mdr.ifrs.ejb.entity.Periodo;
 import cl.mdr.ifrs.ejb.entity.TipoCuadro;
 import cl.mdr.ifrs.ejb.entity.Version;
+import cl.mdr.ifrs.exceptions.FormulaException;
 import cl.mdr.ifrs.vo.GrillaVO;
 
 
@@ -70,8 +71,7 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
 	private Long idTipoCuadro;
 	private Long idTipoFormula;
 	private List<Catalogo> catalogoList;
-	private String mesPeriodo;
-	private String anioPeriodo;
+	
 	private boolean renderTreeNode;
 	private Map<String, Celda> celdaMap = new LinkedHashMap<String, Celda>();
 	private Map<Celda, String> formulaMap = new LinkedHashMap<Celda, String>();	
@@ -98,6 +98,7 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
     private SelectOneMenu comboBuscarMeses;
     private SelectOneMenu comboBuscarAnio;
     private int largoBarraFormula;
+    
 	
 	private TreeNode root;
 	
@@ -136,10 +137,10 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
      * @return
      */
     public void buscar(){ 
-    	 this.setRenderedCatalogoTree(Boolean.TRUE);
-    	 this.setRenderTablaFormula(Boolean.FALSE);
-    	 this.setRenderBarraFormula(Boolean.FALSE);
-    	Long periodoLong = Long.parseLong( getAnioPeriodo() ) * 100 + Long.parseLong( getMesPeriodo() );
+    	this.setRenderedCatalogoTree(Boolean.TRUE);
+    	this.setRenderTablaFormula(Boolean.FALSE);
+    	this.setRenderBarraFormula(Boolean.FALSE);
+    	Long periodoLong = Long.parseLong( super.getFiltroBackingBean().getPeriodo().getAnioPeriodo() ) * 100 + Long.parseLong( super.getFiltroBackingBean().getPeriodo().getMesPeriodo() );
         Periodo periodo = getFacadeService().getPeriodoService().findPeriodoByPeriodo(periodoLong);
         try {
         		List<Version> lista = getFacadeService().getVersionService().findVersionByFiltro(null, new TipoCuadro(getIdTipoCuadro()) , periodo, null, null, new Catalogo(getIdCatalogo()));
@@ -588,24 +589,7 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
 	}
 
 
-	public String getMesPeriodo() {
-		return mesPeriodo;
-	}
-
-
-	public void setMesPeriodo(String mesPeriodo) {
-		this.mesPeriodo = mesPeriodo;
-	}
-
-
-	public String getAnioPeriodo() {
-		return anioPeriodo;
-	}
-
-
-	public void setAnioPeriodo(String anioPeriodo) {
-		this.anioPeriodo = anioPeriodo;
-	}
+	
 
 
 	public TreeNode getRoot() {
@@ -1091,15 +1075,20 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
      * @param event
      */
     public void guardarFormulaEstatica(ActionEvent event){
-        this.validaReferenciaCiclicaFormula();
-        if(super.getFacesContext().getMessages().hasNext()){
-            return;
-        } 
-        try {
+    	String formulaString = this.getBarraFormulaOutput().getValue().toString();
+    	 try {
+	        this.validaReferenciaCiclicaFormula();
+	        this.validaExpresionFormulaEstatica(formulaString);
+	        
+	        if(super.getFacesContext().getMessages().hasNext()){
+	            return;
+	        }
+        
+       
             List<Celda> celdaList = new ArrayList<Celda>();
             for(Map.Entry<Celda, String> entry : this.getFormulaMap().entrySet()) {
                 Celda celda = entry.getKey();
-                celda.setFormula(entry.getValue());
+                celda.setFormula(entry.getValue());                
                 celdaList.add(celda);
             }  
             this.getGrilla().setTipoFormula(Grilla.TIPO_GRILLA_ESTATICA);
@@ -1108,11 +1097,12 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
             this.getFormulaMap().clear();
             this.setCountFormulasSinGrabar(this.getFormulaMap().size());
             
-          
-           
             
-            
-        } catch (Exception e) {
+        } catch (FormulaException e){
+        	super.addErrorMessage(MessageFormat.format(PropertyManager.getInstance().getMessage("general_mensaje_error_formato_formula"), formulaString)	);
+        	logger.error(MessageFormat.format(PropertyManager.getInstance().getMessage("general_mensaje_error_formato_formula"), formulaString));
+        } 
+        catch (Exception e) {
             super.addErrorMessage(PropertyManager.getInstance().getMessage("general_mensaje_error_guardar_formula"));
             logger.error(PropertyManager.getInstance().getMessage("general_mensaje_error_guardar_formula"), e);            
         }
@@ -1136,16 +1126,21 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
      * @param event
      */
     public void guardarFormulaDinamica(ActionEvent event){
-        this.validaReferenciaCiclicaFormula();
-        if(super.getFacesContext().getMessages().hasNext()){
-            return;
-        }    
+    	String formulaString = this.getBarraFormulaOutput().getValue().toString();
         try {
+        	
+            this.validaReferenciaCiclicaFormula();
+            this.validaExpresionFormulaDinamica(formulaString);
+        	
+            if(super.getFacesContext().getMessages().hasNext()){
+                return;
+            }    
+        	
             Map<Celda, List<Celda>> formulaDinamicaMap = new HashMap<Celda, List<Celda>>();
             
             for(Map.Entry<Celda, String> entry : this.getFormulaMap().entrySet()) {
                 Celda celda = entry.getKey();
-                celda.setFormula(entry.getValue());
+                celda.setFormula(entry.getValue());               
             
                 if(celda.getFormula().contains(SIGNO_SUMA) || celda.getFormula().contains(PUNTO_COMA)){
                     formulaDinamicaMap.put(celda, this.getCeldaTotalListByTarget(celda));
@@ -1162,7 +1157,12 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
             this.getFormulaMap().clear();
             this.setCountFormulasSinGrabar(this.getFormulaMap().size()); 
             
-        } catch (Exception e) {
+        } 
+        catch (FormulaException e) {
+        	super.addErrorMessage(MessageFormat.format(PropertyManager.getInstance().getMessage("general_mensaje_error_formato_formula"), formulaString)	);
+        	logger.error(MessageFormat.format(PropertyManager.getInstance().getMessage("general_mensaje_error_formato_formula"), formulaString));
+        }
+        catch (Exception e) {
             super.addErrorMessage(PropertyManager.getInstance().getMessage("general_mensaje_error_guardar_formula"));
             logger.error(PropertyManager.getInstance().getMessage("general_mensaje_error_guardar_formula"), e);            
         }
@@ -1364,7 +1364,8 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
         try{
             for(final Columna columna : this.getGrillaVO().getColumnas()){
                 for(final Celda celda : columna.getCeldaList()){
-                    celda.setFormula(null);                
+                    celda.setFormula(null);  
+                    celda.setSelectedByFormula(Boolean.FALSE);
                     celdaList.add(celda);
                 }
             }            
@@ -1373,7 +1374,10 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
             this.setIdTipoFormula(null);
             this.getTipoFormulaCombo().setValue(this.getIdTipoFormula());
             this.setBarraFormula(null); 
-            this.getFacadeService().getCeldaService().persistFormulaEstaticaList(this.getGrilla(), celdaList);            
+            this.getFacadeService().getCeldaService().persistFormulaEstaticaList(this.getGrilla(), celdaList); 
+            this.setRenderBarraFormula(Boolean.FALSE);
+            this.setCountFormulasSinGrabar(0);
+            this.setFormulaMap(new HashMap<Celda, String>());
             super.addInfoMessage("Se han eliminado correctamente todas las Fórmulas Estáticas de la Grilla");
             
         } catch (Exception e) {
@@ -1391,6 +1395,7 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
                     celda.setParentVertical(null);
                     celda.setChildHorizontal(null);
                     celda.setChildVertical(null);
+                    celda.setSelectedByFormula(Boolean.FALSE);
                     celdaList.add(celda);
                 }
             }            
@@ -1400,7 +1405,9 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
             this.getTipoFormulaCombo().setValue(this.getIdTipoFormula());
             this.setBarraFormula(null); 
             this.getFacadeService().getCeldaService().persistFormulaEstaticaList(this.getGrilla(), celdaList);
-           
+            this.setRenderBarraFormula(Boolean.FALSE);
+            this.setCountFormulasSinGrabar(0);
+            this.setFormulaMap(new HashMap<Celda, String>());
             super.addInfoMessage("Se han eliminado correctamente todas las Fórmulas Dinámicas de la Grilla");
         } catch (Exception e) {
             super.addErrorMessage("Se ha producido un error al eliminar la fórmula");
@@ -1719,7 +1726,7 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
         this.getComboBuscarIdCatalogo().setValue(null);
         this.getComboBuscarMeses().setValue(null);
         this.getComboBuscarAnio().setValue(null);
-        
+        this.setFormulaMap(new HashMap<Celda, String>());
         return "mantenedor-formula";
     }
 
@@ -1789,4 +1796,29 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
 		this.largoBarraFormula = largoBarraFormula;
 	}
 	
+	public void validaExpresionFormulaDinamica(String formula) throws FormulaException{
+		
+		formula = formula.replaceAll(":", "|");
+		String[] arreglo = formula.split("\\|");
+		
+		for (int i=0; i<arreglo.length;i++ ){
+			if (!Util.validaParOrdenadoSinSigno(arreglo[i])){
+					throw new FormulaException();
+			}
+		}
+		
+	}
+	
+	public void validaExpresionFormulaEstatica(String formula) throws FormulaException{
+		
+		formula = formula.replaceAll(";", "|");
+		String[] arreglo = formula.split("\\|");
+		
+		for (int i=0; i<arreglo.length;i++ ){
+			if (!Util.validaParOrdenadoConSigno(arreglo[i])){
+					throw new FormulaException();
+			}
+		}
+		
+	}
 }
