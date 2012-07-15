@@ -38,8 +38,13 @@ public class PeriodoServiceBean implements PeriodoServiceLocal{
    	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public Periodo findPeriodoByPeriodo(Long periodo){
         Query query = em.createNamedQuery(Periodo.PERIODO_FIN_BY_PERIODO);
-        query.setParameter("periodo", periodo);        
-        return (Periodo)query.getSingleResult();
+        query.setParameter("periodo", periodo);
+        
+        if (query != null && query.getResultList().size() > 0){
+        	return (Periodo)query.getSingleResult();
+        }
+        
+        return null;
     }
     
     public Integer abrirPeriodo(String usuario) throws Exception {
