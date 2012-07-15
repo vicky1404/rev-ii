@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.text.WordUtils;
@@ -399,4 +400,29 @@ public class Util{
         
         return celdaMap;
     }
+    
+    /**
+     * Evalua una expresion regular para un par ordenado representado como un string con 
+     * la forma +/-[n,m]. Por ejemplo +[2,3]
+     * @param parOrdenado
+     */
+    public static boolean validaParOrdenadoConSigno(String parOrdenado){
+    	String patron = "^(^(\\+|-){1}\\[[0-9],[0-9]\\])$";
+    	Pattern p = Pattern.compile(patron);
+    	Matcher m = p.matcher(parOrdenado);
+      return m.find();
+    }
+    
+    /**
+     * Evalua una expresion regular para un par ordenado representado como un string con 
+     * la forma [n,m]. Por ejemplo [2,3]
+     * @param parOrdenado
+     */
+    public static boolean validaParOrdenadoSinSigno(String parOrdenado){
+    	String patron = "^(\\[[0-9],[0-9]\\])$";
+    	Pattern p = Pattern.compile(patron);
+    	Matcher m = p.matcher(parOrdenado);
+      return m.find();
+    }
+
 }
