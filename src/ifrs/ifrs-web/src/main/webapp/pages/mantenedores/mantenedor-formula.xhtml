@@ -46,14 +46,14 @@
 	  				<p:outputLabel value="#{msg.label_periodo}" for="somMesPeriodo"/>
 	  			</td>
 	  			<td>		
-	  				<p:selectOneMenu value="#{formula.mesPeriodo}" id="somMesPeriodo" required="true" label="#{msg.label_mes_periodo}" binding="#{formula.comboBuscarMeses}">
+	  				<p:selectOneMenu value="#{formula.filtroBackingBean.periodo.mesPeriodo}" id="somMesPeriodo" required="true" label="#{msg.label_mes_periodo}" binding="#{formula.comboBuscarMeses}">
 	  					<f:selectItem itemLabel="#{msg.label_mes_periodo}" />
-	  					<f:selectItems value="#{formula.componenteBackingBean.periodoList}" id="siMeses" var="mesesVar" itemValue="#{mesesVar.mesPeriodo}" itemLabel="#{mesesVar.mesPeriodo}"/>	  					
+	  					<f:selectItems value="#{formula.componenteBackingBean.meses}" id="siMeses"/>	  					
 	  				</p:selectOneMenu>
 	  				<p:spacer width="10"></p:spacer>
-	  				<p:selectOneMenu value="#{formula.anioPeriodo}" id="somAnioPeriodo" required="true" label="#{msg.label_anio_periodo}" binding="#{formula.comboBuscarAnio}">
+	  				<p:selectOneMenu value="#{formula.filtroBackingBean.periodo.anioPeriodo}" id="somAnioPeriodo" required="true" label="#{msg.label_anio_periodo}" binding="#{formula.comboBuscarAnio}">
 	  					<f:selectItem itemLabel="#{msg.label_anio_periodo}" />
-	  					<f:selectItems value="#{formula.componenteBackingBean.periodoList}" id="siAnios" var="aniosVar" itemValue="#{aniosVar.anioPeriodo}" itemLabel="#{aniosVar.anioPeriodo}"/>	  					
+	  					<f:selectItems value="#{formula.componenteBackingBean.anios}" id="siAnios" />	  					
 	  				</p:selectOneMenu>
 	  				
 	  			</td>
@@ -68,7 +68,7 @@
     	<p:spacer height="10"></p:spacer>
     	
     	<p:treeTable id="tabla" value="#{formula.root}" var="tree" rendered="#{formula.renderedCatalogoTree}" selectionMode="single" selection="#{formula.selectedNode}">
-    		 
+    		
     		<p:column headerText="Cuadros editables" resizable="true" selectionMode="single">
     		
     			<h:outputText value="#{tree.col1}" style="font-weight:bold;"/>
@@ -114,7 +114,7 @@
                             
                             <p:inputText id="it1" 
                                           value="#{formula.barraFormula}" size="#{formula.largoBarraFormula}"
-                                          binding="#{formula.barraFormulaOutput}" readonly="true"/>
+                                          binding="#{formula.barraFormulaOutput}" readonly="false"/>
                             
                             <p:spacer width="10" id="s9" />
                             

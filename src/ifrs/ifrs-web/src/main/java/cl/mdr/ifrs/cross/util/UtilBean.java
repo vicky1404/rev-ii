@@ -24,7 +24,17 @@ public class UtilBean {
             public int compare(SelectItem s1, SelectItem s2){ 
                 Integer i1 = Integer.parseInt(s1.getLabel());
                 Integer i2 = Integer.parseInt(s2.getLabel());
-                return i1.compareTo(i2);
+                return i2.compareTo(i1);
+            }
+        });
+    }
+    
+    public static void sortSelectItemAnios(List<SelectItem> anios){
+        Collections.sort(anios, new Comparator<SelectItem>(){                        
+            public int compare(SelectItem s1, SelectItem s2){ 
+                Integer i1 = Integer.parseInt(s1.getLabel());
+                Integer i2 = Integer.parseInt(s2.getLabel());
+                return i2.compareTo(i1);
             }
         });
     }
