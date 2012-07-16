@@ -37,7 +37,7 @@ public class Constantes {
     public static final String VERSION_PERIODO = PREFIX + "VERSION_PERIODO";
     public static final String CODIGO_FECU = PREFIX + "CODIGO_FECU";
     public static final String DETALLE_EEFF = PREFIX + "DETALLE_EEFF";
-    public static final String EEFF = PREFIX + "REV_EEFF";
+    public static final String EEFF = PREFIX + "EEFF";
     public static final String HISTORIAL_REPORTE = PREFIX + "HISTORIAL_REPORTE";
     public static final String RELACION_DETALLE_EEFF = PREFIX + "RELACION_DETALLE_EEFF";
     public static final String RELACION_EEFF = PREFIX + "RELACION_EEFF";

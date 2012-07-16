@@ -20,7 +20,7 @@ public class GrillaVO implements Serializable {
     private static final long serialVersionUID = -2599361993445052185L;
     
     //private String titulo;
-    //private Grilla grilla;
+    private Grilla grilla;
     //private transient List<Map<String, Object>> columns;    
     //private transient List<Map<String, Object>> grupos;
     //private transient List<Map<String, Object>> gruposResultado;
@@ -54,13 +54,13 @@ public class GrillaVO implements Serializable {
     }
 
 
-    /*public void setGrilla(Grilla grilla) {
+    public void setGrilla(Grilla grilla) {
         this.grilla = grilla;
     }
 
     public Grilla getGrilla() {
         return grilla;
-    }*/
+    }
 /*
     public void setColumns(List<Map<String, Object>> columns) {
         this.columns = columns;

@@ -161,7 +161,7 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
                 
                 while(fecuToken.hasMoreTokens()){
                     String token = fecuToken.nextToken();
-                    Long key = EeffUtil.getLongFromKey(token);
+                    Long key = 0L;//EeffUtil.getLongFromKey(token); //TODO Descomentar cuando al implementar el metodo.
                     if(!key.equals(0L)){
                         EstadoFinanciero eeff = eeffMap.get(key);
                         if(eeff != null){
@@ -174,7 +174,7 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
                 
                 while(cuentaToken.hasMoreTokens()){
                     String token = cuentaToken.nextToken();
-                    Long key = EeffUtil.getLongFromKey(token);
+                    Long key = 0L;//EeffUtil.getLongFromKey(token);//TODO Descomentar cuando al implementar el metodo. 
                     if(!key.equals(0L)){
                         DetalleEeff detEeff = detalleMap.get(key);
                         if(detEeff != null){
