@@ -361,22 +361,6 @@ public class GeneradorDisenoHelper {
         return contador;
     }
     
-    public static Long getIdCatalogo(final String texto){
-        
-        Long id = null;
-        String string = texto;
-        
-        try{
-            string = string.replaceAll(" ", "");
-            if(string.contains("ID:")){
-                id = Long.valueOf(string.substring(string.lastIndexOf("ID:")+3,string.length()));
-            }
-        }catch(Exception e){
-            id=null;
-        }
-        
-        return id;
-    }
     
     public static Map<Long, GrillaModelVO> createGrillaModel(List<Estructura> estructuras){
         

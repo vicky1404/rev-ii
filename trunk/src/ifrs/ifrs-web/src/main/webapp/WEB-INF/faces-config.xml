@@ -6,7 +6,7 @@
  <converter>
   <converter-id>estadoCuadroConverter</converter-id>
   <converter-class>cl.mdr.ifrs.cross.converter.EstadoCuadroConverter</converter-class>
- </converter>
+ </converter>  
  <managed-bean>
   <managed-bean-name>menuBackingBean</managed-bean-name>
   <managed-bean-class>cl.mdr.ifrs.cross.mb.MenuBackingBean</managed-bean-class>
