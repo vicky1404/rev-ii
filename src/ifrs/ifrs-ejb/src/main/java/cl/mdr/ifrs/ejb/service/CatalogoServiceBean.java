@@ -60,11 +60,11 @@ public class CatalogoServiceBean implements CatalogoServiceLocal{
     }
     
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-    public Catalogo findCatalogoByCatalogo(Long idCatalogo){
+    public Catalogo findCatalogoByCatalogo(Catalogo catalogo){
         Query query = em.createNamedQuery(Catalogo.CATALOGO_FIND_BY_NOTA);
-        query.setParameter("idCatalogo", idCatalogo);
+        query.setParameter("nota", catalogo);
         return (Catalogo)query.getSingleResult();
-    }
+    }     
     
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void persistEntity(List<Catalogo> lista) throws Exception{        

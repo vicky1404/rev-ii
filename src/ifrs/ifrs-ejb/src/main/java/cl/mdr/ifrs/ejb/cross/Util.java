@@ -424,5 +424,29 @@ public class Util{
     	Matcher m = p.matcher(parOrdenado);
       return m.find();
     }
+    
+    public static String formatCellKey(final Celda cell){
+        return  "["
+                .concat(cell.getIdColumna().toString())
+                .concat(",")
+                .concat(cell.getIdFila().toString())
+                .concat("]");
+    }
 
+    public static Long getOnlyNumbers(final String str) {
+        
+        String numeros = "";
+
+        if (str == null || str.length() == 0)
+            return 0L;
+
+        for (int i = 0; i < str.length(); i++) {
+
+            if (Character.isDigit(str.charAt(i)))
+                numeros = numeros + str.charAt(i);
+        
+        }
+        
+        return Util.getLong(numeros, 0L);
+    }
 }

@@ -71,6 +71,7 @@ public class Catalogo implements Serializable {
     public static final String CATALOGO_FIND_ALL_VIGENTE_BY_TIPO = "Catalogo.findAllVigenteByTipo";
     public static final String CATALOGO_FIND_ALL_BY_TIPO = "Catalogo.findAllByTipo";
     public static final String CATALOGO_FIND_BY_NOTA = "Catalogo.findCatalogoByNota";    
+    public static final String CATALOGO_FIND_BY_ID_CATALOGO = "Catalogo.findCatalogoByIdCatalogo";
     public static final String CATALOGO_FIND_BY_FILTRO = "Catalogo.findCatalogoByFiltro";
         
     
