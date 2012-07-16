@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/main-template.xhtml">
+	<ui:define name="content">
+		<h:form id="form">  
+			<p:growl id="messages" />
+			<p:ajaxStatus onstart="statusDialogNoModal.show();" oncomplete="statusDialogNoModal.hide();" />
+			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
+		<p:panel id="filtro" header="Estados Financieros - Periodo : #{eeff.periodo.periodoFormat}" toggleable="true"  closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel">
+		 
+		 	<table border="0" width="40%">
+		 	<tr>
+		 		<td><p:outputLabel for="soc01" value="#{msg.label_tipo_cuadro}"></p:outputLabel></td>
+		 		<td>
+				<p:selectOneMenu label="#{msg.label_tipo_cuadro}" id="soc01" 
+								required="true"                               
+                                unselectedLabel="#{msg.general_control_seleccione}"
+                                binding="#{eeff.tipoCuadroSelect}" converter="tipoCuadroConverter">
+                    <f:selectItem itemLabel="#{msg.label_seleccionar}"/>            
+                	<f:selectItems value="#{eeff.componenteBackingBean.tipoCuadroItems}" id="si1"/>
+                	<p:ajax listener="#{eeff.tipoCuadroChangeListener}" event="change" />
+            	</p:selectOneMenu>
+		 		</td>
+		 	</tr>
+		 	<tr>
+		 		<td><p:outputLabel for="it1" value="#{msg.label_cuadro}" /></td>
+		 		<td>
+					<p:autoComplete value="#{eeff.catalogo}" maxResults="5" maxlength="10" 
+									completeMethod="#{eeff.catalogosSugeridos}"
+									converter="catalogoConverter"
+									effect="drop"	
+									var="cat"	
+									binding="#{eeff.busquedaInputText}"		
+									itemValue="#{cat}"													
+									itemLabel="#{cat.nombre}"													 
+									id="it1" dropdown="true"/>
+		 		</td>
+		 	</tr>
+		 	<tr>
+		 		<td>
+			 		<p:commandButton value="Buscar" icon="ui-icon-search" id="cb1"  action="#{eeff.buscarCatalogo}" update="@form"/>
+			 		<p:spacer width="10"/>
+	            	<p:commandButton value="Limpiar" icon="ui-icon-cancel" id="cb02" actionListener="#{eeff.limpiarCatalogolistener}" update="@form"/>
+		 		</td>
+		 	</tr>
+		 	</table>
+		</p:panel>	
+		</h:form>
+	</ui:define>
+</ui:composition>
