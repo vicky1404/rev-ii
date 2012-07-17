@@ -91,7 +91,7 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
     public void tipoCuadroChangeListener() {
         try {
             TipoCuadro tipoCuadro =  (TipoCuadro) getTipoCuadroSelect().getValue();
-            List<Catalogo> catalogos = getFacadeService().getCatalogoService().findCatalogoByFiltro(getNombreUsuario(), tipoCuadro, null, null);
+            List<Catalogo> catalogos = getFacadeService().getCatalogoService().findCatalogoByFiltro(getFiltroBackingBean().getEmpresa().getRut(), getNombreUsuario(), tipoCuadro, null, null);
             setCatalogos(catalogos);
         } catch (Exception e) {
             addErrorMessage("Error al buscar catalogo");

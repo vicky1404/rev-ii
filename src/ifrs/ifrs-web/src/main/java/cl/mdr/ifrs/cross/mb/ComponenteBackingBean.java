@@ -327,6 +327,19 @@ public class ComponenteBackingBean implements Serializable {
     	}    	
     	return empresaList;    	
     }
+
+    public List<SelectItem> getEmpresaItems(){        
+        List<SelectItem> empresaItems = new ArrayList<SelectItem>();
+        try {
+            for (Empresa empresa : this.getEmpresaList()) {
+            	empresaItems.add(new SelectItem(empresa, empresa.getRazonSocial()));
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);            
+        }
+        return empresaItems;
+    } 
+    
     
     public List<Rol> getRolList() throws Exception {
     	if(rolList == null){

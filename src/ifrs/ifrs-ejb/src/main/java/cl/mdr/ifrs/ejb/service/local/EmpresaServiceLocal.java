@@ -11,7 +11,7 @@ public interface EmpresaServiceLocal {
 	
 	List<Empresa> findAll();
 	
-	Empresa findById(Empresa empresa) throws Exception;
+	Empresa findById(Long rut) throws Exception;
 	
 	Empresa mergeEmpresa(Empresa empresa) throws Exception;
 }

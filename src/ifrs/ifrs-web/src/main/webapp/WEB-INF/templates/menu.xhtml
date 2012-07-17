@@ -8,6 +8,18 @@
 		<p:growl id="growl" autoUpdate="true"  />
 		<p:ajaxStatus onstart="statusDialog.show();" oncomplete="statusDialog.hide();" />
 		<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
+		
+		
+		<p:panel header="Seleccione Empresa">  
+		
+        	<h:selectOneMenu  id="somEmp1"  value="#{menuBackingBean.rut}" valueChangeListener="#{menuBackingBean.empresaChangeValue}" 
+        		immediate="true">
+				<f:selectItem itemLabel="#{msg.label_seleccione}" noSelectionOption="true"/>
+				<f:selectItems value="#{componenteBackingBean.empresaList}" var="empresa" itemValue="#{empresa.rut}" itemLabel="#{empresa.razonSocial}" />
+				<f:ajax execute="@this" render="@form"/>
+			</h:selectOneMenu>	
+        </p:panel>
+		
 		<p:accordionPanel activeIndex="#{menuBackingBean.activeTabIndex}" id="ap_menu">
 
 			<!-- p:ajax event="tabChange" listener="#{menuBackingBean.onTabChange}" /-->

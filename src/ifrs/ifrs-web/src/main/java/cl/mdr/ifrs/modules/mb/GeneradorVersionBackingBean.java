@@ -93,7 +93,7 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 	public void tipoCuadroChange(){
 		try{								
 			if(tipoCuadro != null)
-				catalogoList = getFacadeService().getCatalogoService().findCatalogoByFiltro(getNombreUsuario(), this.getTipoCuadro() , null, 1L);
+				catalogoList = getFacadeService().getCatalogoService().findCatalogoByFiltro(getFiltroBackingBean().getEmpresa().getRut(), getNombreUsuario(), this.getTipoCuadro() , null, 1L);
 		}catch(Exception e){
 			addErrorMessage("Error al buscar Catálogo");
 			LOG.error(e);

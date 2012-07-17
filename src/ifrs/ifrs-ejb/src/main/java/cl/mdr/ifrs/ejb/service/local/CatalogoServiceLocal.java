@@ -27,7 +27,7 @@ public interface CatalogoServiceLocal {
     
     void persistEntity(List<Catalogo> lista) throws Exception;
     
-    List<Catalogo> findCatalogoByFiltro(String usuario, TipoCuadro tipoCuadro, Grupo grupo, Long vigencia) throws Exception;
+    List<Catalogo> findCatalogoByFiltro(final Long rutEmpresa, final String usuario, final TipoCuadro tipoCuadro, final Grupo grupo, final Long vigencia) throws Exception;
     
     List<Catalogo> findAllVigenteByTipo(TipoCuadro tipoCuadro)throws Exception;
     
