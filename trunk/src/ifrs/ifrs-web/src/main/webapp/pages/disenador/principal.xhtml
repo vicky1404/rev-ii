@@ -8,8 +8,9 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 	<ui:define name="content">
 		<h:form id="fGV1" enctype="multipart/form-data">
-			<p:growl id="messages_configurador" autoUpdate="true"
-				showSummary="true" globalOnly="true" />
+			<p:messages id="messages_configurador" autoUpdate="true"></p:messages>
+			<!-- p:growl id="messages_configurador" autoUpdate="true"
+				showSummary="true" globalOnly="true" /-->
 			<p:ajaxStatus onstart="statusDialog.show();"
 				oncomplete="statusDialog.hide();" />
 			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
@@ -177,56 +178,69 @@
 											<thead>
 												<tr role="row">
 													<th class="ui-state-default ui-resizable-column"
-														role="columnheader">sad</th>
+														role="columnheader"> </th>
 													<ui:repeat var="col"
 														value="#{configuradorDisenoBackingBean.grillaVO.columnas}">
 														<th class="ui-state-default ui-resizable-column"
 															role="columnheader">
-															<div class="ui-dt-c" style="width:#{col.ancho+25}px; text-align: left;">
+															<div class="ui-dt-c" style="width:#{col.ancho+25}px; text-align: center;">
 																<span> <h:outputText value="#{col.tituloColumna}" />
+																	<br /> <p:commandLink value="Editar Columna"
+																		onclick="editColumnDialog_#{col.idColumna}.show();"
+																		immediate="true" />
 																</span>
-																<p:inplace id="selectableInplace1" label="Editar"
-																	effect="fade" event="click" toggleable="true">
-																	<p:spacer width="5" />
-																	<p:tooltip for="col_width_sp"
-																		value="Modificar ancho para Columna: #{col.tituloColumna}" />
-																	<p:spinner value="#{col.ancho}" id="col_width_sp"
-																		max="999" maxlength="3" size="3" />
-																	<br />
-																	<p:separator></p:separator>
-																	<h:panelGrid>
-																		<p:tooltip for="gDsoc9"
-																			value="Seleccione Tipo de Celda" />
-																		<p:tooltip for="gDsoc8"
-																			value="Seleccione Tipo de Dato" />
-																		<h:column>
-																			<h:selectOneMenu label="Tipo Celda" id="gDsoc9"
-																				value="#{generadorDisenoBackingBean.tipoCeldaSelected}"
-																				update="cl113" style="width:130px;">
-																				<f:selectItem
-																					itemLabel="#{msg.general_control_seleccione}"
-																					noSelectionOption="true" id="gDsi1" />
-																				<f:selectItems
-																					value="#{generadorDisenoBackingBean.componenteBackingBean.tipoCeldas}"
-																					id="gDsi9" />
-																			</h:selectOneMenu>
-																		</h:column>
-																		<h:column>
-																			<h:selectOneMenu label="Tipo Dato" id="gDsoc8"
-																				value="#{generadorDisenoBackingBean.tipoDatoSelected}"
-																				update="cl113" style="width:130px;">
+																<p:dialog widgetVar="editColumnDialog_#{col.idColumna}"
+																	header="Editar Columna" showEffect="drop" style="text-align:left;"
+																	hideEffect="drop" modal="false" dynamic="true" minimizable="true">																	
+																	<h:panelGrid columns="3">
+																		<!-- titulo de columna -->
+																		<p:outputLabel for="it_tc" value="Título de Columna:" />
+																		<p:inputText id="it_tc" value="#{col.tituloColumna}" />
+																		<!-- Ancho columna -->
+																		<p:outputLabel for="col_width_sp"
+																			value="Ancho de Columna:" />
+																		<p:spinner value="#{col.ancho}" id="col_width_sp"
+																			max="999" maxlength="3" size="3" />
 
-																				<f:selectItem
-																					itemLabel="#{msg.general_control_seleccione}"
-																					noSelectionOption="true" id="gDsi2" />
-																				<f:selectItems
-																					value="#{generadorDisenoBackingBean.componenteBackingBean.tipoDatos}"
-																					id="gDsi8" />
-																			</h:selectOneMenu>
-																		</h:column>
+																		<!-- tipo celda -->
+																		<h:outputLabel value="Tipo de Celda:" />
+																		<p:selectOneMenu label="Tipo Celda"																		
+																			style="width:130px;" effect="fade"
+																			value="#{configuradorDisenoBackingBean.idTipoCelda}"
+																			valueChangeListener="#{configuradorDisenoBackingBean.onChangeTipoCeldaListener}">
+																			<f:selectItem
+																				itemLabel="#{msg.general_control_seleccione}" />
+																			<f:selectItems
+																				value="#{configuradorDisenoBackingBean.componenteBackingBean.tipoCeldaList}" 
+																				var="tipoCelda" itemValue="#{tipoCelda.idTipoCelda}" itemLabel="#{tipoCelda.nombre}" />
+																			<f:ajax execute="@this" />	
+																		</p:selectOneMenu>
+
+																		<!-- tipo de dato -->
+																		<h:outputLabel value="Tipo de Dato:" />
+																		<p:selectOneMenu label="Tipo Dato"																		
+																			style="width:130px;" effect="fade"
+																			value="#{configuradorDisenoBackingBean.idTipoDato}"
+																			valueChangeListener="#{configuradorDisenoBackingBean.onChangeTipoDatoListener}">
+																			<f:selectItem
+																				itemLabel="#{msg.general_control_seleccione}" />
+																			<f:selectItems
+																				value="#{configuradorDisenoBackingBean.componenteBackingBean.tipoDatoList}"
+																				var="tipoDato" itemValue="#{tipoDato.idTipoDato}" itemLabel="#{tipoDato.nombre}" />
+																			<f:ajax execute="@this" />
+																		</p:selectOneMenu>
+																		<h:outputText value=" " />
+																		<p:commandButton value="Editar Columna"
+																			actionListener="#{configuradorDisenoBackingBean.editarColumnaAction}"
+																			icon="ui-icon-disk" update="@form">
+																			<f:attribute name="columna" value="#{col}" />
+																		</p:commandButton>
+																		<p:commandButton icon="ui-icon-cancel"
+																			value="#{msg.boton_cancel}" type="button"
+																			id="btnCancelar"
+																			onclick="editColumnDialog_#{col.idColumna}.hide()" />
 																	</h:panelGrid>
-																</p:inplace>
-
+																</p:dialog>
 															</div>
 														</th>
 													</ui:repeat>
@@ -240,7 +254,9 @@
 														data-ri="1">
 														<ui:repeat var="row" value="#{col}">
 															<ui:fragment rendered="#{row.columna.orden eq 1}">
-																<td></td>
+																<td>
+																	<p:commandLink value="Editar Fila" immediate="true" style="padding-left:5px; padding-right:5px; text-decoration:underline;" />
+																</td>
 															</ui:fragment>
 															<td role="gridcell">
 																<div class="ui-dt-c">
@@ -306,14 +322,12 @@
 																				locale="#{procesoBackingBean.localeCL}"
 																				pattern="##,###,###,###.####" />
 
-																		</p:inputText> 
-																		<p:calendar value="#{row.valorDate}" id="it10" pattern="dd-MM-yyyy"
-																			label=" " effect="fade" showOn="button"
+																		</p:inputText> <p:calendar value="#{row.valorDate}" id="it10"
+																			pattern="dd-MM-yyyy" label=" " effect="fade"
+																			showOn="button"
 																			rendered="#{row.tipoDato.idTipoDato == 1 and row.tipoCelda.idTipoCelda == 6}">
 																			<f:convertDateTime pattern="dd-MM-yyyy" type="date" />
-																		</p:calendar> 
-																		<!-- Editor de tipo de celda y tipo de dato --> 
-																		<p:inplace
+																		</p:calendar> <!-- Editor de tipo de celda y tipo de dato --> <p:inplace
 																			id="selectableInplace" label="Editar" effect="fade"
 																			event="click" toggleable="true">
 																			<h:panelGroup style="margin-left:10px;">
@@ -324,6 +338,7 @@
 																					value="Seleccione Tipo de Dato" />
 																				<h:panelGroup>
 																					<h:selectOneMenu label="Tipo Celda" id="gDsoc92"
+																						converter="tipoCeldaConverter"
 																						value="#{row.tipoCelda}" style="width:130px;">
 																						<f:selectItem
 																							itemLabel="#{msg.general_control_seleccione}"
@@ -336,8 +351,8 @@
 																				<br />
 																				<h:panelGroup>
 																					<h:selectOneMenu label="Tipo Dato" id="gDsoc82"
-																						value="#{row.tipoDato}" style="width:130px;">
-
+																						value="#{row.tipoDato}" style="width:130px;"
+																						converter="tipoDatoConverter">
 																						<f:selectItem
 																							itemLabel="#{msg.general_control_seleccione}"
 																							noSelectionOption="true" id="gDsi2" />

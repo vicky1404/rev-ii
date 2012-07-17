@@ -3,11 +3,9 @@ package cl.mdr.ifrs.cross.converter;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
 
 import org.apache.log4j.Logger;
 
-import cl.mdr.ifrs.ejb.entity.Catalogo;
 import cl.mdr.ifrs.ejb.entity.EstadoCuadro;
 
 import com.google.common.base.Strings;

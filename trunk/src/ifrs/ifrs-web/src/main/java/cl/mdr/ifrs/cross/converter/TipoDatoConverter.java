@@ -7,30 +7,30 @@ import javax.faces.convert.FacesConverter;
 
 import org.apache.log4j.Logger;
 
-import cl.mdr.ifrs.ejb.entity.TipoCuadro;
+import cl.mdr.ifrs.ejb.entity.TipoDato;
 
 import com.google.common.base.Strings;
 import com.google.gson.Gson;
 
-@FacesConverter(value = "tipoCuadroConverter", forClass= TipoCuadro.class)
-public class TipoCuadroConverter implements Converter{
+@FacesConverter(value = "tipoDatoConverter", forClass= TipoDato.class)
+public class TipoDatoConverter implements Converter{
 	
-	private static final Logger LOGGER = Logger.getLogger(TipoCuadroConverter.class);
+	private static final Logger LOGGER = Logger.getLogger(TipoDatoConverter.class);
 	
 	@Override
 	public Object getAsObject(FacesContext facesContext, UIComponent uiComponent, String string) {		
 		
-		TipoCuadro tipoCuadro = null;
+		TipoDato tipoDato = null;
 		
 		if(!Strings.isNullOrEmpty(string)){
 			final Gson gson = new Gson();
 			try {
-				tipoCuadro = gson.fromJson(string, TipoCuadro.class);
+				tipoDato= gson.fromJson(string, TipoDato.class);
 			} catch (final Exception e) {
 				LOGGER.error("Error con conversion de valor " + string);
 			}
 		}
-		return tipoCuadro;
+		return tipoDato;
 		
 	}
 
@@ -39,9 +39,9 @@ public class TipoCuadroConverter implements Converter{
 		
 		String json = "";
 		
-		if(object instanceof TipoCuadro){
+		if(object instanceof TipoDato){
 			final Gson gson = new Gson();
-			json = gson.toJson(object, TipoCuadro.class);
+			json = gson.toJson(object, TipoDato.class);
 		}
 
 		return json;
