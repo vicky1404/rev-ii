@@ -30,8 +30,8 @@ public class EmpresaServiceBean implements EmpresaServiceLocal {
 	}
 	
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public Empresa findById(final Empresa empresa) throws Exception{
-		return (Empresa) em.createNamedQuery(Empresa.EMPRESA_FIND_BY_ID).setParameter("rut", Util.getLong(empresa.getRut(), 0L)).getSingleResult();
+	public Empresa findById(final Long rut) throws Exception{
+		return (Empresa) em.createNamedQuery(Empresa.EMPRESA_FIND_BY_ID).setParameter("rut", Util.getLong(rut, 0L)).getSingleResult();
 		
 	}
 	

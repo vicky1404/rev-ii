@@ -9,6 +9,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import cl.mdr.ifrs.ejb.entity.Catalogo;
+import cl.mdr.ifrs.ejb.entity.Empresa;
 import cl.mdr.ifrs.ejb.entity.Periodo;
 import cl.mdr.ifrs.ejb.entity.TipoCuadro;
 import cl.mdr.ifrs.ejb.entity.Version;
@@ -20,6 +21,7 @@ public class FiltroBackingBean implements Serializable{
 
 	public static final String FILTRO_BEAN_NAME = "filtroBackingBean";
     
+	private Empresa empresa;
     private Periodo periodo;
     private Catalogo catalogo;
     private Version version;
@@ -92,4 +94,14 @@ public class FiltroBackingBean implements Serializable{
     public Long getTipoFormula() {
         return tipoFormula;
     }
+
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
 }

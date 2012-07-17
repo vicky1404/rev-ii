@@ -22,6 +22,7 @@ import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.faces.component.UIComponent;
+import javax.faces.event.ValueChangeEvent;
 
 import org.apache.log4j.Logger;
 import org.primefaces.component.accordionpanel.AccordionPanel;
@@ -38,6 +39,7 @@ import cl.mdr.ifrs.cross.util.UtilBean;
 import cl.mdr.ifrs.ejb.common.VigenciaEnum;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
+import cl.mdr.ifrs.ejb.entity.Empresa;
 import cl.mdr.ifrs.ejb.entity.Grupo;
 import cl.mdr.ifrs.ejb.entity.Menu;
 import cl.mdr.ifrs.ejb.entity.TipoCuadro;
@@ -64,6 +66,8 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
     private List<MenuModel> menuModelList;    
 	
 	//tree catalogo
+    private Long rut;
+    private Empresa empresa;
     private Tree treeCatalogo;
     private List<Catalogo> catalogoList;    
     private boolean sistemaBloqueado;
@@ -81,7 +85,7 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 	
 	/**
 	 * 
-	 */
+	
 	@PostConstruct
 	void init(){	
 		try{
@@ -91,6 +95,28 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 		}catch (Exception e) {
 			addErrorMessage("Error", "Se ha producido un error al inicializar el Menú");
 			log.error(e.getCause(), e);
+		}
+	}*/
+
+	
+	public void empresaChangeValue(ValueChangeEvent event){
+		
+		init();
+		
+		if(event.getNewValue() == null){
+			addWarnMessage(PropertyManager.getInstance().getMessage("general_seleccionar_empresa"));
+			return;
+		}
+		
+		try{
+			rut = (Long)event.getNewValue();
+			empresa = getFacadeService().getEmpresaService().findById(rut);
+			getFiltroBackingBean().setEmpresa(empresa);
+			buildCuadroTreeMenu(this.getRoot());
+			buildAccordionPanelMenu();
+			buildCatalogoMap();
+		}catch(Exception e){
+			e.printStackTrace();
 		}
 	}
 	
@@ -111,7 +137,9 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 	}
 	
 	private void buildCuadroTreeMenu(TreeNode root) throws Exception{		 
-        boolean bloqueado = this.isSistemaBloqueado();
+        
+		boolean bloqueado = this.isSistemaBloqueado();
+        
         for(TipoCuadro tipoCuadro : this.getTiposCuadroFromCatalogo(this.getCatalogoList())){            
             TreeNode node = new DefaultTreeNode(tipoCuadro.getTitulo(), root);              
             for(Catalogo catalogo : this.getCatalogoList()){
@@ -262,12 +290,13 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
     
     /**
      * @return
-     */
+     * */
     public List<Catalogo> getCatalogoList() {
         if(catalogoList==null){
             try{
-                catalogoList = super.getFacadeService().getCatalogoService().findCatalogoByFiltro(super.getNombreUsuario(), null, null, VigenciaEnum.VIGENTE.getKey());
+                catalogoList = super.getFacadeService().getCatalogoService().findCatalogoByFiltro(empresa.getRut(), getNombreUsuario(), null, null, VigenciaEnum.VIGENTE.getKey());
             } catch (Exception e) {
+            	log.error(e.getMessage());
                 super.addErrorMessage(null, PropertyManager.getInstance().getMessage("general_mensaje_error_cargar_menu"));
             }
         }
@@ -395,6 +424,40 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 		this.treeCatalogo = treeCatalogo;
 	}
 
-	 
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
+
+	public Long getRut() {
+		return rut;
+	}
+
+	public void setRut(Long rut) {
+		this.rut = rut;
+	}
+	
+	private void init(){
+		
+		if(root !=null)
+			root.getChildren().clear();
+		
+		tabActivo = null;
+		menuAcordionPanel = null;
+		activeTabIndex = null;		
+		menuList = null;
+	    menuModelList = null;
+	    rut = null;
+	    empresa = null;
+	    treeCatalogo = null;
+	    catalogoList = null;    
+	    sistemaBloqueado = false;
+	    treeItem = null;
+	    catalogoMap = null; 
+	    catalogoSelected = null;
+	}
 
 }
