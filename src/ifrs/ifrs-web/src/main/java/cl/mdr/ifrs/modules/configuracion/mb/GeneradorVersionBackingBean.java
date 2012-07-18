@@ -1,4 +1,4 @@
-package cl.mdr.ifrs.modules.mb;
+package cl.mdr.ifrs.modules.configuracion.mb;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,6 +22,7 @@ import cl.mdr.ifrs.ejb.entity.Catalogo;
 import cl.mdr.ifrs.ejb.entity.Estructura;
 import cl.mdr.ifrs.ejb.entity.TipoCuadro;
 import cl.mdr.ifrs.ejb.entity.Version;
+import cl.mdr.ifrs.modules.mb.GeneradorDisenoBackingBean;
 import cl.mdr.ifrs.vo.GrillaModelVO;
 
 
@@ -155,7 +156,7 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
         setAlmacenado(false);
         if(getEstructuraList().size()<=1)
             return;
-        Estructura estructuraSelected = (Estructura)estructuraTable.getRowData();
+        final Estructura estructuraSelected = (Estructura)actionEvent.getComponent().getAttributes().get("estructura");
         getEstructuraList().remove(estructuraSelected);
         getGeneradorDiseno().getGrillaModelMap().remove(estructuraSelected.getOrden());
         Long i=1L;
@@ -265,7 +266,7 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
         List<Estructura> estructurasTemp = new ArrayList<Estructura>();
         Map<Long, GrillaModelVO> grillaModelMap = getGeneradorDiseno().getGrillaModelMap();
         Map<Long, GrillaModelVO> grillaModelMapTemp = new LinkedHashMap<Long, GrillaModelVO>();
-        Estructura estructuraSelected = (Estructura)estructuraTable.getRowData();
+        final Estructura estructuraSelected = (Estructura)event.getComponent().getAttributes().get("estructura");        
         setAlmacenado(false);
         
         if(!estructuraSelected.getOrden().equals(1L)){
@@ -306,7 +307,7 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
     public void bajarEstructuraListener(ActionEvent event){
         
         List<Estructura> estructurasTemp = new ArrayList<Estructura>();
-        Estructura estructuraSelected = (Estructura)estructuraTable.getRowData();
+        final Estructura estructuraSelected = (Estructura)event.getComponent().getAttributes().get("estructura");  
         Map<Long, GrillaModelVO> grillaModelMap = getGeneradorDiseno().getGrillaModelMap();
         Map<Long, GrillaModelVO> grillaModelMapTemp = new LinkedHashMap<Long, GrillaModelVO>();
         setAlmacenado(false);
