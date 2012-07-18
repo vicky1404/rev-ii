@@ -8,7 +8,8 @@
 		<h:panelGrid columns="1"
 			style="text-align : right; width: 99%; padding-top:10px;">
 			<h:panelGroup>
-				<h:graphicImage value="/resources/images/icon/usuario.gif" title="Nombre : #{menuBackingBean.nombreUsuario}" width="15"/>
+			    <p:tooltip for="imgUser" id="ttimgUser" value="Nombre : #{menuBackingBean.nombreUsuario}" showEffect="drop"/>
+				<h:graphicImage id="imgUser" value="/resources/images/icon/usuario.gif" style="vertical-align: middle;" width="15"/>
 				<p:spacer width="10"></p:spacer>				
 				<h:commandLink value="#{msg.label_logout}"
 					action="#{loginBackingBean.logoutAction}"

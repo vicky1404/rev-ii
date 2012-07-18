@@ -40,8 +40,15 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
     private Grilla grilla;
     private Long idTipoCelda;
     private Long idTipoDato;    
-    private TipoCelda tipoCelda;
-    private TipoDato tipoDato;
+    private TipoCelda tipoCeldaColumna;
+    private TipoDato tipoDatoColumna;
+    private TipoCelda tipoCeldaCelda;
+    private TipoDato tipoDatoCelda;
+    private TipoCelda tipoCeldaFila;
+    private TipoDato tipoDatoFila;
+    private Celda celda;
+    private Columna columna;
+    private Long fila;
     
     /*atributos utilizados para la upload de archivo*/
     private transient UploadedFile uploadedFile;
@@ -86,32 +93,107 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
     /**
      * @param event
      */
-    public void editarColumnaAction(ActionEvent event){    	
+    public void prepareEditarColumnaAction(ActionEvent event){
     	Columna columna = (Columna) event.getComponent().getAttributes().get("columna");
-    	logger.info("editando columna "+columna.getTituloColumna());
+    	this.setColumna(columna);
+    	this.setTipoCeldaColumna(null);
+    	this.setTipoDatoColumna(null);
+    	logger.info("editando columna "+columna.getTituloColumna());    	
+    	super.displayPopUp("editColumnDialog", "fGV1");
+    }
+    
+    /**
+     * @param event
+     */
+    public void editarColumnaAction(ActionEvent event){    	    	
+    	logger.info("editando columna "+this.getColumna().getTituloColumna());
     	logger.info("tipo celda "+this.getIdTipoCelda());
     	logger.info("tipo dato "+this.getIdTipoDato());
+    	if(this.getTipoCeldaColumna() != null && this.getTipoDatoColumna() != null){
+	    	Iterator<List<Celda>> iter = this.getGrillaVO().getCeldaList().iterator();
+	    	while(iter.hasNext()){
+	    	    Iterator<Celda> celdaIter = iter.next().iterator();
+	    	    while(celdaIter.hasNext()){
+	    	    	 Celda celda = celdaIter.next();
+	    	    	 if(celda.getIdColumna().equals(this.getColumna().getIdColumna())){    	    		
+	    	    		 celda.setTipoCelda(this.getTipoCeldaColumna());    	    		   	    		 
+	    	    		 celda.setTipoDato(this.getTipoDatoColumna());    		 
+	    	    	 }    	         
+	    	     }
+	    	}
+    	}
+    }
+    
+    
+    /**
+     * @param event
+     */
+    public void prepareEditarCeldaAction(ActionEvent event){
+    	Celda celda = (Celda) event.getComponent().getAttributes().get("celda");
+    	logger.info("editando celda "+celda.getValor());
+    	this.setCelda(celda);
+    	this.setTipoCeldaCelda(celda.getTipoCelda());
+    	this.setTipoDatoCelda(celda.getTipoDato());
+    	super.displayPopUp("editCellDialog", "fGV1");
+    }
+    
+    /**
+     * @param event
+     */
+    public void editarCeldaAction(ActionEvent event){
     	Iterator<List<Celda>> iter = this.getGrillaVO().getCeldaList().iterator();
     	while(iter.hasNext()){
     	    Iterator<Celda> celdaIter = iter.next().iterator();
     	    while(celdaIter.hasNext()){
     	    	 Celda celda = celdaIter.next();
-    	    	 if(celda.getIdColumna().equals(columna.getIdColumna())){
-    	    		 celda.setTipoCelda(new TipoCelda(this.getIdTipoCelda()));
-    	    		 celda.setTipoDato(new TipoDato(this.getIdTipoDato()));    		 
+    	    	 if( celda.getIdColumna().equals(this.getCelda().getIdColumna()) && celda.getIdFila().equals(this.getCelda().getIdFila()) ){
+    	    		 celda.setTipoCelda(this.getTipoCeldaCelda());
+    	    		 celda.setTipoDato(this.getTipoDatoCelda());    		 
     	    	 }    	         
     	     }
     	}
     }
     
-    public void editarCeldaAction(ActionEvent event){
-    	Celda celda = (Celda) event.getComponent().getAttributes().get("celda");
-    	logger.info("editando celda "+celda.getValor());
-    	this.setTipoCelda(celda.getTipoCelda());
-    	this.setTipoDato(celda.getTipoDato());
-    	super.displayPopUp("editCellDialog", "fGV1");
+    
+    /**
+     * @param event
+     */
+    public void prepareEditarFilaAction(ActionEvent event){
+    	Long fila  = (Long) event.getComponent().getAttributes().get("fila");
+    	logger.info("editando fila "+fila);
+    	this.setFila(fila);
+    	this.setTipoCeldaFila(null);
+    	this.setTipoDatoFila(null);
+    	super.displayPopUp("editRowDialog", "fGV1");
     }
     
+    /**
+     * @param event
+     */
+    public void editarFilaAction(ActionEvent event){
+    	Iterator<List<Celda>> iter = this.getGrillaVO().getCeldaList().iterator();
+    	while(iter.hasNext()){
+    	    Iterator<Celda> celdaIter = iter.next().iterator();
+    	    while(celdaIter.hasNext()){
+    	    	 Celda celda = celdaIter.next();
+    	    	 if( celda.getIdFila().equals(this.getFila()) ){
+    	    		 celda.setTipoCelda(this.getTipoCeldaFila());
+    	    		 celda.setTipoDato(this.getTipoDatoFila());    		 
+    	    	 }    	         
+    	     }
+    	}
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    @Deprecated
     public void onChangeTipoCeldaListener(ValueChangeEvent valueChangeEvent){
     	if(valueChangeEvent.getNewValue() != null){
     		this.setIdTipoCelda(null);    	
@@ -120,6 +202,7 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
     	}
     }
     
+    @Deprecated
     public void onChangeTipoDatoListener(ValueChangeEvent valueChangeEvent){
     	if(valueChangeEvent.getNewValue() != null){
     		this.setIdTipoDato(null);	
@@ -170,21 +253,77 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
 	public void setIdTipoDato(Long idTipoDato) {
 		this.idTipoDato = idTipoDato;
 	}
-
-	public TipoCelda getTipoCelda() {
-		return tipoCelda;
+	
+	public Celda getCelda() {
+		return celda;
 	}
 
-	public void setTipoCelda(TipoCelda tipoCelda) {
-		this.tipoCelda = tipoCelda;
+	public void setCelda(Celda celda) {
+		this.celda = celda;
 	}
 
-	public TipoDato getTipoDato() {
-		return tipoDato;
+	public Columna getColumna() {
+		return columna;
 	}
 
-	public void setTipoDato(TipoDato tipoDato) {
-		this.tipoDato = tipoDato;
+	public void setColumna(Columna columna) {
+		this.columna = columna;
+	}
+
+	public TipoCelda getTipoCeldaColumna() {
+		return tipoCeldaColumna;
+	}
+
+	public void setTipoCeldaColumna(TipoCelda tipoCeldaColumna) {
+		this.tipoCeldaColumna = tipoCeldaColumna;
+	}
+
+	public TipoDato getTipoDatoColumna() {
+		return tipoDatoColumna;
+	}
+
+	public void setTipoDatoColumna(TipoDato tipoDatoColumna) {
+		this.tipoDatoColumna = tipoDatoColumna;
+	}
+
+	public TipoCelda getTipoCeldaCelda() {
+		return tipoCeldaCelda;
+	}
+
+	public void setTipoCeldaCelda(TipoCelda tipoCeldaCelda) {
+		this.tipoCeldaCelda = tipoCeldaCelda;
+	}
+
+	public TipoDato getTipoDatoCelda() {
+		return tipoDatoCelda;
+	}
+
+	public void setTipoDatoCelda(TipoDato tipoDatoCelda) {
+		this.tipoDatoCelda = tipoDatoCelda;
+	}
+
+	public TipoCelda getTipoCeldaFila() {
+		return tipoCeldaFila;
+	}
+
+	public void setTipoCeldaFila(TipoCelda tipoCeldaFila) {
+		this.tipoCeldaFila = tipoCeldaFila;
+	}
+
+	public TipoDato getTipoDatoFila() {
+		return tipoDatoFila;
+	}
+
+	public void setTipoDatoFila(TipoDato tipoDatoFila) {
+		this.tipoDatoFila = tipoDatoFila;
+	}
+
+	public Long getFila() {
+		return fila;
+	}
+
+	public void setFila(Long fila) {
+		this.fila = fila;
 	}
 
 }
