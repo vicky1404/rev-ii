@@ -5,6 +5,8 @@ package cl.mdr.ifrs.cross.mb;
 
 import java.io.Serializable;
 
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -13,6 +15,7 @@ import cl.mdr.ifrs.ejb.entity.Empresa;
 import cl.mdr.ifrs.ejb.entity.Periodo;
 import cl.mdr.ifrs.ejb.entity.TipoCuadro;
 import cl.mdr.ifrs.ejb.entity.Version;
+import cl.mdr.ifrs.ejb.service.local.PeriodoServiceLocal;
 
 @ManagedBean(name="filtroBackingBean")
 @SessionScoped
@@ -27,9 +30,21 @@ public class FiltroBackingBean implements Serializable{
     private Version version;
     private TipoCuadro tipoCuadro;
     private Long tipoFormula;
+    private Periodo periodoActual;
     
-    //parametro global de debug visual de la aplicacion
+    @EJB
+    private PeriodoServiceLocal periodoService;
+    
+    
+
+
+	//parametro global de debug visual de la aplicacion
     private boolean debug;
+    
+    @PostConstruct
+    public void init(){
+    	periodoActual = periodoService.findMaxPeriodoObj();
+    }
           
     public FiltroBackingBean() {
     }
@@ -103,5 +118,13 @@ public class FiltroBackingBean implements Serializable{
 
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
+	}
+	
+	public Periodo getPeriodoActual() {
+		return periodoActual;
+	}
+
+	public void setPeriodoActual(Periodo periodoActual) {
+		this.periodoActual = periodoActual;
 	}
 }
