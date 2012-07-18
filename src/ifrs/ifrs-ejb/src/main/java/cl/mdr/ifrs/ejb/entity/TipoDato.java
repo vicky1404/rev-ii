@@ -2,14 +2,12 @@ package cl.mdr.ifrs.ejb.entity;
 
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import cl.mdr.ifrs.ejb.common.Constantes;
@@ -33,8 +31,8 @@ public class TipoDato implements Serializable {
     private String nombre;
     @Column(name = "NOMBRE_CLASE", length = 256)
     private String nombreClase;
-    @OneToMany(mappedBy = "tipoDato")
-    private List<Celda> celdaList;
+//    @OneToMany(mappedBy = "tipoDato")
+//    private List<Celda> celdaList;
 
     public TipoDato() {
     }
@@ -73,27 +71,7 @@ public class TipoDato implements Serializable {
     public void setNombreClase(String nombreClase) {
         this.nombreClase = nombreClase;
     }
-
-    public List<Celda> getCeldaList() {
-        return celdaList;
-    }
-
-    public void setCeldaList(List<Celda> celdaList) {
-        this.celdaList = celdaList;
-    }
-
-    public Celda addCeldaNota(Celda celda) {
-        getCeldaList().add(celda);
-        celda.setTipoDato(this);
-        return celda;
-    }
-
-    public Celda removeCeldaNota(Celda celda) {
-        getCeldaList().remove(celda);
-        celda.setTipoDato(null);
-        return celda;
-    }
-    
+//        
     @Override
     public boolean equals(final Object obj) {
             if (this == obj)
