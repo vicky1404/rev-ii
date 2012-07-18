@@ -39,7 +39,9 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
     private GrillaVO grillaVO;
     private Grilla grilla;
     private Long idTipoCelda;
-    private Long idTipoDato;
+    private Long idTipoDato;    
+    private TipoCelda tipoCelda;
+    private TipoDato tipoDato;
     
     /*atributos utilizados para la upload de archivo*/
     private transient UploadedFile uploadedFile;
@@ -102,6 +104,14 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
     	}
     }
     
+    public void editarCeldaAction(ActionEvent event){
+    	Celda celda = (Celda) event.getComponent().getAttributes().get("celda");
+    	logger.info("editando celda "+celda.getValor());
+    	this.setTipoCelda(celda.getTipoCelda());
+    	this.setTipoDato(celda.getTipoDato());
+    	super.displayPopUp("editCellDialog", "fGV1");
+    }
+    
     public void onChangeTipoCeldaListener(ValueChangeEvent valueChangeEvent){
     	if(valueChangeEvent.getNewValue() != null){
     		this.setIdTipoCelda(null);    	
@@ -159,6 +169,22 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
 
 	public void setIdTipoDato(Long idTipoDato) {
 		this.idTipoDato = idTipoDato;
+	}
+
+	public TipoCelda getTipoCelda() {
+		return tipoCelda;
+	}
+
+	public void setTipoCelda(TipoCelda tipoCelda) {
+		this.tipoCelda = tipoCelda;
+	}
+
+	public TipoDato getTipoDato() {
+		return tipoDato;
+	}
+
+	public void setTipoDato(TipoDato tipoDato) {
+		this.tipoDato = tipoDato;
 	}
 
 }
