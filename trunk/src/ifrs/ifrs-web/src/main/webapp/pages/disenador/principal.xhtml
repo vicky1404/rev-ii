@@ -83,14 +83,11 @@
 										invalidFileMessage="El formato del Archivo es invalido, solo se permiten archivos MS Excel en formato 2007 o superior"
 										invalidSizeMessage="El Archivo a utilizar no puede superar los 3 MB."
 										allowTypes="/(\.|\/)(xlsx|xls)$/"
-										fileUploadListener="#{configuradorDisenoBackingBean.cargaArchivoListener}"></p:fileUpload>
+										fileUploadListener="#{configuradorDisenoBackingBean.cargaArchivoListener}">
+									</p:fileUpload>
 								</div>
-								<p:growl id="messages_upload" showDetail="true" />
 								<p:spacer width="10" id="gDs3" />
-
-
 								<p:spacer height="25" id="gDs6" />
-
 								<!--af:group rendered="#{generadorDisenoBackingBean.renderdEditarGrillaTable}" id="gDg2" -->
 								<table>
 									<tr>
@@ -120,64 +117,10 @@
 															<div class="ui-dt-c" style="width:#{col.ancho+25}px; text-align: center;">
 																<span> <h:outputText value="#{col.tituloColumna}" />
 																	<br /> <p:commandLink value="Editar Columna"
-																		onclick="editColumnDialog_#{col.idColumna}.show();"
-																		immediate="true" />
+																		actionListener="#{configuradorDisenoBackingBean.prepareEditarColumnaAction}">
+																		<f:attribute name="columna" value="#{col}" />
+																	</p:commandLink>
 																</span>
-																<p:dialog widgetVar="editColumnDialog_#{col.idColumna}"
-																	header="Editar Columna" showEffect="drop"
-																	style="text-align:left;" hideEffect="drop"
-																	modal="false" dynamic="true" minimizable="true">
-																	<h:panelGrid columns="3">
-																		<!-- titulo de columna -->
-																		<p:outputLabel for="it_tc" value="Título de Columna:" />
-																		<p:inputText id="it_tc" value="#{col.tituloColumna}" />
-																		<!-- Ancho columna -->
-																		<p:outputLabel for="col_width_sp"
-																			value="Ancho de Columna:" />
-																		<p:spinner value="#{col.ancho}" id="col_width_sp"
-																			max="999" maxlength="3" size="3" />
-
-																		<!-- tipo celda -->
-																		<h:outputLabel value="Tipo de Celda:" />
-																		<p:selectOneMenu label="Tipo Celda"
-																			style="width:130px;" effect="fade"
-																			value="#{configuradorDisenoBackingBean.idTipoCelda}"
-																			valueChangeListener="#{configuradorDisenoBackingBean.onChangeTipoCeldaListener}">
-																			<f:selectItem
-																				itemLabel="#{msg.general_control_seleccione}" />
-																			<f:selectItems
-																				value="#{configuradorDisenoBackingBean.componenteBackingBean.tipoCeldaList}"
-																				var="tipoCelda" itemValue="#{tipoCelda.idTipoCelda}"
-																				itemLabel="#{tipoCelda.nombre}" />
-																			<f:ajax execute="@this" />
-																		</p:selectOneMenu>
-
-																		<!-- tipo de dato -->
-																		<h:outputLabel value="Tipo de Dato:" />
-																		<p:selectOneMenu label="Tipo Dato"
-																			style="width:130px;" effect="fade"
-																			value="#{configuradorDisenoBackingBean.idTipoDato}"
-																			valueChangeListener="#{configuradorDisenoBackingBean.onChangeTipoDatoListener}">
-																			<f:selectItem
-																				itemLabel="#{msg.general_control_seleccione}" />
-																			<f:selectItems
-																				value="#{configuradorDisenoBackingBean.componenteBackingBean.tipoDatoList}"
-																				var="tipoDato" itemValue="#{tipoDato.idTipoDato}"
-																				itemLabel="#{tipoDato.nombre}" />
-																			<f:ajax execute="@this" />
-																		</p:selectOneMenu>
-																		<h:outputText value=" " />
-																		<p:commandButton value="Editar Columna"
-																			actionListener="#{configuradorDisenoBackingBean.editarColumnaAction}"
-																			icon="ui-icon-disk" update="@form">
-																			<f:attribute name="columna" value="#{col}" />
-																		</p:commandButton>
-																		<p:commandButton icon="ui-icon-cancel"
-																			value="#{msg.boton_cancel}" type="button"
-																			id="btnCancelar"
-																			onclick="editColumnDialog_#{col.idColumna}.hide()" />
-																	</h:panelGrid>
-																</p:dialog>
 															</div>
 														</th>
 													</ui:repeat>
@@ -191,9 +134,15 @@
 														data-ri="1">
 														<ui:repeat var="row" value="#{col}">
 															<ui:fragment rendered="#{row.columna.orden eq 1}">
-																<td><p:commandLink value="Editar Fila"
-																		immediate="true"
-																		style="padding-left:5px; padding-right:5px; text-decoration:underline;" />
+																<td>
+																    <p:tooltip for="clEditFila" value="Editar Fila #{row.idFila}" showEffect="drop"/>
+																    <p:commandLink id="clEditFila"
+																		actionListener="#{configuradorDisenoBackingBean.prepareEditarFilaAction}"
+																		style="padding-left:5px; padding-right:5px; text-decoration:underline;">
+																		<f:attribute name="fila" value="#{row.idFila}" />
+																		<h:graphicImage value="/resources/images/icon/1rightarrow_16x16.png" style="vertical-align: middle;" />
+																	</p:commandLink>
+																
 																</td>
 															</ui:fragment>
 															<td role="gridcell">
@@ -260,16 +209,21 @@
 																				locale="#{procesoBackingBean.localeCL}"
 																				pattern="##,###,###,###.####" />
 
-																		</p:inputText> <p:calendar value="#{row.valorDate}" id="it10"
+																		</p:inputText> 
+																		
+																		<p:calendar value="#{row.valorDate}" id="it10"
 																			pattern="dd-MM-yyyy" label=" " effect="fade"
-																			showOn="button"
-																			rendered="#{row.tipoDato.idTipoDato == 1 and row.tipoCelda.idTipoCelda == 6}">
-																			<f:convertDateTime pattern="dd-MM-yyyy" type="date" />
-																		</p:calendar> <!-- Editor de tipo de celda y tipo de dato --> <p:commandLink
-																			value="Editar Celda"
-																			actionListener="#{configuradorDisenoBackingBean.editarCeldaAction}"
-																			>
+																			showOn="button" locale="#{procesoBackingBean.localeCL}" 
+																			rendered="#{row.tipoDato.idTipoDato == 1 and row.tipoCelda.idTipoCelda == 6}">																			
+																		</p:calendar> 
+																		
+																		<!-- Editor de tipo de celda y tipo de dato --> 
+																		<p:tooltip for="clEditCell" value="Editar Celda [#{row.idFila},#{row.idColumna}]" showEffect="drop"/>
+																		<p:commandLink id="clEditCell" style="float:left;"
+																			actionListener="#{configuradorDisenoBackingBean.prepareEditarCeldaAction}">
 																			<f:attribute value="#{row}" name="celda" />
+																			<h:graphicImage style="vertical-align: middle;"
+																				value="/resources/images/icon/table-cell_16x16.png" />
 																		</p:commandLink>
 
 																	</span>
@@ -284,33 +238,30 @@
 								</h:panelGroup>
 								<!-- fin grilla diseño -->
 
-
-								<p:dialog widgetVar="editCellDialog"
-									header="Editar Celda" showEffect="drop"
-									style="text-align:left;" hideEffect="drop" modal="false"
-									dynamic="false">
+								<!-- Dialogo Editor de Celda -->
+								<p:dialog widgetVar="editCellDialog" header="Editar Celda"
+									showEffect="drop" style="text-align:left;" hideEffect="drop"
+									modal="false" dynamic="false">
 									<h:panelGrid columns="2">
 										<h:outputLabel value="Tipo de Celda:" />
 										<p:selectOneMenu label="Tipo Celda"
 											converter="tipoCeldaConverter"
-											value="#{configuradorDisenoBackingBean.tipoCelda}"
-											style="width:130px;">
-											<f:selectItem itemLabel="#{msg.general_control_seleccione}"
-												/>
+											value="#{configuradorDisenoBackingBean.tipoCeldaCelda}"
+											style="width:130px;" id="somec1">
+											<f:selectItem itemLabel="#{msg.general_control_seleccione}" />
 											<f:selectItems
 												value="#{generadorDisenoBackingBean.componenteBackingBean.tipoCeldas}" />
 										</p:selectOneMenu>
 										<h:outputLabel value="Tipo de Dato:" />
-										<p:selectOneMenu label="Tipo Dato"
-											value="#{configuradorDisenoBackingBean.tipoDato}"
+										<p:selectOneMenu label="Tipo Dato" id="somec2"
+											value="#{configuradorDisenoBackingBean.tipoDatoCelda}"
 											style="width:130px;" converter="tipoDatoConverter">
-											<f:selectItem itemLabel="#{msg.general_control_seleccione}"
-												noSelectionOption="true" />
+											<f:selectItem itemLabel="#{msg.general_control_seleccione}" />
 											<f:selectItems
 												value="#{generadorDisenoBackingBean.componenteBackingBean.tipoDatos}" />
 										</p:selectOneMenu>
 										<p:commandButton value="Editar Celda"
-											actionListener="#{configuradorDisenoBackingBean.editarColumnaAction}"
+											actionListener="#{configuradorDisenoBackingBean.editarCeldaAction}"
 											icon="ui-icon-disk" update="@form">
 										</p:commandButton>
 										<p:commandButton icon="ui-icon-cancel"
@@ -318,6 +269,86 @@
 											onclick="editCellDialog.hide()" />
 									</h:panelGrid>
 								</p:dialog>
+
+								<!-- Dialogo Editor de Columna -->
+								<p:dialog widgetVar="editColumnDialog" header="Editar Columna"
+									showEffect="drop" style="text-align:left;" hideEffect="drop"
+									modal="false" dynamic="true" minimizable="false">
+									<h:panelGrid columns="3">
+										<!-- titulo de columna -->
+										<p:outputLabel for="it_tc" value="Título de Columna:" />
+										<p:inputText id="it_tc"
+											value="#{configuradorDisenoBackingBean.columna.tituloColumna}" />
+										<!-- Ancho columna -->
+										<p:outputLabel for="col_width_sp" value="Ancho de Columna:" />
+										<p:spinner
+											value="#{configuradorDisenoBackingBean.columna.ancho}"
+											id="col_width_sp" max="999" maxlength="3" size="3" />
+
+										<!-- tipo celda -->
+										<h:outputLabel value="Tipo de Celda:" />
+										<p:selectOneMenu label="Tipo Celda"
+											converter="tipoCeldaConverter"
+											value="#{configuradorDisenoBackingBean.tipoCeldaColumna}"
+											style="width:130px;">
+											<f:selectItem itemLabel="#{msg.general_control_seleccione}" />
+											<f:selectItems
+												value="#{generadorDisenoBackingBean.componenteBackingBean.tipoCeldas}" />
+										</p:selectOneMenu>
+
+										<!-- tipo de dato -->
+										<h:outputLabel value="Tipo de Dato:" />
+										<p:selectOneMenu label="Tipo Dato"
+											value="#{configuradorDisenoBackingBean.tipoDatoColumna}"
+											style="width:130px;" converter="tipoDatoConverter">
+											<f:selectItem itemLabel="#{msg.general_control_seleccione}" />
+											<f:selectItems
+												value="#{generadorDisenoBackingBean.componenteBackingBean.tipoDatos}" />
+										</p:selectOneMenu>
+
+										<h:outputText value=" " />
+										<p:commandButton value="Editar Columna"
+											actionListener="#{configuradorDisenoBackingBean.editarColumnaAction}"
+											icon="ui-icon-disk" update="@form">
+										</p:commandButton>
+										<p:commandButton icon="ui-icon-cancel"
+											value="#{msg.boton_cancel}" type="button" id="btnCancelar"
+											onclick="editColumnDialog.hide()" />
+									</h:panelGrid>
+								</p:dialog>
+
+								<!-- Dialogo Editor de Fila -->
+								<p:dialog widgetVar="editRowDialog" header="Editar Fila"
+									showEffect="drop" style="text-align:left;" hideEffect="drop"
+									modal="false" dynamic="false">
+									<h:panelGrid columns="2">
+										<h:outputLabel value="Tipo de Celda:" />
+										<p:selectOneMenu label="Tipo Celda"
+											converter="tipoCeldaConverter"
+											value="#{configuradorDisenoBackingBean.tipoCeldaFila}"
+											style="width:130px;" id="somec3">
+											<f:selectItem itemLabel="#{msg.general_control_seleccione}" />
+											<f:selectItems
+												value="#{generadorDisenoBackingBean.componenteBackingBean.tipoCeldas}" />
+										</p:selectOneMenu>
+										<h:outputLabel value="Tipo de Dato:" />
+										<p:selectOneMenu label="Tipo Dato" id="somec4"
+											value="#{configuradorDisenoBackingBean.tipoDatoFila}"
+											style="width:130px;" converter="tipoDatoConverter">
+											<f:selectItem itemLabel="#{msg.general_control_seleccione}" />
+											<f:selectItems
+												value="#{generadorDisenoBackingBean.componenteBackingBean.tipoDatos}" />
+										</p:selectOneMenu>
+										<p:commandButton value="Editar Fila"
+											actionListener="#{configuradorDisenoBackingBean.editarFilaAction}"
+											icon="ui-icon-disk" update="@form">
+										</p:commandButton>
+										<p:commandButton icon="ui-icon-cancel"
+											value="#{msg.boton_cancel}" type="button" id="btnCancelar3"
+											onclick="editRowDialog.hide()" />
+									</h:panelGrid>
+								</p:dialog>
+
 							</div>
 						</div>
 					</div>
