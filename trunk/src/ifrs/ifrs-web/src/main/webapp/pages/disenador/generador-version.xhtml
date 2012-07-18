@@ -103,7 +103,7 @@
 
 	<p:dataTable id="gVdt3" emptyMessage=" "
 		value="#{generadorVersionBackingBean.estructuraList}" var="row"
-		style="width:720px"
+		style="width:720px" rowIndexVar="status"
 		rendered="#{generadorVersionBackingBean.renderBotonEditar}">
 
 		<p:column id="gVc1" headerText="Orden" style="text-align:center">
@@ -120,52 +120,49 @@
 			</p:selectOneMenu>
 		</p:column>
 
-		<p:column id="gVc3" headerText="Agregar o Eliminar"
-			style="text-align:center">
+		<p:column id="gVc3" headerText="Agregar o Eliminar" style="text-align:center">
 
-			<p:commandLink id="gVcl1"
-				actionListener="#{generadorVersionBackingBean.agregarTipoEstructuraListener}"
-				update="@form">
-				<p:graphicImage id="gVgi1"
-					value="../../resources/images/icon/add.png" />
+			<p:commandLink id="gVcl1" actionListener="#{generadorVersionBackingBean.agregarTipoEstructuraListener}" update="@form">
+				<p:graphicImage id="gVgi1" value="/resources/images/icon/add.png" />
 				<f:attribute name="estructura" value="#{row}" />
 			</p:commandLink>
 
 			<p:spacer id="gVsp5" width="3px" />
 
-			<p:commandLink ajax="true" id="gVcl2" title="Eliminar"
+			<p:commandLink id="gVcl2" title="Eliminar"
 				actionListener="#{generadorVersionBackingBean.eliminarTipoEstructuraListener}"
-				rendered="#{generadorVersionBackingBean.sizeEstructrua > 1 ? 'true' : 'false'} "
-				update="@form" partialSubmit="true">
-				<p:graphicImage id="gVgi2"
-					value="../../resources/images/icon/remove.png" />
+				update="@form">
+				<p:graphicImage id="gVgi2" value="/resources/images/icon/remove.png" rendered="#{generadorVersionBackingBean.sizeEstructrua > 1 ? 'true' : 'false'}" />
+				<f:attribute name="estructura" value="#{row}" />
 			</p:commandLink>
 
 		</p:column>
 
 		<p:column id="gVc5" headerText="Ordenar" style="text-align:center">
 
-			<p:commandLink id="gVcl5"
-				rendered="#{(generadorVersionBackingBean.sizeEstructrua > 1 ? true : false) and (status.count == 1 ? false : true)}"
-				update="@form" partialSubmit="true">
+			<p:commandLink id="gVcl5" update="@form" actionListener="#{generadorVersionBackingBean.subirEstructuraListener}">
 				<p:graphicImage id="gVgi5"
-					value="../../resources/images/icon/up_ok.png" />
+					rendered="#{(generadorVersionBackingBean.sizeEstructrua > 1 ? true : false) and (status == 0 ? false : true)}"
+					value="/resources/images/icon/up_ok.png" />
+					<f:attribute name="estructura" value="#{row}" />
 			</p:commandLink>
 
 			<p:spacer id="gVsp6" width="3px" />
 
-			<p:commandLink id="gVcl6"
-				rendered="#{(generadorVersionBackingBean.sizeEstructrua > 1 ? true : false) and 
-											   (status.count == generadorVersionBackingBean.sizeEstructrua ? false : true) and 
-											   (generadorVersionBackingBean.sizeEstructrua > status.count)}"
-				update="dt3" partialSubmit="true">
+			<p:commandLink id="gVcl6" update="@form" actionListener="#{generadorVersionBackingBean.bajarEstructuraListener}">
 				<p:graphicImage id="gVgi6"
-					value="../../resources/images/icon/down_ok.png" />
+					rendered="#{(generadorVersionBackingBean.sizeEstructrua > 1 ? true : false) and 
+											   (status+1 == generadorVersionBackingBean.sizeEstructrua ? false : true) and 
+											   (generadorVersionBackingBean.sizeEstructrua > status+1)}"
+					value="/resources/images/icon/down_ok.png" />
+					<f:attribute name="estructura" value="#{row}" />
 			</p:commandLink>
 
 		</p:column>
 
 	</p:dataTable>
+	
+	
 
 	<p:spacer id="gVsp6" height="10px;" />
 
