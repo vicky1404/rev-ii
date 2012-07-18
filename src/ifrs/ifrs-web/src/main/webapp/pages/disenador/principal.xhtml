@@ -17,7 +17,7 @@
 
 
 
-			<p:tabView effect="slide" id="tv1">
+			<p:tabView effect="fade" id="tv1">
 
 				<p:tab title="Versión de Cuadro" id="tb1"
 					titletip="Versión de Cuadro">
@@ -75,72 +75,6 @@
 
 							<div align="left">
 
-								<p:dataTable
-									value="#{generadorDisenoBackingBean.columnasAgregadasSelected}"
-									id="gDt1" var="row"
-									binding="#{generadorDisenoBackingBean.agregarColumnaTable}"
-									style="width:720px"
-									emptyMessage="#{msg.general_sin_informacion}">
-
-									<p:column sortable="false"
-										headerText="#{msg.generador_titulo_columna}" id="gDc323"
-										width="200">
-										<p:inputText value="#{row.tituloColumna}" id="gDit1" />
-									</p:column>
-
-									<p:column sortable="false"
-										headerText="#{msg.generador_ancho_columna}" align="center"
-										id="gDc333" width="100" inlineStyle="height:50px;">
-										<p:inputText value="#{row.ancho}" id="gDit2" />
-									</p:column>
-
-									<p:column sortable="false"
-										headerText="#{msg.generador_columna_row_header}"
-										align="center" id="gDc344" width="120"
-										inlineStyle="height:50px;">
-										<!-- p:selectOneMenu label="#{msg.generador_columna_cabecera}" value="#{row.rowHeader}" id="soc3">
-                                <f:selectItem label="Sí" value="true" id="si4"/>
-                                <f:selectItem label="No" value="false" id="si3"/>
-                            </p:selectOneMenu> -->
-									</p:column>
-									<p:column sortable="false" headerText="A" align="center"
-										id="gDc345" width="30">
-										<p:commandLink id="cl4"
-											rendered="#{generadorVersionBackingBean.renderBotonEditar}">
-
-											<p:graphicImage id="gDgi1"
-												value="../../resources/images/icon/add.png"
-												title="#{msg.generador_agregar_columna}" />
-
-											<p:ajax event="click"
-												listener="#{generadorDisenoBackingBean.agregarColumnaAction}"
-												update=":fGV1:tv1:gDtblD01" />
-
-										</p:commandLink>
-									</p:column>
-									<p:column sortable="false" headerText="E" align="center"
-										id="gDc1" width="30">
-										<p:commandLink id="gDcl6"
-											action="#{generadorDisenoBackingBean.editarColumnaAction}"
-											rendered="#{generadorVersionBackingBean.renderBotonEditar}">
-											<p:graphicImage id="gDgi2"
-												value="../../resources/images/icon/add.png"
-												title="#{msg.generador_agregar_columna}" />
-										</p:commandLink>
-									</p:column>
-									<p:column sortable="false" headerText="B" align="center"
-										id="c2" width="30">
-										<p:commandLink id="cl5"
-											action="#{generadorDisenoBackingBean.eliminarColumnaAction}"
-											rendered="#{generadorVersionBackingBean.renderBotonEditar}">
-											<p:graphicImage id="gDgi3"
-												value="../../resources/images/icon/add.png"
-												title="#{msg.generador_agregar_columna}" />
-										</p:commandLink>
-									</p:column>
-								</p:dataTable>
-								<p:spacer height="20" id="gDs5" />
-
 								<!-- RENDERED  af:panelGroupLayout layout="horizontal" id="gDpgl3" rendered="#{generadorVersionBackingBean.renderBotonEditar}">-->
 								<div align="left">
 									<p:fileUpload label="Archivo" id="gDif1" required="false"
@@ -178,7 +112,7 @@
 											<thead>
 												<tr role="row">
 													<th class="ui-state-default ui-resizable-column"
-														role="columnheader"> </th>
+														role="columnheader"></th>
 													<ui:repeat var="col"
 														value="#{configuradorDisenoBackingBean.grillaVO.columnas}">
 														<th class="ui-state-default ui-resizable-column"
@@ -190,8 +124,9 @@
 																		immediate="true" />
 																</span>
 																<p:dialog widgetVar="editColumnDialog_#{col.idColumna}"
-																	header="Editar Columna" showEffect="drop" style="text-align:left;"
-																	hideEffect="drop" modal="false" dynamic="true" minimizable="true">																	
+																	header="Editar Columna" showEffect="drop"
+																	style="text-align:left;" hideEffect="drop"
+																	modal="false" dynamic="true" minimizable="true">
 																	<h:panelGrid columns="3">
 																		<!-- titulo de columna -->
 																		<p:outputLabel for="it_tc" value="Título de Columna:" />
@@ -204,21 +139,22 @@
 
 																		<!-- tipo celda -->
 																		<h:outputLabel value="Tipo de Celda:" />
-																		<p:selectOneMenu label="Tipo Celda"																		
+																		<p:selectOneMenu label="Tipo Celda"
 																			style="width:130px;" effect="fade"
 																			value="#{configuradorDisenoBackingBean.idTipoCelda}"
 																			valueChangeListener="#{configuradorDisenoBackingBean.onChangeTipoCeldaListener}">
 																			<f:selectItem
 																				itemLabel="#{msg.general_control_seleccione}" />
 																			<f:selectItems
-																				value="#{configuradorDisenoBackingBean.componenteBackingBean.tipoCeldaList}" 
-																				var="tipoCelda" itemValue="#{tipoCelda.idTipoCelda}" itemLabel="#{tipoCelda.nombre}" />
-																			<f:ajax execute="@this" />	
+																				value="#{configuradorDisenoBackingBean.componenteBackingBean.tipoCeldaList}"
+																				var="tipoCelda" itemValue="#{tipoCelda.idTipoCelda}"
+																				itemLabel="#{tipoCelda.nombre}" />
+																			<f:ajax execute="@this" />
 																		</p:selectOneMenu>
 
 																		<!-- tipo de dato -->
 																		<h:outputLabel value="Tipo de Dato:" />
-																		<p:selectOneMenu label="Tipo Dato"																		
+																		<p:selectOneMenu label="Tipo Dato"
 																			style="width:130px;" effect="fade"
 																			value="#{configuradorDisenoBackingBean.idTipoDato}"
 																			valueChangeListener="#{configuradorDisenoBackingBean.onChangeTipoDatoListener}">
@@ -226,7 +162,8 @@
 																				itemLabel="#{msg.general_control_seleccione}" />
 																			<f:selectItems
 																				value="#{configuradorDisenoBackingBean.componenteBackingBean.tipoDatoList}"
-																				var="tipoDato" itemValue="#{tipoDato.idTipoDato}" itemLabel="#{tipoDato.nombre}" />
+																				var="tipoDato" itemValue="#{tipoDato.idTipoDato}"
+																				itemLabel="#{tipoDato.nombre}" />
 																			<f:ajax execute="@this" />
 																		</p:selectOneMenu>
 																		<h:outputText value=" " />
@@ -254,8 +191,9 @@
 														data-ri="1">
 														<ui:repeat var="row" value="#{col}">
 															<ui:fragment rendered="#{row.columna.orden eq 1}">
-																<td>
-																	<p:commandLink value="Editar Fila" immediate="true" style="padding-left:5px; padding-right:5px; text-decoration:underline;" />
+																<td><p:commandLink value="Editar Fila"
+																		immediate="true"
+																		style="padding-left:5px; padding-right:5px; text-decoration:underline;" />
 																</td>
 															</ui:fragment>
 															<td role="gridcell">
@@ -327,42 +265,13 @@
 																			showOn="button"
 																			rendered="#{row.tipoDato.idTipoDato == 1 and row.tipoCelda.idTipoCelda == 6}">
 																			<f:convertDateTime pattern="dd-MM-yyyy" type="date" />
-																		</p:calendar> <!-- Editor de tipo de celda y tipo de dato --> <p:inplace
-																			id="selectableInplace" label="Editar" effect="fade"
-																			event="click" toggleable="true">
-																			<h:panelGroup style="margin-left:10px;">
-																				<p:separator />
-																				<p:tooltip for="gDsoc92"
-																					value="Seleccione Tipo de Celda" />
-																				<p:tooltip for="gDsoc82"
-																					value="Seleccione Tipo de Dato" />
-																				<h:panelGroup>
-																					<h:selectOneMenu label="Tipo Celda" id="gDsoc92"
-																						converter="tipoCeldaConverter"
-																						value="#{row.tipoCelda}" style="width:130px;">
-																						<f:selectItem
-																							itemLabel="#{msg.general_control_seleccione}"
-																							noSelectionOption="true" id="gDsi1" />
-																						<f:selectItems
-																							value="#{generadorDisenoBackingBean.componenteBackingBean.tipoCeldas}"
-																							id="gDsi9" />
-																					</h:selectOneMenu>
-																				</h:panelGroup>
-																				<br />
-																				<h:panelGroup>
-																					<h:selectOneMenu label="Tipo Dato" id="gDsoc82"
-																						value="#{row.tipoDato}" style="width:130px;"
-																						converter="tipoDatoConverter">
-																						<f:selectItem
-																							itemLabel="#{msg.general_control_seleccione}"
-																							noSelectionOption="true" id="gDsi2" />
-																						<f:selectItems
-																							value="#{generadorDisenoBackingBean.componenteBackingBean.tipoDatos}"
-																							id="gDsi8" />
-																					</h:selectOneMenu>
-																				</h:panelGroup>
-																			</h:panelGroup>
-																		</p:inplace>
+																		</p:calendar> <!-- Editor de tipo de celda y tipo de dato --> <p:commandLink
+																			value="Editar Celda"
+																			actionListener="#{configuradorDisenoBackingBean.editarCeldaAction}"
+																			>
+																			<f:attribute value="#{row}" name="celda" />
+																		</p:commandLink>
+
 																	</span>
 																</div>
 															</td>
@@ -376,230 +285,40 @@
 								<!-- fin grilla diseño -->
 
 
-
-
-
-								<p:spacer height="20" id="gDs4" />
-
-								<table id="gDtbFooter1">
-									<tr>
-										<td><p:commandLink title="#{msg.generador_agregar_fila}"
-												value="#{msg.generador_agregar_fila}" partialSubmit="true"
-												id="gDcl113" update="@form"
-												action="#{generadorDisenoBackingBean.agregarFilaAction}"></p:commandLink>
-										</td>
-										<td>-</td>
-										<td><p:commandLink title="#{msg.generador_eliminar_fila}"
-												value="#{msg.generador_eliminar_fila}" partialSubmit="true"
-												id="gDcl114"
-												action="#{generadorDisenoBackingBean.eliminarFilaAction}"></p:commandLink>
-										</td>
-										<td>-</td>
-										<td><p:selectOneMenu label="ASDASDA" id="gDsoc7"
-												value="#{generadorDisenoBackingBean.filaSelected}"
-												update="::t90:cl1 cl113 cl114  ::t1:cl4"
-												valueChangeListener="#{generadorDisenoBackingBean.selectFilaChangeListener}"
-												binding="#{generadorDisenoBackingBean.agregarFilaChoice}"
-												style="width:120px">
-												<f:selectItems
-													value="#{generadorDisenoBackingBean.filasAgregadas}"
-													id="gDsi7" />
-
-											</p:selectOneMenu></td>
-										<td><p:selectOneMenu label="Tipo Celda" id="gDsoc9"
-												value="#{generadorDisenoBackingBean.tipoCeldaSelected}"
-												update="cl113">
-												<f:selectItem itemLabel="#{msg.general_control_seleccione}"
-													noSelectionOption="true" id="gDsi1" />
-												<f:selectItems
-													value="#{generadorDisenoBackingBean.componenteBackingBean.tipoCeldas}"
-													id="gDsi9" />
-											</p:selectOneMenu></td>
-										<td><p:selectOneMenu label="Tipo Dato" id="gDsoc8"
-												value="#{generadorDisenoBackingBean.tipoDatoSelected}"
-												update="cl113">
-
-												<f:selectItem itemLabel="#{msg.general_control_seleccione}"
-													noSelectionOption="true" id="gDsi2" />
-												<f:selectItems
-													value="#{generadorDisenoBackingBean.componenteBackingBean.tipoDatos}"
-													id="gDsi8" />
-											</p:selectOneMenu></td>
-									</tr>
-								</table>
-								<h:outputLabel value="Editor de Propiedades de Celdas"
-									id="gDol2" />
-								<p:spacer height="20" id="gDs9" />
-								<div align="center">
-
-									<c:forEach
-										items="#{generadorDisenoBackingBean.campoEdicionGrillas}"
-										var="itemColumna">
-										<c:if test="#{itemColumna.tipo == 1}">
-											<p:dataTable
-												width="#{generadorDisenoBackingBean.widthEditarGrillaTable + 10}"
-												value="#{generadorDisenoBackingBean.unRegistroList}"
-												var="row" inlineStyle="height:auto;" update="::soc7 ::cl113"
-												binding="#{generadorDisenoBackingBean.editorTable1}"
-												emptyText="#{msg.general_sin_informacion}">
-												<c:forEach items="#{itemColumna.columnas}"
-													var="subItemColumna" varStatus="status1">
-													<p:column headerText="#{subItemColumna.titulo}"
-														width="#{subItemColumna.ancho}"
-														id="gDidC1_#{status1.count}">
-														<p:inputText value="#{subItemColumna.valor}"
-															label="Valor de Celda" id="gDit1_#{status1.count}" />
-													</p:column>
-												</c:forEach>
-											</p:dataTable>
-										</c:if>
-										<c:if test="#{itemColumna.tipo == 2}">
-											<p:dataTable
-												width="#{generadorDisenoBackingBean.widthEditarGrillaTable + 10}"
-												value="#{generadorDisenoBackingBean.unRegistroList}"
-												var="row" update="::soc7"
-												binding="#{generadorDisenoBackingBean.editorTable2}"
-												emptyMessage="#{msg.general_sin_informacion}">
-												<c:forEach items="#{itemColumna.columnas}"
-													var="subItemColumna" varStatus="status2">
-													<p:column headerText="Tipo Celda"
-														width="#{subItemColumna.ancho}"
-														id="gDidC2_#{status2.count}">
-														<p:selectOneMenu value="#{subItemColumna.valor}"
-															id="gDsoc2_#{status2.count}">
-															<f:selectItem
-																itemLabel="#{msg.general_control_seleccione}"
-																noSelectionOption="true" />
-															<f:selectItems
-																value="#{generadorDisenoBackingBean.componenteBackingBean.tipoCeldas}"
-																id="gDsi1" />
-														</p:selectOneMenu>
-													</p:column>
-												</c:forEach>
-											</p:dataTable>
-										</c:if>
-										<c:if test="#{itemColumna.tipo == 3}">
-											<p:dataTable
-												width="#{generadorDisenoBackingBean.widthEditarGrillaTable + 10}"
-												value="#{generadorDisenoBackingBean.unRegistroList}"
-												var="row" update="::soc7"
-												binding="#{generadorDisenoBackingBean.editorTable3}"
-												emptyMessage="#{msg.general_sin_informacion}">
-												<c:forEach items="#{itemColumna.columnas}"
-													var="subItemColumna" varStatus="status3">
-													<p:column headerText="Tipo Dato"
-														width="#{subItemColumna.ancho}" inlineStyle="height:auto;"
-														id="gDidC3_#{status3.count}">
-														<p:selectOneMenu value="#{subItemColumna.valor}"
-															id="gDsoc3_#{status3.count}">
-															<f:selectItem
-																itemLabel="#{msg.general_control_seleccione}"
-																noSelectionOption="true" />
-															<f:selectItems
-																value="#{generadorDisenoBackingBean.componenteBackingBean.tipoDatos}"
-																id="gDsi2" />
-														</p:selectOneMenu>
-													</p:column>
-												</c:forEach>
-											</p:dataTable>
-										</c:if>
-									</c:forEach>
-
-									<p:spacer height="20" id="gDsp3" />
-
-									<p:commandButton text="Guardar Propiedades de Celda"
-										icon="/images/icon/save2.png"
-										actionListener="#{generadorDisenoBackingBean.guardarEdicionCeldaByFilaAction}"
-										partialSubmit="true" id="gDcb5" />
-
-									<p:spacer height="10" id="gDsp4" />
-
-								</div>
-
-								<p:spacer width="10" height="20" id="gDs05" />
-
-								<p:fieldset legend="#{msg.general_ayuda}" toggleable="true"
-									toggleSpeed="500"
-									rendered="#{generadorDisenoBackingBean.renderedEditarGrilla}">
-									<div align="left">
-										<h:panelGrid columns="1" cellpadding="10">
-											<h:outputText id="gDota1"
-												value="#{msg.generador_ayuda_agregar_columna}" />
-											<h:outputText id="gDota2"
-												value="#{msg.generador_ayuda_editar_columna}" />
-											<h:outputText id="gDota3"
-												value="#{msg.generador_ayuda_eliminar_columna}" />
-											<h:outputText id="gDota4"
-												value="#{msg.generador_ayuda_agregar}" />
-											<h:outputText id="gDota5"
-												value="#{msg.generador_ayuda_eliminar}" />
-											<h:outputText id="gDota6"
-												value="#{msg.generador_ayuda_tipo_dato}" />
-											<h:outputText id="gDota7"
-												value="#{msg.generador_ayuda_tipo_columna}" />
-											<h:outputText id="gDota8"
-												value="#{msg.generador_ayuda_titulo}" />
-										</h:panelGrid>
-									</div>
-								</p:fieldset>
+								<p:dialog widgetVar="editCellDialog"
+									header="Editar Celda" showEffect="drop"
+									style="text-align:left;" hideEffect="drop" modal="false"
+									dynamic="false">
+									<h:panelGrid columns="2">
+										<h:outputLabel value="Tipo de Celda:" />
+										<p:selectOneMenu label="Tipo Celda"
+											converter="tipoCeldaConverter"
+											value="#{configuradorDisenoBackingBean.tipoCelda}"
+											style="width:130px;">
+											<f:selectItem itemLabel="#{msg.general_control_seleccione}"
+												/>
+											<f:selectItems
+												value="#{generadorDisenoBackingBean.componenteBackingBean.tipoCeldas}" />
+										</p:selectOneMenu>
+										<h:outputLabel value="Tipo de Dato:" />
+										<p:selectOneMenu label="Tipo Dato"
+											value="#{configuradorDisenoBackingBean.tipoDato}"
+											style="width:130px;" converter="tipoDatoConverter">
+											<f:selectItem itemLabel="#{msg.general_control_seleccione}"
+												noSelectionOption="true" />
+											<f:selectItems
+												value="#{generadorDisenoBackingBean.componenteBackingBean.tipoDatos}" />
+										</p:selectOneMenu>
+										<p:commandButton value="Editar Celda"
+											actionListener="#{configuradorDisenoBackingBean.editarColumnaAction}"
+											icon="ui-icon-disk" update="@form">
+										</p:commandButton>
+										<p:commandButton icon="ui-icon-cancel"
+											value="#{msg.boton_cancel}" type="button" id="btnCancelar2"
+											onclick="editCellDialog.hide()" />
+									</h:panelGrid>
+								</p:dialog>
 							</div>
-
-							<h:panelGrid columns="1"
-								rendered="#{generadorDisenoBackingBean.renderedTextArea}"
-								id="g4">
-
-								<p:spacer width="10" height="30" id="sta1" />
-								<table>
-									<tr>
-										<h:outputText value="Titulo" id="gDot4" />
-									</tr>
-
-									<tr>
-										<td><p:inputText label=" " id="it5"
-												value="#{generadorDisenoBackingBean.tituloTexto}"
-												columns="150" maxlength="2048" /></td>
-									</tr>
-
-									<tr>
-										<td><p:selectBooleanCheckbox text="Sí"
-												label="Aplicar Negria" id="sbc1"
-												value="#{generadorDisenoBackingBean.negrita}" /></td>
-									</tr>
-
-									<tr>
-										<td align="right" colspan="2"><p:commandButton
-												text="Guardar" icon="/images/icon/save.png"
-												actionListener="#{generadorDisenoBackingBean.guardarTextoListener}"
-												id="cb4" /></td>
-									</tr>
-								</table>
-							</h:panelGrid>
-
-							<h:panelGrid
-								rendered="#{generadorDisenoBackingBean.renderedTextHtml}"
-								id="g5">
-
-								<p:spacer width="10" height="30" id="sta2" />
-
-								<table>
-									<tr>
-										<h:outputText value="Titulo" id="ot5" />
-									</tr>
-
-									<tr>
-										<td><h:inputTextarea id="it6"
-												value="#{generadorDisenoBackingBean.tituloHtml}"
-												style="width:517px; height:40px;" /></td>
-									</tr>
-
-									<tr>
-										<td align="right" colspan="2"><p:commandButton
-												text="Guardar" icon="/images/icon/save.png"
-												actionListener="#{generadorDisenoBackingBean.guardarTextoHtmlListener}"
-												id="cb05" /></td>
-									</tr>
-								</table>
-							</h:panelGrid>
 						</div>
 					</div>
 				</p:tab>
