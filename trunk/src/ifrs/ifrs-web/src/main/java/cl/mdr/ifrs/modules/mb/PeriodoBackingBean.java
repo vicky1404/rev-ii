@@ -36,7 +36,7 @@ public class PeriodoBackingBean extends AbstractBackingBean{
                                 error = this.getFacadeService().getPeriodoService().cerrarPeriodo(this.getNombreUsuario(), periodo);
                                 
                                 if (error == 0){
-                                        addInfoMessage(PropertyManager.getInstance().getMessage("general_mensaje_periodo_cerrado"));
+                                        addInfoMessage(PropertyManager.getInstance().getMessage("cerrar_periodo_mensaje_periodo_cerrado"));
                                         return null;
                                 } else {
                                         addErrorMessage(PropertyManager.getInstance().getMessage("general_mensaje_aplicacion_error"));
@@ -44,7 +44,7 @@ public class PeriodoBackingBean extends AbstractBackingBean{
                                     }
                                 
                         } else {
-                            addWarnMessage(PropertyManager.getInstance().getMessage("general_mensaje_error_periodo_ya_esta_cerrado"));
+                            addWarnMessage(PropertyManager.getInstance().getMessage("cerrar_periodo_mensaje_error_periodo_ya_esta_cerrado"));
                             }
                         
                     } else {
@@ -91,7 +91,7 @@ public class PeriodoBackingBean extends AbstractBackingBean{
                            if (notasAbiertas.length() > 0){
                                    notasAbiertas.append(" , ");
                            } else {
-                                   notasAbiertas.append(PropertyManager.getInstance().getMessage("general_mensaje_error_cuadros_cerradas"));
+                                   notasAbiertas.append(PropertyManager.getInstance().getMessage("cerrar_periodo_mensaje_error_cuadros_cerradas"));
                                }
                             notasAbiertas.append(version.getCatalogo().getNombre());
                     }

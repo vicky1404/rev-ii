@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/main-template.xhtml">
+	
+	<ui:define name="content">
+		
+		<h:form prependId="false">  
+		
+		<p:panel header="#{msg.periodo_titulo_periodo_actual} #{periodoBackingBean.filtroBackingBean.periodoActual.periodoFormat}"></p:panel>
+		
+		<div align="center">
+			<p:commandButton value="#{msg.cerrar_periodo}" onclick="confirmation.show()" type="button"/>
+		</div>
+		
+		</h:form>
+		
+		<p:dialog id="confirmDialog" header="#{msg.cerrar_periodo}" widgetVar="confirmation" >
+		
+		<h:outputText value="#{msg.cerrar_periodo_confirm}"  />  
+        <p:spacer width="10px" />          
+        <p:commandButton id="cbD1" value="{msg.general_control_aceptar}" oncomplete="confirmation.hide()"  action="#{periodoBackingBean.cerrarPeriodo}" />
+        <p:spacer width="5px" />  
+        <p:commandButton id="cbD2" value="{msg.general_control_cancelar}" onclick="confirmation.hide()" />   
+                  
+    	</p:dialog>
+    	  
+	</ui:define>
+	
+</ui:composition>
