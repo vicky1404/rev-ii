@@ -16,8 +16,11 @@ import org.apache.log4j.Logger;
 import org.primefaces.component.autocomplete.AutoComplete;
 import org.primefaces.component.inputtext.InputText;
 import org.primefaces.component.selectonemenu.SelectOneMenu;
+import org.primefaces.model.DefaultTreeNode;
+import org.primefaces.model.TreeNode;
 
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
+import cl.mdr.ifrs.cross.model.TreeFormula;
 import cl.mdr.ifrs.ejb.cross.EeffUtil;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
@@ -71,6 +74,9 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
     private transient InputText relCeldaText;
     private transient InputText relFecuText;
     private transient InputText relCuentaText;
+    private TreeNode root;
+    private boolean renderTreeTabla;
+    private boolean renderEstructuraTabla;
     
     
     public ValidadorEeffBackingBean() {
@@ -91,7 +97,7 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
     public void tipoCuadroChangeListener() {
         try {
             TipoCuadro tipoCuadro =  (TipoCuadro) getTipoCuadroSelect().getValue();
-            List<Catalogo> catalogos = getFacadeService().getCatalogoService().findCatalogoByFiltro(getFiltroBackingBean().getEmpresa().getRut(), getNombreUsuario(), tipoCuadro, null, null);
+            List<Catalogo> catalogos = getFacadeService().getCatalogoService().findCatalogoByFiltro(getFiltroBackingBean().getEmpresa().getRut(), getNombreUsuario(), tipoCuadro, null, 1L);
             setCatalogos(catalogos);
         } catch (Exception e) {
             addErrorMessage("Error al buscar catalogo");
@@ -115,13 +121,15 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
     public String buscarCatalogo() {
         
         setEstructuras(new ArrayList<Estructura>());
-
+        List<Version> lista = new ArrayList<Version>();
         if(getBusquedaInputText().isValid()){
             Catalogo catalogo = null;
+            
             try{
                 
                 if(getCatalogo() !=null && getCatalogo().getIdCatalogo() !=null){
                     catalogo = getFacadeService().getCatalogoService().findCatalogoByCatalogo(getCatalogo());
+               
                 }
             }catch(Exception e){
                 getBusquedaInputText().setValue(null);
@@ -149,7 +157,33 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
             addWarnMessage("No debe modificar el valor autocompletado");
             getBusquedaInputText().setValue(null);
         }
+        lista.add(versionVigente);
+        setTreeNode(lista);
+        setRenderTreeTabla(Boolean.TRUE);
         return null;
+    }
+    
+    
+    public void setTreeNode(List<Version> lista){
+    	
+    	root = new DefaultTreeNode("root", null);
+    	
+    	for (Version version : lista){
+    		
+    		TreeNode nodoVersion = new DefaultTreeNode( new TreeFormula(version.getCatalogo().getTitulo() , version.getVersion().toString() , version.getCatalogo().getNombre(), version.getEstado().getNombre(), Util.getString( version.getFechaCreacion() ), version.getVigencia().toString(), null , null ,null) , root);
+    		
+    			for (Estructura estructura : version.getEstructuraList()){
+    				
+    					if (estructura.getTipoEstructura().getNombre().toUpperCase().equals("GRILLA")){
+    						
+    						new DefaultTreeNode( new TreeFormula("", "", "", "", "", "", "search.png", version.getCatalogo() , estructura) , nodoVersion);
+    					} 
+    			}
+    		
+    	}
+    	
+    	
+    	
     }
     
     public void fecuChangeListener(ValueChangeEvent valueChangeEvent) {
@@ -200,10 +234,12 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
 
     public void buscarEstructuraListener(ActionEvent event) {
         try{
-            final Long idEstructura = (Long)event.getComponent().getAttributes().get("idEstructura");
-            Grilla grilla = this.getFacadeService().getGrillaService().findGrillaById(idEstructura);
+            //final Long idEstructura = (Long)event.getComponent().getAttributes().get("idEstructura");
+        	final Estructura estructura = (Estructura)event.getComponent().getAttributes().get("estructura");
+            Grilla grilla = this.getFacadeService().getGrillaService().findGrillaById(estructura.getIdEstructura());
             grillaVO = this.getFacadeService().getEstructuraService().getGrillaVO(grilla, Boolean.FALSE);
             grillaVO.setGrilla(grilla);
+            setRenderEstructuraTabla(Boolean.TRUE);
         }catch(Exception e){
             logger.error("Error al buscar estructura", e.getCause());
         }
@@ -211,7 +247,23 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
     
     public void cargarRelacionCeldaListener(ActionEvent event) {
         
-        final Celda celda = (Celda)event.getComponent().getAttributes().get("celda");
+    	String idColumna = super.getExternalContext().getRequestParameterMap().get("idColumna");
+    	String idGrilla = super.getExternalContext().getRequestParameterMap().get("idGrilla");
+    	String idFila = super.getExternalContext().getRequestParameterMap().get("idFila");
+    	
+    	Celda celda = new Celda();
+    		celda.setIdColumna(Long.parseLong(idColumna));
+    		celda.setIdGrilla(Long.parseLong(idGrilla));
+    		celda.setIdFila(Long.parseLong(idFila));
+    	
+			try {
+				
+				celda = getFacadeService().getCeldaService().findCeldaById(celda);
+				
+			} catch (Exception e) {
+				logger.error(e);
+			}
+    	
         
         if(celda==null)
             return;
@@ -225,7 +277,7 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
         if(relFecu!=null || relCuenta!=null)
             aplicarRelacion(relacionMap, relCelda, relFecu, relCuenta);
         
-        addPartialText();
+        
         
     }
     
@@ -513,6 +565,30 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
 
 	public void setBusquedaInputText(AutoComplete busquedaInputText) {
 		this.busquedaInputText = busquedaInputText;
+	}
+
+	public TreeNode getRoot() {
+		return root;
+	}
+
+	public void setRoot(TreeNode root) {
+		this.root = root;
+	}
+
+	public boolean isRenderTreeTabla() {
+		return renderTreeTabla;
+	}
+
+	public void setRenderTreeTabla(boolean renderTreeTabla) {
+		this.renderTreeTabla = renderTreeTabla;
+	}
+
+	public boolean isRenderEstructuraTabla() {
+		return renderEstructuraTabla;
+	}
+
+	public void setRenderEstructuraTabla(boolean renderEstructuraTabla) {
+		this.renderEstructuraTabla = renderEstructuraTabla;
 	}
 
 }

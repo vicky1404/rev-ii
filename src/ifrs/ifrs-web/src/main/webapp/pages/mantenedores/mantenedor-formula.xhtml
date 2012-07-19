@@ -25,7 +25,6 @@
 	  					<f:selectItem itemLabel="#{msg.label_seleccionar}" />
 	  					<f:selectItems value="#{formula.componenteBackingBean.tipoCuadroList}" id="siTipoCuadro" var="tipoCuadroVar" itemValue="#{tipoCuadroVar.idTipoCuadro}" itemLabel="#{tipoCuadroVar.nombre}"/>
 	  					<p:ajax update="somCatalogo" listener="#{formula.changeTipoCuadro}" event="change"  onstart="statusDialog.show();" oncomplete="statusDialog.hide();"/>
-						
 	  				</p:selectOneMenu>
 	  			</td>
 	  		</tr>
@@ -58,10 +57,14 @@
 	  				
 	  			</td>
 	  		</tr>
+	  		<tr>
+	  			<td>
+	  				<p:commandButton actionListener="#{formula.buscar}" icon="ui-icon-search" value="#{msg.boton_buscar}" update="@form"></p:commandButton>
+	  				<p:commandButton actionListener="#{formula.limpiarResultadoGrilla}" icon="ui-icon-cancel" value="#{msg.boton_cancel}" update="@form" immediate="true"></p:commandButton>
+	  			</td>
+	  		</tr>
 	  		</table>
 	  		
-	  		<p:commandButton actionListener="#{formula.buscar}" icon="ui-icon-search" value="#{msg.boton_buscar}" update="@form"></p:commandButton>
-	  		<p:commandButton actionListener="#{formula.limpiarResultadoGrilla}" icon="ui-icon-cancel" value="#{msg.boton_cancel}" update="@form" immediate="true"></p:commandButton>
 	  		
     	</p:panel>
     	
