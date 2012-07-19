@@ -1,4 +1,4 @@
-package cl.mdr.ifrs.modules.mb;
+package cl.mdr.ifrs.modules.configuracion.mb;
 
 import java.util.ArrayList;
 import java.util.Collection;

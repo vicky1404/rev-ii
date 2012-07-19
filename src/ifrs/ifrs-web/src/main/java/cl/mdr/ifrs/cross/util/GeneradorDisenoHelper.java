@@ -15,6 +15,7 @@ import cl.mdr.ifrs.ejb.entity.Version;
 import cl.mdr.ifrs.exceptions.GrillaIncorrectaException;
 import cl.mdr.ifrs.vo.AgrupacionColumnaModelVO;
 import cl.mdr.ifrs.vo.AgrupacionModelVO;
+import cl.mdr.ifrs.cross.model.EstructuraModel;
 import cl.mdr.ifrs.cross.vo.AgrupacionVO;
 import cl.mdr.ifrs.vo.GrillaModelVO;
 import cl.mdr.ifrs.vo.GrillaVO;
@@ -361,7 +362,7 @@ public class GeneradorDisenoHelper {
         return contador;
     }
     
-    
+    @Deprecated
     public static Map<Long, GrillaModelVO> createGrillaModel(List<Estructura> estructuras){
         
         Map<Long, GrillaModelVO> grillaModelMap = new LinkedHashMap<Long, GrillaModelVO>();
@@ -412,6 +413,59 @@ public class GeneradorDisenoHelper {
 
         return grillaModelMap;
 
+    }
+    
+    /**
+     * Crea un map con el contenido de EstructuraModel indexado por el orden adquirido por la estructura en la 
+     * formacion constituida por el user.
+     * @param estructuras
+     * @return LinkedHashMap
+     */
+    public static Map<Long, EstructuraModel> createEstructuraModel(List<Estructura> estructuras){        
+        Map<Long, EstructuraModel> estructuraModelMap = new LinkedHashMap<Long, EstructuraModel>();        
+        Long i=1L;        
+        for(Estructura estructura : estructuras){
+            
+        	if(estructura.getGrilla() != null){
+        		EstructuraModel estructuraModel = new EstructuraModel();
+        		estructuraModel.setTituloGrilla(estructura.getGrilla().getTitulo());
+	            List<Long> niveles = new ArrayList<Long>();
+	            Map<Long,List<AgrupacionColumna>> agrupacionesMap = new LinkedHashMap<Long,List<AgrupacionColumna>>();
+	            for(Columna columna : estructura.getGrilla().getColumnaList()){
+	                createAgrupadorMap(columna, niveles, agrupacionesMap, COPY_AGRUPACION);
+	            }
+	            estructuraModel.setColumnas(estructura.getGrilla().getColumnaList());
+	            estructuraModel.setIdGrilla(estructura.getGrilla().getIdGrilla());
+	            estructuraModel.setTipoEstructura(TipoEstructura.ESTRUCTURA_TIPO_GRILLA);
+	            estructuraModel.setNivelesAgregados(niveles);
+	            estructuraModel.setAgrupacionesMap(agrupacionesMap);
+	            Long cantidadFila = GeneradorDisenoHelper.getContadorFilaByColumnas(estructura.getGrilla().getColumnaList());
+	            List<Long> filas = new ArrayList<Long>();
+	            for(Long j=1L; j<=cantidadFila; j++){
+	                filas.add(j);
+	            }
+	            estructuraModel.setFilas(filas);
+	            estructuraModelMap.put(i, estructuraModel);
+	            i++;
+        	}
+                
+            if (estructura.getTexto() != null){
+                EstructuraModel estructuraModel = new EstructuraModel();
+                estructuraModel.setTexto(estructura.getTexto());
+                estructuraModel.setTipoEstructura(TipoEstructura.ESTRUCTURA_TIPO_TEXTO);
+                estructuraModelMap.put(i, estructuraModel);
+                i++;
+            }
+            
+            if (estructura.getHtml() != null){
+                EstructuraModel estructuraModel = new EstructuraModel();
+                estructuraModel.setHtml(estructura.getHtml());
+                estructuraModel.setTipoEstructura(TipoEstructura.ESTRUCTURA_TIPO_HTML);
+                estructuraModelMap.put(i, estructuraModel);
+                i++;
+            } 
+        }
+        return estructuraModelMap;
     }
     
     public static Column getRichColumn(String titulo, Long ancho, String alineacion, boolean rowHeader, String id){

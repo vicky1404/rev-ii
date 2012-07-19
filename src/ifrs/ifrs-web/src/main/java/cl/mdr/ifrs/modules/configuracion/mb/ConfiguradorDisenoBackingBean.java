@@ -2,10 +2,11 @@ package cl.mdr.ifrs.modules.configuracion.mb;
 
 import java.io.Serializable;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
@@ -16,8 +17,8 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
+import cl.mdr.ifrs.cross.model.EstructuraModel;
 import cl.mdr.ifrs.cross.util.GeneradorDisenoHelper;
-import cl.mdr.ifrs.cross.util.UtilBean;
 import cl.mdr.ifrs.ejb.entity.Celda;
 import cl.mdr.ifrs.ejb.entity.Columna;
 import cl.mdr.ifrs.ejb.entity.Estructura;
@@ -38,10 +39,7 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
 	private transient Logger logger = Logger.getLogger(this.getClass().getName());  
 	private static final long serialVersionUID = -1303743504274782576L;
 	public static final String BEAN_NAME = "configuradorDisenoBackingBean"; 
-	
-	@ManagedProperty(value="#{generadorVersionBackingBean}")
-	private GeneradorVersionBackingBean generadorVersionBackingBean;
-	
+		
     private GrillaVO grillaVO;
     private Grilla grilla;
     private Long idTipoCelda;
@@ -56,7 +54,7 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
     private Columna columna;
     private Long fila;
     
-    /*atributos utilizados para la upload de archivo*/
+    /*atributos utilizados para upload de archivo*/
     private transient UploadedFile uploadedFile;
     
     private boolean renderEditarGrilla;
@@ -67,14 +65,10 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
     private transient DataTable disenoEstructuraTable;
     private Estructura estructuraSelected;
     
+    private Map<Long, EstructuraModel> estructuraModelMap;
+    
     /**
-	 * Carga mediante Libro 
-	 * Excel
-	 * 
-	 **/
-
-    /**
-     * accion encargada de procesar el archivo 
+     * Accion encargada de procesar el archivo 
      * @return
      */
     public void cargaArchivoListener(FileUploadEvent event) {                
@@ -91,7 +85,9 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
             this.setGrilla(super.getFacadeService().getCargadorEstructuraService().getGrillaByExcel(this.getUploadedFile().getInputstream()));
             this.setGrillaVO(super.getFacadeService().getEstructuraService().getGrillaVO(this.getGrilla(), Boolean.FALSE));
             this.getGrillaVO().setCeldaList(GeneradorDisenoHelper.builHtmlGrilla(this.getGrilla().getColumnaList()));
-            this.getEstructuraSelected().setGrillaVO(this.getGrillaVO());
+            //agrego la lista de columnas para su edicion
+            this.getEstructuraModelByEstructuraSelected().setColumnas(this.getGrilla().getColumnaList());
+            
         } catch (CargaGrillaExcelException e) {
             logger.error("error al procesar archivo excel ",e);
             super.addErrorMessage(e.getMessage());
@@ -140,7 +136,7 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
     }
         
     /**
-     * prepara los datos para editar una celda
+     * Prepara los datos para editar una celda
      * @param event
      */
     public void prepareEditarCeldaAction(ActionEvent event){
@@ -153,7 +149,7 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
     }
     
     /**
-     * procesa la edicion de una celda
+     * Procesa la edicion de una Celda
      * @param event
      */
     public void editarCeldaAction(ActionEvent event){
@@ -171,7 +167,7 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
     }
         
     /**
-     * prepara los datos para la edicion de una fila
+     * Prepara los datos para la edición de una fila
      * @param event
      */
     public void prepareEditarFilaAction(ActionEvent event){
@@ -184,7 +180,7 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
     }
     
     /**
-     * procesa la edicion de una fila.
+     * Procesa la edición de una fila.
      * @param event
      */
     public void editarFilaAction(ActionEvent event){
@@ -202,7 +198,7 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
     }    
     
     /**
-     * habilita la opcion para crear y editar una estructura de tipo grilla
+     * Habilita la opcion para crear y editar una estructura de tipo grilla
      * @param event
      */
     public void editarGrillaAction(ActionEvent event) {    	
@@ -213,6 +209,19 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
         this.setEstructuraSelected(estructura);
     	this.setRenderEditarGrilla(Boolean.TRUE);
     }
+    
+    /**
+     * Obtiene desde el EstructuraModelMap el objeto EstructuraModel que esta siendo editado.
+     * @return EstructuraModel
+     */
+    public EstructuraModel getEstructuraModelByEstructuraSelected(){
+        if(this.getEstructuraModelMap().containsKey(this.getEstructuraSelected().getOrden())){
+            return this.getEstructuraModelMap().get(this.getEstructuraSelected().getOrden());    
+        }
+        return new EstructuraModel();
+    }
+    
+    
     
     @Deprecated
     public void onChangeTipoCeldaListener(ValueChangeEvent valueChangeEvent){
@@ -386,13 +395,16 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
 	public void setEstructuraSelected(Estructura estructuraSelected) {
 		this.estructuraSelected = estructuraSelected;
 	}
-
-	public GeneradorVersionBackingBean getGeneradorVersionBackingBean() {		
-		return generadorVersionBackingBean;
+	
+	public Map<Long, EstructuraModel> getEstructuraModelMap() {
+		if(estructuraModelMap == null){
+			estructuraModelMap = new LinkedHashMap<Long, EstructuraModel>();
+		}
+		return estructuraModelMap;
 	}
 
-	public void setGeneradorVersionBackingBean(GeneradorVersionBackingBean generadorVersionBackingBean) {
-		this.generadorVersionBackingBean = generadorVersionBackingBean;
+	public void setEstructuraModelMap(Map<Long, EstructuraModel> estructuraModelMap) {
+		this.estructuraModelMap = estructuraModelMap;
 	}
 
 }
