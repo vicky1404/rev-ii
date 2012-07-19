@@ -30,7 +30,7 @@
 		 	<tr>
 		 		<td><p:outputLabel for="it1" value="#{msg.label_cuadro}" /></td>
 		 		<td>
-					<p:autoComplete value="#{eeff.catalogo}" maxResults="5" maxlength="10" 
+					<p:autoComplete value="#{eeff.catalogo}" maxResults="20" maxlength="10" 
 									completeMethod="#{eeff.catalogosSugeridos}"
 									converter="catalogoConverter"
 									effect="drop"	
@@ -51,7 +51,7 @@
 		 	</table>
 		</p:panel>	
 		
-		
+		<p:spacer height="10"></p:spacer>
 		
 		<p:treeTable id="tabla" value="#{eeff.root}" var="tree" rendered="#{eeff.renderTreeTabla}" >
     		
@@ -94,8 +94,8 @@
                   <div align="left" style="border: 0px solid;">
 					<p:commandLink actionListener="#{eeff.cargarRelacionCeldaListener}" update="@form">
 					
-						<p:graphicImage value="/resources/images/icon/flecha.jpg" rendered="#{row[col.idColumna].sizeRelacionEeffList == 0 and row[col.idColumna].sizeRelacionDetalleEeffList == 0}"/>
-						<p:graphicImage value="/resources/images/icon/calculator2.jpg" rendered="#{row[col.idColumna].sizeRelacionEeffList != 0 and row[col.idColumna].sizeRelacionDetalleEeffList != 0}"/>
+						<p:graphicImage value="/resources/images/icon/flecha.jpg" rendered="#{row[col.idColumna].esNumero and row[col.idColumna].sizeRelacionEeffList == 0 and row[col.idColumna].sizeRelacionDetalleEeffList == 0}"/>
+						<p:graphicImage value="/resources/images/icon/calculator2.jpg" rendered="#{row[col.idColumna].esNumero and row[col.idColumna].sizeRelacionEeffList != 0 and row[col.idColumna].sizeRelacionDetalleEeffList != 0}"/>
 						<f:param name="idColumna" value="#{col.idColumna}" />
                         <f:param name="idGrilla" value="#{col.idGrilla}" />
                         <f:param name="idFila" value="#{row[col.idColumna].idFila}" />
@@ -114,8 +114,74 @@
 			</p:columns>		
 		</p:dataTable> 
 		
-		<p:spacer height="10;" id="s3"/>
+		<p:spacer height="10" id="s32"/>
 		
+		
+		 <p:dataTable value="#{eeff.estadoFinanciero}" var="row" id="t3" style="height:inherit;">
+                <p:column sortable="false" headerText="Id Fecu" align="start" id="c13">
+                    
+                    <p:commandLink icon="/images/icon/flecha.jpg"  id="cil3"  title="#{row.idFecu}" partialSubmit="true" actionListener="#{eeff.cargarFecuListener}">
+                        <p:graphicImage value="resources/images/icon/flecha.jpg"></p:graphicImage>
+                    	<f:attribute name="eeff" value="#{row}"/>                    
+                    </p:commandLink>
+                   
+                    <p:spacer width="5" id="s165"/>
+                    <h:outputText value="#{row.idFecu}" id="ot19"/>
+                   
+                </p:column>
+                <p:column sortable="false" headerText="Descripcion" align="start" id="c14">
+                    <h:outputText value="#{row.codigoFecu.descripcion}" id="ot15"/>
+                </p:column>
+                <p:column sortable="false" headerText="Monto Total" align="start" id="c16">
+                    <h:outputText value="#{row.montoTotal}" id="ot17" >
+                        <f:convertNumber pattern="##,###,###,###" />
+                    </h:outputText>
+                </p:column>
+            </p:dataTable>
+		
+		<p:spacer height="10" id="s3"/>
+		
+		
+		<p:dataTable value="#{eeff.detalleEeffs}" var="row" id="t4" style="height:inherit" >
+		
+                <p:column sortable="false" headerText="Fecu" id="c5">
+                    
+                    <p:commandLink id="cil4"  title="#{row.idCuenta}" actionListener="#{eeff.cargarCuentaListener}">
+                        <p:graphicImage value="/resources/images/icon/flecha.jpg"></p:graphicImage>
+                    	<f:attribute name="detalleEeff" value="#{row}"/>
+                    
+                    </p:commandLink>
+                    <p:spacer width="5" id="s15"/>
+                    <h:outputText value="#{row.idFecu}" id="ot20"/>
+                   
+                </p:column>
+                <p:column sortable="false" headerText="Número Cuenta" align="start" id="c6">
+                    <h:outputText value="#{row.idCuenta}" id="ot4"/>
+                </p:column>
+                <p:column sortable="false" headerText="Descripcion Cuenta" align="start" id="c7" width="300">
+                    <h:outputText value="#{row.descripcionCuenta}" id="ot7"/>
+                </p:column>
+                <p:column sortable="false" headerText="Monto Miles" align="start" id="c8">
+                    <h:outputText value="#{row.montoMiles}" id="ot8"/>
+                </p:column>
+                <p:column sortable="false" headerText="Monto Ebs" align="start" id="c9">
+                    <h:outputText value="#{row.montoEbs}" id="ot9">
+                        <f:convertNumber pattern="##,###,###,###" />
+                    </h:outputText>
+                </p:column>
+                <p:column sortable="false" headerText="Monto Pesos" align="start" id="c10">
+                    <h:outputText value="#{row.montoPesos}" id="ot10">
+                        <f:convertNumber pattern="##,###,###,###" />
+                    </h:outputText>
+                </p:column>
+                <p:column sortable="false" headerText="Mto Reclasificacion" align="start" id="c11" width="250">
+                    <h:outputText value="#{row.montoReclasificacion}" id="ot12">
+                        <f:convertNumber pattern="##,###,###,###" />
+                    </h:outputText>
+                </p:column>
+            </p:dataTable>
+            
+        <p:spacer height="10" id="s322"/>
 		
 		<table align="left">
             <tr>
