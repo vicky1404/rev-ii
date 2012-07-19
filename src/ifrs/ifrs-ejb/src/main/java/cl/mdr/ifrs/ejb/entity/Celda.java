@@ -9,6 +9,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
@@ -19,6 +20,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import cl.mdr.ifrs.ejb.common.Constantes;
 import cl.mdr.ifrs.ejb.common.TipoCeldaEnum;
@@ -88,10 +92,12 @@ public class Celda implements Serializable {
     @Column(name="FORMULA")
     private String formula;
     
-    @OneToMany(mappedBy = "celda2")
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(mappedBy = "celda2", fetch = FetchType.EAGER)
     private List<RelacionEeff> relacionEeffList;
     
-    @OneToMany(mappedBy = "celda5")
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(mappedBy = "celda5", fetch = FetchType.EAGER)
     private List<RelacionDetalleEeff> relacionDetalleEeffList;
     
     @Transient
@@ -362,6 +368,7 @@ public class Celda implements Serializable {
         return relacionDetalleEeffList;
     }
     
+    @Transient
     public int getSizeRelacionEeffList(){
         
         if(relacionEeffList==null)
@@ -370,6 +377,7 @@ public class Celda implements Serializable {
             return relacionEeffList.size();
     }
     
+    @Transient
     public int getSizeRelacionDetalleEeffList(){
         if(getRelacionDetalleEeffList()==null)
             return 0;

@@ -55,7 +55,7 @@ import cl.mdr.ifrs.ejb.common.Constantes;
                              		 " where c.idCatalogo = cg.idCatalogo " +                             		
                              		 " and c.tipoCuadro.idTipoCuadro = tc.idTipoCuadro "+
                              		 " and ug.idGrupo = cg.idGrupoAcceso "+
-                             		 " and (:usuario is null or c.empresa.rut = :rut) " +
+                             		 " and (:rut is null or c.empresa.rut = :rut) " +
                              		 " and (:usuario is null or ug.nombreUsuario = :usuario) " +
                              		 " and (:tipoCuadro is null or c.tipoCuadro.idTipoCuadro = :tipoCuadro) " +                             		 
                              		 " and (:grupo is null or cg.grupo = :grupo) " +
@@ -112,7 +112,7 @@ public class Catalogo implements Serializable {
     @Column(name = "IMPRESION_HORIZONTAL")
     private Long impresionHorizontal;
     
-    
+   
     @OneToMany(mappedBy = "catalogo")
     private List<Version> versionList;
     
