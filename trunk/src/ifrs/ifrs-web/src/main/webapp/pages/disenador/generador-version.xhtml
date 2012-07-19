@@ -122,44 +122,34 @@
 
 		<p:column id="gVc3" headerText="Agregar o Eliminar" style="text-align:center">
 
-			<p:commandLink id="gVcl1" actionListener="#{generadorVersionBackingBean.agregarTipoEstructuraListener}" update="@form">
-				<p:graphicImage id="gVgi1" value="/resources/images/icon/add.png" />
+			<p:commandButton id="gVcl1" title="Agregar" actionListener="#{generadorVersionBackingBean.agregarTipoEstructuraListener}" update="@form" icon="ui-icon-circle-plus">				
 				<f:attribute name="estructura" value="#{row}" />
-			</p:commandLink>
+			</p:commandButton>
 
 			<p:spacer id="gVsp5" width="3px" />
 
-			<p:commandLink id="gVcl2" title="Eliminar"
+			<p:commandButton id="gVcl2" title="Eliminar" icon="ui-icon-circle-minus"
 				actionListener="#{generadorVersionBackingBean.eliminarTipoEstructuraListener}"
-				update="@form">
-				<p:graphicImage id="gVgi2" value="/resources/images/icon/remove.png" rendered="#{generadorVersionBackingBean.sizeEstructrua > 1 ? 'true' : 'false'}" />
+				update="@form">				
 				<f:attribute name="estructura" value="#{row}" />
-			</p:commandLink>
-
+			</p:commandButton>
 		</p:column>
-
-		<p:column id="gVc5" headerText="Ordenar" style="text-align:center">
-
-			<p:commandLink id="gVcl5" update="@form" actionListener="#{generadorVersionBackingBean.subirEstructuraListener}">
-				<p:graphicImage id="gVgi5"
-					rendered="#{(generadorVersionBackingBean.sizeEstructrua > 1 ? true : false) and (status == 0 ? false : true)}"
-					value="/resources/images/icon/up_ok.png" />
+		<p:column id="gVc5" headerText="Ordenar" style="text-align:center">			
+			<p:commandButton id="gVcl51" update="@form" 
+							 actionListener="#{generadorVersionBackingBean.subirEstructuraListener}" 
+							 icon="ui-icon-arrowthick-1-n"
+							 rendered="#{(generadorVersionBackingBean.sizeEstructrua > 1 ? true : false) and (status == 0 ? false : true)}">				    
 					<f:attribute name="estructura" value="#{row}" />
-			</p:commandLink>
-
+			</p:commandButton>
 			<p:spacer id="gVsp6" width="3px" />
-
-			<p:commandLink id="gVcl6" update="@form" actionListener="#{generadorVersionBackingBean.bajarEstructuraListener}">
-				<p:graphicImage id="gVgi6"
-					rendered="#{(generadorVersionBackingBean.sizeEstructrua > 1 ? true : false) and 
+			<p:commandButton id="gVcl61" update="@form" icon="ui-icon-arrowthick-1-s"
+							 actionListener="#{generadorVersionBackingBean.bajarEstructuraListener}"
+							 rendered="#{(generadorVersionBackingBean.sizeEstructrua > 1 ? true : false) and 
 											   (status+1 == generadorVersionBackingBean.sizeEstructrua ? false : true) and 
-											   (generadorVersionBackingBean.sizeEstructrua > status+1)}"
-					value="/resources/images/icon/down_ok.png" />
+											   (generadorVersionBackingBean.sizeEstructrua > status+1)}">				
 					<f:attribute name="estructura" value="#{row}" />
-			</p:commandLink>
-
+			</p:commandButton>			
 		</p:column>
-
 	</p:dataTable>
 	
 	

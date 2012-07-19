@@ -16,14 +16,13 @@ import org.apache.log4j.Logger;
 import org.primefaces.component.datatable.DataTable;
 
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
+import cl.mdr.ifrs.cross.model.EstructuraModel;
 import cl.mdr.ifrs.cross.util.GeneradorDisenoHelper;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
 import cl.mdr.ifrs.ejb.entity.Estructura;
 import cl.mdr.ifrs.ejb.entity.TipoCuadro;
 import cl.mdr.ifrs.ejb.entity.Version;
-import cl.mdr.ifrs.modules.mb.GeneradorDisenoBackingBean;
-import cl.mdr.ifrs.vo.GrillaModelVO;
 
 
 @ManagedBean(name = "generadorVersionBackingBean")
@@ -45,17 +44,9 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 	private boolean renderBotonEditar;
 	private boolean renderEstructura;
 	
-	@ManagedProperty(value="#{generadorDisenoBackingBean}")
-    private GeneradorDisenoBackingBean generadorDiseno;
-
-	public GeneradorDisenoBackingBean getGeneradorDiseno() {
-		return generadorDiseno;
-	}
-
-	public void setGeneradorDiseno(GeneradorDisenoBackingBean generadorDiseno) {
-		this.generadorDiseno = generadorDiseno;
-	}
-
+	@ManagedProperty(value="#{configuradorDisenoBackingBean}")
+    private ConfiguradorDisenoBackingBean configuradorDisenoBackingBean;
+	
 	public void buscarListener(ActionEvent event){
 		try{			
 			if(catalogo!=null)
@@ -113,42 +104,43 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
     }
     
     public int getSizeEstructrua(){
-        return getEstructuraList().size();
+        return this.getEstructuraList().size();
     }
     
     public void agregarTipoEstructuraListener(ActionEvent actionEvent) {
         setAlmacenado(false);
-        final Estructura estructuraSelected = (Estructura)actionEvent.getComponent().getAttributes().get("estructura");
-        //Estructura estructuraSelected = (Estructura) estructuraTable.getRowData();
+        final Estructura estructuraSelected = (Estructura)actionEvent.getComponent().getAttributes().get("estructura");        
         List<Estructura> estructuras = new ArrayList<Estructura>();
         Estructura estructura;
         Long i=0L;
         
-        Map<Long, GrillaModelVO> grillaModelMap = getGeneradorDiseno().getGrillaModelMap();
-        Map<Long, GrillaModelVO> grillaModelPasoMap = new LinkedHashMap<Long, GrillaModelVO>();
+        Map<Long, EstructuraModel> estructuraModelMap = this.getConfiguradorDisenoBackingBean().getEstructuraModelMap();
+        Map<Long, EstructuraModel> estructuraModelPasoMap = new LinkedHashMap<Long, EstructuraModel>();
                 
         for(Estructura estructuraI : getEstructuraList()){
             i++;
             
-            if(getGeneradorDiseno().getGrillaModelMap().containsKey(estructuraI.getOrden()))
-                grillaModelPasoMap.put(i, getGeneradorDiseno().getGrillaModelMap().get(estructuraI.getOrden()));
-            else
-                grillaModelPasoMap.put(i, new GrillaModelVO());
+            if(this.getConfiguradorDisenoBackingBean().getEstructuraModelMap().containsKey(estructuraI.getOrden())){
+            	estructuraModelPasoMap.put(i, this.getConfiguradorDisenoBackingBean().getEstructuraModelMap().get(estructuraI.getOrden()));
+            }
+            else{
+            	estructuraModelPasoMap.put(i, new EstructuraModel());
+            }
             
             estructuraI.setOrden(i);
             estructuras.add(estructuraI);
 
             if(estructuraI.getOrden().equals(estructuraSelected.getOrden())){                
                 i++;
-                grillaModelPasoMap.put(i, new GrillaModelVO());
+                estructuraModelPasoMap.put(i, new EstructuraModel());
                 estructura = new Estructura();
                 estructura.setOrden(i);
                 estructuras.add(estructura);
             }
 
         }
-        grillaModelMap.putAll(grillaModelPasoMap);
-        grillaModelPasoMap.clear();
+        estructuraModelMap.putAll(estructuraModelPasoMap);
+        estructuraModelPasoMap.clear();
         setEstructuraList(estructuras);
     }
     
@@ -157,50 +149,44 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
         if(getEstructuraList().size()<=1)
             return;
         final Estructura estructuraSelected = (Estructura)actionEvent.getComponent().getAttributes().get("estructura");
-        getEstructuraList().remove(estructuraSelected);
-        getGeneradorDiseno().getGrillaModelMap().remove(estructuraSelected.getOrden());
+        this.getEstructuraList().remove(estructuraSelected);
+        this.getConfiguradorDisenoBackingBean().getEstructuraModelMap().remove(estructuraSelected.getOrden());
         Long i=1L;
         for(Estructura estructura : getEstructuraList()){
-            GrillaModelVO grillaModel = getGeneradorDiseno().getGrillaModelMap().get(estructura.getOrden());
-            getGeneradorDiseno().getGrillaModelMap().put(i, grillaModel);
+            EstructuraModel estructuraModel = this.getConfiguradorDisenoBackingBean().getEstructuraModelMap().get(estructura.getOrden());
+            this.getConfiguradorDisenoBackingBean().getEstructuraModelMap().put(i, estructuraModel);
             estructura.setOrden(i);
             i++;
         }
-        getGeneradorDiseno().initBackingBean();
+        //TODO
+        /*revisar este metodo*/
+        //getGeneradorDiseno().initBackingBean();
     }
     
     /*
      * Metodo que busca las estructura al hacer clink en el icono cargar
      */
-    public void buscarEstructuraActionListener(ActionEvent event){
-        
+    public void buscarEstructuraActionListener(ActionEvent event){        
     	if(Util.esListaValida(getVersionList()) && getVersionList().get(getVersionList().size()-1).getVigencia().equals(1L)){
-            try {
-                
-                Version version = (Version)event.getComponent().getAttributes().get("celda");
-                
-                if(version==null)
+            try {                
+                Version version = (Version)event.getComponent().getAttributes().get("celda");                
+                if(version==null){
                     return;
-
-                List<Estructura> estructuras = getFacadeService().getEstructuraService().findEstructuraByVersion(version);
-                
-                if(estructuras==null || estructuras.size()==0){
-                        this.setEstructuraList(null);
-                        return;
                 }
-
-                getGeneradorDiseno().setGrillaModelMap(GeneradorDisenoHelper.createGrillaModel(estructuras));
-                
-                setAlmacenado(true);
-                setRenderBotonEditar(false);
-                this.setEstructuraList(estructuras);
-                
+                final List<Estructura> estructuras = getFacadeService().getEstructuraService().findEstructuraByVersion(version);                
+                if(estructuras==null || estructuras.size()==0){
+                    this.setEstructuraList(null);
+                    return;
+                }                
+                this.getConfiguradorDisenoBackingBean().setEstructuraModelMap(GeneradorDisenoHelper.createEstructuraModel(estructuras));                                
+                this.setAlmacenado(true);
+                this.setRenderBotonEditar(false);
+                this.setEstructuraList(estructuras);                
             } catch (Exception e) {
                 super.addErrorMessage("Error al obtener información");
                 LOG.error(e.getMessage(),e);
-            }
-            
-            setRenderEstructura(true);
+            }            
+            this.setRenderEstructura(true);
         }
     }
     
@@ -214,33 +200,23 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
         }
         versionList.get(versionList.size()-1).setVigencia(1L);
         versionList.get(versionList.size()-1).setCatalogo(catalogo);
-        versionList.get(versionList.size()-1).setVersion(version);
-        
-        /*Se limpia modelo de grillas*/
-        getGeneradorDiseno().initBackingBean();
-        
+        versionList.get(versionList.size()-1).setVersion(version);                       
         for(Estructura estructura : getEstructuraList()){
-            estructura.setVersion(versionList.get(versionList.size()-1));
-            
-            if(getGeneradorDiseno().getGrillaModelMap().containsKey(estructura.getOrden())){
-                getGeneradorDiseno().getGrillaModelMap().get(estructura.getOrden()).setTipoEstructura(estructura.getTipoEstructura().getIdTipoEstructura());
+            estructura.setVersion(versionList.get(versionList.size()-1));            
+            if(this.getConfiguradorDisenoBackingBean().getEstructuraModelMap().containsKey(estructura.getOrden())){
+            	this.getConfiguradorDisenoBackingBean().getEstructuraModelMap().get(estructura.getOrden()).setTipoEstructura(estructura.getTipoEstructura().getIdTipoEstructura());
             }else{
-                getGeneradorDiseno().getGrillaModelMap().put(estructura.getOrden(), new GrillaModelVO(estructura.getTipoEstructura().getIdTipoEstructura()));
+            	this.getConfiguradorDisenoBackingBean().getEstructuraModelMap().put(estructura.getOrden(), new EstructuraModel(estructura.getTipoEstructura().getIdTipoEstructura()));
             }
         }
-        setAlmacenado(true);
-        
+        this.setAlmacenado(true);        
         return null;
     }
     
-    public void agregarVersionListener(ActionEvent actionEvent) {
-        
-        getGeneradorDiseno().setGrillaModelMap(null);
-        
-         if(getVersionList().size() > 0){
-             
-             Version version = getVersionList().get(getVersionList().size()-1);
-             
+    public void agregarVersionListener(ActionEvent actionEvent) {        
+    	 this.getConfiguradorDisenoBackingBean().setEstructuraModelMap(null);        
+         if(getVersionList().size() > 0){             
+             Version version = getVersionList().get(getVersionList().size()-1);             
              if(version.getIdVersion()!=null){
                  for(Version versionPaso : getVersionList()){
                      versionPaso.setVigencia(0L);
@@ -261,55 +237,49 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
      }
     
     
-    public void subirEstructuraListener(ActionEvent event){
-        
+    public void subirEstructuraListener(ActionEvent event){        
         List<Estructura> estructurasTemp = new ArrayList<Estructura>();
-        Map<Long, GrillaModelVO> grillaModelMap = getGeneradorDiseno().getGrillaModelMap();
-        Map<Long, GrillaModelVO> grillaModelMapTemp = new LinkedHashMap<Long, GrillaModelVO>();
+        Map<Long, EstructuraModel> estructuraModelMap = this.getConfiguradorDisenoBackingBean().getEstructuraModelMap();        
+        Map<Long, EstructuraModel> estructuraModelTempMap = new LinkedHashMap<Long, EstructuraModel>();
         final Estructura estructuraSelected = (Estructura)event.getComponent().getAttributes().get("estructura");        
         setAlmacenado(false);
         
         if(!estructuraSelected.getOrden().equals(1L)){
-            getEstructuraList().remove(estructuraSelected);
-            
+            getEstructuraList().remove(estructuraSelected);            
             Long contador = 0L;
             for(Estructura estructura : getEstructuraList()){
                 contador++;
-                Long orden = estructuraSelected.getOrden() -1L;
-                
-                if(estructura.getOrden().equals(orden)){
-                    
-                    if(grillaModelMap.containsKey(estructuraSelected.getOrden())){
-                        grillaModelMapTemp.put(contador, grillaModelMap.get(estructuraSelected.getOrden()));
+                Long orden = estructuraSelected.getOrden() -1L;                
+                if(estructura.getOrden().equals(orden)){                    
+                    if(estructuraModelMap.containsKey(estructuraSelected.getOrden())){
+                    	estructuraModelTempMap.put(contador, estructuraModelMap.get(estructuraSelected.getOrden()));
                     }else{
-                        grillaModelMapTemp.put(contador, new GrillaModelVO());
-                    }
-                    
+                    	estructuraModelTempMap.put(contador, new EstructuraModel());
+                    }                   
                     estructuraSelected.setOrden(contador);
                     estructurasTemp.add(estructuraSelected);
                     contador++;
+                }                
+                if(estructuraModelMap.containsKey(estructura.getOrden())){
+                	estructuraModelTempMap.put(contador, estructuraModelMap.get(estructura.getOrden()));
                 }
-                
-                if(grillaModelMap.containsKey(estructura.getOrden()))
-                    grillaModelMapTemp.put(contador, grillaModelMap.get(estructura.getOrden()));
-                else
-                    grillaModelMapTemp.put(contador, new GrillaModelVO());
-                
+                else{
+                	estructuraModelTempMap.put(contador, new EstructuraModel());
+                }                
                 estructura.setOrden(contador);
                 estructurasTemp.add(estructura);
             }
-            grillaModelMap.putAll(grillaModelMapTemp);
-            setEstructuraList(estructurasTemp);        
-            getGeneradorDiseno().initBackingBean();
+            estructuraModelMap.putAll(estructuraModelTempMap);
+            this.setEstructuraList(estructurasTemp);        
+            //getGeneradorDiseno().initBackingBean();
         }
     }
     
-    public void bajarEstructuraListener(ActionEvent event){
-        
+    public void bajarEstructuraListener(ActionEvent event){        
         List<Estructura> estructurasTemp = new ArrayList<Estructura>();
         final Estructura estructuraSelected = (Estructura)event.getComponent().getAttributes().get("estructura");  
-        Map<Long, GrillaModelVO> grillaModelMap = getGeneradorDiseno().getGrillaModelMap();
-        Map<Long, GrillaModelVO> grillaModelMapTemp = new LinkedHashMap<Long, GrillaModelVO>();
+        Map<Long, EstructuraModel> estructuraModelMap = this.getConfiguradorDisenoBackingBean().getEstructuraModelMap();        
+        Map<Long, EstructuraModel> estructuraModelTempMap = new LinkedHashMap<Long, EstructuraModel>();
         setAlmacenado(false);
         
         if(estructuraSelected.getOrden().intValue() < getEstructuraList().size()){
@@ -318,37 +288,31 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
             getEstructuraList().remove(estructuraSelected);
             Long contador = 0L;
             
-            for(Estructura estructura : getEstructuraList()){
-                
-                contador++;
-                
-                if(grillaModelMap.containsKey(estructura.getOrden()))
-                    grillaModelMapTemp.put(contador, grillaModelMap.get(estructura.getOrden()));
-                else
-                    grillaModelMapTemp.put(contador, new GrillaModelVO());
-                
+            for(Estructura estructura : getEstructuraList()){                
+                contador++;                
+                if(estructuraModelMap.containsKey(estructura.getOrden())){
+                	estructuraModelTempMap.put(contador, estructuraModelMap.get(estructura.getOrden()));
+                }
+                else{
+                	estructuraModelTempMap.put(contador, new EstructuraModel());
+                }                
                 estructura.setOrden(contador);
-                estructurasTemp.add(estructura);
-                
-                if(estructura.getOrden().equals(orden)){
-                    
-                    contador++;
-                    
-                    if(grillaModelMap.containsKey(estructuraSelected.getOrden()))
-                        grillaModelMapTemp.put(contador, grillaModelMap.get(estructuraSelected.getOrden()));
-                    else
-                        grillaModelMapTemp.put(contador, new GrillaModelVO());
-                    
-                    
+                estructurasTemp.add(estructura);                
+                if(estructura.getOrden().equals(orden)){                    
+                    contador++;                    
+                    if(estructuraModelMap.containsKey(estructuraSelected.getOrden())){
+                    	estructuraModelTempMap.put(contador, estructuraModelMap.get(estructuraSelected.getOrden()));
+                    }
+                    else{
+                    	estructuraModelTempMap.put(contador, new EstructuraModel());
+                    }                                        
                     estructuraSelected.setOrden(contador);
                     estructurasTemp.add(estructuraSelected);
-
-                }
-                
+                }                
             }
-            grillaModelMap.putAll(grillaModelMapTemp);
-            setEstructuraList(estructurasTemp);        
-            getGeneradorDiseno().initBackingBean();
+            estructuraModelMap.putAll(estructuraModelTempMap);
+            this.setEstructuraList(estructurasTemp);        
+            //getGeneradorDiseno().initBackingBean();
         }
     }
     
@@ -425,6 +389,15 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 
 	public void setIdTipoCuadro(Long idTipoCuadro) {
 		this.idTipoCuadro = idTipoCuadro;
+	}
+
+	public ConfiguradorDisenoBackingBean getConfiguradorDisenoBackingBean() {
+		return configuradorDisenoBackingBean;
+	}
+
+	public void setConfiguradorDisenoBackingBean(
+			ConfiguradorDisenoBackingBean configuradorDisenoBackingBean) {
+		this.configuradorDisenoBackingBean = configuradorDisenoBackingBean;
 	}
 	
 
