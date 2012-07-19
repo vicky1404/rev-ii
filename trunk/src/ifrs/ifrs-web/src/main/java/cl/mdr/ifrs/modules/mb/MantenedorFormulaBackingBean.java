@@ -127,7 +127,14 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
     public void changeTipoCuadro() {
     	
     	final TipoCuadro tipoCuadro = new TipoCuadro(getIdTipoCuadro());      
-        final List<Catalogo> catalogoList = select(super.getComponenteBackingBean().getCatalogoList() ,having(on(Catalogo.class).getTipoCuadro().getIdTipoCuadro(), equalTo(tipoCuadro.getIdTipoCuadro())));                
+        //final List<Catalogo> catalogoList = select(super.getComponenteBackingBean().getCatalogoList() ,having(on(Catalogo.class).getTipoCuadro().getIdTipoCuadro(), equalTo(tipoCuadro.getIdTipoCuadro())));
+    	List<Catalogo> catalogoList = new ArrayList<Catalogo>();
+		try {
+			catalogoList = getFacadeService().getCatalogoService().findCatalogoByFiltro(getFiltroBackingBean().getEmpresa().getRut(), getNombreUsuario(), tipoCuadro , null, 1L);
+		} catch (Exception e) {
+	
+			e.printStackTrace();
+		}
         this.setCatalogoList(catalogoList);
     }
     
