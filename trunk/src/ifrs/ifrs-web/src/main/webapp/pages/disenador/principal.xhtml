@@ -34,7 +34,7 @@
 							<p:dataTable
 								value="#{generadorVersionBackingBean.estructuraList}" id="gDt90"
 								style="width:720px" var="row"
-								binding="#{generadorDisenoBackingBean.disenoEstructuraTable}"
+								binding="#{configuradorDisenoBackingBean.disenoEstructuraTable}"
 								emptyMessage="#{msg.general_sin_informacion}">
 								<p:column sortable="false"
 									headerText="#{msg.generador_numero_estructura}" align="center"
@@ -47,10 +47,10 @@
 									<h:outputText value="#{row.tipoEstructura.nombre}" id="gDot3" />
 								</p:column>
 								<p:column sortable="false"
-									headerText="#{msg.generador_editar_grilla}" align="center"
+									headerText="Editar" align="center"
 									id="gDc233" width="150">
 									<p:commandLink title="Editar" value="Editar" id="gDcl1"
-										action="#{generadorDisenoBackingBean.editarGrillaAction}"
+										actionListener="#{configuradorDisenoBackingBean.editarGrillaAction}"
 										rendered="#{generadorVersionBackingBean.almacenado and row.tipoEstructura.idTipoEstructura == 0}"
 										partialSubmit="false" update="@form" />
 
@@ -70,18 +70,15 @@
 
 							<p:spacer height="20" id="gDs7" />
 
-							<h:outputLabel value="Diseño de Grilla" id="gDol1" />
-
-
-							<div align="left">
-
-								<!-- RENDERED  af:panelGroupLayout layout="horizontal" id="gDpgl3" rendered="#{generadorVersionBackingBean.renderBotonEditar}">-->
+							<div align="left">								
 								<div align="left">
-									<p:fileUpload label="Archivo" id="gDif1" required="false"
-										multiple="false" mode="advanced" update="panel_tabla_disenio"
+									<p:fileUpload label="Seleccionar Archivo" id="gDif1" required="true" rendered="#{configuradorDisenoBackingBean.renderEditarGrilla}"
+									    requiredMessage="Debe seleccionar el Archivo de Plantilla de Configuración."
+										multiple="false" mode="advanced" update="panel_tabla_disenio" 
 										cancelLabel="Cancelar"
 										invalidFileMessage="El formato del Archivo es invalido, solo se permiten archivos MS Excel en formato 2007 o superior"
 										invalidSizeMessage="El Archivo a utilizar no puede superar los 3 MB."
+										sizeLimit="3145728"										
 										allowTypes="/(\.|\/)(xlsx|xls)$/"
 										fileUploadListener="#{configuradorDisenoBackingBean.cargaArchivoListener}">
 									</p:fileUpload>
@@ -362,9 +359,17 @@
 				</p:tab>
 
 				<p:tab title="Previsualizador" id="tb4">
-					<h:panelGrid columns="1" cellpadding="10" id="pg4">
-						<h:outputText value="Probando 4" id="ot4" />
-					</h:panelGrid>
+					<ui:repeat value="#{generadorVersionBackingBean.estructuraList}" var="item" varStatus="status">
+						<ui:fragment rendered="#{item.tipoEstructura.idTipoEstructura eq 0}">
+							<ui:include src="/pages/proceso/grilla/grilla0.xhtml" />
+						</ui:fragment>
+						<ui:fragment rendered="#{item.tipoEstructura.idTipoEstructura eq 1}">
+							<ui:include src="/pages/proceso/html/html.xhtml" />
+						</ui:fragment>
+						<ui:fragment rendered="#{item.tipoEstructura.idTipoEstructura eq 2}">
+						    <ui:include src="/pages/proceso/texto/texto.xhtml" />
+						</ui:fragment>								
+					</ui:repeat>
 				</p:tab>
 
 
