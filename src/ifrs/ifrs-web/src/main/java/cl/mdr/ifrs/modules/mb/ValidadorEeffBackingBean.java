@@ -322,7 +322,7 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
         }
         
         relCuentaText.setSize(relCuentaText.getSize()+1);
-        addPartialText();
+        //addPartialText();
     }
     
     public void guardarRelacionListener(ActionEvent event){
