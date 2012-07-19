@@ -112,8 +112,8 @@
 
 		<p:column id="gVc2" headerText="Tipo de Estructura"
 			style="text-align:center">
-			<p:selectOneMenu value="#{row.tipoEstructura}" style="width:130px"
-				converter="tipoEstructuraConverter">
+			<p:selectOneMenu value="#{row.tipoEstructura}" style="width:130px; text-align:left;"
+				converter="tipoEstructuraConverter" effect="fade">
 				<f:selectItem itemLabel="Seleccione" noSelectionOption="true" />
 				<f:selectItems
 					value="#{generadorVersionBackingBean.componenteBackingBean.tipoEstructuras}" />

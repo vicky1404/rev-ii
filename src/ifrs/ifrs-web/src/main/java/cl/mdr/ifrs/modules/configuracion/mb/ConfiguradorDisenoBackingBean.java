@@ -5,18 +5,22 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 
 import org.apache.log4j.Logger;
+import org.primefaces.component.datatable.DataTable;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
 import cl.mdr.ifrs.cross.util.GeneradorDisenoHelper;
+import cl.mdr.ifrs.cross.util.UtilBean;
 import cl.mdr.ifrs.ejb.entity.Celda;
 import cl.mdr.ifrs.ejb.entity.Columna;
+import cl.mdr.ifrs.ejb.entity.Estructura;
 import cl.mdr.ifrs.ejb.entity.Grilla;
 import cl.mdr.ifrs.ejb.entity.TipoCelda;
 import cl.mdr.ifrs.ejb.entity.TipoDato;
@@ -35,6 +39,8 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
 	private static final long serialVersionUID = -1303743504274782576L;
 	public static final String BEAN_NAME = "configuradorDisenoBackingBean"; 
 	
+	@ManagedProperty(value="#{generadorVersionBackingBean}")
+	private GeneradorVersionBackingBean generadorVersionBackingBean;
 	
     private GrillaVO grillaVO;
     private Grilla grilla;
@@ -53,6 +59,13 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
     /*atributos utilizados para la upload de archivo*/
     private transient UploadedFile uploadedFile;
     
+    private boolean renderEditarGrilla;
+    private boolean renderEditarHtml;
+    private boolean renderEditarTexto;
+    
+    /*seleccionar estructura para edicion*/
+    private transient DataTable disenoEstructuraTable;
+    private Estructura estructuraSelected;
     
     /**
 	 * Carga mediante Libro 
@@ -78,23 +91,24 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
             this.setGrilla(super.getFacadeService().getCargadorEstructuraService().getGrillaByExcel(this.getUploadedFile().getInputstream()));
             this.setGrillaVO(super.getFacadeService().getEstructuraService().getGrillaVO(this.getGrilla(), Boolean.FALSE));
             this.getGrillaVO().setCeldaList(GeneradorDisenoHelper.builHtmlGrilla(this.getGrilla().getColumnaList()));
-
+            this.getEstructuraSelected().setGrillaVO(this.getGrillaVO());
         } catch (CargaGrillaExcelException e) {
             logger.error("error al procesar archivo excel ",e);
-            addErrorMessage(e.getMessage());
+            super.addErrorMessage(e.getMessage());
         
         } catch (Exception e) {
             logger.error("error al procesar archivo excel ",e);
-            addErrorMessage("Error al procesar el archivo");
+            super.addErrorMessage("Error al procesar el archivo");
         }
        
     }
     
     /**
+     * prepara los datos para editar una columna
      * @param event
      */
     public void prepareEditarColumnaAction(ActionEvent event){
-    	Columna columna = (Columna) event.getComponent().getAttributes().get("columna");
+    	final Columna columna = (Columna) event.getComponent().getAttributes().get("columna");
     	this.setColumna(columna);
     	this.setTipoCeldaColumna(null);
     	this.setTipoDatoColumna(null);
@@ -103,6 +117,7 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
     }
     
     /**
+     * procesa la edicion de una columna
      * @param event
      */
     public void editarColumnaAction(ActionEvent event){    	    	
@@ -123,13 +138,13 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
 	    	}
     	}
     }
-    
-    
+        
     /**
+     * prepara los datos para editar una celda
      * @param event
      */
     public void prepareEditarCeldaAction(ActionEvent event){
-    	Celda celda = (Celda) event.getComponent().getAttributes().get("celda");
+    	final Celda celda = (Celda) event.getComponent().getAttributes().get("celda");
     	logger.info("editando celda "+celda.getValor());
     	this.setCelda(celda);
     	this.setTipoCeldaCelda(celda.getTipoCelda());
@@ -138,6 +153,7 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
     }
     
     /**
+     * procesa la edicion de una celda
      * @param event
      */
     public void editarCeldaAction(ActionEvent event){
@@ -153,13 +169,13 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
     	     }
     	}
     }
-    
-    
+        
     /**
+     * prepara los datos para la edicion de una fila
      * @param event
      */
     public void prepareEditarFilaAction(ActionEvent event){
-    	Long fila  = (Long) event.getComponent().getAttributes().get("fila");
+    	final Long fila  = (Long) event.getComponent().getAttributes().get("fila");
     	logger.info("editando fila "+fila);
     	this.setFila(fila);
     	this.setTipoCeldaFila(null);
@@ -168,6 +184,7 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
     }
     
     /**
+     * procesa la edicion de una fila.
      * @param event
      */
     public void editarFilaAction(ActionEvent event){
@@ -182,16 +199,20 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
     	    	 }    	         
     	     }
     	}
+    }    
+    
+    /**
+     * habilita la opcion para crear y editar una estructura de tipo grilla
+     * @param event
+     */
+    public void editarGrillaAction(ActionEvent event) {    	
+        final Estructura estructura = (Estructura)this.getDisenoEstructuraTable().getRowData();
+        if(estructura.getOrden()==null){
+            return;
+        }
+        this.setEstructuraSelected(estructura);
+    	this.setRenderEditarGrilla(Boolean.TRUE);
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     @Deprecated
     public void onChangeTipoCeldaListener(ValueChangeEvent valueChangeEvent){
@@ -324,6 +345,54 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
 
 	public void setFila(Long fila) {
 		this.fila = fila;
+	}
+
+	public boolean isRenderEditarGrilla() {
+		return renderEditarGrilla;
+	}
+
+	public void setRenderEditarGrilla(boolean renderEditarGrilla) {
+		this.renderEditarGrilla = renderEditarGrilla;
+	}
+
+	public boolean isRenderEditarHtml() {
+		return renderEditarHtml;
+	}
+
+	public void setRenderEditarHtml(boolean renderEditarHtml) {
+		this.renderEditarHtml = renderEditarHtml;
+	}
+
+	public boolean isRenderEditarTexto() {
+		return renderEditarTexto;
+	}
+
+	public void setRenderEditarTexto(boolean renderEditarTexto) {
+		this.renderEditarTexto = renderEditarTexto;
+	}
+
+	public DataTable getDisenoEstructuraTable() {
+		return disenoEstructuraTable;
+	}
+
+	public void setDisenoEstructuraTable(DataTable disenoEstructuraTable) {
+		this.disenoEstructuraTable = disenoEstructuraTable;
+	}
+
+	public Estructura getEstructuraSelected() {
+		return estructuraSelected;
+	}
+
+	public void setEstructuraSelected(Estructura estructuraSelected) {
+		this.estructuraSelected = estructuraSelected;
+	}
+
+	public GeneradorVersionBackingBean getGeneradorVersionBackingBean() {		
+		return generadorVersionBackingBean;
+	}
+
+	public void setGeneradorVersionBackingBean(GeneradorVersionBackingBean generadorVersionBackingBean) {
+		this.generadorVersionBackingBean = generadorVersionBackingBean;
 	}
 
 }
