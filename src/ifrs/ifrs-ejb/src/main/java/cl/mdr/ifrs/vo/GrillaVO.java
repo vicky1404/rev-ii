@@ -19,7 +19,7 @@ import cl.mdr.ifrs.ejb.entity.Grilla;
 public class GrillaVO implements Serializable {
     private static final long serialVersionUID = -2599361993445052185L;
     
-    //private String titulo;
+    private String titulo;
     private Grilla grilla;
     //private transient List<Map<String, Object>> columns;    
     //private transient List<Map<String, Object>> grupos;
@@ -146,13 +146,13 @@ public class GrillaVO implements Serializable {
         return rows;
     }
 
-    /*public void setTitulo(String titulo) {
+    public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
 
     public String getTitulo() {
         return titulo;
-    }*/
+    }
 
 
 	public List<List<Celda>> getCeldaList() {
