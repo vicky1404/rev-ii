@@ -268,27 +268,7 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
         }
         return new EstructuraModel();
     }
-    
-    
-    
-    @Deprecated
-    public void onChangeTipoCeldaListener(ValueChangeEvent valueChangeEvent){
-    	if(valueChangeEvent.getNewValue() != null){
-    		this.setIdTipoCelda(null);    	
-    		this.setIdTipoCelda((Long) valueChangeEvent.getNewValue());
-    		logger.info("change tipo celda "+this.getIdTipoCelda());
-    	}
-    }
-    
-    @Deprecated
-    public void onChangeTipoDatoListener(ValueChangeEvent valueChangeEvent){
-    	if(valueChangeEvent.getNewValue() != null){
-    		this.setIdTipoDato(null);	
-    		this.setIdTipoDato((Long) valueChangeEvent.getNewValue());    		
-        	logger.info("change tipo dato "+this.getIdTipoDato());
-    	}
-    }
- 
+         
 	public UploadedFile getUploadedFile() {
 		return uploadedFile;
 	}

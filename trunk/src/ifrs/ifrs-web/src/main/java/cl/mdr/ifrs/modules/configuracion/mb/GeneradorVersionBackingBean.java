@@ -210,7 +210,7 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
             }
         }
         this.setAlmacenado(true);        
-        return null;
+        return "";
     }
     
     public void agregarVersionListener(ActionEvent actionEvent) {        
