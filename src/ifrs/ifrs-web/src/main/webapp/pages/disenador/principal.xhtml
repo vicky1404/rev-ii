@@ -92,8 +92,10 @@
 							<h:panelGroup
 								rendered="#{configuradorDisenoBackingBean.renderEditarTexto}"
 								id="textEditPanel">
-								<p:inputTextarea maxlength="3500" counter="counter" counterTemplate="{0} characters remaining." autoResize="false"></p:inputTextarea>	
-								<h:outputText id="counter" />  
+								<p:inputTextarea maxlength="3500" counter="counter"
+									counterTemplate="{0} characters remaining." autoResize="false" style="width:50%;"></p:inputTextarea>
+								<p:spacer height="5" />
+								<h:outputText id="counter" />
 							</h:panelGroup>
 
 
