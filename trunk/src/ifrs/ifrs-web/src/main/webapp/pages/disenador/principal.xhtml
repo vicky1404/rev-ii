@@ -56,15 +56,47 @@
 										partialSubmit="false" update="@form" />
 
 									<p:commandLink title="Editar" value="Editar" id="gDcl2"
-										action="#{generadorDisenoBackingBean.editarTextoAction}"
-										rendered="#{generadorVersionBackingBean.almacenado and row.tipoEstructura.idTipoEstructura == 2}" />
+										actionListener="#{configuradorDisenoBackingBean.editarTextoAction}"
+										rendered="#{generadorVersionBackingBean.almacenado and row.tipoEstructura.idTipoEstructura == 2}"
+										partialSubmit="false" update="@form" />
 
 									<p:commandLink title="Editar" value="Editar" id="gDcl3"
-										action="#{generadorDisenoBackingBean.editarHtmlAction}"
-										rendered="#{generadorVersionBackingBean.almacenado and row.tipoEstructura.idTipoEstructura == 1}" />
+										actionListener="#{configuradorDisenoBackingBean.editarHtmlAction}"
+										rendered="#{generadorVersionBackingBean.almacenado and row.tipoEstructura.idTipoEstructura == 1}"
+										partialSubmit="false" update="@form" />
 
 								</p:column>
 							</p:dataTable>
+
+							<!-- Edicion de tipo de Estructura Html -->
+							<h:panelGroup
+								rendered="#{configuradorDisenoBackingBean.renderEditarHtml}"
+								id="htmlEditPanel">
+								<p:spacer height="25"/>
+								<h:panelGrid columns="2" rendered="#{configuradorDisenoBackingBean.renderEditarHtml}">
+									<h:outputLabel value="Título:" style="width:200px;" />
+									<p:inputText label="#{msg.generador_titulo}"
+										value="#{configuradorDisenoBackingBean.tituloHtml}"
+										style="width:600px;">
+										<p:ajax
+											listener="#{configuradorDisenoBackingBean.guardarTituloHtmlListener}"
+											event="blur" />
+									</p:inputText>
+								</h:panelGrid>									
+								<p:spacer height="20" />
+								<p:editor id="editorHtml" height="300" />
+								<p:spacer height="20" />
+							</h:panelGroup>
+
+							<!-- Edicion de tipo de Estructura Texto -->
+							<h:panelGroup
+								rendered="#{configuradorDisenoBackingBean.renderEditarTexto}"
+								id="textEditPanel">
+								<p:inputTextarea maxlength="3500" counter="counter" counterTemplate="{0} characters remaining." autoResize="false"></p:inputTextarea>	
+								<h:outputText id="counter" />  
+							</h:panelGroup>
+
+
 							<p:spacer height="20" id="gDs7" />
 							<div align="left">
 								<div align="left" style="width: 720px;">
@@ -76,25 +108,29 @@
 										cancelLabel="Cancelar"
 										invalidFileMessage="El formato del Archivo es invalido, solo se permiten archivos MS Excel en formato 2007 o superior"
 										invalidSizeMessage="El Archivo a utilizar no puede superar los 3 MB."
-										sizeLimit="3145728" allowTypes="/(\.|\/)(xlsx|xls)$/"
+										sizeLimit="3145728" allowTypes="/(\.|\/)(xlsx)$/"
 										fileUploadListener="#{configuradorDisenoBackingBean.cargaArchivoListener}">
 									</p:fileUpload>
 								</div>
-								<p:spacer height="25" id="gDs6" />
-								<h:panelGrid columns="2"
-									rendered="#{not empty configuradorDisenoBackingBean.grillaVO.columnas}">
-									<h:outputLabel value="Título del Cuadro:" style="width:200px;" />
-									<p:inputText label="#{msg.generador_titulo}"
-										value="#{configuradorDisenoBackingBean.tituloGrilla}"
-										id="gDit4" style="width:600px;">
-										<p:ajax
-											listener="#{configuradorDisenoBackingBean.guardarTituloGrillaListener}"
-											event="blur" />
-									</p:inputText>
-								</h:panelGrid>
-								<p:spacer height="10" id="gDs04" />
+								<h:panelGroup
+									rendered="#{configuradorDisenoBackingBean.renderEditarGrilla}">
+									<p:spacer height="25" id="gDs6" />
+									<h:panelGrid columns="2"
+										rendered="#{not empty configuradorDisenoBackingBean.grillaVO.columnas}">
+										<h:outputLabel value="Título del Cuadro:" style="width:200px;" />
+										<p:inputText label="#{msg.generador_titulo}"
+											value="#{configuradorDisenoBackingBean.tituloGrilla}"
+											id="gDit4" style="width:600px;">
+											<p:ajax
+												listener="#{configuradorDisenoBackingBean.guardarTituloGrillaListener}"
+												event="blur" />
+										</p:inputText>
+									</h:panelGrid>
+									<p:spacer height="10" id="gDs04" />
+								</h:panelGroup>
 								<!-- inicio grilla diseño -->
-								<h:panelGroup id="panel_tabla_disenio" layout="block">
+								<h:panelGroup id="panel_tabla_disenio" layout="block"
+									rendered="#{configuradorDisenoBackingBean.renderEditarGrilla}">
 									<div class="ui-datatable ui-widget ui-datatable-resizable">
 										<table role="grid">
 											<thead>
@@ -205,15 +241,10 @@
 																			effect="fade" showOn="button"
 																			locale="#{procesoBackingBean.localeCL}"
 																			rendered="#{row.tipoDato.idTipoDato == 1 and row.tipoCelda.idTipoCelda == 6}">
-																		</p:calendar> 
-																		
-																		<!-- Editor de tipo de celda y tipo de dato --> 																		
-																		<p:tooltip
+																		</p:calendar> <!-- Editor de tipo de celda y tipo de dato --> <p:tooltip
 																			for="clEditCell"
 																			value="Editar Celda [#{row.idFila},#{row.idColumna}]"
-																			showEffect="drop" /> 
-																		
-																		<p:commandLink id="clEditCell"
+																			showEffect="drop" /> <p:commandLink id="clEditCell"
 																			style="float:left;"
 																			actionListener="#{configuradorDisenoBackingBean.prepareEditarCeldaAction}">
 																			<f:attribute value="#{row}" name="celda" />

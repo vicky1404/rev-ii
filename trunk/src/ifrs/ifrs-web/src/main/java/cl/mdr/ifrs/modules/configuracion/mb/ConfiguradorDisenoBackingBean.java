@@ -23,6 +23,8 @@ import cl.mdr.ifrs.ejb.entity.Celda;
 import cl.mdr.ifrs.ejb.entity.Columna;
 import cl.mdr.ifrs.ejb.entity.Estructura;
 import cl.mdr.ifrs.ejb.entity.Grilla;
+import cl.mdr.ifrs.ejb.entity.Html;
+import cl.mdr.ifrs.ejb.entity.Texto;
 import cl.mdr.ifrs.ejb.entity.TipoCelda;
 import cl.mdr.ifrs.ejb.entity.TipoDato;
 import cl.mdr.ifrs.exceptions.CargaGrillaExcelException;
@@ -54,6 +56,7 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
     private Columna columna;
     private Long fila;
     private String tituloGrilla;
+    private String tituloHtml;
     
     /*atributos utilizados para upload de archivo*/
     private transient UploadedFile uploadedFile;
@@ -102,6 +105,10 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
     
     public void guardarTituloGrillaListener(){
     	this.getEstructuraModelByEstructuraSelected().setTituloGrilla(this.getTituloGrilla());
+    }
+    
+    public void guardarTituloHtmlListener(){
+    	this.getEstructuraModelByEstructuraSelected().getHtml().setTitulo(this.getTituloHtml());
     }
     
     /**
@@ -213,8 +220,44 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
         }
         this.setEstructuraSelected(estructura);
     	this.setRenderEditarGrilla(Boolean.TRUE);
+    	this.setRenderEditarHtml(Boolean.FALSE);
+    	this.setRenderEditarTexto(Boolean.FALSE);
+    	
     }
     
+    /**
+     * Habilita la opcion para crear y editar una estructura de tipo Html
+     * @param event
+     */
+    public void editarHtmlAction(ActionEvent event) {    	
+        final Estructura estructura = (Estructura)this.getDisenoEstructuraTable().getRowData();
+        if(estructura.getOrden()==null){
+            return;
+        }
+        this.setEstructuraSelected(estructura);
+        this.getEstructuraModelByEstructuraSelected().setHtml(new Html());
+        this.setRenderEditarGrilla(Boolean.FALSE);
+    	this.setRenderEditarHtml(Boolean.TRUE);
+    	this.setRenderEditarTexto(Boolean.FALSE);
+    }
+    
+    /**
+     * Habilita la opcion para crear y editar una estructura de tipo Texto
+     * @param event
+     */
+    public void editarTextoAction(ActionEvent event) {    	
+        final Estructura estructura = (Estructura)this.getDisenoEstructuraTable().getRowData();
+        if(estructura.getOrden()==null){
+            return;
+        }
+        this.setEstructuraSelected(estructura);
+        this.getEstructuraModelByEstructuraSelected().setTexto(new Texto());
+        this.setRenderEditarGrilla(Boolean.FALSE);
+    	this.setRenderEditarHtml(Boolean.FALSE);
+    	this.setRenderEditarTexto(Boolean.TRUE);
+    }
+    
+        
     /**
      * Obtiene desde el EstructuraModelMap el objeto EstructuraModel que esta siendo editado.
      * @return EstructuraModel
@@ -418,6 +461,14 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
 
 	public void setTituloGrilla(String tituloGrilla) {
 		this.tituloGrilla = tituloGrilla;
+	}
+
+	public String getTituloHtml() {
+		return tituloHtml;
+	}
+
+	public void setTituloHtml(String tituloHtml) {
+		this.tituloHtml = tituloHtml;
 	}
 
 }
