@@ -53,6 +53,7 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
     private Celda celda;
     private Columna columna;
     private Long fila;
+    private String tituloGrilla;
     
     /*atributos utilizados para upload de archivo*/
     private transient UploadedFile uploadedFile;
@@ -97,6 +98,10 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
             super.addErrorMessage("Error al procesar el archivo");
         }
        
+    }
+    
+    public void guardarTituloGrillaListener(){
+    	this.getEstructuraModelByEstructuraSelected().setTituloGrilla(this.getTituloGrilla());
     }
     
     /**
@@ -405,6 +410,14 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
 
 	public void setEstructuraModelMap(Map<Long, EstructuraModel> estructuraModelMap) {
 		this.estructuraModelMap = estructuraModelMap;
+	}
+
+	public String getTituloGrilla() {
+		return tituloGrilla;
+	}
+
+	public void setTituloGrilla(String tituloGrilla) {
+		this.tituloGrilla = tituloGrilla;
 	}
 
 }

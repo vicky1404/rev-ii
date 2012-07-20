@@ -5,8 +5,11 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-
-	<div class="ui-datatable ui-widget ui-datatable-resizable">
+	<p:spacer height="20"/>
+	<h:outputText value="#{item.grillaVO.titulo}" style="font-weight: bold;"/>
+	<p:spacer height="20"/>
+	<br />
+	<div class="ui-datatable ui-widget ui-datatable-resizable" >
 		<table role="grid">
 			<thead>
 				<h:panelGroup rendered="#{item.grillaVO.agrupaciones != null}">

@@ -17,10 +17,12 @@
 
 
 
-			<p:tabView effect="fade" id="tv1" onTabChange="$('.linkLoadEstructura').click()">
-			    
-			    <!-- p:ajax event="tabChange" listener="#{generadorVisualizadorBackingBean.onTabChange}" update="@form"/-->  		
-					
+			<p:tabView effect="fade" id="tv1"
+				onTabChange="$('.linkLoadEstructura').click();"
+				style="border-left:0px; border-bottom:0px;">
+
+				<!-- p:ajax event="tabChange" listener="#{generadorVisualizadorBackingBean.onTabChange}" update="@form"/-->
+
 				<p:tab title="Versión de Cuadro" id="tb1"
 					titletip="Versión de Cuadro">
 					<ui:include src="/pages/disenador/generador-version.xhtml" />
@@ -30,8 +32,6 @@
 
 				<p:tab title="Diseño de Cuadro" id="tb2">
 					<div align="left">
-						<h:outputText value="#{msg.generador_titulo_disenador}" id="gDot1"
-							disabled="true" />
 						<div align="left">
 							<p:dataTable
 								value="#{generadorVersionBackingBean.estructuraList}" id="gDt90"
@@ -48,8 +48,7 @@
 									id="gDc222" width="200">
 									<h:outputText value="#{row.tipoEstructura.nombre}" id="gDot3" />
 								</p:column>
-								<p:column sortable="false"
-									headerText="Editar" align="center"
+								<p:column sortable="false" headerText="Editar" align="center"
 									id="gDc233" width="150">
 									<p:commandLink title="Editar" value="Editar" id="gDcl1"
 										actionListener="#{configuradorDisenoBackingBean.editarGrillaAction}"
@@ -66,41 +65,34 @@
 
 								</p:column>
 							</p:dataTable>
-							<p:spacer height="20" id="gDs2" />
-
-							<!-- RENDERED  af:group rendered="#{generadorDisenoBackingBean.renderedEditarGrilla}" id="gDg1">-->
-
 							<p:spacer height="20" id="gDs7" />
-
-							<div align="left">								
-								<div align="left">
-									<p:fileUpload label="Seleccionar Archivo" id="gDif1" required="true" rendered="#{configuradorDisenoBackingBean.renderEditarGrilla}"
-									    requiredMessage="Debe seleccionar el Archivo de Plantilla de Configuración."
-										multiple="false" mode="advanced" update="panel_tabla_disenio" 
+							<div align="left">
+								<div align="left" style="width: 720px;">
+									<p:fileUpload label="Seleccionar Archivo" id="gDif1"
+										required="true"
+										rendered="#{configuradorDisenoBackingBean.renderEditarGrilla}"
+										requiredMessage="Debe seleccionar el Archivo de Plantilla de Configuración."
+										multiple="false" mode="advanced" update="@form"
 										cancelLabel="Cancelar"
 										invalidFileMessage="El formato del Archivo es invalido, solo se permiten archivos MS Excel en formato 2007 o superior"
 										invalidSizeMessage="El Archivo a utilizar no puede superar los 3 MB."
-										sizeLimit="3145728"										
-										allowTypes="/(\.|\/)(xlsx|xls)$/"
+										sizeLimit="3145728" allowTypes="/(\.|\/)(xlsx|xls)$/"
 										fileUploadListener="#{configuradorDisenoBackingBean.cargaArchivoListener}">
 									</p:fileUpload>
 								</div>
-								<p:spacer width="10" id="gDs3" />
 								<p:spacer height="25" id="gDs6" />
-								<!--af:group rendered="#{generadorDisenoBackingBean.renderdEditarGrillaTable}" id="gDg2" -->
-								<table>
-									<tr>
-										<td><p:inputText label="#{msg.generador_titulo}"
-												value="#{generadorDisenoBackingBean.tituloGrilla}"
-												id="gDit4" /></td>
-										<td><p:commandButton icon="/images/icon/save2.png"
-												actionListener="#{generadorDisenoBackingBean.guardarTituloGrillaListener}"
-												id="gDcl7" value="Guardar Título" /></td>
-									</tr>
-								</table>
-
-								<p:spacer width="10" height="10" id="gDs04" />
-
+								<h:panelGrid columns="2"
+									rendered="#{not empty configuradorDisenoBackingBean.grillaVO.columnas}">
+									<h:outputLabel value="Título del Cuadro:" style="width:200px;" />
+									<p:inputText label="#{msg.generador_titulo}"
+										value="#{configuradorDisenoBackingBean.tituloGrilla}"
+										id="gDit4" style="width:600px;">
+										<p:ajax
+											listener="#{configuradorDisenoBackingBean.guardarTituloGrillaListener}"
+											event="blur" />
+									</p:inputText>
+								</h:panelGrid>
+								<p:spacer height="10" id="gDs04" />
 								<!-- inicio grilla diseño -->
 								<h:panelGroup id="panel_tabla_disenio" layout="block">
 									<div class="ui-datatable ui-widget ui-datatable-resizable">
@@ -133,16 +125,16 @@
 														data-ri="1">
 														<ui:repeat var="row" value="#{col}">
 															<ui:fragment rendered="#{row.columna.orden eq 1}">
-																<td>
-																    <p:tooltip for="clEditFila" value="Editar Fila #{row.idFila}" showEffect="drop"/>
-																    <p:commandLink id="clEditFila"
+																<td><p:tooltip for="clEditFila"
+																		value="Editar Fila #{row.idFila}" showEffect="drop" />
+																	<p:commandLink id="clEditFila"
 																		actionListener="#{configuradorDisenoBackingBean.prepareEditarFilaAction}"
 																		style="padding-left:5px; padding-right:5px; text-decoration:underline;">
 																		<f:attribute name="fila" value="#{row.idFila}" />
-																		<h:graphicImage value="/resources/images/icon/1rightarrow_16x16.png" style="vertical-align: middle;" />
-																	</p:commandLink>
-																
-																</td>
+																		<h:graphicImage
+																			value="/resources/images/icon/1rightarrow_16x16.png"
+																			style="vertical-align: middle;" />
+																	</p:commandLink></td>
 															</ui:fragment>
 															<td role="gridcell">
 																<div class="ui-dt-c">
@@ -208,17 +200,21 @@
 																				locale="#{procesoBackingBean.localeCL}"
 																				pattern="##,###,###,###.####" />
 
-																		</p:inputText> 
-																		
-																		<p:calendar value="#{row.valorDate}" id="it10" navigator="true"
-																			pattern="dd-MM-yyyy" label=" " effect="fade"
-																			showOn="button" locale="#{procesoBackingBean.localeCL}" 
-																			rendered="#{row.tipoDato.idTipoDato == 1 and row.tipoCelda.idTipoCelda == 6}">																			
+																		</p:inputText> <p:calendar value="#{row.valorDate}" id="it10"
+																			navigator="true" pattern="dd-MM-yyyy" label=" "
+																			effect="fade" showOn="button"
+																			locale="#{procesoBackingBean.localeCL}"
+																			rendered="#{row.tipoDato.idTipoDato == 1 and row.tipoCelda.idTipoCelda == 6}">
 																		</p:calendar> 
 																		
-																		<!-- Editor de tipo de celda y tipo de dato --> 
-																		<p:tooltip for="clEditCell" value="Editar Celda [#{row.idFila},#{row.idColumna}]" showEffect="drop"/>
-																		<p:commandLink id="clEditCell" style="float:left;"
+																		<!-- Editor de tipo de celda y tipo de dato --> 																		
+																		<p:tooltip
+																			for="clEditCell"
+																			value="Editar Celda [#{row.idFila},#{row.idColumna}]"
+																			showEffect="drop" /> 
+																		
+																		<p:commandLink id="clEditCell"
+																			style="float:left;"
 																			actionListener="#{configuradorDisenoBackingBean.prepareEditarCeldaAction}">
 																			<f:attribute value="#{row}" name="celda" />
 																			<h:graphicImage style="vertical-align: middle;"
@@ -360,9 +356,11 @@
 					</h:panelGrid>
 				</p:tab>
 
-				<p:tab title="Previsualizador" id="tb4" >
-				    <p:commandLink actionListener="#{generadorVisualizadorBackingBean.cargarEstructuraAction}" id="cl_le" styleClass="linkLoadEstructura" update="panelPrev" />					    
-				    <p:toolbar>
+				<p:tab title="Previsualizador" id="tb4">
+					<p:commandLink
+						actionListener="#{generadorVisualizadorBackingBean.cargarEstructuraAction}"
+						id="cl_le" styleClass="linkLoadEstructura" update="panelPrev" />
+					<p:toolbar>
 						<p:toolbarGroup align="left">
 							<p:commandButton value="Guardar Configuración"
 								icon="ui-icon-disk" id="btn1"
@@ -371,21 +369,26 @@
 							<p:commandButton value="Recargar Previsualización"
 								icon="ui-icon-refresh" id="btn2" partialSubmit="false"
 								actionListener="#{generadorVisualizadorBackingBean.cargarEstructuraAction}"
-								update="@form" />	
+								update="@form" />
 						</p:toolbarGroup>
-					</p:toolbar>	
-				    <p:spacer height="10"/>	
-				    <h:panelGroup id="panelPrev">
-						<ui:repeat value="#{generadorVisualizadorBackingBean.estructuraList}" var="item" varStatus="status">					    
-							<ui:fragment rendered="#{item.tipoEstructura.idTipoEstructura eq 0}">						         						    	
+					</p:toolbar>
+					<p:spacer height="10" />
+					<h:panelGroup id="panelPrev">
+						<ui:repeat
+							value="#{generadorVisualizadorBackingBean.estructuraList}"
+							var="item" varStatus="status">
+							<ui:fragment
+								rendered="#{item.tipoEstructura.idTipoEstructura eq 0}">
 								<ui:include src="/pages/proceso/grilla/grilla0.xhtml" />
 							</ui:fragment>
-							<ui:fragment rendered="#{item.tipoEstructura.idTipoEstructura eq 1}">
+							<ui:fragment
+								rendered="#{item.tipoEstructura.idTipoEstructura eq 1}">
 								<ui:include src="/pages/proceso/html/html.xhtml" />
 							</ui:fragment>
-							<ui:fragment rendered="#{item.tipoEstructura.idTipoEstructura eq 2}">
-							    <ui:include src="/pages/proceso/texto/texto.xhtml" />
-							</ui:fragment>								
+							<ui:fragment
+								rendered="#{item.tipoEstructura.idTipoEstructura eq 2}">
+								<ui:include src="/pages/proceso/texto/texto.xhtml" />
+							</ui:fragment>
 						</ui:repeat>
 					</h:panelGroup>
 				</p:tab>

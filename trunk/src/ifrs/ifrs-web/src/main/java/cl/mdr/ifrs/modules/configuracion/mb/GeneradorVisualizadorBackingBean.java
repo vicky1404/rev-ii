@@ -124,11 +124,12 @@ public class GeneradorVisualizadorBackingBean extends AbstractBackingBean implem
         if(Util.esListaValida(estructuraList)){
             for(Estructura estructura : estructuraList){
                 if(this.getConfiguradorDisenoBackingBean().getEstructuraModelMap().containsKey(estructura.getOrden())){
-                    EstructuraModel estructuraModel =  this.getConfiguradorDisenoBackingBean().getEstructuraModelMap().get(estructura.getOrden());  
+                    final EstructuraModel estructuraModel =  this.getConfiguradorDisenoBackingBean().getEstructuraModelMap().get(estructura.getOrden());  
                     if(estructuraModel.getTipoEstructura() == TipoEstructura.ESTRUCTURA_TIPO_GRILLA){
                         if(Util.esListaValida(estructuraModel.getColumnas())){
                             GrillaVO grillaVO = this.createTableModel(estructuraModel.getColumnas(), estructuraModel.getAgrupacionesMap() );                            
                             grillaVO.setCeldaList(GeneradorDisenoHelper.builHtmlGrilla(estructuraModel.getColumnas()));
+                            grillaVO.setTitulo(estructuraModel.getTituloGrilla());
                             estructura.setGrillaVO(grillaVO);                            
                         }
                     }else if(estructuraModel.getTipoEstructura() == TipoEstructura.ESTRUCTURA_TIPO_TEXTO){
