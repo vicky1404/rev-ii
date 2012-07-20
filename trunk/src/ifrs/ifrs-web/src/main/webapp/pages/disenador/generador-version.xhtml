@@ -112,11 +112,11 @@
 
 		<p:column id="gVc2" headerText="Tipo de Estructura"
 			style="text-align:center">
-			<h:selectOneMenu  value="#{row.tipoEstructura}" style="width:130px; text-align:left;"
+			<p:selectOneMenu  value="#{row.tipoEstructura}" style="width:130px; text-align:left;"
 				converter="tipoEstructuraConverter" effect="fade" required="true" label="Tipo de Estructura">
 				<f:selectItem itemLabel="#{msg.label_seleccione}" noSelectionOption="true"/>
 				<f:selectItems value="#{generadorVersionBackingBean.componenteBackingBean.tipoEstructuras}" />
-			</h:selectOneMenu>
+			</p:selectOneMenu>
 		</p:column>
 
 		<p:column id="gVc3" headerText="Agregar o Eliminar" style="text-align:center">

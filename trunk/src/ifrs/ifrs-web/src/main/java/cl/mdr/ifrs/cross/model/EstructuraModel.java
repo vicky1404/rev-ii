@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
+
 import cl.mdr.ifrs.ejb.entity.AgrupacionColumna;
 import cl.mdr.ifrs.ejb.entity.Columna;
 import cl.mdr.ifrs.ejb.entity.Html;
@@ -104,6 +106,7 @@ public class EstructuraModel implements Serializable {
     public Texto getTexto() {
         if(texto==null){
             texto = new Texto();
+            texto.setTexto(StringUtils.EMPTY);
             texto.setNegrita(false);
         }
         return texto;
