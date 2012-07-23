@@ -129,6 +129,7 @@ public class GeneradorVisualizadorBackingBean extends AbstractBackingBean implem
                         if(Util.esListaValida(estructuraModel.getColumnas())){
                             GrillaVO grillaVO = this.createTableModel(estructuraModel.getColumnas(), estructuraModel.getAgrupacionesMap() );                            
                             grillaVO.setCeldaList(GeneradorDisenoHelper.builHtmlGrilla(estructuraModel.getColumnas()));
+                            grillaVO.setAgrupaciones(GeneradorDisenoHelper.crearAgrupadorHTMLVO(GeneradorDisenoHelper.getAgrupacionesByColumnaList(estructuraModel.getColumnas())));
                             grillaVO.setTitulo(estructuraModel.getTituloGrilla());
                             estructura.setGrillaVO(grillaVO);                            
                         }

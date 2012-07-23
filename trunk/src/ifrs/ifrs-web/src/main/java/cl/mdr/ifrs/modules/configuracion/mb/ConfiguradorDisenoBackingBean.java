@@ -9,7 +9,6 @@ import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
-import javax.faces.event.ValueChangeEvent;
 
 import org.apache.log4j.Logger;
 import org.primefaces.component.datatable.DataTable;
@@ -28,6 +27,7 @@ import cl.mdr.ifrs.ejb.entity.Texto;
 import cl.mdr.ifrs.ejb.entity.TipoCelda;
 import cl.mdr.ifrs.ejb.entity.TipoDato;
 import cl.mdr.ifrs.exceptions.CargaGrillaExcelException;
+import cl.mdr.ifrs.vo.AgrupacionModelVO;
 import cl.mdr.ifrs.vo.GrillaVO;
 
 /**
@@ -88,7 +88,9 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
             }            
             this.setGrilla(super.getFacadeService().getCargadorEstructuraService().getGrillaByExcel(this.getUploadedFile().getInputstream()));
             this.setGrillaVO(super.getFacadeService().getEstructuraService().getGrillaVO(this.getGrilla(), Boolean.FALSE));
-            this.getGrillaVO().setCeldaList(GeneradorDisenoHelper.builHtmlGrilla(this.getGrilla().getColumnaList()));
+            //construye la tabla para ser renderizada hacia la vista de edicion.
+            this.getGrillaVO().setCeldaList(GeneradorDisenoHelper.builHtmlGrilla(this.getGrilla().getColumnaList()));           
+        	this.getGrillaVO().setAgrupaciones(GeneradorDisenoHelper.crearAgrupadorHTMLVO(GeneradorDisenoHelper.getAgrupacionesByColumnaList(this.getGrilla().getColumnaList())));
             //agrego la lista de columnas para su edicion
             this.getEstructuraModelByEstructuraSelected().setColumnas(this.getGrilla().getColumnaList());
             
