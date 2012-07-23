@@ -40,7 +40,7 @@ public interface PeriodoServiceLocal {
      * @author Manuel Gutierrez C.
      * @throws Exception
      */
-    Integer cerrarPeriodo(String usuario, Long idPeriodo) throws Exception;
+    int cerrarPeriodo(String usuario, Long idPeriodo) throws Exception;
     
     /**
      * Retorna el �ltimo periodo .

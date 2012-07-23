@@ -64,6 +64,11 @@ public interface VersionServiceLocal {
      * @return
      */
     List<Version> findAllVersionVigente();
+    
+    /**
+     * @return
+     */
+    List<Version> findVersionVigenteSinCerrar(Long idPeriodo);
 
     /**
      * @return

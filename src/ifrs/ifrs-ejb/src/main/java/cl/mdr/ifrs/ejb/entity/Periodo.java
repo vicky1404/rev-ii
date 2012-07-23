@@ -25,33 +25,9 @@ import cl.mdr.ifrs.ejb.common.Constantes;
                  @NamedQuery(name =Periodo.FIND_MAX_PERIODO_CERRADO, query = "select MAX(o.periodo) from Periodo o where o.estadoPeriodo.idEstadoPeriodo = 1"),
                  @NamedQuery(name =Periodo.FIND_MAX_PERIODO, query = "select MAX(o.periodo) from Periodo o "),
                  @NamedQuery(name =Periodo.FIND_MAX_PERIODO_OBJ, query =      "select p from Periodo p where p.periodo = (select MAX(o.periodo) from Periodo o)"),
-                 @NamedQuery(name =Periodo.FIND_MAX_PERIODO_INICIADO, query = "select p from Periodo p where p.periodo = (select MAX(o.periodo) from Periodo o where o.estadoPeriodo.idEstadoPeriodo in (0 , 2))")
+                 @NamedQuery(name =Periodo.FIND_MAX_PERIODO_INICIADO, query = "select p from Periodo p where p.periodo = (select MAX(o.periodo) from Periodo o where o.estadoPeriodo.idEstadoPeriodo in (0 , 2))"),
+                 @NamedQuery(name =Periodo.CERRAR_PERIODO_BY_PERIODO, query = "update Periodo set estadoPeriodo.idEstadoPeriodo = 1 where periodo.idPeriodo =:idPeriodo")
 })
-
-/*
-@NamedStoredProcedureQueries(
-{
-    @NamedStoredProcedureQuery(
-        name = Periodo.CALL_SP_ABRIR_PERIODO, 
-        procedureName = Periodo.SP_ABRIR_PERIODO, 
-        returnsResultSet = false,
-        parameters = {
-                        @StoredProcedureParameter(queryParameter = "usuario", name = "P_USUARIO", direction = Direction.IN, type = String.class),
-                        @StoredProcedureParameter(queryParameter = "errno", name = "P_ERRNO", direction = Direction.OUT, type = Integer.class)
-                      }),
-
-    @NamedStoredProcedureQuery(
-        name = Periodo.CALL_SP_CERRAR_PERIODO, 
-        procedureName = Periodo.SP_CERRAR_PERIODO, 
-        returnsResultSet = false,
-        parameters = {
-                        @StoredProcedureParameter(queryParameter = "usuario", name = "P_USUARIO", direction = Direction.IN, type = String.class),
-                        @StoredProcedureParameter(queryParameter = "idPeriodo", name = "P_ID_PERIODO", direction = Direction.IN, type = Long.class),
-                        @StoredProcedureParameter(queryParameter = "errno", name = "P_ERRNO", direction = Direction.OUT, type = Integer.class)
-                      }
-    )
-})
-*/
 
 @Table(name = Constantes.PERIODO)
 public class Periodo implements Serializable {
@@ -61,10 +37,8 @@ public class Periodo implements Serializable {
     public static final String FIND_MAX_PERIODO_INICIADO =  "Periodo.findMaxPeriodoIniciado";
     public static final String FIND_MAX_PERIODO =  "Periodo.findMaxPeriodo";
     public static final String FIND_MAX_PERIODO_OBJ =  "Periodo.findMaxPeriodoObJ";
-    public static final String CALL_SP_ABRIR_PERIODO =  "Periodo.spAbrirPeriodo";
-    public static final String CALL_SP_CERRAR_PERIODO =  "Periodo.spCerrarPeriodo";
-    public static final String SP_ABRIR_PERIODO = "PKG_REV_PERIODO.PRC_ABRIR_PERIODO";
-    public static final String SP_CERRAR_PERIODO = "PKG_REV_PERIODO.PRC_CERRAR_PERIODO";
+    public static final String CERRAR_PERIODO_BY_PERIODO = "Periodo.CerrarPeriodoByPeriodo";
+    public static final int ERROR_ABRIR_PERIODO = -1000;
     
     private static final long serialVersionUID = 4755907388348844543L;
     
