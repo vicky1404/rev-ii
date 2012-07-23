@@ -136,6 +136,23 @@
 									<div class="ui-datatable ui-widget ui-datatable-resizable">
 										<table role="grid">
 											<thead>
+											    <h:panelGroup rendered="#{configuradorDisenoBackingBean.grillaVO.agrupaciones != null}">
+													<ui:repeat var="agr" value="#{configuradorDisenoBackingBean.grillaVO.agrupaciones}">
+														<tr>
+															<th class="ui-state-default ui-resizable-column"
+																role="columnheader"></th>
+															<ui:repeat var="agrN" value="#{agr}">
+																<th class="ui-state-default ui-resizable-column"
+																	role="columnheader" colspan="#{agrN.colSpan + 1}">
+																	<div class="ui-dt-c">
+																		<span><h:outputText
+																				value="#{agrN.titulo == null ? ' ' : agrN.titulo}" /></span>
+																	</div>
+																</th>
+															</ui:repeat>
+														</tr>
+													</ui:repeat>
+												</h:panelGroup>
 												<tr role="row">
 													<th class="ui-state-default ui-resizable-column"
 														role="columnheader"></th>

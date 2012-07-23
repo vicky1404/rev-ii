@@ -899,5 +899,19 @@ public class GeneradorDisenoHelper {
         
         return nivelesList;
     }
+    
+    public static List<AgrupacionColumna> getAgrupacionesByColumnaList(List<Columna> columnas){
+    	List<AgrupacionColumna> agrupacionColumnas = new ArrayList<AgrupacionColumna>();
+    	SortHelper.sortColumnasByOrden(columnas);
+    	for(Columna columna : columnas){
+    		for(AgrupacionColumna agrupacionColumna : columna.getAgrupacionColumnaList()){
+    			agrupacionColumnas.add(agrupacionColumna);
+    		}
+    	}    	
+    	SortHelper.sortAgrupacionColumnaByNivel(agrupacionColumnas);
+    	return agrupacionColumnas;
+    }
+    
+    
 
 }
