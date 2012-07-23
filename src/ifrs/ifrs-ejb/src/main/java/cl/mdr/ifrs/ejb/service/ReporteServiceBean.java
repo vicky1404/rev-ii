@@ -1,8 +1,6 @@
 package cl.mdr.ifrs.ejb.service;
 
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.text.MessageFormat;
 import java.util.List;
 
@@ -21,12 +19,9 @@ import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.w3c.dom.Document;
-import org.w3c.tidy.Tidy;
 
 import cl.mdr.ifrs.ejb.common.TipoCeldaEnum;
 import cl.mdr.ifrs.ejb.common.TipoDatoEnum;
-import cl.mdr.ifrs.ejb.cross.DocumentFactory;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.AgrupacionColumna;
 import cl.mdr.ifrs.ejb.entity.CatalogoGrupo;
@@ -86,11 +81,7 @@ public class ReporteServiceBean implements ReporteServiceLocal {
                 style.setFont(SoporteReporte.getFontTitle(wb));
                 XSSFCell cell = row.createCell(1);
                 cell.setCellValue(reporte.getPropiedades().getTituloPrincipal());
-                cell.setCellStyle(style);
-                
-                
-                
-
+                cell.setCellStyle(style);                
             }
 
             for (Estructura estructura : reporte.getVersion().getEstructuraList()) {
