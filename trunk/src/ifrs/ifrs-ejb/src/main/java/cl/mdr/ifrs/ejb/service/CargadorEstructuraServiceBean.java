@@ -1,14 +1,23 @@
 package cl.mdr.ifrs.ejb.service;
 
 
+import static ch.lambdaj.Lambda.having;
+import static ch.lambdaj.Lambda.index;
+import static ch.lambdaj.Lambda.max;
+import static ch.lambdaj.Lambda.on;
+import static ch.lambdaj.Lambda.select;
+import static org.hamcrest.Matchers.equalTo;
+
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -16,7 +25,9 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DateUtil;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -27,6 +38,7 @@ import cl.mdr.ifrs.ejb.common.TipoCeldaEnum;
 import cl.mdr.ifrs.ejb.common.TipoDatoEnum;
 import cl.mdr.ifrs.ejb.cross.SortHelper;
 import cl.mdr.ifrs.ejb.cross.Util;
+import cl.mdr.ifrs.ejb.entity.AgrupacionColumna;
 import cl.mdr.ifrs.ejb.entity.Celda;
 import cl.mdr.ifrs.ejb.entity.Columna;
 import cl.mdr.ifrs.ejb.entity.Grilla;
@@ -83,8 +95,108 @@ public class CargadorEstructuraServiceBean implements CargadorEstructuraServiceL
         this.setTipoDatoMap(tipoDatoMap);
     }
     
+    
     /**
-     * obtiene un listado de las columnas de la hoja excel
+	 * @param sheet
+	 * @param cellRangeAddress
+	 * @return Cell
+	 */
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	public Cell getCellByReference(final XSSFSheet sheet, final CellRangeAddress cellRangeAddress){		
+		final XSSFRow row;  
+        XSSFCell cell = null;                  					
+        row = sheet.getRow(cellRangeAddress.getFirstRow());
+        cell = row.getCell((short)cellRangeAddress.getFirstColumn());                    
+        if (cell != null) {
+        	return cell;                  	                    	                   	                   
+        }                					
+		return null;
+	}
+    
+    /**
+	 * Obtiene un listado de las celdas combinadas de la hoja.
+	 * @param sheet
+	 * @return List<CellRangeAddress>
+	 */
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	public List<CellRangeAddress> getCellRangeAddresses(final XSSFSheet sheet){
+		List<CellRangeAddress> cellRangeAddresses = new ArrayList<CellRangeAddress>();
+		for (int i = 0; i < sheet.getNumMergedRegions(); i++) {           
+	        cellRangeAddresses.add(sheet.getMergedRegion(i));
+		}
+		return cellRangeAddresses;
+	}
+    
+    /**
+	 * Metodo que obtiene el listado de agrupaciones correspondientes a la Columna
+	 * @param columna
+	 * @return
+	 */
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	public List<AgrupacionColumna> getAgrupacionByColumna(final XSSFSheet sheet, final Map<Long, Columna> columnaMap){
+		List<AgrupacionColumna> agrupacionColumnas = new ArrayList<AgrupacionColumna>();
+		AgrupacionColumna agrupacionColumna = null;						
+		Long grupo = 1L;		
+		for(CellRangeAddress cellRangeAddress : this.getCellRangeAddresses(sheet)){			
+			for(int i=cellRangeAddress.getFirstColumn()+1; i<=cellRangeAddress.getLastColumn()+1; i++){
+				Columna columna = columnaMap.get(new Long(i));
+				agrupacionColumna = new AgrupacionColumna();
+				agrupacionColumna.setIdNivel(new Long(cellRangeAddress.getFirstRow()+1));
+				agrupacionColumna.setColumna(columna);
+				agrupacionColumna.setTitulo(this.getCellByReference(sheet, cellRangeAddress).getStringCellValue());
+				agrupacionColumna.setIdColumna(columna.getIdColumna());
+				agrupacionColumna.setIdGrilla(columna.getIdGrilla());
+				agrupacionColumna.setGrupo(grupo);
+				agrupacionColumnas.add(agrupacionColumna);					
+			}			
+			grupo++;						
+		}		
+		return agrupacionColumnas;
+	}
+    
+    
+    /**
+	 * Metodo que obtiene un listado con los numeros de fila correspondientes a las cabeceras de la tabla.
+	 * @param sheet
+	 * @return
+	 */
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	public Set<Long> getFilasCabecera(final XSSFSheet sheet){
+		Set<Long> headerRows = new HashSet<Long>();
+		XSSFRow row;  
+        XSSFCell cell; 
+        int rows; 
+        rows = sheet.getPhysicalNumberOfRows();         
+        int cols = 0;  
+        int tmp = 0; 
+        
+        for(int i = 0; i < 10 || i < rows; i++) {  
+            row = sheet.getRow(i);            
+            if(row != null) {  
+                tmp = sheet.getRow(i).getPhysicalNumberOfCells();              
+                if(tmp > cols) cols = tmp;                  
+            }  
+        }
+        
+        for (int r1 = 0; r1 < rows; r1++) {
+            row = sheet.getRow(r1);
+            if (row != null) {
+                for (int c = 0; c < cols; c++) {
+                    cell = row.getCell((short)c);                    
+                    if (cell != null) {
+                    	if(cell.getCellStyle().getFillBackgroundColorColor() != null){                    		
+                    		headerRows.add(new Long(cell.getRowIndex()));
+                    	}                    	                    	                   	                   
+                    }
+                }
+            }
+        }		
+		return headerRows;
+	}
+    
+    
+    /**
+     * Obtiene un listado de las columnas de la hoja excel
      * @param sheet
      * @return
      * @throws Exception
@@ -98,7 +210,8 @@ public class CargadorEstructuraServiceBean implements CargadorEstructuraServiceL
         int cols = 0;  
         int tmp = 0; 
         List<Columna> columnaList = new ArrayList<Columna>();
-        
+        Long columnRow = max(this.getFilasCabecera(sheet));
+
         for(int i = 0; i < 10 || i < rows; i++) {  
             row = sheet.getRow(i);            
             if(row != null) {  
@@ -113,7 +226,7 @@ public class CargadorEstructuraServiceBean implements CargadorEstructuraServiceL
                 for (int c = 0; c < cols; c++) {
                     cell = row.getCell((short)c);
                     if (cell != null) {
-                        if (r1 == sheet.getFirstRowNum()) {
+                        if (r1 == columnRow.intValue()) {
                             CTCol ctCol =
                             sheet.getColumnHelper().getColumn(Util.getLong(cell.getColumnIndex(), new Long(0)), true);
                             Columna columna = new Columna();
@@ -154,6 +267,7 @@ public class CargadorEstructuraServiceBean implements CargadorEstructuraServiceL
         XSSFCell cell; 
         Grilla grilla = new Grilla();
         List<Columna> columnaList = new ArrayList<Columna>();
+        List<AgrupacionColumna> agrupacionColumnasByColumna = new ArrayList<AgrupacionColumna>();
         
         if(sheet == null){            
             throw new CargaGrillaExcelException("El documento Excel no contiene datos");            
@@ -169,11 +283,15 @@ public class CargadorEstructuraServiceBean implements CargadorEstructuraServiceL
         int cols = 0;  
         int tmp = 0; 
         
-        columnaList = getColumnasBySheet(sheet);
+        columnaList = this.getColumnasBySheet(sheet);
         
         if(columnaList.isEmpty()){
             throw new CargaGrillaExcelException("El documento Excel no contiene columnas");     
         }
+        
+        final Map<Long, Columna> columnaMap = index(columnaList, on(Columna.class).getIdColumna());
+		
+        final List<AgrupacionColumna> agrupacionColumnas = this.getAgrupacionByColumna(sheet, columnaMap);
         
         for(int i = 0; i < 10 || i < rows; i++) {  
             row = sheet.getRow(i);            
@@ -185,12 +303,14 @@ public class CargadorEstructuraServiceBean implements CargadorEstructuraServiceL
         
         for(Columna columna : columnaList){
             List<Celda> celdaList = new ArrayList<Celda>();
+            agrupacionColumnasByColumna = select(agrupacionColumnas, having(on(AgrupacionColumna.class).getIdColumna(), equalTo(columna.getIdColumna())));
+            columna.setAgrupacionColumnaList(agrupacionColumnasByColumna);
             for(int r1 = 0; r1 <= rows+1; r1++) {  
                 row = sheet.getRow(r1);  
                 if(row != null) {  
                     for(int c = 0; c < cols; c++) {  
                         cell = row.getCell((short)c);
-                        if(cell != null){
+                        if((cell != null) && (cell.getCellStyle().getFillBackgroundColorColor() == null)){
                             if(columna.getIdColumna().equals(Util.getLong((cell.getColumnIndex()+1), null)) && row.getRowNum() != sheet.getFirstRowNum()){
                                 Celda celda = new Celda();
                                 celda.setColumna(columna);
@@ -212,7 +332,7 @@ public class CargadorEstructuraServiceBean implements CargadorEstructuraServiceL
                                         celda.setTipoDato(this.getTipoDatoMap().get(TipoDatoEnum.ENTERO.getKey()));
                                         celda.setTipoCelda(this.getTipoCeldaMap().get(TipoCeldaEnum.NUMERO.getKey()));
                                     }                                
-                                }                                                                                                                      
+                                }                                                                                                                   
                                 celdaList.add(celda);
                             }
                         }
@@ -223,7 +343,7 @@ public class CargadorEstructuraServiceBean implements CargadorEstructuraServiceL
         }        
         grilla.setColumnaList(columnaList);        
         return grilla;
-        }
+     }
     
     /**
      * genera una Grilla con listado de columnas y celdas desde un archivo excel .xlsx
@@ -433,7 +553,8 @@ public class CargadorEstructuraServiceBean implements CargadorEstructuraServiceL
      * @return
      * @throws Exception
      */
-    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    @SuppressWarnings("unused")
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     private Map<String, Map<Long,Celda>> getDataCell(final Grilla grid, final Long idGrilla) throws Exception {
         
         if(grid.getTipoFormula().equals(Grilla.TIPO_GRILLA_DINAMICA)){

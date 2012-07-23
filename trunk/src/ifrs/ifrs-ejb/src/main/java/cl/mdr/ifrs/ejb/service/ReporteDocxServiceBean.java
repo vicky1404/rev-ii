@@ -171,9 +171,10 @@ public class ReporteDocxServiceBean implements ReporteDocxServiceLocal {
                 if (estructura.getTexto()!=null) {
                     Texto texto = estructura.getTexto();
                     if(texto.isNegrita()){
-                        this.createBoldText(run, texto.getTexto());                            
+                        this.createBoldText(run, texto.getTexto() == null ? "" : texto.getTexto());                            
                     }else{
-                        run.getContent().add(XmlUtils.unmarshalString(Paragraph.with(texto.getTexto()).create().getContent()));
+                        this.createNormalText(run, texto.getTexto() == null ? "" : texto.getTexto());
+                        //run.getContent().add(XmlUtils.unmarshalString(ParagraphPiece.with(texto.getTexto()).withStyle().fontSize(TEXTO_FONT_SIZE).create().getContent()));
                     }
                     this.createBreakLine(run);
                 }
@@ -408,6 +409,18 @@ public class ReporteDocxServiceBean implements ReporteDocxServiceLocal {
         String tag = "<w:p xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" ><w:r><w:rPr><w:rFonts w:ascii=\"Arial\" w:hAnsi=\"Arial\" w:cs=\"Arial\"/><w:b /></w:rPr><w:t>"+text+"</w:t></w:r></w:p>";            
         run.getContent().add(XmlUtils.unmarshalString(tag));
     }
+     
+     /**
+      * generate a paragraph of text 
+      * @param wordMLPackage
+      * @param text
+      * @throws Exception
+      */
+     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+     private void createNormalText(R run, String text) throws Exception {        
+         String tag = "<w:p xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" ><w:r><w:rPr><w:rFonts w:ascii=\"Arial\" w:hAnsi=\"Arial\" w:cs=\"Arial\"/></w:rPr><w:t>"+text+"</w:t></w:r></w:p>";            
+         run.getContent().add(XmlUtils.unmarshalString(tag));
+     } 
     
     private void createTituloUno(R run, String text) throws Exception{
         StringBuffer tag = new StringBuffer();

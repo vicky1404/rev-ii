@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import cl.mdr.ifrs.ejb.entity.AgrupacionColumna;
 import cl.mdr.ifrs.ejb.entity.Celda;
 import cl.mdr.ifrs.ejb.entity.Columna;
 import cl.mdr.ifrs.ejb.entity.Version;
@@ -54,6 +55,14 @@ public class SortHelper {
         Collections.sort(versiones, new Comparator<Version>(){                        
             public int compare(Version v1, Version v2){                
                 return v1.getCatalogo().getOrden().compareTo(v2.getCatalogo().getOrden());
+            }
+        });
+    }
+    
+    public static void sortAgrupacionColumnaByNivel(List<AgrupacionColumna> agrupacionColumnas){
+        Collections.sort(agrupacionColumnas, new Comparator<AgrupacionColumna>(){                        
+            public int compare(AgrupacionColumna a1, AgrupacionColumna a2){                
+                return a1.getIdNivel().compareTo(a2.getIdNivel());
             }
         });
     }
