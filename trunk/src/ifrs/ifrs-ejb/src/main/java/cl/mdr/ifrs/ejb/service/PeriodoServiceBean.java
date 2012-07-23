@@ -3,6 +3,8 @@ package cl.mdr.ifrs.ejb.service;
 
 import static cl.mdr.ifrs.ejb.cross.Constantes.PERSISTENCE_UNIT_NAME;
 
+import java.sql.CallableStatement;
+import java.sql.Types;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +16,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.apache.log4j.Logger;
+import org.hibernate.internal.SessionImpl;
 
 import cl.mdr.ifrs.ejb.entity.HistorialVersion;
 import cl.mdr.ifrs.ejb.entity.Periodo;
@@ -47,21 +50,28 @@ public class PeriodoServiceBean implements PeriodoServiceLocal{
         return null;
     }
     
+   	
     public Integer abrirPeriodo(String usuario) throws Exception {
-        
-            Query query = em.createNamedQuery(Periodo.CALL_SP_ABRIR_PERIODO);    
-            query.setParameter("usuario", usuario);
-            
-            return (Integer) query.getSingleResult();  
+    	
+    	CallableStatement callableStatement = ((SessionImpl) em.getDelegate()).connection().prepareCall("{call PKG_IFRS_PERIODO.PRC_NUEVO_PERIODO(?,?)}");
+
+    	callableStatement.setString(1, usuario);
+    	callableStatement.registerOutParameter(2, Types.INTEGER);
+    	callableStatement.execute();
+	
+    	Integer outputValue = callableStatement.getInt(2);
+
+    	return outputValue;
+    	
     }
     
-    public Integer cerrarPeriodo(String usuario, Long idPeriodo) throws Exception {
+  //TODO falta agregar log y usuario
+    public int cerrarPeriodo(String usuario, Long idPeriodo) throws Exception {
         
-            Query query = em.createNamedQuery(Periodo.CALL_SP_CERRAR_PERIODO);    
-            query.setParameter("usuario", usuario);
+            Query query = em.createNamedQuery(Periodo.CERRAR_PERIODO_BY_PERIODO);    
             query.setParameter("idPeriodo", idPeriodo);
             
-            return (Integer) query.getSingleResult();  
+            return query.executeUpdate();
     }
     
     

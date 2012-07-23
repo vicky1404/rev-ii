@@ -32,6 +32,7 @@ import cl.mdr.ifrs.ejb.common.Constantes;
                  @NamedQuery(name = Version.VERSION_FIND_ALL_NO_VIGENTE, query = "select o from Version o where o.vigencia = 0"),
                  @NamedQuery(name = Version.VERSION_FIND_NO_VIGENTE, query = "select o from Version o where o.vigencia = 0 and o.catalogo = :catalogo"),
                  @NamedQuery(name = Version.VERSION_FIND_VIGENTE, query = "select o from Version o where o.vigencia = 1 and o.catalogo = :catalogo "),
+                 @NamedQuery(name = Version.FIND_VIGENTE_SIN_CERRAR, query = "select o from Version o where o.vigencia = 1 and o.estado.idEstado <> 4 and o.periodo.idPeriodo = :idPeriodo order by o.catalogo.empresa.rut, o.catalogo.orden"),
                  @NamedQuery(name = Version.VERSION_FIND_ALL_BY_CATALOGO, query = "select o from Version o where o.catalogo = :catalogo order by o.vigencia, o.version, o.fechaCreacion"),
                  @NamedQuery(name = Version.VERSION_FIND_ALL_BY_ID_CATALOGO, query = "select o from Version o where o.catalogo.idCatalogo = :idCatalogo order by o.vigencia, o.version, o.fechaCreacion"),
                  @NamedQuery(name = Version.VERSION_FIND_BY_VERSION, query = "select o from Version o where o = :version"),
@@ -67,6 +68,7 @@ public class Version implements Serializable {
     public static final String FIND_ULTIMA_VERSION_VIGENTE = "Version.findUltimaVersionVigente";
     public static final String VERSION_FIND_BY_FILTRO = "Version.findByFiltro";
     public static final String VERSION_FIND_BY_ID_CATALOGO_ID_PERIODO = "Version.findByIdCatalogoIdPeriodo";
+    public static final String FIND_VIGENTE_SIN_CERRAR = "Version.findVigenteSinCerrar";
     
     private static final long serialVersionUID = -8305833693336452475L;
     

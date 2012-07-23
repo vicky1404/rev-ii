@@ -32,6 +32,8 @@ import com.google.gson.annotations.Expose;
 @Table(name=Constantes.EMPRESA)
 public class Empresa implements Serializable {
 	
+	
+
 	public static final String EMPRESA_FIND_ALL = "Empresa.findAll";
 	public static final String EMPRESA_FIND_BY_ID = "Empresa.findById";
 	
@@ -139,6 +141,29 @@ public class Empresa implements Serializable {
 	}
 
     
-	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((rut == null) ? 0 : rut.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Empresa other = (Empresa) obj;
+		if (rut == null) {
+			if (other.rut != null)
+				return false;
+		} else if (!rut.equals(other.rut))
+			return false;
+		return true;
+	}
 	
 }
