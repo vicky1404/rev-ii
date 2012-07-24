@@ -18,6 +18,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.apache.log4j.Logger;
+
 import cl.mdr.ifrs.ejb.common.EstadoCuadroEnum;
 import cl.mdr.ifrs.ejb.entity.AgrupacionColumna;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
@@ -32,6 +34,7 @@ import cl.mdr.ifrs.ejb.entity.Periodo;
 import cl.mdr.ifrs.ejb.entity.Texto;
 import cl.mdr.ifrs.ejb.entity.TipoCuadro;
 import cl.mdr.ifrs.ejb.entity.TipoEstructura;
+import cl.mdr.ifrs.ejb.entity.Usuario;
 import cl.mdr.ifrs.ejb.entity.Version;
 import cl.mdr.ifrs.ejb.service.local.CeldaServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.EstructuraServiceLocal;
@@ -40,12 +43,11 @@ import cl.mdr.ifrs.ejb.service.local.PeriodoServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.VersionServiceLocal;
 import cl.mdr.ifrs.exceptions.PeriodoException;
 import cl.mdr.ifrs.model.EstructuraModel;
-import cl.mdr.ifrs.vo.GrillaModelVO;
 
 
 @Stateless
 public class VersionServiceBean implements VersionServiceLocal{
-        
+	private static final Logger logger = Logger.getLogger(VersionServiceBean.class);   
     
     @PersistenceContext(unitName = PERSISTENCE_UNIT_NAME)
     private EntityManager em;
@@ -253,15 +255,8 @@ public class VersionServiceBean implements VersionServiceLocal{
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void persistVersion(final List<Version> versiones, final List<Estructura> estructuras, final Map<Long, EstructuraModel> estructuraModelMap, final String usuario) throws PeriodoException, Exception{
         
-        for(int i=0; i<versiones.size(); i++){
-            Version version = versiones.get(i);
-            version = em.merge(version);
-            versiones.set(i,version);
-        }
-        
-        Version versionVigente = versiones.get(versiones.size() -1);
-                                                                    
-        Periodo periodo = periodoService.findMaxPeriodoIniciado();
+    	
+    	Periodo periodo = periodoService.findMaxPeriodoIniciado();
         
         if (periodo == null || periodo.getIdPeriodo()==null) {
             throw new PeriodoException("El período no puede estar cerrado");
@@ -273,16 +268,25 @@ public class VersionServiceBean implements VersionServiceLocal{
             throw new PeriodoException("No existe el estado del cuadro");
         }
         
-        versionVigente.setPeriodo(periodo);
+    	Version versionVigente = versiones.get(versiones.size() -1);
+    	
+    	versionVigente.setPeriodo(periodo);
         versionVigente.setUsuario(usuario);
         versionVigente.setFechaCreacion(new Date());
         versionVigente.setFechaUltimoProceso(new Date());
         versionVigente.setEstado(estadoCuado);
-        versionVigente = em.merge(versionVigente);
+        
+        em.persist(versionVigente);
+    	
+    	for(int i=0; i<versiones.size(); i++){
+            Version version = versiones.get(i);
+            version = em.merge(version);
+            versiones.set(i,version);
+        }
 
         HistorialVersion historial = new HistorialVersion();
         historial.setFechaProceso(new Date());
-        historial.setUsuario(null); //TODO Agregar usuario
+        historial.setUsuario(new Usuario(usuario));
         historial.setVersion(versionVigente);
         historial.setEstadoCuadro(estadoCuado);
         historial.setComentario("CREACIÓN INICIAL");
@@ -297,56 +301,29 @@ public class VersionServiceBean implements VersionServiceLocal{
             
             if(estructuraModelMap.containsKey(estructura.getOrden())){
                 EstructuraModel estructuraModel = estructuraModelMap.get(estructura.getOrden());
-                if(estructura.getTipoEstructura().getIdTipoEstructura() == TipoEstructura.ESTRUCTURA_TIPO_GRILLA){                    
+                List<Columna> columnas = new ArrayList<Columna>();
+                if(estructura.getTipoEstructura().getIdTipoEstructura() == TipoEstructura.ESTRUCTURA_TIPO_GRILLA){   
+                	
                     Grilla grilla = new Grilla();
                     grilla.setIdGrilla(estructura.getIdEstructura());
                     grilla.setEstructura(estructura);
-                    grilla.setTitulo(estructuraModel.getTituloGrilla());
-                    //System.out.println("Borrando Grilla -> " + grilla.getIdGrilla());
-                    int returnDelete = em.createQuery("delete from Celda c where c.idGrilla = :idGrilla").setParameter("idGrilla", grilla.getIdGrilla()).executeUpdate();
-                    em.flush();
-                    if(returnDelete > 0){
-                        for(Columna columna : estructuraModel.getColumnas()){
-                            columna.setGrilla(grilla);
-                            //System.out.println("Insertando celda");
-                            columna.setIdGrilla(estructura.getIdEstructura());                            
-                            em.persist(columna);
-                            for(Celda celda : columna.getCeldaList()){
-                                celda.setIdColumna(columna.getIdColumna());
-                                celda.setIdGrilla(estructura.getIdEstructura());
-                                celda.setColumna(columna);
-                                //System.out.println("A idGrilla -> " + celda.getIdGrilla()  + " idColumna -> " + celda.getIdColumna() + " idFila -> " + celda.getIdFila());
-                                em.persist(celda);
-                            }
+                    grilla.setTitulo(estructuraModel.getTituloGrilla());                                        
+                    em.persist(grilla);                                                                                                      
+                    for(Columna columna : estructuraModel.getColumnas()){
+                        columna.setGrilla(grilla);                        
+                        em.persist(columna);
+                        logger.info("Insertando Columna ->" + columna.getIdColumna());
+                        for(Celda celda : columna.getCeldaList()){
+                        	celda.setIdGrilla(grilla.getIdGrilla());
+                        	celda.setIdColumna(columna.getIdColumna());
+                        	logger.info("Insertando celda col->" + celda.getIdColumna() + " fila->" + celda.getIdFila() + " grilla->" + celda.getIdGrilla());
+                        	//em.persist(celda);
                         }
-                    }else{
-                        for(Columna columna : estructuraModel.getColumnas()){
-                            columna.setGrilla(grilla);
-                            columna.setIdGrilla(estructura.getIdEstructura());
-                            columna.setAgrupacionColumnaList(new ArrayList<AgrupacionColumna>());
-                            Iterator it = estructuraModel.getAgrupacionesMap().entrySet().iterator();
-                            while(it.hasNext()){
-                                Map.Entry entry = (Map.Entry)it.next();
-                                List<AgrupacionColumna> agrupaciones = (List<AgrupacionColumna>) entry.getValue();
-                                for(AgrupacionColumna agrupacion : agrupaciones){
-                                    if(columna.getIdColumna().equals(agrupacion.getIdColumna())){
-                                        agrupacion.setIdGrilla(estructura.getIdEstructura());
-                                        agrupacion.setColumna(columna);
-                                        columna.getAgrupacionColumnaList().add(agrupacion);
-                                    }
-                                }
-                            }
-                            for(Celda celda : columna.getCeldaList()){
-                                celda.setIdColumna(columna.getIdColumna());
-                                celda.setIdGrilla(estructura.getIdEstructura());
-                                celda.setColumna(columna);
-                                //System.out.println("B idGrilla -> " + celda.getIdGrilla()  + " idColumna -> " + celda.getIdColumna() + " idFila -> " + celda.getIdFila());
-                            }
+                        for(AgrupacionColumna agrupacionColumna : columna.getAgrupacionColumnaList()){
+                        	//em.persist(agrupacionColumna);
                         }
-                        grilla.setColumnaList(estructuraModel.getColumnas());                         
-                        em.persist(grilla);
-                        estructura.setGrilla(grilla);
                     }
+                    
                     
                 }else if(estructura.getTipoEstructura().getIdTipoEstructura() == TipoEstructura.ESTRUCTURA_TIPO_TEXTO){
                     Texto texto = estructuraModel.getTexto();
