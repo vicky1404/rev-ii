@@ -52,7 +52,7 @@
 				<div align="center">
 
 					<p:dataTable value="#{procesoBackingBean.versionList}" var="row"
-						rowBandingInterval="0" id="n1Cat"
+						rowBandingInterval="0" id="n1Cat" paginator="true" rows="5"
 						rendered="#{procesoBackingBean.renderVersionList}"
 						emptyMessage="#{msg.periodo_busqueda_sin_resultado}">
 
