@@ -4,9 +4,11 @@ package cl.mdr.ifrs.ejb.entity;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -21,22 +23,21 @@ import org.hibernate.annotations.FetchMode;
 import cl.mdr.ifrs.ejb.common.Constantes;
 import cl.mdr.ifrs.ejb.entity.pk.ColumnaPK;
 
-
 @Entity
 @NamedQueries( { @NamedQuery(name = "Columna.findAll", query = "select o from Columna o") })
 @Table(name = Constantes.COLUMNA)
+@IdClass(ColumnaPK.class)
 public class Columna implements Serializable {
 
     private static final long serialVersionUID = 8480508449730276846L;
     private Long ancho;
     
-    @EmbeddedId
-    private ColumnaPK id;
-
-    @Transient
-	private Long idColumna;
+    @Id
+    @Column(name = "ID_COLUMNA", nullable = false)
+    private Long idColumna;
     
-    @Transient
+    @Id
+    @Column(name = "ID_GRILLA", nullable = false, insertable = false, updatable = false)
     private Long idGrilla;
     
     @Column(nullable = false)
@@ -46,19 +47,20 @@ public class Columna implements Serializable {
     private String tituloColumna;
     
     @Fetch(FetchMode.JOIN)
-    @OneToMany(mappedBy = "columna")
+    @OneToMany(mappedBy = "columna", cascade = CascadeType.PERSIST)
     //@OrderBy("idColumna asc ,idFila asc")
     private List<Celda> celdaList;
     
     @ManyToOne
-    @JoinColumn(name = "ID_GRILLA", referencedColumnName = "ID_GRILLA",insertable=false, updatable=false)
+    @JoinColumn(name = "ID_GRILLA")
     private Grilla grilla;
     
     @Column(name = "ROW_HEADER")
-    private boolean rowHeader;    
+    private boolean rowHeader;
     
     
-    @OneToMany(mappedBy = "columna")
+    
+    @OneToMany(mappedBy = "columna" ,cascade = CascadeType.PERSIST)
     private List<AgrupacionColumna> agrupacionColumnaList;
     
     @Transient
@@ -97,13 +99,6 @@ public class Columna implements Serializable {
     }
 
     public void setIdColumna(Long idColumna) {
-    	if(id!=null){
-    		id.setIdColumna(idColumna);
-    	}else{
-    		ColumnaPK id = new ColumnaPK();
-    		id.setIdColumna(idColumna);
-    		this.id = id;
-    	}
         this.idColumna = idColumna;
     }
 
@@ -112,13 +107,6 @@ public class Columna implements Serializable {
     }
 
     public void setIdGrilla(Long idGrilla) {
-    	if(id!=null){
-    		id.setIdGrilla(idGrilla);
-    	}else{
-    		ColumnaPK id = new ColumnaPK();
-    		id.setIdGrilla(idGrilla);
-    		this.id = id;
-    	}
         this.idGrilla = idGrilla;
     }
 
@@ -165,7 +153,7 @@ public class Columna implements Serializable {
     public void setGrilla(Grilla grillaNota) {
         this.grilla = grillaNota;
         if (grillaNota != null) {
-            setIdGrilla(grillaNota.getIdGrilla());
+            this.idGrilla = grillaNota.getIdGrilla();
         }
     }
 
@@ -231,12 +219,5 @@ public class Columna implements Serializable {
         return agrupacionColumnaList;
     }
 
-    public ColumnaPK getId() {
-		return id;
-	}
-
-	public void setId(ColumnaPK id) {
-		this.id = id;
-	}
   
 }
