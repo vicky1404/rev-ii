@@ -7,7 +7,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
@@ -153,7 +152,7 @@ public class GeneradorVisualizadorBackingBean extends AbstractBackingBean implem
 	}
 
 	public List<Estructura> getEstructuraList() {
-		estructuraList = getGeneradorVersionBackingBean().getEstructuraList();
+		/*estructuraList = getGeneradorVersionBackingBean().getEstructuraList();
         if(Util.esListaValida(estructuraList)){
             for(Estructura estructura : estructuraList){
                 if(this.getConfiguradorDisenoBackingBean().getEstructuraModelMap().containsKey(estructura.getOrden())){
@@ -173,7 +172,7 @@ public class GeneradorVisualizadorBackingBean extends AbstractBackingBean implem
                     }
                 }
             }
-        }
+        }*/
 		return estructuraList;
 	}
 
