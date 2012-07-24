@@ -50,7 +50,7 @@ public class Columna implements Serializable {
     private String tituloColumna;
     
     @Fetch(FetchMode.JOIN)
-    @OneToMany(mappedBy = "columna")
+    @OneToMany(mappedBy = "columna", cascade = CascadeType.PERSIST)
     //@OrderBy("idColumna asc ,idFila asc")
     private List<Celda> celdaList;
     
@@ -63,7 +63,7 @@ public class Columna implements Serializable {
     
     
     
-    @OneToMany(mappedBy = "columna")
+    @OneToMany(mappedBy = "columna" ,cascade = CascadeType.PERSIST)
     private List<AgrupacionColumna> agrupacionColumnaList;
     
     @Transient
