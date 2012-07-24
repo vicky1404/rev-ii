@@ -39,6 +39,7 @@ import cl.mdr.ifrs.ejb.service.local.GrillaServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.PeriodoServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.VersionServiceLocal;
 import cl.mdr.ifrs.exceptions.PeriodoException;
+import cl.mdr.ifrs.model.EstructuraModel;
 import cl.mdr.ifrs.vo.GrillaModelVO;
 
 
@@ -250,7 +251,7 @@ public class VersionServiceBean implements VersionServiceLocal{
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void persistVersion(List<Version> versiones, List<Estructura> estructuras, Map<Long, GrillaModelVO> grillaModelMap, String usuario) throws PeriodoException, Exception{
+    public void persistVersion(final List<Version> versiones, final List<Estructura> estructuras, final Map<Long, EstructuraModel> estructuraModelMap, final String usuario) throws PeriodoException, Exception{
         
         for(int i=0; i<versiones.size(); i++){
             Version version = versiones.get(i);
@@ -294,20 +295,22 @@ public class VersionServiceBean implements VersionServiceLocal{
             estructura = em.merge(estructura);
             estructuras.set(i,estructura);
             
-            if(grillaModelMap.containsKey(estructura.getOrden())){
-                GrillaModelVO grillaModel = grillaModelMap.get(estructura.getOrden());
+            if(estructuraModelMap.containsKey(estructura.getOrden())){
+                EstructuraModel estructuraModel = estructuraModelMap.get(estructura.getOrden());
                 if(estructura.getTipoEstructura().getIdTipoEstructura() == TipoEstructura.ESTRUCTURA_TIPO_GRILLA){                    
                     Grilla grilla = new Grilla();
                     grilla.setIdGrilla(estructura.getIdEstructura());
                     grilla.setEstructura(estructura);
-                    grilla.setTitulo(grillaModel.getTituloGrilla());
+                    grilla.setTitulo(estructuraModel.getTituloGrilla());
                     //System.out.println("Borrando Grilla -> " + grilla.getIdGrilla());
                     int returnDelete = em.createQuery("delete from Celda c where c.idGrilla = :idGrilla").setParameter("idGrilla", grilla.getIdGrilla()).executeUpdate();
+                    em.flush();
                     if(returnDelete > 0){
-                        for(Columna columna : grillaModel.getColumnas()){
+                        for(Columna columna : estructuraModel.getColumnas()){
                             columna.setGrilla(grilla);
                             //System.out.println("Insertando celda");
-                            columna.setIdGrilla(estructura.getIdEstructura());
+                            columna.setIdGrilla(estructura.getIdEstructura());                            
+                            em.persist(columna);
                             for(Celda celda : columna.getCeldaList()){
                                 celda.setIdColumna(columna.getIdColumna());
                                 celda.setIdGrilla(estructura.getIdEstructura());
@@ -317,11 +320,11 @@ public class VersionServiceBean implements VersionServiceLocal{
                             }
                         }
                     }else{
-                        for(Columna columna : grillaModel.getColumnas()){
+                        for(Columna columna : estructuraModel.getColumnas()){
                             columna.setGrilla(grilla);
                             columna.setIdGrilla(estructura.getIdEstructura());
                             columna.setAgrupacionColumnaList(new ArrayList<AgrupacionColumna>());
-                            Iterator it = grillaModel.getAgrupacionesMap().entrySet().iterator();
+                            Iterator it = estructuraModel.getAgrupacionesMap().entrySet().iterator();
                             while(it.hasNext()){
                                 Map.Entry entry = (Map.Entry)it.next();
                                 List<AgrupacionColumna> agrupaciones = (List<AgrupacionColumna>) entry.getValue();
@@ -340,20 +343,20 @@ public class VersionServiceBean implements VersionServiceLocal{
                                 //System.out.println("B idGrilla -> " + celda.getIdGrilla()  + " idColumna -> " + celda.getIdColumna() + " idFila -> " + celda.getIdFila());
                             }
                         }
-                        grilla.setColumnaList(grillaModel.getColumnas());                    
-                        grilla = em.merge(grilla);
+                        grilla.setColumnaList(estructuraModel.getColumnas());                         
+                        em.persist(grilla);
                         estructura.setGrilla(grilla);
                     }
                     
                 }else if(estructura.getTipoEstructura().getIdTipoEstructura() == TipoEstructura.ESTRUCTURA_TIPO_TEXTO){
-                    Texto texto = grillaModel.getTexto();
+                    Texto texto = estructuraModel.getTexto();
                     texto.setIdTexto(estructura.getIdEstructura());
                     texto.setEstructura(estructura);
                     texto = em.merge(texto);
                     estructura.setTexto(texto);
                 }else{
                     List<Html> htmlList = new ArrayList<Html>();
-                    Html html = grillaModel.getHtml();
+                    Html html = estructuraModel.getHtml();
                     html.setIdHtml(estructura.getIdEstructura());
                     html.setEstructura(estructura);
                     html = em.merge(html);

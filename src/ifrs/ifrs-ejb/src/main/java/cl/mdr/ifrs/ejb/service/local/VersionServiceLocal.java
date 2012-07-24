@@ -13,6 +13,7 @@ import cl.mdr.ifrs.ejb.entity.HistorialVersion;
 import cl.mdr.ifrs.ejb.entity.Periodo;
 import cl.mdr.ifrs.ejb.entity.TipoCuadro;
 import cl.mdr.ifrs.ejb.entity.Version;
+import cl.mdr.ifrs.model.EstructuraModel;
 import cl.mdr.ifrs.vo.GrillaModelVO;
 
 
@@ -53,7 +54,7 @@ public interface VersionServiceLocal {
      * @param estructuras
      * @throws Exception
      */
-    void persistVersion(List<Version> versiones, List<Estructura> estructuras, Map<Long, GrillaModelVO> grillaModelMap , String usuario) throws Exception;
+    void persistVersion(List<Version> versiones, List<Estructura> estructuras, Map<Long, EstructuraModel> estructuraModelMap , String usuario) throws Exception;
 
     /**
      * @return
