@@ -4,9 +4,9 @@ import static ch.lambdaj.Lambda.extract;
 import static ch.lambdaj.Lambda.on;
 import static cl.mdr.ifrs.ejb.cross.Constantes.PERSISTENCE_UNIT_NAME;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -274,11 +274,26 @@ public class VersionServiceBean implements VersionServiceLocal{
         versionVigente.setUsuario(usuario);
         versionVigente.setFechaCreacion(new Date());
         versionVigente.setFechaUltimoProceso(new Date());
-        versionVigente.setEstado(estadoCuado);
+        versionVigente.setEstado(estadoCuado);        
+        //versionVigente = em.merge(versionVigente);
         
-        em.persist(versionVigente);
+        final BigDecimal idVersion = (BigDecimal) em.createNativeQuery("select SEQ_VERSION.nextval from dual").getSingleResult();
+        em.createNativeQuery(" INSERT "+
+        					 " INTO IFRS_VERSION(ID_VERSION,ID_CATALOGO,ID_PERIODO,ID_ESTADO_CUADRO,VERSION,VIGENCIA,FECHA_CREACION,COMENTARIO,FECHA_ULTIMO_PROCESO,USUARIO)"+
+        					 " VALUES(?,?,?,?,?,?,?,?,?,?)").
+        					   setParameter(1, idVersion).
+        					   setParameter(2, versionVigente.getCatalogo().getIdCatalogo()).
+        					   setParameter(3, versionVigente.getPeriodo().getIdPeriodo()).
+        					   setParameter(4, versionVigente.getEstado().getIdEstado()).
+        					   setParameter(5, versionVigente.getVersion()).
+        					   setParameter(6, versionVigente.getVigencia()).
+        					   setParameter(7, versionVigente.getFechaCreacion()).
+        					   setParameter(8, versionVigente.getComentario()).
+        					   setParameter(9, versionVigente.getFechaUltimoProceso()).
+        					   setParameter(10, versionVigente.getUsuario()).        					   
+        					   executeUpdate();    	
     	
-    	for(int i=0; i<versiones.size(); i++){
+    	for(int i=0; i<versiones.size()-1; i++){
             Version version = versiones.get(i);
             version = em.merge(version);
             versiones.set(i,version);
@@ -290,14 +305,23 @@ public class VersionServiceBean implements VersionServiceLocal{
         historial.setVersion(versionVigente);
         historial.setEstadoCuadro(estadoCuado);
         historial.setComentario("CREACIÓN INICIAL");
-        em.persist(historial);
-        em.flush();
+        //em.persist(historial);
+        
         for(int i=0; i<estructuras.size(); i++){
             
             Estructura estructura = estructuras.get(i);
             estructura.setVersion(versionVigente);
-            estructura = em.merge(estructura);
+            //estructura = em.merge(estructura);
             estructuras.set(i,estructura);
+            final BigDecimal idEstructura = (BigDecimal) em.createNativeQuery("select SEQ_ESTRUCTURA.nextval from dual").getSingleResult();
+            em.createNativeQuery(" INSERT "+
+            		             " INTO IFRS_ESTRUCTURA(ID_ESTRUCTURA, ID_VERSION,ID_TIPO_ESTRUCTURA,ORDEN)"+
+            					 " VALUES(?,?,?,?)").
+            					   setParameter(1, idEstructura).
+            					   setParameter(2, idVersion).
+            					   setParameter(3, estructura.getTipoEstructura().getIdTipoEstructura()).
+            					   setParameter(4, estructura.getOrden()).
+            					   executeUpdate();
             
             if(estructuraModelMap.containsKey(estructura.getOrden())){
                 EstructuraModel estructuraModel = estructuraModelMap.get(estructura.getOrden());
@@ -305,7 +329,7 @@ public class VersionServiceBean implements VersionServiceLocal{
                 if(estructura.getTipoEstructura().getIdTipoEstructura() == TipoEstructura.ESTRUCTURA_TIPO_GRILLA){   
                 	
                     Grilla grilla = new Grilla();
-                    grilla.setIdGrilla(estructura.getIdEstructura());
+                    grilla.setIdGrilla(idEstructura.longValue());
                     grilla.setEstructura(estructura);
                     grilla.setTitulo(estructuraModel.getTituloGrilla());                                        
                     //em.persist(grilla);
@@ -347,7 +371,14 @@ public class VersionServiceBean implements VersionServiceLocal{
                         			               executeUpdate();
                         }
                         for(AgrupacionColumna agrupacionColumna : columna.getAgrupacionColumnaList()){
-                        	//em.persist(agrupacionColumna);
+                        	em.createNativeQuery(" INSERT "+
+                        						 " INTO IFRS_AGRUPACION_COLUMNA(ID_NIVEL,ID_COLUMNA,ID_GRILLA,TITULO,GRUPO)"+
+                        						 " VALUES(?, ?, ?, ?, ?)").
+                        						   setParameter(1, agrupacionColumna.getIdNivel()).
+                        			               setParameter(2, agrupacionColumna.getIdColumna()).
+                        			               setParameter(3, grilla.getIdGrilla()).
+                        			               setParameter(4, agrupacionColumna.getTitulo()).                        			               
+                        			               setParameter(5, agrupacionColumna.getGrupo()).executeUpdate();
                         }
                     }
                     
@@ -468,5 +499,37 @@ public class VersionServiceBean implements VersionServiceLocal{
 		 Query query = em.createNamedQuery(Version.VERSION_FIND_ALL_BY_ID_CATALOGO);
 	     query.setParameter("idCatalogo",idCatalogo);
 	     return query.getResultList();
+	}
+
+	public EstructuraServiceLocal getEstructuraService() {
+		return estructuraService;
+	}
+
+	public void setEstructuraService(EstructuraServiceLocal estructuraService) {
+		this.estructuraService = estructuraService;
+	}
+
+	public CeldaServiceLocal getCeldaService() {
+		return celdaService;
+	}
+
+	public void setCeldaService(CeldaServiceLocal celdaService) {
+		this.celdaService = celdaService;
+	}
+
+	public GrillaServiceLocal getGrillaService() {
+		return grillaService;
+	}
+
+	public void setGrillaService(GrillaServiceLocal grillaService) {
+		this.grillaService = grillaService;
+	}
+
+	public PeriodoServiceLocal getPeriodoService() {
+		return periodoService;
+	}
+
+	public void setPeriodoService(PeriodoServiceLocal periodoService) {
+		this.periodoService = periodoService;
 	}
 }

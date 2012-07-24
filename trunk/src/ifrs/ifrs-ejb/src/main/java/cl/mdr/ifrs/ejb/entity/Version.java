@@ -51,7 +51,7 @@ import cl.mdr.ifrs.ejb.common.Constantes;
                                     " and v.catalogo.vigencia = 1"),
                                     //" order by v.catalogo.tipoCuadro.nombre , " +
                                     //" v.catalogo.orden asc")
-                 @NamedQuery(name = Version.VERSION_FIND_BY_ID_CATALOGO_ID_PERIODO, query = "select o from Version o where o.catalogo.idCatalogo = :idCatalogo and o.periodo.idPeriodo = :idPeriodo"),
+                 @NamedQuery(name = Version.VERSION_FIND_BY_ID_CATALOGO_ID_PERIODO, query = "select o from Version o where o.catalogo.idCatalogo = :idCatalogo and o.periodo.idPeriodo = :idPeriodo order by o.version desc"),
                  })
 @Table(name = Constantes.VERSION)
 public class Version implements Serializable {
