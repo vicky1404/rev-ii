@@ -16,7 +16,6 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
-import cl.mdr.ifrs.cross.model.EstructuraModel;
 import cl.mdr.ifrs.cross.util.GeneradorDisenoHelper;
 import cl.mdr.ifrs.ejb.entity.Celda;
 import cl.mdr.ifrs.ejb.entity.Columna;
@@ -27,6 +26,7 @@ import cl.mdr.ifrs.ejb.entity.Texto;
 import cl.mdr.ifrs.ejb.entity.TipoCelda;
 import cl.mdr.ifrs.ejb.entity.TipoDato;
 import cl.mdr.ifrs.exceptions.CargaGrillaExcelException;
+import cl.mdr.ifrs.model.EstructuraModel;
 import cl.mdr.ifrs.vo.AgrupacionModelVO;
 import cl.mdr.ifrs.vo.GrillaVO;
 

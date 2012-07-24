@@ -13,8 +13,9 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
+import org.apache.log4j.Logger;
+
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
-import cl.mdr.ifrs.cross.model.EstructuraModel;
 import cl.mdr.ifrs.cross.util.GeneradorDisenoHelper;
 import cl.mdr.ifrs.ejb.cross.SortHelper;
 import cl.mdr.ifrs.ejb.cross.Util;
@@ -23,6 +24,9 @@ import cl.mdr.ifrs.ejb.entity.Celda;
 import cl.mdr.ifrs.ejb.entity.Columna;
 import cl.mdr.ifrs.ejb.entity.Estructura;
 import cl.mdr.ifrs.ejb.entity.TipoEstructura;
+import cl.mdr.ifrs.exceptions.GrillaIncorrectaException;
+import cl.mdr.ifrs.exceptions.PeriodoException;
+import cl.mdr.ifrs.model.EstructuraModel;
 import cl.mdr.ifrs.vo.AgrupacionColumnaModelVO;
 import cl.mdr.ifrs.vo.GrillaVO;
 import cl.mdr.ifrs.vo.HtmlVO;
@@ -31,6 +35,7 @@ import cl.mdr.ifrs.vo.TextoVO;
 @ManagedBean
 @ViewScoped
 public class GeneradorVisualizadorBackingBean extends AbstractBackingBean implements Serializable {
+	private transient Logger logger = Logger.getLogger(this.getClass().getName());  
 	private static final long serialVersionUID = 5163999002484028864L;
 	
 	@ManagedProperty(value="#{configuradorDisenoBackingBean}")
@@ -44,6 +49,34 @@ public class GeneradorVisualizadorBackingBean extends AbstractBackingBean implem
 	public void cargarEstructuraAction(ActionEvent event){
 		this.getEstructuraList();
 	}
+	
+    public void guardarDisenoActionListener(ActionEvent action){
+        try {
+            GeneradorDisenoHelper.validarContenidoCelda(this.getConfiguradorDisenoBackingBean().getEstructuraModelMap());
+        } catch (GrillaIncorrectaException e) {
+            if(e.getErrores()==null)
+                super.addWarnMessage(e.getMessage());
+            else
+                for(String error : e.getErrores()){
+                	super.addWarnMessage(error);
+                }
+            return;          
+        } catch (Exception e) {            
+            super.addErrorMessage("Error al procesar la información");
+            return;
+        }
+        try{
+            super.getFacadeService().getVersionService().persistVersion(this.getGeneradorVersionBackingBean().getVersionList(), this.getGeneradorVersionBackingBean().getEstructuraList(), this.getConfiguradorDisenoBackingBean().getEstructuraModelMap(), super.getNombreUsuario());   
+            super.addInfoMessage("Se ha almacenado correctamente la informacion");
+        }catch(PeriodoException e){
+        	super.addErrorMessage("Error, no se ha almacenado la información");
+        	super.addErrorMessage(e.getMessage());
+            logger.error(e);
+        }catch(Exception e){
+        	super.addErrorMessage("Error, no se ha almacenado la información");
+            logger.error(e);
+        }
+    }
 				
     @SuppressWarnings({ "rawtypes", "unchecked" })
 	public GrillaVO createTableModel(List<Columna> columnasGrilla, Map<Long,List<AgrupacionColumna>> agrupacionesMap) {        

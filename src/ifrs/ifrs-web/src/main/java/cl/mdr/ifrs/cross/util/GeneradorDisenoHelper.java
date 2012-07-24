@@ -13,9 +13,9 @@ import cl.mdr.ifrs.ejb.entity.Texto;
 import cl.mdr.ifrs.ejb.entity.TipoEstructura;
 import cl.mdr.ifrs.ejb.entity.Version;
 import cl.mdr.ifrs.exceptions.GrillaIncorrectaException;
+import cl.mdr.ifrs.model.EstructuraModel;
 import cl.mdr.ifrs.vo.AgrupacionColumnaModelVO;
 import cl.mdr.ifrs.vo.AgrupacionModelVO;
-import cl.mdr.ifrs.cross.model.EstructuraModel;
 import cl.mdr.ifrs.cross.vo.AgrupacionVO;
 import cl.mdr.ifrs.vo.GrillaModelVO;
 import cl.mdr.ifrs.vo.GrillaVO;
@@ -101,19 +101,20 @@ public class GeneradorDisenoHelper {
         
     }
     
-    public static void validarContenidoCelda(Map<Long, GrillaModelVO> grillaModelMap) throws GrillaIncorrectaException, Exception{
-        Iterator it = grillaModelMap.entrySet().iterator();
+    @SuppressWarnings("rawtypes")
+	public static void validarContenidoCelda(Map<Long, EstructuraModel> estructuraModelMap) throws GrillaIncorrectaException, Exception{
+        Iterator it = estructuraModelMap.entrySet().iterator();
         List<String> mensajes = new ArrayList<String>();
         String mensaje;
         boolean valido = true;
         int i=0;
         while(it.hasNext()){
             Map.Entry entry = (Map.Entry)it.next();
-            GrillaModelVO grilla = (GrillaModelVO)entry.getValue();
-            if(TipoEstructura.ESTRUCTURA_TIPO_GRILLA.equals(grilla.getTipoEstructura())){
-                if(grilla.getColumnas()==null || grilla.getColumnas().size()==0)
+            EstructuraModel estructuraModel = (EstructuraModel)entry.getValue();
+            if(TipoEstructura.ESTRUCTURA_TIPO_GRILLA.equals(estructuraModel.getTipoEstructura())){
+                if(estructuraModel.getColumnas()==null || estructuraModel.getColumnas().size()==0)
                     throw new GrillaIncorrectaException("La grilla configurada debe tener al menos una columna");
-                for(Columna columna : grilla.getColumnas()){
+                for(Columna columna : estructuraModel.getColumnas()){
                     if(columna.getCeldaList()==null || columna.getCeldaList().size()==0)
                         throw new GrillaIncorrectaException("La grilla debe tener al menos una celda por columna");
                     for(Celda celda : columna.getCeldaList()){
