@@ -36,6 +36,7 @@ import cl.mdr.ifrs.ejb.entity.TipoCuadro;
 import cl.mdr.ifrs.ejb.entity.TipoEstructura;
 import cl.mdr.ifrs.ejb.entity.Usuario;
 import cl.mdr.ifrs.ejb.entity.Version;
+import cl.mdr.ifrs.ejb.entity.pk.ColumnaPK;
 import cl.mdr.ifrs.ejb.service.local.CeldaServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.EstructuraServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.GrillaServiceLocal;
@@ -281,7 +282,6 @@ public class VersionServiceBean implements VersionServiceLocal{
     	for(int i=0; i<versiones.size(); i++){
             Version version = versiones.get(i);
             version = em.merge(version);
-            versiones.set(i,version);
         }
 
         HistorialVersion historial = new HistorialVersion();
@@ -296,12 +296,12 @@ public class VersionServiceBean implements VersionServiceLocal{
             
             Estructura estructura = estructuras.get(i);
             estructura.setVersion(versionVigente);
-            estructura = em.merge(estructura);
-            estructuras.set(i,estructura);
+            em.persist(estructura);
             
             if(estructuraModelMap.containsKey(estructura.getOrden())){
-                EstructuraModel estructuraModel = estructuraModelMap.get(estructura.getOrden());
-                List<Columna> columnas = new ArrayList<Columna>();
+                
+            	EstructuraModel estructuraModel = estructuraModelMap.get(estructura.getOrden());
+                
                 if(estructura.getTipoEstructura().getIdTipoEstructura() == TipoEstructura.ESTRUCTURA_TIPO_GRILLA){   
                 	
                     Grilla grilla = new Grilla();
@@ -310,18 +310,18 @@ public class VersionServiceBean implements VersionServiceLocal{
                     grilla.setTitulo(estructuraModel.getTituloGrilla());                                        
                     em.persist(grilla);                                                                                                      
                     for(Columna columna : estructuraModel.getColumnas()){
-                        columna.setGrilla(grilla);                        
+                        columna.setGrilla(grilla);
                         em.persist(columna);
-                        logger.info("Insertando Columna ->" + columna.getIdColumna());
+                        logger.info("Insertando Columna ->" + columna.getIdColumna() + " Grilla ->" + columna.getIdGrilla());
                         for(Celda celda : columna.getCeldaList()){
                         	celda.setIdGrilla(grilla.getIdGrilla());
                         	celda.setIdColumna(columna.getIdColumna());
-                        	logger.info("Insertando celda col->" + celda.getIdColumna() + " fila->" + celda.getIdFila() + " grilla->" + celda.getIdGrilla());
-                        	//em.persist(celda);
+                        	//logger.info("Insertando celda col->" + celda.getIdColumna() + " fila->" + celda.getIdFila() + " grilla->" + celda.getIdGrilla());
+                        	//.persist(celda);
                         }
-                        for(AgrupacionColumna agrupacionColumna : columna.getAgrupacionColumnaList()){
+                        /*for(AgrupacionColumna agrupacionColumna : columna.getAgrupacionColumnaList()){
                         	//em.persist(agrupacionColumna);
-                        }
+                        }*/
                     }
                     
                     

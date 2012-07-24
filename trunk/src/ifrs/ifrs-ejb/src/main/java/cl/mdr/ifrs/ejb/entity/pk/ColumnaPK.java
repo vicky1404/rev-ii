@@ -4,8 +4,16 @@ import java.io.Serializable;
 
 import java.lang.Long;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class ColumnaPK implements Serializable {
+	
+    @Column(name = "ID_COLUMNA", nullable = false)
     private Long idColumna;
+    
+    @Column(name = "ID_GRILLA", insertable = false, updatable = false)
     private Long idGrilla;
 
     public ColumnaPK() {
