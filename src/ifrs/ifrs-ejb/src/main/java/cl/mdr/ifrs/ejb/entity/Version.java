@@ -84,7 +84,7 @@ public class Version implements Serializable {
     @Column(nullable = false)
     private Long vigencia;
     
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "FECHA_CREACION", nullable = false)
     private Date fechaCreacion;
     

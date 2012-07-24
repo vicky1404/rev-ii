@@ -385,14 +385,14 @@ public class VersionServiceBean implements VersionServiceLocal{
                     
                 }else if(estructura.getTipoEstructura().getIdTipoEstructura() == TipoEstructura.ESTRUCTURA_TIPO_TEXTO){
                     Texto texto = estructuraModel.getTexto();
-                    texto.setIdTexto(estructura.getIdEstructura());
+                    texto.setIdTexto(idEstructura.longValue());
                     texto.setEstructura(estructura);
                     texto = em.merge(texto);
                     estructura.setTexto(texto);
                 }else{
                     List<Html> htmlList = new ArrayList<Html>();
                     Html html = estructuraModel.getHtml();
-                    html.setIdHtml(estructura.getIdEstructura());
+                    html.setIdHtml(idEstructura.longValue());
                     html.setEstructura(estructura);
                     html = em.merge(html);
                     htmlList.add(html);
