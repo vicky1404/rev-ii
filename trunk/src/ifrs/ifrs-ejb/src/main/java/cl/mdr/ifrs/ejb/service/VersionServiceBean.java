@@ -36,7 +36,6 @@ import cl.mdr.ifrs.ejb.entity.TipoCuadro;
 import cl.mdr.ifrs.ejb.entity.TipoEstructura;
 import cl.mdr.ifrs.ejb.entity.Usuario;
 import cl.mdr.ifrs.ejb.entity.Version;
-import cl.mdr.ifrs.ejb.entity.pk.ColumnaPK;
 import cl.mdr.ifrs.ejb.service.local.CeldaServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.EstructuraServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.GrillaServiceLocal;
@@ -282,6 +281,7 @@ public class VersionServiceBean implements VersionServiceLocal{
     	for(int i=0; i<versiones.size(); i++){
             Version version = versiones.get(i);
             version = em.merge(version);
+            versiones.set(i,version);
         }
 
         HistorialVersion historial = new HistorialVersion();
@@ -291,37 +291,64 @@ public class VersionServiceBean implements VersionServiceLocal{
         historial.setEstadoCuadro(estadoCuado);
         historial.setComentario("CREACIÓN INICIAL");
         em.persist(historial);
-        
+        em.flush();
         for(int i=0; i<estructuras.size(); i++){
             
             Estructura estructura = estructuras.get(i);
             estructura.setVersion(versionVigente);
-            em.persist(estructura);
+            estructura = em.merge(estructura);
+            estructuras.set(i,estructura);
             
             if(estructuraModelMap.containsKey(estructura.getOrden())){
-                
-            	EstructuraModel estructuraModel = estructuraModelMap.get(estructura.getOrden());
-                
+                EstructuraModel estructuraModel = estructuraModelMap.get(estructura.getOrden());
+                List<Columna> columnas = new ArrayList<Columna>();
                 if(estructura.getTipoEstructura().getIdTipoEstructura() == TipoEstructura.ESTRUCTURA_TIPO_GRILLA){   
                 	
                     Grilla grilla = new Grilla();
                     grilla.setIdGrilla(estructura.getIdEstructura());
                     grilla.setEstructura(estructura);
                     grilla.setTitulo(estructuraModel.getTituloGrilla());                                        
-                    em.persist(grilla);                                                                                                      
+                    //em.persist(grilla);
+                    em.createNativeQuery(" INSERT "+
+                    			   		 " INTO IFRS_GRILLA(ID_GRILLA,TITULO,TIPO_FORMULA)"+
+                    		       		 " VALUES(?, ?, ?)").
+                    		       		   setParameter(1, grilla.getIdGrilla().longValue()).
+                    		       		   setParameter(2, grilla.getTitulo()).
+                    		       		   setParameter(3, 0L)
+                    		       		   .executeUpdate();
                     for(Columna columna : estructuraModel.getColumnas()){
-                        columna.setGrilla(grilla);
-                        em.persist(columna);
-                        logger.info("Insertando Columna ->" + columna.getIdColumna() + " Grilla ->" + columna.getIdGrilla());
+                        columna.setGrilla(grilla);                        
+                        //em.persist(columna);
+                        em.createNativeQuery(" INSERT "+
+                        					 " INTO IFRS_COLUMNA(ID_COLUMNA, ID_GRILLA, TITULO_COLUMNA, ORDEN, ANCHO, ROW_HEADER)"+
+                        					 " VALUES(?, ?, ?, ?, ?, ?)").
+                        					   setParameter(1, columna.getIdColumna()).
+                        					   setParameter(2, grilla.getIdGrilla()).
+                        					   setParameter(3, columna.getTituloColumna()).
+                        					   setParameter(4, columna.getOrden()).
+                        					   setParameter(5, columna.getAncho()).
+                        					   setParameter(6, 0).
+                        					   executeUpdate();
+                        logger.info("Insertando Columna ->" + columna.getIdColumna());
                         for(Celda celda : columna.getCeldaList()){
                         	celda.setIdGrilla(grilla.getIdGrilla());
                         	celda.setIdColumna(columna.getIdColumna());
-                        	//logger.info("Insertando celda col->" + celda.getIdColumna() + " fila->" + celda.getIdFila() + " grilla->" + celda.getIdGrilla());
-                        	//.persist(celda);
+                        	logger.info("Insertando celda col->" + celda.getIdColumna() + " fila->" + celda.getIdFila() + " grilla->" + celda.getIdGrilla());
+                        	//em.persist(celda);
+                        	em.createNativeQuery(" INSERT"+
+                        						 " INTO IFRS_CELDA(ID_COLUMNA, ID_FILA, ID_GRILLA, ID_TIPO_CELDA, ID_TIPO_DATO, VALOR)"+
+                        			             " VALUES(?, ?, ?, ?, ?, ?)").
+                        			               setParameter(1, celda.getIdColumna()).
+                        			               setParameter(2, celda.getIdFila()).
+                        			               setParameter(3, celda.getIdGrilla()).
+                        			               setParameter(4, celda.getTipoCelda().getIdTipoCelda()).
+                        			               setParameter(5, celda.getTipoDato().getIdTipoDato()).
+                        			               setParameter(6, celda.getValor()).
+                        			               executeUpdate();
                         }
-                        /*for(AgrupacionColumna agrupacionColumna : columna.getAgrupacionColumnaList()){
+                        for(AgrupacionColumna agrupacionColumna : columna.getAgrupacionColumnaList()){
                         	//em.persist(agrupacionColumna);
-                        }*/
+                        }
                     }
                     
                     
