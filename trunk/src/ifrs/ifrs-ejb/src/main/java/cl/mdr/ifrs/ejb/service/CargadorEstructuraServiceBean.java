@@ -202,7 +202,7 @@ public class CargadorEstructuraServiceBean implements CargadorEstructuraServiceL
      * @throws Exception
      */
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-    public List<Columna> getColumnasBySheet(final XSSFSheet sheet)throws Exception{
+    public List<Columna> getColumnasBySheet(final XSSFSheet sheet)throws Exception, CargaGrillaExcelException{
         XSSFRow row;  
         XSSFCell cell; 
         int rows; 
@@ -211,6 +211,10 @@ public class CargadorEstructuraServiceBean implements CargadorEstructuraServiceL
         int tmp = 0; 
         List<Columna> columnaList = new ArrayList<Columna>();
         Long columnRow = max(this.getFilasCabecera(sheet));
+        
+        if(columnRow == null){
+        	throw new CargaGrillaExcelException("La Plantilla Excel no contiene datos de Cabecera");     
+        }
 
         for(int i = 0; i < 10 || i < rows; i++) {  
             row = sheet.getRow(i);            
