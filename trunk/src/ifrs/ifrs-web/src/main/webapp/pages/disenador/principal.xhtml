@@ -72,8 +72,9 @@
 							<h:panelGroup
 								rendered="#{configuradorDisenoBackingBean.renderEditarHtml}"
 								id="htmlEditPanel">
-								<p:spacer height="25"/>
-								<h:panelGrid columns="2" rendered="#{configuradorDisenoBackingBean.renderEditarHtml}">
+								<p:spacer height="25" />
+								<h:panelGrid columns="2"
+									rendered="#{configuradorDisenoBackingBean.renderEditarHtml}">
 									<h:outputLabel value="Título:" style="width:200px;" />
 									<p:inputText label="#{msg.generador_titulo}"
 										value="#{configuradorDisenoBackingBean.tituloHtml}"
@@ -82,7 +83,7 @@
 											listener="#{configuradorDisenoBackingBean.guardarTituloHtmlListener}"
 											event="blur" />
 									</p:inputText>
-								</h:panelGrid>									
+								</h:panelGrid>
 								<p:spacer height="20" />
 								<p:editor id="editorHtml" height="300" />
 								<p:spacer height="20" />
@@ -92,10 +93,13 @@
 							<h:panelGroup
 								rendered="#{configuradorDisenoBackingBean.renderEditarTexto}"
 								id="textEditPanel">
-								<p:inputTextarea maxlength="3500" counter="counter"
-									counterTemplate="{0} characters remaining." autoResize="false" style="width:50%;"></p:inputTextarea>
-								<p:spacer height="5" />
-								<h:outputText id="counter" />
+								<p:spacer height="25" />
+								<h:panelGrid columns="1">
+									<p:inputTextarea maxlength="3500" counter="counter"
+										counterTemplate="quedan {0} caracteres." autoResize="false"
+										style="width:700px;" />
+									<h:outputText id="counter" />
+								</h:panelGrid>
 							</h:panelGroup>
 
 
@@ -400,11 +404,11 @@
 				</p:tab>
 
 
-				<p:tab title="Agrupación de Columnas" id="tb3">
+				<!-- p:tab title="Agrupación de Columnas" id="tb3">
 					<h:panelGrid columns="1" cellpadding="10" id="pg3">
 						<h:outputText value="Probando 3" id="ot3" />
 					</h:panelGrid>
-				</p:tab>
+				</p:tab-->
 
 				<p:tab title="Previsualizador" id="tb4">
 					<p:commandLink
@@ -414,7 +418,7 @@
 						<p:toolbarGroup align="left">
 							<p:commandButton value="Guardar Configuración"
 								icon="ui-icon-disk" id="btn1"
-								action="#{procesoBackingBean.guardar}" partialSubmit="false"
+								actionListener="#{generadorVisualizadorBackingBean.guardarDisenoActionListener}" partialSubmit="false"
 								update="@form" />
 							<p:commandButton value="Recargar Previsualización"
 								icon="ui-icon-refresh" id="btn2" partialSubmit="false"

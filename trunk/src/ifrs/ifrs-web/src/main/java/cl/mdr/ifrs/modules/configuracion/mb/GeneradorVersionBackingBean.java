@@ -16,13 +16,13 @@ import org.apache.log4j.Logger;
 import org.primefaces.component.datatable.DataTable;
 
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
-import cl.mdr.ifrs.cross.model.EstructuraModel;
 import cl.mdr.ifrs.cross.util.GeneradorDisenoHelper;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
 import cl.mdr.ifrs.ejb.entity.Estructura;
 import cl.mdr.ifrs.ejb.entity.TipoCuadro;
 import cl.mdr.ifrs.ejb.entity.Version;
+import cl.mdr.ifrs.model.EstructuraModel;
 
 
 @ManagedBean(name = "generadorVersionBackingBean")
