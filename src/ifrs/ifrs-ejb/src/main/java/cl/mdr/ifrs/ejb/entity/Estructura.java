@@ -17,9 +17,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
 import cl.mdr.ifrs.ejb.common.Constantes;
 import cl.mdr.ifrs.vo.GrillaVO;
 import cl.mdr.ifrs.vo.HtmlVO;
@@ -143,37 +140,27 @@ public class Estructura implements Serializable {
     public void setVersion(Version version) {
         this.version = version;
     }
-    
-   
-
+       
     public void setGrillaVO(GrillaVO grillaVO) {
         this.grillaVO = grillaVO;
     }
 
     public GrillaVO getGrillaVO() {
+    	if(grillaVO == null){
+    		grillaVO = new GrillaVO();
+    	}
         return grillaVO;
     }
-    
-    @Override
-    public String toString() {
-        StringBuffer buffer = new StringBuffer();
-        buffer.append(getClass().getName()+"@"+Integer.toHexString(hashCode()));
-        buffer.append('[');
-        buffer.append("idEstructura=");
-        buffer.append(getIdEstructura());
-        buffer.append(',');
-        buffer.append("orden=");
-        buffer.append(getOrden());
-        buffer.append(',');
-        buffer.append(']');
-        return buffer.toString();
-    }
-
+        
     public void setTextoVo(TextoVO textoVo) {
         this.textoVo = textoVo;
     }
 
     public TextoVO getTextoVo() {
+    	if(textoVo == null){
+    		textoVo = new TextoVO();
+    		textoVo.setTexto(new Texto());
+    	}
         return textoVo;
     }
 
@@ -182,6 +169,10 @@ public class Estructura implements Serializable {
     }
 
     public HtmlVO getHtmlVo() {
+    	if(htmlVo == null){
+    		htmlVo = new HtmlVO();
+    		htmlVo.setHtml(new Html());
+    	}
         return htmlVo;
     }
 
@@ -207,5 +198,20 @@ public class Estructura implements Serializable {
 
     public Texto getTexto() {
         return texto;
+    }
+    
+    @Override
+    public String toString() {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(getClass().getName()+"@"+Integer.toHexString(hashCode()));
+        buffer.append('[');
+        buffer.append("idEstructura=");
+        buffer.append(getIdEstructura());
+        buffer.append(',');
+        buffer.append("orden=");
+        buffer.append(getOrden());
+        buffer.append(',');
+        buffer.append(']');
+        return buffer.toString();
     }
 }
