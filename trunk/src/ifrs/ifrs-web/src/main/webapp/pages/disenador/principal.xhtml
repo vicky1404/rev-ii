@@ -84,8 +84,8 @@
 											event="blur" />
 									</p:inputText>
 								</h:panelGrid>
-								<p:spacer height="20" />
-								<p:editor id="editorHtml" height="300" />
+								<p:spacer height="20" /> 
+								<p:editor id="editorHtml" height="300" value="#{configuradorDisenoBackingBean.estructuraSelected.htmlVo.html.contenidoStr}" />
 								<p:spacer height="20" />
 							</h:panelGroup>
 
@@ -95,7 +95,7 @@
 								id="textEditPanel">
 								<p:spacer height="25" />
 								<h:panelGrid columns="1">
-									<p:inputTextarea maxlength="3500" counter="counter"
+									<p:inputTextarea maxlength="3500" value="#{configuradorDisenoBackingBean.estructuraSelected.textoVo.texto.texto}" counter="counter"
 										counterTemplate="quedan {0} caracteres." autoResize="false"
 										style="width:700px;" />
 									<h:outputText id="counter" />
