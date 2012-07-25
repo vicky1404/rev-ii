@@ -119,6 +119,7 @@ public class EstructuraModel implements Serializable {
     public Html getHtml() {
         if(html==null){
             html = new Html();
+            html.setContenidoStr(StringUtils.EMPTY);
         }
         return html;
     }
