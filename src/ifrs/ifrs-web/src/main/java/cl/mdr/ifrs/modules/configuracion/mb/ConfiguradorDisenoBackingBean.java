@@ -221,6 +221,11 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
             return;
         }
         this.setEstructuraSelected(estructura);
+        this.getEstructuraModelByEstructuraSelected().setColumnas(this.getEstructuraSelected().getGrillaVO().getColumnas());
+        //construye la tabla para ser renderizada hacia la vista de edicion.
+        this.setGrillaVO(this.getEstructuraSelected().getGrillaVO());
+        this.getGrillaVO().setCeldaList(GeneradorDisenoHelper.builHtmlGrilla(this.getEstructuraSelected().getGrillaVO().getColumnas()));           
+    	this.getGrillaVO().setAgrupaciones(GeneradorDisenoHelper.crearAgrupadorHTMLVO(GeneradorDisenoHelper.getAgrupacionesByColumnaList(this.getEstructuraSelected().getGrillaVO().getColumnas())));
     	this.setRenderEditarGrilla(Boolean.TRUE);
     	this.setRenderEditarHtml(Boolean.FALSE);
     	this.setRenderEditarTexto(Boolean.FALSE);
@@ -237,7 +242,7 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
             return;
         }
         this.setEstructuraSelected(estructura);
-        this.getEstructuraModelByEstructuraSelected().setHtml(new Html());
+        this.getEstructuraModelByEstructuraSelected().setHtml(this.getEstructuraSelected().getHtml());
         this.setRenderEditarGrilla(Boolean.FALSE);
     	this.setRenderEditarHtml(Boolean.TRUE);
     	this.setRenderEditarTexto(Boolean.FALSE);
@@ -253,7 +258,7 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
             return;
         }
         this.setEstructuraSelected(estructura);
-        this.getEstructuraModelByEstructuraSelected().setTexto(new Texto());
+        this.getEstructuraModelByEstructuraSelected().setTexto(this.getEstructuraSelected().getTexto());
         this.setRenderEditarGrilla(Boolean.FALSE);
     	this.setRenderEditarHtml(Boolean.FALSE);
     	this.setRenderEditarTexto(Boolean.TRUE);

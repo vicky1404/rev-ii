@@ -152,14 +152,15 @@ public class GeneradorVisualizadorBackingBean extends AbstractBackingBean implem
 	}
 
 	public List<Estructura> getEstructuraList() {
-		/*estructuraList = getGeneradorVersionBackingBean().getEstructuraList();
+		estructuraList = getGeneradorVersionBackingBean().getEstructuraList();
         if(Util.esListaValida(estructuraList)){
             for(Estructura estructura : estructuraList){
                 if(this.getConfiguradorDisenoBackingBean().getEstructuraModelMap().containsKey(estructura.getOrden())){
                     final EstructuraModel estructuraModel =  this.getConfiguradorDisenoBackingBean().getEstructuraModelMap().get(estructura.getOrden());  
                     if(estructuraModel.getTipoEstructura() == TipoEstructura.ESTRUCTURA_TIPO_GRILLA){
                         if(Util.esListaValida(estructuraModel.getColumnas())){
-                            GrillaVO grillaVO = this.createTableModel(estructuraModel.getColumnas(), estructuraModel.getAgrupacionesMap() );                            
+                            GrillaVO grillaVO = new GrillaVO();  
+                            grillaVO.setColumnas(estructuraModel.getColumnas());
                             grillaVO.setCeldaList(GeneradorDisenoHelper.builHtmlGrilla(estructuraModel.getColumnas()));
                             grillaVO.setAgrupaciones(GeneradorDisenoHelper.crearAgrupadorHTMLVO(GeneradorDisenoHelper.getAgrupacionesByColumnaList(estructuraModel.getColumnas())));
                             grillaVO.setTitulo(estructuraModel.getTituloGrilla());
@@ -172,7 +173,7 @@ public class GeneradorVisualizadorBackingBean extends AbstractBackingBean implem
                     }
                 }
             }
-        }*/
+        }
 		return estructuraList;
 	}
 
