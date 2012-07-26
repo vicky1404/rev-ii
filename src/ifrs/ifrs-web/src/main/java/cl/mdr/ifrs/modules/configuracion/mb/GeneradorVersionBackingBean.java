@@ -17,6 +17,7 @@ import org.primefaces.component.datatable.DataTable;
 
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
 import cl.mdr.ifrs.cross.util.GeneradorDisenoHelper;
+import cl.mdr.ifrs.ejb.cross.SortHelper;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
 import cl.mdr.ifrs.ejb.entity.Estructura;
@@ -49,10 +50,12 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 	
 	public void buscarListener(ActionEvent event){
 		try{			
-			if(catalogo!=null)
-				versionList = super.getFacadeService().getVersionService().findVersionAllByIdCatalogo(catalogo.getIdCatalogo());
-			else
+			if(catalogo!=null){
+				this.setVersionList(super.getFacadeService().getVersionService().findVersionAllByIdCatalogo(catalogo.getIdCatalogo()));
+				SortHelper.sortVersionDesc(this.getVersionList());
+			}else{
 				super.addInfoMessage("No existen versiones para Catálogo seleccionado");
+			}
 		}catch(Exception e){
 			super.addErrorMessage("Se ha producido un error al buscar desde el Catálogo para configurar el Cuadro");
 			LOG.error(e);
@@ -216,7 +219,8 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
     public void agregarVersionListener(ActionEvent actionEvent) {        
     	 this.getConfiguradorDisenoBackingBean().setEstructuraModelMap(null);        
          if(getVersionList().size() > 0){             
-             Version version = getVersionList().get(getVersionList().size()-1);             
+             //Version version = getVersionList().get(getVersionList().size()-1);             
+        	 Version version = this.getVersionList().iterator().next();
              if(version.getIdVersion()!=null){
                  for(Version versionPaso : getVersionList()){
                      versionPaso.setVigencia(0L);
@@ -232,6 +236,7 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
              setRenderEstructura(true);
              setEstructuraList(null);
          }
+         SortHelper.sortVersionDesc(this.getVersionList());
          setAlmacenado(false);
          setRenderBotonEditar(true);
      }

@@ -9,8 +9,8 @@
 
 		<p:outputLabel for="gVsom1" value="#{msg.label_tipo_y_nombre_cuadro}"></p:outputLabel>
 		<p:selectOneMenu value="#{generadorVersionBackingBean.tipoCuadro}"
-			label="#{msg.label_tipo_cuadro}" required="true" id="gVsom1" effect="fade"
-			converter="tipoCuadroConverter">
+			label="#{msg.label_tipo_cuadro}" required="true" id="gVsom1"
+			effect="fade" converter="tipoCuadroConverter">
 			<f:selectItem itemLabel="#{msg.label_seleccione}"
 				noSelectionOption="true" id="gVsi1" />
 			<f:selectItems
@@ -36,7 +36,8 @@
 
 	<p:spacer id="gVsp1" height="20px;" />
 
-	<p:dataTable id="gVdt1" var="var" emptyMessage=" " rendered="#{not empty generadorVersionBackingBean.catalogo}"
+	<p:dataTable id="gVdt1" var="var" emptyMessage=" "
+		rendered="#{not empty generadorVersionBackingBean.catalogo}"
 		value="#{generadorVersionBackingBean.catalogo}" style="width:720px">
 
 		<p:column id="gVc1" headerText="Codigo Cuadro" width="80">
@@ -63,11 +64,15 @@
 
 	<p:spacer id="gVsp2" height="20px;" />
 
-	<p:dataTable id="gVdt2" var="ver" emptyMessage=" " rendered="#{not empty generadorVersionBackingBean.versionList}"
-		value="#{generadorVersionBackingBean.versionList}" style="width:720px">
+	<p:dataTable id="gVdt2" var="ver" emptyMessage=" "
+		rendered="#{not empty generadorVersionBackingBean.versionList}"
+		value="#{generadorVersionBackingBean.versionList}" style="width:720px"
+		paginator="true" rows="5" paginatorPosition="top">
 
 		<p:column id="gVc1" headerText="Versión">
-			<h:outputText value="#{ver.version}" />
+			<div align="right">
+				<h:outputText value="#{ver.version}" />
+			</div>
 		</p:column>
 
 		<p:column id="gVc2" headerText="Vigente">
@@ -83,9 +88,11 @@
 		</p:column>
 
 		<p:column id="gVc4" headerText="Fecha Creación">
-			<h:outputText value="#{ver.fechaCreacion}">
-				<f:convertDateTime pattern="#{msg.fecha_hora_pattern}" />
-			</h:outputText>
+			<div align="right">
+				<h:outputText value="#{ver.fechaCreacion}">
+					<f:convertDateTime pattern="#{msg.fecha_hora_pattern}" />
+				</h:outputText>
+			</div>
 		</p:column>
 
 	</p:dataTable>
@@ -93,7 +100,8 @@
 	<p:spacer id="gVsp3" height="20px;" />
 
 	<div id="gVdv1" align="right" style="width: 720px;">
-		<p:commandButton id="gVcb2" value="#{msg.generador_nueva_version}" icon="ui-icon-document"
+		<p:commandButton id="gVcb2" value="#{msg.generador_nueva_version}"
+			icon="ui-icon-document"
 			rendered="#{not empty generadorVersionBackingBean.versionList}"
 			actionListener="#{generadorVersionBackingBean.agregarVersionListener}"
 			partialSubmit="true" update="@form" />
@@ -112,46 +120,55 @@
 
 		<p:column id="gVc2" headerText="Tipo de Estructura"
 			style="text-align:center;">
-			<h:selectOneRadio value="#{row.tipoEstructura}" style="width:130px; text-align:left; border:20px;"
-							  converter="tipoEstructuraConverter" effect="fade" required="true" label="Tipo de Estructura">
-				<f:selectItem itemLabel="#{msg.label_seleccione}" noSelectionOption="true"/>
-				<f:selectItems value="#{generadorVersionBackingBean.componenteBackingBean.tipoEstructuras}" />
-			</h:selectOneRadio>
+			<p:selectOneMenu value="#{row.tipoEstructura}"
+				style="width:130px; text-align:left; border:20px;"
+				converter="tipoEstructuraConverter" effect="fade" required="true"
+				label="Tipo de Estructura">
+				<f:selectItem itemLabel="#{msg.label_seleccione}"
+				/>
+				<f:selectItems
+					value="#{generadorVersionBackingBean.componenteBackingBean.tipoEstructuras}" />
+			</p:selectOneMenu>
 		</p:column>
 
-		<p:column id="gVc3" headerText="Agregar o Eliminar" style="text-align:center">
+		<p:column id="gVc3" headerText="Agregar o Eliminar"
+			style="text-align:center">
 
-			<p:commandButton id="gVcl1" title="Agregar" actionListener="#{generadorVersionBackingBean.agregarTipoEstructuraListener}" update="@form" icon="ui-icon-circle-plus">				
+			<p:commandButton id="gVcl1" title="Agregar"
+				actionListener="#{generadorVersionBackingBean.agregarTipoEstructuraListener}"
+				update="@form" icon="ui-icon-circle-plus">
 				<f:attribute name="estructura" value="#{row}" />
 			</p:commandButton>
 
 			<p:spacer id="gVsp5" width="3px" />
 
-			<p:commandButton id="gVcl2" title="Eliminar" icon="ui-icon-circle-minus"
+			<p:commandButton id="gVcl2" title="Eliminar"
+				icon="ui-icon-circle-minus"
 				actionListener="#{generadorVersionBackingBean.eliminarTipoEstructuraListener}"
-				update="@form">				
+				update="@form">
 				<f:attribute name="estructura" value="#{row}" />
 			</p:commandButton>
 		</p:column>
-		<p:column id="gVc5" headerText="Ordenar" style="text-align:center">			
-			<p:commandButton id="gVcl51" update="@form" 
-							 actionListener="#{generadorVersionBackingBean.subirEstructuraListener}" 
-							 icon="ui-icon-arrowthick-1-n"
-							 rendered="#{(generadorVersionBackingBean.sizeEstructrua > 1 ? true : false) and (status == 0 ? false : true)}">				    
-					<f:attribute name="estructura" value="#{row}" />
+		<p:column id="gVc5" headerText="Ordenar" style="text-align:center">
+			<p:commandButton id="gVcl51" update="@form"
+				actionListener="#{generadorVersionBackingBean.subirEstructuraListener}"
+				icon="ui-icon-arrowthick-1-n"
+				rendered="#{(generadorVersionBackingBean.sizeEstructrua > 1 ? true : false) and (status == 0 ? false : true)}">
+				<f:attribute name="estructura" value="#{row}" />
 			</p:commandButton>
 			<p:spacer id="gVsp6" width="3px" />
-			<p:commandButton id="gVcl61" update="@form" icon="ui-icon-arrowthick-1-s"
-							 actionListener="#{generadorVersionBackingBean.bajarEstructuraListener}"
-							 rendered="#{(generadorVersionBackingBean.sizeEstructrua > 1 ? true : false) and 
+			<p:commandButton id="gVcl61" update="@form"
+				icon="ui-icon-arrowthick-1-s"
+				actionListener="#{generadorVersionBackingBean.bajarEstructuraListener}"
+				rendered="#{(generadorVersionBackingBean.sizeEstructrua > 1 ? true : false) and 
 											   (status+1 == generadorVersionBackingBean.sizeEstructrua ? false : true) and 
-											   (generadorVersionBackingBean.sizeEstructrua > status+1)}">				
-					<f:attribute name="estructura" value="#{row}" />
-			</p:commandButton>			
+											   (generadorVersionBackingBean.sizeEstructrua > status+1)}">
+				<f:attribute name="estructura" value="#{row}" />
+			</p:commandButton>
 		</p:column>
 	</p:dataTable>
-	
-	
+
+
 
 	<p:spacer id="gVsp6" height="10px;" />
 
