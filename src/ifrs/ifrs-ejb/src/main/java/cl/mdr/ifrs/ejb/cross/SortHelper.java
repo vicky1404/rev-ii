@@ -59,6 +59,14 @@ public class SortHelper {
         });
     }
     
+    public static void sortVersionDesc(List<Version> versiones){
+        Collections.sort(versiones, new Comparator<Version>(){                        
+            public int compare(Version v1, Version v2){                
+                return v2.getVersion().compareTo(v1.getVersion());
+            }
+        });
+    }
+    
     public static void sortAgrupacionColumnaByNivel(List<AgrupacionColumna> agrupacionColumnas){
         Collections.sort(agrupacionColumnas, new Comparator<AgrupacionColumna>(){                        
             public int compare(AgrupacionColumna a1, AgrupacionColumna a2){                
