@@ -16,6 +16,7 @@
 				toggleable="true" closable="false">
 				<table border="0" width="30%" align="center" id="tb1APeriodo">
 					<tr>
+					    <td><h:outputLabel value="#{msg.label_periodo}" /></td>
 						<td><p:selectOneMenu label="#{msg.etiqueta_periodo}"
 								id="soc1Periodo"
 								value="#{procesoBackingBean.filtroBackingBean.periodo.mesPeriodo}"
@@ -23,7 +24,7 @@
 								requiredMessage="#{msg.periodo_mensaje_seleccione_mes}">
 
 								<f:selectItem itemLabel="#{msg.etiqueta_mes_periodo}"
-									noSelectionOption="true" />
+									/>
 								<f:selectItems
 									value="#{procesoBackingBean.componenteBackingBean.meses}"
 									id="mesesPeriodo" />
@@ -35,7 +36,7 @@
 								requiredMessage="#{msg.periodo_mensaje_seleccione_anio}">
 
 								<f:selectItem itemLabel="#{msg.etiqueta_anio_periodo}"
-									noSelectionOption="true" />
+									/>
 								<f:selectItems
 									value="#{procesoBackingBean.componenteBackingBean.anios}"
 									id="aniosPeriodo" />
@@ -52,20 +53,26 @@
 				<div align="center">
 
 					<p:dataTable value="#{procesoBackingBean.versionList}" var="row"
-						rowBandingInterval="0" id="n1Cat" paginator="true" rows="5"
+						rowBandingInterval="0" id="n1Cat" paginator="true" rows="3" paginatorPosition="bottom"
 						rendered="#{procesoBackingBean.renderVersionList}"
 						emptyMessage="#{msg.periodo_busqueda_sin_resultado}">
 
-						<p:column id="c1" headerText="#{msg.tabla_catalogo_periodo}">
-							<p:commandLink id="cl1"
-								value="#{row.periodo.mesPeriodo} - #{row.periodo.anioPeriodo}"
-								actionListener="#{procesoBackingBean.buscarCuadro}"
-								partialSubmit="false" update="@form">
-								<f:attribute name="version" value="#{row}" />
-							</p:commandLink>
+						<p:column id="c1" headerText="#{msg.label_ver}">
+						   <div align="center">
+						        <!-- value="#{row.periodo.mesPeriodo} - #{row.periodo.anioPeriodo}"-->
+						        <p:tooltip for="cl1" value="#{msg.label_cargar_datos_de_la_version} #{row.version} de #{row.catalogo.titulo}"></p:tooltip>
+								<p:commandLink id="cl1"									
+									actionListener="#{procesoBackingBean.buscarCuadro}"
+									partialSubmit="false" update="@form">
+									<p:graphicImage styleClass="ui-icon ui-icon-zoomin"/>
+									<f:attribute name="version" value="#{row}" />
+								</p:commandLink>
+							</div>
 						</p:column>
 						<p:column id="c2" headerText="#{msg.tabla_catalogo_version}">
-							<h:outputText value="#{row.version}" id="ot5Periodo" />
+							<div align="right">
+								<h:outputText value="#{row.version}" id="ot5Periodo" />
+							</div>
 						</p:column>
 						<p:column headerText="#{msg.tabla_catalogo_nombre_nota}"
 							id="c2Periodo">
@@ -81,7 +88,11 @@
 						</p:column>
 						<p:column headerText="#{msg.tabla_catalogo_fecha_proceso}"
 							id="c6Periodo">
-							<h:outputText value="#{row.fechaCreacion}" id="ot6Periodo" />
+							<div align="right">
+							<h:outputText value="#{row.fechaCreacion}" id="ot6Periodo">
+								<f:convertDateTime pattern="#{msg.fecha_hora_pattern}" />
+							</h:outputText>
+							</div>
 						</p:column>
 						<p:column headerText="Vigente" id="c7Periodo">
 							<h:outputText value="#{row.vigencia eq 1 ? 'SI' : 'NO'}"
@@ -92,7 +103,7 @@
 			</p:panel>
 			<p:spacer height="30" id="sp1" width="10" />
 			<div align="left">
-				<p:toolbar>
+				<p:toolbar rendered="#{not empty procesoBackingBean.estructuraList}">
 
 					<p:toolbarGroup align="left">
 						<p:commandButton value="#{msg.general_control_guardar}"

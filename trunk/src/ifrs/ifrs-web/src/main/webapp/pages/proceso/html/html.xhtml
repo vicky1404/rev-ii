@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:outputScript name="js/util/form-util.js" />
-  	<h:outputText value="#{item.htmlVo.html.titulo}" id="ot1"/>
+  	<h:outputFormat value="#{item.htmlVo.html.titulo}" id="ot1"/>
   	<p:spacer height="15"/> 
 	<p:editor id="editor" value="#{item.htmlVo.html.contenidoStr}" styleClass="editorHtml" height="300" />  
 	<p:spacer height="20"/> 

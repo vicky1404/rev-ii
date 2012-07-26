@@ -21,13 +21,10 @@ import cl.mdr.ifrs.ejb.entity.Celda;
 import cl.mdr.ifrs.ejb.entity.Columna;
 import cl.mdr.ifrs.ejb.entity.Estructura;
 import cl.mdr.ifrs.ejb.entity.Grilla;
-import cl.mdr.ifrs.ejb.entity.Html;
-import cl.mdr.ifrs.ejb.entity.Texto;
 import cl.mdr.ifrs.ejb.entity.TipoCelda;
 import cl.mdr.ifrs.ejb.entity.TipoDato;
 import cl.mdr.ifrs.exceptions.CargaGrillaExcelException;
 import cl.mdr.ifrs.model.EstructuraModel;
-import cl.mdr.ifrs.vo.AgrupacionModelVO;
 import cl.mdr.ifrs.vo.GrillaVO;
 
 /**
@@ -222,6 +219,7 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
         }
         this.setEstructuraSelected(estructura);
         this.getEstructuraModelByEstructuraSelected().setColumnas(this.getEstructuraSelected().getGrillaVO().getColumnas());
+        this.setTituloGrilla(null);
         //construye la tabla para ser renderizada hacia la vista de edicion.
         this.setGrillaVO(this.getEstructuraSelected().getGrillaVO());
         this.getGrillaVO().setCeldaList(GeneradorDisenoHelper.builHtmlGrilla(this.getEstructuraSelected().getGrillaVO().getColumnas()));           
@@ -243,6 +241,7 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
         }
         this.setEstructuraSelected(estructura);
         this.getEstructuraModelByEstructuraSelected().setHtml(this.getEstructuraSelected().getHtml());
+        this.setTituloHtml(null);
         this.setRenderEditarGrilla(Boolean.FALSE);
     	this.setRenderEditarHtml(Boolean.TRUE);
     	this.setRenderEditarTexto(Boolean.FALSE);
