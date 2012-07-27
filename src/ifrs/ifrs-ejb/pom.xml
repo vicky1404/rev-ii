@@ -195,8 +195,9 @@
 				<dependency>
 					<groupId>yguard</groupId>
 					<artifactId>yguard</artifactId>
-					<version>2.3.0.1</version>
-					<systemPath>yguard.jar</systemPath>
+					<version>2.4</version>
+					<scope>system</scope>					
+					<systemPath>${project.basedir}\src\test\resources\yguard.jar</systemPath>
 				</dependency>
 			</dependencies>
 			<executions>
