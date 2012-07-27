@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +23,8 @@ import org.apache.log4j.Logger;
 import org.apache.xml.utils.XMLChar;
 import org.w3c.tidy.Tidy;
 
+import cl.mdr.ifrs.ejb.common.TipoCeldaEnum;
+import cl.mdr.ifrs.ejb.common.TipoDatoEnum;
 import cl.mdr.ifrs.ejb.entity.Celda;
 import cl.mdr.ifrs.ejb.entity.Columna;
 import cl.mdr.ifrs.ejb.entity.Grilla;
@@ -29,8 +32,7 @@ import cl.mdr.ifrs.ejb.entity.Html;
 
 
 public class Util{
-    @SuppressWarnings("unused")
-	private static Logger logger = Logger.getLogger(Util.class);
+    private static Logger logger = Logger.getLogger(Util.class);
     public final static String NUMBER_DECIMAL_PATTERN = "#,###,###.####";
     public final static String NUMBER_INTEGER_PATTERN = "#,###,###.####";
     public final static String DATE_PATTERN_DD_MM_YYYY = "dd-MM-yyyy";
@@ -280,7 +282,7 @@ public class Util{
      * @param lista
      * @return
      */
-    public static<T> boolean esListaValida(List<T> lista){
+    public static boolean esListaValida(List lista){
         if(lista==null || lista.size()==0)
             return false;
         else
@@ -378,7 +380,7 @@ public class Util{
         if(valor==null || token == null)
             return 0;
         
-        StringTokenizer str = new StringTokenizer(valor, ";");
+        StringTokenizer str = new StringTokenizer(valor, token);
         
         return str.countTokens();
     }
@@ -401,30 +403,6 @@ public class Util{
         return celdaMap;
     }
     
-    /**
-     * Evalua una expresion regular para un par ordenado representado como un string con 
-     * la forma +/-[n,m]. Por ejemplo +[2,3]
-     * @param parOrdenado
-     */
-    public static boolean validaParOrdenadoConSigno(String parOrdenado){
-    	String patron = "^(^(\\+|-){1}\\[[0-9],[0-9]\\])$";
-    	Pattern p = Pattern.compile(patron);
-    	Matcher m = p.matcher(parOrdenado);
-      return m.find();
-    }
-    
-    /**
-     * Evalua una expresion regular para un par ordenado representado como un string con 
-     * la forma [n,m]. Por ejemplo [2,3]
-     * @param parOrdenado
-     */
-    public static boolean validaParOrdenadoSinSigno(String parOrdenado){
-    	String patron = "^(\\[[0-9],[0-9]\\])$";
-    	Pattern p = Pattern.compile(patron);
-    	Matcher m = p.matcher(parOrdenado);
-      return m.find();
-    }
-    
     public static String formatCellKey(final Celda cell){
         return  "["
                 .concat(cell.getIdColumna().toString())
@@ -432,9 +410,47 @@ public class Util{
                 .concat(cell.getIdFila().toString())
                 .concat("]");
     }
-
-    public static Long getOnlyNumbers(final String str) {
+    
+    public static String formatCeldaGrillaKey(final Celda cell){
+        return  "["
+                .concat(cell.getIdGrilla().toString())
+                .concat(",")
+                .concat(cell.getIdColumna().toString())
+                .concat(",")
+                .concat(cell.getIdFila().toString())
+                .concat("]");
+    }
+    
+    public static boolean isTotalorSubTotalNumeric(Celda cell){
         
+        if( (cell.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.SUBTOTAL.getKey()) ||
+             cell.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.TOTAL.getKey()) ) &&
+            
+            (cell.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.ENTERO.getKey()) ||
+             cell.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.DECIMAL.getKey())) ){
+            
+            return true;
+        }
+        
+        return false;
+        
+    }
+    
+    
+    public static boolean isCellNumeric(Celda cell){
+        
+        if( (cell.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.ENTERO.getKey()) ||
+             cell.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.DECIMAL.getKey())) ){
+            
+            return true;
+        }
+        
+        return false;
+        
+    }
+    
+    public static Long getOnlyNumbers(final String str) {
+    
         String numeros = "";
 
         if (str == null || str.length() == 0)
@@ -449,4 +465,33 @@ public class Util{
         
         return Util.getLong(numeros, 0L);
     }
+    
+    public static List<List<Celda>> builHtmlGrilla(List<Columna> columnasE){
+                    
+            List<List<Celda>> celdaDobleList = new ArrayList<List<Celda>>();
+            
+            int i=0;
+            for(Columna columna : columnasE){
+                    
+                for(Celda celda : columna.getCeldaList()){
+                        
+                        try{
+                                celdaDobleList.get(i).add(celda);
+                                
+                        }catch(IndexOutOfBoundsException e){
+                                List<Celda> celdas = new ArrayList<Celda>();
+                                celdas.add(celda);
+                                celdaDobleList.add(celdas);
+                        }
+                        
+                        i++;
+                }
+                
+                i=0;
+            }
+            
+            return celdaDobleList;
+            
+    }
 }
+

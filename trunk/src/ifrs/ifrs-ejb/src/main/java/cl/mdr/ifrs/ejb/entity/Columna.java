@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
@@ -47,7 +48,7 @@ public class Columna implements Serializable {
     private String tituloColumna;
     
     @Fetch(FetchMode.JOIN)
-    @OneToMany(mappedBy = "columna", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "columna", fetch = FetchType.LAZY)
     //@OrderBy("idColumna asc ,idFila asc")
     private List<Celda> celdaList;
     

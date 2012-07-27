@@ -45,7 +45,7 @@ public class Grilla implements Serializable {
     private String titulo;
     
     @Fetch(FetchMode.SUBSELECT)
-    @OneToMany(mappedBy = "grilla", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "grilla", fetch = FetchType.LAZY)
     //@OrderBy("idColumna asc")            
     private List<Columna> columnaList;
     

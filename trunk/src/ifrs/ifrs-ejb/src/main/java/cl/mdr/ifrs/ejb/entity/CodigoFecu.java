@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -35,10 +36,10 @@ public class CodigoFecu implements Serializable {
         
     private Short vigencia;
     
-    @OneToMany(mappedBy = "codigoFecu")
+    @OneToMany(mappedBy = "codigoFecu", fetch = FetchType.LAZY)
     private List<EstadoFinanciero> eeffList;
     
-    @OneToMany(mappedBy = "codigoFecu")
+    @OneToMany(mappedBy = "codigoFecu", fetch = FetchType.LAZY)
     private List<RelacionEeff> relacionEeffList;
     
     public CodigoFecu(){

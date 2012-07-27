@@ -14,6 +14,7 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
 import cl.mdr.ifrs.ejb.common.TipoDatoEnum;
+import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Celda;
 import cl.mdr.ifrs.ejb.entity.Columna;
 import cl.mdr.ifrs.ejb.entity.Grilla;
@@ -42,11 +43,11 @@ public class FormulaServiceBean implements FormulaServiceLocal{
     /**
      * @param grid
      * @throws Exception
-     * M�todo que suma las celdas de una grilla que este configurada
-     * con formulas din�micas
+     * Método que suma las celdas de una grilla que este configurada
+     * con formulas dinámicas
      */
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-    public void processDynamicFomula(final Grilla grid) throws Exception{
+    public void processDynamicFomula(final Grilla grid) throws FormulaException, Exception{
         
         BigDecimal sum;
         String key;
@@ -57,12 +58,20 @@ public class FormulaServiceBean implements FormulaServiceLocal{
             
             for(Celda cell : column.getCeldaList()){
                 
+                if(!Util.isTotalorSubTotalNumeric(cell))
+                    continue;
+                
                 if(cell.getParentHorizontal()!=null){
                     key = hPrefix+cell.getParentHorizontal();
                     if(resultMap.containsKey(key)){
                         setNumericValueToCell(resultMap.get(key),cell);
                     }else{
-                        sum = calculateMathematicalHorizontalFormula(cell, cellMapList, resultMap);
+                        try{
+                            sum = calculateMathematicalHorizontalFormula(cell, cellMapList, resultMap);
+                        }catch(StackOverflowError e){
+                            throw new FormulaException("Error dependencia cíclica en fórmula (StackOverFlow), revise configuración de fórmulas", 
+                                                        FormulaException.STACK_OVERFLOW, Util.formatCellKey(cell));
+                        }
                         setNumericValueToCell(sum,cell);
                     }
                 }
@@ -72,7 +81,12 @@ public class FormulaServiceBean implements FormulaServiceLocal{
                         if(resultMap.containsKey(key)){
                             setNumericValueToCell(resultMap.get(key),cell);
                         }else{
-                            sum = calculateMathematicalVerticalFormula(cell, cellMapList, resultMap);
+                            try{
+                                sum = calculateMathematicalVerticalFormula(cell, cellMapList, resultMap);
+                            }catch(StackOverflowError e){
+                                throw new FormulaException("Error dependencia cíclica en fórmula (StackOverFlow), revise configuración de fórmulas", 
+                                                            FormulaException.STACK_OVERFLOW, Util.formatCellKey(cell));
+                            }
                             setNumericValueToCell(sum,cell);
                         }
                 }
@@ -84,8 +98,8 @@ public class FormulaServiceBean implements FormulaServiceLocal{
      * @param grid
      * @throws StackOverflowError
      * @throws Exception
-     * M�todo que suma las celdas de una grilla que este configurada
-     * con formulas est�ticas
+     * Método que suma las celdas de una grilla que este configurada
+     * con formulas estáticas
      */
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public void processStaticFormula(final Grilla grid) throws FormulaException, Exception {
@@ -96,10 +110,15 @@ public class FormulaServiceBean implements FormulaServiceLocal{
         
         for(Columna column : grid.getColumnaList()){
             for(Celda cell : column.getCeldaList()){
-                if(cell.getFormula()!=null){
-                    String cellKey = formatCellKey(cell);
+                if(cell.getFormula()!=null && Util.isTotalorSubTotalNumeric(cell)){
+                    String cellKey = Util.formatCellKey(cell);
                     if(!resultMap.containsKey(cellKey)){
-                        sum = calculateMathematicalFormula(cell.getFormula(), cellMap, resultMap, cellKey);
+                        try{
+                            sum = calculateMathematicalFormula(cell.getFormula(), cellMap, resultMap, cellKey);
+                        }catch(StackOverflowError e){
+                            throw new FormulaException("Error dependencia cíclica en fórmula (StackOverFlow), revise configuración de fórmulas",
+                                                        FormulaException.STACK_OVERFLOW, Util.formatCellKey(cell) + " = " + cell.getFormula());
+                        }
                     }else{
                         sum = resultMap.get(cellKey);
                     }
@@ -107,10 +126,9 @@ public class FormulaServiceBean implements FormulaServiceLocal{
                     //System.out.println("Resultado Celda"+ cell.getIdFila() +"->"+sum);
                 }
             }
-        }
-        
+        }        
     }
-    
+
     private BigDecimal calculateMathematicalFormula(final String formula, 
                                                     final Map<String, Celda> cellMap, 
                                                     final Map<String, BigDecimal> resultMap,
@@ -134,9 +152,10 @@ public class FormulaServiceBean implements FormulaServiceLocal{
                 //System.out.println(cellOperator=='+'?"Sumando":"Restando" + " Token->"+cellKey);
                 if(cell.getFormula()!=null && !cell.getFormula().trim().equals("")){
                     
-                    if(!validateTokens(cellKey,invalidFormula)){
-                        throw new FormulaException("Error dependencia ciclica en formula (StackOverFlow)", FormulaException.STACK_OVERFLOW,cell.getFormula());
-                    }
+                    /*if(!validateTokens(cellKey,invalidFormula)){
+                        throw new FormulaException("Error dependencia cíclica en formula (StackOverFlow)", 
+                                                    FormulaException.STACK_OVERFLOW, Util.formatCellKey(cell) + " = " + cell.getFormula());
+                    }*/
                     
                     invalidFormula += ("+"+cellKey);
                     BigDecimal result = calculateMathematicalFormula(cell.getFormula(), cellMap, resultMap,invalidFormula);
@@ -229,7 +248,7 @@ public class FormulaServiceBean implements FormulaServiceLocal{
         key = vPrefix+cell.getParentVertical();
         List<Celda> cells = cellMap.get(key);
         if(cells!=null){
-            for(Celda cellTemp : cells){
+            for(Celda cellTemp : cells ){
                 if(cellTemp.getParentVertical()!=null){
                     
                     String keyTemp = vPrefix+cellTemp.getParentVertical();
@@ -278,20 +297,14 @@ public class FormulaServiceBean implements FormulaServiceLocal{
         
         for(Columna column : columns){
             for(Celda cell : column.getCeldaList()){
-                cellMap.put(formatCellKey(cell), cell);
+                cellMap.put(Util.formatCellKey(cell), cell);
             }
         }
         
         return cellMap;
     }
                 
-    private String formatCellKey(final Celda cell){
-        return  "["
-                .concat(cell.getIdColumna().toString())
-                .concat(",")
-                .concat(cell.getIdFila().toString())
-                .concat("]");
-    }
+    
     
     private void setNumericValueToCell(BigDecimal sum, Celda cell){
         if (cell.getTipoDato() != null && 
