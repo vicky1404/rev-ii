@@ -7,6 +7,5 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 	<p:spacer height="20"></p:spacer>
-	
-	<h:outputFormat value="#{item.textoVo.texto.texto}" style="text-align:justify;" />  	 
+	<h:outputFormat value="#{item.texto.texto}" style="text-align:justify;" rendered="#{not empty item.texto.texto}" />  	 
 </ui:composition>

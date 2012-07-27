@@ -10,11 +10,15 @@
 		
 		<h:form prependId="false">  
 		
+		<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
+		
+		<ui:include src="/WEB-INF/templates/nombre-empresa-template.xhtml" />
+		
 		<p:panel header="#{msg.periodo_titulo_periodo_actual} #{periodoBackingBean.periodo.periodoFormat}">
 		
 		<p:ajaxStatus onstart="statusDialog.show();" oncomplete="statusDialog.hide();" />
 		
-		<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
+		
 		
 		<div align="center">
 			<p:commandButton value="#{msg.general_control_abrir_periodo}" onclick="confirmation.show()" type="button"/>

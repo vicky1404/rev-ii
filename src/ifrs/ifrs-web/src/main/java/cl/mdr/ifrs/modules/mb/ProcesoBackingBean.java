@@ -33,6 +33,7 @@ import cl.mdr.ifrs.ejb.entity.Columna;
 import cl.mdr.ifrs.ejb.entity.Estructura;
 import cl.mdr.ifrs.ejb.entity.Grilla;
 import cl.mdr.ifrs.ejb.entity.HistorialVersion;
+import cl.mdr.ifrs.ejb.entity.Periodo;
 import cl.mdr.ifrs.ejb.entity.TipoEstructura;
 import cl.mdr.ifrs.ejb.entity.Usuario;
 import cl.mdr.ifrs.ejb.entity.Version;
@@ -65,8 +66,39 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
 	
 	@PostConstruct
 	public void cargarCuadro(){
-		System.out.println("Cargando Cuadro");
-		System.out.println("Catalogo ->" + getFiltroBackingBean().getCatalogo().getIdCatalogo());
+		try {
+			
+			Periodo periodo = getFacadeService().getPeriodoService().findMaxPeriodoObj();
+			getFiltroBackingBean().setPeriodo(periodo);
+			versionList = getFacadeService().getVersionService().findVersionByCatalogoPeriodo(getFiltroBackingBean().getCatalogo().getIdCatalogo(), getFiltroBackingBean().getPeriodo().getIdPeriodo());
+			versionSeleccionada = getFacadeService().getVersionService().findUltimaVersionVigente(getFiltroBackingBean().getPeriodo().getIdPeriodo(), getNombreUsuario(), getFiltroBackingBean().getCatalogo().getIdCatalogo());
+			
+			if(versionSeleccionada==null){
+				addNotFoundMessage();
+				return;
+			}
+			
+			estructuraList = getFacadeService().getEstructuraService().getEstructuraByVersion(versionSeleccionada, true);
+            
+			if(!Util.esListaValida(getEstructuraList())){
+                addWarnMessage(PropertyManager.getInstance().getMessage("general_mensaje_version_sin_registros"));
+                return;
+            }
+			
+            setListGrilla(estructuraList);
+            
+            this.renderVersionList = true;
+
+			
+		} catch (FormulaException e){
+            logger.error(e.getCause(), e);
+            addErrorMessage(PropertyManager.getInstance().getMessage("general_mensaje_cuadro_formula_loop_error"));  
+            addErrorMessage(e.getFormula());  
+        } catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			this.renderVersionList = false;
+            addWarnMessage(MessageFormat.format(PropertyManager.getInstance().getMessage("periodo_busqueda_sin_resultado_periodo"), getFiltroBackingBean().getPeriodo().getAnioPeriodo(), getFiltroBackingBean().getPeriodo().getMesPeriodo()));
+		}
 	}
 
 	
@@ -83,25 +115,21 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
                 try{
                     getFiltroBackingBean().setPeriodo(getFacadeService().getMantenedoresTipoService().findByPeriodo(periodo));
                 }catch(NoResultException e){
+                	logger.error(e.getMessage(), e);
                 	addNotFoundMessage();
                     return null;                    
                 }catch(EJBException e){
+                	logger.error(e.getMessage(), e);
                 	addNotFoundMessage();
                     return null;
                 }
                 
-                //CREAR METODO QUE BUSQUE POR PERMISOS - PERIODO - CUADRO
-                System.out.println("valores");
-                System.out.println(filtroPaso.getCatalogo().getIdCatalogo());
-                System.out.println(getFiltroBackingBean().getPeriodo().getIdPeriodo());
                 versionList = getFacadeService().getVersionService().findVersionByCatalogoPeriodo(filtroPaso.getCatalogo().getIdCatalogo(), getFiltroBackingBean().getPeriodo().getIdPeriodo());
                 
                 if(versionList == null){  
-                	System.out.println("version nullR");
                     this.renderVersionList = false;
                     addWarnMessage(MessageFormat.format(PropertyManager.getInstance().getMessage("periodo_busqueda_sin_resultado_periodo"), getFiltroBackingBean().getPeriodo().getAnioPeriodo(), getFiltroBackingBean().getPeriodo().getMesPeriodo()));
                 }else{
-                	System.out.println(versionList.size());
                 	this.renderVersionList = true;
                 }
                 
@@ -128,6 +156,7 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
             if(getEstructuraList().isEmpty()){
                 addWarnMessage(PropertyManager.getInstance().getMessage("general_mensaje_version_sin_registros"));
             }
+            
         } catch (FormulaException e){
             logger.error(e.getCause(), e);
             addErrorMessage(PropertyManager.getInstance().getMessage("general_mensaje_cuadro_formula_loop_error"));  
