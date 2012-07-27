@@ -173,7 +173,8 @@
 			<artifactId>jaxb-impl</artifactId>
 			<version>2.2.5-2</version>
 		</dependency>
-	
+		
+		
    </dependencies>
 
    <build>
@@ -186,6 +187,66 @@
                <ejbVersion>3.1</ejbVersion>
             </configuration>
          </plugin>
+         
+         
+		<plugin>
+			<artifactId>maven-antrun-plugin</artifactId>
+			<dependencies>
+				<dependency>
+					<groupId>yguard</groupId>
+					<artifactId>yguard</artifactId>
+					<version>2.3.0.1</version>
+					<systemPath>yguard.jar</systemPath>
+				</dependency>
+			</dependencies>
+			<executions>
+				<execution>
+					<phase>package</phase>
+					<configuration>
+						<tasks>
+							<property refid="maven.compile.classpath" name="mvn.classpath"></property>
+							<!-- <echo message="Using Maven Classpath: ${mvn.classpath}" /> -->
+							<taskdef name="yguard" classname="com.yworks.yguard.YGuardTask">
+								<yguard>
+									<!-- Input file and output file is the same. -->
+									<inoutpair
+										in="${project.build.directory}/${project.build.finalName}.${project.packaging}"
+										out="${project.build.directory}/${project.build.finalName}.jar">
+										<!-- Obfuscate classes plus string references. -->
+										<rename logfile="${project.build.directory}/yguard.log.xml" replaceClassNameStrings="true">
+												<!-- Keep the only class to be used for easy running and its public 
+													method main(). -->
+												<keep>
+													<class classes="public" methods="public"></class>
+													<class classes="protected" methods="protected" fields="protected"></class>
+													<class classes="public" methods="public" fields="private">
+														<patternset>
+															<include name="**.*Entity">
+															</include>
+														</patternset>
+													</class>
+												</keep>
+										</rename>
+										<!-- There are some external libraries used - Maven knows details. -->
+										<externalclasses>
+											<pathelement path="${mvn.classpath}">
+											</pathelement>
+										</externalclasses>
+									</inoutpair>
+		
+								</yguard>
+							</taskdef>
+						</tasks>
+					</configuration>
+					<goals>
+						<goal>run</goal>
+					</goals>
+				</execution>
+			</executions>
+		</plugin>
+
+         
+         
       </plugins>
    </build>
 
