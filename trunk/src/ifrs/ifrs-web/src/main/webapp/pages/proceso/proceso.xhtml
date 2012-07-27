@@ -12,8 +12,12 @@
 			<p:ajaxStatus onstart="statusDialog.show();"
 				oncomplete="statusDialog.hide();" />
 			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
-			<p:panel id="pb1" header="#{msg.general_titulo_busqueda_aplicacion}"
-				toggleable="true" closable="false">
+			
+			<ui:include src="/WEB-INF/templates/nombre-empresa-template.xhtml" />
+			
+			
+			
+			<p:panel id="pb1" header="#{msg.general_titulo_busqueda_aplicacion}" toggleable="true" closable="false">
 				<table border="0" width="30%" align="center" id="tb1APeriodo">
 					<tr>
 					    <td><h:outputLabel value="#{msg.label_periodo}" /></td>
@@ -110,11 +114,11 @@
 							icon="ui-icon-disk" id="btn1"
 							action="#{procesoBackingBean.guardar}" partialSubmit="false"
 							update=":f1:mensajes_proceso" />
+						<p:spacer width="10px" />
+						<h:outputText value="Periodo : #{procesoBackingBean.versionSeleccionada.periodo.periodoFormat} - #{procesoBackingBean.filtroBackingBean.catalogo.titulo}" />
 					</p:toolbarGroup>
 
 				</p:toolbar>
-
-
 
 
 				<ui:repeat value="#{procesoBackingBean.estructuraList}" var="item" varStatus="status">

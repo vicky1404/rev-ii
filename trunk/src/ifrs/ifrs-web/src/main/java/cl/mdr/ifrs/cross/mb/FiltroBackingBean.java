@@ -30,7 +30,6 @@ public class FiltroBackingBean implements Serializable{
     private Version version;
     private TipoCuadro tipoCuadro;
     private Long tipoFormula;
-    private Periodo periodoActual;
     
     @EJB
     private PeriodoServiceLocal periodoService;
@@ -43,7 +42,12 @@ public class FiltroBackingBean implements Serializable{
     
     @PostConstruct
     public void init(){
-    	periodoActual = periodoService.findMaxPeriodoObj();
+    	empresa = null;
+        periodo = null;
+        catalogo = null;
+        version = null;
+        tipoCuadro = null;
+        tipoFormula = null;
     }
           
     public FiltroBackingBean() {
@@ -118,13 +122,5 @@ public class FiltroBackingBean implements Serializable{
 
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
-	}
-	
-	public Periodo getPeriodoActual() {
-		return periodoActual;
-	}
-
-	public void setPeriodoActual(Periodo periodoActual) {
-		this.periodoActual = periodoActual;
 	}
 }

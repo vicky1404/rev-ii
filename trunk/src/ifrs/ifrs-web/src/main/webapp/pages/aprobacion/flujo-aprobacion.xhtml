@@ -16,7 +16,10 @@
 				showDetail="true" showSummary="true" /-->
 			<p:ajaxStatus onstart="statusDialog.show();"
 				oncomplete="statusDialog.hide();" />
+			
 			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
+			
+			<ui:include src="/WEB-INF/templates/nombre-empresa-template.xhtml" />
 
 			<!-- dialogo de descarga excel -->
 			<p:dialog id="popUpDownExcel" header="#{msg.label_descargar}"

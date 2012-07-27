@@ -10,6 +10,7 @@ import static ch.lambdaj.Lambda.select;
 import static ch.lambdaj.Lambda.sort;
 import static org.hamcrest.Matchers.equalTo;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -53,6 +54,7 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 	private final Logger log = Logger.getLogger(this.getClass().getName());
 	private static final long serialVersionUID = 8077481642975216680L;
 	private static final String PROCESO_VIEW_ID = "/pages/proceso/proceso.jsf";
+	private static final String BLANK_VIEW_ID = "/pages/blank.jsf";
 	
 	private FiltroBackingBean filtroBackingBean;
 	
@@ -85,7 +87,8 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 	/**
 	 * 
 	
-	@PostConstruct
+	@throws IOException 
+	 * @PostConstruct
 	void init(){	
 		try{
 			this.buildCuadroTreeMenu(this.getRoot());
@@ -98,12 +101,14 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 	}*/
 
 	
-	public void empresaChangeValue(ValueChangeEvent event){
+	public void empresaChangeValue(ValueChangeEvent event) throws IOException{
 		
 		init();
 		
 		if(event.getNewValue() == null){
+			getFiltroBackingBean().init();
 			addWarnMessage(PropertyManager.getInstance().getMessage("general_seleccionar_empresa"));
+			getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(BLANK_VIEW_ID));
 			return;
 		}
 		
@@ -114,6 +119,7 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 			buildCuadroTreeMenu(this.getRoot());
 			buildAccordionPanelMenu();
 			buildCatalogoMap();
+			getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(BLANK_VIEW_ID));
 		}catch(Exception e){
 			e.printStackTrace();
 		}
