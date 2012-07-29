@@ -217,7 +217,7 @@
 
 																			<f:convertNumber integerOnly="true" type="number"
 																				maxFractionDigits="0" groupingUsed="true"
-																				locale="#{procesoBackingBean.localeCL}"
+																				locale="#{configuradorDisenoBackingBean.localeCL}"
 																				maxIntegerDigits="#{msg.constantes_max_lenght_number}"
 																				pattern="##,###,###,###" />
 																			<f:validateLongRange
@@ -229,7 +229,7 @@
 
 																			<f:convertNumber integerOnly="true" type="number"
 																				maxFractionDigits="0" groupingUsed="true"
-																				locale="#{procesoBackingBean.localeCL}"
+																				locale="#{configuradorDisenoBackingBean.localeCL}"
 																				maxIntegerDigits="#{msg.constantes_max_lenght_number}"
 																				pattern="##,###,###,###" />
 
@@ -243,7 +243,7 @@
 																			<f:convertNumber integerOnly="false" type="number"
 																				maxIntegerDigits="#{msg.constantes_max_lenght_number}"
 																				maxFractionDigits="4"
-																				locale="#{procesoBackingBean.localeCL}"
+																				locale="#{configuradorDisenoBackingBean.localeCL}"
 																				pattern="##,###,###,###.####" />
 																			<f:validateDoubleRange
 																				maximum="#{msg.constantes_maximum_validate_long_range}" />
@@ -256,13 +256,13 @@
 																			<f:convertNumber integerOnly="false" type="number"
 																				maxIntegerDigits="#{msg.constantes_max_lenght_number}"
 																				maxFractionDigits="4"
-																				locale="#{procesoBackingBean.localeCL}"
+																				locale="#{configuradorDisenoBackingBean.localeCL}"
 																				pattern="##,###,###,###.####" />
 
 																		</p:inputText> <p:calendar value="#{row.valorDate}" id="it10"
 																			navigator="true" pattern="dd-MM-yyyy" label=" "
 																			effect="fade" showOn="button"
-																			locale="#{procesoBackingBean.localeCL}"
+																			locale="#{configuradorDisenoBackingBean.localeCL}"
 																			rendered="#{row.tipoDato.idTipoDato == 1 and row.tipoCelda.idTipoCelda == 6}">
 																		</p:calendar> <!-- Editor de tipo de celda y tipo de dato --> <p:tooltip
 																			for="clEditCell"
