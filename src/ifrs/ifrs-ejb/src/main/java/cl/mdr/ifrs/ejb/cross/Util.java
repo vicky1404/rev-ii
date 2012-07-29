@@ -493,5 +493,30 @@ public class Util{
             return celdaDobleList;
             
     }
+    
+    /**
+     * Evalua una expresion regular para un par ordenado representado como un string con 
+     * la forma +/-[n,m]. Por ejemplo +[2,3]
+     * @param parOrdenado
+     */
+    public static boolean validaParOrdenadoConSigno(String parOrdenado){
+    	String patron = "^(^(\\+|-){1}\\[[0-9],[0-9]\\])$";
+    	Pattern p = Pattern.compile(patron);
+    	Matcher m = p.matcher(parOrdenado);
+      return m.find();
+    }
+    
+    /**
+     * Evalua una expresion regular para un par ordenado representado como un string con 
+     * la forma [n,m]. Por ejemplo [2,3]
+     * @param parOrdenado
+     */
+    public static boolean validaParOrdenadoSinSigno(String parOrdenado){
+    	String patron = "^(\\[[0-9],[0-9]\\])$";
+    	Pattern p = Pattern.compile(patron);
+    	Matcher m = p.matcher(parOrdenado);
+      return m.find();
+    }
+    
 }
 
