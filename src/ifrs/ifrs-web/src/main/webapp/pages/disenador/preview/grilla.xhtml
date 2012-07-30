@@ -47,38 +47,21 @@
 							<td role="gridcell">
 								<div class="ui-dt-c">
 									<div style="padding-left: 5px"> 
-									
-										<div align="right">
-											<h:outputText
-													value="#{row.valor}" id="ot7"
-													style="font-weight:bold;"
-													rendered="#{ (row.tipoCelda.idTipoCelda == 4 or row.tipoCelda.idTipoCelda == 5) and (row.tipoDato.idTipoDato != 2 and row.tipoDato.idTipoDato != 3) }">
-											</h:outputText>
-										</div>
-										
-										<!-- Texto -->
-										<h:outputText
-													value="#{row.valor}" id="ot71"													
-													rendered="#{ (row.tipoCelda.idTipoCelda == 0) and (row.tipoDato.idTipoDato != 2 and row.tipoDato.idTipoDato != 3) }">
-										</h:outputText>
-										
-										<!-- Titulos -->
-										<h:outputText value="#{row.valor}" id="ot8" 
-											style="font-weight:bold; text-align:left;"
-											rendered="#{row.tipoCelda.idTipoCelda == 2}">
-										</h:outputText>
-										
-										<!-- Input Texto Editable -->
+									    
+									    <h:outputText
+											value="#{row.valor}" id="ot7"
+											style="#{row.tipoCelda.idTipoCelda == 4 or row.tipoCelda.idTipoCelda == 5 ? 'text-align:right;font-weight:bold;color:black' : 'text-align:right;'}"
+											rendered="#{ (row.tipoCelda.idTipoCelda == 0 or row.tipoCelda.idTipoCelda == 4 or row.tipoCelda.idTipoCelda == 5) and (row.tipoDato.idTipoDato != 2 and row.tipoDato.idTipoDato != 3) }"></h:outputText>
+										<h:outputText value="#{row.valor}" id="ot8"
+											inlineStyle="font-weight:bold; text-align:left;"
+											rendered="#{row.tipoCelda.idTipoCelda == 2}"></h:outputText>
 										<p:inputText value="#{row.valor}" id="it7"
 											style="text-align:left;"
 											rendered="#{row.tipoCelda.idTipoCelda == 6 and row.tipoDato.idTipoDato == 0}"
 											maximumLength="#{msg.constantes_max_caracter_cuadro}">
 											<f:validateLength
 												maximum="#{msg.constantes_max_caracter_cuadro}" />
-										</p:inputText> 
-										
-										<!-- Input Entero -->
-										<p:inputText value="#{row.valorLong}" id="it8"
+										</p:inputText> <p:inputText value="#{row.valorLong}" id="it8"
 											rendered="#{( row.tipoDato.idTipoDato == 2 and (row.tipoCelda.idTipoCelda != 4 and row.tipoCelda.idTipoCelda != 5))}"
 											style="text-align:right;"
 											maxlength="#{msg.constantes_text_length_long}">
@@ -90,43 +73,19 @@
 												pattern="##,###,###,###" />
 											<f:validateLongRange
 												maximum="#{msg.constantes_maximum_validate_long_range}" />
-										</p:inputText> 
-										
-										<!-- Total Entero -->
-										<div align="right">
-											<h:outputText value="#{row.valorLong}" id="it28"
-												rendered="#{row.tipoDato.idTipoDato == 2 and (row.tipoCelda.idTipoCelda == 4 or row.tipoCelda.idTipoCelda == 5)}"
-												style="font-weight:bold;"
-												maxlength="#{msg.constantes_text_length_long}">
-	
-												<f:convertNumber integerOnly="true" type="number"
-													maxFractionDigits="0" groupingUsed="true"
-													locale="#{configuradorDisenoBackingBean.localeCL}"
-													maxIntegerDigits="#{msg.constantes_max_lenght_number}"
-													pattern="##,###,###,###" />
-	
-	
-											</h:outputText> 
-										</div>
-										
-										<!-- Total Decimal -->
-										<div align="right">
-											<h:outputText value="#{row.valorBigDecimal}" id="it282"
-												rendered="#{row.tipoDato.idTipoDato == 3 and (row.tipoCelda.idTipoCelda == 4 or row.tipoCelda.idTipoCelda == 5)}"
-												style="font-weight:bold;"
-												maxlength="#{msg.constantes_text_length_long}">
-	
-												<f:convertNumber integerOnly="true" type="number"
-													maxFractionDigits="0" groupingUsed="true"
-													locale="#{configuradorDisenoBackingBean.localeCL}"
-													maxIntegerDigits="#{msg.constantes_max_lenght_number}"
-													pattern="##,###,###,###" />
-	
-	
-											</h:outputText> 
-										</div>
-										
-										<p:inputText value="#{row.valorBigDecimal}" id="it9"
+										</p:inputText> <h:outputText value="#{row.valorLong}" id="it28"
+											rendered="#{row.tipoDato.idTipoDato == 2 and (row.tipoCelda.idTipoCelda == 4 or row.tipoCelda.idTipoCelda == 5)}"
+											style="text-align:right;border:none;background-color: white;font-weight:bold;color:black"
+											maxlength="#{msg.constantes_text_length_long}">
+
+											<f:convertNumber integerOnly="true" type="number"
+												maxFractionDigits="0" groupingUsed="true"
+												locale="#{configuradorDisenoBackingBean.localeCL}"
+												maxIntegerDigits="#{msg.constantes_max_lenght_number}"
+												pattern="##,###,###,###" />
+
+
+										</h:outputText> <p:inputText value="#{row.valorBigDecimal}" id="it9"
 											rendered="#{row.tipoDato.idTipoDato == 3 and (row.tipoCelda.idTipoCelda != 4 and row.tipoCelda.idTipoCelda != 5)}"
 											maximumLength="#{msg.constantes_text_length_decimal}"
 											disabled="#{row.tipoCelda.idTipoCelda == 4 or row.tipoCelda.idTipoCelda == 5}"
@@ -139,9 +98,7 @@
 												pattern="##,###,###,###.####" />
 											<f:validateDoubleRange
 												maximum="#{msg.constantes_maximum_validate_long_range}" />
-										</p:inputText> 
-										
-										<p:inputText value="#{row.valorBigDecimal}" id="it09"
+										</p:inputText> <p:inputText value="#{row.valorBigDecimal}" id="it09"
 											rendered="#{row.tipoDato.idTipoDato == 3 and (row.tipoCelda.idTipoCelda == 4 or row.tipoCelda.idTipoCelda == 5)}"
 											maximumLength="#{msg.constantes_text_length_decimal}"
 											disabled="#{row.tipoCelda.idTipoCelda == 4 or row.tipoCelda.idTipoCelda == 5}"
@@ -155,14 +112,11 @@
 
 										</p:inputText> 
 										
-										<!-- Selector de Fecha -->
 										<p:calendar value="#{row.valorDate}" id="it10" navigator="true"
 											pattern="dd-MM-yyyy" label=" " effect="fade" showOn="button"
 											locale="#{configuradorDisenoBackingBean.localeCL}"
 											rendered="#{row.tipoDato.idTipoDato == 1 and row.tipoCelda.idTipoCelda == 6}">
 										</p:calendar> 
-										
-										<!-- Agregar o Quitar Fila -->
 										<div style="display:inline-block">
 											<p:panelGrid columns="3" columnClasses="border_none, border_none, border_none"
 												rendered="#{row.tipoCelda.idTipoCelda == 3}" style="display: inline;" layout="block">
@@ -187,9 +141,6 @@
 												</p:commandLink>
 											</p:panelGrid>
 										</div>
-
-
-
 									</div>
 								</div>
 							</td>
