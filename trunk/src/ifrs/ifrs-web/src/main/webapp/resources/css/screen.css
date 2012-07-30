@@ -272,3 +272,8 @@ img.right {
    width: 250px;
 }
 
+.border_none{
+	border: 1px solid !important;
+	color: #FFFFFF;
+}
+

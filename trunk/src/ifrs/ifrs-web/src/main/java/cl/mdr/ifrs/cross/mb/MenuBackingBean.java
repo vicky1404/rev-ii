@@ -7,7 +7,6 @@ import static ch.lambdaj.Lambda.having;
 import static ch.lambdaj.Lambda.index;
 import static ch.lambdaj.Lambda.on;
 import static ch.lambdaj.Lambda.select;
-import static ch.lambdaj.Lambda.sort;
 import static org.hamcrest.Matchers.equalTo;
 
 import java.io.IOException;
@@ -17,11 +16,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import javax.annotation.PostConstruct;
 import javax.faces.component.UIComponent;
 import javax.faces.event.ValueChangeEvent;
 

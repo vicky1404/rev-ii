@@ -1809,9 +1809,9 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
 		String[] arreglo = formula.split("\\|");
 		
 		for (int i=0; i<arreglo.length;i++ ){
-			if (!Util.validaParOrdenadoSinSigno(arreglo[i])){
+			/*if (!Util.validaParOrdenadoSinSigno(arreglo[i])){
 					throw new FormulaException();
-			}
+			}*/
 		}
 		
 	}
@@ -1822,9 +1822,9 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
 		String[] arreglo = formula.split("\\|");
 		
 		for (int i=0; i<arreglo.length;i++ ){
-			if (!Util.validaParOrdenadoConSigno(arreglo[i])){
+			/*if (!Util.validaParOrdenadoConSigno(arreglo[i])){
 					throw new FormulaException();
-			}
+			}*/
 		}
 		
 	}
