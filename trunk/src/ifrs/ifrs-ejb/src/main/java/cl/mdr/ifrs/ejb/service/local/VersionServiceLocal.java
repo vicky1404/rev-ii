@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.ejb.Local;
 
 import cl.mdr.ifrs.ejb.entity.Catalogo;
+import cl.mdr.ifrs.ejb.entity.Empresa;
 import cl.mdr.ifrs.ejb.entity.EstadoCuadro;
 import cl.mdr.ifrs.ejb.entity.Estructura;
 import cl.mdr.ifrs.ejb.entity.HistorialVersion;
@@ -25,7 +26,7 @@ public interface VersionServiceLocal {
      * @param versionList
      * @param historialVersionList
      */
-    void persistFlujoAprobacion(final List<Version> versionList, final List<HistorialVersion> historialVersionList) throws Exception;
+    void persistFlujoAprobacion( List<Version> versionList,  List<HistorialVersion> historialVersionList) throws Exception;
     
     /**
      * @param usuario
@@ -35,7 +36,7 @@ public interface VersionServiceLocal {
      * @param vigente
      * @return
      * @throws Exception*/
-    List<Version> findVersionByFiltro(final String usuario, final TipoCuadro tipoCuadro, final Periodo periodo, final EstadoCuadro estadoCuadro, final Long vigente, final Catalogo catalogo) throws Exception;     
+    List<Version> findVersionByFiltro(String usuario,  TipoCuadro tipoCuadro,  Periodo periodo,  EstadoCuadro estadoCuadro,  Long vigente,  Catalogo catalogo, Empresa empresa) throws Exception;     
 
     /**
      * @param entity
@@ -117,7 +118,7 @@ public interface VersionServiceLocal {
      * @return
      * @throws Exception
      */
-    List<Version> findUltimoVersionByPeriodo(final Long periodo, final String usuario, final TipoCuadro tipoCuadro, final Long vigente) throws Exception;
+    List<Version> findUltimoVersionByPeriodo( Long periodo,  String usuario,  TipoCuadro tipoCuadro,  Long vigente, Empresa empresa ) throws Exception;
 
 
     /**
@@ -126,14 +127,14 @@ public interface VersionServiceLocal {
      * @param idCatalogo
      * @return
      */
-    Version findUltimaVersionVigente(final Long idPeriodo, final String usuario, final Long idCatalogo);
+    Version findUltimaVersionVigente( Long idPeriodo,  String usuario,  Long idCatalogo);
     
     /**
      * @param versionesModificadas
      * @return
      * @throws Exception
      */
-    List<Version> findVersionListActualToCompare(final List<Version> versionesModificadas) throws Exception;
+    List<Version> findVersionListActualToCompare( List<Version> versionesModificadas) throws Exception;
     
     List<Version> findVersionByCatalogoPeriodo(Long idCatalogo, Long idPeriodo) throws Exception;
 }

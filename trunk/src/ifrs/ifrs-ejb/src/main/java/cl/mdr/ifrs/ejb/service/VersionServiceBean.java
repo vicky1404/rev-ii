@@ -25,6 +25,7 @@ import cl.mdr.ifrs.ejb.entity.AgrupacionColumna;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
 import cl.mdr.ifrs.ejb.entity.Celda;
 import cl.mdr.ifrs.ejb.entity.Columna;
+import cl.mdr.ifrs.ejb.entity.Empresa;
 import cl.mdr.ifrs.ejb.entity.EstadoCuadro;
 import cl.mdr.ifrs.ejb.entity.Estructura;
 import cl.mdr.ifrs.ejb.entity.Grilla;
@@ -232,9 +233,10 @@ public class VersionServiceBean implements VersionServiceLocal{
     
     @SuppressWarnings("unchecked")
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-    public List<Version> findVersionByFiltro(final String usuario, final TipoCuadro tipoCuadro, final Periodo periodo, final EstadoCuadro estadoCuadro, final Long vigente, final Catalogo catalogo) throws Exception{
+    public List<Version> findVersionByFiltro(final String usuario, final TipoCuadro tipoCuadro, final Periodo periodo, final EstadoCuadro estadoCuadro, final Long vigente, final Catalogo catalogo, final Empresa empresa) throws Exception{
         return em.createNamedQuery(Version.VERSION_FIND_BY_FILTRO)
         .setParameter("usuario", usuario)
+        .setParameter("rutEmpresa", empresa.getRut())
         .setParameter("tipoCuadro", tipoCuadro.getIdTipoCuadro() != null ? tipoCuadro.getIdTipoCuadro() : null )     
         .setParameter("catalogo", catalogo != null ? catalogo.getIdCatalogo() : null )
         .setParameter("periodo", periodo.getIdPeriodo() != null ? periodo.getIdPeriodo() : null)
@@ -460,9 +462,10 @@ public class VersionServiceBean implements VersionServiceLocal{
 
     @SuppressWarnings("unchecked")
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-    public List<Version> findUltimoVersionByPeriodo(final Long periodo, final String usuario, final TipoCuadro tipoCuadro, final Long vigente) throws Exception{
+    public List<Version> findUltimoVersionByPeriodo(final Long periodo, final String usuario, final TipoCuadro tipoCuadro, final Long vigente, final Empresa empresa) throws Exception{
         Query query = em.createNamedQuery(Version.VERSION_FIND_ULTIMO_VERSION_BY_PERIODO);
         query.setParameter("periodo", periodo != null ? periodo.longValue() : "");
+        query.setParameter("rutEmpresa", empresa.getRut());
         query.setParameter("usuario", usuario);
         query.setParameter("tipoCuadro", tipoCuadro.getIdTipoCuadro() != null ? tipoCuadro.getIdTipoCuadro().longValue() : "" ) ; 
         query.setParameter("vigente", vigente != null ? vigente.longValue() : "" );        
