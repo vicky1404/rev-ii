@@ -78,7 +78,7 @@ public class ReporteBackingBean extends AbstractBackingBean implements Serializa
                 this.setRenderCatalogoReportes(Boolean.FALSE);
                 return;
             }
-            List<Version> versionList = super.getFacadeService().getVersionService().findUltimoVersionByPeriodo(Long.valueOf(fechaPeriodo), super.getNombreUsuario(), this.getFiltroBackingBean().getTipoCuadro(), null);            
+            List<Version> versionList = super.getFacadeService().getVersionService().findUltimoVersionByPeriodo(Long.valueOf(fechaPeriodo), super.getNombreUsuario(), this.getFiltroBackingBean().getTipoCuadro(), null, super.getFiltroBackingBean().getEmpresa());            
             this.setCatalogoReportes(this.getGrillaReportes(versionList));                
             this.setRenderCatalogoReportes(Boolean.TRUE);
         } catch (Exception e) {

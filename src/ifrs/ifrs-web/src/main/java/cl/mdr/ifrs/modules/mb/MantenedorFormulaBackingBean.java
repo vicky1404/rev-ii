@@ -150,7 +150,7 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
     	Long periodoLong = Long.parseLong( super.getFiltroBackingBean().getPeriodo().getAnioPeriodo() ) * 100 + Long.parseLong( super.getFiltroBackingBean().getPeriodo().getMesPeriodo() );
         Periodo periodo = getFacadeService().getPeriodoService().findPeriodoByPeriodo(periodoLong);
         try {
-        		List<Version> lista = getFacadeService().getVersionService().findVersionByFiltro(null, new TipoCuadro(getIdTipoCuadro()) , periodo, null, null, new Catalogo(getIdCatalogo()));
+        		List<Version> lista = getFacadeService().getVersionService().findVersionByFiltro(null, new TipoCuadro(getIdTipoCuadro()) , periodo, null, null, new Catalogo(getIdCatalogo()), super.getFiltroBackingBean().getEmpresa());
         		setTreeNode(lista);
 		} catch (Exception e) {
 			e.printStackTrace();
