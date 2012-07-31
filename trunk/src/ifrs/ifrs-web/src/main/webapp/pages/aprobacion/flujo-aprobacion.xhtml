@@ -202,7 +202,7 @@
 					<h:outputText value="#{row.version}" id="ot8" />
 				</p:column>
 				<p:column sortable="false" headerText="#{msg.label_observacion}"
-					align="start" id="c5">
+					align="start" id="c5">					
 					<h:outputText value="#{row.comentario}" id="ot18"
 						rendered="#{row.estado.idEstado == 5 ? false : true}" />
 					<p:inputTextarea id="txt_obs" rows="4" wrap="hard"

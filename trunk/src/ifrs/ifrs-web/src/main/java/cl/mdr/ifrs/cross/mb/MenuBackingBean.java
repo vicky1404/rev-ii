@@ -245,6 +245,9 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
     	event.getTreeNode().getParent().setExpanded(Boolean.TRUE);
     	event.getTreeNode().getParent().setSelected(Boolean.TRUE);
     	this.setCatalogoSelected(this.getCatalogoMap().get(Util.getLong(event.getTreeNode().toString(), null)));
+    	if(super.getPrincipal() == null){
+    		super.addFatalMessage("Debido a su inactividad, la Sesión ha Caducado. por favor ingrese nuevamente.");
+    	}
     	if(this.getCatalogoSelected() != null){
     		this.getFiltroBackingBean().setCatalogo(this.getCatalogoSelected());    	    
     		super.getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(PROCESO_VIEW_ID));
