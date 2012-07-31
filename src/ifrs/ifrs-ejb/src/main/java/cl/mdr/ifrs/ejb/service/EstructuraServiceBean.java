@@ -370,6 +370,8 @@ public class EstructuraServiceBean implements EstructuraServiceLocal {
     
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void persistEstructura(List<Estructura> estructuras, Version version, HistorialVersion historialVersion) throws Exception {
+    	em.merge(version);
+    	
         for (Estructura estructura : estructuras){
                 
         	if (estructura.getTipoEstructura().getIdTipoEstructura().equals(TipoEstructuraEnum.GRILLA.getKey())){

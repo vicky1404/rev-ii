@@ -36,12 +36,38 @@ import cl.mdr.ifrs.ejb.common.Constantes;
                  @NamedQuery(name = Version.VERSION_FIND_ALL_BY_CATALOGO, query = "select o from Version o where o.catalogo = :catalogo order by o.vigencia, o.version, o.fechaCreacion"),
                  @NamedQuery(name = Version.VERSION_FIND_ALL_BY_ID_CATALOGO, query = "select o from Version o where o.catalogo.idCatalogo = :idCatalogo order by o.vigencia, o.version, o.fechaCreacion"),
                  @NamedQuery(name = Version.VERSION_FIND_BY_VERSION, query = "select o from Version o where o = :version"),
-                 @NamedQuery(name = Version.VERSION_FIND_ULTIMO_VERSION_BY_PERIODO, query = "select o from Version o where o.idVersion in ( select max(v.idVersion) from Version v, Periodo p, CatalogoGrupo cg, UsuarioGrupo ug where ug.grupo = cg.grupo and p.idPeriodo = v.periodo.idPeriodo and p.periodo = :periodo and (:usuario is null or ug.nombreUsuario = :usuario) and (:tipoCuadro is null or v.catalogo.tipoCuadro.idTipoCuadro = :tipoCuadro) and (:vigente is null or v.vigencia = :vigente) and v.catalogo.vigencia = 1 group by v.catalogo.idCatalogo) order by o.catalogo.orden"),
-                 @NamedQuery(name = Version.FIND_ULTIMA_VERSION_VIGENTE, query = "select ve from Version ve, UsuarioGrupo ug, CatalogoGrupo cg where ve.catalogo.idCatalogo = :idCatalogo and ve.vigencia = 1 and ve.catalogo.idCatalogo = cg.catalogo.idCatalogo and ug.nombreUsuario = :usuario and cg.idGrupoAcceso = ug.idGrupo and ve.periodo.idPeriodo = :idPeriodo"),                 
+                 
+                 @NamedQuery(name = Version.VERSION_FIND_ULTIMO_VERSION_BY_PERIODO, 
+                 			 query = " select o from Version o " +
+                 			 		 " where o.idVersion in ( select max(v.idVersion) " +
+                 			 		 " from Version v, Periodo p, CatalogoGrupo cg, UsuarioGrupo ug, GrupoEmpresa ge " +
+                 			 		 " where ug.grupo = cg.grupo " +
+                 			 		 " and ug.grupo = ge.grupo " +
+                                     " and v.catalogo.empresa.rut = :rutEmpresa "+
+                 			 		 " and p.idPeriodo = v.periodo.idPeriodo " +
+                 			 		 " and p.periodo = :periodo " +
+                 			 		 " and (:usuario is null or ug.nombreUsuario = :usuario) " +
+                 			 		 " and (:tipoCuadro is null or v.catalogo.tipoCuadro.idTipoCuadro = :tipoCuadro) " +
+                 			 		 " and (:vigente is null or v.vigencia = :vigente) " +
+                 			 		 " and v.catalogo.vigencia = 1 group by v.catalogo.idCatalogo) " +
+                 			 		 " order by o.catalogo.orden"),
+                 
+                 @NamedQuery(name = Version.FIND_ULTIMA_VERSION_VIGENTE, 
+                 			 query = " select ve " +
+                 			 		 " from Version ve, UsuarioGrupo ug, CatalogoGrupo cg " +
+                 			 		 " where ve.catalogo.idCatalogo = :idCatalogo " +
+                 			 		 " and ve.vigencia = 1 " +
+                 			 		 " and ve.catalogo.idCatalogo = cg.catalogo.idCatalogo " +
+                 			 		 " and ug.nombreUsuario = :usuario " +
+                 			 		 " and cg.idGrupoAcceso = ug.idGrupo " +
+                 			 		 " and ve.periodo.idPeriodo = :idPeriodo"),                 
+                 
                  @NamedQuery(name = Version.VERSION_FIND_BY_FILTRO,
-                            query = " select distinct v from Version v , CatalogoGrupo cg, UsuarioGrupo ug where " +
+                            query = " select distinct v from Version v, CatalogoGrupo cg, UsuarioGrupo ug, GrupoEmpresa ge where " +
                                     " v.catalogo.idCatalogo = cg.idCatalogo " + 
                                     " and ug.grupo = cg.grupo " +
+                                    " and ug.grupo = ge.grupo " +
+                                    " and v.catalogo.empresa.rut = :rutEmpresa "+
                                     " and (ug.nombreUsuario = :usuario or :usuario is null) " +
                                     " and (v.catalogo.tipoCuadro.idTipoCuadro = :tipoCuadro or :tipoCuadro is null) " +
                                     " and (v.catalogo.idCatalogo = :catalogo or :catalogo is null) " +
@@ -51,7 +77,12 @@ import cl.mdr.ifrs.ejb.common.Constantes;
                                     " and v.catalogo.vigencia = 1"),
                                     //" order by v.catalogo.tipoCuadro.nombre , " +
                                     //" v.catalogo.orden asc")
-                 @NamedQuery(name = Version.VERSION_FIND_BY_ID_CATALOGO_ID_PERIODO, query = "select o from Version o where o.catalogo.idCatalogo = :idCatalogo and o.periodo.idPeriodo = :idPeriodo order by o.version desc"),
+                                    
+                 @NamedQuery(name = Version.VERSION_FIND_BY_ID_CATALOGO_ID_PERIODO, 
+                 			 query = " select o from Version o " +
+                 			 		 " where o.catalogo.idCatalogo = :idCatalogo " +
+                 			 		 " and o.periodo.idPeriodo = :idPeriodo " +
+                 			 		 " order by o.version desc"),
                  })
 @Table(name = Constantes.VERSION)
 public class Version implements Serializable {
@@ -110,7 +141,7 @@ public class Version implements Serializable {
     private List<Estructura> estructuraList;
         
     @Fetch(FetchMode.SUBSELECT)
-  	@OneToMany(mappedBy="version", fetch=FetchType.LAZY)
+  	@OneToMany(mappedBy="version", fetch=FetchType.EAGER)
   	private List<HistorialVersion> historialVersionList;
     
     @Temporal(TemporalType.TIMESTAMP)
