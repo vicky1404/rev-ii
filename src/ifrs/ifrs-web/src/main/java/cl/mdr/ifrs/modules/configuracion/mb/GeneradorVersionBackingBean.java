@@ -17,13 +17,18 @@ import org.primefaces.component.datatable.DataTable;
 
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
 import cl.mdr.ifrs.cross.util.GeneradorDisenoHelper;
+import cl.mdr.ifrs.ejb.common.VigenciaEnum;
 import cl.mdr.ifrs.ejb.cross.SortHelper;
 import cl.mdr.ifrs.ejb.cross.Util;
+import cl.mdr.ifrs.ejb.entity.AgrupacionColumna;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
 import cl.mdr.ifrs.ejb.entity.Estructura;
+import cl.mdr.ifrs.ejb.entity.Grilla;
 import cl.mdr.ifrs.ejb.entity.TipoCuadro;
+import cl.mdr.ifrs.ejb.entity.TipoEstructura;
 import cl.mdr.ifrs.ejb.entity.Version;
 import cl.mdr.ifrs.model.EstructuraModel;
+import cl.mdr.ifrs.vo.AgrupacionModelVO;
 
 
 @ManagedBean(name = "generadorVersionBackingBean")
@@ -42,6 +47,7 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 	private List<Estructura> estructuraList;
 	private boolean almacenado = false;
 	private DataTable estructuraTable;
+	private DataTable versionTable;
 	private boolean renderBotonEditar;
 	private boolean renderEstructura;
 	
@@ -170,17 +176,33 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
      * Metodo que busca las estructura al hacer clink en el icono cargar
      */
     public void buscarEstructuraActionListener(ActionEvent event){        
-    	if(Util.esListaValida(getVersionList()) && getVersionList().get(getVersionList().size()-1).getVigencia().equals(1L)){
-            try {                
-                Version version = (Version)event.getComponent().getAttributes().get("celda");                
-                if(version==null){
-                    return;
-                }
-                final List<Estructura> estructuras = getFacadeService().getEstructuraService().findEstructuraByVersion(version);                
+    	final Version version = (Version)event.getComponent().getAttributes().get("version"); 
+    	if(version==null){
+            return;
+        }
+    	
+    	if(Util.esListaValida(this.getVersionList()) && version.getVigencia().equals(VigenciaEnum.VIGENTE.getKey())){
+            try {                                                               
+                //final List<Estructura> estructuras = super.getFacadeService().getEstructuraService().findEstructuraByVersion(version);   
+                final List<Estructura> estructuras = super.getFacadeService().getEstructuraService().getEstructuraByVersion(version, false);
                 if(estructuras==null || estructuras.size()==0){
                     this.setEstructuraList(null);
                     return;
-                }                
+                }
+                for(Estructura estructura : estructuras){
+                    if(estructura.getTipoEstructura().getIdTipoEstructura().equals(TipoEstructura.ESTRUCTURA_TIPO_GRILLA)){
+                    	Grilla grilla = estructura.getGrilla();                    	
+                    	if(grilla==null){
+                    		continue;
+                    	}                    	
+                    	estructura.getGrillaVO().setCeldaList(GeneradorDisenoHelper.builHtmlGrilla(grilla.getColumnaList()));                    		
+                        final List<AgrupacionColumna> agrupaciones = getFacadeService().getEstructuraService().findAgrupacionColumnaByGrilla(grilla);                        
+                        if(Util.esListaValida(agrupaciones)){
+                        	List<List<AgrupacionModelVO>> agrupacionesNivel = GeneradorDisenoHelper.crearAgrupadorHTMLVO(agrupaciones);
+                        	estructura.getGrillaVO().setAgrupaciones(agrupacionesNivel);
+                        }
+                    }
+                }
                 this.getConfiguradorDisenoBackingBean().setEstructuraModelMap(GeneradorDisenoHelper.createEstructuraModel(estructuras));                                
                 this.setAlmacenado(true);
                 this.setRenderBotonEditar(false);
@@ -230,7 +252,7 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
                  setRenderEstructura(true);
              }
          }else{
-             Version version = new Version(1L, true, new Date(),1L);
+             Version version = new Version(1L, true, new Date(), 1L);
              versionList = new ArrayList<Version>();
              versionList.add(version);
              setRenderEstructura(true);
@@ -403,6 +425,14 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 	public void setConfiguradorDisenoBackingBean(
 			ConfiguradorDisenoBackingBean configuradorDisenoBackingBean) {
 		this.configuradorDisenoBackingBean = configuradorDisenoBackingBean;
+	}
+
+	public DataTable getVersionTable() {
+		return versionTable;
+	}
+
+	public void setVersionTable(DataTable versionTable) {
+		this.versionTable = versionTable;
 	}
 	
 
