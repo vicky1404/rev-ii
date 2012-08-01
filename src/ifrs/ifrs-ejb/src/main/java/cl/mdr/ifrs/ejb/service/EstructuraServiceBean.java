@@ -96,7 +96,8 @@ public class EstructuraServiceBean implements EstructuraServiceLocal {
      * @return
      * @throws Exception
      */
-    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    @SuppressWarnings("unchecked")
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public List<Estructura> findEstructuraByVersion(Version version) throws Exception{
         return em.createNamedQuery(Estructura.FIND_ESTRUCTURA_BY_VERSION)                 
                  .setParameter("version", version)                 
@@ -108,7 +109,8 @@ public class EstructuraServiceBean implements EstructuraServiceLocal {
      * @return
      * @throws Exception
      */
-    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    @SuppressWarnings("unchecked")
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public List<Estructura> findEstructuraByVersionTipo(Version version, Long idTipoEstructura) throws Exception{
         return em.createNamedQuery(Estructura.FIND_ESTRUCTURA_BY_VERSION_TIPO)                 
                  .setParameter("version", version)                 

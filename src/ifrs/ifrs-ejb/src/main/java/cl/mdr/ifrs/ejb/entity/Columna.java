@@ -59,9 +59,8 @@ public class Columna implements Serializable {
     @Column(name = "ROW_HEADER")
     private boolean rowHeader;
     
-    
-    
-    @OneToMany(mappedBy = "columna" ,cascade = CascadeType.PERSIST)
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(mappedBy = "columna" ,cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private List<AgrupacionColumna> agrupacionColumnaList;
     
     @Transient
