@@ -40,19 +40,19 @@
 		rendered="#{not empty generadorVersionBackingBean.catalogo}"
 		value="#{generadorVersionBackingBean.catalogo}" style="width:720px">
 
-		<p:column id="gVc1" headerText="Codigo Cuadro" width="80">
+		<p:column id="gVc1" headerText="Código Revelación" width="80">
 			<h:outputText value="#{var.codigoCuadro}" />
 		</p:column>
 
-		<p:column id="gVc2" headerText="Codigo Sub Cuadro" width="100">
+		<p:column id="gVc2" headerText="Sub Código Revelación" width="100">
 			<h:outputText value="#{var.codigoSubcuadro}" />
 		</p:column>
 
-		<p:column id="gVc3" headerText="Nombre Cuadro" width="130">
+		<p:column id="gVc3" headerText="Nombre de la Revelación" width="130">
 			<h:outputText value="#{var.nombre}" />
 		</p:column>
 
-		<p:column id="gVc4" headerText="Titulo Cuadro">
+		<p:column id="gVc4" headerText="Título de la Revelación">
 			<h:outputText value="#{var.titulo}" />
 		</p:column>
 
@@ -64,7 +64,7 @@
 
 	<p:spacer id="gVsp2" height="20px;" />
 
-	<p:dataTable id="gVdt2" var="ver" emptyMessage=" "
+	<p:dataTable id="gVdt2" var="ver" emptyMessage=" " binding="#{generadorVersionBackingBean.versionTable}"
 		rendered="#{not empty generadorVersionBackingBean.versionList}"
 		value="#{generadorVersionBackingBean.versionList}" style="width:720px"
 		paginator="true" rows="5" paginatorPosition="top">
@@ -94,6 +94,17 @@
 				</h:outputText>
 			</div>
 		</p:column>
+		
+		<p:column headerText="Editar">
+		  <div align="center">
+			<p:tooltip for="cl_ev" value="Editar Versión #{ver.version} de la Revelación"></p:tooltip>
+			<p:commandLink id="cl_ev"
+				actionListener="#{generadorVersionBackingBean.buscarEstructuraActionListener}" update="@form">
+				<p:graphicImage styleClass="ui-icon ui-icon-pencil"/>
+				<f:attribute value="#{ver}" name="version"></f:attribute>
+			</p:commandLink>
+			</div>
+		</p:column>
 
 	</p:dataTable>
 
@@ -112,7 +123,7 @@
 	<p:dataTable id="gVdt3" emptyMessage=" "
 		value="#{generadorVersionBackingBean.estructuraList}" var="row"
 		style="width:720px" rowIndexVar="status"
-		rendered="#{generadorVersionBackingBean.renderBotonEditar}">
+		rendered="#{generadorVersionBackingBean.renderEstructura}">
 
 		<p:column id="gVc1" headerText="Orden" style="text-align:center">
 			<h:outputText value="#{row.orden}" />
