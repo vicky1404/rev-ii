@@ -5,7 +5,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 
-	<h:panelGrid columns="4">
+	<h:panelGrid columns="5">
 
 		<p:outputLabel for="gVsom1" value="#{msg.label_tipo_y_nombre_cuadro}"></p:outputLabel>
 		<p:selectOneMenu value="#{generadorVersionBackingBean.tipoCuadro}"
@@ -30,6 +30,10 @@
 			icon="ui-icon-search"
 			actionListener="#{generadorVersionBackingBean.buscarListener}"
 			update="@form">
+		</p:commandButton>
+		<p:commandButton icon="ui-icon-cancel" value="#{msg.boton_cancel}"
+			id="btnCancelar1" immediate="true"
+			action="principal?faces-redirect=true">
 		</p:commandButton>
 
 	</h:panelGrid>
@@ -100,7 +104,7 @@
 			<p:tooltip for="cl_ev" value="Editar Versión #{ver.version} de la Revelación"></p:tooltip>
 			<p:commandLink id="cl_ev"
 				actionListener="#{generadorVersionBackingBean.buscarEstructuraActionListener}" update="@form">
-				<p:graphicImage styleClass="ui-icon ui-icon-pencil"/>
+				<p:graphicImage styleClass="ui-icon ui-icon-pencil" rendered="#{ver.vigencia eq 1 and ver.idVersion != null}" />
 				<f:attribute value="#{ver}" name="version"></f:attribute>
 			</p:commandLink>
 			</div>

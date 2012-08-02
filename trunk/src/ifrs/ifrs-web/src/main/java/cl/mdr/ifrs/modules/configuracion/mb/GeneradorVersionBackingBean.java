@@ -1,5 +1,10 @@
 package cl.mdr.ifrs.modules.configuracion.mb;
 
+import static ch.lambdaj.Lambda.having;
+import static ch.lambdaj.Lambda.on;
+import static ch.lambdaj.Lambda.select;
+import static org.hamcrest.Matchers.notNullValue;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -22,6 +27,8 @@ import cl.mdr.ifrs.ejb.cross.SortHelper;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.AgrupacionColumna;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
+import cl.mdr.ifrs.ejb.entity.Celda;
+import cl.mdr.ifrs.ejb.entity.Columna;
 import cl.mdr.ifrs.ejb.entity.Estructura;
 import cl.mdr.ifrs.ejb.entity.Grilla;
 import cl.mdr.ifrs.ejb.entity.TipoCuadro;
@@ -175,11 +182,17 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
     /*
      * Metodo que busca las estructura al hacer clink en el icono cargar
      */
-    public void buscarEstructuraActionListener(ActionEvent event){        
+    public void buscarEstructuraActionListener(ActionEvent event){ 
+    	this.setEstructuraList(null);
     	final Version version = (Version)event.getComponent().getAttributes().get("version"); 
     	if(version==null){
             return;
         }
+    	if(version.getVigencia().equals(VigenciaEnum.NO_VIGENTE.getKey())){
+    		super.addWarnMessage("Esta Versión no puede ser modificada por se encuentra en un estado no vigente");
+    		this.setEstructuraList(null);
+    		return;
+    	}
     	
     	if(Util.esListaValida(this.getVersionList()) && version.getVigencia().equals(VigenciaEnum.VIGENTE.getKey())){
             try {                                                               
@@ -194,7 +207,13 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
                     	Grilla grilla = estructura.getGrilla();                    	
                     	if(grilla==null){
                     		continue;
-                    	}                    	
+                    	}
+                    	final List<Celda> celdaList = buildCeldaListByColumnas(grilla.getColumnaList());
+                    	if(this.tieneFormulaEstatica(celdaList) || this.tieneFormulaDinamica(celdaList)){
+                    		super.addWarnMessage("Esta Versión no puede ser modificada por que tiene Fórmulas Configuradas");
+                    		this.setEstructuraList(null);
+                    		return;
+                    	}
                     	estructura.getGrillaVO().setCeldaList(GeneradorDisenoHelper.builHtmlGrilla(grilla.getColumnaList()));                    		
                         final List<AgrupacionColumna> agrupaciones = getFacadeService().getEstructuraService().findAgrupacionColumnaByGrilla(grilla);                        
                         if(Util.esListaValida(agrupaciones)){
@@ -214,6 +233,44 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
             this.setRenderEstructura(true);
         }
     }
+    
+    private List<Celda> buildCeldaListByColumnas(List<Columna> columnaList){
+    	List<Celda> celdaList = new ArrayList<Celda>();
+    	for(Columna columna : columnaList){
+    		for(Celda celda : columna.getCeldaList()){
+    			celdaList.add(celda);
+    		}
+    	}
+    	return celdaList;
+    }
+    
+    /**
+     * Evalua si una grilla contiene formulas dinamicas
+     * @return
+     */
+    public boolean tieneFormulaDinamica(final List<Celda> celdas){        
+        final List<Celda> celdaParentVerticalList = select(celdas ,having(on(Celda.class).getChildVertical(), notNullValue()));
+        final List<Celda> celdaParentHorizontalList = select(celdas ,having(on(Celda.class).getChildHorizontal(), notNullValue()));
+        if((celdaParentVerticalList != null || celdaParentHorizontalList != null) && (celdaParentVerticalList.size() > 0 || celdaParentHorizontalList.size() > 0)){
+            return Boolean.TRUE;
+        }else{
+            return Boolean.FALSE;
+        }
+    }
+    
+    /**
+     * Evalua si una grilla contiene formulas estaticas
+     * @return
+     */
+    public boolean tieneFormulaEstatica(final List<Celda> celdas){        
+        final List<Celda> celdaFormulaList = select(celdas ,having(on(Celda.class).getFormula(), notNullValue()));
+        if((celdaFormulaList != null) && (celdaFormulaList.size() > 0)){
+            return Boolean.TRUE;
+        }else{
+            return Boolean.FALSE;
+        }
+    }
+
     
     public String guardarEstructura(){        
         Long version = 1L;        
