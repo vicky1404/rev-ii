@@ -12,22 +12,25 @@
 	<h:outputStylesheet name="css/screen-login.css" />
 </h:head>
 <h:body>
-	<p:spacer height="50"></p:spacer>
+	<p:spacer height="10"></p:spacer>
+	<div id="div_logo_app" style="padding-left: 200px;">
+		<p:tooltip for="logo_app" value="#{msg.titulo_principal_aplicacion}"></p:tooltip>
+		<p:graphicImage value="/resources/images/logo/logo_exfida.png"
+			width="242" height="49" id="logo_app"></p:graphicImage>
+	</div>
+	<p:spacer height="10"></p:spacer>
+	<div id="container" style="text-align: center;">
 		<center>
-	
-	<div id="container">
-		<p:panel id="filtro_usuario"
-			header="#{msg.titulo_principal_aplicacion}" toggleable="false"
-			closable="false" toggleSpeed="500" closeSpeed="2000"
-			widgetVar="panel">
-			
-			
-				<!-- h3>#{msg.titulo_principal_aplicacion}</h3-->
+			<p:panel id="filtro_usuario"
+				header="#{msg.titulo_principal_aplicacion}" toggleable="false"
+				closable="false" toggleSpeed="500" closeSpeed="2000"
+				widgetVar="panel">
+
 				<h:form id="form_login">
 					<p:ajaxStatus onstart="statusDialog.show();"
 						oncomplete="statusDialog.hide();" />
 					<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
-					
+
 					<c:if test="${param.unauthorized eq 1}">
 						<div class="ui-messages ui-widget">
 							<div class="ui-messages-error ui-corner-all">
@@ -51,28 +54,30 @@
 							</div>
 						</div>
 					</c:if>
-					
+
 					<p:messages id="mensajes_login" globalOnly="true" escape="false"></p:messages>
-					<p:panel id="panel_login" header="#{msg.label_acceso}" >
+					<p:panel id="panel_login" header="#{msg.label_acceso}">
 						<h:panelGrid columns="3" columnClasses="titleCell" border="0">
 							<p:outputLabel value="#{msg.label_usuario}" for="user" />
 							<p:inputText id="user" required="true"
 								value="#{loginBackingBean.usuarioLogin.nombreUsuario}" />
 							<h:message for="user" styleClass="ui-outputlabel ui-state-error" />
 							<p:outputLabel value="#{msg.label_clave}" for="clave" />
-							<p:password id="clave" required="true" value="#{loginBackingBean.usuarioLogin.password}" />
+							<p:password id="clave" required="true"
+								value="#{loginBackingBean.usuarioLogin.password}" />
 							<h:message for="clave" styleClass="ui-outputlabel ui-state-error" />
 						</h:panelGrid>
-						
-						<h:panelGrid columns="3" tyle="display:block; text-align:center; border:0px;" border="0">
-								<p:commandButton value="#{msg.boton_acceder}"
-									action="#{loginBackingBean.loginAction}" update="form_login" />
+
+						<h:panelGrid columns="3"
+							tyle="display:block; text-align:center; border:0px;" border="0">
+							<p:commandButton value="#{msg.boton_acceder}"
+								action="#{loginBackingBean.loginAction}" update="form_login" />
 						</h:panelGrid>
 						<h:outputLabel value="" />
 					</p:panel>
 				</h:form>
-			
-			<!-- div id="aside">
+
+				<!-- div id="aside">
 			<p>Opciones de Recuperacion de Clave</p>
 			<ul>
 				<li><a href="http://red.ht/jbeap-6-docs">Documentation</a></li>
@@ -87,16 +92,13 @@
 						Information</a></li>
 			</ul>
 		</div-->
-			<div id="footer">
-				<p>
-					#{msg.titulo_principal_aplicacion}<br />
-				</p>
-			</div>
-		</p:panel>
-	</div>
-	
+				<div id="footer">
+					<p>
+						&copy;&nbsp;#{msg.titulo_principal_aplicacion}<br />
+					</p>
+				</div>
+			</p:panel>
 		</center>
-	
-	
+	</div>
 </h:body>
 </html>

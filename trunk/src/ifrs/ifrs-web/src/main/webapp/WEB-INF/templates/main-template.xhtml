@@ -23,8 +23,9 @@
 			resizeTitle="#{msg.label_redimensionar}"
 			collapseTitle="#{msg.label_colapsar}" 
 			closeTitle="#{msg.label_cerrar}">
-			<h:panelGrid columns="2" style="width:100%;">
-				<p:graphicImage value="/resources/images/logo/logo_exfidia.png" width="242" height="49"></p:graphicImage>
+			<p:tooltip for="logo_app" value="#{msg.titulo_principal_aplicacion}"></p:tooltip>
+			<h:panelGrid columns="2" style="width:100%;">			  
+				<p:graphicImage value="/resources/images/logo/logo_exfida.png" width="242" height="49" id="logo_app"></p:graphicImage>
 				<ui:include src="session-template.xhtml" />
 			</h:panelGrid>
 			
