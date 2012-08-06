@@ -82,7 +82,7 @@ public class Estructura implements Serializable {
     @OneToOne(mappedBy = "estructura", fetch = FetchType.EAGER)
     //@JoinColumn(name = "ID_TEXTO", referencedColumnName="ID_ESTRUCTURA", insertable = false, updatable = false)
     private Texto texto;
-       
+             
     @Transient
     private GrillaVO grillaVO;
     
@@ -214,4 +214,5 @@ public class Estructura implements Serializable {
         buffer.append(']');
         return buffer.toString();
     }
+	
 }
