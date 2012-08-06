@@ -45,6 +45,7 @@ public class Constantes {
     public static final String TIPO_ESTADO_EEFF = PREFIX + "TIPO_ESTADO_EEFF";
     public static final String VERSION_EEFF = PREFIX + "VERSION_EEFF";
     public static final String EMPRESA = PREFIX + "EMPRESA";
+    public static final String XBRL_TAXONOMIA = PREFIX + "XBRL_TAXONOMIA";
     
     
     
