@@ -50,6 +50,8 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 
 	private Catalogo catalogo;
 	private Version versionEditable;
+	private Version versionClonable;
+	private Estructura estructuraEditable;
 	private List<Catalogo> catalogoList;
 	private List<Version> versionList;
 	private List<Estructura> estructuraList;
@@ -58,7 +60,7 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 	private DataTable versionTable;
 	private boolean renderBotonEditar;
 	private boolean renderEstructura;
-	private boolean renderBotonEditarVersion;
+	private boolean renderBotonEditarVersion;	
 	
 	@ManagedProperty(value="#{configuradorDisenoBackingBean}")
     private ConfiguradorDisenoBackingBean configuradorDisenoBackingBean;
@@ -156,10 +158,11 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
         estructuraModelPasoMap.clear();
         setEstructuraList(estructuras);
     }
-    
+        
     public void eliminarTipoEstructuraListener(ActionEvent actionEvent) {
     	final Estructura estructuraSelected = (Estructura)actionEvent.getComponent().getAttributes().get("estructura");
-    	if(estructuraSelected.getIdEstructura() != null){
+    	this.setEstructuraEditable(estructuraSelected);
+    	if(this.getEstructuraEditable().getIdEstructura() != null){
     		this.displayPopUp("dialogNotDeleteEstr", "gVdt3");  
     		return;
     	}
@@ -167,20 +170,17 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
         if(getEstructuraList().size()<=1){
             return;
         }        
-        this.getEstructuraList().remove(estructuraSelected);
-        this.getConfiguradorDisenoBackingBean().getEstructuraModelMap().remove(estructuraSelected.getOrden());
+        this.getEstructuraList().remove(this.getEstructuraEditable());
+        this.getConfiguradorDisenoBackingBean().getEstructuraModelMap().remove(this.getEstructuraEditable().getOrden());
         Long i=1L;
         for(Estructura estructura : getEstructuraList()){
             EstructuraModel estructuraModel = this.getConfiguradorDisenoBackingBean().getEstructuraModelMap().get(estructura.getOrden());
             this.getConfiguradorDisenoBackingBean().getEstructuraModelMap().put(i, estructuraModel);
             estructura.setOrden(i);
             i++;
-        }
-        //TODO
-        /*revisar este metodo*/
-        //getGeneradorDiseno().initBackingBean();
+        }       
     }
-    
+            
     /*
      * Metodo que busca las estructura al hacer clink en el icono cargar
      */
@@ -224,7 +224,7 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
                         }
                     }
                 }
-                this.getConfiguradorDisenoBackingBean().setEstructuraModelMap(GeneradorDisenoHelper.createEstructuraModel(estructuras));                                
+                //this.getConfiguradorDisenoBackingBean().setEstructuraModelMap(GeneradorDisenoHelper.createEstructuraModel(estructuras));                                
                 this.setAlmacenado(true);
                 this.setRenderBotonEditar(false);
                 this.setRenderBotonEditarVersion(Boolean.TRUE);
@@ -275,29 +275,15 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
     }
 
     
-    public String guardarEstructura(){        
-        Long version = 1L;
-        
-        
-//        for(int i=0; i<versionList.size()-1; i++){
-//        	versionList.get(i).setCatalogo(catalogo);
-//        	versionList.get(i).setVigencia(0L);
-//        	versionList.get(i).setVersion(version);
-//            version++;
-//        } 
-        
+    public String guardarEstructura(){                       
         for(int i=versionList.size(); i==1; i--){
         	versionList.get(i).setCatalogo(catalogo);
-        	versionList.get(i).setVigencia(0L);
-        	//versionList.get(i).setVersion(version);
-            //version++;
+        	versionList.get(i).setVigencia(0L);        	
         } 
-        
-        
+               
         Version nuevaVersion = this.getVersionList().iterator().next();
         nuevaVersion.setVigencia(1L);
-        nuevaVersion.setCatalogo(catalogo);
-        //nuevaVersion.setVersion(version);
+        nuevaVersion.setCatalogo(catalogo);        
                                                
         for(Estructura estructura : getEstructuraList()){
             estructura.setVersion(nuevaVersion);            
@@ -331,16 +317,16 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
     
     public void agregarVersionListener(ActionEvent actionEvent) {        
     	 this.getConfiguradorDisenoBackingBean().setEstructuraModelMap(null);        
-         if(getVersionList().size() > 0){             
+         if(this.getVersionList().size() > 0){             
              //Version version = getVersionList().get(getVersionList().size()-1);             
         	 Version version = this.getVersionList().iterator().next();
              if(version.getIdVersion()!=null){
-                 for(Version versionPaso : getVersionList()){
+                 for(Version versionPaso : this.getVersionList()){
                      versionPaso.setVigencia(0L);
                  }
                  this.setEstructuraList(null);
-                 getVersionList().add(new Version(version.getVersion()+1, true, new Date(), 1L));
-                 setRenderEstructura(true);
+                 this.getVersionList().add(new Version(version.getVersion()+1, true, new Date(), 1L));
+                 this.setRenderEstructura(true);
              }
          }else{
              Version version = new Version(1L, true, new Date(), 1L);
@@ -432,6 +418,59 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
             this.setEstructuraList(estructurasTemp);        
             //getGeneradorDiseno().initBackingBean();
         }
+    }
+    
+    
+    /**
+     * Metodo encargado de copiar una version con todas sus estrucuturas.
+     * @param actionEvent
+     */
+    public void copiarEstructuraActionListener(ActionEvent event) {  
+    	this.setVersionClonable(((Version)event.getComponent().getAttributes().get("version")));
+    	this.getConfiguradorDisenoBackingBean().setEstructuraModelMap(null);        
+        try{            
+             if(this.getVersionList().size() > 0){    
+                 if(this.getVersionClonable() == null){
+                    super.addWarnMessage("Debe seleccionar una Versión para copiar");
+                    return;
+                 }                                                   
+                 if(this.getVersionClonable().getIdVersion()!=null){                     
+                     List<Estructura> estructuras = super.getFacadeService().getEstructuraService().findEstructuraByVersion(this.getVersionClonable());
+                     List<Estructura> estructurasNew = new ArrayList<Estructura>();
+                     for(Estructura estructura : estructuras){
+                         Estructura estructuraNew = new Estructura();
+                         estructuraNew.setOrden(estructura.getOrden());
+                         estructuraNew.setTipoEstructura(estructura.getTipoEstructura());
+                         estructuraNew.setVersion(estructura.getVersion());
+                         estructuraNew.setHtml(estructura.getHtml());
+                         estructuraNew.setGrilla(estructura.getGrilla());
+                         estructuraNew.setTexto(estructura.getTexto());
+                         estructurasNew.add(estructuraNew);
+                     }
+                     
+                     this.getConfiguradorDisenoBackingBean().setEstructuraModelMap(GeneradorDisenoHelper.cloneEstructuraModel(estructurasNew));
+                     
+                     for(Version versionPaso : this.getVersionList()){
+                         versionPaso.setVigencia(0L);
+                     }
+                     
+                     this.setEstructuraList(estructurasNew);
+                     this.getVersionList().add(new Version(this.getVersionClonable().getVersion()+1, true, new Date(), 1L));
+                     this.setRenderEstructura(true);
+                 }
+            }else{
+            	 this.getVersionList().add(new Version());
+            	 setEstructuraList(null);
+            }
+            SortHelper.sortVersionDesc(this.getVersionList());
+            setRenderBotonEditar(true);            
+        }catch(Exception e){
+            super.addErrorMessage("Se ha producido un error al copiar la configuración.");
+            LOG.error(e.getMessage(),e);
+        }
+        setAlmacenado(false);
+        
+    
     }
     
     public boolean isRenderEstructura() {
@@ -540,6 +579,22 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 
 	public void setVersionEditable(Version versionEditable) {
 		this.versionEditable = versionEditable;
+	}
+
+	public Estructura getEstructuraEditable() {
+		return estructuraEditable;
+	}
+
+	public void setEstructuraEditable(Estructura estructuraEditable) {
+		this.estructuraEditable = estructuraEditable;
+	}
+
+	public Version getVersionClonable() {
+		return versionClonable;
+	}
+
+	public void setVersionClonable(Version versionClonable) {
+		this.versionClonable = versionClonable;
 	}
 	
 

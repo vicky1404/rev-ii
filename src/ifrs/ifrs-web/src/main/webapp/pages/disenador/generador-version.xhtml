@@ -3,10 +3,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
-
+	xmlns:p="http://primefaces.org/ui">    
 	<h:panelGrid columns="5">
-
 		<h:outputLabel value="#{msg.label_tipo_y_nombre_de_revelacion}" />
 		<p:selectOneMenu value="#{generadorVersionBackingBean.tipoCuadro}"
 			label="#{msg.label_tipo_revelacion}" required="true" id="gVsom1"
@@ -47,15 +45,15 @@
 		rendered="#{not empty generadorVersionBackingBean.catalogo}"
 		value="#{generadorVersionBackingBean.catalogo}" style="width:720px">
 
-		<p:column id="gVc1" headerText="Código Revelación" width="80">
+		<p:column id="gVc1" headerText="Código Revelación">
 			<h:outputText value="#{var.codigoCuadro}" />
 		</p:column>
 
-		<p:column id="gVc2" headerText="Sub Código Revelación" width="100">
+		<p:column id="gVc2" headerText="Sub Código Revelación">
 			<h:outputText value="#{var.codigoSubcuadro}" />
 		</p:column>
 
-		<p:column id="gVc3" headerText="Nombre de la Revelación" width="130">
+		<p:column id="gVc3" headerText="Nombre de la Revelación">
 			<h:outputText value="#{var.nombre}" />
 		</p:column>
 
@@ -103,17 +101,33 @@
 			</div>
 		</p:column>
 
-		<p:column headerText="Editar">
+		<p:column headerText="Opciones">
 			<div align="center">
 				<p:tooltip for="cl_ev"
 					value="Editar Versión #{ver.version} de la Revelación"></p:tooltip>
-				<p:commandLink id="cl_ev"
-					actionListener="#{generadorVersionBackingBean.buscarEstructuraActionListener}"
-					update="@form">
-					<p:graphicImage styleClass="ui-icon ui-icon-pencil"
-						rendered="#{ver.vigencia eq 1 and ver.idVersion != null}" />
-					<f:attribute value="#{ver}" name="version"></f:attribute>
-				</p:commandLink>
+				<p:tooltip for="cl_cv"
+					value="Copiar Versión #{ver.version} de la Revelación"></p:tooltip>
+				<p:panelGrid columns="3"
+					columnClasses="border_none, border_none, border_none">
+
+					<p:commandLink id="cl_ev"
+						actionListener="#{generadorVersionBackingBean.buscarEstructuraActionListener}"
+						update="@form">
+						<p:graphicImage styleClass="ui-icon ui-icon-pencil"
+							rendered="#{ver.vigencia eq 1 and ver.idVersion != null}" />
+						<f:attribute value="#{ver}" name="version"></f:attribute>
+					</p:commandLink>
+					
+					<p:spacer width="5" id="s1" />
+
+					<p:commandLink id="cl_cv"
+						actionListener="#{generadorVersionBackingBean.copiarEstructuraActionListener}"
+						update="@form">
+						<p:graphicImage styleClass="ui-icon ui-icon-copy"
+							rendered="#{ver.vigencia eq 1 and ver.idVersion != null}" />
+						<f:attribute value="#{ver}" name="version"></f:attribute>
+					</p:commandLink>
+				</p:panelGrid>
 			</div>
 		</p:column>
 
@@ -192,9 +206,14 @@
 	<p:dialog id="dialog1" header="Información"
 		widgetVar="dialogNotDeleteEstr" dynamic="true" closable="true"
 		draggable="false" resizable="false">
-		<h:panelGrid columns="1">
+		<h:panelGrid columns="3">
 			<h:outputText
-				value="No es posible Eliminar este item debido a que ya se encuentra configurado." />
+				value="No es posible Eliminar este item debido a que hay configuraciones asociadas." />
+			<p:spacer/>
+			<p:spacer/>
+			
+			<p:spacer width="30"/>
+			<p:spacer/>
 			<p:commandButton icon="ui-icon-cancel" value="#{msg.boton_cancel}"
 				type="button" id="btnCancelarDialog"
 				onclick="dialogNotDeleteEstr.hide()"></p:commandButton>
