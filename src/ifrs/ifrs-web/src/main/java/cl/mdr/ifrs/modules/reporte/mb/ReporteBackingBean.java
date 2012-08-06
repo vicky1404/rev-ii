@@ -59,21 +59,26 @@ public class ReporteBackingBean extends AbstractBackingBean implements Serializa
      * @return
      */
     public void buscarAction(){
+    	
+    	if(!isSelectedEmpresa()){
+    		return;
+    	}
+    	
         logger.info("buscando catalogo para impresión de reportes");     
         FiltroBackingBean filtroPaso = super.getFiltroBackingBean();
-        filtroPaso.getPeriodo().setPeriodo(null);
+        filtroPaso.getPeriodoEmpresa().setPeriodo(null);
         try { 
-            final String fechaPeriodo = super.getFiltroBackingBean().getPeriodo().getAnioPeriodo() + super.getFiltroBackingBean().getPeriodo().getMesPeriodo();  
+            final String fechaPeriodo = super.getFiltroBackingBean().getPeriodoEmpresa().getPeriodo().getAnioPeriodo() + super.getFiltroBackingBean().getPeriodoEmpresa().getPeriodo().getMesPeriodo();  
             try{
-                Long periodo = Long.valueOf(filtroPaso.getPeriodo().getAnioPeriodo().concat(filtroPaso.getPeriodo().getMesPeriodo()));
-                super.getFiltroBackingBean().setPeriodo(super.getFacadeService().getMantenedoresTipoService().findByPeriodo(periodo));
+                Long periodo = Long.valueOf(filtroPaso.getPeriodoEmpresa().getPeriodo().getAnioPeriodo().concat(filtroPaso.getPeriodoEmpresa().getPeriodo().getMesPeriodo()));
+                super.getFiltroBackingBean().setPeriodoEmpresa(super.getFacadeService().getPeriodoService().getPeriodoEmpresaById(periodo, getFiltroBackingBean().getEmpresa().getIdRut()));
             }catch(NoResultException e){
-            	addWarnMessage(MessageFormat.format(PropertyManager.getInstance().getMessage("periodo_busqueda_sin_resultado_periodo"), super.getFiltroBackingBean().getPeriodo().getAnioPeriodo(), super.getFiltroBackingBean().getPeriodo().getMesPeriodo()));                            
+            	addWarnMessage(MessageFormat.format(PropertyManager.getInstance().getMessage("periodo_busqueda_sin_resultado_periodo"), super.getFiltroBackingBean().getPeriodoEmpresa().getPeriodo().getAnioPeriodo(), super.getFiltroBackingBean().getPeriodoEmpresa().getPeriodo().getMesPeriodo()));                            
                 this.setCatalogoReportes(null); 
                 this.setRenderCatalogoReportes(Boolean.FALSE);
                 return;                    
             }catch(EJBException e){
-                addWarnMessage(MessageFormat.format(PropertyManager.getInstance().getMessage("periodo_busqueda_sin_resultado_periodo"), super.getFiltroBackingBean().getPeriodo().getAnioPeriodo(), super.getFiltroBackingBean().getPeriodo().getMesPeriodo()));                        
+                addWarnMessage(MessageFormat.format(PropertyManager.getInstance().getMessage("periodo_busqueda_sin_resultado_periodo"), super.getFiltroBackingBean().getPeriodoEmpresa().getPeriodo().getAnioPeriodo(), super.getFiltroBackingBean().getPeriodoEmpresa().getPeriodo().getMesPeriodo()));                        
                 this.setCatalogoReportes(null);                 
                 this.setRenderCatalogoReportes(Boolean.FALSE);
                 return;
@@ -179,7 +184,7 @@ public class ReporteBackingBean extends AbstractBackingBean implements Serializa
         try{
             final List<ReportePrincipalVO> reportes = this.getReporteUtilBackingBean().getGenerarListReporteVO(this.getVersionDownloadList());
             final String nombreArchivo = SoporteReporte.getNombreReporteDocx(new Date());                        
-            WordprocessingMLPackage wordMLPackage = super.getFacadeService().getReporteDocxService().createDOCX(reportes, getLogoReporte(), super.getNombreUsuario(), super.getIpUsuario(), nombreArchivo, super.getFiltroBackingBean().getPeriodo());              
+            WordprocessingMLPackage wordMLPackage = super.getFacadeService().getReporteDocxService().createDOCX(reportes, getLogoReporte(), super.getNombreUsuario(), super.getIpUsuario(), nombreArchivo, super.getFiltroBackingBean().getPeriodoEmpresa());              
             this.getReporteUtilBackingBean().setOutPutStreamDocx(wordMLPackage, nombreArchivo);
             super.getFacesContext().responseComplete();            
         } catch (Exception e) {

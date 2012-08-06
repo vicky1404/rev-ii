@@ -27,14 +27,14 @@ public class GrupoEmpresa implements Serializable {
     
     @Id
     @Column(name="RUT", nullable = false, insertable = false,updatable = false)
-    private Long rut;
+    private Long idRut;
     
     @ManyToOne
     @JoinColumn(name = "ID_GRUPO_ACCESO")
     private Grupo grupo; 
     
     @ManyToOne
-    @JoinColumn(name = "RUT")
+    @JoinColumn(name = "ID_RUT")
     private Empresa empresa;
 
 	public String getIdGrupoAcceso() {
@@ -44,13 +44,13 @@ public class GrupoEmpresa implements Serializable {
 	public void setIdGrupoAcceso(String idGrupoAcceso) {
 		this.idGrupoAcceso = idGrupoAcceso;
 	}
-
-	public Long getRut() {
-		return rut;
+	
+	public Long getIdRut() {
+		return idRut;
 	}
 
-	public void setRut(Long rut) {
-		this.rut = rut;
+	public void setIdRut(Long idRut) {
+		this.idRut = idRut;
 	}
 
 	public Grupo getGrupo() {

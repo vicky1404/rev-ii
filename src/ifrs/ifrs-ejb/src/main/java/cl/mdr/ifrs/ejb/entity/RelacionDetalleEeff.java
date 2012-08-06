@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
@@ -36,10 +37,14 @@ public class RelacionDetalleEeff implements Serializable {
     private Long idFecu;
     
     @Id
-    @Column(name = "ID_PERIODO", nullable = false)
+    @Column(name = "ID_PERIODO", nullable = false, insertable = false, updatable = false)
     private Long idPeriodo;
     
-    @Column(name = "DESCRIPCION_CUENTA", length = 256)
+    @Id
+    @Column(name = "ID_RUT", nullable = false, insertable = false, updatable = false)
+    private Long idRut;
+
+	@Column(name = "DESCRIPCION_CUENTA", length = 256)
     private String descripcionCuenta;
     
     @Column(name = "MONTO_EBS", length = 256)
@@ -53,6 +58,11 @@ public class RelacionDetalleEeff implements Serializable {
     
     @Column(name = "RECLASIFICACION")
     private BigDecimal montoReclasificacion;
+    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumns( { @JoinColumn(name = "ID_PERIODO", referencedColumnName = "ID_PERIODO"),
+			        @JoinColumn(name = "ID_RUT", referencedColumnName = "ID_RUT")})
+    private PeriodoEmpresa periodoEmpresa;
     
     @ManyToOne
     @JoinColumns( { @JoinColumn(name = "ID_COLUMNA", referencedColumnName = "ID_COLUMNA"),
@@ -75,6 +85,26 @@ public class RelacionDetalleEeff implements Serializable {
         this.montoPesos = montoPesos;
         this.montoReclasificacion = reclasificacion;
     }
+    
+    public Long getIdRut() {
+		return idRut;
+	}
+
+	public void setIdRut(Long idRut) {
+		this.idRut = idRut;
+	}
+
+	public PeriodoEmpresa getPeriodoEmpresa() {
+		return periodoEmpresa;
+	}
+
+	public void setPeriodoEmpresa(PeriodoEmpresa periodoEmpresa) {
+		if(periodoEmpresa != null){
+        	this.idPeriodo = periodoEmpresa.getIdPeriodo();
+        	this.idRut = periodoEmpresa.getIdRut();
+        }
+		this.periodoEmpresa = periodoEmpresa;
+	}
 
     public String getDescripcionCuenta() {
         return descripcionCuenta;
@@ -150,11 +180,15 @@ public class RelacionDetalleEeff implements Serializable {
         return idPeriodo;
     }
     
-    public void copyDetalleEeff(final DetalleEeff detalleEeff, final Celda celda,final Periodo periodo){
+    public void copyDetalleEeff(final DetalleEeff detalleEeff, final Celda celda,final PeriodoEmpresa periodoEmpresa){
         
         this.idCuenta = detalleEeff.getIdCuenta();
         this.idFecu = detalleEeff.getIdFecu();
-        this.idPeriodo = periodo.getIdPeriodo();
+        if(periodoEmpresa != null){
+        	this.idPeriodo = periodoEmpresa.getIdPeriodo();
+        	this.idRut = periodoEmpresa.getIdRut();
+        }
+        this.periodoEmpresa = periodoEmpresa;
         this.descripcionCuenta = detalleEeff.getDescripcionCuenta();
         this.montoEbs = detalleEeff.getMontoEbs();
         this.montoMiles = detalleEeff.getMontoMiles();

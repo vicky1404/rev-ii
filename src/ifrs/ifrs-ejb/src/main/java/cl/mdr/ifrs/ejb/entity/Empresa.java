@@ -23,10 +23,10 @@ import com.google.gson.annotations.Expose;
  */
 @Entity
 @NamedQueries({ 
-			@NamedQuery(name = Empresa.EMPRESA_FIND_ALL,  query = " select new cl.mdr.ifrs.ejb.entity.Empresa(o.rut, o.dv, o.giro, o.nombre, o.razonSocial) " +
+			@NamedQuery(name = Empresa.EMPRESA_FIND_ALL,  query = " select new cl.mdr.ifrs.ejb.entity.Empresa(o.idRut, o.dv, o.giro, o.nombre, o.razonSocial) " +
 																  " from Empresa o order by o.razonSocial"),
 			@NamedQuery(name = Empresa.EMPRESA_FIND_BY_ID, query = " select e " +
-					  											   " from Empresa e left join fetch e.grupos where e.rut = :rut" +
+					  											   " from Empresa e left join fetch e.grupos where e.idRut = :rut" +
 					  											   " order by e.razonSocial")
 })
 @Table(name=Constantes.EMPRESA)
@@ -40,10 +40,10 @@ public class Empresa implements Serializable {
 	private static final long serialVersionUID = 2904448285907525542L;
 
 	@Id
-	@Expose
-	private Long rut;
+	@Column(name = "ID_RUT")
+	private Long idRut;
 
-	@Expose
+	@Expose	
 	private String dv;
 
 	@Expose
@@ -56,40 +56,36 @@ public class Empresa implements Serializable {
 	@Column(name="RAZON_SOCIAL")
 	private String razonSocial;
 
-	//bi-directional many-to-one association to Catalogo	
 	@OneToMany(mappedBy="empresa")	
 	private List<Catalogo> catalogos;
 	
-	
-	//bi-directional many-to-many association to Grupo	
+		
 	@ManyToMany(mappedBy="empresas")
 	private List<Grupo> grupos;
 
     public Empresa() {
     }
     
-    public Empresa(Long rut) {
+    public Empresa(Long idRut) {
     	super();
-    	this.rut = rut;
+    	this.idRut = idRut;
     }
-    
-    
 
-	public Empresa(Long rut, String dv, String giro, String nombre, String razonSocial) {
+	public Empresa(Long idRut, String dv, String giro, String nombre, String razonSocial) {
 		super();
-		this.rut = rut;
+		this.idRut = idRut;
 		this.dv = dv;
 		this.giro = giro;
 		this.nombre = nombre;
 		this.razonSocial = razonSocial;
 	}
 
-	public Long getRut() {
-		return rut;
+	public Long getIdRut() {
+		return idRut;
 	}
 
-	public void setRut(Long rut) {
-		this.rut = rut;
+	public void setIdRut(Long idRut) {
+		this.idRut = idRut;
 	}
 
 	public String getDv() {
@@ -145,7 +141,7 @@ public class Empresa implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((rut == null) ? 0 : rut.hashCode());
+		result = prime * result + ((idRut == null) ? 0 : idRut.hashCode());
 		return result;
 	}
 
@@ -158,10 +154,10 @@ public class Empresa implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Empresa other = (Empresa) obj;
-		if (rut == null) {
-			if (other.rut != null)
+		if (idRut == null) {
+			if (other.idRut != null)
 				return false;
-		} else if (!rut.equals(other.rut))
+		} else if (!idRut.equals(other.idRut))
 			return false;
 		return true;
 	}

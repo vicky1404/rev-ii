@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -23,7 +24,7 @@ import cl.mdr.ifrs.ejb.common.Constantes;
 @Entity
 @NamedQueries({
   @NamedQuery(name = "HistorialReporte.findAll", query = "select o from HistorialReporte o"),
-  @NamedQuery(name = HistorialReporte.FIND_ALL_BY_PERIODO, query = "select o from HistorialReporte o where o.periodo.idPeriodo = :idPeriodo order by o.fechaExportacion desc")
+  @NamedQuery(name = HistorialReporte.FIND_ALL_BY_PERIODO, query = "select o from HistorialReporte o where o.periodoEmpresa.idPeriodo = :idPeriodo order by o.fechaExportacion desc")
 })
 @Table(name = Constantes.HISTORIAL_REPORTE)
 public class HistorialReporte implements Serializable {
@@ -56,10 +57,11 @@ public class HistorialReporte implements Serializable {
     private String nombreArchivo;
     
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ID_PERIODO")
-    private Periodo periodo;
-    
-    @ManyToOne
+    @JoinColumns( { @JoinColumn(name = "ID_PERIODO", referencedColumnName = "ID_PERIODO"),
+			        @JoinColumn(name = "ID_RUT", referencedColumnName = "ID_RUT")})
+    private PeriodoEmpresa periodoEmpresa;
+
+	@ManyToOne
 	@JoinColumn(name="NOMBRE_USUARIO")
 	private Usuario usuario;
 
@@ -136,13 +138,15 @@ public class HistorialReporte implements Serializable {
         return nombreArchivo;
     }
     
-    public void setPeriodo(Periodo periodo) {
-        this.periodo = periodo;
-    }
+    public PeriodoEmpresa getPeriodoEmpresa() {
+		return periodoEmpresa;
+	}
 
-    public Periodo getPeriodo() {
-        return periodo;
-    }
+
+
+	public void setPeriodoEmpresa(PeriodoEmpresa periodoEmpresa) {
+		this.periodoEmpresa = periodoEmpresa;
+	}
     
     @Override
     public String toString() {

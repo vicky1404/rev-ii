@@ -39,6 +39,7 @@ import cl.mdr.ifrs.ejb.cross.SortHelper;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.EstadoCuadro;
 import cl.mdr.ifrs.ejb.entity.HistorialVersion;
+import cl.mdr.ifrs.ejb.entity.Periodo;
 import cl.mdr.ifrs.ejb.entity.TipoCuadro;
 import cl.mdr.ifrs.ejb.entity.Version;
 import cl.mdr.ifrs.modules.reporte.mb.ReporteUtilBackingBean;
@@ -75,19 +76,16 @@ public class FlujoAprobacionBackingBean extends AbstractBackingBean implements S
     private PieChartModel cuadrosAllPieModel; 
     boolean renderChartByUser;
     boolean renderChartAll;
-    
-    public String limpiarAction(){
-        FiltroBackingBean filtroPaso = super.getFiltroBackingBean();
-        filtroPaso.getPeriodo().setPeriodo(null);
-        return null;
-    }
 	
     
     public void buscarAction() {
         logger.info("buscando cuadros para workflow de aprobación");
-        try{              
-            limpiarAction();
-            this.setCatalogoFlujoAprobacion(super.getFacadeService().getVersionService().findVersionByFiltro(super.getNombreUsuario(), super.getFiltroBackingBean().getTipoCuadro(), super.getFiltroPeriodo(), this.getEstadoCuadro(), VigenciaEnum.VIGENTE.getKey(), null, super.getFiltroBackingBean().getEmpresa()));            
+        
+        if(!isSelectedFiltroPeriodo() || !isSelectedEmpresa())
+        	return;
+        
+        try{
+            this.setCatalogoFlujoAprobacion(super.getFacadeService().getVersionService().findVersionByFiltro(super.getNombreUsuario(), super.getFiltroBackingBean().getTipoCuadro(), super.getFiltroPeriodoEmpresa(), this.getEstadoCuadro(), VigenciaEnum.VIGENTE.getKey(), null));            
             SortHelper.sortVersionByOrdenCatalogo(this.getCatalogoFlujoAprobacion());
             this.setRenderFlujo(Boolean.TRUE);
         } catch (NoResultException e) {	
@@ -146,7 +144,7 @@ public class FlujoAprobacionBackingBean extends AbstractBackingBean implements S
                     historialVersionList.add(historialVersion);
                 }        
                 super.getFacadeService().getPeriodoService().persistFlujoAprobacion(versionListChanged, historialVersionList);
-                this.setCatalogoFlujoAprobacion(super.getFacadeService().getVersionService().findVersionByFiltro(super.getNombreUsuario(), super.getFiltroBackingBean().getTipoCuadro(), super.getFiltroPeriodo(), this.getEstadoCuadro(), VigenciaEnum.VIGENTE.getKey(), null, super.getFiltroBackingBean().getEmpresa()));                
+                this.setCatalogoFlujoAprobacion(super.getFacadeService().getVersionService().findVersionByFiltro(super.getNombreUsuario(), super.getFiltroBackingBean().getTipoCuadro(), super.getFiltroPeriodoEmpresa(), this.getEstadoCuadro(), VigenciaEnum.VIGENTE.getKey(), null));                
                 SortHelper.sortVersionByOrdenCatalogo(this.getCatalogoFlujoAprobacion());
             }
             addInfoMessage(PropertyManager.getInstance().getMessage("workflow_mensaje_guardar_notas_exito"));            
@@ -166,9 +164,8 @@ public class FlujoAprobacionBackingBean extends AbstractBackingBean implements S
 													.getVersionService()
 													.findVersionByFiltro(super.getNombreUsuario(),
 																		 super.getFiltroBackingBean().getTipoCuadro(),
-																		 super.getFiltroPeriodo(), this.getEstadoCuadro(),
-																		 VigenciaEnum.VIGENTE.getKey(), null,
-																		 super.getFiltroBackingBean().getEmpresa()));
+																		 super.getFiltroPeriodoEmpresa(), this.getEstadoCuadro(),
+																		 VigenciaEnum.VIGENTE.getKey(), null));
 			  SortHelper.sortVersionByOrdenCatalogo(this.getCatalogoFlujoAprobacionReporte());
 			  this.displayPopUp(POPUP_DOWNLOAD_EXCEL, FORMULARIO_FLUJO_APROBACION);
 		} catch (Exception e) {
@@ -297,7 +294,7 @@ public class FlujoAprobacionBackingBean extends AbstractBackingBean implements S
     
     public void graficoCuadrosByUsuarioAction(){
     	try {
-			final List<Version> versiones = super.getFacadeService().getVersionService().findVersionByFiltro(super.getNombreUsuario(), super.getFiltroBackingBean().getTipoCuadro(), super.getFiltroPeriodo(), this.getEstadoCuadro(), VigenciaEnum.VIGENTE.getKey(), null, super.getFiltroBackingBean().getEmpresa());
+			final List<Version> versiones = super.getFacadeService().getVersionService().findVersionByFiltro(super.getNombreUsuario(), super.getFiltroBackingBean().getTipoCuadro(), super.getFiltroPeriodoEmpresa(), this.getEstadoCuadro(), VigenciaEnum.VIGENTE.getKey(), null);
 			cuadrosByUsuarioPieModel = new PieChartModel();  			  
 			cuadrosByUsuarioPieModel.set(EstadoCuadroEnum.INICIADO.getValue(), select(versiones ,having(on(Version.class).getEstado().getIdEstado(), equalTo(EstadoCuadroEnum.INICIADO.getKey()))).size() );  
 			cuadrosByUsuarioPieModel.set(EstadoCuadroEnum.MODIFICADO.getValue(), select(versiones ,having(on(Version.class).getEstado().getIdEstado(), equalTo(EstadoCuadroEnum.MODIFICADO.getKey()))).size());  

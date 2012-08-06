@@ -67,7 +67,7 @@ public class GrupoPorEmpresaBackingBean extends AbstractBackingBean implements S
 		try {
 			List<GrupoEmpresa> grupoEmpresaList = new ArrayList<GrupoEmpresa>();
 			GrupoEmpresa grupoEmpresa = null;
-			Empresa empresa = super.getFacadeService().getEmpresaService().findById(this.getEmpresa().getRut());
+			Empresa empresa = super.getFacadeService().getEmpresaService().findById(this.getEmpresa().getIdRut());
 			for(String grupoId : this.getDualListModelGrupos().getTarget()){	
 				grupoEmpresa = new GrupoEmpresa();
 				grupoEmpresa.setGrupo(this.getGrupoMap().get(grupoId));

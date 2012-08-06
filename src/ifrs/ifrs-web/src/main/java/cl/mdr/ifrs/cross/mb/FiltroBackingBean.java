@@ -10,9 +10,11 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
 import cl.mdr.ifrs.ejb.entity.Empresa;
 import cl.mdr.ifrs.ejb.entity.Periodo;
+import cl.mdr.ifrs.ejb.entity.PeriodoEmpresa;
 import cl.mdr.ifrs.ejb.entity.TipoCuadro;
 import cl.mdr.ifrs.ejb.entity.Version;
 import cl.mdr.ifrs.ejb.service.local.PeriodoServiceLocal;
@@ -25,17 +27,14 @@ public class FiltroBackingBean implements Serializable{
 	public static final String FILTRO_BEAN_NAME = "filtroBackingBean";
     
 	private Empresa empresa;
-    private Periodo periodo;
+    private PeriodoEmpresa periodoEmpresa;
     private Catalogo catalogo;
     private Version version;
     private TipoCuadro tipoCuadro;
     private Long tipoFormula;
-    
-    @EJB
-    private PeriodoServiceLocal periodoService;
-    
-    
-
+    /*Mes y año que se selecciona en los filtros*/
+    private String mes;
+    private String anio;
 
 	//parametro global de debug visual de la aplicacion
     private boolean debug;
@@ -43,7 +42,7 @@ public class FiltroBackingBean implements Serializable{
     @PostConstruct
     public void init(){
     	empresa = null;
-        periodo = null;
+    	periodoEmpresa = null;
         catalogo = null;
         version = null;
         tipoCuadro = null;
@@ -54,15 +53,19 @@ public class FiltroBackingBean implements Serializable{
     }
 
 
-    public void setPeriodo(Periodo periodo) {
-        this.periodo = periodo;
+    public void setPeriodoEmpresa(PeriodoEmpresa periodoEmpresa) {        
+        if(periodoEmpresa!=null && periodoEmpresa.getPeriodo()!=null){
+        	mes = periodoEmpresa.getPeriodo().getMesPeriodo();
+        	anio = periodoEmpresa.getPeriodo().getAnioPeriodo();
+        }
+        this.periodoEmpresa = periodoEmpresa;
     }
 
-    public Periodo getPeriodo() {
-        if (periodo == null){
-            periodo = new Periodo();
+    public PeriodoEmpresa getPeriodoEmpresa() {
+        if (periodoEmpresa == null){
+        	periodoEmpresa = new PeriodoEmpresa();
             }
-        return periodo;
+        return periodoEmpresa;
     }
 
     public void setCatalogo(Catalogo catalogo) {
@@ -123,4 +126,23 @@ public class FiltroBackingBean implements Serializable{
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
 	}
+
+	public String getMes() {
+		return mes;
+	}
+
+	public void setMes(String mes) {
+		this.mes = mes;
+	}
+
+	public String getAnio() {
+		return anio;
+	}
+
+	public void setAnio(String anio) {
+		this.anio = anio;
+	}
+	
+	
+	
 }

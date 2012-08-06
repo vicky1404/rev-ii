@@ -2,13 +2,8 @@ package cl.mdr.ifrs.modules.mb;
 
 import java.io.Serializable;
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJBException;
@@ -24,21 +19,18 @@ import cl.mdr.ifrs.cross.mb.ComponenteBackingBean;
 import cl.mdr.ifrs.cross.mb.FiltroBackingBean;
 import cl.mdr.ifrs.cross.util.GeneradorDisenoHelper;
 import cl.mdr.ifrs.cross.util.PropertyManager;
-import cl.mdr.ifrs.cross.vo.AgrupacionVO;
 import cl.mdr.ifrs.ejb.common.TipoEstructuraEnum;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.AgrupacionColumna;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
-import cl.mdr.ifrs.ejb.entity.Columna;
 import cl.mdr.ifrs.ejb.entity.Estructura;
 import cl.mdr.ifrs.ejb.entity.Grilla;
 import cl.mdr.ifrs.ejb.entity.HistorialVersion;
-import cl.mdr.ifrs.ejb.entity.Periodo;
+import cl.mdr.ifrs.ejb.entity.PeriodoEmpresa;
 import cl.mdr.ifrs.ejb.entity.TipoEstructura;
 import cl.mdr.ifrs.ejb.entity.Usuario;
 import cl.mdr.ifrs.ejb.entity.Version;
 import cl.mdr.ifrs.exceptions.FormulaException;
-import cl.mdr.ifrs.vo.AgrupacionColumnaModelVO;
 import cl.mdr.ifrs.vo.AgrupacionModelVO;
 
 @ManagedBean(name="procesoBackingBean")
@@ -66,13 +58,27 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
 	
 	@PostConstruct
 	public void cargarCuadro(){
+		
+		init();
+		
 		try {
 			
-			Periodo periodo = getFacadeService().getPeriodoService().findMaxPeriodoObj();
-			getFiltroBackingBean().setPeriodo(periodo);
-			versionList = getFacadeService().getVersionService().findVersionByCatalogoPeriodo(getFiltroBackingBean().getCatalogo().getIdCatalogo(), getFiltroBackingBean().getPeriodo().getIdPeriodo());
-			versionSeleccionada = getFacadeService().getVersionService().findUltimaVersionVigente(getFiltroBackingBean().getPeriodo().getIdPeriodo(), getNombreUsuario(), getFiltroBackingBean().getCatalogo().getIdCatalogo());
+			if(!isSelectedEmpresa())
+	    		return;
 			
+			try{
+				PeriodoEmpresa periodoEmpresa = getFacadeService().getPeriodoService().getMaxPeriodoEmpresaByEmpresa(getFiltroBackingBean().getEmpresa().getIdRut());
+				getFiltroBackingBean().setPeriodoEmpresa(periodoEmpresa);
+			}catch(Exception e) {
+				logger.error(e.getCause(), e);
+	            addWarnMessage("El período consultado no existe");
+	            return;
+			}
+			
+			versionList = getFacadeService().getVersionService().findVersionByCatalogoPeriodo(getFiltroBackingBean().getCatalogo().getIdCatalogo(), 
+																							  getFiltroBackingBean().getPeriodoEmpresa());
+			versionSeleccionada = getFacadeService().getVersionService().findUltimaVersionVigente(getFiltroBackingBean().getPeriodoEmpresa().getIdPeriodo(), 
+																								  getNombreUsuario(), getFiltroBackingBean().getCatalogo().getIdCatalogo());
 			if(versionSeleccionada==null){
 				addNotFoundMessage();
 				return;
@@ -97,49 +103,56 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
         } catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			this.renderVersionList = false;
-            addWarnMessage(MessageFormat.format(PropertyManager.getInstance().getMessage("periodo_busqueda_sin_resultado_periodo"), getFiltroBackingBean().getPeriodo().getAnioPeriodo(), getFiltroBackingBean().getPeriodo().getMesPeriodo()));
+            addWarnMessage(MessageFormat.format(
+            				PropertyManager.getInstance().getMessage("periodo_busqueda_sin_resultado_periodo"), 
+		            		getFiltroBackingBean().getPeriodoEmpresa().getPeriodo().getAnioPeriodo(), 
+		            		getFiltroBackingBean().getPeriodoEmpresa().getPeriodo().getMesPeriodo()));
 		}
 	}
 
-	
     public Object buscarVersion(){
         
-        FiltroBackingBean filtroPaso = getFiltroBackingBean();
-        
-        filtroPaso.getPeriodo().setPeriodo(null);
-
-        if(filtroPaso.getCatalogo().getIdCatalogo()!=null){
-            try{
-                this.renderVersionList = true;
-                Long periodo = Long.valueOf(filtroPaso.getPeriodo().getAnioPeriodo().concat(filtroPaso.getPeriodo().getMesPeriodo()));                
-                try{
-                    getFiltroBackingBean().setPeriodo(getFacadeService().getMantenedoresTipoService().findByPeriodo(periodo));
-                }catch(NoResultException e){
-                	logger.error(e.getMessage(), e);
-                	addNotFoundMessage();
-                    return null;                    
-                }catch(EJBException e){
-                	logger.error(e.getMessage(), e);
-                	addNotFoundMessage();
-                    return null;
-                }
-                
-                versionList = getFacadeService().getVersionService().findVersionByCatalogoPeriodo(filtroPaso.getCatalogo().getIdCatalogo(), getFiltroBackingBean().getPeriodo().getIdPeriodo());
-                
-                if(versionList == null){  
-                    this.renderVersionList = false;
-                    addWarnMessage(MessageFormat.format(PropertyManager.getInstance().getMessage("periodo_busqueda_sin_resultado_periodo"), getFiltroBackingBean().getPeriodo().getAnioPeriodo(), getFiltroBackingBean().getPeriodo().getMesPeriodo()));
-                }else{
-                	this.renderVersionList = true;
-                }
-                
+    	init();
+    	
+    	try{
+    		if(!isSelectedEmpresa() || getFiltroBackingBean().getCatalogo().getIdCatalogo()==null)
+    			return null;
+    	
+    		FiltroBackingBean filtro = getFiltroBackingBean();    	
+    	
+    		Long periodo = Long.valueOf(filtro.getAnio().concat(filtro.getMes()));
+    		Long idRut	 = filtro.getEmpresa().getIdRut();
+    		
+    		try{
+                getFiltroBackingBean().setPeriodoEmpresa(getFacadeService().getPeriodoService().getPeriodoEmpresaById(periodo, idRut));
             }catch(Exception e){
+            	logger.error(e.getMessage(), e);
+            	addNotFoundMessage();
+                return null;
+            }
+    		
+    		try{
+    			
+    			versionList = getFacadeService().getVersionService().findVersionByCatalogoPeriodo(	filtro.getCatalogo().getIdCatalogo(), 
+    																								filtro.getPeriodoEmpresa());
+    		}catch(Exception e){
                 logger.error(e.getCause(), e);
                 addErrorMessage("Error al consultar Versiones para el Período");
             }
-            
-        }
-        
+    		
+			if(!Util.esListaValida(versionList)){  
+				this.renderVersionList = false;
+				addWarnMessage(MessageFormat.format(PropertyManager.getInstance().getMessage("periodo_busqueda_sin_resultado_periodo"), 
+																							filtro.getMes(), 
+																							filtro.getAnio()));
+			}else 
+				this.renderVersionList = true;
+    	
+    	}catch(Exception e){
+    		logger.error(e.getMessage(), e);
+    		addErrorMessage("Error al seleccionar el período");
+    	}
+    	
         return null;
     }
     
@@ -427,7 +440,9 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
     }*/
     
     private void addNotFoundMessage(){
-    	addWarnMessage(MessageFormat.format(PropertyManager.getInstance().getMessage("periodo_busqueda_sin_resultado_periodo"), getFiltroBackingBean().getPeriodo().getAnioPeriodo(), getFiltroBackingBean().getPeriodo().getMesPeriodo()));
+    	addWarnMessage(MessageFormat.format(PropertyManager.getInstance().getMessage("periodo_busqueda_sin_resultado_periodo"), 
+    			getFiltroBackingBean().getPeriodoEmpresa().getPeriodo().getAnioPeriodo(), 
+    			getFiltroBackingBean().getPeriodoEmpresa().getPeriodo().getMesPeriodo()));
         this.renderVersionList = false;  
     }
 
@@ -509,6 +524,13 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
 
 	public void setVersionSeleccionada(Version versionSeleccionada) {
 		this.versionSeleccionada = versionSeleccionada;
+	}
+	
+	public void init(){
+		renderVersionList = false;
+    	versionList = null;
+    	versionSeleccionada = null;
+        estructuraList = null;
 	}
     
 }

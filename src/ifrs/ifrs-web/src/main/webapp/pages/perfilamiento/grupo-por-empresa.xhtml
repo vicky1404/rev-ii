@@ -19,12 +19,12 @@
 				<h:panelGrid columns="3">
 					<p:outputLabel value="Empresa:" for="som1" />
 					<p:selectOneMenu label="Empresa"
-						value="#{grupoPorEmpresaBackingBean.empresa.rut}" required="true"
+						value="#{grupoPorEmpresaBackingBean.empresa.idRut}" required="true"
 						id="som1" requiredMessage="#{msg.mensaje_seleccione_valor}">
 						<f:selectItem itemLabel="#{msg.label_seleccione}" />
 						<f:selectItems
 							value="#{usuarioPorGrupoBackingBean.componenteBackingBean.empresaList}"
-							var="empresa" itemValue="#{empresa.rut}"
+							var="empresa" itemValue="#{empresa.idRut}"
 							itemLabel="#{empresa.razonSocial}" />
 					</p:selectOneMenu>
 					<h:message for="som1" styleClass="ui-outputlabel ui-state-error" />

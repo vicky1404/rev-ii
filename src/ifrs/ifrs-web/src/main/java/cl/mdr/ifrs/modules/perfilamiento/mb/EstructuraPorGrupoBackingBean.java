@@ -41,7 +41,7 @@ public class EstructuraPorGrupoBackingBean extends AbstractBackingBean implement
 	public void buscarEstructurasPorGrupoAction(ActionEvent event){     
 		this.getTipoCuadroSelected();
         try {
-            this.setGrillaCatalogoList(this.getCatalogoByGrupoList(super.getFacadeService().getCatalogoService().findCatalogoByFiltro(getFiltroBackingBean().getEmpresa().getRut(), null, this.getTipoCuadroSelected(), new Grupo(this.getIdGrupoSelected()), null), 
+            this.setGrillaCatalogoList(this.getCatalogoByGrupoList(super.getFacadeService().getCatalogoService().findCatalogoByFiltro(getFiltroBackingBean().getEmpresa().getIdRut(), null, this.getTipoCuadroSelected(), new Grupo(this.getIdGrupoSelected()), null), 
                                                                    super.getFacadeService().getCatalogoService().findAllVigenteByTipo( this.getTipoCuadroSelected() )));            
             this.setRenderTablaCatalogo(Boolean.TRUE);
         } catch (Exception e) {

@@ -20,6 +20,7 @@ import org.hibernate.internal.SessionImpl;
 
 import cl.mdr.ifrs.ejb.entity.HistorialVersion;
 import cl.mdr.ifrs.ejb.entity.Periodo;
+import cl.mdr.ifrs.ejb.entity.PeriodoEmpresa;
 import cl.mdr.ifrs.ejb.entity.Version;
 import cl.mdr.ifrs.ejb.service.local.PeriodoServiceLocal;
 
@@ -130,5 +131,43 @@ public class PeriodoServiceBean implements PeriodoServiceLocal{
             em.merge(historialVersion);
         }
     }
+   	
+   	
+    /**
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+   	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public List<Periodo> findAllPeriodo(){
+        Query query = em.createNamedQuery("Periodo.findAll");
+        return query.getResultList();
+    }
+    
+    /**
+     * @return
+     */    
+   	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public Periodo findByPeriodo(Long periodo) throws Exception{
+        Query query = em.createNamedQuery("Periodo.findByPeriodo");
+        query.setParameter("periodo", periodo);
+        Periodo periodoResult = (Periodo)query.getSingleResult();        
+        return periodoResult;
+        
+    }
+   	
+   	/*METODOS CORRESPONDIENTES AL PERIODO_EMPRESA*/
+   	
+   	public PeriodoEmpresa getMaxPeriodoEmpresaByEmpresa(Long idRut){
+   		Query query = em.createNamedQuery(PeriodoEmpresa.FIND_MAX_BY_EMPRESA);
+   		query.setParameter("idRut", idRut);
+   		return (PeriodoEmpresa) query.getSingleResult();
+   	}
+   	
+   	public PeriodoEmpresa getPeriodoEmpresaById(Long idPeriodo, Long idRut){
+   		Query query = em.createNamedQuery(PeriodoEmpresa.FIND_BY_ID);
+   		query.setParameter("idPeriodo", idPeriodo);
+   		query.setParameter("idRut", idRut);
+   		return (PeriodoEmpresa) query.getSingleResult();
+   	}
    
 }

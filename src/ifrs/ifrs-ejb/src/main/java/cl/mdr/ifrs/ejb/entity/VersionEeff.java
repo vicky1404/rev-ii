@@ -1,6 +1,5 @@
 package cl.mdr.ifrs.ejb.entity;
 
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -11,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -20,21 +20,32 @@ import javax.persistence.Table;
 
 import cl.mdr.ifrs.ejb.common.Constantes;
 
-
 @Entity
 @NamedQueries( { @NamedQuery(name = VersionEeff.FIND_ALL, query = "select o from VersionEeff o"),
-                 @NamedQuery(name = VersionEeff.FIND_BY_PERIOD, query = "select o from VersionEeff o where o.periodo.idPeriodo = :idPeriodo order by o.version"),
-                 @NamedQuery(name = VersionEeff.FIND_VIGENTE_BY_PERIOD, query = "select o from VersionEeff o where o.periodo.idPeriodo = :idPeriodo and o.vigencia = 1"),
-                 @NamedQuery(name = VersionEeff.FIN_MAX_VERSION_BY_PERIODO, query = "select max(o.version) from VersionEeff o where o.periodo.idPeriodo = :idPeriodo"),
-                 @NamedQuery(name = VersionEeff.UPDATE_VIGENCIA_BY_PERIODO, query = "update VersionEeff o set o.vigencia = 0 where o.periodo.idPeriodo = :idPeriodo")})
+                 @NamedQuery(name = VersionEeff.FIND_BY_PERIOD, query = "select o from VersionEeff o where o.periodoEmpresa.idPeriodo = :idPeriodo order by o.version"),
+                 @NamedQuery(name = VersionEeff.FIND_VIGENTE_BY_PERIOD, query = "select o from VersionEeff o where o.periodoEmpresa.idPeriodo = :idPeriodo and o.vigencia = 1"),
+                 @NamedQuery(name = VersionEeff.FIN_MAX_VERSION_BY_PERIODO_EMPRESA, 
+                 query =" select " +
+                 		" max(o.version) " +
+                 		" from VersionEeff o " +
+                 		" where " +
+                 		" o.periodoEmpresa.idPeriodo = :idPeriodo and " +
+                 		" o.periodoEmpresa.idRut = :idRut "),
+                 @NamedQuery(name = VersionEeff.UPDATE_VIGENCIA_BY_PERIODO_EMPRESA, 
+                 query = " update VersionEeff o " +
+                 		 " set o.vigencia = 0 " +
+                 		 " where " +
+                 		 " o.periodoEmpresa.idPeriodo = :idPeriodo and " +
+                 		 " o.periodoEmpresa.idRut = :idRut ")})
+
 @Table(name = Constantes.VERSION_EEFF)
 public class VersionEeff implements Serializable {
 	private static final long serialVersionUID = -6581463781943497902L;
 	public static final String FIND_ALL = "VersionEeff.findAll";
     public static final String FIND_BY_PERIOD = "VersionEeff.findByPeriod";
     public static final String FIND_VIGENTE_BY_PERIOD = "VersionEeff.findVigenteByPeriod";
-    public static final String FIN_MAX_VERSION_BY_PERIODO = "VersionEeff.findByMaxVersionByPeriodo";
-    public static final String UPDATE_VIGENCIA_BY_PERIODO = "VersionEeff.updateVigenciaByPeriodo";
+    public static final String FIN_MAX_VERSION_BY_PERIODO_EMPRESA = "VersionEeff.findByMaxVersionByPeriodoEmpresa";
+    public static final String UPDATE_VIGENCIA_BY_PERIODO_EMPRESA = "VersionEeff.updateVigenciaByPeriodoEmpresa";
     
     @Id    
     @GeneratedValue(generator="ID_GEN_VERSION_EEFF")
@@ -57,22 +68,13 @@ public class VersionEeff implements Serializable {
     
     @OneToMany(mappedBy = "versionEeff", cascade = CascadeType.PERSIST)
     private List<EstadoFinanciero> estadoFinancieroList;
-    
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ID_PERIODO")
-    private Periodo periodo;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumns( { @JoinColumn(name = "ID_PERIODO", referencedColumnName = "ID_PERIODO"),
+			        @JoinColumn(name = "ID_RUT", referencedColumnName = "ID_RUT")})
+    private PeriodoEmpresa periodoEmpresa;
 
     public VersionEeff() {
-    }
-
-    public VersionEeff(TipoEstadoEeff estadoEeff, Periodo periodo, Long idVersionEeff, String usuario,
-                       Long version, Long vigencia) {
-        this.tipoEstadoEeff = estadoEeff;
-        this.periodo = periodo;
-        this.idVersionEeff = idVersionEeff;
-        this.usuario = usuario;
-        this.version = version;
-        this.vigencia = vigencia;
     }
 
 
@@ -116,14 +118,6 @@ public class VersionEeff implements Serializable {
         this.tipoEstadoEeff = estadoEeff;
     }
 
-    public Periodo getPeriodo() {
-        return periodo;
-    }
-
-    public void setPeriodo(Periodo periodo) {
-        this.periodo = periodo;
-    }
-
     public void setEstadoFinancieroList(List<EstadoFinanciero> estadoFinancieroList) {
         this.estadoFinancieroList = estadoFinancieroList;
     }
@@ -131,4 +125,13 @@ public class VersionEeff implements Serializable {
     public List<EstadoFinanciero> getEstadoFinancieroList() {
         return estadoFinancieroList;
     }
+    
+    public PeriodoEmpresa getPeriodoEmpresa() {
+		return periodoEmpresa;
+	}
+
+
+	public void setPeriodoEmpresa(PeriodoEmpresa periodoEmpresa) {
+		this.periodoEmpresa = periodoEmpresa;
+	}
 }

@@ -22,6 +22,7 @@ import cl.mdr.ifrs.ejb.entity.AgrupacionColumna;
 import cl.mdr.ifrs.ejb.entity.Celda;
 import cl.mdr.ifrs.ejb.entity.Columna;
 import cl.mdr.ifrs.ejb.entity.Estructura;
+import cl.mdr.ifrs.ejb.entity.PeriodoEmpresa;
 import cl.mdr.ifrs.ejb.entity.TipoEstructura;
 import cl.mdr.ifrs.exceptions.GrillaIncorrectaException;
 import cl.mdr.ifrs.exceptions.PeriodoException;
@@ -49,6 +50,10 @@ public class GeneradorVisualizadorBackingBean extends AbstractBackingBean implem
 	
     public void guardarDisenoActionListener(ActionEvent action){
         try {
+        	
+        	if(isSelectedEmpresa())
+        		return;
+        	
             GeneradorDisenoHelper.validarContenidoCelda(this.getConfiguradorDisenoBackingBean().getEstructuraModelMap());
         } catch (GrillaIncorrectaException e) {
             if(e.getErrores()==null)
@@ -63,7 +68,8 @@ public class GeneradorVisualizadorBackingBean extends AbstractBackingBean implem
             return;
         }
         try{
-            super.getFacadeService().getVersionService().persistVersion(this.getGeneradorVersionBackingBean().getVersionList(), this.getGeneradorVersionBackingBean().getEstructuraList(), this.getConfiguradorDisenoBackingBean().getEstructuraModelMap(), super.getNombreUsuario());   
+        	PeriodoEmpresa periodoEmpresa = super.getFacadeService().getPeriodoService().getMaxPeriodoEmpresaByEmpresa(super.getFiltroBackingBean().getEmpresa().getIdRut());
+            super.getFacadeService().getVersionService().persistVersion(this.getGeneradorVersionBackingBean().getVersionList(), this.getGeneradorVersionBackingBean().getEstructuraList(), this.getConfiguradorDisenoBackingBean().getEstructuraModelMap(), super.getNombreUsuario(), periodoEmpresa);   
             super.addInfoMessage("Se ha configurado correctamente la Revelación");
         }catch(PeriodoException e){
         	super.addErrorMessage("Error, no se ha almacenado la información");

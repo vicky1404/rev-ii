@@ -19,6 +19,7 @@ import org.primefaces.context.RequestContext;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Grilla;
 import cl.mdr.ifrs.ejb.entity.Periodo;
+import cl.mdr.ifrs.ejb.entity.PeriodoEmpresa;
 import cl.mdr.ifrs.ejb.entity.Usuario;
 import cl.mdr.ifrs.ejb.facade.local.FacadeServiceLocal;
 
@@ -82,9 +83,15 @@ public abstract class AbstractBackingBean {
      * @return
      * @throws Exception
      */
-    public Periodo getFiltroPeriodo() throws Exception{                           
-        this.getFiltroBackingBean().setPeriodo(this.getFacadeService().getMantenedoresTipoService().findByPeriodo(Util.getLong(getFiltroBackingBean().getPeriodo().getAnioPeriodo().concat(getFiltroBackingBean().getPeriodo().getMesPeriodo()), null)));                                                 
-        return this.getFiltroBackingBean().getPeriodo();        
+    public PeriodoEmpresa getFiltroPeriodoEmpresa() throws Exception{
+    	
+        this.getFiltroBackingBean().setPeriodoEmpresa(
+        		this.getFacadeService().getPeriodoService().getPeriodoEmpresaById(
+        				Util.getLong(getFiltroBackingBean().getAnio().concat(getFiltroBackingBean().getMes()),null),
+        				getFiltroBackingBean().getEmpresa().getIdRut()));                                                 
+        
+        return this.getFiltroBackingBean().getPeriodoEmpresa();
+        
     }
 
 	public void addErrorMessage(String summary, String detail) {
@@ -212,4 +219,30 @@ public abstract class AbstractBackingBean {
 		this.localeCL = localeCL;
 	}
 	
+	/**
+	 * Metodo que valida si se ha seleccionado una empresa
+	 * Si no se ha seleccionado una empresa, escribe un mensaje de informacion
+	 */
+	public boolean isSelectedEmpresa(){
+		
+		if(getFiltroBackingBean().getEmpresa() == null || getFiltroBackingBean().getEmpresa().getIdRut() == null){
+			addWarnMessage("Se debe seleccionar una Empresa");
+			return false;
+		}
+		
+		return true;
+	}
+	
+	
+	/**
+	 * Metodo que valida si se ha seleccionado una periodo
+	 * Si no se ha seleccionado una periodo, escribe un mensaje de informacion
+	 */
+	public boolean isSelectedFiltroPeriodo(){
+		if(getFiltroBackingBean().getMes()==null || getFiltroBackingBean().getAnio() == null){
+			addWarnMessage("Se debe seleccionar una periodo (Mes y Año)");
+			return false;
+		}
+		return true;
+	}
 }

@@ -1,6 +1,8 @@
 package cl.mdr.ifrs.ejb.service;
 
 
+import static cl.mdr.ifrs.ejb.cross.Constantes.PERSISTENCE_UNIT_NAME;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -73,6 +75,7 @@ import cl.mdr.ifrs.ejb.entity.Grilla;
 import cl.mdr.ifrs.ejb.entity.HistorialReporte;
 import cl.mdr.ifrs.ejb.entity.Html;
 import cl.mdr.ifrs.ejb.entity.Periodo;
+import cl.mdr.ifrs.ejb.entity.PeriodoEmpresa;
 import cl.mdr.ifrs.ejb.entity.Texto;
 import cl.mdr.ifrs.ejb.facade.local.FacadeServiceLocal;
 import cl.mdr.ifrs.ejb.reporte.util.SoporteReporte;
@@ -80,7 +83,6 @@ import cl.mdr.ifrs.ejb.reporte.vo.ReportePrincipalVO;
 import cl.mdr.ifrs.ejb.service.local.ReporteDocxServiceLocal;
 import cl.mdr.ifrs.vo.AgrupacionModelVO;
 import cl.mdr.ifrs.vo.FilaVO;
-import static cl.mdr.ifrs.ejb.cross.Constantes.PERSISTENCE_UNIT_NAME;
 
 
 @Stateless
@@ -115,7 +117,7 @@ public class ReporteDocxServiceBean implements ReporteDocxServiceLocal {
     }
     
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public WordprocessingMLPackage createDOCX(final List<ReportePrincipalVO> reportes, final byte[] headerImage, final String usuarioOid, final String ipUsuario, final String nombreArchivo, final Periodo periodo) throws Exception {  
+    public WordprocessingMLPackage createDOCX(final List<ReportePrincipalVO> reportes, final byte[] headerImage, final String usuarioOid, final String ipUsuario, final String nombreArchivo, final PeriodoEmpresa periodoEmpresa) throws Exception {  
         PageDimensions pageDimensions;            
         this.setHeaderImage(headerImage);
         int totalReportes = reportes.size();
@@ -227,7 +229,7 @@ public class ReporteDocxServiceBean implements ReporteDocxServiceLocal {
         historialReporte.setDocumento(documentData);        
         historialReporte.setComentario("REPORTE GENERADO CON "+reportes.size()+" CUADRO(S)");
         historialReporte.setNombreArchivo(nombreArchivo);
-        historialReporte.setPeriodo(periodo);
+        historialReporte.setPeriodoEmpresa(periodoEmpresa);
         em.persist(historialReporte);     
         return wordMLPackage;                
     }

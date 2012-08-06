@@ -274,7 +274,7 @@ public class ComponenteBackingBean implements Serializable {
 
     public List<Periodo> getPeriodoList() {
         if(periodoList==null){
-            periodoList = getFacade().getMantenedoresTipoService().findAllPeriodo();
+            periodoList = getFacade().getPeriodoService().findAllPeriodo();
         }
         return periodoList;
     }

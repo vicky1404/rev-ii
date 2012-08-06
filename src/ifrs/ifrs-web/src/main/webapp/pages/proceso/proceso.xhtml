@@ -18,7 +18,7 @@
 					    <td><h:outputLabel value="#{msg.label_periodo}" /></td>
 						<td><p:selectOneMenu label="#{msg.etiqueta_periodo}"
 								id="soc1Periodo"
-								value="#{procesoBackingBean.filtroBackingBean.periodo.mesPeriodo}"
+								value="#{procesoBackingBean.filtroBackingBean.mes}"
 								showRequired="true" required="true"
 								requiredMessage="#{msg.periodo_mensaje_seleccione_mes}">
 
@@ -30,7 +30,7 @@
 
 							</p:selectOneMenu></td>
 						<td align="left"><p:selectOneMenu id="soc2Periodo"
-								value="#{procesoBackingBean.filtroBackingBean.periodo.anioPeriodo}"
+								value="#{procesoBackingBean.filtroBackingBean.anio}"
 								required="true"
 								requiredMessage="#{msg.periodo_mensaje_seleccione_anio}">
 
@@ -58,7 +58,6 @@
 
 						<p:column id="c1" headerText="#{msg.label_ver}">
 						   <div align="center">
-						        <!-- value="#{row.periodo.mesPeriodo} - #{row.periodo.anioPeriodo}"-->
 						        <p:tooltip for="cl1" value="#{msg.label_cargar_datos_de_la_version} #{row.version} de #{row.catalogo.titulo}"></p:tooltip>
 								<p:commandLink id="cl1"									
 									actionListener="#{procesoBackingBean.buscarCuadro}"
@@ -100,7 +99,11 @@
 					</p:dataTable>
 				</div>
 			</p:panel>
+			
 			<p:spacer height="30" id="sp1" width="10" />
+			
+			<h:panelGroup id="pg2" rendered="#{procesoBackingBean.renderVersionList}">
+			
 			<div align="left">
 				<p:toolbar rendered="#{not empty procesoBackingBean.estructuraList}">
 
@@ -110,7 +113,7 @@
 							action="#{procesoBackingBean.guardar}" partialSubmit="false"
 							update="@form" />
 						<p:spacer width="10px" />
-						<h:outputText value="Periodo : #{procesoBackingBean.versionSeleccionada.periodo.periodoFormat} - #{procesoBackingBean.filtroBackingBean.catalogo.titulo}" />
+						<h:outputText value="Periodo : #{procesoBackingBean.versionSeleccionada.periodoEmpresa.periodo.periodoFormat} - #{procesoBackingBean.filtroBackingBean.catalogo.titulo}" />
 					</p:toolbarGroup>
 
 				</p:toolbar>
@@ -129,6 +132,8 @@
 				</ui:repeat>
 
 			</div>
+			
+			</h:panelGroup>
 
 		</h:form>
 

@@ -36,7 +36,11 @@ public class RelacionEeff implements Serializable {
     @Column(name = "ID_PERIODO", nullable = false, insertable = false, updatable = false)
     private Long idPeriodo;
     
-    @Column(name = "MONTO_TOTAL")
+    @Id
+    @Column(name = "ID_RUT", nullable = false, insertable = false, updatable = false)
+    private Long idRut;
+
+	@Column(name = "MONTO_TOTAL")
     private BigDecimal montoTotal;
     
     @ManyToOne
@@ -46,8 +50,9 @@ public class RelacionEeff implements Serializable {
     private Celda celda2;
     
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ID_PERIODO")
-    private Periodo periodo;
+    @JoinColumns( { @JoinColumn(name = "ID_PERIODO", referencedColumnName = "ID_PERIODO"),
+			        @JoinColumn(name = "ID_RUT", referencedColumnName = "ID_RUT")})
+    private PeriodoEmpresa periodoEmpresa;
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_FECU")
@@ -72,6 +77,14 @@ public class RelacionEeff implements Serializable {
     public void setIdPeriodo(Long idPeriodo) {
         this.idPeriodo = idPeriodo;
     }
+    
+    public Long getIdRut() {
+		return idRut;
+	}
+
+	public void setIdRut(Long idRut) {
+		this.idRut = idRut;
+	}
 
     public BigDecimal getMontoTotal() {
         return montoTotal;
@@ -89,14 +102,15 @@ public class RelacionEeff implements Serializable {
         this.celda2 = celda2;
     }
     
-    public Periodo getPeriodo() {
-        return periodo;
+    public PeriodoEmpresa getPeriodoEmpresa() {
+        return periodoEmpresa;
     }
 
-    public void setPeriodo(Periodo periodo) {
-        this.periodo = periodo;
-        if (periodo != null) {
-            this.idPeriodo = periodo.getIdPeriodo();
+    public void setPeriodoEmpresa(PeriodoEmpresa periodoEmpresa) {
+        this.periodoEmpresa = periodoEmpresa;
+        if (periodoEmpresa != null) {
+            this.idPeriodo = periodoEmpresa.getIdPeriodo();
+            this.idRut = periodoEmpresa.getIdRut();
         }
     }
 
@@ -108,12 +122,16 @@ public class RelacionEeff implements Serializable {
         return codigoFecu;
     }
     
-    public void copyEstadoFinanciero(EstadoFinanciero eeff,Celda celda, Periodo periodo){
+    public void copyEstadoFinanciero(EstadoFinanciero eeff,Celda celda, PeriodoEmpresa periodoEmpresa){
         this.idFecu = eeff.getIdFecu();
-        this.idPeriodo = periodo.getIdPeriodo();
+        if(periodoEmpresa!=null){
+        	this.idPeriodo = periodoEmpresa.getIdPeriodo();
+        	this.idRut = periodoEmpresa.getIdRut();
+        }
         this.montoTotal = eeff.getMontoTotal();
         this.celda2 = celda;
-        this.periodo = periodo;
+        this.periodoEmpresa = periodoEmpresa;
         this.codigoFecu = eeff.getCodigoFecu();
     }
+
 }
