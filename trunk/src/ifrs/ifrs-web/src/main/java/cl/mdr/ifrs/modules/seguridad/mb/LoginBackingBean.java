@@ -16,6 +16,7 @@ import cl.mdr.ifrs.ejb.entity.Usuario;
 
 /**
  * @author rreyes
+ * @link http://cl.linkedin.com/in/rreyesc
  */
 @ManagedBean
 @ViewScoped

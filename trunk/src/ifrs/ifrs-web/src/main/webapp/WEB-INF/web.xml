@@ -8,7 +8,7 @@
 	</welcome-file-list>
 	<error-page>
 		<exception-type>javax.faces.application.ViewExpiredException</exception-type>
-		<location>/index.jsp?expired=1</location>
+		<location>/login.jsf?expired=1</location>
 	</error-page>
 	<filter>
 		<display-name>SeguridadFilter</display-name>
@@ -47,4 +47,8 @@
 		<param-name>primefaces.THEME</param-name>
 		<param-value>#{themeBackingBean.theme}</param-value>
 	</context-param>
+	
+	<session-config>
+		<session-timeout>10</session-timeout>
+	</session-config>
 </web-app>

@@ -46,10 +46,26 @@ public class SeguridadFilter implements Filter {
 				chain.doFilter(requestWrapper, response);
 			}else{
 				logger.error("Usuario No autorizado");
-				((HttpServletResponse) response).sendRedirect(requestWrapper.getContextPath().concat(LOGIN_PAGE.concat("?unauthorized=1")));
+				if (!this.isAjax(requestWrapper)) {
+					((HttpServletResponse) response).sendRedirect(requestWrapper.getContextPath().concat(LOGIN_PAGE.concat("?unauthorized=1")));
+				}else{
+					((HttpServletResponse) response).getWriter().print(this.ajaxRedirect(requestWrapper, requestWrapper.getContextPath().concat(LOGIN_PAGE.concat("?session_expired=1")) ));
+					((HttpServletResponse) response).flushBuffer();  
+				}
 			}		
 		}
 	}
+	
+	private boolean isAjax(HttpServletRequest request) {
+        return "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+    }
+	
+	private String ajaxRedirect(HttpServletRequest request, String page) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("<?xml version='1.0' encoding='UTF-8'?>");
+        sb.append("<partial-response><redirect url=\"").append(request.getContextPath()).append(request.getServletPath()).append(page).append("\"/></partial-response>");
+        return sb.toString();
+    }
 
 	/**
 	 * @see Filter#init(FilterConfig)

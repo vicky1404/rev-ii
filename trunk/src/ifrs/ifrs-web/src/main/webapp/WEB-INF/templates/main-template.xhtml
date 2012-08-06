@@ -8,13 +8,12 @@
 	<title>#{msg.titulo_principal_aplicacion}</title>
 	<link rel="shortcut icon" href="#{request.contextPath}/resources/images/icon/favicon.ico"/>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="refresh" content="#{session.maxInactiveInterval};url=#{request.contextPath}/login.jsf?session_expired=1"/>
+	<meta http-equiv="Author" content="#{msg.label_nombre_mdr_technology}" />
+	<meta http-equiv="Nombre del Software" content="#{msg.titulo_principal_aplicacion}" />
 	<h:outputStylesheet name="css/screen.css" />
 </h:head>
-<h:body>
-	<!-- p:ajaxStatus  onstart="statusDialog.show();" oncomplete="statusDialog.hide();"/>                  
-	<p:dialog modal="true" widgetVar="statusDialog" header="Status" x="10" y="10" draggable="false" close="false">
-        <h:graphicImage value="../design/ajaxloadingbar.gif" />
-	</p:dialog-->
+<h:body>	
 	<p:layout fullPage="true" resizeTitle="#{msg.label_redimensionar}"
 		collapseTitle="#{msg.label_colapsar}" closeTitle="#{msg.label_cerrar}">
 
