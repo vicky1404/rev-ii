@@ -14,8 +14,8 @@ import cl.mdr.ifrs.ejb.entity.HistorialVersion;
 import cl.mdr.ifrs.ejb.entity.Periodo;
 import cl.mdr.ifrs.ejb.entity.TipoCuadro;
 import cl.mdr.ifrs.ejb.entity.Version;
+import cl.mdr.ifrs.exceptions.PeriodoException;
 import cl.mdr.ifrs.model.EstructuraModel;
-import cl.mdr.ifrs.vo.GrillaModelVO;
 
 
 @Local
@@ -50,12 +50,25 @@ public interface VersionServiceLocal {
      */
     Object persistEntity(Object entity);
     
+  
     /**
-     * @param version
+     * @param versiones
      * @param estructuras
+     * @param estructuraModelMap
+     * @param usuario
      * @throws Exception
      */
     void persistVersion(List<Version> versiones, List<Estructura> estructuras, Map<Long, EstructuraModel> estructuraModelMap , String usuario) throws Exception;
+    
+    /**
+     * @param version
+     * @param estructuras
+     * @param estructuraModelMap
+     * @param usuario
+     * @throws PeriodoException
+     * @throws Exception
+     */
+    void editarVersion(Version version, List<Estructura> estructuras, Map<Long, EstructuraModel> estructuraModelMap, String usuario) throws PeriodoException, Exception;
 
     /**
      * @return
