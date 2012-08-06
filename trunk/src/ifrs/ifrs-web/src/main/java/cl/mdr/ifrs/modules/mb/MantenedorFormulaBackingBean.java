@@ -48,6 +48,7 @@ import cl.mdr.ifrs.ejb.entity.Columna;
 import cl.mdr.ifrs.ejb.entity.Estructura;
 import cl.mdr.ifrs.ejb.entity.Grilla;
 import cl.mdr.ifrs.ejb.entity.Periodo;
+import cl.mdr.ifrs.ejb.entity.PeriodoEmpresa;
 import cl.mdr.ifrs.ejb.entity.TipoCuadro;
 import cl.mdr.ifrs.ejb.entity.Version;
 import cl.mdr.ifrs.exceptions.FormulaException;
@@ -131,7 +132,7 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
         //final List<Catalogo> catalogoList = select(super.getComponenteBackingBean().getCatalogoList() ,having(on(Catalogo.class).getTipoCuadro().getIdTipoCuadro(), equalTo(tipoCuadro.getIdTipoCuadro())));
     	List<Catalogo> catalogoList = new ArrayList<Catalogo>();
 		try {
-			catalogoList = getFacadeService().getCatalogoService().findCatalogoByFiltro(getFiltroBackingBean().getEmpresa().getRut(), getNombreUsuario(), tipoCuadro , null, 1L);
+			catalogoList = getFacadeService().getCatalogoService().findCatalogoByFiltro(getFiltroBackingBean().getEmpresa().getIdRut(), getNombreUsuario(), tipoCuadro , null, 1L);
 		} catch (Exception e) {
 	
 			e.printStackTrace();
@@ -148,10 +149,10 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
     	this.setRenderedCatalogoTree(Boolean.TRUE);
     	this.setRenderTablaFormula(Boolean.FALSE);
     	this.setRenderBarraFormula(Boolean.FALSE);
-    	Long periodoLong = Long.parseLong( super.getFiltroBackingBean().getPeriodo().getAnioPeriodo() ) * 100 + Long.parseLong( super.getFiltroBackingBean().getPeriodo().getMesPeriodo() );
-        Periodo periodo = getFacadeService().getPeriodoService().findPeriodoByPeriodo(periodoLong);
+    	Long periodoLong = Long.parseLong( super.getFiltroBackingBean().getPeriodoEmpresa().getPeriodo().getAnioPeriodo() ) * 100 + Long.parseLong( super.getFiltroBackingBean().getPeriodoEmpresa().getPeriodo().getMesPeriodo() );
+        PeriodoEmpresa periodoEmpresa = getFacadeService().getPeriodoService().getPeriodoEmpresaById(periodoLong, super.getFiltroBackingBean().getEmpresa().getIdRut());
         try {
-        	List<Version> lista = getFacadeService().getVersionService().findVersionByFiltro(null, new TipoCuadro(getIdTipoCuadro()) , periodo, null, VigenciaEnum.VIGENTE.getKey(), new Catalogo(getIdCatalogo()), super.getFiltroBackingBean().getEmpresa());
+        	List<Version> lista = getFacadeService().getVersionService().findVersionByFiltro(null, new TipoCuadro(getIdTipoCuadro()) , periodoEmpresa, null, VigenciaEnum.VIGENTE.getKey(), new Catalogo(getIdCatalogo()));
         	setTreeNode(lista);
     		if(lista == null || lista.size() == 0){
     			super.addWarnMessage("No se encontraron Versiones de Revelaciones para este período");

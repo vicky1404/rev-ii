@@ -149,7 +149,7 @@
         		<p:outputLabel for="Empresa" value="#{msg.label_empresa}" />  
 	            	<p:selectOneMenu value="#{cuadro.idEmpresa}" id="Empresa" required="true">
     					<f:selectItem itemLabel="#{msg.label_seleccione}"/>
-    					<f:selectItems value="#{cuadro.componenteBackingBean.empresaList}" var="empresa" itemValue="#{empresa.rut}" itemLabel="#{empresa.razonSocial}"/>
+    					<f:selectItems value="#{cuadro.componenteBackingBean.empresaList}" var="empresa" itemValue="#{empresa.idRut}" itemLabel="#{empresa.razonSocial}"/>
     				</p:selectOneMenu>
 	            <h:message for="Empresa" id="msgEmpresa" style="color:red"/>           
         	  

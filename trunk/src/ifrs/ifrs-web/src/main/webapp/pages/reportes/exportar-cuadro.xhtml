@@ -51,7 +51,7 @@
 					<h:column>
 						<p:selectOneMenu id="soc1" label=" "
 							unselectedLabel="#{msg.label_seleccione}"
-							value="#{reporteBackingBean.filtroBackingBean.periodo.mesPeriodo}"
+							value="#{reporteBackingBean.filtroBackingBean.periodoEmpresa.periodo.mesPeriodo}"
 							required="true">
 							<f:selectItem itemLabel="#{msg.label_seleccione}" />
 							<f:selectItems
@@ -60,7 +60,7 @@
 						</p:selectOneMenu>
 						<p:selectOneMenu id="soc2" label=" " style="margin-left:5px;"
 							unselectedLabel="#{msg.label_seleccione}"
-							value="#{reporteBackingBean.filtroBackingBean.periodo.anioPeriodo}"
+							value="#{reporteBackingBean.filtroBackingBean.periodoEmpresa.periodo.anioPeriodo}"
 							required="true">
 							<f:selectItem itemLabel="#{msg.label_seleccione}" />
 							<f:selectItems

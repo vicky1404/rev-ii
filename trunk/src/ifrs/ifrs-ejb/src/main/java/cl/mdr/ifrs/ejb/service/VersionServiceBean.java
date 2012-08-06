@@ -29,11 +29,13 @@ import cl.mdr.ifrs.ejb.entity.Celda;
 import cl.mdr.ifrs.ejb.entity.Columna;
 import cl.mdr.ifrs.ejb.entity.Empresa;
 import cl.mdr.ifrs.ejb.entity.EstadoCuadro;
+import cl.mdr.ifrs.ejb.entity.EstadoPeriodo;
 import cl.mdr.ifrs.ejb.entity.Estructura;
 import cl.mdr.ifrs.ejb.entity.Grilla;
 import cl.mdr.ifrs.ejb.entity.HistorialVersion;
 import cl.mdr.ifrs.ejb.entity.Html;
 import cl.mdr.ifrs.ejb.entity.Periodo;
+import cl.mdr.ifrs.ejb.entity.PeriodoEmpresa;
 import cl.mdr.ifrs.ejb.entity.Texto;
 import cl.mdr.ifrs.ejb.entity.TipoCuadro;
 import cl.mdr.ifrs.ejb.entity.TipoEstructura;
@@ -80,146 +82,6 @@ public class VersionServiceBean implements VersionServiceLocal{
         return entity;
     }
     
-    /*@TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void borrarCeldas(List<Estructura> estructuras, Map<Long, GrillaModelVO> grillaModelMap)throws Exception{
-
-        for(Estructura estructura : estructuras){
-            if(grillaModelMap.containsKey(estructura.getOrden())){
-                GrillaModelVO grillaModel = grillaModelMap.get(estructura.getOrden());
-                if(estructura.getTipoEstructura().getIdTipoEstructura() == TipoEstructura.ESTRUCTURA_TIPO_GRILLA){
-                    System.out.println("Borrar");
-                    if(estructura.getIdEstructura()!=null){
-                        Grilla grillaBorrar = getGrillaService().findGrillaById(estructura.getIdEstructura());
-                        if(grillaBorrar!=null)
-                            em.remove(grillaBorrar);
-                        Estructura estructuraBorrar = getEstructuraService().findEstructuraById(estructura.getIdEstructura());
-                        if(estructuraBorrar!=null)
-                            em.remove(estructuraBorrar);
-                    }
-                }
-            }
-        }
-
-    }
-
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void persistVersion(List<Version> versiones, List<Estructura> estructuras, Map<Long, GrillaModelVO> grillaModelMap) throws Exception{
-
-
-            for(int i=0; i<versiones.size(); i++){
-                Version version; ;
-                version = em.merge(versiones.get(i));
-                versiones.set(i, version);
-                System.out.println(version.getIdVersion());
-            }
-
-            if(estructuras==null)
-                return;
-
-            int ultimaVersion = versiones.size() -1;
-
-            Version versionVigente = versiones.get(ultimaVersion);
-
-            for(int i=0; i<estructuras.size(); i++){
-
-                Estructura estructura = estructuras.get(i);
-
-                if(grillaModelMap.containsKey(estructuras.get(i).getOrden())){
-
-                    GrillaModelVO grillaModel = grillaModelMap.get(estructura.getOrden());
-                    if(estructura.getTipoEstructura().getIdTipoEstructura() == TipoEstructura.ESTRUCTURA_TIPO_GRILLA){
-
-
-                        estructura.setVersion(versionVigente);
-                        Estructura estructuraNew = new Estructura();
-                        estructuraNew.setGrillaList(estructura.getGrillaList());
-                        estructuraNew.setHtmlList(estructura.getHtmlList());
-                        estructuraNew.setOrden(estructura.getOrden());
-                        estructuraNew.setTextoList(estructura.getTextoList());
-                        estructuraNew.setTipoEstructura(estructura.getTipoEstructura());
-                        estructuraNew.setVersion(estructura.getVersion());
-
-                        estructuraNew = em.merge(estructuraNew);
-
-                        estructuras.set(i, estructuraNew);
-
-                        List<Grilla>  grillaList = new ArrayList<Grilla>();
-                        Grilla grilla = new Grilla();
-                        grilla.setIdGrilla(estructuraNew.getIdEstructura());
-                        grilla.setEstructura1(estructuraNew);
-                        grilla.setTitulo(grillaModel.getTituloGrilla());
-                        for(Columna columna : grillaModel.getColumnas()){
-                            columna.setGrilla(grilla);
-                            columna.setIdGrilla(estructuraNew.getIdEstructura());
-                            for(Celda celda : columna.getCeldaList()){
-                                celda.setIdColumna(columna.getIdColumna());
-                                celda.setIdGrilla(estructuraNew.getIdEstructura());
-                                celda.setGrupo(celda.getIdFila());
-                                celda.setColumna(columna);
-                            }
-                        }
-                        grilla.setColumnaList(grillaModel.getColumnas());
-                        em.persist(grilla);
-                        grillaList.add(grilla);
-                        estructura.setGrillaList(grillaList);
-                    }else if(estructura.getTipoEstructura().getIdTipoEstructura() == TipoEstructura.ESTRUCTURA_TIPO_TEXTO){
-                        em.merge(estructura);
-                        List<Texto> textoList = new ArrayList<Texto>();
-                        Texto texto = grillaModel.getTexto();
-                        texto.setIdTexto(estructura.getIdEstructura());
-                        texto.setEstructura2(estructura);
-                        texto = em.merge(texto);
-                        textoList.add(texto);
-                        estructura.setTextoList(textoList);
-                    }else{
-                        em.merge(estructura);
-                        List<Html> htmlList = new ArrayList<Html>();
-                        Html html = grillaModel.getHtml();
-                        html.setIdHtml(estructura.getIdEstructura());
-                        html.setEstructura(estructura);
-                        html = em.merge(html);
-                        htmlList.add(html);
-                        estructura.setHtmlList(htmlList);
-                    }
-                }
-            }
-            versionVigente.setEstructuraList(estructuras);
-
-        }
-    */
-
-    /*@TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void persistVersionPeriodoVigente(final Version version, final Periodo periodo, final String usuario) throws PeriodoException {
-
-        if (periodo == null || periodo.getIdPeriodo()==null) {
-            throw new PeriodoException("El periodo no puede estar cerrado");
-        }
-
-        final EstadoCuadro estadoCuado = em.find(EstadoCuadro.class, EstadoCuadroEnum.INICIADO.getKey());
-        
-        if (estadoCuado == null) {
-            throw new PeriodoException("No existe el estado del cuadro");
-        }
-        
-        VersionPeriodo versionPeriodo = new VersionPeriodo();
-        versionPeriodo.setVersion(version);
-        versionPeriodo.setPeriodo(periodo);
-        versionPeriodo.setUsuario(usuario);
-        versionPeriodo.setFechaCreacion(new Date());
-        versionPeriodo.setFechaUltimoProceso(new Date());
-        versionPeriodo.setEstado(estadoCuado);
-        versionPeriodo = em.merge(versionPeriodo);
-
-        HistorialVersionPeriodo historial = new HistorialVersionPeriodo();
-        historial.setFechaProceso(new Date());
-        historial.setUsuario(usuario);
-        historial.setVersionPeriodo(versionPeriodo);
-        historial.setEstadoCuadro(estadoCuado);
-        historial.setComentario("CREACI�N INICIAL");
-        em.persist(historial);
-    }*/    
-    
-    
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void persistFlujoAprobacion(final List<Version> versionList, final List<HistorialVersion> historialVersionList) throws Exception{
         
@@ -235,13 +97,13 @@ public class VersionServiceBean implements VersionServiceLocal{
     
     @SuppressWarnings("unchecked")
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-    public List<Version> findVersionByFiltro(final String usuario, final TipoCuadro tipoCuadro, final Periodo periodo, final EstadoCuadro estadoCuadro, final Long vigente, final Catalogo catalogo, final Empresa empresa) throws Exception{
+    public List<Version> findVersionByFiltro(final String usuario, final TipoCuadro tipoCuadro, final PeriodoEmpresa periodoEmpresa, final EstadoCuadro estadoCuadro, final Long vigente, final Catalogo catalogo) throws Exception{
         return em.createNamedQuery(Version.VERSION_FIND_BY_FILTRO)
         .setParameter("usuario", usuario)
-        .setParameter("rutEmpresa", empresa.getRut())
+        .setParameter("idRut", periodoEmpresa.getIdRut())
         .setParameter("tipoCuadro", tipoCuadro.getIdTipoCuadro() != null ? tipoCuadro.getIdTipoCuadro() : null )     
         .setParameter("catalogo", catalogo != null ? catalogo.getIdCatalogo() : null )
-        .setParameter("periodo", periodo.getIdPeriodo() != null ? periodo.getIdPeriodo() : null)
+        .setParameter("periodo", periodoEmpresa.getIdPeriodo() != null ? periodoEmpresa.getIdPeriodo() : null)
         .setParameter("estado", estadoCuadro != null ? estadoCuadro.getIdEstado() : null)
         .setParameter("vigente", vigente != null ? vigente : null)        
         .getResultList();
@@ -257,13 +119,13 @@ public class VersionServiceBean implements VersionServiceLocal{
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void persistVersion(final List<Version> versiones, final List<Estructura> estructuras, final Map<Long, EstructuraModel> estructuraModelMap, final String usuario) throws PeriodoException, Exception{
+    public void persistVersion(final List<Version> versiones, final List<Estructura> estructuras, final Map<Long, EstructuraModel> estructuraModelMap, final String usuario, PeriodoEmpresa periodoEmpresa) throws PeriodoException, Exception{
         
     	
-    	Periodo periodo = periodoService.findMaxPeriodoIniciado();
+    	//Periodo periodo = periodoService.findMaxPeriodoIniciado();
         
-        if (periodo == null || periodo.getIdPeriodo()==null) {
-            throw new PeriodoException("El período no puede estar cerrado");
+        if (!periodoEmpresa.getIdPeriodo().equals(EstadoPeriodo.ESTADO_INICIADO)) {
+            throw new PeriodoException("El período debe estar en estado iniciado");
         }
 
         final EstadoCuadro estadoCuado = em.find(EstadoCuadro.class, EstadoCuadroEnum.INICIADO.getKey());
@@ -274,7 +136,7 @@ public class VersionServiceBean implements VersionServiceLocal{
         
     	Version versionVigente = versiones.iterator().next();
     	
-    	versionVigente.setPeriodo(periodo);
+    	versionVigente.setPeriodoEmpresa(periodoEmpresa);
         versionVigente.setUsuario(usuario);
         versionVigente.setFechaCreacion(new Date());
         versionVigente.setFechaUltimoProceso(new Date());
@@ -283,11 +145,12 @@ public class VersionServiceBean implements VersionServiceLocal{
         
         final BigDecimal idVersion = (BigDecimal) em.createNativeQuery("select SEQ_VERSION.nextval from dual").getSingleResult();
         em.createNativeQuery(" INSERT "+
-        					 " INTO IFRS_VERSION(ID_VERSION,ID_CATALOGO,ID_PERIODO,ID_ESTADO_CUADRO,VERSION,VIGENCIA,FECHA_CREACION,COMENTARIO,FECHA_ULTIMO_PROCESO,USUARIO)"+
+        					 " INTO IFRS_VERSION(ID_VERSION,ID_CATALOGO,ID_PERIODO,ID_RUT,ID_ESTADO_CUADRO,VERSION,VIGENCIA,FECHA_CREACION,COMENTARIO,FECHA_ULTIMO_PROCESO,USUARIO)"+
         					 " VALUES(?,?,?,?,?,?,?,?,?,?)").
         					   setParameter(1, idVersion).
         					   setParameter(2, versionVigente.getCatalogo().getIdCatalogo()).
-        					   setParameter(3, versionVigente.getPeriodo().getIdPeriodo()).
+        					   setParameter(3, versionVigente.getPeriodoEmpresa().getIdPeriodo()).
+        					   setParameter(3, versionVigente.getPeriodoEmpresa().getIdRut()).
         					   setParameter(4, versionVigente.getEstado().getIdEstado()).
         					   setParameter(5, versionVigente.getVersion()).
         					   setParameter(6, versionVigente.getVigencia()).
@@ -295,13 +158,7 @@ public class VersionServiceBean implements VersionServiceLocal{
         					   setParameter(8, versionVigente.getComentario()).
         					   setParameter(9, versionVigente.getFechaUltimoProceso()).
         					   setParameter(10, versionVigente.getUsuario()).        					   
-        					   executeUpdate();    	
-    	
-//    	for(int i=0; i<versiones.size()-1; i++){
-//            Version version = versiones.get(i);
-//            version = em.merge(version);
-//            versiones.set(i,version);
-//        }
+        					   executeUpdate();
         
         for(Version version : versiones){
         	if(version.getVigencia().equals(VigenciaEnum.NO_VIGENTE.getKey())){
@@ -582,7 +439,7 @@ public class VersionServiceBean implements VersionServiceLocal{
     public List<Version> findUltimoVersionByPeriodo(final Long periodo, final String usuario, final TipoCuadro tipoCuadro, final Long vigente, final Empresa empresa) throws Exception{
         Query query = em.createNamedQuery(Version.VERSION_FIND_ULTIMO_VERSION_BY_PERIODO);
         query.setParameter("periodo", periodo != null ? periodo.longValue() : "");
-        query.setParameter("rutEmpresa", empresa.getRut());
+        query.setParameter("rutEmpresa", empresa.getIdRut());
         query.setParameter("usuario", usuario);
         query.setParameter("tipoCuadro", tipoCuadro.getIdTipoCuadro() != null ? tipoCuadro.getIdTipoCuadro().longValue() : "" ) ; 
         query.setParameter("vigente", vigente != null ? vigente.longValue() : "" );        
@@ -600,10 +457,11 @@ public class VersionServiceBean implements VersionServiceLocal{
     
     @SuppressWarnings("unchecked")
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-    public List<Version> findVersionByCatalogoPeriodo(Long idCatalogo, Long idPeriodo){
-	    Query query = em.createNamedQuery(Version.VERSION_FIND_BY_ID_CATALOGO_ID_PERIODO);
+    public List<Version> findVersionByCatalogoPeriodo(Long idCatalogo, PeriodoEmpresa peridoEmpresa){
+	    Query query = em.createNamedQuery(Version.VERSION_FIND_BY_ID_CATALOGO_PERIODO_EMPRESA);
 	    query.setParameter("idCatalogo",idCatalogo);
-	    query.setParameter("idPeriodo",idPeriodo);
+	    query.setParameter("idPeriodo",peridoEmpresa.getIdPeriodo());
+	    query.setParameter("idRut",peridoEmpresa.getIdRut());
 	    return query.getResultList();
     }
 

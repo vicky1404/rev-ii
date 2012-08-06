@@ -18,8 +18,6 @@
 				oncomplete="statusDialog.hide();" />
 			
 			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
-			
-			<ui:include src="/WEB-INF/templates/nombre-empresa-template.xhtml" />
 
 			<!-- dialogo de descarga excel -->
 			<p:dialog id="popUpDownExcel" header="#{msg.label_descargar}"
@@ -39,7 +37,7 @@
 			<!-- dialogo de despliague de grafico por usuario-->
 			<p:dialog id="p3" widgetVar="popUpChartByUser" modal="false"
 				showEffect="drop" hideEffect="drop"
-				header="#{msg.label_resumen_de_avance_para_el_periodo}: #{flujoAprobacionBackingBean.filtroBackingBean.periodo.mesPeriodo}-#{flujoAprobacionBackingBean.filtroBackingBean.periodo.anioPeriodo}">
+				header="#{msg.label_resumen_de_avance_para_el_periodo}: #{flujoAprobacionBackingBean.filtroBackingBean.mes}-#{flujoAprobacionBackingBean.filtroBackingBean.anio}">
 				<p:pieChart id="pch1"
 					value="#{flujoAprobacionBackingBean.cuadrosByUsuarioPieModel}"
 					legendPosition="w"
@@ -52,7 +50,7 @@
 			<!-- dialogo de despliague de grafico general-->
 			<p:dialog id="p4" widgetVar="popUpChartAll" modal="false"
 				showEffect="drop" hideEffect="drop"
-				header="#{msg.label_resumen_de_avance_para_el_periodo}: #{flujoAprobacionBackingBean.filtroBackingBean.periodo.mesPeriodo}-#{flujoAprobacionBackingBean.filtroBackingBean.periodo.anioPeriodo}">
+				header="#{msg.label_resumen_de_avance_para_el_periodo}: #{flujoAprobacionBackingBean.filtroBackingBean.mes}-#{flujoAprobacionBackingBean.filtroBackingBean.anio}">
 				<p:pieChart id="pch2"
 					value="#{flujoAprobacionBackingBean.cuadrosAllPieModel}"
 					legendPosition="w"
@@ -72,7 +70,7 @@
 					</h:column>
 					<h:column>
 						<p:selectOneMenu id="soc1" label="#{msg.label_mes_periodo}"
-							value="#{flujoAprobacionBackingBean.filtroBackingBean.periodo.mesPeriodo}"
+							value="#{flujoAprobacionBackingBean.filtroBackingBean.mes}"
 							required="true">
 							<f:selectItem itemLabel="#{msg.label_seleccione}" />
 							<f:selectItems
@@ -81,7 +79,7 @@
 						</p:selectOneMenu>
 						<p:selectOneMenu id="soc2" style="margin-left:5px;"
 							label="#{msg.label_anio_periodo}"
-							value="#{flujoAprobacionBackingBean.filtroBackingBean.periodo.anioPeriodo}"
+							value="#{flujoAprobacionBackingBean.filtroBackingBean.anio}"
 							required="true">
 							<f:selectItem itemLabel="#{msg.label_seleccione}" />
 							<f:selectItems
@@ -221,7 +219,7 @@
 				<p:column sortable="false" headerText="#{msg.label_periodo}"
 					align="right" id="c9" style="text-aling:right; width: 70px;">
 					<h:outputText
-						value="#{row.periodo.anioPeriodo}-#{row.periodo.mesPeriodo}"
+						value="#{row.periodoEmpresa.periodo.mesPeriodo}-#{row.periodoEmpresa.periodo.anioPeriodo}"
 						id="ot8_1" />
 				</p:column>
 				<p:column headerText="Vigente" align="start" id="c10">

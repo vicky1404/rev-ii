@@ -12,6 +12,7 @@ import cl.mdr.ifrs.ejb.entity.EstadoCuadro;
 import cl.mdr.ifrs.ejb.entity.Estructura;
 import cl.mdr.ifrs.ejb.entity.HistorialVersion;
 import cl.mdr.ifrs.ejb.entity.Periodo;
+import cl.mdr.ifrs.ejb.entity.PeriodoEmpresa;
 import cl.mdr.ifrs.ejb.entity.TipoCuadro;
 import cl.mdr.ifrs.ejb.entity.Version;
 import cl.mdr.ifrs.exceptions.PeriodoException;
@@ -36,7 +37,7 @@ public interface VersionServiceLocal {
      * @param vigente
      * @return
      * @throws Exception*/
-    List<Version> findVersionByFiltro(String usuario,  TipoCuadro tipoCuadro,  Periodo periodo,  EstadoCuadro estadoCuadro,  Long vigente,  Catalogo catalogo, Empresa empresa) throws Exception;     
+    List<Version> findVersionByFiltro(String usuario,  TipoCuadro tipoCuadro,  PeriodoEmpresa periodoEmpresa,  EstadoCuadro estadoCuadro,  Long vigente,  Catalogo catalogo) throws Exception;     
 
     /**
      * @param entity
@@ -58,7 +59,7 @@ public interface VersionServiceLocal {
      * @param usuario
      * @throws Exception
      */
-    void persistVersion(List<Version> versiones, List<Estructura> estructuras, Map<Long, EstructuraModel> estructuraModelMap , String usuario) throws Exception;
+    void persistVersion(List<Version> versiones, List<Estructura> estructuras, Map<Long, EstructuraModel> estructuraModelMap , String usuario, PeriodoEmpresa periodoEmpresa) throws Exception;
     
     /**
      * @param version
@@ -149,6 +150,6 @@ public interface VersionServiceLocal {
      */
     List<Version> findVersionListActualToCompare( List<Version> versionesModificadas) throws Exception;
     
-    List<Version> findVersionByCatalogoPeriodo(Long idCatalogo, Long idPeriodo) throws Exception;
+    List<Version> findVersionByCatalogoPeriodo(Long idCatalogo, PeriodoEmpresa periodoEmpresa) throws Exception;
 }
 

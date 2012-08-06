@@ -26,10 +26,6 @@ public interface MantenedoresTipoServiceLocal {
     
     void deleteCuadro(Catalogo entity) throws Exception;
     
-    List<Periodo> findAllPeriodo();
-    
-    Periodo findByPeriodo(Long periodo) throws Exception;
-    
     List<TipoEstructura> findAllTipoEstructura();
     
     List<TipoCelda> findAllTipoCelda();

@@ -136,7 +136,7 @@ public class PeriodoBackingBean extends AbstractBackingBean{
     	List<Empresa> empresaList = getFacadeService().getEmpresaService().findAll();
     	
     	for(Empresa empresa : empresaList){
-	    	estadoCuadroChart.set(empresa.getNombre(), select(versionSinCerrarList ,having(on(Version.class).getCatalogo().getEmpresa().getRut(), equalTo(empresa.getRut()))).size() );
+	    	estadoCuadroChart.set(empresa.getNombre(), select(versionSinCerrarList ,having(on(Version.class).getCatalogo().getEmpresa().getIdRut(), equalTo(empresa.getIdRut()))).size() );
     	}
     	
     	displayPopUp("popUpEmpresaChart", "form_cerrar_periodo");

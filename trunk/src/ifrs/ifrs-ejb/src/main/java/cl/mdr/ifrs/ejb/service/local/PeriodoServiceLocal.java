@@ -7,6 +7,7 @@ import javax.ejb.Local;
 
 import cl.mdr.ifrs.ejb.entity.HistorialVersion;
 import cl.mdr.ifrs.ejb.entity.Periodo;
+import cl.mdr.ifrs.ejb.entity.PeriodoEmpresa;
 import cl.mdr.ifrs.ejb.entity.Version;
 
 
@@ -70,5 +71,13 @@ public interface PeriodoServiceLocal {
      * @throws Exception
      */
     void persistFlujoAprobacion(List<Version> versionList, List<HistorialVersion> historialVersionList) throws Exception ;
+    
+    public List<Periodo> findAllPeriodo();
+    
+    public Periodo findByPeriodo(Long periodo) throws Exception;
+    
+    public PeriodoEmpresa getMaxPeriodoEmpresaByEmpresa(Long idRut);
+    
+    public PeriodoEmpresa getPeriodoEmpresaById(Long idPeriodo, Long idRut);
 
 }

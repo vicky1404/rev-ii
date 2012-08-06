@@ -392,7 +392,7 @@ public class ReporteServiceBean implements ReporteServiceLocal {
                 cell7.setCellValue(Util.STRING_VACIO);
             }
             
-            cell8.setCellValue(MessageFormat.format("{0}-{1}", versionPeriodo.getPeriodo().getAnioPeriodo(), versionPeriodo.getPeriodo().getMesPeriodo()));
+            cell8.setCellValue(MessageFormat.format("{0}-{1}", versionPeriodo.getPeriodoEmpresa().getPeriodo().getAnioPeriodo(), versionPeriodo.getPeriodoEmpresa().getPeriodo().getMesPeriodo()));
             cell9.setCellValue((versionPeriodo.getVigencia().equals(1L) ? "SI" : "NO"));
             
         }

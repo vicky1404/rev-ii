@@ -70,7 +70,7 @@ public class Grupo implements Serializable {
 			@JoinColumn(name="ID_GRUPO_ACCESO")
 			}
 		, inverseJoinColumns={
-			@JoinColumn(name="RUT")
+			@JoinColumn(name="ID_RUT")
 			}
 		)
 	private List<Empresa> empresas;

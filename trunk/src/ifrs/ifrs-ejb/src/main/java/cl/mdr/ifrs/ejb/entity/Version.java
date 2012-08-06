@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -32,7 +33,7 @@ import cl.mdr.ifrs.ejb.common.Constantes;
                  @NamedQuery(name = Version.VERSION_FIND_ALL_NO_VIGENTE, query = "select o from Version o where o.vigencia = 0"),
                  @NamedQuery(name = Version.VERSION_FIND_NO_VIGENTE, query = "select o from Version o where o.vigencia = 0 and o.catalogo = :catalogo"),
                  @NamedQuery(name = Version.VERSION_FIND_VIGENTE, query = "select o from Version o where o.vigencia = 1 and o.catalogo = :catalogo "),
-                 @NamedQuery(name = Version.FIND_VIGENTE_SIN_CERRAR, query = "select o from Version o where o.vigencia = 1 and o.estado.idEstado <> 4 and o.periodo.idPeriodo = :idPeriodo order by o.catalogo.empresa.rut, o.catalogo.orden"),
+                 @NamedQuery(name = Version.FIND_VIGENTE_SIN_CERRAR, query = "select o from Version o where o.vigencia = 1 and o.estado.idEstado <> 4 and o.periodoEmpresa.idPeriodo = :idPeriodo order by o.catalogo.empresa.idRut, o.catalogo.orden"),
                  @NamedQuery(name = Version.VERSION_FIND_ALL_BY_CATALOGO, query = "select o from Version o where o.catalogo = :catalogo order by o.vigencia, o.version, o.fechaCreacion"),
                  @NamedQuery(name = Version.VERSION_FIND_ALL_BY_ID_CATALOGO, query = "select o from Version o where o.catalogo.idCatalogo = :idCatalogo order by o.vigencia, o.version, o.fechaCreacion"),
                  @NamedQuery(name = Version.VERSION_FIND_BY_VERSION, query = "select o from Version o where o = :version"),
@@ -40,12 +41,12 @@ import cl.mdr.ifrs.ejb.common.Constantes;
                  @NamedQuery(name = Version.VERSION_FIND_ULTIMO_VERSION_BY_PERIODO, 
                  			 query = " select o from Version o " +
                  			 		 " where o.idVersion in ( select max(v.idVersion) " +
-                 			 		 " from Version v, Periodo p, CatalogoGrupo cg, UsuarioGrupo ug, GrupoEmpresa ge " +
+                 			 		 " from Version v, PeriodoEmpresa p, CatalogoGrupo cg, UsuarioGrupo ug, GrupoEmpresa ge " +
                  			 		 " where ug.grupo = cg.grupo " +
                  			 		 " and ug.grupo = ge.grupo " +
-                                     " and v.catalogo.empresa.rut = :rutEmpresa "+
-                 			 		 " and p.idPeriodo = v.periodo.idPeriodo " +
-                 			 		 " and p.periodo = :periodo " +
+                                     " and v.catalogo.empresa.idRut = :rutEmpresa "+
+                 			 		 " and p.idPeriodo = v.periodoEmpresa.idPeriodo " +
+                 			 		 " and p.idPeriodo = :periodo " +
                  			 		 " and (:usuario is null or ug.nombreUsuario = :usuario) " +
                  			 		 " and (:tipoCuadro is null or v.catalogo.tipoCuadro.idTipoCuadro = :tipoCuadro) " +
                  			 		 " and (:vigente is null or v.vigencia = :vigente) " +
@@ -60,32 +61,36 @@ import cl.mdr.ifrs.ejb.common.Constantes;
                  			 		 " and ve.catalogo.idCatalogo = cg.catalogo.idCatalogo " +
                  			 		 " and ug.nombreUsuario = :usuario " +
                  			 		 " and cg.idGrupoAcceso = ug.idGrupo " +
-                 			 		 " and ve.periodo.idPeriodo = :idPeriodo"),                 
+                 			 		 " and ve.periodoEmpresa.idPeriodo = :idPeriodo"),                 
                  
                  @NamedQuery(name = Version.VERSION_FIND_BY_FILTRO,
-                            query = " select distinct v from Version v, CatalogoGrupo cg, UsuarioGrupo ug, GrupoEmpresa ge where " +
+                            query = " select distinct v " +
+                            		" from Version v, CatalogoGrupo cg, UsuarioGrupo ug, GrupoEmpresa ge where " +
                                     " v.catalogo.idCatalogo = cg.idCatalogo " + 
                                     " and ug.grupo = cg.grupo " +
                                     " and ug.grupo = ge.grupo " +
-                                    " and v.catalogo.empresa.rut = :rutEmpresa "+
+                                    " and v.periodoEmpresa.idRut = :idRut" +
                                     " and (ug.nombreUsuario = :usuario or :usuario is null) " +
                                     " and (v.catalogo.tipoCuadro.idTipoCuadro = :tipoCuadro or :tipoCuadro is null) " +
                                     " and (v.catalogo.idCatalogo = :catalogo or :catalogo is null) " +
-                                    " and (v.periodo.idPeriodo = :periodo or :periodo is null) " +
+                                    " and (v.periodoEmpresa.idPeriodo = :periodo or :periodo is null) " +
                                     " and (v.estado.idEstado = :estado or :estado is null) " +
                                     " and (v.vigencia = :vigente or :vigente is null) "+
                                     " and v.catalogo.vigencia = 1"),
                                     //" order by v.catalogo.tipoCuadro.nombre , " +
                                     //" v.catalogo.orden asc")
                                     
-                 @NamedQuery(name = Version.VERSION_FIND_BY_ID_CATALOGO_ID_PERIODO, 
+                 @NamedQuery(name = Version.VERSION_FIND_BY_ID_CATALOGO_PERIODO_EMPRESA, 
                  			 query = " select o from Version o " +
                  			 		 " where o.catalogo.idCatalogo = :idCatalogo " +
-                 			 		 " and o.periodo.idPeriodo = :idPeriodo " +
+                 			 		 " and o.periodoEmpresa.idPeriodo = :idPeriodo " +
+                 			 		 " and o.periodoEmpresa.idRut = :idRut " +
                  			 		 " order by o.version desc"),
                  })
 @Table(name = Constantes.VERSION)
 public class Version implements Serializable {
+	
+	private static final long serialVersionUID = -8305833693336452475L;
     
     public static final String VERSION_FIND_ALL = "Version.findAll";
     public static final String VERSION_FIND_ALL_VIGENTE = "Version.findAllVigente";
@@ -98,10 +103,8 @@ public class Version implements Serializable {
     public static final String VERSION_FIND_ULTIMO_VERSION_BY_PERIODO = "Version.findUltimoVersionByPeriodo";
     public static final String FIND_ULTIMA_VERSION_VIGENTE = "Version.findUltimaVersionVigente";
     public static final String VERSION_FIND_BY_FILTRO = "Version.findByFiltro";
-    public static final String VERSION_FIND_BY_ID_CATALOGO_ID_PERIODO = "Version.findByIdCatalogoIdPeriodo";
+    public static final String VERSION_FIND_BY_ID_CATALOGO_PERIODO_EMPRESA = "Version.findByIdCatalogoIdPeriodoEmpresa";
     public static final String FIND_VIGENTE_SIN_CERRAR = "Version.findVigenteSinCerrar";
-    
-    private static final long serialVersionUID = -8305833693336452475L;
     
     @Id
     @GeneratedValue(generator="ID_GEN_VERSION")
@@ -121,12 +124,12 @@ public class Version implements Serializable {
     
     private String comentario;
     
-    @Fetch(FetchMode.JOIN)
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ID_PERIODO")
-    private Periodo periodo;
-    
-    @Fetch(FetchMode.JOIN)
+    @JoinColumns( { @JoinColumn(name = "ID_PERIODO", referencedColumnName = "ID_PERIODO"),
+			        @JoinColumn(name = "ID_RUT", referencedColumnName = "ID_RUT")})
+    private PeriodoEmpresa periodoEmpresa;
+
+	@Fetch(FetchMode.JOIN)
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_CATALOGO")
     private Catalogo catalogo;
@@ -137,11 +140,11 @@ public class Version implements Serializable {
     private EstadoCuadro estado;
     
     @Fetch(FetchMode.SUBSELECT)
-    @OneToMany(mappedBy = "version", targetEntity = Estructura.class, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "version", targetEntity = Estructura.class, fetch = FetchType.LAZY)
     private List<Estructura> estructuraList;
         
     @Fetch(FetchMode.SUBSELECT)
-  	@OneToMany(mappedBy="version", fetch=FetchType.EAGER)
+  	@OneToMany(mappedBy="version", fetch=FetchType.LAZY)
   	private List<HistorialVersion> historialVersionList;
     
     @Temporal(TemporalType.TIMESTAMP)
@@ -235,6 +238,14 @@ public class Version implements Serializable {
         return estructura;
     }
     
+    public PeriodoEmpresa getPeriodoEmpresa() {
+		return periodoEmpresa;
+	}
+
+	public void setPeriodoEmpresa(PeriodoEmpresa periodoEmpresa) {
+		this.periodoEmpresa = periodoEmpresa;
+	}
+    
     @Override
     public String toString() {
         StringBuffer buffer = new StringBuffer();
@@ -274,14 +285,6 @@ public class Version implements Serializable {
 
     public boolean isEditable() {
         return editable;
-    }
-
-    public void setPeriodo(Periodo periodo) {
-        this.periodo = periodo;
-    }
-
-    public Periodo getPeriodo() {
-        return periodo;
     }
 
     public void setEstado(EstadoCuadro estado) {

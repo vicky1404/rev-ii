@@ -24,7 +24,7 @@ import cl.mdr.ifrs.ejb.entity.pk.EstadoFinancieroPK;
 
 @Entity
 @NamedQueries( { @NamedQuery(name = EstadoFinanciero.FIND_ALL, query = "select o from EstadoFinanciero o"),
-                 @NamedQuery(name = EstadoFinanciero.FIND_VIGENTE_BY_PERIODO, query = "select o from EstadoFinanciero o, VersionEeff v where v.idVersionEeff = o.idVersionEeff and v.periodo.idPeriodo = :idPeriodo and v.vigencia = 1"),
+                 @NamedQuery(name = EstadoFinanciero.FIND_VIGENTE_BY_PERIODO, query = "select o from EstadoFinanciero o, VersionEeff v where v.idVersionEeff = o.idVersionEeff and v.periodoEmpresa.idPeriodo = :idPeriodo and v.vigencia = 1"),
                  @NamedQuery(name = EstadoFinanciero.FIND_BY_VERSION, query = "select o from EstadoFinanciero o where o.idVersionEeff = :idVersionEeff")})
 @Table(name = Constantes.EEFF)
 @IdClass(EstadoFinancieroPK.class)

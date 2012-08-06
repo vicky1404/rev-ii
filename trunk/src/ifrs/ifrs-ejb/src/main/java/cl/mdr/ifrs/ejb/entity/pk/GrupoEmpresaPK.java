@@ -8,12 +8,12 @@ public class GrupoEmpresaPK implements Serializable {
 	private static final long serialVersionUID = 165104267434602566L;
 	
 	public String idGrupoAcceso;      
-    public Long rut;
+    public Long idRut;
 	
-    public GrupoEmpresaPK(String idGrupoAcceso, Long rut) {
+    public GrupoEmpresaPK(String idGrupoAcceso, Long idRut) {
 		super();
 		this.idGrupoAcceso = idGrupoAcceso;
-		this.rut = rut;
+		this.idRut = idRut;
 	}
 
 	@Override
@@ -22,7 +22,7 @@ public class GrupoEmpresaPK implements Serializable {
 		int result = 1;
 		result = prime * result
 				+ ((idGrupoAcceso == null) ? 0 : idGrupoAcceso.hashCode());
-		result = prime * result + ((rut == null) ? 0 : rut.hashCode());
+		result = prime * result + ((idRut == null) ? 0 : idRut.hashCode());
 		return result;
 	}
 
@@ -40,10 +40,10 @@ public class GrupoEmpresaPK implements Serializable {
 				return false;
 		} else if (!idGrupoAcceso.equals(other.idGrupoAcceso))
 			return false;
-		if (rut == null) {
-			if (other.rut != null)
+		if (idRut == null) {
+			if (other.idRut != null)
 				return false;
-		} else if (!rut.equals(other.rut))
+		} else if (!idRut.equals(other.idRut))
 			return false;
 		return true;
 	}

@@ -26,6 +26,7 @@ public class Constantes {
     public static final String MENU = PREFIX + "MENU";
     public static final String MENU_GRUPO = PREFIX + "MENU_GRUPO";
     public static final String PERIODO = PREFIX + "PERIODO";
+    public static final String PERIODO_EMPRESA = PREFIX + "PERIODO_EMPRESA";
     public static final String TEXTO = PREFIX + "TEXTO";
     public static final String TIPO_CELDA = PREFIX + "TIPO_CELDA";
     public static final String TIPO_CUADRO = PREFIX + "TIPO_CUADRO";

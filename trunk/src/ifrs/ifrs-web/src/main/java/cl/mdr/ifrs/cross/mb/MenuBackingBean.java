@@ -65,7 +65,7 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
     private List<MenuModel> menuModelList;    
 	
 	//tree catalogo
-    private Long rut;
+    private Long idRut;
     private Empresa empresa;
     private Tree treeCatalogo;
     private List<Catalogo> catalogoList;    
@@ -110,8 +110,8 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 		}
 		
 		try{
-			rut = (Long)event.getNewValue();
-			empresa = getFacadeService().getEmpresaService().findById(rut);
+			idRut = (Long)event.getNewValue();
+			empresa = getFacadeService().getEmpresaService().findById(idRut);
 			getFiltroBackingBean().setEmpresa(empresa);
 			buildCuadroTreeMenu(this.getRoot());
 			buildAccordionPanelMenu();
@@ -299,7 +299,7 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
     public List<Catalogo> getCatalogoList() {
         if(catalogoList==null){
             try{
-                catalogoList = super.getFacadeService().getCatalogoService().findCatalogoByFiltro(empresa.getRut(), getNombreUsuario(), null, null, VigenciaEnum.VIGENTE.getKey());
+                catalogoList = super.getFacadeService().getCatalogoService().findCatalogoByFiltro(empresa.getIdRut(), getNombreUsuario(), null, null, VigenciaEnum.VIGENTE.getKey());
             } catch (Exception e) {
             	log.error(e.getMessage());
                 super.addErrorMessage(null, PropertyManager.getInstance().getMessage("general_mensaje_error_cargar_menu"));
@@ -437,12 +437,12 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 		this.empresa = empresa;
 	}
 
-	public Long getRut() {
-		return rut;
+	public Long getIdRut() {
+		return idRut;
 	}
 
-	public void setRut(Long rut) {
-		this.rut = rut;
+	public void setIdRut(Long idRut) {
+		this.idRut = idRut;
 	}
 	
 	private void init(){
@@ -455,7 +455,7 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 		activeTabIndex = null;		
 		menuList = null;
 	    menuModelList = null;
-	    rut = null;
+	    idRut = null;
 	    empresa = null;
 	    treeCatalogo = null;
 	    catalogoList = null;    
