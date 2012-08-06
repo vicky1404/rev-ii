@@ -7,24 +7,27 @@
 
 	<h:panelGrid columns="5">
 
-		<p:outputLabel for="gVsom1" value="#{msg.label_tipo_y_nombre_cuadro}"></p:outputLabel>
+		<h:outputLabel value="#{msg.label_tipo_y_nombre_de_revelacion}" />
 		<p:selectOneMenu value="#{generadorVersionBackingBean.tipoCuadro}"
-			label="#{msg.label_tipo_cuadro}" required="true" id="gVsom1"
+			label="#{msg.label_tipo_revelacion}" required="true" id="gVsom1"
 			effect="fade" converter="tipoCuadroConverter">
-			<f:selectItem itemLabel="#{msg.label_seleccione}"
-				noSelectionOption="true" id="gVsi1" />
+			<f:selectItem itemLabel="#{msg.label_seleccione}" />
 			<f:selectItems
 				value="#{generadorVersionBackingBean.componenteBackingBean.tipoCuadroItems}"
 				id="gVsi2" />
 			<p:ajax listener="#{generadorVersionBackingBean.tipoCuadroChange}"
-				partialSubmit="false" />
+				partialSubmit="false" update="gVsom2" />
 		</p:selectOneMenu>
 
-		<p:autoComplete value="#{generadorVersionBackingBean.catalogo}"
-			id="gVac1" required="true" label="#{msg.label_nombre}" effect="fade"
-			completeMethod="#{generadorVersionBackingBean.completeCatalogo}"
-			var="c" itemLabel="#{c.nombre}" itemValue="#{c}"
-			converter="catalogoConverter" dropdown="true" scrollHeight="300" />
+		<p:selectOneMenu value="#{generadorVersionBackingBean.catalogo}"
+			label="#{msg.label_nombre_revelacion}" required="true" id="gVsom2"
+			effect="fade" converter="catalogoConverter">
+			<f:selectItem itemLabel="#{msg.label_seleccione}" />
+			<f:selectItems value="#{generadorVersionBackingBean.catalogoList}"
+				var="c" itemLabel="#{c.nombre}" itemValue="#{c}" />
+		</p:selectOneMenu>
+
+
 
 		<p:commandButton id="gVcb1" value="#{msg.boton_buscar}"
 			icon="ui-icon-search"
@@ -68,7 +71,8 @@
 
 	<p:spacer id="gVsp2" height="20px;" />
 
-	<p:dataTable id="gVdt2" var="ver" emptyMessage=" " binding="#{generadorVersionBackingBean.versionTable}"
+	<p:dataTable id="gVdt2" var="ver" emptyMessage=" "
+		binding="#{generadorVersionBackingBean.versionTable}"
 		rendered="#{not empty generadorVersionBackingBean.versionList}"
 		value="#{generadorVersionBackingBean.versionList}" style="width:720px"
 		paginator="true" rows="5" paginatorPosition="top">
@@ -98,15 +102,18 @@
 				</h:outputText>
 			</div>
 		</p:column>
-		
+
 		<p:column headerText="Editar">
-		  <div align="center">
-			<p:tooltip for="cl_ev" value="Editar Versión #{ver.version} de la Revelación"></p:tooltip>
-			<p:commandLink id="cl_ev"
-				actionListener="#{generadorVersionBackingBean.buscarEstructuraActionListener}" update="@form">
-				<p:graphicImage styleClass="ui-icon ui-icon-pencil" rendered="#{ver.vigencia eq 1 and ver.idVersion != null}" />
-				<f:attribute value="#{ver}" name="version"></f:attribute>
-			</p:commandLink>
+			<div align="center">
+				<p:tooltip for="cl_ev"
+					value="Editar Versión #{ver.version} de la Revelación"></p:tooltip>
+				<p:commandLink id="cl_ev"
+					actionListener="#{generadorVersionBackingBean.buscarEstructuraActionListener}"
+					update="@form">
+					<p:graphicImage styleClass="ui-icon ui-icon-pencil"
+						rendered="#{ver.vigencia eq 1 and ver.idVersion != null}" />
+					<f:attribute value="#{ver}" name="version"></f:attribute>
+				</p:commandLink>
 			</div>
 		</p:column>
 
@@ -139,8 +146,7 @@
 				style="width:130px; text-align:left; border:20px;"
 				converter="tipoEstructuraConverter" effect="fade" required="true"
 				label="Tipo de Estructura">
-				<f:selectItem itemLabel="#{msg.label_seleccione}"
-				/>
+				<f:selectItem itemLabel="#{msg.label_seleccione}" />
 				<f:selectItems
 					value="#{generadorVersionBackingBean.componenteBackingBean.tipoEstructuras}" />
 			</p:selectOneMenu>
@@ -183,6 +189,17 @@
 		</p:column>
 	</p:dataTable>
 
+	<p:dialog id="dialog1" header="Información"
+		widgetVar="dialogNotDeleteEstr" dynamic="true" closable="true"
+		draggable="false" resizable="false">
+		<h:panelGrid columns="1">
+			<h:outputText
+				value="No es posible Eliminar este item debido a que ya se encuentra configurado." />
+			<p:commandButton icon="ui-icon-cancel" value="#{msg.boton_cancel}"
+				type="button" id="btnCancelarDialog"
+				onclick="dialogNotDeleteEstr.hide()"></p:commandButton>
+		</h:panelGrid>
+	</p:dialog>
 
 
 	<p:spacer id="gVsp6" height="10px;" />
@@ -192,6 +209,12 @@
 			value="#{msg.generador_guardar_estructura}"
 			action="#{generadorVersionBackingBean.guardarEstructura}"
 			rendered="#{generadorVersionBackingBean.renderBotonEditar}"
+			update="@form" />
+
+		<p:commandButton id="gVcb31" icon="ui-icon-disk"
+			value="Editar Estructura"
+			action="#{generadorVersionBackingBean.editarEstructura}"
+			rendered="#{generadorVersionBackingBean.renderBotonEditarVersion}"
 			update="@form" />
 	</div>
 

@@ -15,8 +15,6 @@
 				oncomplete="statusDialog.hide();" />
 			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
 
-
-
 			<p:tabView effect="fade" id="tv1"
 				onTabChange="$('.linkLoadEstructura').click();"
 				style="border-left:0px; border-bottom:0px;">
@@ -85,7 +83,7 @@
 									</p:inputText>
 								</h:panelGrid>
 								<p:spacer height="20" /> 
-								<p:editor id="editorHtml" height="300" value="#{configuradorDisenoBackingBean.estructuraSelected.htmlVo.html.contenidoStr}" />
+								<p:editor id="editorHtml" height="300" value="#{configuradorDisenoBackingBean.estructuraSelected.html.contenidoStr}" />
 								<p:spacer height="20" />
 							</h:panelGroup>
 
@@ -95,7 +93,7 @@
 								id="textEditPanel">
 								<p:spacer height="25" />
 								<h:panelGrid columns="1">
-									<p:inputTextarea maxlength="3500" value="#{configuradorDisenoBackingBean.estructuraSelected.textoVo.texto.texto}" counter="counter"
+									<p:inputTextarea maxlength="3500" value="#{configuradorDisenoBackingBean.estructuraSelected.texto.texto}" counter="counter"
 										counterTemplate="quedan {0} caracteres." autoResize="false"
 										style="width:700px;" rows="20" />
 									<h:outputText id="counter" />
@@ -416,10 +414,17 @@
 						id="cl_le" styleClass="linkLoadEstructura" update="panelPrev" />
 					<p:toolbar>
 						<p:toolbarGroup align="left">
+						
 							<p:commandButton value="Guardar Configuración"
-								icon="ui-icon-disk" id="btn1"
+								icon="ui-icon-disk" id="btn1" rendered="#{!generadorVersionBackingBean.renderBotonEditarVersion}"
 								actionListener="#{generadorVisualizadorBackingBean.guardarDisenoActionListener}" partialSubmit="false"
 								update="@form" />
+							
+							<p:commandButton value="Editar Configuración"
+								icon="ui-icon-disk" id="btn3" rendered="#{generadorVersionBackingBean.renderBotonEditarVersion}"
+								actionListener="#{generadorVisualizadorBackingBean.editarDisenoActionListener}" partialSubmit="false"
+								update="@form" />	
+								
 							<p:commandButton value="Recargar Previsualización"
 								icon="ui-icon-refresh" id="btn2" partialSubmit="false"
 								actionListener="#{generadorVisualizadorBackingBean.cargarEstructuraAction}"

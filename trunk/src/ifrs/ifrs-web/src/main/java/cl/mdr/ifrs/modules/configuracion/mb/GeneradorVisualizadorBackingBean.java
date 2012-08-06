@@ -28,8 +28,6 @@ import cl.mdr.ifrs.exceptions.PeriodoException;
 import cl.mdr.ifrs.model.EstructuraModel;
 import cl.mdr.ifrs.vo.AgrupacionColumnaModelVO;
 import cl.mdr.ifrs.vo.GrillaVO;
-import cl.mdr.ifrs.vo.HtmlVO;
-import cl.mdr.ifrs.vo.TextoVO;
 
 @ManagedBean
 @ViewScoped
@@ -66,7 +64,35 @@ public class GeneradorVisualizadorBackingBean extends AbstractBackingBean implem
         }
         try{
             super.getFacadeService().getVersionService().persistVersion(this.getGeneradorVersionBackingBean().getVersionList(), this.getGeneradorVersionBackingBean().getEstructuraList(), this.getConfiguradorDisenoBackingBean().getEstructuraModelMap(), super.getNombreUsuario());   
-            super.addInfoMessage("Se ha almacenado correctamente la informacion");
+            super.addInfoMessage("Se ha configurado correctamente la Revelación");
+        }catch(PeriodoException e){
+        	super.addErrorMessage("Error, no se ha almacenado la información");
+        	super.addErrorMessage(e.getMessage());
+            logger.error(e);
+        }catch(Exception e){
+        	super.addErrorMessage("Error, no se ha almacenado la información");
+            logger.error(e);
+        }
+    }
+    
+    public void editarDisenoActionListener(ActionEvent action){
+        try {
+            GeneradorDisenoHelper.validarContenidoCelda(this.getConfiguradorDisenoBackingBean().getEstructuraModelMap());
+        } catch (GrillaIncorrectaException e) {
+            if(e.getErrores()==null)
+                super.addWarnMessage(e.getMessage());
+            else
+                for(String error : e.getErrores()){
+                	super.addWarnMessage(error);
+                }
+            return;          
+        } catch (Exception e) {            
+            super.addErrorMessage("Error al procesar la información");
+            return;
+        }
+        try{
+            super.getFacadeService().getVersionService().editarVersion(this.getGeneradorVersionBackingBean().getVersionEditable(), this.getGeneradorVersionBackingBean().getEstructuraList(), this.getConfiguradorDisenoBackingBean().getEstructuraModelMap(), super.getNombreUsuario());   
+            super.addInfoMessage("Se ha configurado correctamente la Revelación");
         }catch(PeriodoException e){
         	super.addErrorMessage("Error, no se ha almacenado la información");
         	super.addErrorMessage(e.getMessage());
@@ -167,9 +193,9 @@ public class GeneradorVisualizadorBackingBean extends AbstractBackingBean implem
                             estructura.setGrillaVO(grillaVO);                            
                         }
                     }else if(estructuraModel.getTipoEstructura() == TipoEstructura.ESTRUCTURA_TIPO_TEXTO){
-                            estructura.setTextoVo(new TextoVO(estructuraModel.getTexto()));
+                            estructura.setTexto(estructuraModel.getTexto());
                     }else if(estructuraModel.getTipoEstructura() == TipoEstructura.ESTRUCTURA_TIPO_HTML){
-                            estructura.setHtmlVo(new HtmlVO(estructuraModel.getHtml()));
+                            estructura.setHtml(estructuraModel.getHtml());
                     }
                 }
             }
