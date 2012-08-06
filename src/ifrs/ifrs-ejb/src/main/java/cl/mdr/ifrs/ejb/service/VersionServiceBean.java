@@ -20,7 +20,9 @@ import javax.persistence.Query;
 
 import org.apache.log4j.Logger;
 
+import cl.mdr.ifrs.ejb.common.Constantes;
 import cl.mdr.ifrs.ejb.common.EstadoCuadroEnum;
+import cl.mdr.ifrs.ejb.common.VigenciaEnum;
 import cl.mdr.ifrs.ejb.entity.AgrupacionColumna;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
 import cl.mdr.ifrs.ejb.entity.Celda;
@@ -270,7 +272,7 @@ public class VersionServiceBean implements VersionServiceLocal{
             throw new PeriodoException("No existe el estado del cuadro");
         }
         
-    	Version versionVigente = versiones.get(versiones.size() -1);
+    	Version versionVigente = versiones.iterator().next();
     	
     	versionVigente.setPeriodo(periodo);
         versionVigente.setUsuario(usuario);
@@ -295,10 +297,16 @@ public class VersionServiceBean implements VersionServiceLocal{
         					   setParameter(10, versionVigente.getUsuario()).        					   
         					   executeUpdate();    	
     	
-    	for(int i=0; i<versiones.size()-1; i++){
-            Version version = versiones.get(i);
-            version = em.merge(version);
-            versiones.set(i,version);
+//    	for(int i=0; i<versiones.size()-1; i++){
+//            Version version = versiones.get(i);
+//            version = em.merge(version);
+//            versiones.set(i,version);
+//        }
+        
+        for(Version version : versiones){
+        	if(version.getVigencia().equals(VigenciaEnum.NO_VIGENTE.getKey())){
+        		version =  em.merge(version);
+        	}
         }
 
         HistorialVersion historial = new HistorialVersion();
@@ -397,6 +405,115 @@ public class VersionServiceBean implements VersionServiceLocal{
             }
         }
         versionVigente.setEstructuraList(estructuras);
+    }
+    
+    
+    public void editarVersion(final Version version, final List<Estructura> estructuras, final Map<Long, EstructuraModel> estructuraModelMap, final String usuario) throws PeriodoException, Exception{
+    	for(int i=0; i<estructuras.size(); i++){            
+            Estructura estructura = estructuras.get(i);
+            
+                      
+            estructuras.set(i,estructura);                      
+            if(estructuraModelMap.containsKey(estructura.getOrden())){
+                EstructuraModel estructuraModel = estructuraModelMap.get(estructura.getOrden());
+                
+                if(estructura.getTipoEstructura().getIdTipoEstructura() == TipoEstructura.ESTRUCTURA_TIPO_GRILLA){   
+                	Grilla grilla = null;
+                	if(estructura.getIdEstructura() == null){
+                    	final BigDecimal idEstructura = (BigDecimal) em.createNativeQuery("select SEQ_ESTRUCTURA.nextval from dual").getSingleResult();
+                    	estructura.setIdEstructura(idEstructura.longValue());
+                    	
+                    	em.createNativeQuery(" INSERT "+
+				           		             " INTO IFRS_ESTRUCTURA(ID_ESTRUCTURA, ID_VERSION,ID_TIPO_ESTRUCTURA,ORDEN)"+
+				           					 " VALUES(?,?,?,?)").
+				           					   setParameter(1, idEstructura).
+				           					   setParameter(2, version.getIdVersion()).
+				           					   setParameter(3, estructura.getTipoEstructura().getIdTipoEstructura()).
+				           					   setParameter(4, estructura.getOrden()).
+				           					   executeUpdate();
+                    	
+                    	
+                    	grilla = new Grilla();
+                        grilla.setIdGrilla(estructura.getIdEstructura());
+                        grilla.setEstructura(estructura);
+                        grilla.setTitulo(estructuraModel.getTituloGrilla());
+                    	em.createNativeQuery(" INSERT "+
+				           			   		 " INTO IFRS_GRILLA(ID_GRILLA,TITULO,TIPO_FORMULA)"+
+				           		       		 " VALUES(?, ?, ?)").
+				           		       		   setParameter(1, grilla.getIdGrilla().longValue()).
+				           		       		   setParameter(2, grilla.getTitulo()).
+				           		       		   setParameter(3, 0L)
+				           		       		   .executeUpdate();
+                    }else{                	                	
+	                    grilla = new Grilla();
+	                    grilla.setIdGrilla(estructura.getIdEstructura());
+	                    grilla.setEstructura(estructura);
+	                    grilla.setTitulo(estructuraModel.getTituloGrilla());
+	                                                           	                    
+	                    em.createNativeQuery(" UPDATE "+Constantes.GRILLA+" SET titulo = ?  WHERE ID_GRILLA  = ?").
+	                    		       		   setParameter(1,grilla.getTitulo()).
+	                    		       		   setParameter(2, grilla.getIdGrilla())                    		       		   
+	                    		       		   .executeUpdate();	                                        	                    
+                    }
+                	
+                	em.createNativeQuery("DELETE FROM "+Constantes.CELDA+" WHERE ID_GRILLA = ?").setParameter(1, grilla.getIdGrilla()).executeUpdate();                    
+                    em.createNativeQuery("DELETE FROM "+Constantes.AGRUPACION_COLUMNA+" WHERE ID_GRILLA = ?").setParameter(1, grilla.getIdGrilla()).executeUpdate();                    
+                    em.createNativeQuery("DELETE FROM "+Constantes.COLUMNA+" WHERE ID_GRILLA = ?").setParameter(1, grilla.getIdGrilla()).executeUpdate();
+                	
+                    for(Columna columna : estructuraModel.getColumnas()){
+                        //columna.setGrilla(grilla);                        
+                        
+                        em.createNativeQuery(" INSERT "+
+                        					 " INTO IFRS_COLUMNA(ID_COLUMNA, ID_GRILLA, TITULO_COLUMNA, ORDEN, ANCHO, ROW_HEADER)"+
+                        					 " VALUES(?, ?, ?, ?, ?, ?)").
+                        					   setParameter(1, columna.getIdColumna()).
+                        					   setParameter(2, grilla.getIdGrilla()).
+                        					   setParameter(3, columna.getTituloColumna()).
+                        					   setParameter(4, columna.getOrden()).
+                        					   setParameter(5, columna.getAncho()).
+                        					   setParameter(6, 0).
+                        					   executeUpdate();
+                        logger.info("Insertando Columna ->" + columna.getIdColumna());
+                        for(Celda celda : columna.getCeldaList()){
+                        	celda.setIdGrilla(grilla.getIdGrilla());
+                        	celda.setIdColumna(columna.getIdColumna());
+                        	logger.info("Insertando celda col->" + celda.getIdColumna() + " fila->" + celda.getIdFila() + " grilla->" + celda.getIdGrilla());
+                        	
+                        	em.createNativeQuery(" INSERT"+
+                        						 " INTO IFRS_CELDA(ID_COLUMNA, ID_FILA, ID_GRILLA, ID_TIPO_CELDA, ID_TIPO_DATO, VALOR)"+
+                        			             " VALUES(?, ?, ?, ?, ?, ?)").
+                        			               setParameter(1, celda.getIdColumna()).
+                        			               setParameter(2, celda.getIdFila()).
+                        			               setParameter(3, celda.getIdGrilla()).
+                        			               setParameter(4, celda.getTipoCelda().getIdTipoCelda()).
+                        			               setParameter(5, celda.getTipoDato().getIdTipoDato()).
+                        			               setParameter(6, celda.getValor()).
+                        			               executeUpdate();
+                        }
+                        for(AgrupacionColumna agrupacionColumna : columna.getAgrupacionColumnaList()){
+                        	em.createNativeQuery(" INSERT "+
+                        						 " INTO IFRS_AGRUPACION_COLUMNA(ID_NIVEL,ID_COLUMNA,ID_GRILLA,TITULO,GRUPO)"+
+                        						 " VALUES(?, ?, ?, ?, ?)").
+                        						   setParameter(1, agrupacionColumna.getIdNivel()).
+                        			               setParameter(2, agrupacionColumna.getIdColumna()).
+                        			               setParameter(3, grilla.getIdGrilla()).
+                        			               setParameter(4, agrupacionColumna.getTitulo()).                        			               
+                        			               setParameter(5, agrupacionColumna.getGrupo()).executeUpdate();
+                        }
+                    }
+                    
+                    
+                }else if(estructura.getTipoEstructura().getIdTipoEstructura() == TipoEstructura.ESTRUCTURA_TIPO_TEXTO){
+                    Texto texto = estructuraModel.getTexto();
+                    texto.setIdTexto(estructura.getIdEstructura());                    
+                    em.merge(texto);                    
+                }else{                    
+                    Html html = estructuraModel.getHtml();
+                    html.setIdHtml(estructura.getIdEstructura());                   
+                    em.merge(html);                    
+                }
+            }
+        }
     }
     
     @SuppressWarnings("unchecked")

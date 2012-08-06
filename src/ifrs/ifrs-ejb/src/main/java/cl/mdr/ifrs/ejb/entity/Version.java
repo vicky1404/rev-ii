@@ -137,7 +137,7 @@ public class Version implements Serializable {
     private EstadoCuadro estado;
     
     @Fetch(FetchMode.SUBSELECT)
-    @OneToMany(mappedBy = "version", targetEntity = Estructura.class, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "version", targetEntity = Estructura.class, fetch = FetchType.EAGER)
     private List<Estructura> estructuraList;
         
     @Fetch(FetchMode.SUBSELECT)
