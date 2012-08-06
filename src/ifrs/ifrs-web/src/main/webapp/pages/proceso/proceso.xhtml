@@ -11,12 +11,7 @@
 			<p:messages globalOnly="true" id="mensajes_proceso" autoUpdate="true" />
 			<p:ajaxStatus onstart="statusDialog.show();"
 				oncomplete="statusDialog.hide();" />
-			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
-			
-			<ui:include src="/WEB-INF/templates/nombre-empresa-template.xhtml" />
-			
-			
-			
+			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />			
 			<p:panel id="pb1" header="#{msg.general_titulo_busqueda_aplicacion}" toggleable="true" closable="false">
 				<table border="0" width="30%" align="center" id="tb1APeriodo">
 					<tr>
@@ -113,7 +108,7 @@
 						<p:commandButton value="#{msg.general_control_guardar}"
 							icon="ui-icon-disk" id="btn1"
 							action="#{procesoBackingBean.guardar}" partialSubmit="false"
-							update=":f1:mensajes_proceso" />
+							update="@form" />
 						<p:spacer width="10px" />
 						<h:outputText value="Periodo : #{procesoBackingBean.versionSeleccionada.periodo.periodoFormat} - #{procesoBackingBean.filtroBackingBean.catalogo.titulo}" />
 					</p:toolbarGroup>

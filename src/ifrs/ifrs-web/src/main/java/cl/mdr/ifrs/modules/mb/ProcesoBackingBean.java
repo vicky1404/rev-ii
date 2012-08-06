@@ -268,6 +268,10 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
 
                 super.getFacadeService().getEstructuraService().persistEstructura(estructuraList, version, historialVersion); 
                 
+                estructuraList = getFacadeService().getEstructuraService().getEstructuraByVersion(versionSeleccionada, true);
+                
+                setListGrilla(estructuraList);
+                
                 super.addInfoMessage(PropertyManager.getInstance().getMessage("general_mensaje_nota_guardar_exito"));  
             //}            
         } catch(Exception e){

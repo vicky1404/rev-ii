@@ -175,8 +175,7 @@ public abstract class AbstractBackingBean {
 	 * @param idUpdate
 	 */
 	public void displayPopUp(final String idDialog, final String idUpdate){
-    	RequestContext context = RequestContext.getCurrentInstance();
-    	//context.execute(""+idDialog+".show();");
+    	RequestContext context = RequestContext.getCurrentInstance();    	
     	context.execute(MessageFormat.format("{0}.show();", idDialog));
         context.update(idUpdate);  
     }
@@ -188,8 +187,7 @@ public abstract class AbstractBackingBean {
 	 * @param idUpdate
 	 */
 	public void hidePopUp(final String idDialog, final String idUpdate){
-    	RequestContext context = RequestContext.getCurrentInstance();
-    	//context.execute(""+idDialog+".hide();");
+    	RequestContext context = RequestContext.getCurrentInstance();    	
     	context.execute(MessageFormat.format("{0}.hide();", idDialog));
         context.update(idUpdate);  
     }

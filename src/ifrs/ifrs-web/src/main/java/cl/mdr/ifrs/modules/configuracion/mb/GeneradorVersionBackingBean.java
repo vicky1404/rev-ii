@@ -49,6 +49,7 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 	
 
 	private Catalogo catalogo;
+	private Version versionEditable;
 	private List<Catalogo> catalogoList;
 	private List<Version> versionList;
 	private List<Estructura> estructuraList;
@@ -57,6 +58,7 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 	private DataTable versionTable;
 	private boolean renderBotonEditar;
 	private boolean renderEstructura;
+	private boolean renderBotonEditarVersion;
 	
 	@ManagedProperty(value="#{configuradorDisenoBackingBean}")
     private ConfiguradorDisenoBackingBean configuradorDisenoBackingBean;
@@ -76,19 +78,14 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 		
 	}
 
-	public List<Catalogo> completeCatalogo(String query) {
-		
-		List<Catalogo> suggestions = new ArrayList<Catalogo>();  
-		
+	public List<Catalogo> completeCatalogo(String query) {		
+		List<Catalogo> suggestions = new ArrayList<Catalogo>();  		
 		if(getCatalogoList()==null)
-			return suggestions;
-		
-        
+			return suggestions;		        
         for(Catalogo p : getCatalogoList()) {  
         	if(p.getNombre().toUpperCase().indexOf(query.toUpperCase()) >= 0)
                 suggestions.add(p);  
-        }  
-          
+        }            
         return suggestions;  
     }
 	
@@ -160,11 +157,16 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
         setEstructuraList(estructuras);
     }
     
-    public void eliminarTipoEstructuraListener(ActionEvent actionEvent) {        
+    public void eliminarTipoEstructuraListener(ActionEvent actionEvent) {
+    	final Estructura estructuraSelected = (Estructura)actionEvent.getComponent().getAttributes().get("estructura");
+    	if(estructuraSelected.getIdEstructura() != null){
+    		this.displayPopUp("dialogNotDeleteEstr", "gVdt3");  
+    		return;
+    	}
         setAlmacenado(false);
-        if(getEstructuraList().size()<=1)
+        if(getEstructuraList().size()<=1){
             return;
-        final Estructura estructuraSelected = (Estructura)actionEvent.getComponent().getAttributes().get("estructura");
+        }        
         this.getEstructuraList().remove(estructuraSelected);
         this.getConfiguradorDisenoBackingBean().getEstructuraModelMap().remove(estructuraSelected.getOrden());
         Long i=1L;
@@ -183,21 +185,21 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
      * Metodo que busca las estructura al hacer clink en el icono cargar
      */
     public void buscarEstructuraActionListener(ActionEvent event){ 
-    	this.setEstructuraList(null);
-    	final Version version = (Version)event.getComponent().getAttributes().get("version"); 
-    	if(version==null){
+    	this.setEstructuraList(null);    	
+    	this.setVersionEditable(((Version)event.getComponent().getAttributes().get("version")));
+    	if(this.getVersionEditable() == null){
             return;
         }
-    	if(version.getVigencia().equals(VigenciaEnum.NO_VIGENTE.getKey())){
+    	if(this.getVersionEditable().getVigencia().equals(VigenciaEnum.NO_VIGENTE.getKey())){
     		super.addWarnMessage("Esta Versión no puede ser modificada por se encuentra en un estado no vigente");
     		this.setEstructuraList(null);
     		return;
     	}
     	
-    	if(Util.esListaValida(this.getVersionList()) && version.getVigencia().equals(VigenciaEnum.VIGENTE.getKey())){
+    	if(Util.esListaValida(this.getVersionList()) && this.getVersionEditable().getVigencia().equals(VigenciaEnum.VIGENTE.getKey())){
             try {                                                               
                 //final List<Estructura> estructuras = super.getFacadeService().getEstructuraService().findEstructuraByVersion(version);   
-                final List<Estructura> estructuras = super.getFacadeService().getEstructuraService().getEstructuraByVersion(version, false);
+                final List<Estructura> estructuras = super.getFacadeService().getEstructuraService().getEstructuraByVersion(this.getVersionEditable(), false);
                 if(estructuras==null || estructuras.size()==0){
                     this.setEstructuraList(null);
                     return;
@@ -225,6 +227,7 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
                 this.getConfiguradorDisenoBackingBean().setEstructuraModelMap(GeneradorDisenoHelper.createEstructuraModel(estructuras));                                
                 this.setAlmacenado(true);
                 this.setRenderBotonEditar(false);
+                this.setRenderBotonEditarVersion(Boolean.TRUE);
                 this.setEstructuraList(estructuras);                
             } catch (Exception e) {
                 super.addErrorMessage("Error al obtener información");
@@ -273,26 +276,57 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 
     
     public String guardarEstructura(){        
-        Long version = 1L;        
-        for(int i=0; i<versionList.size()-1; i++){
+        Long version = 1L;
+        
+        
+//        for(int i=0; i<versionList.size()-1; i++){
+//        	versionList.get(i).setCatalogo(catalogo);
+//        	versionList.get(i).setVigencia(0L);
+//        	versionList.get(i).setVersion(version);
+//            version++;
+//        } 
+        
+        for(int i=versionList.size(); i==1; i--){
         	versionList.get(i).setCatalogo(catalogo);
         	versionList.get(i).setVigencia(0L);
-        	versionList.get(i).setVersion(version);
-            version++;
-        }
-        versionList.get(versionList.size()-1).setVigencia(1L);
-        versionList.get(versionList.size()-1).setCatalogo(catalogo);
-        versionList.get(versionList.size()-1).setVersion(version);                       
+        	//versionList.get(i).setVersion(version);
+            //version++;
+        } 
+        
+        
+        Version nuevaVersion = this.getVersionList().iterator().next();
+        nuevaVersion.setVigencia(1L);
+        nuevaVersion.setCatalogo(catalogo);
+        //nuevaVersion.setVersion(version);
+                                               
         for(Estructura estructura : getEstructuraList()){
-            estructura.setVersion(versionList.get(versionList.size()-1));            
+            estructura.setVersion(nuevaVersion);            
             if(this.getConfiguradorDisenoBackingBean().getEstructuraModelMap().containsKey(estructura.getOrden())){
             	this.getConfiguradorDisenoBackingBean().getEstructuraModelMap().get(estructura.getOrden()).setTipoEstructura(estructura.getTipoEstructura().getIdTipoEstructura());
             }else{
             	this.getConfiguradorDisenoBackingBean().getEstructuraModelMap().put(estructura.getOrden(), new EstructuraModel(estructura.getTipoEstructura().getIdTipoEstructura()));
             }
         }
+        
         this.setAlmacenado(true);        
         return "";
+    }
+    
+    public String editarEstructura(){
+    	if(this.getVersionEditable() == null){
+    		super.addWarnMessage("Debe seleccionar una Versión para editar");
+    		return null;
+    	}
+    	for(Estructura estructura : getEstructuraList()){
+            estructura.setVersion(this.getVersionEditable());            
+            if(this.getConfiguradorDisenoBackingBean().getEstructuraModelMap().containsKey(estructura.getOrden())){
+            	this.getConfiguradorDisenoBackingBean().getEstructuraModelMap().get(estructura.getOrden()).setTipoEstructura(estructura.getTipoEstructura().getIdTipoEstructura());
+            }else{
+            	this.getConfiguradorDisenoBackingBean().getEstructuraModelMap().put(estructura.getOrden(), new EstructuraModel(estructura.getTipoEstructura().getIdTipoEstructura()));
+            }
+        }        
+        this.setAlmacenado(true);   
+    	return null;
     }
     
     public void agregarVersionListener(ActionEvent actionEvent) {        
@@ -490,6 +524,22 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 
 	public void setVersionTable(DataTable versionTable) {
 		this.versionTable = versionTable;
+	}
+
+	public boolean isRenderBotonEditarVersion() {
+		return renderBotonEditarVersion;
+	}
+
+	public void setRenderBotonEditarVersion(boolean renderBotonEditarVersion) {
+		this.renderBotonEditarVersion = renderBotonEditarVersion;
+	}
+
+	public Version getVersionEditable() {
+		return versionEditable;
+	}
+
+	public void setVersionEditable(Version versionEditable) {
+		this.versionEditable = versionEditable;
 	}
 	
 

@@ -40,6 +40,7 @@ import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
 import cl.mdr.ifrs.cross.model.TreeFormula;
 import cl.mdr.ifrs.cross.util.PropertyManager;
 import cl.mdr.ifrs.ejb.common.TipoCeldaEnum;
+import cl.mdr.ifrs.ejb.common.VigenciaEnum;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
 import cl.mdr.ifrs.ejb.entity.Celda;
@@ -150,8 +151,12 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
     	Long periodoLong = Long.parseLong( super.getFiltroBackingBean().getPeriodo().getAnioPeriodo() ) * 100 + Long.parseLong( super.getFiltroBackingBean().getPeriodo().getMesPeriodo() );
         Periodo periodo = getFacadeService().getPeriodoService().findPeriodoByPeriodo(periodoLong);
         try {
-        		List<Version> lista = getFacadeService().getVersionService().findVersionByFiltro(null, new TipoCuadro(getIdTipoCuadro()) , periodo, null, null, new Catalogo(getIdCatalogo()), super.getFiltroBackingBean().getEmpresa());
-        		setTreeNode(lista);
+        	List<Version> lista = getFacadeService().getVersionService().findVersionByFiltro(null, new TipoCuadro(getIdTipoCuadro()) , periodo, null, VigenciaEnum.VIGENTE.getKey(), new Catalogo(getIdCatalogo()), super.getFiltroBackingBean().getEmpresa());
+        	setTreeNode(lista);
+    		if(lista == null || lista.size() == 0){
+    			super.addWarnMessage("No se encontraron Versiones de Revelaciones para este período");
+    			this.setRenderedCatalogoTree(Boolean.FALSE);
+    		}
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e);
