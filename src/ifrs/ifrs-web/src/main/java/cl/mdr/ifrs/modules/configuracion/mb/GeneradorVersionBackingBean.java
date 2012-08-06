@@ -43,6 +43,7 @@ import cl.mdr.ifrs.vo.AgrupacionModelVO;
 public class GeneradorVersionBackingBean extends AbstractBackingBean{
 	
 	private transient Logger LOG = Logger.getLogger(GeneradorVersionBackingBean.class);
+	public static final String FORM_NAME_PRINCIPAL = "fGV1";
 	
 	private TipoCuadro tipoCuadro;
 	private Long idTipoCuadro;
@@ -420,13 +421,19 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
         }
     }
     
+    /**
+     * @param event
+     */
+    public void prepareCopiarEstructuraActionListener(ActionEvent event){
+    	this.setVersionClonable(((Version)event.getComponent().getAttributes().get("version")));
+    	super.displayPopUp("dialogCopiarVersion", "fGV1");
+    }
     
     /**
      * Metodo encargado de copiar una version con todas sus estrucuturas.
      * @param actionEvent
      */
-    public void copiarEstructuraActionListener(ActionEvent event) {  
-    	this.setVersionClonable(((Version)event.getComponent().getAttributes().get("version")));
+    public void copiarEstructuraActionListener(ActionEvent event) {      	
     	this.getConfiguradorDisenoBackingBean().setEstructuraModelMap(null);        
         try{            
              if(this.getVersionList().size() > 0){    

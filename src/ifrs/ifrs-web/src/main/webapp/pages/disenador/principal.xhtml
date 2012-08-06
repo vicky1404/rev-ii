@@ -454,7 +454,26 @@
 
 
 			</p:tabView>
-
+			
+			
+			<p:dialog id="dialogNoDataSavedId" header="Información"
+				widgetVar="dialogNoDataSaved" dynamic="true" closable="true"
+				draggable="false" resizable="false">
+				<h:panelGrid columns="3">
+					<h:outputText
+						value="Guarde la información de estructuras antes." />
+					<p:spacer/>
+					<p:spacer/>
+					
+					<p:spacer width="30"/>
+					<p:spacer/>
+					<p:commandButton icon="ui-icon-check" value="#{msg.general_control_aceptar}"
+						type="button" id="btnCancelarDialogNoDataSaved"
+						onclick="dialogNoDataSaved.hide()">
+					</p:commandButton>
+				</h:panelGrid>
+			</p:dialog>
+			
 		</h:form>
 
 	</ui:define>

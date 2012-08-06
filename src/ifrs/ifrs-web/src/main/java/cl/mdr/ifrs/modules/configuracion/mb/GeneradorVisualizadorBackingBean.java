@@ -45,6 +45,10 @@ public class GeneradorVisualizadorBackingBean extends AbstractBackingBean implem
 	private List<Estructura> estructuraList;
 			
 	public void cargarEstructuraAction(ActionEvent event){
+		if(!this.generadorVersionBackingBean.isAlmacenado()){
+			super.displayPopUp("dialogNoDataSaved", GeneradorVersionBackingBean.FORM_NAME_PRINCIPAL);
+			return;
+		}
 		this.getEstructuraList();
 	}
 	

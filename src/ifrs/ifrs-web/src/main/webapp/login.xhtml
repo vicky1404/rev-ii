@@ -10,6 +10,8 @@
 	<title>#{msg.titulo_principal_aplicacion}</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<link rel="shortcut icon" href="#{request.contextPath}/resources/images/icon/favicon.ico"/>
+	<meta http-equiv="Author" content="#{msg.label_nombre_mdr_technology}" />
+	<meta http-equiv="Nombre del Software" content="#{msg.titulo_principal_aplicacion}" />
 	<h:outputStylesheet name="css/screen-login.css" />
 </h:head>
 <h:body>
@@ -51,6 +53,18 @@
 								<ul>
 									<li><span class="ui-messages-info-summary"
 										style="font-size: 11px;">#{msg.mensaje_sesion_cerrada_correctamente}</span></li>
+								</ul>
+							</div>
+						</div>
+					</c:if>
+					
+					<c:if test="${param.session_expired eq 1}">
+						<div class="ui-messages ui-widget">
+							<div class="ui-messages-info ui-corner-all">
+								<span class="ui-messages-info-icon"></span>
+								<ul>
+									<li><span class="ui-messages-info-summary"
+										style="font-size: 11px;">#{msg.mensaje_sesion_expirada}</span></li>
 								</ul>
 							</div>
 						</div>
