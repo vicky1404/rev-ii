@@ -199,3 +199,8 @@ alter table IFRS_PERIODO_EMPRESA
 alter table IFRS_PERIODO_EMPRESA
    add constraint FK_IFRS_PER_REFERENCE_IFRS_PER foreign key (ID_PERIODO)
       references IFRS_PERIODO (ID_PERIODO);
+	  
+	  
+alter table ifrs_empresa rename column RUT to ID_RUT;	  
+
+alter table ifrs_grupo_empresa rename column RUT TO ID_RUT;
