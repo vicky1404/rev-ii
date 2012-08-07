@@ -66,13 +66,20 @@ public class PeriodoServiceBean implements PeriodoServiceLocal{
     	
     }
     
-  //TODO falta agregar log y usuario
-    public int cerrarPeriodo(String usuario, Long idPeriodo) throws Exception {
-        
-            Query query = em.createNamedQuery(Periodo.CERRAR_PERIODO_BY_PERIODO);    
-            query.setParameter("idPeriodo", idPeriodo);
-            
-            return query.executeUpdate();
+    public Integer cerrarPeriodo(PeriodoEmpresa periodoEmpresa, String usuario) throws Exception {
+    	
+    	CallableStatement callableStatement = ((SessionImpl) em.getDelegate()).connection().prepareCall("{call PKG_IFRS_PERIODO.PRC_CERRAR_PERIODO(?,?,?,?)}");
+
+    	callableStatement.setString(1, usuario);
+    	callableStatement.setLong(2, periodoEmpresa.getIdPeriodo());
+    	callableStatement.setLong(3, periodoEmpresa.getIdRut());
+    	callableStatement.registerOutParameter(4, Types.INTEGER);
+    	callableStatement.execute();
+	
+    	Integer outputValue = callableStatement.getInt(4);
+
+    	return outputValue;
+    	
     }
     
     

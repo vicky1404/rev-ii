@@ -12,9 +12,7 @@
 		
 		<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
 		
-		<ui:include src="/WEB-INF/templates/nombre-empresa-template.xhtml" />
-		
-		<p:panel header="#{msg.periodo_titulo_periodo_actual} #{periodoBackingBean.periodo.periodoFormat}">
+		<p:panel header="#{msg.periodo_titulo_periodo_actual} #{periodoBackingBean.periodoEmpresa.periodo.periodoFormat}">
 		
 		<p:ajaxStatus onstart="statusDialog.show();" oncomplete="statusDialog.hide();" />
 			
@@ -65,7 +63,7 @@
     	
     	<p:dialog id="p2" widgetVar="popUpEstadoChart" modal="false"
 				showEffect="drop" hideEffect="drop"
-				header="Resumen por estado para el período : #{periodoBackingBean.periodo.periodoFormat}">
+				header="Resumen por estado para el período : #{periodoBackingBean.periodoEmpresa.periodo.periodoFormat}">
 				<p:pieChart id="pch1"
 					value="#{periodoBackingBean.estadoCuadroChart}"
 					legendPosition="w"
@@ -76,7 +74,7 @@
 		
 		<p:dialog id="p3" widgetVar="popUpEmpresaChart" modal="false"
 				showEffect="drop" hideEffect="drop"
-				header="Resumen cuadros sin cerrar por empresa, período : #{periodoBackingBean.periodo.periodoFormat}">
+				header="Resumen cuadros sin cerrar por empresa, período : #{periodoBackingBean.periodoEmpresa.periodo.periodoFormat}">
 				<p:pieChart id="pch2"
 					value="#{periodoBackingBean.estadoCuadroChart}"
 					legendPosition="w"

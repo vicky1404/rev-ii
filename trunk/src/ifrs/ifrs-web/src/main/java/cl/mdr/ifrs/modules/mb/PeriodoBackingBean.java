@@ -17,10 +17,12 @@ import org.primefaces.model.chart.PieChartModel;
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
 import cl.mdr.ifrs.cross.util.PropertyManager;
 import cl.mdr.ifrs.ejb.common.EstadoCuadroEnum;
+import cl.mdr.ifrs.ejb.common.MensajePeriodoEnum;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Empresa;
 import cl.mdr.ifrs.ejb.entity.EstadoPeriodo;
 import cl.mdr.ifrs.ejb.entity.Periodo;
+import cl.mdr.ifrs.ejb.entity.PeriodoEmpresa;
 import cl.mdr.ifrs.ejb.entity.Version;
 
 @ManagedBean(name ="periodoBackingBean")
@@ -28,7 +30,7 @@ import cl.mdr.ifrs.ejb.entity.Version;
 public class PeriodoBackingBean extends AbstractBackingBean{
 	
     private transient Logger logger = Logger.getLogger(PeriodoBackingBean.class);
-    private Periodo periodo;
+    private PeriodoEmpresa periodoEmpresa;
     private List<Version> versionSinCerrarList;
     private boolean renderTableVersion = false;
     private PieChartModel estadoCuadroChart;
@@ -36,11 +38,17 @@ public class PeriodoBackingBean extends AbstractBackingBean{
 
 	@PostConstruct
     private void init(){
-    	periodo = getFacadeService().getPeriodoService().findMaxPeriodoObj();
+		
+		if(isSelectedEmpresa()){
+			periodoEmpresa = getFacadeService().getPeriodoService().getMaxPeriodoEmpresaByEmpresa(getFiltroBackingBean().getEmpresa().getIdRut());
+		}
     }
     
     
     public String abrirPeriodo() {
+    	
+    	if(!isSelectedEmpresa())
+    		return null;
         
         int error = 0;
         
@@ -83,22 +91,25 @@ public class PeriodoBackingBean extends AbstractBackingBean{
     
     public String cerrarPeriodo(){
         
+    	if(!isSelectedEmpresa())
+    		return null;
+    	
         try {
+        	
+        	periodoEmpresa = getFacadeService().getPeriodoService().getMaxPeriodoEmpresaByEmpresa(getFiltroBackingBean().getEmpresa().getIdRut());
             
-        	if (!periodo.getEstadoPeriodo().getIdEstadoPeriodo().equals(EstadoPeriodo.ESTADO_CERRADO)){
+        	if (!periodoEmpresa.getEstadoPeriodo().getIdEstadoPeriodo().equals(EstadoPeriodo.ESTADO_CERRADO)){
         		
-		    	versionSinCerrarList = getFacadeService().getVersionService().findVersionVigenteSinCerrar(periodo.getIdPeriodo());
-		    	
-		        periodo = getFacadeService().getPeriodoService().findMaxPeriodoObj();
+		    	versionSinCerrarList = getFacadeService().getVersionService().findVersionVigenteSinCerrar(periodoEmpresa);
 		    
 		        if (!Util.esListaValida(versionSinCerrarList)){
 		        	
 		        	renderTableVersion = false;
 		                               
-		            int actualiza = this.getFacadeService().getPeriodoService().cerrarPeriodo(this.getNombreUsuario(), periodo.getIdPeriodo());
+		            int keyMessage = this.getFacadeService().getPeriodoService().cerrarPeriodo(periodoEmpresa, getNombreUsuario());
 		            
-		            if (actualiza > 0){
-		                    addInfoMessage(PropertyManager.getInstance().getMessage("cerrar_periodo_mensaje_periodo_cerrado"));
+		            if (keyMessage > 0){
+		                    addInfoMessage(MensajePeriodoEnum.getMensajeByKey(keyMessage).getValue());
 		                    return null;
 		            } else {
 		                    addErrorMessage(PropertyManager.getInstance().getMessage("cerrar_periodo_no_update"));
@@ -143,13 +154,13 @@ public class PeriodoBackingBean extends AbstractBackingBean{
     }
 
 
-	public Periodo getPeriodo() {
-		return periodo;
+	public PeriodoEmpresa getPeriodoEmpresa() {
+		return periodoEmpresa;
 	}
 
 
-	public void setPeriodo(Periodo periodo) {
-		this.periodo = periodo;
+	public void setPeriodoEmpresa(PeriodoEmpresa periodoEmpresa) {
+		this.periodoEmpresa = periodoEmpresa;
 	}
 
 
