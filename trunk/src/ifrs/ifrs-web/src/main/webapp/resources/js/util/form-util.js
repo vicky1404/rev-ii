@@ -15,6 +15,6 @@ function getWidth(){
 }
 
 function setEditorWidth(){
-	$('.ui-editor').css("width", "100%");
-	$('.ui-editor').find('iframe').css("width", "100%");
+	//$('.ui-editor').css("width", "100%");
+	//$('.ui-editor').find('iframe').css("width", "100%");
 }

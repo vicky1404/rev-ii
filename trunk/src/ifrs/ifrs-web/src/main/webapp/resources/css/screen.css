@@ -286,12 +286,23 @@ img.right {
 }
 
 .ui-selectonemenu-label{
-	height:10px;
+	height:12px;
 }
 
 .hasDatepicker{
 	height:10px;
 }
 
+.ui-editor{
+	width: 97% !important;
+}
+
+.ui-editor iframe{
+	width: 97% !important;
+}
+
+.editorHtml{
+	width: 97% !important;
+}
 
 
