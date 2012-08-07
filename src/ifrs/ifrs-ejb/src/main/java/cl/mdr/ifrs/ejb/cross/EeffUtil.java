@@ -158,4 +158,14 @@ public static String formatFecu(Long fecu){
             return null;
         return "["+celda.getIdGrilla()+","+celda.getIdColumna()+","+celda.getIdFila()+"]";
     }
+    
+    public static Long getLongFromKey(String key){
+    	
+    	if (key == null || key.length() < 2)
+    		return new Long("2");
+    	
+    	String salida = key.substring(1, key.length()-1);
+    	salida = salida.replaceAll("[.]", "");
+    	return Util.getLong(salida, new Long("0"));
+    }
 }

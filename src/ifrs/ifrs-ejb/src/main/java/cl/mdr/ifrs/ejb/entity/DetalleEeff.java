@@ -54,7 +54,7 @@ public class DetalleEeff implements Serializable {
     @Column(name = "MONTO_PESOS")
     private BigDecimal montoPesos;
     
-    @Column(name = "MONTO_RECLASIFICACION")
+    @Column(name = "RECLASIFICACION")
     private BigDecimal montoReclasificacion;
     
     @ManyToOne
