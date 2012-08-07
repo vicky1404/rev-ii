@@ -14,7 +14,7 @@
 		
 		<ui:include src="/WEB-INF/templates/nombre-empresa-template.xhtml" />
 		
-		<p:panel header="#{msg.periodo_titulo_periodo_actual} #{periodoBackingBean.periodo.periodoFormat}">
+		<p:panel header="#{msg.periodo_titulo_periodo_actual} #{periodoBackingBean.periodoEmpresa.periodo.periodoFormat}">
 		
 		<p:ajaxStatus onstart="statusDialog.show();" oncomplete="statusDialog.hide();" />
 		

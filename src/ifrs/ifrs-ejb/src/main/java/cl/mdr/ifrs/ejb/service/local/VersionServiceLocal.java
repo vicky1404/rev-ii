@@ -84,7 +84,7 @@ public interface VersionServiceLocal {
     /**
      * @return
      */
-    List<Version> findVersionVigenteSinCerrar(Long idPeriodo);
+    List<Version> findVersionVigenteSinCerrar(PeriodoEmpresa periodoEmpresa);
 
     /**
      * @return

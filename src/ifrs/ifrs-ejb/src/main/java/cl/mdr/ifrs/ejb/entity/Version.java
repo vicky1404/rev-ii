@@ -33,7 +33,7 @@ import cl.mdr.ifrs.ejb.common.Constantes;
                  @NamedQuery(name = Version.VERSION_FIND_ALL_NO_VIGENTE, query = "select o from Version o where o.vigencia = 0"),
                  @NamedQuery(name = Version.VERSION_FIND_NO_VIGENTE, query = "select o from Version o where o.vigencia = 0 and o.catalogo = :catalogo"),
                  @NamedQuery(name = Version.VERSION_FIND_VIGENTE, query = "select o from Version o where o.vigencia = 1 and o.catalogo = :catalogo "),
-                 @NamedQuery(name = Version.FIND_VIGENTE_SIN_CERRAR, query = "select o from Version o where o.vigencia = 1 and o.estado.idEstado <> 4 and o.periodoEmpresa.idPeriodo = :idPeriodo order by o.catalogo.empresa.idRut, o.catalogo.orden"),
+                 @NamedQuery(name = Version.FIND_VIGENTE_SIN_CERRAR, query = "select o from Version o where o.vigencia = 1 and o.estado.idEstado <> 4 and o.periodoEmpresa.idPeriodo = :idPeriodo and o.periodoEmpresa.idRut = :idRut order by o.catalogo.empresa.idRut, o.catalogo.orden"),
                  @NamedQuery(name = Version.VERSION_FIND_ALL_BY_CATALOGO, query = "select o from Version o where o.catalogo = :catalogo order by o.vigencia, o.version, o.fechaCreacion"),
                  @NamedQuery(name = Version.VERSION_FIND_ALL_BY_ID_CATALOGO, query = "select o from Version o where o.catalogo.idCatalogo = :idCatalogo order by o.vigencia, o.version, o.fechaCreacion"),
                  @NamedQuery(name = Version.VERSION_FIND_BY_VERSION, query = "select o from Version o where o = :version"),

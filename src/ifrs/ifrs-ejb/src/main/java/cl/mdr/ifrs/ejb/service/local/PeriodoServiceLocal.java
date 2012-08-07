@@ -17,13 +17,6 @@ public interface PeriodoServiceLocal {
     Periodo findPeriodoByPeriodo(Long periodo);
     
    
-    /**
-     *  Ejecuta el pl/sql PKG_REV_PERIODO.PRC_ABRIR_PERIODO
-     *  para abrir un nuevo periodo. Retorna error desde el procedimiento.
-     * @return Integer
-     * @author Manuel Gutierrez C.
-     * @throws Exception
-     */
     Integer abrirPeriodo(String usuario) throws Exception;
     
     /**
@@ -34,14 +27,8 @@ public interface PeriodoServiceLocal {
      */
     Long findMaxPeriodoCerrado() throws Exception;
     
-    /**
-     *  Ejecuta el pl/sql PKG_REV_PERIODO.PRC_CERRAR_PERIODO
-     *  para cerrar el periodo actual. Retorna error desde el procedimiento.
-     * @return Integer
-     * @author Manuel Gutierrez C.
-     * @throws Exception
-     */
-    int cerrarPeriodo(String usuario, Long idPeriodo) throws Exception;
+    
+    Integer cerrarPeriodo(PeriodoEmpresa periodoEmpresa, String usuario)  throws Exception;
     
     /**
      * Retorna el �ltimo periodo .

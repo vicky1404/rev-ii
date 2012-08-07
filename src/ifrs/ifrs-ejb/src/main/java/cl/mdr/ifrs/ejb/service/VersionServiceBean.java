@@ -388,9 +388,10 @@ public class VersionServiceBean implements VersionServiceLocal{
     
     @SuppressWarnings("unchecked")
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-    public List<Version> findVersionVigenteSinCerrar(Long idPeriodo){
+    public List<Version> findVersionVigenteSinCerrar(PeriodoEmpresa periodoEmpresa){
         Query query = em.createNamedQuery(Version.FIND_VIGENTE_SIN_CERRAR);
-        query.setParameter("idPeriodo", idPeriodo);
+        query.setParameter("idPeriodo", periodoEmpresa.getIdPeriodo());
+        query.setParameter("idRut", periodoEmpresa.getIdRut());
         return query.getResultList();
     }
     
