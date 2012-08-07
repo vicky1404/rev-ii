@@ -8,7 +8,7 @@
 	template="/WEB-INF/templates/main-template.xhtml">
 	<ui:define name="content">
 		<h:form id="form">  
-			<p:growl id="messages" />
+			
 			<p:ajaxStatus onstart="statusDialogNoModal.show();" oncomplete="statusDialogNoModal.hide();" />
 			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
 		<p:panel id="filtro" header="Estados Financieros - Periodo : #{eeff.periodo.periodoFormat}" toggleable="true"  closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel">
@@ -120,9 +120,9 @@
 		 <p:dataTable value="#{eeff.estadoFinanciero}" var="row" id="t3" style="height:inherit;">
                 <p:column sortable="false" headerText="Id Fecu" align="start" id="c13">
                     
-                    <p:commandLink icon="/images/icon/flecha.jpg"  id="cil3"  title="#{row.idFecu}" partialSubmit="true" actionListener="#{eeff.cargarFecuListener}">
-                        <p:graphicImage value="resources/images/icon/flecha.jpg"></p:graphicImage>
-                    	<f:attribute name="eeff" value="#{row}"/>                    
+                    <p:commandLink icon="/images/icon/flecha.jpg"  id="cil3" title="#{row.idFecu}" actionListener="#{eeff.cargarFecuListener}" update="@form">
+                        <p:graphicImage value="/resources/images/icon/flecha.jpg"></p:graphicImage>
+                    	<f:attribute name="eeff" value="#{row}"/>          
                     </p:commandLink>
                    
                     <p:spacer width="5" id="s165"/>
@@ -146,10 +146,9 @@
 		
                 <p:column sortable="false" headerText="Fecu" id="c5">
                     
-                    <p:commandLink id="cil4"  title="#{row.idCuenta}" actionListener="#{eeff.cargarCuentaListener}">
+                    <p:commandLink id="cil4"  title="#{row.idCuenta}" actionListener="#{eeff.cargarCuentaListener}" update="@form">
                         <p:graphicImage value="/resources/images/icon/flecha.jpg"></p:graphicImage>
-                    	<f:attribute name="detalleEeff" value="#{row}"/>
-                    
+                    	<f:attribute name="detalleEeff" value="#{row}"/>                    
                     </p:commandLink>
                     <p:spacer width="5" id="s15"/>
                     <h:outputText value="#{row.idFecu}" id="ot20"/>
@@ -186,8 +185,10 @@
 		<table align="left">
             <tr>
             <td>
-                <p:selectOneMenu label="Código Fecu" id="soc1" value="#{eeff.estadoFinanciero}" valueChangeListener="#{eeff.codigoFecuChangeListener}" >
+                <p:selectOneMenu label="Código Fecu" id="soc1" value="#{eeff.estadoFinanciero}" converter="estadoFinancieroConverter">
+                		<f:selectItem itemLabel="#{msg.label_seleccionar}"></f:selectItem>
                         <f:selectItems value="#{eeff.fecuItems}" id="mesesPeriodo"/>
+                        <p:ajax update="@form" listener="#{eeff.codigoFecuChangeListener}" event="change"  />
                 </p:selectOneMenu>
             </td>
             <td>
@@ -206,7 +207,8 @@
                 <h:outputLabel value="Relación Fecu" id="ol4"/>
             </td>
             <td>
-                <p:inputText value="#{eeff.relFecu}" readonly="true"  size="10" binding="#{eeff.relFecuText}" id="it4"/>
+                <!-- p:inputText value="#{eeff.relFecu}" readonly="true"  size="10" binding="#{eeff.relFecuText}" id="it4"/-->
+                <p:inputTextarea value="#{eeff.relFecu}"  readonly="true" cols="10" binding="#{eeff.relFecuText}" id="it4"></p:inputTextarea>
             </td>
             <td>
                 <p:spacer width="25" id="s11"/>
@@ -215,7 +217,8 @@
                 <h:outputLabel value="Relación Cuenta" id="ol2"/>
             </td>
             <td>
-                <p:inputText value="#{eeff.relCuenta}" readonly="true" size="10" binding="#{eeff.relCuentaText}" id="it3"/>
+                <!-- p:inputText value="#{eeff.relCuenta}" readonly="true" size="10" binding="#{eeff.relCuentaText}" id="it3"/-->
+                <p:inputTextarea value="#{eeff.relCuenta}" readonly="true" cols="10" binding="#{eeff.relCuentaText}" id="it3"></p:inputTextarea>
             </td>
             <td>
                 <p:spacer width="25" id="s13"/>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/main-template.xhtml">
+	<ui:define name="content">
+		<h:form id="form" enctype="multipart/form-data">  
+		
+			<p:ajaxStatus onstart="statusDialogNoModal.show();" oncomplete="statusDialogNoModal.hide();" />
+			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
+		 <p:panel header="Periodo actual : #{cargadorEeff.periodo.periodoFormat}" toggleable="true" >
+		 
+		 	<p:dataTable value="#{cargadorEeff.versionEeffList}" var="row">
+		 		<p:column headerText="Versión" id="c1">
+		 			<h:outputText value="#{row.version}" id="ot1" />
+		 		</p:column>
+		 		<p:column headerText="Vigencia" id="c2">
+		 			<h:outputText value="#{row.vigencia == 1 ? msg.generador_si : msg.generador_no}" id="ot2" />
+		 		</p:column>
+		 	
+		 	<p:column headerText="Periodo" id="c3">
+		 			<h:outputText value="#{row.periodo.periodoFormat}" id="ot3" />
+		 	</p:column>
+		 	<p:column headerText="Usuario" id="c4">
+		 			<h:outputText value="#{row.usuario}" id="ot4" />
+		 	</p:column>
+		 	</p:dataTable>
+		 </p:panel>
+		 <p:spacer height="10"></p:spacer>
+		 <p:panel closable="false" toggleable="false" >
+		 
+		 <p:fileUpload value="#{cargadorEeff.uploadedFile}" fileUploadListener="#{cargadorEeff.procesarArchivo}" binding="#{cargadorEeff.richInputFile}" sizeLimit="#{msg.constantes_max_excel_file_bytes}" label="#{msg.label_seleccione} Excel" mode="advanced" update="@form"  allowTypes="/(.|\/)(xls|xlsx)$/"></p:fileUpload>
+		 <p:commandButton value="Guardar" id="cb3" actionListener="#{cargadorEeff.guardarListener}" icon="ui-icon-check" update="@form"></p:commandButton>
+		 <p:spacer height="10"></p:spacer>
+		 <p:dataTable value="#{cargadorEeff.sizeEeff}" var="row" rendered="#{cargadorEeff.renderedTablaResultado}">
+		 	<p:column headerText="Cantidad cabecera">
+		 		<h:outputText value="#{cargadorEeff.sizeEeff}" />
+		 	</p:column>
+		 	<p:column headerText="Cantidad detalle">
+		 		<h:outputText value="#{cargadorEeff.sizeEeffDetalle}" />
+		 	</p:column>
+		 </p:dataTable>
+		 </p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
