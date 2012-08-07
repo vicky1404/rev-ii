@@ -82,8 +82,9 @@
 											event="blur" />
 									</p:inputText>
 								</h:panelGrid>
-								<p:spacer height="20" /> 
-								<p:editor id="editorHtml" height="300" value="#{configuradorDisenoBackingBean.estructuraSelected.html.contenidoStr}" />
+								<p:spacer height="20" />
+								<p:editor id="editorHtml" height="300"
+									value="#{configuradorDisenoBackingBean.estructuraSelected.html.contenidoStr}" />
 								<p:spacer height="20" />
 							</h:panelGroup>
 
@@ -93,9 +94,10 @@
 								id="textEditPanel">
 								<p:spacer height="25" />
 								<h:panelGrid columns="1">
-									<p:inputTextarea maxlength="3500" value="#{configuradorDisenoBackingBean.estructuraSelected.texto.texto}" counter="counter"
-										counterTemplate="quedan {0} caracteres." autoResize="false"
-										style="width:700px;" rows="20" />
+									<p:inputTextarea maxlength="3500"
+										value="#{configuradorDisenoBackingBean.estructuraSelected.texto.texto}"
+										counter="counter" counterTemplate="quedan {0} caracteres."
+										autoResize="false" style="width:700px;" rows="20" />
 									<h:outputText id="counter" />
 								</h:panelGrid>
 							</h:panelGroup>
@@ -138,8 +140,10 @@
 									<div class="ui-datatable ui-widget ui-datatable-resizable">
 										<table role="grid">
 											<thead>
-											    <h:panelGroup rendered="#{configuradorDisenoBackingBean.grillaVO.agrupaciones != null}">
-													<ui:repeat var="agr" value="#{configuradorDisenoBackingBean.grillaVO.agrupaciones}">
+												<h:panelGroup
+													rendered="#{configuradorDisenoBackingBean.grillaVO.agrupaciones != null}">
+													<ui:repeat var="agr"
+														value="#{configuradorDisenoBackingBean.grillaVO.agrupaciones}">
 														<tr>
 															<th class="ui-state-default ui-resizable-column"
 																role="columnheader"></th>
@@ -184,7 +188,7 @@
 															<ui:fragment rendered="#{row.columna.orden eq 1}">
 																<td><p:tooltip for="clEditFila"
 																		value="Editar Fila #{row.idFila}" showEffect="drop" />
-																	<p:commandLink id="clEditFila" 
+																	<p:commandLink id="clEditFila"
 																		actionListener="#{configuradorDisenoBackingBean.prepareEditarFilaAction}"
 																		style="padding-left:5px; padding-right:5px; text-decoration:underline;">
 																		<f:attribute name="fila" value="#{row.idFila}" />
@@ -195,22 +199,46 @@
 															</ui:fragment>
 															<td role="gridcell">
 																<div class="ui-dt-c">
-																	<span style="padding-left: 5px"> <h:outputText
-																			value="#{row.valor}" id="ot7"
-																			style="#{row.tipoCelda.idTipoCelda == 4 or row.tipoCelda.idTipoCelda == 5 ? 'text-align:right;font-weight:bold;color:black' : 'text-align:right;'}"
-																			rendered="#{ (row.tipoCelda.idTipoCelda == 0 or row.tipoCelda.idTipoCelda == 4 or row.tipoCelda.idTipoCelda == 5) and (row.tipoDato.idTipoDato != 2 and row.tipoDato.idTipoDato != 3) }"></h:outputText>
-																		<h:outputText value="#{row.valor}" id="ot8"
-																			inlineStyle="font-weight:bold; text-align:left;"
-																			rendered="#{row.tipoCelda.idTipoCelda == 2}"></h:outputText>
-																		<p:inputText value="#{row.valor}" id="it7"
-																			style="text-align:left;"
+																	<span style="padding-left: 5px"> 
+																	
+																		<h:panelGroup
+																			layout="block" style="text-align: right;"
+																			rendered="#{ (row.tipoCelda.idTipoCelda == 4 or row.tipoCelda.idTipoCelda == 5) and (row.tipoDato.idTipoDato != 2 and row.tipoDato.idTipoDato != 3) }">
+																			<h:outputText value="#{row.valor}" id="ot7"
+																				style="font-weight:bold;"
+																				rendered="#{ (row.tipoCelda.idTipoCelda == 4 or row.tipoCelda.idTipoCelda == 5) and (row.tipoDato.idTipoDato != 2 and row.tipoDato.idTipoDato != 3) }">
+																			</h:outputText>
+																		</h:panelGroup> 
+																		
+																		<!-- Texto --> 
+																		<h:outputText value="#{row.valor}"
+																			id="ot71"
+																			rendered="#{ (row.tipoCelda.idTipoCelda == 0) and (row.tipoDato.idTipoDato != 2 and row.tipoDato.idTipoDato != 3) }">
+																		</h:outputText> 
+																		
+																		<!-- Titulos --> 
+																		<h:outputText value="#{row.valor}"
+																			id="ot8" style="font-weight:bold; text-align:left;"
+																			rendered="#{row.tipoCelda.idTipoCelda == 2}">
+																		</h:outputText> 
+																		
+																		<!-- Input Texto Editable --> 
+																		<p:inputText
+																			value="#{row.valor}" id="it7"
+																			style="text-align:left; "
 																			rendered="#{row.tipoCelda.idTipoCelda == 6 and row.tipoDato.idTipoDato == 0}"
 																			maximumLength="#{msg.constantes_max_caracter_cuadro}">
 																			<f:validateLength
 																				maximum="#{msg.constantes_max_caracter_cuadro}" />
-																		</p:inputText> <p:inputText value="#{row.valorLong}" id="it8"
+																		</p:inputText> 
+																		
+																		<!-- Input Entero --> 
+																		
+																		<p:inputText
+																			value="#{row.valorLong}" id="it8"
+																			label="Valor de la Columna: #{row.idColumna} , Fila: #{row.idFila}"
 																			rendered="#{( row.tipoDato.idTipoDato == 2 and (row.tipoCelda.idTipoCelda != 4 and row.tipoCelda.idTipoCelda != 5))}"
-																			style="text-align:right;"
+																			style="text-align:right; "
 																			maxlength="#{msg.constantes_text_length_long}">
 
 																			<f:convertNumber integerOnly="true" type="number"
@@ -220,23 +248,54 @@
 																				pattern="##,###,###,###" />
 																			<f:validateLongRange
 																				maximum="#{msg.constantes_maximum_validate_long_range}" />
-																		</p:inputText> <h:outputText value="#{row.valorLong}" id="it28"
-																			rendered="#{row.tipoDato.idTipoDato == 2 and (row.tipoCelda.idTipoCelda == 4 or row.tipoCelda.idTipoCelda == 5)}"
-																			style="text-align:right;border:none;background-color: white;font-weight:bold;color:black"
-																			maxlength="#{msg.constantes_text_length_long}">
+																		</p:inputText> 
+																		
+																		<!-- Total Entero --> 
+																		
+																		<h:panelGroup layout="block"
+																			style="text-align: right;"
+																			rendered="#{row.tipoDato.idTipoDato == 2 and (row.tipoCelda.idTipoCelda == 4 or row.tipoCelda.idTipoCelda == 5)}">
+																			<h:outputText value="#{row.valorLong}" id="it28"
+																				rendered="#{row.tipoDato.idTipoDato == 2 and (row.tipoCelda.idTipoCelda == 4 or row.tipoCelda.idTipoCelda == 5)}"
+																				style="font-weight:bold;"
+																				maxlength="#{msg.constantes_text_length_long}">
 
-																			<f:convertNumber integerOnly="true" type="number"
-																				maxFractionDigits="0" groupingUsed="true"
-																				locale="#{configuradorDisenoBackingBean.localeCL}"
-																				maxIntegerDigits="#{msg.constantes_max_lenght_number}"
-																				pattern="##,###,###,###" />
+																				<f:convertNumber integerOnly="true" type="number"
+																					maxFractionDigits="0" groupingUsed="true"
+																					locale="#{configuradorDisenoBackingBean.localeCL}"
+																					maxIntegerDigits="#{msg.constantes_max_lenght_number}"
+																					pattern="##,###,###,###" />
 
 
-																		</h:outputText> <p:inputText value="#{row.valorBigDecimal}" id="it9"
+																			</h:outputText>
+																		</h:panelGroup> 
+																		
+																		<!-- Total Decimal --> 
+																		
+																		<h:panelGroup layout="block"
+																			style="text-align: right;"
+																			rendered="#{row.tipoDato.idTipoDato == 3 and (row.tipoCelda.idTipoCelda == 4 or row.tipoCelda.idTipoCelda == 5)}">
+																			<h:outputText value="#{row.valorBigDecimal}"
+																				id="it282"
+																				rendered="#{row.tipoDato.idTipoDato == 3 and (row.tipoCelda.idTipoCelda == 4 or row.tipoCelda.idTipoCelda == 5)}"
+																				style="font-weight:bold;"
+																				maxlength="#{msg.constantes_text_length_long}">
+
+																				<f:convertNumber integerOnly="true" type="number"
+																					maxFractionDigits="0" groupingUsed="true"
+																					locale="#{configuradorDisenoBackingBean.localeCL}"
+																					maxIntegerDigits="#{msg.constantes_max_lenght_number}"
+																					pattern="##,###,###,###" />
+
+
+																			</h:outputText>
+																		</h:panelGroup> 
+																		
+																		<p:inputText value="#{row.valorBigDecimal}" id="it9"
+																			label="Valor de la Columna: #{row.idColumna} , Fila: #{row.idFila}"
 																			rendered="#{row.tipoDato.idTipoDato == 3 and (row.tipoCelda.idTipoCelda != 4 and row.tipoCelda.idTipoCelda != 5)}"
 																			maximumLength="#{msg.constantes_text_length_decimal}"
-																			disabled="#{row.tipoCelda.idTipoCelda == 4 or row.tipoCelda.idTipoCelda == 5}"
-																			style="">
+																			disabled="#{row.tipoCelda.idTipoCelda == 4 or row.tipoCelda.idTipoCelda == 5}">
 
 																			<f:convertNumber integerOnly="false" type="number"
 																				maxIntegerDigits="#{msg.constantes_max_lenght_number}"
@@ -248,10 +307,11 @@
 																		</p:inputText> 
 																		
 																		<p:inputText value="#{row.valorBigDecimal}" id="it09"
+																			label="Valor de la Columna: #{row.idColumna} , Fila: #{row.idFila}"
 																			rendered="#{row.tipoDato.idTipoDato == 3 and (row.tipoCelda.idTipoCelda == 4 or row.tipoCelda.idTipoCelda == 5)}"
 																			maximumLength="#{msg.constantes_text_length_decimal}"
 																			disabled="#{row.tipoCelda.idTipoCelda == 4 or row.tipoCelda.idTipoCelda == 5}"
-																			style="border:none;background-color: white;font-weight:bold;color:black">
+																			style="border:none;background-color: white;font-weight:bold;color:black;">
 
 																			<f:convertNumber integerOnly="false" type="number"
 																				maxIntegerDigits="#{msg.constantes_max_lenght_number}"
@@ -261,24 +321,22 @@
 
 																		</p:inputText> 
 																		
-																		<p:calendar value="#{row.valorDate}" id="it10"
-																			navigator="true" pattern="dd-MM-yyyy" label=" "
-																			effect="fade"
+																		<!-- Selector de Fecha --> <p:calendar
+																			value="#{row.valorDate}" id="it10" navigator="true"
+																			pattern="dd-MM-yyyy" label=" " effect="fade"
 																			locale="#{configuradorDisenoBackingBean.localeCL}"
 																			rendered="#{row.tipoDato.idTipoDato == 1 and row.tipoCelda.idTipoCelda == 6}">
-																		</p:calendar> 																																				
-																		<!-- Editor de tipo de celda y tipo de dato --> 																		
-																		<p:tooltip
+																		</p:calendar> 
+																		
+																		<!-- Editor de tipo de celda y tipo de dato --> <p:tooltip
 																			for="clEditCell"
 																			value="Editar Celda [#{row.idFila},#{row.idColumna}]"
-																			showEffect="drop" /> 
-																			
-																		<p:commandLink id="clEditCell"
+																			showEffect="drop" /> <p:commandLink id="clEditCell"
 																			style="float:left;"
 																			actionListener="#{configuradorDisenoBackingBean.prepareEditarCeldaAction}">
 																			<f:attribute value="#{row}" name="celda" />
 																			<p:graphicImage style="vertical-align: middle;"
-																				styleClass="ui-icon  ui-icon-calculator"/>
+																				styleClass="ui-icon  ui-icon-calculator" />
 																		</p:commandLink>
 
 																	</span>
@@ -422,17 +480,19 @@
 						id="cl_le" styleClass="linkLoadEstructura" update="panelPrev" />
 					<p:toolbar>
 						<p:toolbarGroup align="left">
-						
+
 							<p:commandButton value="Guardar Configuración"
-								icon="ui-icon-disk" id="btn1" rendered="#{!generadorVersionBackingBean.renderBotonEditarVersion}"
-								actionListener="#{generadorVisualizadorBackingBean.guardarDisenoActionListener}" partialSubmit="false"
-								update="@form" />
-							
-							<p:commandButton value="Editar Configuración"
-								icon="ui-icon-disk" id="btn3" rendered="#{generadorVersionBackingBean.renderBotonEditarVersion}"
-								actionListener="#{generadorVisualizadorBackingBean.editarDisenoActionListener}" partialSubmit="false"
-								update="@form" />	
-								
+								icon="ui-icon-disk" id="btn1"
+								rendered="#{!generadorVersionBackingBean.renderBotonEditarVersion}"
+								actionListener="#{generadorVisualizadorBackingBean.guardarDisenoActionListener}"
+								partialSubmit="false" update="@form" />
+
+							<p:commandButton value="Editar Configuración" icon="ui-icon-disk"
+								id="btn3"
+								rendered="#{generadorVersionBackingBean.renderBotonEditarVersion}"
+								actionListener="#{generadorVisualizadorBackingBean.editarDisenoActionListener}"
+								partialSubmit="false" update="@form" />
+
 							<p:commandButton value="Recargar Previsualización"
 								icon="ui-icon-refresh" id="btn2" partialSubmit="false"
 								actionListener="#{generadorVisualizadorBackingBean.cargarEstructuraAction}"
@@ -462,26 +522,26 @@
 
 
 			</p:tabView>
-			
-			
+
+
 			<p:dialog id="dialogNoDataSavedId" header="Información"
 				widgetVar="dialogNoDataSaved" dynamic="true" closable="true"
 				draggable="false" resizable="false">
 				<h:panelGrid columns="3">
-					<h:outputText
-						value="Guarde la información de estructuras antes." />
-					<p:spacer/>
-					<p:spacer/>
-					
-					<p:spacer width="30"/>
-					<p:spacer/>
-					<p:commandButton icon="ui-icon-check" value="#{msg.general_control_aceptar}"
-						type="button" id="btnCancelarDialogNoDataSaved"
+					<h:outputText value="Guarde la información de estructuras antes." />
+					<p:spacer />
+					<p:spacer />
+
+					<p:spacer width="30" />
+					<p:spacer />
+					<p:commandButton icon="ui-icon-check"
+						value="#{msg.general_control_aceptar}" type="button"
+						id="btnCancelarDialogNoDataSaved"
 						onclick="dialogNoDataSaved.hide()">
 					</p:commandButton>
 				</h:panelGrid>
 			</p:dialog>
-			
+
 		</h:form>
 
 	</ui:define>
