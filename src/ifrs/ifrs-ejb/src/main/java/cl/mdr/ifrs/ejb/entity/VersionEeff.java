@@ -24,19 +24,21 @@ import cl.mdr.ifrs.ejb.common.Constantes;
 @NamedQueries( { @NamedQuery(name = VersionEeff.FIND_ALL, query = "select o from VersionEeff o"),
                  @NamedQuery(name = VersionEeff.FIND_BY_PERIOD, query = "select o from VersionEeff o where o.periodoEmpresa.idPeriodo = :idPeriodo order by o.version"),
                  @NamedQuery(name = VersionEeff.FIND_VIGENTE_BY_PERIOD, query = "select o from VersionEeff o where o.periodoEmpresa.idPeriodo = :idPeriodo and o.vigencia = 1"),
+                 
                  @NamedQuery(name = VersionEeff.FIN_MAX_VERSION_BY_PERIODO_EMPRESA, 
-                 query =" select " +
-                 		" max(o.version) " +
-                 		" from VersionEeff o " +
-                 		" where " +
-                 		" o.periodoEmpresa.idPeriodo = :idPeriodo and " +
-                 		" o.periodoEmpresa.idRut = :idRut "),
+			                 query =" select " +
+			                 		" max(o.version) " +
+			                 		" from VersionEeff o " +
+			                 		" where " +
+			                 		" o.periodoEmpresa.idPeriodo = :idPeriodo and " +
+			                 		" o.periodoEmpresa.idRut = :idRut"),
+                 		
                  @NamedQuery(name = VersionEeff.UPDATE_VIGENCIA_BY_PERIODO_EMPRESA, 
-                 query = " update VersionEeff o " +
-                 		 " set o.vigencia = 0 " +
-                 		 " where " +
-                 		 " o.periodoEmpresa.idPeriodo = :idPeriodo and " +
-                 		 " o.periodoEmpresa.idRut = :idRut ")})
+			                 query = " update VersionEeff o " +
+			                 		 " set o.vigencia = 0 " +
+			                 		 " where o.periodoEmpresa.idPeriodo = :idPeriodo " +
+			                 		 " and o.periodoEmpresa.idRut = :idRut")
+})
 
 @Table(name = Constantes.VERSION_EEFF)
 public class VersionEeff implements Serializable {

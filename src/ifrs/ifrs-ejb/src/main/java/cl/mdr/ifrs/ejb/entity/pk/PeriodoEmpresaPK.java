@@ -1,24 +1,23 @@
 package cl.mdr.ifrs.ejb.entity.pk;
 
 import java.io.Serializable;
-import javax.persistence.*;
 
 /**
  * The primary key class for the IFRS_PERIODO_EMPRESA database table.
  * 
  */
-@Embeddable
 public class PeriodoEmpresaPK implements Serializable {
-	//default serial version id, required for serializable classes.
-	private static final long serialVersionUID = 1L;
-
-	@Column(name="ID_PERIODO")
+	private static final long serialVersionUID = -4530787021415326858L;
 	private long idPeriodo;
-
-	@Column(name="ID_RUT")
 	private long idRut;
-
-    public PeriodoEmpresaPK() {
+	
+    public PeriodoEmpresaPK(long idPeriodo, long idRut) {
+		super();
+		this.idPeriodo = idPeriodo;
+		this.idRut = idRut;
+	}
+    
+	public PeriodoEmpresaPK() {
     }
 	public long getIdPeriodo() {
 		return this.idPeriodo;
