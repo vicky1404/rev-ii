@@ -15,6 +15,7 @@ import javax.faces.model.SelectItem;
 import org.apache.log4j.Logger;
 import org.primefaces.component.autocomplete.AutoComplete;
 import org.primefaces.component.inputtext.InputText;
+import org.primefaces.component.inputtextarea.InputTextarea;
 import org.primefaces.component.selectonemenu.SelectOneMenu;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
@@ -72,8 +73,10 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
      */
     private Map<String, String[]> relacionMap;
     private transient InputText relCeldaText;
-    private transient InputText relFecuText;
-    private transient InputText relCuentaText;
+    //private transient InputText relFecuText;
+    private transient InputTextarea relFecuText;
+    //private transient InputText relCuentaText;
+    private transient InputTextarea relCuentaText;
     private TreeNode root;
     private boolean renderTreeTabla;
     private boolean renderEstructuraTabla;
@@ -97,7 +100,7 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
     public void tipoCuadroChangeListener() {
         try {
             TipoCuadro tipoCuadro =  (TipoCuadro) getTipoCuadroSelect().getValue();
-            List<Catalogo> catalogos = getFacadeService().getCatalogoService().findCatalogoByFiltro(getFiltroBackingBean().getEmpresa().getIdRut(), getNombreUsuario(), tipoCuadro, null, 1L);
+            List<Catalogo> catalogos = getFacadeService().getCatalogoService().findCatalogoByFiltro(getFiltroBackingBean().getEmpresa().getRut(), getNombreUsuario(), tipoCuadro, null, 1L);
             setCatalogos(catalogos);
         } catch (Exception e) {
             addErrorMessage("Error al buscar catalogo");
@@ -226,9 +229,12 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
     }
 
 
-    public void codigoFecuChangeListener(ValueChangeEvent valueChangeEvent) {
-        if(valueChangeEvent.getNewValue()!=null){
-            detalleEeffs = getFacadeService().getEstadoFinancieroService().getDetalleEeffByEeff((EstadoFinanciero)valueChangeEvent.getNewValue());
+    public void codigoFecuChangeListener() {
+    	
+        if(this.getEstadoFinanciero() != null){
+        	
+            detalleEeffs = getFacadeService().getEstadoFinancieroService().getDetalleEeffByEeff(this.getEstadoFinanciero());
+            
         }
     }
 
@@ -271,8 +277,8 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
         relCelda = Util.formatCellKey(celda);
         relFecu = EeffUtil.formatKeyFecu(celda.getRelacionEeffList());
         relCuenta = EeffUtil.formatKeyCuenta(celda.getRelacionDetalleEeffList());
-        relFecuText.setSize(Util.countToken(relFecu,";"));
-        relCuentaText.setSize(Util.countToken(relCuenta,";"));
+        relFecuText.setRows(Util.countToken(relFecu,";"));
+        relCuentaText.setRows(Util.countToken(relCuenta,";"));
         
         if(relFecu!=null || relCuenta!=null)
             aplicarRelacion(relacionMap, relCelda, relFecu, relCuenta);
@@ -283,7 +289,7 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
     
     public void cargarFecuListener(ActionEvent event) {
             
-            final EstadoFinanciero eeff = (EstadoFinanciero)event.getComponent().getAttributes().get("eeff");
+            final EstadoFinanciero eeff = (EstadoFinanciero) event.getComponent().getAttributes().get("eeff");
             
             if(eeff==null)
                 return;
@@ -292,7 +298,7 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
             
             aplicarRelacion(relacionMap, relCelda, relFecu, relCuenta);
             
-            addPartialText();
+            //addPartialText();
     }
     
     public void cargarCuentaListener(ActionEvent event) {
@@ -318,10 +324,10 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
             aplicarRelacion(relacionMap, relCelda, relFecu, relCuenta);
             
         }else{
-            relCuentaText.setSize(0);
+            relCuentaText.setRows(0);
         }
         
-        relCuentaText.setSize(relCuentaText.getSize()+1);
+        relCuentaText.setRows(relCuentaText.getRows()+1);
         //addPartialText();
     }
     
@@ -535,21 +541,7 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
 		this.relCeldaText = relCeldaText;
 	}
 
-	public InputText getRelFecuText() {
-		return relFecuText;
-	}
-
-	public void setRelFecuText(InputText relFecuText) {
-		this.relFecuText = relFecuText;
-	}
-
-	public InputText getRelCuentaText() {
-		return relCuentaText;
-	}
-
-	public void setRelCuentaText(InputText relCuentaText) {
-		this.relCuentaText = relCuentaText;
-	}
+	
 
 	public Catalogo getCatalogo() {
 		return catalogo;
@@ -589,6 +581,22 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
 
 	public void setRenderEstructuraTabla(boolean renderEstructuraTabla) {
 		this.renderEstructuraTabla = renderEstructuraTabla;
+	}
+
+	public InputTextarea getRelFecuText() {
+		return relFecuText;
+	}
+
+	public void setRelFecuText(InputTextarea relFecuText) {
+		this.relFecuText = relFecuText;
+	}
+
+	public InputTextarea getRelCuentaText() {
+		return relCuentaText;
+	}
+
+	public void setRelCuentaText(InputTextarea relCuentaText) {
+		this.relCuentaText = relCuentaText;
 	}
 
 }
