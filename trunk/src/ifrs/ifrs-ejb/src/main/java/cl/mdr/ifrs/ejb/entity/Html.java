@@ -14,6 +14,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.apache.commons.lang3.StringUtils;
+
 import cl.mdr.ifrs.ejb.common.Constantes;
 import cl.mdr.ifrs.ejb.cross.Util;
 
@@ -107,7 +109,11 @@ public class Html implements Serializable {
     }
 
     public String getContenidoStr() {
-        return Util.htmlBytesToString(getContenido());
+    	if(getContenido() != null){
+    		return Util.htmlBytesToString(getContenido());
+    	}else{
+    		return StringUtils.EMPTY;
+    	}
     }
 
     @Override
