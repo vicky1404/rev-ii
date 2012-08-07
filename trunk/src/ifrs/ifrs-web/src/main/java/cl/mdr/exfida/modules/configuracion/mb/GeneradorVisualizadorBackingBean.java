@@ -55,7 +55,7 @@ public class GeneradorVisualizadorBackingBean extends AbstractBackingBean implem
     public void guardarDisenoActionListener(ActionEvent action){
         try {
         	
-        	if(isSelectedEmpresa())
+        	if(!isSelectedEmpresa())
         		return;
         	
             GeneradorDisenoHelper.validarContenidoCelda(this.getConfiguradorDisenoBackingBean().getEstructuraModelMap());

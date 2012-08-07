@@ -184,12 +184,12 @@
 															<ui:fragment rendered="#{row.columna.orden eq 1}">
 																<td><p:tooltip for="clEditFila"
 																		value="Editar Fila #{row.idFila}" showEffect="drop" />
-																	<p:commandLink id="clEditFila"
+																	<p:commandLink id="clEditFila" 
 																		actionListener="#{configuradorDisenoBackingBean.prepareEditarFilaAction}"
 																		style="padding-left:5px; padding-right:5px; text-decoration:underline;">
 																		<f:attribute name="fila" value="#{row.idFila}" />
-																		<h:graphicImage
-																			value="/resources/images/icon/1rightarrow_16x16.png"
+																		<p:graphicImage
+																			styleClass="ui-icon  ui-icon-arrowthickstop-1-e"
 																			style="vertical-align: middle;" />
 																	</p:commandLink></td>
 															</ui:fragment>
@@ -245,7 +245,9 @@
 																				pattern="##,###,###,###.####" />
 																			<f:validateDoubleRange
 																				maximum="#{msg.constantes_maximum_validate_long_range}" />
-																		</p:inputText> <p:inputText value="#{row.valorBigDecimal}" id="it09"
+																		</p:inputText> 
+																		
+																		<p:inputText value="#{row.valorBigDecimal}" id="it09"
 																			rendered="#{row.tipoDato.idTipoDato == 3 and (row.tipoCelda.idTipoCelda == 4 or row.tipoCelda.idTipoCelda == 5)}"
 																			maximumLength="#{msg.constantes_text_length_decimal}"
 																			disabled="#{row.tipoCelda.idTipoCelda == 4 or row.tipoCelda.idTipoCelda == 5}"
@@ -257,20 +259,26 @@
 																				locale="#{configuradorDisenoBackingBean.localeCL}"
 																				pattern="##,###,###,###.####" />
 
-																		</p:inputText> <p:calendar value="#{row.valorDate}" id="it10"
+																		</p:inputText> 
+																		
+																		<p:calendar value="#{row.valorDate}" id="it10"
 																			navigator="true" pattern="dd-MM-yyyy" label=" "
-																			effect="fade" showOn="button"
+																			effect="fade"
 																			locale="#{configuradorDisenoBackingBean.localeCL}"
 																			rendered="#{row.tipoDato.idTipoDato == 1 and row.tipoCelda.idTipoCelda == 6}">
-																		</p:calendar> <!-- Editor de tipo de celda y tipo de dato --> <p:tooltip
+																		</p:calendar> 																																				
+																		<!-- Editor de tipo de celda y tipo de dato --> 																		
+																		<p:tooltip
 																			for="clEditCell"
 																			value="Editar Celda [#{row.idFila},#{row.idColumna}]"
-																			showEffect="drop" /> <p:commandLink id="clEditCell"
+																			showEffect="drop" /> 
+																			
+																		<p:commandLink id="clEditCell"
 																			style="float:left;"
 																			actionListener="#{configuradorDisenoBackingBean.prepareEditarCeldaAction}">
 																			<f:attribute value="#{row}" name="celda" />
-																			<h:graphicImage style="vertical-align: middle;"
-																				value="/resources/images/icon/table-cell_16x16.png" />
+																			<p:graphicImage style="vertical-align: middle;"
+																				styleClass="ui-icon  ui-icon-calculator"/>
 																		</p:commandLink>
 
 																	</span>
