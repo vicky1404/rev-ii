@@ -469,15 +469,18 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
             	 this.getVersionList().add(new Version());
             	 setEstructuraList(null);
             }
+            
             SortHelper.sortVersionDesc(this.getVersionList());
-            setRenderBotonEditar(true);            
+            
+            this.setRenderBotonEditar(true);             
+            this.setAlmacenado(true);
+            this.setRenderBotonEditar(true);
+            this.setRenderBotonEditarVersion(false);
+            
         }catch(Exception e){
             super.addErrorMessage("Se ha producido un error al copiar la configuración.");
             LOG.error(e.getMessage(),e);
-        }
-        setAlmacenado(false);
-        
-    
+        }                   
     }
     
     public boolean isRenderEstructura() {
