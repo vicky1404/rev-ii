@@ -106,7 +106,7 @@ public class CargadorEeffBackingBean extends AbstractBackingBean {
             versionEeff.setTipoEstadoEeff(tipoEstadoEeff);
             versionEeff.setUsuario(getNombreUsuario());
             versionEeff.setVigencia(1L);
-            versionEeff.setPeriodo(periodo);
+            //versionEeff.setPeriodoEmpresa(periodo);//TODO Periodo empresa
            
             for(EstadoFinanciero eeff : eeffMap.values()){
                

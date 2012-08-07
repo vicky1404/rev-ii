@@ -21,8 +21,9 @@ import cl.mdr.ifrs.vo.GrillaModelVO;
 import cl.mdr.ifrs.vo.GrillaVO;
 import cl.mdr.ifrs.vo.TableModelVO;
 
-import java.text.MessageFormat;
 
+
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -32,11 +33,13 @@ import java.util.Map;
 
 import javax.el.ValueExpression;
 
+
 import javax.faces.application.FacesMessage;
 import javax.faces.component.html.HtmlOutputText;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.component.column.Column;
+import org.primefaces.component.fileupload.FileUpload;
 import org.primefaces.model.UploadedFile;
 
 
@@ -720,8 +723,8 @@ public class GeneradorDisenoHelper {
         return newCelda;
     }
     
-    public static UploadedFile archivoEstructuraValidator(FacesContext facesContext, UploadedFile uploadedFile/*, InputFile inputFile()*/) throws Exception{
-        /*uploadedFile.getInputstream();
+    public static UploadedFile archivoEstructuraValidator(FacesContext facesContext, UploadedFile uploadedFile , FileUpload inputFile) throws Exception{
+        uploadedFile.getInputstream();
         if (!uploadedFile.getFileName().endsWith(EXCEL_EXTENSION)) {   
             FacesMessage message = new FacesMessage();
             message.setSeverity(FacesMessage.SEVERITY_ERROR);
@@ -732,13 +735,13 @@ public class GeneradorDisenoHelper {
             inputFile.setValid(Boolean.FALSE);
             return null;
         }
-        if (uploadedFile.getLength() > Util.getLong(PropertyManager.getInstance().getMessage("constantes_max_excel_file_bytes"),new Long(0)).longValue()) {
+        if (uploadedFile.getSize() > Util.getLong(PropertyManager.getInstance().getMessage("constantes_max_excel_file_bytes"),new Long(0)).longValue()) {
             FacesContext.getCurrentInstance().addMessage((inputFile).getClientId(FacesContext.getCurrentInstance()),
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR, null, PropertyManager.getInstance().getMessage("general_mensaje_validacion_upload_excel_maximo_permitido")));
             inputFile.resetValue();
             inputFile.setValid(Boolean.FALSE);
             return null;
-        }        */
+        }        
         return uploadedFile;
     }
     

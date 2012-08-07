@@ -1080,7 +1080,7 @@ public class GeneradorDisenoBackingBean extends AbstractBackingBean {
     public void archivoEstructuraValidator(FacesContext facesContext, UIComponent uIComponent, Object object){
 
         try {
-            setUploadedFile(GeneradorDisenoHelper.archivoEstructuraValidator(facesContext, (UploadedFile)object));
+            //setUploadedFile(GeneradorDisenoHelper.archivoEstructuraValidator(facesContext, (UploadedFile)object));//TODO Agregar metodo 
         } catch (Exception e) {
             logger.error(e.getCause(), e);
             addErrorMessage(PropertyManager.getInstance().getMessage("Error al procesar archivo"));
