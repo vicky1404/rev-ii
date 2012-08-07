@@ -45,12 +45,12 @@
 	  				<p:outputLabel value="#{msg.label_periodo}" for="somMesPeriodo"/>
 	  			</td>
 	  			<td>		
-	  				<p:selectOneMenu value="#{formula.filtroBackingBean.periodo.mesPeriodo}" id="somMesPeriodo" required="true" label="#{msg.label_mes_periodo}" binding="#{formula.comboBuscarMeses}">
+	  				<p:selectOneMenu value="#{formula.filtroBackingBean.periodoEmpresa.periodo.mesPeriodo}" id="somMesPeriodo" required="true" label="#{msg.label_mes_periodo}" binding="#{formula.comboBuscarMeses}">
 	  					<f:selectItem itemLabel="#{msg.label_mes_periodo}" />
 	  					<f:selectItems value="#{formula.componenteBackingBean.meses}" id="siMeses"/>	  					
 	  				</p:selectOneMenu>
 	  				<p:spacer width="10"></p:spacer>
-	  				<p:selectOneMenu value="#{formula.filtroBackingBean.periodo.anioPeriodo}" id="somAnioPeriodo" required="true" label="#{msg.label_anio_periodo}" binding="#{formula.comboBuscarAnio}">
+	  				<p:selectOneMenu value="#{formula.filtroBackingBean.periodoEmpresa.periodo.anioPeriodo}" id="somAnioPeriodo" required="true" label="#{msg.label_anio_periodo}" binding="#{formula.comboBuscarAnio}">
 	  					<f:selectItem itemLabel="#{msg.label_anio_periodo}" />
 	  					<f:selectItems value="#{formula.componenteBackingBean.anios}" id="siAnios" />	  					
 	  				</p:selectOneMenu>
