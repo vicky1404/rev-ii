@@ -11,7 +11,7 @@
 			
 			<p:ajaxStatus onstart="statusDialogNoModal.show();" oncomplete="statusDialogNoModal.hide();" />
 			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
-		<p:panel id="filtro" header="Estados Financieros - Periodo : #{eeff.periodo.periodoFormat}" toggleable="true"  closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel">
+			<p:panel id="filtro" header="Estados Financieros - Periodo : #{eeff.periodo.periodoFormat}" toggleable="true"  closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel">
 		 
 		 	<table border="0" width="40%">
 		 	<tr>
@@ -82,10 +82,42 @@
     			<h:outputText value="#{tree.col6 eq 1 ? 'SI' : tree.col6 eq 0 ? 'NO' : '' }" rendered="#{tree.image == null}"/>
     		</p:column>    	
     	</p:treeTable>  
+    	
+    	<p:spacer height="10"></p:spacer>
+    	
+    	
+    	
+    	<p:tabView id="tabView1">
+    		<p:tab id="tab1" title="Mapeo de celdas con estados financieros">
+    			<h:panelGrid columns="7" cellpadding="10">
+    				<h:outputLabel value="Celda : " id="ol1" for="it2"/>
+    			 	<p:inputText  value="#{eeff.relCelda}" readonly="true" size="7" binding="#{eeff.relCeldaText}" id="it2"/>
+    			 	<h:outputLabel value="Relación Fecu" id="ol4" for="it4"/>
+	                <p:inputTextarea value="#{eeff.relFecu}"  readonly="true" cols="10" binding="#{eeff.relFecuText}" id="it4"></p:inputTextarea>
+	                <h:outputLabel value="Relación Cuenta" id="ol2" for="it3"/>
+	                <p:inputTextarea value="#{eeff.relCuenta}" readonly="true" cols="10" binding="#{eeff.relCuentaText}" id="it3"></p:inputTextarea>
+	               
+           			<p:commandButton id="cil6" actionListener="#{eeff.guardarRelacionListener}" icon="ui-icon-disk" value="Guardar"></p:commandButton>
+                
+    			</h:panelGrid>	
+    		</p:tab>    	
+    	</p:tabView>
+    	
 		
 		<p:spacer height="10"></p:spacer>
 		
-		<p:dataTable var="row" value="#{eeff.grillaVO.rows}" rendered="#{eeff.renderEstructuraTabla}">
+		
+		<p:tabView id="tabView2">
+    		<p:tab id="tab2" title="Información de estados financieros">
+    		
+    			<p:selectOneMenu label="Código Fecu" id="soc1" value="#{eeff.estadoFinanciero}" converter="estadoFinancieroConverter">
+                		<f:selectItem itemLabel="#{msg.label_seleccionar}"></f:selectItem>
+                        <f:selectItems value="#{eeff.fecuItems}" id="mesesPeriodo"/>
+                        <p:ajax update="@form" listener="#{eeff.codigoFecuChangeListener}" event="change"  />
+                </p:selectOneMenu>
+    		
+    		
+    			<p:dataTable var="row" value="#{eeff.grillaVO.rows}" rendered="#{eeff.renderEstructuraTabla}">
 		
 			<p:columns value="#{eeff.grillaVO.columnas}" var="col" columnIndexVar="index" id="columnas">
 				 <f:facet name="header">
@@ -179,63 +211,10 @@
                     </h:outputText>
                 </p:column>
             </p:dataTable>
-            
-        <p:spacer height="10" id="s322"/>
 		
-		<table align="left">
-            <tr>
-            <td>
-                <p:selectOneMenu label="Código Fecu" id="soc1" value="#{eeff.estadoFinanciero}" converter="estadoFinancieroConverter">
-                		<f:selectItem itemLabel="#{msg.label_seleccionar}"></f:selectItem>
-                        <f:selectItems value="#{eeff.fecuItems}" id="mesesPeriodo"/>
-                        <p:ajax update="@form" listener="#{eeff.codigoFecuChangeListener}" event="change"  />
-                </p:selectOneMenu>
-            </td>
-            <td>
-                <p:spacer width="30" id="s9"/>
-            </td>
-            <td>
-                <h:outputLabel value="Celda : " id="ol1"/>
-            </td>
-            <td>
-                <p:inputText  value="#{eeff.relCelda}" readonly="true" size="7" binding="#{eeff.relCeldaText}" id="it2"/>
-            </td>
-            <td>
-                <p:spacer width="25" id="s12"/>
-            </td>
-            <td>
-                <h:outputLabel value="Relación Fecu" id="ol4"/>
-            </td>
-            <td>
-                <!-- p:inputText value="#{eeff.relFecu}" readonly="true"  size="10" binding="#{eeff.relFecuText}" id="it4"/-->
-                <p:inputTextarea value="#{eeff.relFecu}"  readonly="true" cols="10" binding="#{eeff.relFecuText}" id="it4"></p:inputTextarea>
-            </td>
-            <td>
-                <p:spacer width="25" id="s11"/>
-            </td>
-            <td>
-                <h:outputLabel value="Relación Cuenta" id="ol2"/>
-            </td>
-            <td>
-                <!-- p:inputText value="#{eeff.relCuenta}" readonly="true" size="10" binding="#{eeff.relCuentaText}" id="it3"/-->
-                <p:inputTextarea value="#{eeff.relCuenta}" readonly="true" cols="10" binding="#{eeff.relCuentaText}" id="it3"></p:inputTextarea>
-            </td>
-            <td>
-                <p:spacer width="25" id="s13"/>
-            </td>
-            <td>
-                <p:spacer width="20" id="s10"/>
-            </td>
-            <td>
-                <h:outputLabel value="Guardar" id="ol5"/>
-            </td>
-            <td>
-                <p:commandLink id="cil6" actionListener="#{eeff.guardarRelacionListener}">
-                	<p:graphicImage value="/resources/images/icon/save2.png" />
-                </p:commandLink>
-            </td>
-            </tr>
-        </table>
+		
+    		</p:tab>    	
+    	</p:tabView>
 		
 		</h:form>
 	</ui:define>
