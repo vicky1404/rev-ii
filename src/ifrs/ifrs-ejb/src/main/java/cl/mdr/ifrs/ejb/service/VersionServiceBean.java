@@ -34,7 +34,6 @@ import cl.mdr.ifrs.ejb.entity.Estructura;
 import cl.mdr.ifrs.ejb.entity.Grilla;
 import cl.mdr.ifrs.ejb.entity.HistorialVersion;
 import cl.mdr.ifrs.ejb.entity.Html;
-import cl.mdr.ifrs.ejb.entity.Periodo;
 import cl.mdr.ifrs.ejb.entity.PeriodoEmpresa;
 import cl.mdr.ifrs.ejb.entity.Texto;
 import cl.mdr.ifrs.ejb.entity.TipoCuadro;
@@ -124,7 +123,7 @@ public class VersionServiceBean implements VersionServiceLocal{
     	
     	//Periodo periodo = periodoService.findMaxPeriodoIniciado();
         
-        if (!periodoEmpresa.getIdPeriodo().equals(EstadoPeriodo.ESTADO_INICIADO)) {
+        if (periodoEmpresa.getEstadoPeriodo().getIdEstadoPeriodo().equals(EstadoPeriodo.ESTADO_CERRADO)) {
             throw new PeriodoException("El período debe estar en estado iniciado");
         }
 
@@ -145,19 +144,19 @@ public class VersionServiceBean implements VersionServiceLocal{
         
         final BigDecimal idVersion = (BigDecimal) em.createNativeQuery("select SEQ_VERSION.nextval from dual").getSingleResult();
         em.createNativeQuery(" INSERT "+
-        					 " INTO IFRS_VERSION(ID_VERSION,ID_CATALOGO,ID_PERIODO,ID_RUT,ID_ESTADO_CUADRO,VERSION,VIGENCIA,FECHA_CREACION,COMENTARIO,FECHA_ULTIMO_PROCESO,USUARIO)"+
-        					 " VALUES(?,?,?,?,?,?,?,?,?,?)").
+        					 " INTO "+Constantes.VERSION+" (ID_VERSION,ID_CATALOGO,ID_PERIODO,ID_ESTADO_CUADRO,VERSION,VIGENCIA,FECHA_CREACION,COMENTARIO,FECHA_ULTIMO_PROCESO,USUARIO,ID_RUT)"+
+        					 " VALUES(?,?,?,?,?,?,?,?,?,?,?)").
         					   setParameter(1, idVersion).
         					   setParameter(2, versionVigente.getCatalogo().getIdCatalogo()).
-        					   setParameter(3, versionVigente.getPeriodoEmpresa().getIdPeriodo()).
-        					   setParameter(3, versionVigente.getPeriodoEmpresa().getIdRut()).
+        					   setParameter(3, versionVigente.getPeriodoEmpresa().getIdPeriodo()).        					  
         					   setParameter(4, versionVigente.getEstado().getIdEstado()).
         					   setParameter(5, versionVigente.getVersion()).
         					   setParameter(6, versionVigente.getVigencia()).
         					   setParameter(7, versionVigente.getFechaCreacion()).
         					   setParameter(8, versionVigente.getComentario()).
         					   setParameter(9, versionVigente.getFechaUltimoProceso()).
-        					   setParameter(10, versionVigente.getUsuario()).        					   
+        					   setParameter(10, versionVigente.getUsuario()). 
+        					   setParameter(11, versionVigente.getPeriodoEmpresa().getIdRut()). 
         					   executeUpdate();
         
         for(Version version : versiones){
@@ -182,7 +181,7 @@ public class VersionServiceBean implements VersionServiceLocal{
             estructuras.set(i,estructura);
             final BigDecimal idEstructura = (BigDecimal) em.createNativeQuery("select SEQ_ESTRUCTURA.nextval from dual").getSingleResult();
             em.createNativeQuery(" INSERT "+
-            		             " INTO IFRS_ESTRUCTURA(ID_ESTRUCTURA, ID_VERSION,ID_TIPO_ESTRUCTURA,ORDEN)"+
+            		             " INTO "+Constantes.ESTRUCTURA+" (ID_ESTRUCTURA, ID_VERSION,ID_TIPO_ESTRUCTURA,ORDEN)"+
             					 " VALUES(?,?,?,?)").
             					   setParameter(1, idEstructura).
             					   setParameter(2, idVersion).
@@ -192,7 +191,7 @@ public class VersionServiceBean implements VersionServiceLocal{
             
             if(estructuraModelMap.containsKey(estructura.getOrden())){
                 EstructuraModel estructuraModel = estructuraModelMap.get(estructura.getOrden());
-                List<Columna> columnas = new ArrayList<Columna>();
+                //List<Columna> columnas = new ArrayList<Columna>();
                 if(estructura.getTipoEstructura().getIdTipoEstructura() == TipoEstructura.ESTRUCTURA_TIPO_GRILLA){   
                 	
                     Grilla grilla = new Grilla();
@@ -201,7 +200,7 @@ public class VersionServiceBean implements VersionServiceLocal{
                     grilla.setTitulo(estructuraModel.getTituloGrilla());                                        
                     //em.persist(grilla);
                     em.createNativeQuery(" INSERT "+
-                    			   		 " INTO IFRS_GRILLA(ID_GRILLA,TITULO,TIPO_FORMULA)"+
+                    			   		 " INTO "+Constantes.GRILLA+" (ID_GRILLA,TITULO,TIPO_FORMULA)"+
                     		       		 " VALUES(?, ?, ?)").
                     		       		   setParameter(1, grilla.getIdGrilla().longValue()).
                     		       		   setParameter(2, grilla.getTitulo()).
@@ -211,7 +210,7 @@ public class VersionServiceBean implements VersionServiceLocal{
                         columna.setGrilla(grilla);                        
                         //em.persist(columna);
                         em.createNativeQuery(" INSERT "+
-                        					 " INTO IFRS_COLUMNA(ID_COLUMNA, ID_GRILLA, TITULO_COLUMNA, ORDEN, ANCHO, ROW_HEADER)"+
+                        					 " INTO "+Constantes.COLUMNA+" (ID_COLUMNA, ID_GRILLA, TITULO_COLUMNA, ORDEN, ANCHO, ROW_HEADER)"+
                         					 " VALUES(?, ?, ?, ?, ?, ?)").
                         					   setParameter(1, columna.getIdColumna()).
                         					   setParameter(2, grilla.getIdGrilla()).
@@ -227,7 +226,7 @@ public class VersionServiceBean implements VersionServiceLocal{
                         	logger.info("Insertando celda col->" + celda.getIdColumna() + " fila->" + celda.getIdFila() + " grilla->" + celda.getIdGrilla());
                         	//em.persist(celda);
                         	em.createNativeQuery(" INSERT"+
-                        						 " INTO IFRS_CELDA(ID_COLUMNA, ID_FILA, ID_GRILLA, ID_TIPO_CELDA, ID_TIPO_DATO, VALOR)"+
+                        						 " INTO "+Constantes.CELDA+" (ID_COLUMNA, ID_FILA, ID_GRILLA, ID_TIPO_CELDA, ID_TIPO_DATO, VALOR)"+
                         			             " VALUES(?, ?, ?, ?, ?, ?)").
                         			               setParameter(1, celda.getIdColumna()).
                         			               setParameter(2, celda.getIdFila()).
@@ -239,7 +238,7 @@ public class VersionServiceBean implements VersionServiceLocal{
                         }
                         for(AgrupacionColumna agrupacionColumna : columna.getAgrupacionColumnaList()){
                         	em.createNativeQuery(" INSERT "+
-                        						 " INTO IFRS_AGRUPACION_COLUMNA(ID_NIVEL,ID_COLUMNA,ID_GRILLA,TITULO,GRUPO)"+
+                        						 " INTO "+Constantes.AGRUPACION_COLUMNA+" (ID_NIVEL,ID_COLUMNA,ID_GRILLA,TITULO,GRUPO)"+
                         						 " VALUES(?, ?, ?, ?, ?)").
                         						   setParameter(1, agrupacionColumna.getIdNivel()).
                         			               setParameter(2, agrupacionColumna.getIdColumna()).
@@ -254,7 +253,7 @@ public class VersionServiceBean implements VersionServiceLocal{
                     Texto texto = estructuraModel.getTexto();
                     texto.setIdTexto(idEstructura.longValue());                    
                     em.persist(texto);                    
-                }else{                    
+                }else if(estructura.getTipoEstructura().getIdTipoEstructura() == TipoEstructura.ESTRUCTURA_TIPO_HTML){                    
                     Html html = estructuraModel.getHtml();
                     html.setIdHtml(idEstructura.longValue());                   
                     em.persist(html);                    
@@ -281,7 +280,7 @@ public class VersionServiceBean implements VersionServiceLocal{
                     	estructura.setIdEstructura(idEstructura.longValue());
                     	
                     	em.createNativeQuery(" INSERT "+
-				           		             " INTO IFRS_ESTRUCTURA(ID_ESTRUCTURA, ID_VERSION,ID_TIPO_ESTRUCTURA,ORDEN)"+
+				           		             " INTO "+Constantes.ESTRUCTURA+" (ID_ESTRUCTURA, ID_VERSION,ID_TIPO_ESTRUCTURA,ORDEN)"+
 				           					 " VALUES(?,?,?,?)").
 				           					   setParameter(1, idEstructura).
 				           					   setParameter(2, version.getIdVersion()).
@@ -295,7 +294,7 @@ public class VersionServiceBean implements VersionServiceLocal{
                         grilla.setEstructura(estructura);
                         grilla.setTitulo(estructuraModel.getTituloGrilla());
                     	em.createNativeQuery(" INSERT "+
-				           			   		 " INTO IFRS_GRILLA(ID_GRILLA,TITULO,TIPO_FORMULA)"+
+				           			   		 " INTO "+Constantes.GRILLA+" (ID_GRILLA,TITULO,TIPO_FORMULA)"+
 				           		       		 " VALUES(?, ?, ?)").
 				           		       		   setParameter(1, grilla.getIdGrilla().longValue()).
 				           		       		   setParameter(2, grilla.getTitulo()).
@@ -321,7 +320,7 @@ public class VersionServiceBean implements VersionServiceLocal{
                         //columna.setGrilla(grilla);                        
                         
                         em.createNativeQuery(" INSERT "+
-                        					 " INTO IFRS_COLUMNA(ID_COLUMNA, ID_GRILLA, TITULO_COLUMNA, ORDEN, ANCHO, ROW_HEADER)"+
+                        					 " INTO "+Constantes.COLUMNA+" (ID_COLUMNA, ID_GRILLA, TITULO_COLUMNA, ORDEN, ANCHO, ROW_HEADER)"+
                         					 " VALUES(?, ?, ?, ?, ?, ?)").
                         					   setParameter(1, columna.getIdColumna()).
                         					   setParameter(2, grilla.getIdGrilla()).
@@ -337,7 +336,7 @@ public class VersionServiceBean implements VersionServiceLocal{
                         	logger.info("Insertando celda col->" + celda.getIdColumna() + " fila->" + celda.getIdFila() + " grilla->" + celda.getIdGrilla());
                         	
                         	em.createNativeQuery(" INSERT"+
-                        						 " INTO IFRS_CELDA(ID_COLUMNA, ID_FILA, ID_GRILLA, ID_TIPO_CELDA, ID_TIPO_DATO, VALOR)"+
+                        						 " INTO "+Constantes.CELDA+" (ID_COLUMNA, ID_FILA, ID_GRILLA, ID_TIPO_CELDA, ID_TIPO_DATO, VALOR)"+
                         			             " VALUES(?, ?, ?, ?, ?, ?)").
                         			               setParameter(1, celda.getIdColumna()).
                         			               setParameter(2, celda.getIdFila()).
@@ -349,7 +348,7 @@ public class VersionServiceBean implements VersionServiceLocal{
                         }
                         for(AgrupacionColumna agrupacionColumna : columna.getAgrupacionColumnaList()){
                         	em.createNativeQuery(" INSERT "+
-                        						 " INTO IFRS_AGRUPACION_COLUMNA(ID_NIVEL,ID_COLUMNA,ID_GRILLA,TITULO,GRUPO)"+
+                        						 " INTO "+Constantes.AGRUPACION_COLUMNA+" (ID_NIVEL,ID_COLUMNA,ID_GRILLA,TITULO,GRUPO)"+
                         						 " VALUES(?, ?, ?, ?, ?)").
                         						   setParameter(1, agrupacionColumna.getIdNivel()).
                         			               setParameter(2, agrupacionColumna.getIdColumna()).
@@ -364,7 +363,7 @@ public class VersionServiceBean implements VersionServiceLocal{
                     Texto texto = estructuraModel.getTexto();
                     texto.setIdTexto(estructura.getIdEstructura());                    
                     em.merge(texto);                    
-                }else{                    
+                }else if(estructura.getTipoEstructura().getIdTipoEstructura() == TipoEstructura.ESTRUCTURA_TIPO_HTML){                    
                     Html html = estructuraModel.getHtml();
                     html.setIdHtml(estructura.getIdEstructura());                   
                     em.merge(html);                    
