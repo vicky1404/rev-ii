@@ -5,7 +5,6 @@ import static ch.lambdaj.Lambda.index;
 import static ch.lambdaj.Lambda.on;
 import static cl.mdr.ifrs.ejb.cross.Constantes.PERSISTENCE_UNIT_NAME;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +17,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import cl.mdr.ifrs.ejb.cross.EeffUtil;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Celda;
 import cl.mdr.ifrs.ejb.entity.DetalleEeff;
@@ -33,7 +33,7 @@ import cl.mdr.ifrs.ejb.service.local.EstadoFinancieroServiceLocal;
 @Stateless
 public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal {
   
-    @PersistenceContext(unitName = PERSISTENCE_UNIT_NAME)
+	@PersistenceContext(unitName = PERSISTENCE_UNIT_NAME)
     private EntityManager em;
 
     public EstadoFinancieroServiceBean() {
@@ -142,10 +142,7 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
         Map<Long, EstadoFinanciero>  eeffMap = index(eeffs, on(EstadoFinanciero.class).getIdFecu());
         Map<Long, DetalleEeff>  detalleMap = index(detalleEeffs,on(DetalleEeff.class).getIdCuenta());
         
-        List<RelacionEeff> relEeffSaveList = new ArrayList<RelacionEeff>();
-        List<RelacionDetalleEeff> relDetSaveList = new ArrayList<RelacionDetalleEeff>();
-        
-        
+   
         Iterator i = relacionMap.entrySet().iterator();
         while(i.hasNext()){
             
@@ -163,7 +160,7 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
                 
                 while(fecuToken.hasMoreTokens()){
                     String token = fecuToken.nextToken();
-                    Long key = 0L;//EeffUtil.getLongFromKey(token); //TODO Descomentar cuando al implementar el metodo.
+                    Long key = EeffUtil.getLongFromKey(token); 
                     if(!key.equals(0L)){
                         EstadoFinanciero eeff = eeffMap.get(key);
                         if(eeff != null){
@@ -176,7 +173,7 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
                 
                 while(cuentaToken.hasMoreTokens()){
                     String token = cuentaToken.nextToken();
-                    Long key = 0L;//EeffUtil.getLongFromKey(token);//TODO Descomentar cuando al implementar el metodo. 
+                    Long key = EeffUtil.getLongFromKey(token);
                     if(!key.equals(0L)){
                         DetalleEeff detEeff = detalleMap.get(key);
                         if(detEeff != null){

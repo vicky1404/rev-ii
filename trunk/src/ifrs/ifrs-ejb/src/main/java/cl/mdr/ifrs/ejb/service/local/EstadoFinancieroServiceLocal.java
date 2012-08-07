@@ -16,7 +16,7 @@ import cl.mdr.ifrs.ejb.entity.VersionEeff;
 @Local
 public interface EstadoFinancieroServiceLocal {
     
-    List<TipoEstadoEeff> getEstadoEeffFindAll();
+List<TipoEstadoEeff> getEstadoEeffFindAll();
     
     List<VersionEeff> getVersionEeffFindByPeriodo(Long idPeriodo);
     
