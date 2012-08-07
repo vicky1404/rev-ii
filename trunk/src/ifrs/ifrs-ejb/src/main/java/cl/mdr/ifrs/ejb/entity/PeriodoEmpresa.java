@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -15,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import cl.mdr.ifrs.ejb.common.Constantes;
+import cl.mdr.ifrs.ejb.entity.pk.PeriodoEmpresaPK;
 
 @Entity
 @NamedQueries( { @NamedQuery(name = PeriodoEmpresa.FIND_MAX_BY_EMPRESA, 
@@ -34,6 +36,7 @@ import cl.mdr.ifrs.ejb.common.Constantes;
 					
 })
 @Table(name = Constantes.PERIODO_EMPRESA)
+@IdClass(PeriodoEmpresaPK.class)
 public class PeriodoEmpresa implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -42,11 +45,11 @@ public class PeriodoEmpresa implements Serializable{
 	public static final String FIND_BY_ID = "PeriodoEmpresa.findById";
 
 	@Id
-	@Column(name="ID_PERIODO")
+	@Column(name="ID_PERIODO", nullable = false, insertable = false, updatable = false)
 	private Long idPeriodo;
 
 	@Id
-	@Column(name="ID_RUT")
+	@Column(name="ID_RUT", nullable = false, insertable = false, updatable = false)
 	private Long idRut;
 
     @ManyToOne
