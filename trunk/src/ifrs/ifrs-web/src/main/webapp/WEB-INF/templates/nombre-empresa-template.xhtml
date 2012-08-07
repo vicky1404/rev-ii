@@ -8,9 +8,10 @@
 
 <p:toolbar>
 		<p:toolbarGroup align="left" rendered="#{not empty filtroBackingBean.empresa}">
-			<h:panelGrid columns="2" id="grid" > 
+			<h:panelGrid columns="5" id="grid" > 
 			<h:outputText value="Empresa : " style="width:60px;"/>
 			<h:outputText value="#{filtroBackingBean.empresa.nombre}" rendered="#{not empty filtroBackingBean.empresa.nombre}" />
+			<h:outputText value="|" rendered="#{not empty filtroBackingBean.empresa.nombre}" />
 			<h:outputText value="Razón Social : " style="width:60px;" />
 			<h:outputText value="#{filtroBackingBean.empresa.razonSocial}" rendered="#{not empty filtroBackingBean.empresa.nombre}" />
 			</h:panelGrid>
