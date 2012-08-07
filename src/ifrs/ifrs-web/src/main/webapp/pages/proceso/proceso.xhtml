@@ -11,19 +11,19 @@
 			<p:messages globalOnly="true" id="mensajes_proceso" autoUpdate="true" />
 			<p:ajaxStatus onstart="statusDialog.show();"
 				oncomplete="statusDialog.hide();" />
-			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />			
-			<p:panel id="pb1" header="#{msg.general_titulo_busqueda_aplicacion}" toggleable="true" closable="false">
+			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
+			<p:panel id="pb1" header="#{msg.general_titulo_busqueda_aplicacion}"
+				toggleable="true" closable="false">
 				<table border="0" width="30%" align="center" id="tb1APeriodo">
 					<tr>
-					    <td><h:outputLabel value="#{msg.label_periodo}" /></td>
+						<td><h:outputLabel value="#{msg.label_periodo}" /></td>
 						<td><p:selectOneMenu label="#{msg.etiqueta_periodo}"
 								id="soc1Periodo"
 								value="#{procesoBackingBean.filtroBackingBean.mes}"
 								showRequired="true" required="true"
 								requiredMessage="#{msg.periodo_mensaje_seleccione_mes}">
 
-								<f:selectItem itemLabel="#{msg.etiqueta_mes_periodo}"
-									/>
+								<f:selectItem itemLabel="#{msg.etiqueta_mes_periodo}" />
 								<f:selectItems
 									value="#{procesoBackingBean.componenteBackingBean.meses}"
 									id="mesesPeriodo" />
@@ -34,8 +34,7 @@
 								required="true"
 								requiredMessage="#{msg.periodo_mensaje_seleccione_anio}">
 
-								<f:selectItem itemLabel="#{msg.etiqueta_anio_periodo}"
-									/>
+								<f:selectItem itemLabel="#{msg.etiqueta_anio_periodo}" />
 								<f:selectItems
 									value="#{procesoBackingBean.componenteBackingBean.anios}"
 									id="aniosPeriodo" />
@@ -52,17 +51,19 @@
 				<div align="center">
 
 					<p:dataTable value="#{procesoBackingBean.versionList}" var="row"
-						rowBandingInterval="0" id="n1Cat" paginator="true" rows="3" paginatorPosition="bottom"
+						rowBandingInterval="0" id="n1Cat" paginator="true" rows="3"
+						paginatorPosition="bottom"
 						rendered="#{procesoBackingBean.renderVersionList}"
 						emptyMessage="#{msg.periodo_busqueda_sin_resultado}">
 
 						<p:column id="c1" headerText="#{msg.label_ver}">
-						   <div align="center">
-						        <p:tooltip for="cl1" value="#{msg.label_cargar_datos_de_la_version} #{row.version} de #{row.catalogo.titulo}"></p:tooltip>
-								<p:commandLink id="cl1"									
+							<div align="center">
+								<p:tooltip for="cl1"
+									value="#{msg.label_cargar_datos_de_la_version} #{row.version} de #{row.catalogo.titulo}"></p:tooltip>
+								<p:commandLink id="cl1"
 									actionListener="#{procesoBackingBean.buscarCuadro}"
 									partialSubmit="false" update="@form">
-									<p:graphicImage styleClass="ui-icon ui-icon-zoomin"/>
+									<p:graphicImage styleClass="ui-icon ui-icon-zoomin" />
 									<f:attribute name="version" value="#{row}" />
 								</p:commandLink>
 							</div>
@@ -87,9 +88,9 @@
 						<p:column headerText="#{msg.tabla_catalogo_fecha_proceso}"
 							id="c6Periodo">
 							<div align="right">
-							<h:outputText value="#{row.fechaCreacion}" id="ot6Periodo">
-								<f:convertDateTime pattern="#{msg.fecha_hora_pattern}" />
-							</h:outputText>
+								<h:outputText value="#{row.fechaCreacion}" id="ot6Periodo">
+									<f:convertDateTime pattern="#{msg.fecha_hora_pattern}" />
+								</h:outputText>
 							</div>
 						</p:column>
 						<p:column headerText="Vigente" id="c7Periodo">
@@ -99,46 +100,49 @@
 					</p:dataTable>
 				</div>
 			</p:panel>
-			
+
 			<p:spacer height="30" id="sp1" width="10" />
-			
-			<h:panelGroup id="pg2" rendered="#{procesoBackingBean.renderVersionList}">
-			
-			<div align="left">
-				<p:toolbar rendered="#{not empty procesoBackingBean.estructuraList}">
 
-					<p:toolbarGroup align="left">
-						<p:commandButton value="#{msg.general_control_guardar}"
-							icon="ui-icon-disk" id="btn1"
-							action="#{procesoBackingBean.guardar}" partialSubmit="false"
-							update="@form" />
-						<p:spacer width="10px" />
-						<h:outputText value="Periodo : #{procesoBackingBean.versionSeleccionada.periodoEmpresa.periodo.periodoFormat} - #{procesoBackingBean.filtroBackingBean.catalogo.titulo}" />
-					</p:toolbarGroup>
+			<h:panelGroup id="pg2"
+				rendered="#{procesoBackingBean.renderVersionList}">
 
-				</p:toolbar>
+				<div align="left">
+					<p:toolbar
+						rendered="#{not empty procesoBackingBean.estructuraList}">
+
+						<p:toolbarGroup align="left">
+							<p:commandButton value="#{msg.general_control_guardar}"
+								icon="ui-icon-disk" id="btn1"
+								action="#{procesoBackingBean.guardar}" partialSubmit="false"
+								update="@form" />
+							<p:spacer width="10px" />
+							<h:outputText
+								value="Periodo : #{procesoBackingBean.versionSeleccionada.periodoEmpresa.periodo.periodoFormat} - #{procesoBackingBean.filtroBackingBean.catalogo.titulo}" />
+						</p:toolbarGroup>
+
+					</p:toolbar>
 
 
-				<ui:repeat value="#{procesoBackingBean.estructuraList}" var="item" varStatus="status">
-					<ui:fragment rendered="#{item.tipoEstructura.idTipoEstructura eq 0}">
-						<ui:include src="/pages/proceso/grilla/grilla0.xhtml" />
-					</ui:fragment>
-					<ui:fragment rendered="#{item.tipoEstructura.idTipoEstructura eq 1}">
-						<ui:include src="/pages/proceso/html/html.xhtml" />
-					</ui:fragment>
-					<ui:fragment rendered="#{item.tipoEstructura.idTipoEstructura eq 2}">
-					    <ui:include src="/pages/proceso/texto/texto.xhtml" />
-					</ui:fragment>								
-				</ui:repeat>
+					<ui:repeat value="#{procesoBackingBean.estructuraList}" var="item"
+						varStatus="status">
+						<ui:fragment
+							rendered="#{item.tipoEstructura.idTipoEstructura eq 0}">
+							<ui:include src="/pages/proceso/grilla/grilla0.xhtml" />
+						</ui:fragment>
+						<ui:fragment
+							rendered="#{item.tipoEstructura.idTipoEstructura eq 1}">
+							<ui:include src="/pages/proceso/html/html.xhtml" />
+						</ui:fragment>
+						<ui:fragment
+							rendered="#{item.tipoEstructura.idTipoEstructura eq 2}">
+							<ui:include src="/pages/proceso/texto/texto.xhtml" />
+						</ui:fragment>
+					</ui:repeat>
 
-			</div>
-			
+				</div>
+
 			</h:panelGroup>
 
 		</h:form>
-
-
-
-
-	</ui:define>
+	</ui:define>	
 </ui:composition>

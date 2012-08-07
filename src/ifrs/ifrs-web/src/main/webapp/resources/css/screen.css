@@ -277,3 +277,21 @@ img.right {
 	color: #FFFFFF;
 }
 
+.ui-inputtext{
+	height:10px;
+}
+
+.ui-password{
+	height:10px;
+}
+
+.ui-selectonemenu-label{
+	height:10px;
+}
+
+.hasDatepicker{
+	height:10px;
+}
+
+
+
