@@ -31,6 +31,7 @@ import cl.mdr.ifrs.ejb.entity.Celda;
 import cl.mdr.ifrs.ejb.entity.Columna;
 import cl.mdr.ifrs.ejb.entity.Estructura;
 import cl.mdr.ifrs.ejb.entity.Grilla;
+import cl.mdr.ifrs.ejb.entity.Html;
 import cl.mdr.ifrs.ejb.entity.TipoCuadro;
 import cl.mdr.ifrs.ejb.entity.TipoEstructura;
 import cl.mdr.ifrs.ejb.entity.Version;
@@ -140,7 +141,7 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
             	estructuraModelPasoMap.put(i, this.getConfiguradorDisenoBackingBean().getEstructuraModelMap().get(estructuraI.getOrden()));
             }
             else{
-            	estructuraModelPasoMap.put(i, new EstructuraModel());
+            	estructuraModelPasoMap.put(i, new EstructuraModel(estructuraI.getTipoEstructura().getIdTipoEstructura()));
             }
             
             estructuraI.setOrden(i);
@@ -148,8 +149,8 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 
             if(estructuraI.getOrden().equals(estructuraSelected.getOrden())){                
                 i++;
-                estructuraModelPasoMap.put(i, new EstructuraModel());
-                estructura = new Estructura();
+                estructuraModelPasoMap.put(i, new EstructuraModel(estructuraI.getTipoEstructura().getIdTipoEstructura()));
+                estructura = new Estructura();                
                 estructura.setOrden(i);
                 estructuras.add(estructura);
             }
@@ -188,6 +189,11 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
     public void buscarEstructuraActionListener(ActionEvent event){ 
     	this.setEstructuraList(null);    	
     	this.setVersionEditable(((Version)event.getComponent().getAttributes().get("version")));
+    	if(this.getVersionEditable().getDatosModificados().equals(1L)){
+    		this.displayPopUp("dialogVersionNoEditable", FORM_NAME_PRINCIPAL);
+    		return;
+    	}
+    	
     	if(this.getVersionEditable() == null){
             return;
         }
@@ -213,7 +219,7 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
                     	}
                     	final List<Celda> celdaList = buildCeldaListByColumnas(grilla.getColumnaList());
                     	if(this.tieneFormulaEstatica(celdaList) || this.tieneFormulaDinamica(celdaList)){
-                    		super.addWarnMessage("Esta Versión no puede ser modificada por que tiene Fórmulas Configuradas");
+                    		this.displayPopUp("dialogVersionNoEditableFormula", FORM_NAME_PRINCIPAL);
                     		this.setEstructuraList(null);
                     		return;
                     	}

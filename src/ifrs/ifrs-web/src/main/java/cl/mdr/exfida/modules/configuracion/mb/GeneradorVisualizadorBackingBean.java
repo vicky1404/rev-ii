@@ -22,12 +22,15 @@ import cl.mdr.ifrs.ejb.entity.AgrupacionColumna;
 import cl.mdr.ifrs.ejb.entity.Celda;
 import cl.mdr.ifrs.ejb.entity.Columna;
 import cl.mdr.ifrs.ejb.entity.Estructura;
+import cl.mdr.ifrs.ejb.entity.Grilla;
 import cl.mdr.ifrs.ejb.entity.PeriodoEmpresa;
 import cl.mdr.ifrs.ejb.entity.TipoEstructura;
+import cl.mdr.ifrs.ejb.entity.Version;
 import cl.mdr.ifrs.exceptions.GrillaIncorrectaException;
 import cl.mdr.ifrs.exceptions.PeriodoException;
 import cl.mdr.ifrs.model.EstructuraModel;
 import cl.mdr.ifrs.vo.AgrupacionColumnaModelVO;
+import cl.mdr.ifrs.vo.AgrupacionModelVO;
 import cl.mdr.ifrs.vo.GrillaVO;
 
 @ManagedBean
@@ -53,6 +56,7 @@ public class GeneradorVisualizadorBackingBean extends AbstractBackingBean implem
 	}
 	
     public void guardarDisenoActionListener(ActionEvent action){
+    	Version versionResult = null;
         try {
         	
         	if(!isSelectedEmpresa())
@@ -72,9 +76,13 @@ public class GeneradorVisualizadorBackingBean extends AbstractBackingBean implem
             return;
         }
         try{
-        	PeriodoEmpresa periodoEmpresa = super.getFacadeService().getPeriodoService().getMaxPeriodoEmpresaByEmpresa(super.getFiltroBackingBean().getEmpresa().getIdRut());
-            super.getFacadeService().getVersionService().persistVersion(this.getGeneradorVersionBackingBean().getVersionList(), this.getGeneradorVersionBackingBean().getEstructuraList(), this.getConfiguradorDisenoBackingBean().getEstructuraModelMap(), super.getNombreUsuario(), periodoEmpresa);   
-            super.addInfoMessage("Se ha configurado correctamente la Revelación");
+        	final PeriodoEmpresa periodoEmpresa = super.getFacadeService().getPeriodoService().getMaxPeriodoEmpresaByEmpresa(super.getFiltroBackingBean().getEmpresa().getIdRut());
+        	versionResult = super.getFacadeService().getVersionService().persistVersion(this.getGeneradorVersionBackingBean().getVersionList(), this.getGeneradorVersionBackingBean().getEstructuraList(), this.getConfiguradorDisenoBackingBean().getEstructuraModelMap(), super.getNombreUsuario(), periodoEmpresa);   
+            if(versionResult != null){
+            	this.updateViewContent(versionResult);
+            	super.addInfoMessage("Se ha configurado correctamente la Revelación");
+            }
+            
         }catch(PeriodoException e){
         	super.addErrorMessage("Error, no se ha almacenado la información");
         	super.addErrorMessage(e.getMessage());
@@ -83,6 +91,37 @@ public class GeneradorVisualizadorBackingBean extends AbstractBackingBean implem
         	super.addErrorMessage("Error, no se ha almacenado la información");
             logger.error(e);
         }
+    }
+    
+    private void updateViewContent(final Version versionResult) throws Exception{
+    	 if(versionResult == null){
+    		 throw new Exception();
+    	 }
+    	 final List<Estructura> estructuras = super.getFacadeService().getEstructuraService().getEstructuraByVersion(versionResult, false);
+         if(estructuras==null || estructuras.size()==0){
+             this.setEstructuraList(null);
+             return;
+         }
+         for(Estructura estructura : estructuras){
+             if(estructura.getTipoEstructura().getIdTipoEstructura().equals(TipoEstructura.ESTRUCTURA_TIPO_GRILLA)){
+             	Grilla grilla = estructura.getGrilla();                    	
+             	if(grilla==null){
+             		continue;
+             	}
+             	
+             	estructura.getGrillaVO().setCeldaList(GeneradorDisenoHelper.builHtmlGrilla(grilla.getColumnaList()));                    		
+                 final List<AgrupacionColumna> agrupaciones = super.getFacadeService().getEstructuraService().findAgrupacionColumnaByGrilla(grilla);                        
+                 if(Util.esListaValida(agrupaciones)){
+                 	List<List<AgrupacionModelVO>> agrupacionesNivel = GeneradorDisenoHelper.crearAgrupadorHTMLVO(agrupaciones);
+                 	estructura.getGrillaVO().setAgrupaciones(agrupacionesNivel);
+                 }
+             }
+         }                                     
+         this.getGeneradorVersionBackingBean().setAlmacenado(true);
+         this.getGeneradorVersionBackingBean().setRenderBotonEditar(false);
+         this.getGeneradorVersionBackingBean().setRenderBotonEditarVersion(Boolean.TRUE);
+         this.getGeneradorVersionBackingBean().setEstructuraList(estructuras);
+         this.getGeneradorVersionBackingBean().setRenderEstructura(true);
     }
     
     public void editarDisenoActionListener(ActionEvent action){

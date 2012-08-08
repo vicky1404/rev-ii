@@ -1,6 +1,12 @@
 package cl.mdr.exfida.modules.configuracion.mb;
 
+import static ch.lambdaj.Lambda.having;
+import static ch.lambdaj.Lambda.on;
+import static ch.lambdaj.Lambda.select;
+
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -9,14 +15,18 @@ import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.ValueChangeEvent;
 
 import org.apache.log4j.Logger;
+import org.hamcrest.Matchers;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
 import cl.mdr.ifrs.cross.util.GeneradorDisenoHelper;
+import cl.mdr.ifrs.ejb.common.TipoCeldaEnum;
+import cl.mdr.ifrs.ejb.common.TipoDatoEnum;
 import cl.mdr.ifrs.ejb.entity.Celda;
 import cl.mdr.ifrs.ejb.entity.Columna;
 import cl.mdr.ifrs.ejb.entity.Estructura;
@@ -29,7 +39,8 @@ import cl.mdr.ifrs.vo.GrillaVO;
 
 /**
  * Clase ManagedBean que controla la funcionalidad de la pagina de configuracion de diseño de estructuras.
- * @author rdiaz & rreyes 
+ * @author rreyes
+ * @link http://cl.linkedin.com/in/rreyesc
  * 
  */
 @ManagedBean(name = "configuradorDisenoBackingBean")
@@ -54,6 +65,8 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
     private Long fila;
     private String tituloGrilla;
     private String tituloHtml;
+    private List<TipoDato> tipoDatoList;
+    private List<TipoDato> tipoDatoFilteredList;
     
     /*atributos utilizados para upload de archivo*/
     private transient UploadedFile uploadedFile;
@@ -67,6 +80,7 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
     private Estructura estructuraSelected;
     
     private Map<Long, EstructuraModel> estructuraModelMap;
+    
     
     /**
      * Accion encargada de procesar el archivo 
@@ -116,6 +130,7 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
      */
     public void prepareEditarColumnaAction(ActionEvent event){
     	final Columna columna = (Columna) event.getComponent().getAttributes().get("columna");
+    	this.setTipoDatoFilteredList(null);
     	this.setColumna(columna);
     	this.setTipoCeldaColumna(null);
     	this.setTipoDatoColumna(null);
@@ -153,6 +168,7 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
     public void prepareEditarCeldaAction(ActionEvent event){
     	final Celda celda = (Celda) event.getComponent().getAttributes().get("celda");
     	logger.info("editando celda "+celda.getValor());
+    	this.buildTipoDatoFilteredList(celda.getTipoCelda());
     	this.setCelda(celda);
     	this.setTipoCeldaCelda(celda.getTipoCelda());
     	this.setTipoDatoCelda(celda.getTipoDato());
@@ -183,6 +199,7 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
      */
     public void prepareEditarFilaAction(ActionEvent event){
     	final Long fila  = (Long) event.getComponent().getAttributes().get("fila");
+    	this.setTipoDatoFilteredList(null);
     	logger.info("editando fila "+fila);
     	this.setFila(fila);
     	this.setTipoCeldaFila(null);
@@ -274,6 +291,74 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
         }
         return new EstructuraModel();
     }
+    
+    /**
+     * Metodo que filtra los tipos de dato segun el tipo de celda
+     * creando un combo anidado para la configuracion de las celdas.
+     * @param event
+     */
+    public void changeTipoDatoByTipoCeldaListener(ValueChangeEvent event){
+    	try{
+    		final TipoCelda tipoCelda = ((TipoCelda) event.getNewValue());
+    		this.buildTipoDatoFilteredList(tipoCelda);
+    		super.getFacesContext().renderResponse();    
+    	}catch (Exception e) {
+			logger.error(e);
+			super.addErrorMessage("Ha ocurrido un error al filtrar los Tipos de dato");
+		}    	 
+    }
+    
+    
+    /**
+     * Metodo que construye una lista de List<TipoDato> filtrada segun el tipo de celda.
+     * @param tipoCelda
+     * @return
+     */
+    private List<TipoDato> buildTipoDatoFilteredList(final TipoCelda tipoCelda){
+    	tipoDatoFilteredList = new ArrayList<TipoDato>();
+    	if(tipoCelda.getIdTipoCelda().equals(TipoCeldaEnum.NUMERO.getKey())){
+    		tipoDatoFilteredList =  select(this.getTipoDatoList() , 
+									having(on(TipoDato.class).getIdTipoDato(),  
+											Matchers.isIn(Arrays.asList(new Long[] {TipoDatoEnum.ENTERO.getKey(), TipoDatoEnum.DECIMAL.getKey()}))) );				
+    	}
+    	else if(tipoCelda.getIdTipoCelda().equals(TipoCeldaEnum.TEXTO.getKey())){
+    		tipoDatoFilteredList =  select(this.getTipoDatoList() , 
+									having(on(TipoDato.class).getIdTipoDato(),  
+											Matchers.isIn(Arrays.asList(new Long[] {TipoDatoEnum.TEXTO.getKey()}))) );    		
+    	}
+		else if(tipoCelda.getIdTipoCelda().equals(TipoCeldaEnum.TEXTO_EDITABLE.getKey())){
+			tipoDatoFilteredList =  select(this.getTipoDatoList() , 
+									having(on(TipoDato.class).getIdTipoDato(),  
+											Matchers.isIn(Arrays.asList(new Long[] {TipoDatoEnum.TEXTO.getKey(), TipoDatoEnum.FECHA.getKey()}))) );		    		
+		}
+		else if(tipoCelda.getIdTipoCelda().equals(TipoCeldaEnum.TITULO.getKey())){
+			tipoDatoFilteredList =  select(this.getTipoDatoList() , 
+									having(on(TipoDato.class).getIdTipoDato(),  
+											Matchers.isIn(Arrays.asList(new Long[] {TipoDatoEnum.TEXTO.getKey()}))) );		    		
+		}
+		else if(tipoCelda.getIdTipoCelda().equals(TipoCeldaEnum.RUT.getKey())){
+			tipoDatoFilteredList =  select(this.getTipoDatoList() , 
+									having(on(TipoDato.class).getIdTipoDato(),  
+											Matchers.isIn(Arrays.asList(new Long[] {TipoDatoEnum.TEXTO.getKey()}))) );		    		
+		}
+		else if(tipoCelda.getIdTipoCelda().equals(TipoCeldaEnum.TOTAL.getKey())){
+			tipoDatoFilteredList =  select(this.getTipoDatoList() , 
+									having(on(TipoDato.class).getIdTipoDato(),  
+											Matchers.isIn(Arrays.asList(new Long[] {TipoDatoEnum.ENTERO.getKey(), TipoDatoEnum.DECIMAL.getKey()}))) );			
+		}
+		else if(tipoCelda.getIdTipoCelda().equals(TipoCeldaEnum.SUBTOTAL.getKey())){
+			tipoDatoFilteredList =  select(this.getTipoDatoList() , 
+									having(on(TipoDato.class).getIdTipoDato(),  
+											Matchers.isIn(Arrays.asList(new Long[] {TipoDatoEnum.ENTERO.getKey(), TipoDatoEnum.DECIMAL.getKey()}))) );			
+		}
+		else if(tipoCelda.getIdTipoCelda().equals(TipoCeldaEnum.LINK.getKey())){
+			tipoDatoFilteredList =  select(this.getTipoDatoList() , 
+									having(on(TipoDato.class).getIdTipoDato(),  
+											Matchers.isIn(Arrays.asList(new Long[] {TipoDatoEnum.TEXTO.getKey()}))) );			
+		}
+    	return tipoDatoFilteredList;
+    }
+    
          
 	public UploadedFile getUploadedFile() {
 		return uploadedFile;
@@ -455,6 +540,25 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
 
 	public void setTituloHtml(String tituloHtml) {
 		this.tituloHtml = tituloHtml;
+	}
+
+	public List<TipoDato> getTipoDatoList() {
+		if(tipoDatoList==null){
+            tipoDatoList = super.getFacadeService().getMantenedoresTipoService().findAllTipoDato();
+        }
+        return tipoDatoList;		
+	}
+
+	public void setTipoDatoList(List<TipoDato> tipoDatoList) {
+		this.tipoDatoList = tipoDatoList;
+	}
+
+	public List<TipoDato> getTipoDatoFilteredList() {
+		return tipoDatoFilteredList;
+	}
+
+	public void setTipoDatoFilteredList(List<TipoDato> tipoDatoFilteredList) {
+		this.tipoDatoFilteredList = tipoDatoFilteredList;
 	}
 
 }
