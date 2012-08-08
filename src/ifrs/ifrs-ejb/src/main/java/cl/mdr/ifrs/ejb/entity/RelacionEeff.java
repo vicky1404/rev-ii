@@ -17,14 +17,26 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import cl.mdr.ifrs.ejb.common.Constantes;
+import cl.mdr.ifrs.ejb.cross.EeffUtil;
 import cl.mdr.ifrs.ejb.entity.pk.RelacionEeffPK;
 
 
 @Entity
-@NamedQueries( { @NamedQuery(name = "RelacionEeff.findAll", query = "select o from RelacionEeff o") })
+@NamedQueries( { @NamedQuery(name = RelacionEeff.FIND_ALL, query = "select o from RelacionEeff o"),
+    @NamedQuery(name = RelacionEeff.FIND_BY_PERIODO, query = "select o from RelacionEeff o where o.periodoEmpresa.periodo.idPeriodo = :idPeriodo order by o.idFecu"),
+    @NamedQuery(name = RelacionEeff.FIND_BY_PERIODO_FECU, query = "select o from RelacionEeff o where o.periodoEmpresa.periodo.idPeriodo = :idPeriodo and o.idFecu = :idFecu"),
+    @NamedQuery(name = RelacionEeff.DELETE_BY_CELDA, query = "delete from RelacionEeff o where o.celda2 = :celda"),
+    @NamedQuery(name = RelacionEeff.DELETE_BY_GRILLA_PERIODO, query = "delete from RelacionEeff o where o.idGrilla = :idGrilla and o.idPeriodo = :idPeriodo")})
 @Table(name = Constantes.RELACION_EEFF)
 @IdClass(RelacionEeffPK.class)
+
 public class RelacionEeff implements Serializable {
+	
+	public static final String FIND_ALL = "RelacionEeff.findAll";
+    public static final String FIND_BY_PERIODO = "RelacionEeff.findByPeriodo";
+    public static final String FIND_BY_PERIODO_FECU = "RelacionEeff.findByPeriodoFecu";
+    public static final String DELETE_BY_CELDA = "RelacionEeff.deleteByCelda";
+    public static final String DELETE_BY_GRILLA_PERIODO = "RelacionEeff.deleteByGrillaPeriodo";
         
     private static final long serialVersionUID = -6886308246258165195L;
     
@@ -39,10 +51,14 @@ public class RelacionEeff implements Serializable {
     @Id
     @Column(name = "ID_RUT", nullable = false, insertable = false, updatable = false)
     private Long idRut;
+    
+	@Column(name = "ID_GRILLA", insertable = false, updatable = false)
+    private Long idGrilla;
+
 
 	@Column(name = "MONTO_TOTAL")
     private BigDecimal montoTotal;
-    
+	
     @ManyToOne
     @JoinColumns( { @JoinColumn(name = "ID_COLUMNA", referencedColumnName = "ID_COLUMNA"),
                     @JoinColumn(name = "ID_GRILLA", referencedColumnName = "ID_GRILLA"),
@@ -132,6 +148,21 @@ public class RelacionEeff implements Serializable {
         this.celda2 = celda;
         this.periodoEmpresa = periodoEmpresa;
         this.codigoFecu = eeff.getCodigoFecu();
+    }
+
+	public Long getIdGrilla() {
+		return idGrilla;
+	}
+
+	public void setIdGrilla(Long idGrilla) {
+		this.idGrilla = idGrilla;
+	}
+	
+	public String getFecuFormat(){
+        if(idFecu!=null)
+            return EeffUtil.formatFecu(idFecu);
+        else
+            return "";
     }
 
 }

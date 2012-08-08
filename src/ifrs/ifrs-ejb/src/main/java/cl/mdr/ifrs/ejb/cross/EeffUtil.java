@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 import cl.mdr.ifrs.ejb.entity.Celda;
+import cl.mdr.ifrs.ejb.entity.DetalleEeff;
 import cl.mdr.ifrs.ejb.entity.EstadoFinanciero;
 import cl.mdr.ifrs.ejb.entity.RelacionDetalleEeff;
 import cl.mdr.ifrs.ejb.entity.RelacionEeff;
@@ -66,7 +67,7 @@ public static String formatFecu(Long fecu){
     
     public static boolean esCuentaRepetida(final String cadena, final String nuevoValor){
         
-        if(cadena==null || nuevoValor==null)
+    	if(cadena==null || nuevoValor==null)
             return false;
         
         String newCadena = cadena.replaceAll("[|+|\n]", "");
@@ -85,6 +86,18 @@ public static String formatFecu(Long fecu){
         return false;
         
     }
+    
+    public static boolean esCuentaRepetida(final List<RelacionDetalleEeff> relDetEeffList, final DetalleEeff nuevoValor){
+        if(!Util.esListaValida(relDetEeffList))
+            return false;
+        for(RelacionDetalleEeff relDetEeff : relDetEeffList){
+            if(relDetEeff.getIdCuenta().equals(nuevoValor.getIdCuenta()) && relDetEeff.getIdFecu().equals(nuevoValor.getIdFecu()))
+                return true;
+        }
+        return false;
+    }
+    
+   
     
     public static Long getLongFromKeyStrFecu(final String key){
         
