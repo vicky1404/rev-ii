@@ -5,7 +5,6 @@ import static ch.lambdaj.Lambda.on;
 import static cl.mdr.ifrs.ejb.cross.Constantes.PERSISTENCE_UNIT_NAME;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -117,10 +116,12 @@ public class VersionServiceBean implements VersionServiceLocal{
     			.getResultList();
     }
 
+    /* (non-Javadoc)
+     * @see cl.mdr.ifrs.ejb.service.local.VersionServiceLocal#persistVersion(java.util.List, java.util.List, java.util.Map, java.lang.String, cl.mdr.ifrs.ejb.entity.PeriodoEmpresa)
+     */
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void persistVersion(final List<Version> versiones, final List<Estructura> estructuras, final Map<Long, EstructuraModel> estructuraModelMap, final String usuario, PeriodoEmpresa periodoEmpresa) throws PeriodoException, Exception{
+    public Version persistVersion(final List<Version> versiones, final List<Estructura> estructuras, final Map<Long, EstructuraModel> estructuraModelMap, final String usuario, final PeriodoEmpresa periodoEmpresa) throws PeriodoException, Exception{
         
-    	
     	//Periodo periodo = periodoService.findMaxPeriodoIniciado();
         
         if (periodoEmpresa.getEstadoPeriodo().getIdEstadoPeriodo().equals(EstadoPeriodo.ESTADO_CERRADO)) {
@@ -133,18 +134,17 @@ public class VersionServiceBean implements VersionServiceLocal{
             throw new PeriodoException("No existe el estado del cuadro");
         }
         
-    	Version versionVigente = versiones.iterator().next();
-    	
+        
+    	Version versionVigente = versiones.iterator().next();    	
     	versionVigente.setPeriodoEmpresa(periodoEmpresa);
         versionVigente.setUsuario(usuario);
         versionVigente.setFechaCreacion(new Date());
         versionVigente.setFechaUltimoProceso(new Date());
-        versionVigente.setEstado(estadoCuado);        
-        //versionVigente = em.merge(versionVigente);
+        versionVigente.setEstado(estadoCuado);                
         
         final BigDecimal idVersion = (BigDecimal) em.createNativeQuery("select SEQ_VERSION.nextval from dual").getSingleResult();
         em.createNativeQuery(" INSERT "+
-        					 " INTO "+Constantes.VERSION+" (ID_VERSION,ID_CATALOGO,ID_PERIODO,ID_ESTADO_CUADRO,VERSION,VIGENCIA,FECHA_CREACION,COMENTARIO,FECHA_ULTIMO_PROCESO,USUARIO,ID_RUT)"+
+        					 " INTO "+Constantes.VERSION+" (ID_VERSION,ID_CATALOGO,ID_PERIODO,ID_ESTADO_CUADRO,VERSION,VIGENCIA,FECHA_CREACION,COMENTARIO,USUARIO,ID_RUT,DATOS_MODIFICADOS)"+
         					 " VALUES(?,?,?,?,?,?,?,?,?,?,?)").
         					   setParameter(1, idVersion).
         					   setParameter(2, versionVigente.getCatalogo().getIdCatalogo()).
@@ -153,10 +153,10 @@ public class VersionServiceBean implements VersionServiceLocal{
         					   setParameter(5, versionVigente.getVersion()).
         					   setParameter(6, versionVigente.getVigencia()).
         					   setParameter(7, versionVigente.getFechaCreacion()).
-        					   setParameter(8, versionVigente.getComentario()).
-        					   setParameter(9, versionVigente.getFechaUltimoProceso()).
-        					   setParameter(10, versionVigente.getUsuario()). 
-        					   setParameter(11, versionVigente.getPeriodoEmpresa().getIdRut()). 
+        					   setParameter(8, versionVigente.getComentario()).        					   
+        					   setParameter(9, versionVigente.getUsuario()). 
+        					   setParameter(10, versionVigente.getPeriodoEmpresa().getIdRut()).
+        					   setParameter(11, 0).
         					   executeUpdate();
         
         for(Version version : versiones){
@@ -168,17 +168,17 @@ public class VersionServiceBean implements VersionServiceLocal{
         HistorialVersion historial = new HistorialVersion();
         historial.setFechaProceso(new Date());
         historial.setUsuario(new Usuario(usuario));
-        historial.setVersion(versionVigente);
+        historial.setVersion(new Version(idVersion.longValue()));
         historial.setEstadoCuadro(estadoCuado);
         historial.setComentario("CREACIÓN INICIAL");
-        //em.persist(historial);
+        em.persist(historial);
         
         for(int i=0; i<estructuras.size(); i++){
             
             Estructura estructura = estructuras.get(i);
-            estructura.setVersion(versionVigente);
-            //estructura = em.merge(estructura);
+            estructura.setVersion(versionVigente);            
             estructuras.set(i,estructura);
+            
             final BigDecimal idEstructura = (BigDecimal) em.createNativeQuery("select SEQ_ESTRUCTURA.nextval from dual").getSingleResult();
             em.createNativeQuery(" INSERT "+
             		             " INTO "+Constantes.ESTRUCTURA+" (ID_ESTRUCTURA, ID_VERSION,ID_TIPO_ESTRUCTURA,ORDEN)"+
@@ -191,14 +191,14 @@ public class VersionServiceBean implements VersionServiceLocal{
             
             if(estructuraModelMap.containsKey(estructura.getOrden())){
                 EstructuraModel estructuraModel = estructuraModelMap.get(estructura.getOrden());
-                //List<Columna> columnas = new ArrayList<Columna>();
+                
                 if(estructura.getTipoEstructura().getIdTipoEstructura() == TipoEstructura.ESTRUCTURA_TIPO_GRILLA){   
                 	
                     Grilla grilla = new Grilla();
                     grilla.setIdGrilla(idEstructura.longValue());
                     grilla.setEstructura(estructura);
                     grilla.setTitulo(estructuraModel.getTituloGrilla());                                        
-                    //em.persist(grilla);
+                    
                     em.createNativeQuery(" INSERT "+
                     			   		 " INTO "+Constantes.GRILLA+" (ID_GRILLA,TITULO,TIPO_FORMULA)"+
                     		       		 " VALUES(?, ?, ?)").
@@ -259,8 +259,8 @@ public class VersionServiceBean implements VersionServiceLocal{
                     em.persist(html);                    
                 }
             }
-        }
-        versionVigente.setEstructuraList(estructuras);
+        }                         
+        return em.find(Version.class, idVersion.longValue());
     }
     
     

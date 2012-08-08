@@ -12,8 +12,10 @@ public enum TipoCeldaEnum {
     LINK(3L,"LINK"),
     TOTAL(4L,"TOTAL"),
     SUBTOTAL(5L,"SUBTOTAL"),
-    TEXTO_EDITABLE(6L,"TEXTO EDITABLE");
-
+    TEXTO_EDITABLE(6L,"TEXTO EDITABLE"),
+    RUT(6L,"RUT");
+    
+    
     private Long key;
     private String value;
     
