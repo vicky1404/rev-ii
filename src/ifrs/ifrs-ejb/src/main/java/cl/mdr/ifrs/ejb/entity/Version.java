@@ -153,6 +153,9 @@ public class Version implements Serializable {
     
     private String usuario;
     
+    @Column(nullable = false, name = "DATOS_MODIFICADOS")
+    private Long datosModificados;
+    
     @Transient
     private boolean editable;
     
@@ -325,5 +328,13 @@ public class Version implements Serializable {
 
 	public void setEstadoCambiado(boolean estadoCambiado) {
 		this.estadoCambiado = estadoCambiado;
+	}
+
+	public Long getDatosModificados() {
+		return datosModificados;
+	}
+
+	public void setDatosModificados(Long datosModificados) {
+		this.datosModificados = datosModificados;
 	}
 }

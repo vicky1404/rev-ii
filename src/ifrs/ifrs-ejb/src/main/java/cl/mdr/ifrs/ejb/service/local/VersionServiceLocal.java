@@ -59,7 +59,7 @@ public interface VersionServiceLocal {
      * @param usuario
      * @throws Exception
      */
-    void persistVersion(List<Version> versiones, List<Estructura> estructuras, Map<Long, EstructuraModel> estructuraModelMap , String usuario, PeriodoEmpresa periodoEmpresa) throws Exception;
+    Version persistVersion(List<Version> versiones, List<Estructura> estructuras, Map<Long, EstructuraModel> estructuraModelMap , String usuario, PeriodoEmpresa periodoEmpresa) throws Exception;
     
     /**
      * @param version
