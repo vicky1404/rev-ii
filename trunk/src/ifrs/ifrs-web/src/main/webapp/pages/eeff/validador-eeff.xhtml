@@ -89,15 +89,31 @@
     	
     	<p:tabView id="tabView1">
     		<p:tab id="tab1" title="Mapeo de celdas con estados financieros">
-    			<h:panelGrid columns="7" cellpadding="10">
+    			<h:panelGrid columns="8" cellpadding="10">
     				<h:outputLabel value="Celda : " id="ol1" for="it2"/>
-    			 	<p:inputText  value="#{eeff.relCelda}" readonly="true" size="7" binding="#{eeff.relCeldaText}" id="it2"/>
-    			 	<h:outputLabel value="Relación Fecu" id="ol4" for="it4"/>
-	                <p:inputTextarea value="#{eeff.relFecu}"  readonly="true" cols="10" binding="#{eeff.relFecuText}" id="it4"></p:inputTextarea>
-	                <h:outputLabel value="Relación Cuenta" id="ol2" for="it3"/>
-	                <p:inputTextarea value="#{eeff.relCuenta}" readonly="true" cols="10" binding="#{eeff.relCuentaText}" id="it3"></p:inputTextarea>
+    			 	<p:inputText  value="[#{eeff.relCelda.idColumna},#{eeff.relCelda.idFila}]" readonly="true" size="7" binding="#{eeff.relCeldaText}" id="it2" rendered="#{not empty eeff.relCelda}"/>
+    			 	<h:outputLabel value="Relación Fecu" id="ol4" for="socRelFecu"/>
+	                <p:selectOneMenu id="socRelFecu" value="#{eeff.relFecuSeleccionada}"   
+	                    unselectedLabel="Ver" 
+	                    autoSubmit="true"
+	                    partialTriggers="::t3:clCargarFecu ::t4:clCargarCuenta ::t2:clRelCelda" 
+	                    valueChangeListener="#{eeff.onChangeFecu}"
+	                    binding="#{eeff.fecuAgregadasChoice}">
+	                    <f:selectItems value="#{eeff.itemFecuList}" id="si3" />
+                	</p:selectOneMenu>
+                
+	                <h:outputLabel value="Relación Cuenta" id="ol2" for="socRelCuenta"/>
+	                <p:selectOneMenu id="socRelCuenta" value="#{eeff.relCuentaSeleccionada}"   
+				                    unselectedLabel="Ver" 
+				                    autoSubmit="true"
+				                    partialTriggers="::t3:clCargarFecu ::t4:clCargarCuenta ::t2:clRelCelda"
+				                    valueChangeListener="#{eeff.onChangeCuenta}"
+                                    binding="#{eeff.cuentaAgregadasChoice}">
+	                    	<f:selectItems value="#{eeff.itemCuentaList}" id="si4"/>
+	                </p:selectOneMenu>
 	               
            			<p:commandButton id="cil6" actionListener="#{eeff.guardarRelacionListener}" icon="ui-icon-disk" value="Guardar"></p:commandButton>
+           			<p:commandButton id="cil62" actionListener="#{eeff.guardarRelacionListener}" icon="ui-icon-minus" value="Eliminar"></p:commandButton>
                 
     			</h:panelGrid>	
     		</p:tab>    	
@@ -117,8 +133,7 @@
                 </p:selectOneMenu>
     		
     		
-    			<p:dataTable var="row" value="#{eeff.grillaVO.rows}" rendered="#{eeff.renderEstructuraTabla}">
-		
+         <p:dataTable var="row" value="#{eeff.grillaVO.rows}" rendered="#{eeff.renderEstructuraTabla}">
 			<p:columns value="#{eeff.grillaVO.columnas}" var="col" columnIndexVar="index" id="columnas">
 				 <f:facet name="header">
                  	<h:outputText value="#{col.tituloColumna}" id="ot19"/>
@@ -147,7 +162,6 @@
 		</p:dataTable> 
 		
 		<p:spacer height="10" id="s32"/>
-		
 		
 		 <p:dataTable value="#{eeff.estadoFinanciero}" var="row" id="t3" style="height:inherit;">
                 <p:column sortable="false" headerText="Id Fecu" align="start" id="c13">
@@ -217,5 +231,6 @@
     	</p:tabView>
 		
 		</h:form>
+		
 	</ui:define>
 </ui:composition>
