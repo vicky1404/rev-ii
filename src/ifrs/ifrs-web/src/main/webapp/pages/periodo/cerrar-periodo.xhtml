@@ -12,6 +12,8 @@
 		
 		<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
 		
+		<p:messages id="messages_cerrar_p" autoUpdate="true" showSummary="true" />
+		
 		<p:panel header="#{msg.periodo_titulo_periodo_actual} #{periodoBackingBean.periodoEmpresa.periodo.periodoFormat}">
 		
 		<p:ajaxStatus onstart="statusDialog.show();" oncomplete="statusDialog.hide();" />

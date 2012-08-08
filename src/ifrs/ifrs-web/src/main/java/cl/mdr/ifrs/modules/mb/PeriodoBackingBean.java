@@ -50,42 +50,44 @@ public class PeriodoBackingBean extends AbstractBackingBean{
     	if(!isSelectedEmpresa())
     		return null;
         
-        int error = 0;
-        
         try {
             
-            Long periodo = this.getPeriodoCerradoActual();
+        	List<PeriodoEmpresa> periodoEmpresaList = getFacadeService().getPeriodoService().getMaxPeriodoEmpresaNoCerrado();
             
-            if (periodo != null && periodo > 0){
+        	if(Util.esListaValida(periodoEmpresaList)){
+        		
+        		addWarnMessage("No se puede abrir período, las siguientes empresas no han cerrado el período");
+        	
+	        	for(PeriodoEmpresa periodoE : periodoEmpresaList){
+	        		if (!periodoE.getEstadoPeriodo().getIdEstadoPeriodo().equals(EstadoPeriodo.ESTADO_CERRADO)){
+	        			addWarnMessage("Empresa : " + periodoE.getEmpresa().getNombre());
+	        		}
+	        	}
+	        	
+        	}else{
                 
-            	error = getFacadeService().getPeriodoService().abrirPeriodo(this.getNombreUsuario());                        
+            	int keyMessage = getFacadeService().getPeriodoService().abrirPeriodo(this.getNombreUsuario());
                 
-            	if (error == 0){
+            	if (keyMessage == 1){
+            		getComponenteBackingBean().setPeriodoList(null);
                     addInfoMessage(PropertyManager.getInstance().getMessage("abrir_periodo_correcto"));
+                    //addInfoMessage(MensajePeriodoEnum.CerrarPeriodo.getMensajeByKey(keyMessage).getValue());
                     return null;
-                }else if (error == Periodo.ERROR_ABRIR_PERIODO){
-                    addErrorMessage(PropertyManager.getInstance().getMessage("abrir_periodo_error_debe_cerrar_periodo"));
+	            } else {
+	            	//addErrorMessage(PropertyManager.getInstance().getMessage("general_mensaje_aplicacion_error"));
+	            	addErrorMessage(MensajePeriodoEnum.AbrirPeriodo.getMensajeByKey(keyMessage).getValue());
+                    logger.error(MensajePeriodoEnum.AbrirPeriodo.getMensajeByKey(keyMessage).getValue());
                     return null;
-                } else {
-                    addErrorMessage(PropertyManager.getInstance().getMessage("general_mensaje_aplicacion_error"));
-                    return null;
-                }
+	            }
 
-            } else {
-                    addErrorMessage(PropertyManager.getInstance().getMessage("abrir_periodo_error_debe_cerrar_periodo"));
-                }
+            }
             
         } catch (Exception e) {
-            logger.error(e.getMessage(), e);            
-            addErrorMessage(PropertyManager.getInstance().getMessage("general_mensaje_aplicacion_error")); 
+            addErrorMessage(PropertyManager.getInstance().getMessage("general_mensaje_aplicacion_error"));
+            logger.error(e.getMessage(), e);
         }
         
         return null;
-    }
-    
-    
-    private Long getPeriodoCerradoActual() throws Exception {
-        return this.getFacadeService().getPeriodoService().findMaxPeriodoCerrado();
     }
     
     
@@ -108,11 +110,12 @@ public class PeriodoBackingBean extends AbstractBackingBean{
 		                               
 		            int keyMessage = this.getFacadeService().getPeriodoService().cerrarPeriodo(periodoEmpresa, getNombreUsuario());
 		            
-		            if (keyMessage > 0){
-		                    addInfoMessage(MensajePeriodoEnum.getMensajeByKey(keyMessage).getValue());
+		            if (keyMessage == 1){
+		                    addInfoMessage(MensajePeriodoEnum.CerrarPeriodo.getMensajeByKey(keyMessage).getValue());
 		                    return null;
 		            } else {
 		                    addErrorMessage(PropertyManager.getInstance().getMessage("cerrar_periodo_no_update"));
+		                    logger.error(MensajePeriodoEnum.CerrarPeriodo.getMensajeByKey(keyMessage).getValue());
 		                    return null;
 		            }
 		            
@@ -121,8 +124,8 @@ public class PeriodoBackingBean extends AbstractBackingBean{
         	}else addWarnMessage(PropertyManager.getInstance().getMessage("cerrar_periodo_mensaje_error_periodo_ya_esta_cerrado"));
             
         } catch (Exception e) {
-            logger.error(e.getMessage(), e); 
-            addWarnMessage(PropertyManager.getInstance().getMessage("general_mensaje_aplicacion_error")); 
+        	addErrorMessage(PropertyManager.getInstance().getMessage("general_mensaje_aplicacion_error"));
+            logger.error(e.getMessage(), e);  
         }
         
         return null;
