@@ -20,12 +20,22 @@ import cl.mdr.ifrs.ejb.entity.pk.RelacionDetalleEeffPK;
 
 
 @Entity
-@NamedQueries( { @NamedQuery(name = "RelacionDetalleEeff1.findAll", query = "select o from RelacionDetalleEeff o") })
+@NamedQueries( { @NamedQuery(name = RelacionDetalleEeff.FIND_ALL, query = "select o from RelacionDetalleEeff o"),
+    @NamedQuery(name = RelacionDetalleEeff.FIND_BY_PERIODO, query = "select o from RelacionDetalleEeff o where o.periodoEmpresa.periodo.idPeriodo = :idPeriodo order by o.idCuenta"),
+    @NamedQuery(name = RelacionDetalleEeff.FIND_BY_PERIODO_FECU_CUENTA, query = "select o from RelacionDetalleEeff o where o.periodoEmpresa.periodo.idPeriodo = :idPeriodo and o.idFecu = :idFecu and o.idCuenta = :idCuenta"),
+    @NamedQuery(name = RelacionDetalleEeff.DELETE_BY_CELDA, query = "delete from RelacionDetalleEeff o where o.celda5 = :celda"),
+    @NamedQuery(name = RelacionDetalleEeff.DELETE_BY_GRILLA_PERIODO, query = "delete from RelacionDetalleEeff o where o.idGrilla = :idGrilla and o.idPeriodo = :idPeriodo")})
+
 @Table(name = Constantes.RELACION_DETALLE_EEFF)
 @IdClass(RelacionDetalleEeffPK.class)
 
 public class RelacionDetalleEeff implements Serializable {
-    
+
+	public static final String FIND_ALL = "RelacionDetalleEeff.findAll";
+    public static final String FIND_BY_PERIODO_FECU_CUENTA = "RelacionDetalleEeff.findByPeriodoFecuCuenta";
+    public static final String FIND_BY_PERIODO = "RelacionDetalleEeff.findByPeriodo";
+    public static final String DELETE_BY_CELDA = "RelacionDetalleEeff.deleteByCelda";
+    public static final String DELETE_BY_GRILLA_PERIODO = "RelacionDetalleEeff.deleteByGrillaPeriodo";
 	   
 private static final long serialVersionUID = -2121624962103986848L;
     
@@ -44,6 +54,10 @@ private static final long serialVersionUID = -2121624962103986848L;
     @Id
     @Column(name = "ID_RUT", nullable = false, insertable = false, updatable = false)
     private Long idRut;
+    
+	@Column(name = "ID_GRILLA", insertable = false, updatable = false)
+    private String idGrilla;
+
 
 	@Column(name = "DESCRIPCION_CUENTA", length = 256)
     private String descripcionCuenta;
@@ -198,5 +212,13 @@ private static final long serialVersionUID = -2121624962103986848L;
         this.celda5 = celda;
         
     }
+
+	public String getIdGrilla() {
+		return idGrilla;
+	}
+
+	public void setIdGrilla(String idGrilla) {
+		this.idGrilla = idGrilla;
+	}
 	
 }

@@ -55,7 +55,7 @@ import cl.mdr.ifrs.ejb.common.Constantes;
                  
                  @NamedQuery(name = Version.FIND_ULTIMA_VERSION_VIGENTE, 
                  			 query = " select ve " +
-                 			 		 " from Version ve, UsuarioGrupo ug, CatalogoGrupo cg " +
+                 			 		 " from Version ve, UsuarioGrupo ug, CatalogoGrupo cg join fetch ve.estructuraList" +
                  			 		 " where ve.catalogo.idCatalogo = :idCatalogo " +
                  			 		 " and ve.vigencia = 1 " +
                  			 		 " and ve.catalogo.idCatalogo = cg.catalogo.idCatalogo " +

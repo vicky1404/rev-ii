@@ -189,4 +189,61 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
         }
         
     }
+    
+    public void deleteAllRelacionByGrillaPeriodo(Long idPeriodo, Long idGrilla){
+        
+        Query query = em.createNamedQuery(RelacionEeff.DELETE_BY_GRILLA_PERIODO);
+        query.setParameter("idPeriodo", idPeriodo);
+        query.setParameter("idGrilla", idGrilla);
+        query.executeUpdate();
+        
+        query = em.createNamedQuery(RelacionDetalleEeff.DELETE_BY_GRILLA_PERIODO);
+        query.setParameter("idPeriodo", idPeriodo);
+        query.setParameter("idGrilla", idGrilla);
+        query.executeUpdate();
+
+    }
+    
+    /**
+     * @param relacionMap
+     * @param idPeriodo
+     */
+    public void persistRelaccionEeff(Map<Celda, List[]> relacionMap, Long idPeriodo){
+
+        for(List[] arrayListas : relacionMap.values()){
+            // 0 contiene las RelacionesEeff
+            if(Util.esListaValida(arrayListas[0])){
+                List<RelacionEeff> relList = arrayListas[0];
+                for(RelacionEeff relEeff : relList){
+                    em.merge(relEeff);
+                }
+            }
+            
+            // 1 contiene las RelacionesDetalleEeff
+            if(Util.esListaValida(arrayListas[1])){
+                List<RelacionDetalleEeff> relList = arrayListas[1];
+                for(RelacionDetalleEeff relDetEeff : relList){
+                    em.merge(relDetEeff);
+                }
+            }
+        }
+    }
+    
+    
+    public void deleteRelacionAllEeffByCelda(Celda celda){
+        deleteRelacionEeffByCelda(celda);
+        deleteRelacionDetalleEeffByCelda(celda);
+    }
+    
+    public void deleteRelacionEeffByCelda(Celda celda){
+        Query query = em.createNamedQuery(RelacionEeff.DELETE_BY_CELDA);
+        query.setParameter("celda", celda);
+        query.executeUpdate();
+    }
+    
+    public void deleteRelacionDetalleEeffByCelda(Celda celda){
+        Query query = em.createNamedQuery(RelacionDetalleEeff.DELETE_BY_CELDA);
+        query.setParameter("celda", celda);
+        query.executeUpdate();
+    }
 }

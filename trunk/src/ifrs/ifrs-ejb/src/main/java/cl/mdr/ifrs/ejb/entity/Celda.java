@@ -93,11 +93,11 @@ public class Celda implements Serializable {
     private String formula;
     
     @Fetch(FetchMode.SUBSELECT)
-    @OneToMany(mappedBy = "celda2", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "celda2", fetch = FetchType.EAGER)
     private List<RelacionEeff> relacionEeffList;
     
     @Fetch(FetchMode.SUBSELECT)
-    @OneToMany(mappedBy = "celda5", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "celda5", fetch = FetchType.EAGER)
     private List<RelacionDetalleEeff> relacionDetalleEeffList;
     
     @Transient

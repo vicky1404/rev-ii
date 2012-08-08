@@ -74,6 +74,7 @@ public class Catalogo implements Serializable {
     public static final String CATALOGO_FIND_BY_NOTA = "Catalogo.findCatalogoByNota";    
     public static final String CATALOGO_FIND_BY_ID_CATALOGO = "Catalogo.findCatalogoByIdCatalogo";
     public static final String CATALOGO_FIND_BY_FILTRO = "Catalogo.findCatalogoByFiltro";
+    public static final String CATALOGO_FIND_BY_NOTA_FETCH = "Catalogo.findCatalogoByNotaFetch";
         
     
     private static final long serialVersionUID = 5519999923709341563L;
