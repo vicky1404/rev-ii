@@ -32,7 +32,16 @@ import cl.mdr.ifrs.ejb.entity.pk.PeriodoEmpresaPK;
 						" PeriodoEmpresa o" +
 						" where " +
 						" o.idPeriodo = :idPeriodo and " +
-						" o.idRut = :idRut ")
+						" o.idRut = :idRut "),
+				@NamedQuery(name = PeriodoEmpresa.FIND_MAX_NO_CERRADO, 
+				query = " select p " +
+						" from " +
+						" PeriodoEmpresa p " +
+						" where " +
+						" p.idPeriodo = (select max(o.idPeriodo) from PeriodoEmpresa o ) and " +
+						" p.estadoPeriodo.idEstadoPeriodo <> 1 " +
+						" order by " +
+						" p.idRut ")
 					
 })
 @Table(name = Constantes.PERIODO_EMPRESA)
@@ -41,6 +50,8 @@ public class PeriodoEmpresa implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
+	
+	public static final String FIND_MAX_NO_CERRADO = "PeriodoEmpresa.findMaxNoCerrado";
 	public static final String FIND_MAX_BY_EMPRESA = "PeriodoEmpresa.findByEmpresa";
 	public static final String FIND_BY_ID = "PeriodoEmpresa.findById";
 

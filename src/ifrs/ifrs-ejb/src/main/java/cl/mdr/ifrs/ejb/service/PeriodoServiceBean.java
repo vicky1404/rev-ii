@@ -70,9 +70,9 @@ public class PeriodoServiceBean implements PeriodoServiceLocal{
     	
     	CallableStatement callableStatement = ((SessionImpl) em.getDelegate()).connection().prepareCall("{call PKG_IFRS_PERIODO.PRC_CERRAR_PERIODO(?,?,?,?)}");
 
-    	callableStatement.setString(1, usuario);
-    	callableStatement.setLong(2, periodoEmpresa.getIdPeriodo());
-    	callableStatement.setLong(3, periodoEmpresa.getIdRut());
+    	callableStatement.setLong(1, periodoEmpresa.getIdPeriodo());
+    	callableStatement.setLong(2, periodoEmpresa.getIdRut());
+    	callableStatement.setString(3, usuario);
     	callableStatement.registerOutParameter(4, Types.INTEGER);
     	callableStatement.execute();
 	
@@ -170,6 +170,12 @@ public class PeriodoServiceBean implements PeriodoServiceLocal{
    		return (PeriodoEmpresa) query.getSingleResult();
    	}
    	
+   	@SuppressWarnings("unchecked")
+	public List<PeriodoEmpresa> getMaxPeriodoEmpresaNoCerrado(){
+   		Query query = em.createNamedQuery(PeriodoEmpresa.FIND_MAX_NO_CERRADO);
+   		return query.getResultList();
+   	}
+   	
    	public PeriodoEmpresa getPeriodoEmpresaById(Long idPeriodo, Long idRut){
    		Query query = em.createNamedQuery(PeriodoEmpresa.FIND_BY_ID);
    		query.setParameter("idPeriodo", idPeriodo);
@@ -177,4 +183,4 @@ public class PeriodoServiceBean implements PeriodoServiceLocal{
    		return (PeriodoEmpresa) query.getSingleResult();
    	}
    
-}
+} 
