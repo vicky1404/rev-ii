@@ -65,6 +65,8 @@ public interface PeriodoServiceLocal {
     
     public PeriodoEmpresa getMaxPeriodoEmpresaByEmpresa(Long idRut);
     
+    public List<PeriodoEmpresa> getMaxPeriodoEmpresaNoCerrado();
+    
     public PeriodoEmpresa getPeriodoEmpresaById(Long idPeriodo, Long idRut);
 
 }
