@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
@@ -15,7 +16,6 @@ import javax.faces.model.SelectItem;
 import org.apache.log4j.Logger;
 import org.primefaces.component.autocomplete.AutoComplete;
 import org.primefaces.component.inputtext.InputText;
-import org.primefaces.component.inputtextarea.InputTextarea;
 import org.primefaces.component.selectonemenu.SelectOneMenu;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
@@ -26,11 +26,15 @@ import cl.mdr.ifrs.ejb.cross.EeffUtil;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
 import cl.mdr.ifrs.ejb.entity.Celda;
+import cl.mdr.ifrs.ejb.entity.Columna;
 import cl.mdr.ifrs.ejb.entity.DetalleEeff;
 import cl.mdr.ifrs.ejb.entity.EstadoFinanciero;
 import cl.mdr.ifrs.ejb.entity.Estructura;
 import cl.mdr.ifrs.ejb.entity.Grilla;
 import cl.mdr.ifrs.ejb.entity.Periodo;
+import cl.mdr.ifrs.ejb.entity.PeriodoEmpresa;
+import cl.mdr.ifrs.ejb.entity.RelacionDetalleEeff;
+import cl.mdr.ifrs.ejb.entity.RelacionEeff;
 import cl.mdr.ifrs.ejb.entity.TipoCuadro;
 import cl.mdr.ifrs.ejb.entity.Version;
 import cl.mdr.ifrs.vo.GrillaVO;
@@ -47,7 +51,8 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
 	
 	
 	private transient Logger logger = Logger.getLogger(ValidadorEeffBackingBean.class);
-    private transient SelectOneMenu tipoCuadroSelect;
+	private transient SelectOneMenu tipoCuadroSelect;
+    private transient AutoComplete busquedaInputText; 
     private Catalogo catalogo;
     private List<Catalogo> catalogos;
     private String busqueda;
@@ -61,36 +66,41 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
     private EstadoFinanciero estadoFinanciero;
     private DetalleEeff detalleEeff;
     private Long numeroCuenta;
-    private AutoComplete busquedaInputText;
     private transient SelectOneMenu cuentaChoice;
     private GrillaVO grillaVO;
-    private String relCelda;
-    private String relFecu;
-    private String relCuenta;
+    private Celda relCelda;
+    private List<RelacionEeff> relEeffList;
+    private List<RelacionDetalleEeff> relEeffDetList;
+    private RelacionEeff relFecuSeleccionada;
+    private RelacionDetalleEeff relCuentaSeleccionada;
+    private boolean renderTablaCuadro = false;
+    private SelectOneMenu fecuAgregadasChoice;
+    private SelectOneMenu cuentaAgregadasChoice;
+    private TreeNode root;
+    private boolean renderTreeTabla;
+    private boolean renderEstructuraTabla;
+    
+    private static final String POPUP_FECU = "popupFecu";
+    private static final String POPUP_CUENTA = "popupCuenta";
+        
     /*
      * String[0] --> Fecus
      * String[1] --> Cuentas
      */
-    private Map<String, String[]> relacionMap;
+    private Map<Celda, List[]> relacionMap;
     private transient InputText relCeldaText;
-    //private transient InputText relFecuText;
-    private transient InputTextarea relFecuText;
-    //private transient InputText relCuentaText;
-    private transient InputTextarea relCuentaText;
-    private TreeNode root;
-    private boolean renderTreeTabla;
-    private boolean renderEstructuraTabla;
     
     
     public ValidadorEeffBackingBean() {
     }
     
-    @PostConstruct
+    @SuppressWarnings("rawtypes")
+	@PostConstruct
     public void cargarPeriodo(){
         try{
             periodo = getFacadeService().getPeriodoService().findMaxPeriodoObj();
             eeffs = getFacadeService().getEstadoFinancieroService().getEeffVigenteByPeriodo(periodo.getIdPeriodo());
-            relacionMap = new LinkedHashMap<String, String[]>();
+            relacionMap = new LinkedHashMap<Celda, List[]>();
         }catch(Exception e){
             logger.error("Error en metodo cargarPeriodo", e);
             addErrorMessage("Error al cargar página");
@@ -121,7 +131,10 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
         
     }
     
-    public String buscarCatalogo() {
+    
+    public void buscarCatalogo() {
+    	
+    	initBuscar();
         
         setEstructuras(new ArrayList<Estructura>());
         List<Version> lista = new ArrayList<Version>();
@@ -136,12 +149,12 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
                 }
             }catch(Exception e){
                 getBusquedaInputText().setValue(null);
-                addWarnMessage("Busqueda sin resultados");
+                addWarnMessage("Búsqueda sin resultados");
             }
             
             if(catalogo==null){
                 init();
-                addWarnMessage("Busqueda sin resultados");
+                addWarnMessage("Búsqueda sin resultados");
             }else{
                 setCatalogoBusqueda(catalogo);
                 getBusquedaInputText().setReadonly(Boolean.TRUE);
@@ -163,7 +176,10 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
         lista.add(versionVigente);
         setTreeNode(lista);
         setRenderTreeTabla(Boolean.TRUE);
-        return null;
+        System.out.println("*************************");
+        System.out.println("lista:" + lista.size());
+        System.out.println("*************************");
+        
     }
     
     
@@ -223,12 +239,6 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
             
     }
     
-    private void init(){
-        versionVigente = null;
-        estructuras  = null;
-    }
-
-
     public void codigoFecuChangeListener() {
     	
         if(this.getEstadoFinanciero() != null){
@@ -253,99 +263,166 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
     
     public void cargarRelacionCeldaListener(ActionEvent event) {
         
-    	String idColumna = super.getExternalContext().getRequestParameterMap().get("idColumna");
-    	String idGrilla = super.getExternalContext().getRequestParameterMap().get("idGrilla");
-    	String idFila = super.getExternalContext().getRequestParameterMap().get("idFila");
-    	
-    	Celda celda = new Celda();
-    		celda.setIdColumna(Long.parseLong(idColumna));
-    		celda.setIdGrilla(Long.parseLong(idGrilla));
-    		celda.setIdFila(Long.parseLong(idFila));
-    	
-			try {
-				
-				celda = getFacadeService().getCeldaService().findCeldaById(celda);
-				
-			} catch (Exception e) {
-				logger.error(e);
-			}
-    	
+    	final Celda celda = (Celda)event.getComponent().getAttributes().get("celda");
         
         if(celda==null)
             return;
         
-        relCelda = Util.formatCellKey(celda);
-        relFecu = EeffUtil.formatKeyFecu(celda.getRelacionEeffList());
-        relCuenta = EeffUtil.formatKeyCuenta(celda.getRelacionDetalleEeffList());
-        relFecuText.setRows(Util.countToken(relFecu,";"));
-        relCuentaText.setRows(Util.countToken(relCuenta,";"));
+        relCelda = celda;
+        relEeffList = celda.getRelacionEeffList();
+        relEeffDetList = celda.getRelacionDetalleEeffList();
         
-        if(relFecu!=null || relCuenta!=null)
-            aplicarRelacion(relacionMap, relCelda, relFecu, relCuenta);
         
+        
+        if(Util.esListaValida(relEeffList) || Util.esListaValida(relEeffDetList))
+            aplicarRelacion(relacionMap, relCelda, relEeffList, relEeffDetList);
         
         
     }
     
+    private void aplicarRelacion(Map<Celda, List[]> relacionMap, Celda relCelda, List<RelacionEeff> relFecuList, List<RelacionDetalleEeff> relCuentaList) {
+        List[] rel = {relFecuList, relCuentaList};
+        relacionMap.put(relCelda, rel);
+    }
+    
+   
+    
     public void cargarFecuListener(ActionEvent event) {
             
-            final EstadoFinanciero eeff = (EstadoFinanciero) event.getComponent().getAttributes().get("eeff");
-            
-            if(eeff==null)
-                return;
-            
-            relFecu = "[" + EeffUtil.formatFecu(eeff.getIdFecu()) + "];";
-            
-            aplicarRelacion(relacionMap, relCelda, relFecu, relCuenta);
-            
-            //addPartialText();
+    	final EstadoFinanciero eeff = (EstadoFinanciero)event.getComponent().getAttributes().get("eeff");
+        
+        if(eeff==null || !validaRelCelda())
+            return;
+        
+        List<RelacionEeff> eeffTempList = new ArrayList<RelacionEeff>();
+        RelacionEeff relEeff = new RelacionEeff();
+        PeriodoEmpresa periodoEmpresa = new PeriodoEmpresa();
+        	periodoEmpresa.setPeriodo(periodo);
+        relEeff.copyEstadoFinanciero(eeff, relCelda, periodoEmpresa);
+        eeffTempList.add(relEeff);
+        relEeffList = eeffTempList;
+        
+        if(relacionMap.containsKey(relCelda)){
+            relacionMap.get(relCelda)[0] = eeffTempList;
+        }else{
+            aplicarRelacion(relacionMap, relCelda, eeffTempList, new ArrayList<RelacionDetalleEeff>());
+        }
+        
+        relCelda.setRelacionEeffList(eeffTempList);
     }
     
     public void cargarCuentaListener(ActionEvent event) {
         
-        final DetalleEeff detalleEeff = (DetalleEeff)event.getComponent().getAttributes().get("detalleEeff");
+final DetalleEeff detalleEeff = (DetalleEeff)event.getComponent().getAttributes().get("detalleEeff");
         
-        if(detalleEeff==null)
+        if(detalleEeff==null || !validaRelCelda())
             return;
-        
-        if(validaRelCelda()){
-            
-            if(EeffUtil.esCuentaRepetida(relCuenta, detalleEeff.getIdCuenta().toString())){
-                addWarnMessage("Número de cuenta ya esta ingresado para la celda seleccionada " +  relCelda);
-                return;
-            }
-        
-            if(relacionMap.containsKey(relCelda)){
-                relCuenta = getValorStr(relacionMap.get(relCelda)[1] ) + "+[" + detalleEeff.getIdCuenta() + "];";
-            }else{
-                relCuenta = getValorStr(relCuenta) + "[" + detalleEeff.getIdCuenta() + "];";
-            }
-            
-            aplicarRelacion(relacionMap, relCelda, relFecu, relCuenta);
-            
-        }else{
-            relCuentaText.setRows(0);
+
+        if(EeffUtil.esCuentaRepetida(relEeffDetList, detalleEeff)){
+            addWarnMessage("Número de cuenta ya esta ingresado para la celda seleccionada " + Util.formatCellKey(relCelda));
+            return;
         }
         
-        relCuentaText.setRows(relCuentaText.getRows()+1);
-        //addPartialText();
+        RelacionDetalleEeff relEeffDet = new RelacionDetalleEeff();
+        PeriodoEmpresa periodoEmpresa = new PeriodoEmpresa();
+        	periodoEmpresa.setPeriodo(periodo);
+        relEeffDet.copyDetalleEeff(detalleEeff, relCelda, periodoEmpresa);
+    
+        if(relacionMap.containsKey(relCelda)){
+            relacionMap.get(relCelda)[1].add(relEeffDet);
+        }else{
+            List<RelacionDetalleEeff> relEeffDetTempList = new ArrayList<RelacionDetalleEeff>();
+            relEeffDetTempList.add(relEeffDet);
+            aplicarRelacion(relacionMap, relCelda, new ArrayList<RelacionEeff>(), relEeffDetTempList);
+        }
+        
+        getRelEeffDetList().add(relEeffDet);
+        
     }
     
     public void guardarRelacionListener(ActionEvent event){
         
+    	if(!isValidPeriodoGrilla())
+            return;
+        
         try{        
-            getFacadeService().getEstadoFinancieroService().persistRelaccionEeff(relacionMap, periodo.getIdPeriodo(),grillaVO.getGrilla());
+            getFacadeService().getEstadoFinancieroService().persistRelaccionEeff(relacionMap, periodo.getIdPeriodo());
             relacionMap.clear();
             Grilla grilla = this.getFacadeService().getGrillaService().findGrillaById(grillaVO.getGrilla().getIdGrilla());
             grillaVO = this.getFacadeService().getEstructuraService().getGrillaVO(grilla, Boolean.FALSE);
             grillaVO.setGrilla(grilla);
             addInfoMessage("Se ha almacenado correctamente la informacón");
         }catch(Exception e){
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
+            addErrorMessage("Se ha producido un error al almacenar la relación");
         }
         
     }
     
+    public void eliminarRelacionListener(ActionEvent event){
+        
+        if(!isValidPeriodoGrilla())
+            return;
+        
+        try{
+            final Celda celda = (Celda)event.getComponent().getAttributes().get("celda");
+            getFacadeService().getEstadoFinancieroService().deleteRelacionAllEeffByCelda(celda);
+            if(relacionMap.containsKey(celda)){
+                relacionMap.remove(celda);
+            }
+            celda.setRelacionEeffList(null);
+            celda.setRelacionDetalleEeffList(null);
+            relEeffList = null;
+            relEeffDetList = null;
+            
+        }catch(Exception e){
+            logger.error(e.getMessage(), e);
+            addErrorMessage("Se ha producido un error al eliminar la relación");
+        }
+        
+    }
+    
+    
+    public void eliminarTodasRelacionListener(ActionEvent event){
+        
+        if(!isValidPeriodoGrilla())
+            return;
+        
+        try{
+        	super.getFacadeService().getEstadoFinancieroService().deleteAllRelacionByGrillaPeriodo(periodo.getIdPeriodo(), grillaVO.getGrilla().getIdGrilla());
+            relacionMap.clear();
+            Grilla grilla = super.getFacadeService().getGrillaService().findGrillaById(grillaVO.getGrilla().getIdGrilla());
+            grillaVO = super.getFacadeService().getEstructuraService().getGrillaVO(grilla, Boolean.FALSE);
+            grillaVO.setGrilla(grilla);
+            relEeffList = null;
+            relEeffDetList = null;
+            
+        }catch(Exception e){
+            logger.error(e.getMessage(), e);
+            addErrorMessage("Se ha producido un error al almacenar la información");
+        }
+        
+    }
+    
+    public void onChangeFecu(ValueChangeEvent event){
+        if(event.getNewValue()!=null){
+            relFecuSeleccionada = (RelacionEeff)event.getNewValue();
+            FacesContext context = getFacesContext();
+            //ExtendedRenderKitService extRenderKitSrvc = Service.getRenderKitService(context, ExtendedRenderKitService.class);
+            //extRenderKitSrvc.addScript(context,"AdfPage.PAGE.findComponent('" + POPUP_FECU + "').show();");
+        }
+    }
+    
+    public void onChangeCuenta(ValueChangeEvent event){
+        if(event.getNewValue()!=null){
+            relCuentaSeleccionada = (RelacionDetalleEeff)event.getNewValue();
+            FacesContext context = getFacesContext();
+            //ExtendedRenderKitService extRenderKitSrvc = Service.getRenderKitService(context, ExtendedRenderKitService.class);
+            //extRenderKitSrvc.addScript(context,"AdfPage.PAGE.findComponent('" + POPUP_CUENTA + "').show();");
+        }
+    }
+
+
     public void abrirPaginaRelacion(ActionEvent event){
         
         //final Celda celda = (Celda)event.getComponent().getAttributes().get("celda");
@@ -363,12 +440,6 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
             return str;
     }
     
-    public void addPartialText(){
-        //setADFPartialTarget(relCeldaText);
-        //setADFPartialTarget(relFecuText);
-        //setADFPartialTarget(relCuentaText);
-    }
-    
     public boolean validaRelCelda(){
         if(relCelda==null){
             addWarnMessage("Debe seleccionar celda primero");
@@ -383,43 +454,6 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
 
     public GrillaVO getGrillaVO() {
         return grillaVO;
-    }
-
-    public void setRelCelda(String relCelda) {
-        this.relCelda = relCelda;
-    }
-
-    public String getRelCelda() {
-        return relCelda;
-    }
-
-    public void setRelFecu(String relFecu) {
-        this.relFecu = relFecu;
-    }
-
-    public String getRelFecu() {
-        return relFecu;
-    }
-
-    public void setRelCuenta(String relCuenta) {
-        this.relCuenta = relCuenta;
-    }
-
-    public String getRelCuenta() {
-        return relCuenta;
-    }
-
-    public void setRelacionMap(Map<String, String[]> relacionMap) {
-        this.relacionMap = relacionMap;
-    }
-
-    public Map<String, String[]> getRelacionMap() {
-        return relacionMap;
-    }
-
-    private void aplicarRelacion(Map<String, String[]> relacionMap, String relCelda, String relFecu, String relCuenta) {
-        String[] rel = {relFecu, relCuenta};
-        relacionMap.put(relCelda, rel);
     }
 
     public void setCatalogos(List<Catalogo> catalogos) {
@@ -541,16 +575,6 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
 		this.relCeldaText = relCeldaText;
 	}
 
-	
-
-	public Catalogo getCatalogo() {
-		return catalogo;
-	}
-
-	public void setCatalogo(Catalogo catalogo) {
-		this.catalogo = catalogo;
-	}
-
 	public AutoComplete getBusquedaInputText() {
 		return busquedaInputText;
 	}
@@ -583,20 +607,157 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
 		this.renderEstructuraTabla = renderEstructuraTabla;
 	}
 
-	public InputTextarea getRelFecuText() {
-		return relFecuText;
+	public List<RelacionEeff> getRelEeffList() {
+		
+		 if(relEeffList==null){
+	            relEeffList = new ArrayList<RelacionEeff>();
+	        }
+		
+		return relEeffList;
 	}
 
-	public void setRelFecuText(InputTextarea relFecuText) {
-		this.relFecuText = relFecuText;
+	public void setRelEeffList(List<RelacionEeff> relEeffList) {
+		this.relEeffList = relEeffList;
 	}
 
-	public InputTextarea getRelCuentaText() {
-		return relCuentaText;
+	public List<RelacionDetalleEeff> getRelEeffDetList() {
+		
+		 if(relEeffDetList==null){
+	            relEeffDetList = new ArrayList<RelacionDetalleEeff>();
+	        }
+		return relEeffDetList;
 	}
 
-	public void setRelCuentaText(InputTextarea relCuentaText) {
-		this.relCuentaText = relCuentaText;
+	public void setRelEeffDetList(List<RelacionDetalleEeff> relEeffDetList) {
+		this.relEeffDetList = relEeffDetList;
 	}
+
+	public RelacionEeff getRelFecuSeleccionada() {
+		return relFecuSeleccionada;
+	}
+
+	public void setRelFecuSeleccionada(RelacionEeff relFecuSeleccionada) {
+		this.relFecuSeleccionada = relFecuSeleccionada;
+	}
+
+	public RelacionDetalleEeff getRelCuentaSeleccionada() {
+		return relCuentaSeleccionada;
+	}
+
+	public void setRelCuentaSeleccionada(RelacionDetalleEeff relCuentaSeleccionada) {
+		this.relCuentaSeleccionada = relCuentaSeleccionada;
+	}
+
+	public boolean isRenderTablaCuadro() {
+		return renderTablaCuadro;
+	}
+
+	public void setRenderTablaCuadro(boolean renderTablaCuadro) {
+		this.renderTablaCuadro = renderTablaCuadro;
+	}
+
+	public SelectOneMenu getFecuAgregadasChoice() {
+		return fecuAgregadasChoice;
+	}
+
+	public void setFecuAgregadasChoice(SelectOneMenu fecuAgregadasChoice) {
+		this.fecuAgregadasChoice = fecuAgregadasChoice;
+	}
+
+	public SelectOneMenu getCuentaAgregadasChoice() {
+		return cuentaAgregadasChoice;
+	}
+
+	public void setCuentaAgregadasChoice(SelectOneMenu cuentaAgregadasChoice) {
+		this.cuentaAgregadasChoice = cuentaAgregadasChoice;
+	}
+	
+	
+    private void init(){
+        busqueda = null;
+        versionVigente = null;
+        estructuras = null;
+        detalleEeffs = null;
+        estadoFinanciero = null;
+        detalleEeff = null;
+        numeroCuenta = null;
+        grillaVO = null;
+        relCelda = null;
+        relEeffList = null;
+        relEeffDetList = null;
+        relFecuSeleccionada = null;
+        relCuentaSeleccionada = null;
+        estructuras  = null;
+        renderTablaCuadro = false;
+        relacionMap = new LinkedHashMap<Celda, List[]>();
+    }
+    
+    private void initBuscar(){
+        grillaVO = null;
+        relCelda = null;
+        relEeffList = null;
+        relEeffDetList = null;
+        relFecuSeleccionada = null;
+        relCuentaSeleccionada = null;
+        renderTablaCuadro = false;
+        relacionMap = new LinkedHashMap<Celda, List[]>();
+    }
+    
+    public boolean isValidPeriodoGrilla(){
+        
+        if(grillaVO==null || grillaVO.getGrilla()==null || grillaVO.getGrilla().getIdGrilla()==null)
+            addWarnMessage("Debe seleccionar un cuadro");
+        else if(periodo==null || periodo.getIdPeriodo() == null)
+            addWarnMessage("Período inválido, debe ingresar a la página nuevamente");
+        else
+            return true;
+        
+        return false;
+    }
+
+	public Catalogo getCatalogo() {
+		return catalogo;
+	}
+
+	public void setCatalogo(Catalogo catalogo) {
+		this.catalogo = catalogo;
+	}
+
+	public Celda getRelCelda() {
+		return relCelda;
+	}
+
+	public void setRelCelda(Celda relCelda) {
+		this.relCelda = relCelda;
+	}
+
+	public List<SelectItem> getItemFecuList() {
+        List<SelectItem> fecuList = new ArrayList<SelectItem>();
+        
+        for(RelacionEeff rel : getRelEeffList()){
+            fecuList.add(new SelectItem(rel, rel.getFecuFormat()));
+        }
+        
+        return fecuList;
+    }
+
+    public List<SelectItem> getItemCuentaList() {
+        List<SelectItem> cuentaList = new ArrayList<SelectItem>();
+        
+        for(RelacionDetalleEeff rel : getRelEeffDetList()){
+            cuentaList.add(new SelectItem(rel, rel.getIdCuenta()+""));
+        }
+        
+        return cuentaList;
+    }
+    
+    public int getCountMapping(){
+        
+        if(relacionMap==null)
+            return 0;
+        
+        return relacionMap.size();
+    }
+	
 
 }
