@@ -270,7 +270,7 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
                 //    return null;
                 Version version = this.getVersionSeleccionada() ;
                 version.setFechaUltimoProceso(new Date());
-                
+                version.setDatosModificados(1L);
                 
                 HistorialVersion historialVersion = new HistorialVersion();
                 historialVersion.setVersion(version);

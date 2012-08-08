@@ -33,6 +33,7 @@
 						<div align="left">
 							<p:dataTable
 								value="#{generadorVersionBackingBean.estructuraList}" id="gDt90"
+								rendered="#{not empty generadorVersionBackingBean.estructuraList}"
 								style="width:720px" var="row"
 								binding="#{configuradorDisenoBackingBean.disenoEstructuraTable}"
 								emptyMessage="#{msg.general_sin_informacion}">
@@ -358,20 +359,23 @@
 									<h:panelGrid columns="2">
 										<h:outputLabel value="Tipo de Celda:" />
 										<p:selectOneMenu label="Tipo Celda"
+										    valueChangeListener="#{configuradorDisenoBackingBean.changeTipoDatoByTipoCeldaListener}"
 											converter="tipoCeldaConverter"
 											value="#{configuradorDisenoBackingBean.tipoCeldaCelda}"
 											style="width:130px;" id="somec1">
 											<f:selectItem itemLabel="#{msg.general_control_seleccione}" />
 											<f:selectItems
-												value="#{generadorDisenoBackingBean.componenteBackingBean.tipoCeldas}" />
+												value="#{configuradorDisenoBackingBean.componenteBackingBean.tipoCeldas}" />
+												<f:ajax render="cmbTipoDato2" execute="@this" />
 										</p:selectOneMenu>
 										<h:outputLabel value="Tipo de Dato:" />
-										<p:selectOneMenu label="Tipo Dato" id="somec2"
+										<p:selectOneMenu label="Tipo Dato" id="cmbTipoDato2"
 											value="#{configuradorDisenoBackingBean.tipoDatoCelda}"
 											style="width:130px;" converter="tipoDatoConverter">
 											<f:selectItem itemLabel="#{msg.general_control_seleccione}" />
 											<f:selectItems
-												value="#{generadorDisenoBackingBean.componenteBackingBean.tipoDatos}" />
+												value="#{configuradorDisenoBackingBean.tipoDatoFilteredList}" var="tipoDato" 
+												itemValue="#{tipoDato}" itemLabel="#{tipoDato.nombre}" />
 										</p:selectOneMenu>
 										<p:commandButton value="Editar Celda"
 											actionListener="#{configuradorDisenoBackingBean.editarCeldaAction}"
@@ -400,23 +404,25 @@
 
 										<!-- tipo celda -->
 										<h:outputLabel value="Tipo de Celda:" />
-										<p:selectOneMenu label="Tipo Celda"
+										<p:selectOneMenu label="Tipo Celda" valueChangeListener="#{configuradorDisenoBackingBean.changeTipoDatoByTipoCeldaListener}"
 											converter="tipoCeldaConverter"
 											value="#{configuradorDisenoBackingBean.tipoCeldaColumna}"
-											style="width:130px;">
+											style="width:130px;">											
 											<f:selectItem itemLabel="#{msg.general_control_seleccione}" />
 											<f:selectItems
-												value="#{generadorDisenoBackingBean.componenteBackingBean.tipoCeldas}" />
+												value="#{configuradorDisenoBackingBean.componenteBackingBean.tipoCeldas}" />
+												<f:ajax render="cmbTipoDato1" execute="@this" />
 										</p:selectOneMenu>
 
 										<!-- tipo de dato -->
 										<h:outputLabel value="Tipo de Dato:" />
-										<p:selectOneMenu label="Tipo Dato"
+										<p:selectOneMenu label="Tipo Dato" id="cmbTipoDato1"
 											value="#{configuradorDisenoBackingBean.tipoDatoColumna}"
 											style="width:130px;" converter="tipoDatoConverter">
 											<f:selectItem itemLabel="#{msg.general_control_seleccione}" />
 											<f:selectItems
-												value="#{generadorDisenoBackingBean.componenteBackingBean.tipoDatos}" />
+												value="#{configuradorDisenoBackingBean.tipoDatoFilteredList}" var="tipoDato" 
+												itemValue="#{tipoDato}" itemLabel="#{tipoDato.nombre}" />
 										</p:selectOneMenu>
 
 										<h:outputText value=" " />
@@ -438,19 +444,22 @@
 										<h:outputLabel value="Tipo de Celda:" />
 										<p:selectOneMenu label="Tipo Celda"
 											converter="tipoCeldaConverter"
+											valueChangeListener="#{configuradorDisenoBackingBean.changeTipoDatoByTipoCeldaListener}"
 											value="#{configuradorDisenoBackingBean.tipoCeldaFila}"
 											style="width:130px;" id="somec3">
 											<f:selectItem itemLabel="#{msg.general_control_seleccione}" />
 											<f:selectItems
-												value="#{generadorDisenoBackingBean.componenteBackingBean.tipoCeldas}" />
+												value="#{configuradorDisenoBackingBean.componenteBackingBean.tipoCeldas}" />
+												<f:ajax render="cmbTipoDato3" execute="@this" />
 										</p:selectOneMenu>
 										<h:outputLabel value="Tipo de Dato:" />
-										<p:selectOneMenu label="Tipo Dato" id="somec4"
+										<p:selectOneMenu label="Tipo Dato" id="cmbTipoDato3"
 											value="#{configuradorDisenoBackingBean.tipoDatoFila}"
 											style="width:130px;" converter="tipoDatoConverter">
 											<f:selectItem itemLabel="#{msg.general_control_seleccione}" />
 											<f:selectItems
-												value="#{generadorDisenoBackingBean.componenteBackingBean.tipoDatos}" />
+												value="#{configuradorDisenoBackingBean.tipoDatoFilteredList}" var="tipoDato" 
+												itemValue="#{tipoDato}" itemLabel="#{tipoDato.nombre}" />
 										</p:selectOneMenu>
 										<p:commandButton value="Editar Fila"
 											actionListener="#{configuradorDisenoBackingBean.editarFilaAction}"
@@ -487,7 +496,7 @@
 								actionListener="#{generadorVisualizadorBackingBean.guardarDisenoActionListener}"
 								partialSubmit="false" update="@form" />
 
-							<p:commandButton value="Editar Configuración" icon="ui-icon-disk"
+							<p:commandButton value="Guardar Configuración" icon="ui-icon-disk"
 								id="btn3"
 								rendered="#{generadorVersionBackingBean.renderBotonEditarVersion}"
 								actionListener="#{generadorVisualizadorBackingBean.editarDisenoActionListener}"
@@ -523,7 +532,7 @@
 
 			</p:tabView>
 
-
+			<!-- Dialogo de estructuras no confirmadas -->
 			<p:dialog id="dialogNoDataSavedId" header="Información"
 				widgetVar="dialogNoDataSaved" dynamic="true" closable="true"
 				draggable="false" resizable="false">
@@ -541,6 +550,45 @@
 					</p:commandButton>
 				</h:panelGrid>
 			</p:dialog>
+			
+			<!-- Dialogo de version no editable debido a que posee datos ingresados -->
+			<p:dialog id="dialogVersionNoEditableId" header="Información"
+				widgetVar="dialogVersionNoEditable" dynamic="true" closable="true"
+				draggable="false" resizable="false">
+				<h:panelGrid columns="3">
+					<h:outputText value="Esta Versión no puede ser modificada ya que posee datos ingresados." />
+					<p:spacer />
+					<p:spacer />
+
+					<p:spacer width="30" />
+					<p:spacer />
+					<p:commandButton icon="ui-icon-check"
+						value="#{msg.general_control_aceptar}" type="button"
+						id="btnCancelarDialogVersionNoEditable"
+						onclick="dialogVersionNoEditable.hide()">
+					</p:commandButton>
+				</h:panelGrid>
+			</p:dialog>
+			
+			<!-- Dialogo de version no editable debido a que posee formulas -->
+			<p:dialog id="dialogVersionNoEditableFormulaId" header="Información"
+				widgetVar="dialogVersionNoEditableFormula" dynamic="true" closable="true"
+				draggable="false" resizable="false">
+				<h:panelGrid columns="3">
+					<h:outputText value="Esta Versión no puede ser modificada ya que tiene Fórmulas configuradas." />
+					<p:spacer />
+					<p:spacer />
+
+					<p:spacer width="30" />
+					<p:spacer />
+					<p:commandButton icon="ui-icon-check"
+						value="#{msg.general_control_aceptar}" type="button"
+						id="btnCancelarDialogVersionNoEditableFormula"
+						onclick="dialogVersionNoEditableFormula.hide()">
+					</p:commandButton>
+				</h:panelGrid>
+			</p:dialog>
+			
 
 		</h:form>
 

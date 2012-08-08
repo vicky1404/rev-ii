@@ -39,7 +39,6 @@ import cl.mdr.ifrs.ejb.cross.SortHelper;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.EstadoCuadro;
 import cl.mdr.ifrs.ejb.entity.HistorialVersion;
-import cl.mdr.ifrs.ejb.entity.Periodo;
 import cl.mdr.ifrs.ejb.entity.TipoCuadro;
 import cl.mdr.ifrs.ejb.entity.Version;
 import cl.mdr.ifrs.modules.reporte.mb.ReporteUtilBackingBean;
