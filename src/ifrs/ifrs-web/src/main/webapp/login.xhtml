@@ -22,7 +22,7 @@
 			width="242" height="49" id="logo_app"></p:graphicImage>
 	</div>
 	<p:spacer height="10"></p:spacer>
-	<div id="container" style="text-align: center;">
+	<div id="container" style="text-align: center; ">
 		<center>
 			<p:panel id="filtro_usuario"
 				header="#{msg.titulo_principal_aplicacion}" toggleable="false"
@@ -74,11 +74,11 @@
 					<p:panel id="panel_login" header="#{msg.label_acceso}">
 						<h:panelGrid columns="3" columnClasses="titleCell" border="0">
 							<p:outputLabel value="#{msg.label_usuario}" for="user" />
-							<p:inputText id="user" required="true"
+							<p:inputText id="user" required="true" style="height: 10px;"
 								value="#{loginBackingBean.usuarioLogin.nombreUsuario}" />
 							<h:message for="user" styleClass="ui-outputlabel ui-state-error" />
 							<p:outputLabel value="#{msg.label_clave}" for="clave" />
-							<p:password id="clave" required="true"
+							<p:password id="clave" required="true" style="height: 10px;"
 								value="#{loginBackingBean.usuarioLogin.password}" />
 							<h:message for="clave" styleClass="ui-outputlabel ui-state-error" />
 						</h:panelGrid>

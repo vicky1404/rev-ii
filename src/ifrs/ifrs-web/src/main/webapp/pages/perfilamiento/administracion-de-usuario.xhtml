@@ -124,9 +124,17 @@
 					<h:message for="it41" styleClass="ui-outputlabel ui-state-error" />
 
 					<p:outputLabel value="Clave" for="itcl" />
-					<p:password size="40" required="true" id="itcl"
+					<p:password size="40" required="true" id="itcl" 
+						autocomplete="off" inline="false" feedback="true"
+						weakLabel="Seguridad Baja" goodLabel="Seguridad Media" strongLabel="Muy Segura"
+						promptLabel="Ingrese una Clave" match="itcl2" 
 						value="#{usuarioBackingBean.nuevoUsuario.password}" />
 					<h:message for="itcl" styleClass="ui-outputlabel ui-state-error" />
+					
+					<p:outputLabel value="Verificar Clave" for="itcl2" />
+					<p:password size="40" required="true" id="itcl2" 
+						autocomplete="off" value="#{usuarioBackingBean.nuevoUsuario.password}" />
+					<h:message for="itcl22" styleClass="ui-outputlabel ui-state-error" />
 
 					<p:outputLabel value="Email" for="ite" />
 					<p:inputText size="40" required="true" id="ite"
