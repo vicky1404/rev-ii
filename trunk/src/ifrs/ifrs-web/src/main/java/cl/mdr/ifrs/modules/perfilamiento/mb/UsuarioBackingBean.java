@@ -114,7 +114,7 @@ public class UsuarioBackingBean extends AbstractBackingBean implements Serializa
 	}
 
 
-	public Usuario getNuevoUsuario() {
+	public Usuario getNuevoUsuario() {		
 		if(nuevoUsuario == null){
 			nuevoUsuario = new Usuario();			
 			nuevoUsuario.setRol(new Rol());
