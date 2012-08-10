@@ -9,9 +9,11 @@
 <h:head>
 	<title>#{msg.titulo_principal_aplicacion}</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<link rel="shortcut icon" href="#{request.contextPath}/resources/images/icon/favicon.ico"/>
+	<link rel="shortcut icon"
+		href="#{request.contextPath}/resources/images/icon/favicon.ico" />
 	<meta http-equiv="Author" content="#{msg.label_nombre_mdr_technology}" />
-	<meta http-equiv="Nombre del Software" content="#{msg.titulo_principal_aplicacion}" />
+	<meta http-equiv="Nombre del Software"
+		content="#{msg.titulo_principal_aplicacion}" />
 	<h:outputStylesheet name="css/screen-login.css" />
 </h:head>
 <h:body>
@@ -19,10 +21,10 @@
 	<div id="div_logo_app" style="padding-left: 200px;">
 		<p:tooltip for="logo_app" value="#{msg.titulo_principal_aplicacion}"></p:tooltip>
 		<p:graphicImage value="/resources/images/logo/logo_exfida.png"
-			width="242" height="49" id="logo_app"></p:graphicImage>
+			id="logo_app"></p:graphicImage>
 	</div>
 	<p:spacer height="10"></p:spacer>
-	<div id="container" style="text-align: center; ">
+	<div id="container" style="text-align: center;">
 		<center>
 			<p:panel id="filtro_usuario"
 				header="#{msg.titulo_principal_aplicacion}" toggleable="false"
@@ -57,7 +59,7 @@
 							</div>
 						</div>
 					</c:if>
-					
+
 					<c:if test="${param.session_expired eq 1}">
 						<div class="ui-messages ui-widget">
 							<div class="ui-messages-info ui-corner-all">
