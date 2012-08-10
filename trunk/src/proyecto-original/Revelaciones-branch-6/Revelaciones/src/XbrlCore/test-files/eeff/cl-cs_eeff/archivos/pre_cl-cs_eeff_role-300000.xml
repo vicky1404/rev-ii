@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_eeff_role-300000.xsd#eeff_role-300000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/eeff_role-300000" />
+  <link:presentationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/eeff_role-300000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_OtrosIngresosYEgresos" xlink:label="lbl3883" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_OtrosIngresos" xlink:label="lbl3884" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3883" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3884" order="480.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_MargenDeContribucion" xlink:label="lbl3885" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_PrimasRetenidas" xlink:label="lbl3886" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3885" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3886" order="40.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_OtrosGastos" xlink:label="lbl3887" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3883" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3887" order="490.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_VariacionReservasTecnicas" xlink:label="lbl3888" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_VariacionReservaValorDelFondo" xlink:label="lbl3889" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3888" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3889" order="110.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_EstadoResultadoSinopsis" xlink:label="lbl3890" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_UtilidadPerdidaOperacionesDiscontinuasyDisponiblesParaVentaNetasImpuesto" xlink:label="lbl3891" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3890" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3891" order="530.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_ResultadoTecnicoDeSeguros" xlink:label="lbl3892" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3890" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3892" order="460.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_CostosAdministracion" xlink:label="lbl3893" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_OtrosCostosAdministracion" xlink:label="lbl3894" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3893" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl3894" order="310.0" />
+    <link:presentationArc xlink:from="lbl3890" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3885" order="30.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_Remuneraciones" xlink:label="lbl3895" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3893" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3895" order="300.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_CostoDeRentasDelEjercicio" xlink:label="lbl3896" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3885" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl3896" order="180.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_ResultadoDeInversiones" xlink:label="lbl3897" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_ResultadoNetoInversionesNoRealizadas" xlink:label="lbl3898" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3897" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3898" order="360.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_ResultadoInversionesFinancierasNoRealizadas" xlink:label="lbl3899" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3898" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3899" order="380.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_ResultadoNetoInversionesDevengadas" xlink:label="lbl3900" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3897" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3900" order="390.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_PrimasDirectas" xlink:label="lbl3901" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3886" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3901" order="50.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_EstadoResultadoIntegralSinopsis" xlink:label="lbl3902" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_EstadoOtrosResultadosIntegralesSinopsis" xlink:label="lbl3903" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3902" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3903" order="560.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_GastosMedicos" xlink:label="lbl3904" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3885" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3904" order="280.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_DeterioroSeguros" xlink:label="lbl3905" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3885" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3905" order="281.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_GastosDeGestion" xlink:label="lbl3906" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3900" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3906" order="430.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_PrimasAceptadas" xlink:label="lbl3907" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3886" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3907" order="60.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_DeterioroInversiones" xlink:label="lbl3908" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3897" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3908" order="450.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_ResultadoEvaluacionPropiedadesMueblesYEquipos" xlink:label="lbl3909" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3903" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3909" order="570.0" />
+    <link:presentationArc xlink:from="lbl3885" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3888" order="80.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_ImpuestoRenta" xlink:label="lbl3910" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3890" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2009/role/negatedLabel" xlink:to="lbl3910" order="540.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_OtrosResultadosConAjusteEnPatrimonio" xlink:label="lbl3911" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3903" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3911" order="600.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_CostoSiniestrosDelEjercicio" xlink:label="lbl3912" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_SiniestrosDirectos" xlink:label="lbl3913" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3912" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3913" order="150.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_ResultadoIntegral" xlink:label="lbl3914" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3902" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl3914" order="630.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_ResultadoCoberturasFlujoDeCaja" xlink:label="lbl3915" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3903" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3915" order="590.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_ResultadoActivosFinancieros" xlink:label="lbl3916" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3903" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3916" order="580.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_ResultadoDelPeriodo" xlink:label="lbl3917" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3890" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl3917" order="550.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_OtroResultadoIntegral" xlink:label="lbl3918" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3903" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl3918" order="620.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_SiniestrosAceptados" xlink:label="lbl3919" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3912" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3919" order="170.0" />
+    <link:presentationArc xlink:from="lbl3890" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3897" order="320.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_SiniestrosCedidos" xlink:label="lbl3920" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3912" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3920" order="160.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_VariacionOtrasReservasTecnicas" xlink:label="lbl3921" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3888" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3921" order="130.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_DiferenciasCambio" xlink:label="lbl3922" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3890" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3922" order="500.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_VariacionReservaCatastroficaDeTerremoto" xlink:label="lbl3923" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3888" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3923" order="111.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_ResultadoInversionesInmobiliariasDevengadas" xlink:label="lbl3924" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3900" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3924" order="400.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_ResultadoInversionesInmobiliariasNoRealizadas" xlink:label="lbl3925" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3898" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3925" order="370.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_ResultadoDeIntermediacion" xlink:label="lbl3926" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3885" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3926" order="220.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_VariacionReservaMatematica" xlink:label="lbl3927" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3888" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3927" order="100.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_RentasAceptadas" xlink:label="lbl3928" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3896" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3928" order="210.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_ComisionesReaseguroAceptado" xlink:label="lbl3929" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3926" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3929" order="250.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_VariacionReservaDeRiesgoEnCurso" xlink:label="lbl3930" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3888" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3930" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_DepreciacionInversiones" xlink:label="lbl3931" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3900" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3931" order="420.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_ComisionAgentesDirectos" xlink:label="lbl3932" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3926" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3932" order="230.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_GastosPorReaseguroNoProporcional" xlink:label="lbl3933" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3885" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3933" order="270.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_ResultadoNetoInversionesRealizadas" xlink:label="lbl3934" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_ResultadoInversionesInmobiliariasRealizadas" xlink:label="lbl3935" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3934" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3935" order="340.0" />
+    <link:presentationArc xlink:from="lbl3890" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2009/role/negatedLabel" xlink:to="lbl3893" order="290.0" />
+    <link:presentationArc xlink:from="lbl3897" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3934" order="330.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_ResultadoInversionesFinancierasRealizadas" xlink:label="lbl3936" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3934" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3936" order="350.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_ComisionCorredoresYRetribucionAsesoresPrevisionales" xlink:label="lbl3937" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3926" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3937" order="240.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_ResultadoNetoInversionesPorSegurosConCuentaUnicaDeInversiones" xlink:label="lbl3938" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3897" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3938" order="440.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_RentasCedidas" xlink:label="lbl3939" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3896" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3939" order="200.0" />
+    <link:presentationArc xlink:from="lbl3902" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3890" order="20.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_ResultadoInversionesFinancierasDevengadas" xlink:label="lbl3940" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3900" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3940" order="410.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_ResultadoOperacionesContinuasAntesDeImpuestoRenta" xlink:label="lbl3941" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3890" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3941" order="520.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_UtilidadPerdidaUnidadesReajustables" xlink:label="lbl3942" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3890" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3942" order="510.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_ImpuestoDiferido" xlink:label="lbl3943" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3903" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3943" order="610.0" />
+    <link:presentationArc xlink:from="lbl3885" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl3912" order="140.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_PrimasCedidas" xlink:label="lbl3944" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3886" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3944" order="70.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_ComisionesReaseguroCedido" xlink:label="lbl3945" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3926" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3945" order="260.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_RentasDirectas" xlink:label="lbl3946" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3896" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3946" order="190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_VariacionReservaInsuficienciaPrimas" xlink:label="lbl3947" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl3888" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3947" order="120.0" />
+    <link:presentationArc xlink:from="lbl3890" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl3883" order="470.0" />
+  </link:presentationLink>
+</link:linkbase>
+

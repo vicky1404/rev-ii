@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+        xmlns:h="http://java.sun.com/jsf/html">
+    <af:document title="mantenedor-taxonomia.jsf" id="d1">
+        <af:form id="f1">
+            <af:panelBox id="pb1" text="Mantenedor de Taxonomías" styleClass="AFStretchWidth">
+                <h:panelGrid columns="3" id="pg1" columnClasses="ancho_140">
+                    <af:outputLabel value="Fecha:" id="ol1"/>
+                    <af:inputDate id="id1" label=" " value="#{mantenedorTaxonomiaBackingBean.fechaDesde}"
+                                  binding="#{mantenedorTaxonomiaBackingBean.inputFechaDesde}">
+                        <af:convertDateTime pattern="dd-MM-yyyy"/>
+                    </af:inputDate>
+                    <af:inputDate id="id2" label=" " value="#{mantenedorTaxonomiaBackingBean.fechaHasta}"
+                                  binding="#{mantenedorTaxonomiaBackingBean.inputFechaHasta}">
+                        <af:convertDateTime pattern="dd-MM-yyyy"/>
+                    </af:inputDate>
+                </h:panelGrid>
+                <h:panelGrid columns="2" id="pg2" columnClasses="ancho_140">
+                    <af:outputLabel value="Estado:" id="ol2"/>
+                    <af:selectOneChoice label=" " id="soc1Periodo" value="#{mantenedorTaxonomiaBackingBean.vigente}">
+                        <f:selectItem itemLabel="#{msg.general_control_seleccione}" id="sel1"/>
+                        <f:selectItems value="#{mantenedorTaxonomiaBackingBean.componenteBackingBean.vigencias}"
+                                       id="vigencia"/>
+                    </af:selectOneChoice>
+                </h:panelGrid>
+                <h:panelGrid columns="3" id="pg3" columnClasses="ancho_140">
+                    <af:spacer width="10" id="s1"/>
+                    <af:spacer width="30" id="s2"/>
+                    <af:commandButton text="#{msg.general_control_buscar}" id="cb1"
+                                      action="#{mantenedorTaxonomiaBackingBean.buscarTaxonimiaAction}"/>
+                </h:panelGrid>
+            </af:panelBox>
+            <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+                <f:facet name="toolbar">
+                    <af:toolbar id="tb1">
+                        <af:commandToolbarButton action="#{mantenedorTaxonomiaBackingBean.guardarAction}"
+                                                 text="#{msg.general_control_guardar}" id="cb1Guardar"
+                                                 partialSubmit="false" icon="/images/icon/save2.png"></af:commandToolbarButton>
+                        <af:commandToolbarButton text="#{msg.general_control_agregarFila}" id="cb1Agregar"
+                                                 partialSubmit="true" immediate="false"
+                                                 actionListener="#{mantenedorTaxonomiaBackingBean.agregarFilaAction}"
+                                                 icon="/images/icon/add2.png"></af:commandToolbarButton>
+                    </af:toolbar>
+                </f:facet>
+                <f:facet name="secondaryToolbar">
+                    <af:toolbar id="t2">
+                        <af:commandToolbarButton text="#{msg.general_control_cancelar}" id="cb1Cancelar"
+                                                 partialSubmit="false" immediate="true" action="mantenedor-taxonomia"
+                                                 icon="/images/icon/cancel.gif"></af:commandToolbarButton>
+                    </af:toolbar>
+                </f:facet>
+                <af:table value="#{mantenedorTaxonomiaBackingBean.xbrlTaxonomias}" var="row" rowBandingInterval="1"
+                          emptyText="#{msg.general_mensaje_busqueda_sin_registros}" columnStretching="column:c5" id="t1"
+                          styleClass="AFStretchWidth" partialTriggers="::cb1Agregar"
+                          inlineStyle="width:inherit; height:auto;" autoHeightRows="25" fetchSize="500"
+                          summary="Tabla de Mantenedor de Taxonomías" editingMode="clickToEdit" rowSelection="single"
+                          disableColumnReordering="true">
+                    <!--af:column sortable="false" headerText="Id Taxonomia" align="start" id="c1" rowHeader="unstyled">
+                        <af:outputText value="#{row.idTaxonomia}" id="ot1"/>
+                    </af:column-->
+                    <af:column sortable="false" headerText="Nombre de la Taxonomía" align="start" id="c2" width="300">
+                        <af:inputText value="#{row.nombre}" id="ot2" required="true"/>
+                    </af:column>
+                    <af:column sortable="false" headerText="Fecha de la Taxonomía" align="start" id="c1" width="100">
+                        <af:inputDate value="#{row.fechaTaxonomia}" id="id3"/>
+                    </af:column>
+                    <af:column sortable="false" headerText="Nombre de Archivo Main (Shell)" align="start" id="c3"
+                               width="150">
+                        <af:inputText value="#{row.nombreArchivo}" id="ot3" required="true"/>
+                    </af:column>
+                    <af:column sortable="false" headerText="Nombre de Top Taxonomy" align="start" id="c4" width="150">
+                        <af:inputText value="#{row.topTaxonomy}" id="ot4" required="true"/>
+                    </af:column>
+                    <af:column sortable="false" headerText="URI (Path Absoluto hacia la Taxonomía)" align="start"
+                               id="c5">
+                        <af:inputText value="#{row.uri}" id="ot5" required="true"/>
+                    </af:column>
+                    <af:column sortable="false" headerText="Vigente" align="start" id="c6" rowHeader="unstyled">
+                        <af:selectOneChoice label=" " id="soc1" value="#{row.vigente}" showRequired="true"
+                                            requiredMessageDetail="Seleccione Vigencia" required="true"
+                                            clientComponent="true">
+                            <f:selectItems value="#{mantenedorTaxonomiaBackingBean.componenteBackingBean.vigencias}"
+                                           id="si1"/>
+                        </af:selectOneChoice>
+                    </af:column>
+                </af:table>
+            </af:panelCollection>
+        </af:form>
+    </af:document>
+</f:view>

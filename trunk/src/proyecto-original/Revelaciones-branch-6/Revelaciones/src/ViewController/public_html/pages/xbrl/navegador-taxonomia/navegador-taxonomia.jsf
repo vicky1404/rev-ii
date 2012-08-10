@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+        xmlns:h="http://java.sun.com/jsf/html" xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+    <af:document title="navegador-taxonomia.jsf" id="d1">
+        <af:resource type="javascript">
+          function cargarEvento(evt) {
+              var popup = AdfPage.PAGE.findComponentByAbsoluteId('p1_loading');
+              if (popup != null) {
+                  AdfPage.PAGE.addBusyStateListener(popup, handleBusyState);
+                  evt.preventUserInput();
+              }
+          }
+          //JavaScript call back handler 
+          function handleBusyState(evt) {
+              var popup = AdfPage.PAGE.findComponentByAbsoluteId('p1_loading');
+              if (popup != null) {
+                  if (evt.isBusy()) {
+                      popup.show();
+                  }
+                  else if (popup.isPopupVisible()) {
+                      popup.hide();
+                      AdfPage.PAGE.removeBusyStateListener(popup, handleBusyState);
+                  }
+              }
+          }
+        </af:resource>
+        <af:resource type="css">
+            .ancho_140 {
+                width: 140px;
+            }
+        </af:resource>
+        <af:form id="f1">
+            <af:popup id="p1_loading" contentDelivery="immediate" animate="false">
+                <af:dialog id="d2" type="none" title="Cargando..." closeIconVisible="false" inlineStyle="width:220px;"
+                           modal="false">
+                    <af:panelGroupLayout id="pgl1" layout="horizontal">
+                        <af:image shortDesc="Procesando" source="/images/icon/loading5.gif" id="i2"/>
+                        <af:spacer width="30px;" id="s4"/>
+                        <af:outputText value="Cargando..." id="ot11"/>
+                    </af:panelGroupLayout>
+                </af:dialog>
+            </af:popup>
+            <af:panelBox id="pb1" text="Explorador de Taxonomía XBRL">
+                <h:panelGrid id="pg1" columns="3" columnClasses="ancho_140">
+                    <af:outputLabel value="Taxonomía:" id="ol1"/>
+                    <af:selectOneChoice label=" " id="sol1"
+                                        value="#{navegadorTaxonomiaBackingBean.xbrlTaxonomiaSelected}">
+                        <f:selectItem itemLabel="#{msg.general_control_seleccione}" id="sel1"/>
+                        <f:selectItems value="#{navegadorTaxonomiaBackingBean.xbrlTaxonomiasSelectItem}" id="si1"/>
+                    </af:selectOneChoice>
+                    <af:commandButton text="Visualizar Taxonomía" id="cb1" blocking="true" partialSubmit="false"
+                                      action="#{navegadorTaxonomiaBackingBean.visualizarTaxonomiaAction}">
+                        <af:clientListener method="cargarEvento" type="action"/>
+                    </af:commandButton>
+                    <af:spacer width="50" id="s2"/>
+                </h:panelGrid>
+                <h:panelGrid id="pg2" columns="2" columnClasses="ancho_140"
+                             rendered="#{navegadorTaxonomiaBackingBean.renderTaxonomia}">
+                    <af:outputLabel value="Nombre de la Taxonomía:" id="ol4"/>
+                    <af:panelList id="pl1">
+                        <af:outputText value="#{navegadorTaxonomiaBackingBean.discoverableTaxonomySet.topTaxonomy.namespace.prefix} - #{navegadorTaxonomiaBackingBean.discoverableTaxonomySet.topTaxonomy.namespace.URI}"
+                                       id="it1"/>
+                    </af:panelList>
+                    <af:outputLabel value="Taxonomías Importadas: (#{fn:length(navegadorTaxonomiaBackingBean.importedTaxonomies)})"
+                                    id="ol2"/>
+                    <af:panelGroupLayout layout="scroll" inlineStyle="height:100px;" id="pgl2" landmark="search">
+                        <af:panelList id="pl2">
+                            <af:forEach items="#{navegadorTaxonomiaBackingBean.importedTaxonomies}" var="name">
+                                <af:outputText value="#{name}" id="ot1"/>
+                            </af:forEach>
+                        </af:panelList>
+                    </af:panelGroupLayout>
+                    <af:outputLabel value="Cantidad de Conceptos Importados:" id="ol3"/>
+                    <af:panelList id="pl3">
+                        <af:outputText value="#{fn:length(navegadorTaxonomiaBackingBean.discoverableTaxonomySet.concepts)} Conceptos."
+                                       id="ot7"/>
+                    </af:panelList>
+                </h:panelGrid>
+            </af:panelBox>
+            <af:spacer width="10" height="10" id="s1"/>
+            <af:panelCollection id="pc1" styleClass="AFStretchWidth"
+                                rendered="#{navegadorTaxonomiaBackingBean.renderTaxonomia}">
+                <f:facet name="secondaryToolbar"></f:facet>
+                <af:table value="#{navegadorTaxonomiaBackingBean.taxonomyConceptList}" var="row" id="t1"
+                          rowSelection="single" summary=" " columnStretching="column:c0" contentDelivery="immediate"
+                          fetchSize="50" inlineStyle="height:inherit; width:inherit;" autoHeightRows="100"
+                          disableColumnReordering="true" styleClass="AFStretchWidth" varStatus="vs"
+                          partialTriggers="cb2" binding="#{navegadorTaxonomiaBackingBean.taxonomyTable}"
+                          columnSelection="none" emptyText=" ">
+                    <af:column headerText="ID" align="start" id="c0" filterable="true" filterFeatures="caseSensitive"
+                               sortable="true" sortProperty="name">
+                        <af:outputText value="#{row.name}" id="ot2"/>
+                        <f:facet name="header">
+                            <h:panelGrid columns="3" id="pg3">
+                                <af:inputText label=" " id="it2" autoComplete="off"
+                                              columns="50"
+                                              value="#{navegadorTaxonomiaBackingBean.taxonomyConceptFilter.id}"/>
+                                <af:commandButton text="Buscar"
+                                                  actionListener="#{navegadorTaxonomiaBackingBean.filterTaxonomyTable}"
+                                                  id="cb2" partialSubmit="true">
+                                    <af:clientListener method="cargarEvento" type="action"/>
+                                </af:commandButton>
+                                <af:commandButton text="Limpiar"
+                                                  actionListener="#{navegadorTaxonomiaBackingBean.cleanFilterTaxonomyTable}"
+                                                  id="cb3" partialSubmit="true">
+                                    <af:clientListener method="cargarEvento" type="action"/>
+                                </af:commandButton>
+                            </h:panelGrid>
+                        </f:facet>
+                    </af:column>
+                    <af:column headerText="Type" filterable="true" align="start" id="c3" width="145" sortable="true"
+                               sortProperty="type">
+                        <af:outputText value="#{row.type}" id="ot8"/>
+                    </af:column>
+                    <af:column sortable="false" headerText="Namespace" align="start" id="c4" width="60">
+                        <af:outputText value="#{row.namespace.prefix}" id="ot3"/>
+                    </af:column>
+                    <af:column sortable="false" headerText="Substitution Group" align="start" id="c5" width="130">
+                        <af:outputText value="#{row.substitutionGroup}" id="ot4"/>
+                    </af:column>
+                    <af:column sortable="false" headerText="Period Type" align="start" id="c6">
+                        <af:outputText value="#{row.periodType}" id="ot5"/>
+                    </af:column>
+                    <af:column sortable="false" headerText="Schema Name" align="start" id="c7" width="150"
+                               rowHeader="unstyled">
+                        <af:outputText value="#{row.taxonomySchemaName}" id="ot6"/>
+                    </af:column>
+                </af:table>
+            </af:panelCollection>
+        </af:form>
+    </af:document>
+</f:view>

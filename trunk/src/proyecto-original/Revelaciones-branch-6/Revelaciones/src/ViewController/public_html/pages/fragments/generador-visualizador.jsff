@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <af:decorativeBox id="db2" dimensionsFrom="auto"
+                      rendered="#{generadorVisualizadorBackingBean.renderedVisualizador}">
+        <f:facet name="center">
+            <af:group id="g10">
+                <af:panelGroupLayout layout="scroll" id="pgl13" styleClass="AFStretchWidth">
+                <af:forEach items="#{generadorVisualizadorBackingBean.estructuras}" var="item" varStatus="status">
+                    <af:switcher defaultFacet="#{item.tipoEstructura.idTipoEstructura == 0 ? 'grilla':(item.tipoEstructura.idTipoEstructura == 1 ? 'html' : 'texto') }"
+                                 id="s3">
+                        <f:facet name="texto">
+                            <ui:include src="/pages/fragments/cuadro-texto.jsff"/>
+                        </f:facet>
+                        <f:facet name="grilla">
+                            <af:group id="g1">
+                                <af:spacer height="10" id="sp2"/>
+                                <af:outputFormatted value="#{item.grillaVO.titulo}"
+                                                            styleClass="AFStretchWidth x15w"                                                            
+                                                            id="of1"/>
+                                <af:spacer height="10" id="s1"/>
+                                <af:switcher defaultFacet="#{item.grillaVO.nivel == 2 ? 'nivel2' : (item.grillaVO.nivel == 1 ? 'nivel1' : 'nivel0')}" id="s2">
+                                    <f:facet name="nivel2">
+                                        <ui:include src="/pages/fragments/cuadro-nivel2.jsff"/>
+                                    </f:facet>
+                                    <f:facet name="nivel1">
+                                        <ui:include src="/pages/fragments/cuadro-nivel1.jsff"/>
+                                    </f:facet>
+                                    <f:facet name="nivel0">
+                                        <ui:include src="/pages/fragments/cuadro-nivel0.jsff"/>
+                                    </f:facet>
+                                </af:switcher>
+                            </af:group>
+                        </f:facet>
+                        <f:facet name="html">
+                            <af:resource source="/js/tiny_mce/tiny_mce.js" type="javascript"/>
+                            <af:resource source="/js/tiny_mce/init-editor.js" type="javascript"/>
+                            <af:resource type="javascript">
+                              loadEditor();
+                            </af:resource>
+                            
+                            <!--ui:include src="/pages/fragments/cuadro-html.jsff"/-->
+                            
+                            <af:inputText label=" " id="rte_#{item.idEstructura}" simple="true"
+                                          styleClass="AFStretchWidth" contentStyle="width: 100%;" rows="25"
+                                          value="#{item.htmlVo.html.contenidoStr}"
+                                          validator="#{cuadroBackingBean.validateHtml}"></af:inputText>
+                        </f:facet>
+                    </af:switcher>
+                </af:forEach>
+                </af:panelGroupLayout>
+                <af:spacer height="15" id="s4"/>
+                <div align="center">
+                    <af:commandButton text="Guardar Diseño de Estructura" icon="/images/icon/save2.png"
+                                      actionListener="#{generadorVisualizadorBackingBean.guardarDisenoListener}"
+                                      id="cb2"/>
+                </div>
+            </af:group>
+        </f:facet>
+    </af:decorativeBox>
+</ui:composition>

@@ -1,0 +1,55 @@
+select * from rev_catalogo
+
+select * from rev_version where id_catalogo = 
+
+select * from rev_estructura where id_version = 23
+
+select * from rev_columna where id_grilla = 29
+
+select * from rev_celda where id_grilla = 29 order by id_columna, id_fila
+
+select * from rev_celda where id_grilla = 195  and id_fila = 3 order by id_columna, id_fila
+
+update rev_celda set id_tipo_celda = 1, id_tipo_dato = 2 where id_grilla = 195 and id_fila = 13 and id_columna <> 1
+
+update rev_celda set valor = null where id_grilla = 302 and id_fila = 23 and id_columna = 7
+
+
+
+/*formulas*/
+select * from rev_formula_grilla where id_grilla = 195 and id_fila = 28
+
+select * from rev_campo_formula where id_grilla = 195 and id_fila = 28
+
+select * from rev_campo_formula where id_grilla = 166 and id_COLUMNA = 9 ORDER BY ID_FILA
+
+delete from rev_celda where id_grilla = 195 and id_fila = 29
+
+delete from rev_campo_formula where id_grilla = 195 and id_fila = 29
+
+delete from rev_formula_grilla where id_grilla = 195 and id_fila = 29
+
+
+delete from rev_formula_grilla where id_campo_formula in(select id_campo_formula  from rev_campo_formula where id_grilla = 195 and id_fila = 13) and id_grilla = 195
+
+
+insert into rev_formula_grilla  (ID_FORMULA,ID_TIPO_OPERACION,ID_CAMPO_FORMULA,ID_COLUMNA,ID_FILA,ID_GRILLA) values(SEQ_FORMULA_GRILLA.NEXTVAL, 0,799,2,13,195)
+
+
+insert into rev_campo_formula (ID_CAMPO_FORMULA,ID_COLUMNA,ID_FILA,ID_GRILLA) values (SEQ_CAMPO_FORMULA.NEXTVAL,17,3,166)
+insert into rev_campo_formula (ID_CAMPO_FORMULA,ID_COLUMNA,ID_FILA,ID_GRILLA) values (SEQ_CAMPO_FORMULA.NEXTVAL,17,4,166)
+insert into rev_campo_formula (ID_CAMPO_FORMULA,ID_COLUMNA,ID_FILA,ID_GRILLA) values (SEQ_CAMPO_FORMULA.NEXTVAL,17,5,166)
+insert into rev_campo_formula (ID_CAMPO_FORMULA,ID_COLUMNA,ID_FILA,ID_GRILLA) values (SEQ_CAMPO_FORMULA.NEXTVAL,17,6,166)
+insert into rev_campo_formula (ID_CAMPO_FORMULA,ID_COLUMNA,ID_FILA,ID_GRILLA) values (SEQ_CAMPO_FORMULA.NEXTVAL,17,8,166)
+insert into rev_campo_formula (ID_CAMPO_FORMULA,ID_COLUMNA,ID_FILA,ID_GRILLA) values (SEQ_CAMPO_FORMULA.NEXTVAL,17,9,166)
+insert into rev_campo_formula (ID_CAMPO_FORMULA,ID_COLUMNA,ID_FILA,ID_GRILLA) values (SEQ_CAMPO_FORMULA.NEXTVAL,17,10,166)
+insert into rev_campo_formula (ID_CAMPO_FORMULA,ID_COLUMNA,ID_FILA,ID_GRILLA) values (SEQ_CAMPO_FORMULA.NEXTVAL,17,11,166)
+insert into rev_campo_formula (ID_CAMPO_FORMULA,ID_COLUMNA,ID_FILA,ID_GRILLA) values (SEQ_CAMPO_FORMULA.NEXTVAL,17,14,166)
+insert into rev_campo_formula (ID_CAMPO_FORMULA,ID_COLUMNA,ID_FILA,ID_GRILLA) values (SEQ_CAMPO_FORMULA.NEXTVAL,17,15,166)
+insert into rev_campo_formula (ID_CAMPO_FORMULA,ID_COLUMNA,ID_FILA,ID_GRILLA) values (SEQ_CAMPO_FORMULA.NEXTVAL,17,16,166)
+insert into rev_campo_formula (ID_CAMPO_FORMULA,ID_COLUMNA,ID_FILA,ID_GRILLA) values (SEQ_CAMPO_FORMULA.NEXTVAL,17,18,166)
+insert into rev_campo_formula (ID_CAMPO_FORMULA,ID_COLUMNA,ID_FILA,ID_GRILLA) values (SEQ_CAMPO_FORMULA.NEXTVAL,17,19,166)
+insert into rev_campo_formula (ID_CAMPO_FORMULA,ID_COLUMNA,ID_FILA,ID_GRILLA) values (SEQ_CAMPO_FORMULA.NEXTVAL,17,20,166)
+insert into rev_campo_formula (ID_CAMPO_FORMULA,ID_COLUMNA,ID_FILA,ID_GRILLA) values (SEQ_CAMPO_FORMULA.NEXTVAL,17,21,166)
+insert into rev_campo_formula (ID_CAMPO_FORMULA,ID_COLUMNA,ID_FILA,ID_GRILLA) values (SEQ_CAMPO_FORMULA.NEXTVAL,17,22,166)
+insert into rev_campo_formula (ID_CAMPO_FORMULA,ID_COLUMNA,ID_FILA,ID_GRILLA) values (SEQ_CAMPO_FORMULA.NEXTVAL,17,23,166)

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<project default="init" xmlns="antlib:org.apache.tools.ant" basedir=".">
+  <target name="init">
+    <tstamp/>
+    <delete dir="../deploy/" includes="*.*"/>
+  </target>
+  <target name="all" depends="init">
+    <ant antfile="build.xml" target="clean" dir="../src/Model"/>
+    <ant antfile="build.xml" target="all" dir="../src/Model"/>
+    <ant antfile="build.xml" target="clean" dir="../src/ViewController"/>
+    <ant antfile="build.xml" target="all" dir="../src/ViewController"/>
+    <ant antfile="build.xml" target="jar" dir="../src/Model"/>
+    <ant antfile="build.xml" target="war" dir="../src/ViewController"/>
+    <ant antfile="build.xml" target="ear" dir="../src/Model"/>
+    <ant antfile="build.xml" target="clean" dir="../src/Model"/>
+    <ant antfile="build.xml" target="clean" dir="../src/ViewController"/>
+  </target>  
+</project>

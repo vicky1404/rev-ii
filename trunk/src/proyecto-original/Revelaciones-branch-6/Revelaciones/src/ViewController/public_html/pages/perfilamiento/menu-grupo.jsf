@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+    <af:document title="menu-grupo.jsf" id="d1">
+        <af:resource source="/js/jquery/jquery-1.6.4.min.js" type="javascript"/>
+        <af:resource source="/js/util/form-utils.js" type="javascript"/>
+        <af:group id="gr1">
+            <af:form id="f1">
+                <af:panelBox id="pb1" text="Menú por grupo" styleClass="AFStretchWidth">
+                    <af:panelFormLayout id="pfl1" rows="1" labelWidth="10">
+                        <af:selectOneChoice label="Grupo:" id="cmb_gr" value="#{perfilamientoBackingBean.grupo}"
+                                            unselectedLabel="#{msg.general_control_seleccione}" required="true"
+                                            requiredMessageDetail="Seleccione Grupo de acceso"
+                                            binding="#{perfilamientoBackingBean.comboGrupos}">
+                            <f:selectItems value="#{perfilamientoBackingBean.componenteBackingBean.grupos}" id="grupos"/>
+                        </af:selectOneChoice>
+                    </af:panelFormLayout>
+                    <af:spacer width="10" height="10" id="s1"/>
+                    <af:panelFormLayout id="pf2" rows="1">
+                        <af:commandButton text="Buscar" blocking="true" id="btn_buscar"
+                                          action="#{perfilamientoBackingBean.buscarMenuPorGrupoAction}"/>
+                        <af:commandButton text="#{msg.general_control_limpiar}" id="rb1"
+                                          action="#{perfilamientoBackingBean.limpiarMenuPorGrupoAction}" blocking="true"
+                                          partialSubmit="false" immediate="true"></af:commandButton>
+                    </af:panelFormLayout>
+                </af:panelBox>
+                <af:spacer width="10" height="10" id="s2"/>
+                <af:panelCollection id="pc1" styleClass="AFStretchWidth"
+                                    rendered="#{perfilamientoBackingBean.renderTablaMenu}">
+                    <f:facet name="toolbar">
+                        <af:toolbar id="tb1">
+                            <af:commandToolbarButton text="Asignar Menú" id="botonGuardar1"
+                                                     rendered="#{perfilamientoBackingBean.renderTablaMenu}"
+                                                     action="#{perfilamientoBackingBean.guardarMenuGrupoAction}"
+                                                     icon="/images/icon/save.png"/>
+                            <!--af:commandToolbarButton text="#{msg.general_control_exportar_excel}" id="excb1"
+                                                     inlineStyle="padding-bottom:0px;"
+                                                     icon="/images/icon/page_excel_16x16.png">
+                                <af:exportCollectionActionListener filename="#{perfilamientoBackingBean.nombreArchivoExport}"
+                                                                   type="excelHTML" exportedId="tb_menu"
+                                                                   title="Catalogo"/>
+                            </af:commandToolbarButton-->
+                        </af:toolbar>
+                    </f:facet>
+                    <f:facet name="secondaryToolbar">
+                        <af:toolbar id="tb2">
+                            <af:commandLink text="#{msg.general_control_seleccionar_todo}" id="sel_all" immediate="true"
+                                            partialSubmit="true">
+                                <af:clientListener method="selectAll" type="click"/>
+                            </af:commandLink>
+                            <af:commandLink text="#{msg.general_control_no_seleccionar_todo}" immediate="true"
+                                            id="unsel_all" partialSubmit="true">
+                                <af:clientListener method="unSelectAll" type="click"/>
+                            </af:commandLink>
+                        </af:toolbar>
+                    </f:facet>
+                    <af:table emptyText="#{msg.general_mensaje_busqueda_sin_registros}" id="tb_menu"
+                              value="#{perfilamientoBackingBean.grillaMenuList}" var="row" rows="0"
+                              styleClass="AFStretchWidth" summary="Tabla de menu"
+                              binding="#{perfilamientoBackingBean.tablaMenu}" fetchSize="1000" columnResizing="enabled"
+                              inlineStyle="width:inherit; height:auto;" rowSelection="single"
+                              columnStretching="column:c5" autoHeightRows="500">
+                        <af:column sortable="true" sortProperty="selected" headerText="Seleccionar" align="center"
+                                   id="c2" width="70">
+                            <af:selectBooleanCheckbox value="#{row.selected}" id="sel1" label=" ">
+                                <!--af:clientAttribute name="padre" value="#{row.entity.padre}"/>
+                                <af:clientAttribute name="grupo" value="#{row.entity.grupo}"/>
+                                <af:clientListener method="selectMenuPadre" type="click"/-->
+                            </af:selectBooleanCheckbox>
+                        </af:column>
+                        <af:column sortable="false" headerText="Id Menú" align="right" id="c3" width="70">
+                            <af:outputText value="#{row.entity.idMenu}" id="t1"
+                                           inlineStyle="#{row.entity.padre ? 'font-weight:bold' : ''}"/>
+                        </af:column>
+                        <af:column sortable="true" sortProperty="entity.grupo" headerText="Grupo" align="right" id="c6"
+                                   width="100" rowHeader="unstyled">
+                            <af:outputText value="#{row.entity.grupo}" id="t4"
+                                           inlineStyle="#{row.entity.padre ? 'font-weight:bold' : ''}"/>
+                        </af:column>
+                        <af:column sortable="false" headerText="Nombre" align="start" id="c4" width="300">
+                            <af:outputText value="#{row.entity.nombre}" id="t2"
+                                           inlineStyle="#{row.entity.padre ? 'font-weight:bold; font-size:11px;' : 'padding-left:10px;'}"/>
+                        </af:column>
+                        <af:column sortable="false" headerText="Url Menú" align="start" id="c5" width="100">
+                            <af:outputText value="#{row.entity.urlMenu}" id="t3" rendered="#{!row.entity.padre}"/>
+                        </af:column>
+                    </af:table>
+                </af:panelCollection>
+            </af:form>
+        </af:group>
+    </af:document>
+</f:view>

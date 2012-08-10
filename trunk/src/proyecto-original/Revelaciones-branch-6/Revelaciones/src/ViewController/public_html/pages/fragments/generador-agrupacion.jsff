@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <af:decorativeBox id="db1" dimensionsFrom="auto">
+        <f:facet name="center">
+            <af:group id="g3">
+                <af:outputText value="#{msg.generador_titulo_disenador}" id="ot1"
+                               inlineStyle="font-weight:bold; font-size:medium; height:auto;"/>
+                <div align="center">
+                    <af:table rowBandingInterval="1" value="#{generadorVersionBackingBean.estructuras}"
+                              contentDelivery="immediate" id="t90" inlineStyle="width:517px; height:auto;" var="row"
+                              binding="#{generadorAgrupacionBackinBean.disenoEstructuraTable}"
+                              emptyText="#{msg.general_sin_informacion}">
+                        <af:column sortable="false" headerText="#{msg.generador_numero_estructura}" align="center"
+                                   id="c223" width="150px" inlineStyle="height:22px;">
+                            <af:outputText value="#{row.orden}" id="ot2"/>
+                        </af:column>
+                        <af:column sortable="false" headerText="#{msg.generador_tipo_estructura}" align="center"
+                                   id="c222" width="200px" inlineStyle="height:22px;">
+                            <af:outputText value="#{row.tipoEstructura.nombre}" id="ot3"/>
+                        </af:column>
+                        <af:column sortable="false" headerText="#{msg.generador_editar_grilla}" align="center" id="c233"
+                                   width="150px" inlineStyle="height:22px;">
+                            <af:switcher id="s1"
+                                         defaultFacet="#{row.tipoEstructura.idTipoEstructura == 0 ? 'link' : 'otro'}">
+                                <f:facet name="link">
+                                    <af:commandLink text="Editar" id="cl1"
+                                                    action="#{generadorAgrupacionBackinBean.editarGrillaAction}"
+                                                    rendered="#{generadorVersionBackingBean.almacenado}"
+                                                    immediate="true"/>
+                                </f:facet>
+                            </af:switcher>
+                        </af:column>
+                    </af:table>
+                    <af:spacer height="10" id="s6"/>
+                    <af:group rendered="#{generadorAgrupacionBackinBean.renderedTableAgrupador}" id="g2">
+                    <af:decorativeBox dimensionsFrom="auto" id="db2">
+                    <f:facet name="center">                    
+                    <af:group id="g1">
+                    <div align="center">
+                    <af:table value="#{generadorAgrupacionBackinBean.grillaModelByEstructuraSelected}" id="t1"
+                              columnBandingInterval="1" contentDelivery="immediate" var="row"
+                              inlineStyle="width:530px; height:auto;" emptyText="#{msg.general_sin_informacion}">
+                        <af:column sortable="false" headerText="Nivel" align="center" id="c7" width="95px">
+                            <af:selectOneChoice id="s3oc6" unselectedLabel="#{msg.general_control_seleccione}"
+                                                value="#{generadorAgrupacionBackinBean.grillaModelByEstructuraSelected.nivel}"
+                                                valueChangeListener="#{generadorAgrupacionBackinBean.selectNivelValueListener}"
+                                                autoSubmit="true">
+                                <f:selectItems value="#{generadorAgrupacionBackinBean.nivelColumnasItems}" id="si10"/>
+                            </af:selectOneChoice>
+                        </af:column>
+                        <af:column sortable="false" headerText="Desde" align="center" id="c4" width="95px">
+                            <af:selectOneChoice id="soc4" unselectedLabel="#{msg.general_control_seleccione}"
+                                                value="#{generadorAgrupacionBackinBean.grillaModelByEstructuraSelected.columnaDesde}"
+                                                partialTriggers="s3oc6"
+                                                binding="#{generadorAgrupacionBackinBean.nivelDesdeChoice}">
+                                <f:selectItems value="#{generadorAgrupacionBackinBean.columnasDesdeAgregadaItems}"
+                                               id="si5"/>
+                            </af:selectOneChoice>
+                        </af:column>
+                        <af:column sortable="false" headerText="Hasta" align="center" id="c5" width="95px">
+                            <af:selectOneChoice id="soc5" unselectedLabel="#{msg.general_control_seleccione}"
+                                                value="#{generadorAgrupacionBackinBean.grillaModelByEstructuraSelected.columnaHasta}"
+                                                partialTriggers="s3oc6"
+                                                binding="#{generadorAgrupacionBackinBean.nivelHastaChoice}">
+                                <f:selectItems value="#{generadorAgrupacionBackinBean.columnasHastaAgregadaItems}"
+                                               id="si6"/>
+                            </af:selectOneChoice>
+                        </af:column>
+                        <af:column sortable="false" headerText="Título" align="center" id="c6" width="150px">
+                            <af:inputText id="it7"
+                                          value="#{generadorAgrupacionBackinBean.grillaModelByEstructuraSelected.tituloAgrupacion}"/>
+                        </af:column>
+                        <af:column sortable="false" headerText="A" align="center" id="c3" width="30px">
+                            <af:commandLink id="cl8" action="#{generadorAgrupacionBackinBean.agregarNivelColumnaAction}"
+                                            rendered="#{generadorVersionBackingBean.renderedBotonEditar}">
+                                <af:image source="/images/icon/add2.png" id="i4" shortDesc="Agregar Grupo"/>
+                            </af:commandLink>
+                            
+                        </af:column>
+                        <af:column sortable="false" headerText="B" align="center" id="c1" width="30px">
+                            <af:commandLink id="cl2" action="#{generadorAgrupacionBackinBean.eliminarNivelColumnaAction}"
+                                            rendered="#{generadorVersionBackingBean.renderedBotonEditar}">
+                                <af:image source="/images/icon/remove2.png" id="i1" shortDesc="Borrar Nivel"/>
+                            </af:commandLink>
+                        </af:column>
+                    </af:table>
+                    <af:spacer width="10" height="20" id="s5"/>
+                    <af:panelGroupLayout layout="scroll" id="pgl1" styleClass="AFStretchWidth">
+                        <af:table binding="#{generadorAgrupacionBackinBean.editarGrillaTable}" id="tb3D01"
+                                          emptyText="#{msg.generador_sin_contenido}" disableColumnReordering="true"
+                                          inlineStyle="height:auto;" columnSelection="single" immediate="true"
+                                          columnSelectionListener="#{generadorDisenoBackingBean.editarGrillaTableColumnSelection}"
+                                          columnResizing="disabled" contentDelivery="immediate" autoHeightRows="500"
+                                          var="row" rendered="true" varStatus="status" columnStretching="last">
+                        </af:table>
+                    </af:panelGroupLayout>
+                    </div>
+                    </af:group>
+                    </f:facet>
+                    </af:decorativeBox>
+                </af:group>
+                </div>
+            </af:group>
+        </f:facet>
+    </af:decorativeBox>
+</ui:composition>

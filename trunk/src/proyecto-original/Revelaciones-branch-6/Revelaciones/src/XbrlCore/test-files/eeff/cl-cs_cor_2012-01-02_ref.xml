@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ref="http://www.xbrl.org/2006/ref" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.xbrl.org/2006/ref http://www.xbrl.org/2006/ref-2006-02-27.xsd">
+  <link:referenceLink xlink:role="http://www.xbrl.org/2003/role/link" xlink:type="extended">
+    <link:loc xlink:href="cl-cs_cor_2012-01-02.xsd#cl-cs_InversionesFinancieras" xlink:label="lbl3680" xlink:type="locator" />
+    <link:reference xlink:label="lbl3679" xlink:type="resource" xlink:role="http://www.xbrl.org/2003/role/presentationRef" id="id1974">
+      <ref:Name>CL-CIRC</ref:Name>
+      <ref:Number>1000.0</ref:Number>
+      <ref:IssueDate>36526.0</ref:IssueDate>
+    </link:reference>
+    <link:referenceArc xlink:from="lbl3680" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:to="lbl3679" />
+  </link:referenceLink>
+</link:linkbase>
+
