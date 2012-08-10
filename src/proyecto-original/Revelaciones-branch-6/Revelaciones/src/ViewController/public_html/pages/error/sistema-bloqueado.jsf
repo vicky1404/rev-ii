@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich" xmlns:h="http://java.sun.com/jsf/html">
+    <af:document title="sistema-bloqueado.jsf" id="d1" inlineStyle="text-align:center; margin-right:auto; margin-left:auto;">
+        <af:form id="f1">
+            <h:panelGrid columns="1" id="pg1" style="margin-right:auto; margin-left:auto; padding-top:150px;">
+                <af:image source="/images/icon/warning_64_64x64.png" id="i1" shortDesc="#{msg.general_titulo_cuadros_bloqueados}"/>
+                <af:outputText value="#{msg.general_titulo_cuadros_bloqueados}" id="ot1" styleClass="xdn "/>
+            </h:panelGrid>
+            
+        </af:form>
+    </af:document>
+</f:view>
