@@ -25,7 +25,7 @@ public class LoadSVSTaxonomy {
 		try{			 
 			//DiscoverableTaxonomySet taxonomySet = saxBuilder.build(new InputSource("file://EQ13797/taxonomias/2012-01-02/taxonomia-svs/eeff/cl-cs_shell_2012-01-02.xsd"));
 			//DiscoverableTaxonomySet taxonomySet = saxBuilder.build(new InputSource("xbrl/test/svs/eeff-y-notas/cl-cs_shell_2012-07-17.xsd"));
-			DiscoverableTaxonomySet taxonomySet = saxBuilder.build(new InputSource("file://eq13830/taxonomias/2012-07-17/taxonomia-svs/eeff-y-notas/cl-cs_shell_2012-07-17.xsd"));             
+			DiscoverableTaxonomySet taxonomySet = saxBuilder.build(new InputSource("file://pc-rreyes/server-taxonomias/2012-07-17/eeff-notas/cl-cs_shell_2012-07-17.xsd"));             
             System.err.println("Nombre de la Taxonomia :"+taxonomySet.getTopTaxonomy().getName());				
 			System.err.println("Total de conceptos "+taxonomySet.getConcepts().size());
 			for(Concept concept : taxonomySet.getConcepts()){
