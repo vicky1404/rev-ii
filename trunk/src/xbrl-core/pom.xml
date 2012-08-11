@@ -1,0 +1,71 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>xbrlcore</groupId>
+  <artifactId>xbrl-core</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+  
+  <dependencies>
+  	<dependency>
+  	    <groupId>org.example</groupId>  	    
+  	    <artifactId>ccl</artifactId>         
+        <scope>system</scope>
+        <version>1.0</version>        
+        <systemPath>${project.basedir}/lib/ccl.jar</systemPath>
+    </dependency>
+    
+    <dependency>
+        <groupId>org.example</groupId>        
+        <artifactId>javancss</artifactId>         
+        <scope>system</scope>
+        <version>1.0</version>        
+        <systemPath>${project.basedir}/lib/javancss.jar</systemPath>
+    </dependency>
+    
+    <dependency>
+        <groupId>org.example</groupId>        
+        <artifactId>jdom-1.1.1</artifactId>         
+        <scope>system</scope>
+        <version>1.0</version>        
+        <systemPath>${project.basedir}/lib/jdom-1.1.1.jar</systemPath>
+    </dependency>
+    
+    <dependency>
+        <groupId>org.example</groupId>        
+        <artifactId>junit-4.4</artifactId>         
+        <scope>system</scope>
+        <version>1.0</version>        
+        <systemPath>${project.basedir}/lib/junit-4.4.jar</systemPath>
+    </dependency>
+    
+    <dependency>
+        <groupId>org.example</groupId>        
+    	<artifactId>junit</artifactId>         
+        <scope>system</scope>
+        <version>1.0</version>        
+        <systemPath>${project.basedir}/lib/junit.jar</systemPath>
+    </dependency>
+    
+    <dependency> 
+    	<groupId>org.example</groupId>    	
+    	<artifactId>log4j</artifactId>        
+        <scope>system</scope>
+        <version>1.0</version>        
+        <systemPath>${project.basedir}/lib/log4j.jar</systemPath>
+    </dependency>
+    
+    <dependency>
+        <groupId>org.example</groupId>        
+        <artifactId>xerces</artifactId>        
+        <scope>system</scope>
+        <version>1.0</version>        
+        <systemPath>${project.basedir}/lib/xerces.jar</systemPath>
+    </dependency>
+    
+  
+  </dependencies>
+  
+  
+  
+  
+</project>
