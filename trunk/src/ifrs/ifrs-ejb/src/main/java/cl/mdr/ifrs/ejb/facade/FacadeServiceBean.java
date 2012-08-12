@@ -4,6 +4,7 @@ package cl.mdr.ifrs.ejb.facade;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+import cl.mdr.exfida.ejb.xbrl.service.local.TaxonomyLoaderServiceLocal;
 import cl.mdr.ifrs.ejb.facade.local.FacadeServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.CargadorEeffServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.CargadorEstructuraServiceLocal;
@@ -43,8 +44,9 @@ public class FacadeServiceBean implements FacadeServiceLocal{
     @EJB private EstadoFinancieroServiceLocal estadoFinancieroService;
     @EJB private CargadorEeffServiceLocal cargadorEeffService;
     @EJB private EmpresaServiceLocal empresaService;
+    @EJB private TaxonomyLoaderServiceLocal taxonomyLoaderService;
     
-
+    
     public CatalogoServiceLocal getCatalogoService() {
         return catalogoService;
     }
@@ -105,5 +107,9 @@ public class FacadeServiceBean implements FacadeServiceLocal{
 
 	public EmpresaServiceLocal getEmpresaService() {
 		return empresaService;
+	}
+
+	public TaxonomyLoaderServiceLocal getTaxonomyLoaderService() {
+		return taxonomyLoaderService;
 	}
 }

@@ -173,8 +173,22 @@
 			<artifactId>jaxb-impl</artifactId>
 			<version>2.2.5-2</version>
 		</dependency>
-		
-		
+
+
+	    
+	    <dependency>
+        <groupId>org.example</groupId>        
+        <artifactId>java2word</artifactId>         
+        <scope>system</scope>
+        <version>1.0</version>        
+        <systemPath>${project.basedir}/lib/java2word.jar</systemPath>
+    </dependency>
+	    <dependency>
+	    	<groupId>xbrlcore</groupId>
+	    	<artifactId>xbrl-core</artifactId>
+	    	<version>0.0.1-SNAPSHOT</version>
+	    	<scope>provided</scope>
+	    </dependency>
    </dependencies>
 
    <build>
