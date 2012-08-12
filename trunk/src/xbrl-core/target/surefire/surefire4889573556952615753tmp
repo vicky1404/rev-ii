@@ -1,18 +1,18 @@
 #surefire
-#Fri Aug 10 20:22:41 CLT 2012
+#Sat Aug 11 20:22:49 CLT 2012
 testClassesDirectory=D\:\\IFRS\\workspace\\xbrl-core\\target\\test-classes
-classPathUrl.4=D\:\\IFRS\\workspace\\xbrl-core\\lib\\jdom-1.1.1.jar
-classPathUrl.3=D\:\\IFRS\\workspace\\xbrl-core\\lib\\javancss.jar
-classPathUrl.2=D\:\\IFRS\\workspace\\xbrl-core\\lib\\ccl.jar
+classPathUrl.4=C\:\\Users\\rreyes\\.m2\\repository\\org\\jdom\\jdom\\1.1\\jdom-1.1.jar
+classPathUrl.3=C\:\\Users\\rreyes\\.m2\\repository\\javancss\\ccl\\29.50\\ccl-29.50.jar
+classPathUrl.2=D\:\\IFRS\\workspace\\xbrl-core\\lib\\log4j.jar
 useManifestOnlyJar=true
 classPathUrl.1=D\:\\IFRS\\workspace\\xbrl-core\\target\\classes
 reportsDirectory=D\:\\IFRS\\workspace\\xbrl-core\\target\\surefire-reports
 classPathUrl.0=D\:\\IFRS\\workspace\\xbrl-core\\target\\test-classes
 dirscanner.0=directoryScannerOptions
-providerConfiguration=org.apache.maven.surefire.junit.JUnit3Provider
+providerConfiguration=org.apache.maven.surefire.junit4.JUnit4Provider
 testSuiteDefinitionTestSourceDirectory=D\:\\IFRS\\workspace\\xbrl-core\\src\\test\\java
 surefireClassPathUrl.1=C\:\\Users\\rreyes\\.m2\\repository\\org\\apache\\maven\\surefire\\surefire-api\\2.7.1\\surefire-api-2.7.1.jar
-surefireClassPathUrl.0=C\:\\Users\\rreyes\\.m2\\repository\\org\\apache\\maven\\surefire\\surefire-junit3\\2.7.1\\surefire-junit3-2.7.1.jar
+surefireClassPathUrl.0=C\:\\Users\\rreyes\\.m2\\repository\\org\\apache\\maven\\surefire\\surefire-junit4\\2.7.1\\surefire-junit4-2.7.1.jar
 report.2=org.apache.maven.surefire.report.XMLReporter
 useSystemClassLoader=true
 report.1=org.apache.maven.surefire.report.BriefFileReporter
@@ -24,10 +24,8 @@ includes2=**/*TestCase.java
 enableAssertions=true
 includes1=**/*Test.java
 failIfNoTests=false
-includes0=**/Test*.java
 dirscanner.0.types=java.io.File|java.util.ArrayList|java.util.ArrayList
-classPathUrl.8=D\:\\IFRS\\workspace\\xbrl-core\\lib\\xerces.jar
-classPathUrl.7=D\:\\IFRS\\workspace\\xbrl-core\\lib\\log4j.jar
+includes0=**/Test*.java
 childDelegation=false
-classPathUrl.6=D\:\\IFRS\\workspace\\xbrl-core\\lib\\junit.jar
-classPathUrl.5=D\:\\IFRS\\workspace\\xbrl-core\\lib\\junit-4.4.jar
+classPathUrl.6=C\:\\Users\\rreyes\\.m2\\repository\\xerces\\xerces\\1.2.3\\xerces-1.2.3.jar
+classPathUrl.5=C\:\\Users\\rreyes\\.m2\\repository\\junit\\junit\\4.4\\junit-4.4.jar

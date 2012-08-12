@@ -1,5 +1,5 @@
 #surefire
-#Sat Aug 11 17:18:35 CLT 2012
+#Sat Aug 11 19:55:18 CLT 2012
 testClassesDirectory=D\:\\IFRS\\workspace\\xbrl-core\\target\\test-classes
 classPathUrl.4=C\:\\Users\\rreyes\\.m2\\repository\\org\\jdom\\jdom\\1.1\\jdom-1.1.jar
 classPathUrl.3=C\:\\Users\\rreyes\\.m2\\repository\\javancss\\ccl\\29.50\\ccl-29.50.jar
