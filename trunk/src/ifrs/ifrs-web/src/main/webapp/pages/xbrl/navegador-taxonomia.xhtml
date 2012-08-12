@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	template="/WEB-INF/templates/main-template.xhtml">
+	<ui:define name="content">
+		<h:form id="f_nt">
+			<p:messages id="messages_navegador_taxonomia" autoUpdate="true"
+				showSummary="true"></p:messages>
+			<p:ajaxStatus onstart="statusDialog.show();"
+				oncomplete="statusDialog.hide();" />
+			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
+
+			<p:panel id="filtro_navegador_taxonomia"
+				header="Navegador de Taxonomía" toggleable="true" closable="false"
+				toggleSpeed="500" closeSpeed="2000" widgetVar="panel">
+
+				<h:panelGrid id="pg1" columns="3" columnClasses="ancho_140">
+					<h:outputLabel value="Taxonomía:" id="ol1" />
+					<p:selectOneMenu label="Taxonomía" id="sol1" effect="fade"
+						required="true"
+						value="#{navegadorTaxonomiaBackingBean.idXbrlTaxonomiaSelected}">
+						<f:selectItem itemLabel="#{msg.general_control_seleccione}"
+							id="sel1" />
+						<f:selectItems
+							value="#{navegadorTaxonomiaBackingBean.xbrlTaxonomias}" var="tax"
+							itemLabel="#{tax.nombre}" itemValue="#{tax.idTaxonomia}" id="si1" />
+					</p:selectOneMenu>
+					<p:commandButton value="Visualizar Taxonomía" id="cb1"
+						update="@form" icon="ui-icon ui-icon-search"
+						actionListener="#{navegadorTaxonomiaBackingBean.visualizarTaxonomiaAction}">
+					</p:commandButton>
+					<p:spacer width="50" id="s2" height="5" />
+				</h:panelGrid>
+				<h:panelGrid id="pg2" columns="2" columnClasses="ancho_140"
+					rendered="#{navegadorTaxonomiaBackingBean.renderTaxonomia}">
+					<h:outputLabel value="Nombre de la Taxonomía principal:" id="ol4" />
+					<h:outputText
+						value="#{navegadorTaxonomiaBackingBean.discoverableTaxonomySet.topTaxonomy.namespace.prefix} - #{navegadorTaxonomiaBackingBean.discoverableTaxonomySet.topTaxonomy.namespace.URI}"
+						id="it1" />
+										
+					<h:outputLabel value="Versión de la Taxonomía:" id="ol41" />
+					<h:outputText
+						value="#{navegadorTaxonomiaBackingBean.xbrlTaxonomiaSelected.fechaTaxonomia}"
+						id="it111" >
+						<f:convertDateTime pattern="yyyy-MM-dd"   />
+					</h:outputText>	
+											
+					<h:outputLabel
+						value="Taxonomías Importadas: (#{fn:length(navegadorTaxonomiaBackingBean.importedTaxonomies)})"
+						id="ol2" />
+					<p:commandLink onclick="popUpTaxonomiasImp.show()"
+						value="Visualizar todas las Taxonomías" styleClass="ui-icon ui-icon-zoomin" title="Visualizar todas las Taxonomías">
+							
+					</p:commandLink>
+
+
+					<h:outputLabel value="Cantidad de Conceptos Importados:" id="ol3" />
+					<h:outputText
+						value="#{fn:length(navegadorTaxonomiaBackingBean.discoverableTaxonomySet.concepts)} Conceptos."
+						id="ot7" />
+				</h:panelGrid>
+			</p:panel>			
+			<p:spacer width="10" height="10" id="s1" />
+			<p:dataTable
+				value="#{navegadorTaxonomiaBackingBean.taxonomyConceptList}"
+				var="row" id="t1" style="width:100%;" selectionMode="single"
+				rowKey="#{row.name}" paginator="true" rows="30"
+				paginatorPosition="top"
+				emptyMessage="No existen conceptos asociados a la Taxonomía"				
+				rowsPerPageTemplate="10,20,30"
+				rendered="#{navegadorTaxonomiaBackingBean.renderTaxonomia}">
+				<f:facet name="header">
+                    	Conceptos
+                    </f:facet>
+				<p:column headerText="ID" align="start" id="c0" filterBy="#{row.name}" filterMatchMode="contains" filterStyle="width:350px;">
+					<h:outputText value="#{row.name}" id="ot2"
+						style="font-weight:bold;" />					
+				</p:column>
+				<p:column headerText="Type" align="start" id="c3"
+					filterBy="#{row.type}"
+					filterOptions="#{navegadorTaxonomiaBackingBean.taxonomyConceptTypeItems}"  
+                	filterMatchMode="exact" filterStyle="width:200px;">
+					<h:outputText value="#{row.type}" id="ot8" />
+				</p:column>
+				<p:column sortable="false" headerText="Namespace" align="start"
+					id="c4">
+					<h:outputText value="#{row.namespace.prefix}" id="ot3" />
+				</p:column>
+				<p:column sortable="false" headerText="Substitution Group"
+					align="start" id="c5">
+					<h:outputText value="#{row.substitutionGroup}" id="ot4" />
+				</p:column>
+				<p:column sortable="false" headerText="Period Type" align="start"
+					id="c6">
+					<h:outputText value="#{row.periodType}" id="ot5" />
+				</p:column>
+				<!-- p:column sortable="false" headerText="Schema Name" align="start" id="c7" 
+                               >
+                        <h:outputText value="#{row.taxonomySchemaName}" id="ot6"/>
+                    </p:column-->
+				<f:facet name="footer">
+					<br />
+				</f:facet>
+			</p:dataTable>
+			<p:dialog id="p3" widgetVar="popUpTaxonomiasImp" modal="false"
+				rendered="#{navegadorTaxonomiaBackingBean.renderTaxonomia}" resizable="false"
+				showEffect="drop" hideEffect="drop" header="Taxonomías Importadas">
+				<p:dataTable
+					value="#{navegadorTaxonomiaBackingBean.importedTaxonomies}"
+					var="name" id="tax_imp" paginator="true" rows="15"
+					paginatorPosition="top" effectSpeed="fast" rowIndexVar="status">
+					<p:column headerText="N°">
+						<h:outputText value="#{status+1}" />					
+					</p:column>
+					<p:column headerText="Archivo de Taxonomía" filterBy="#{name}" filterMatchMode="contains">
+						<h:outputText value="#{name}" />					
+					</p:column>
+				</p:dataTable>
+			</p:dialog>
+		</h:form>
+	</ui:define>
+</ui:composition>
