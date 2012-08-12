@@ -3,6 +3,7 @@ package cl.mdr.ifrs.ejb.facade.local;
 
 import javax.ejb.Local;
 
+import cl.mdr.exfida.ejb.xbrl.service.local.TaxonomyLoaderServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.CargadorEeffServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.CargadorEstructuraServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.CatalogoServiceLocal;
@@ -99,6 +100,11 @@ public interface FacadeServiceLocal{
      * @return  Interfaz local de EmpresaServiceLocal
      */
     EmpresaServiceLocal getEmpresaService();
+
+    /**
+     * @return  Interfaz local de TaxonomyLoaderServiceLocal
+     */
+    TaxonomyLoaderServiceLocal getTaxonomyLoaderService();
     
     
 }
