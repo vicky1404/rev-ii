@@ -73,7 +73,8 @@
         <groupId>org.primefaces</groupId>  
         <artifactId>primefaces</artifactId>  
         <version>3.3.1</version>  
-      </dependency> 
+      </dependency>
+              
       <!-- Prime faces theme  -->
       <dependency>  
 	    <groupId>org.primefaces.themes</groupId>  
@@ -106,8 +107,14 @@
 		<artifactId>portlet-api</artifactId>
 		<version>1.0</version>
 	 </dependency>
-	  
 
+
+     <dependency>
+     	<groupId>xbrlcore</groupId>
+     	<artifactId>xbrl-core</artifactId>
+     	<version>0.0.1-SNAPSHOT</version>
+     	<scope>provided</scope>
+     </dependency>
    </dependencies>
 
    <build>
