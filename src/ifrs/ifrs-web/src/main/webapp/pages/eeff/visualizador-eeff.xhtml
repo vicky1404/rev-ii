@@ -51,8 +51,13 @@
                             </p:column>
 			</p:dataTable>
 			<p:spacer height="10"></p:spacer>
-			<p:panel id="panelId1x" header="Versión seleccionada: #{visualizador.versionEeff != null ? visualizador.versionEeff.version : '-'}" toggleable="true"  closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel2">
-				<p:inputText label="Filtro (Ingrese FECU o Cuenta )" maxlength="10" value="#{visualizador.filtroTablaEeff}" id="it1" converterMessage="Debe ingresar un número para continuar con la búsqueda"/>
+			<p:panel id="panelId1x" header="Versión seleccionada: #{visualizador.versionEeff != null ? visualizador.versionEeff.version : 'Seleccione una versión'}" toggleable="true"  closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel2">
+				<p:inputText label="Filtro" maxlength="10" value="#{visualizador.filtroTablaEeff}" id="it1" converterMessage="Debe ingresar un número para continuar con la búsqueda"/>
+				<p:selectOneMenu id="selFecuCuenta" value="#{visualizador.selectFecuCuenta}">
+					<f:selectItem itemLabel="FECU" itemValue="fecu"/>
+					<f:selectItem itemLabel="Cuenta" itemValue="cuenta"/>
+					<f:selectItem />
+				</p:selectOneMenu>
 				<p:spacer width="10"/>
 				<p:commandButton value="Buscar" icon="ui-icon-search" id="cb1" actionListener="#{visualizador.buscar}" update="@form" />
 			</p:panel>
