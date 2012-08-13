@@ -24,6 +24,8 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import com.google.gson.annotations.Expose;
+
 import cl.mdr.ifrs.ejb.common.Constantes;
 
 
@@ -110,33 +112,41 @@ public class Version implements Serializable {
     @GeneratedValue(generator="ID_GEN_VERSION")
     @SequenceGenerator(name="ID_GEN_VERSION", sequenceName = "SEQ_VERSION" ,allocationSize = 1)
     @Column(name = "ID_VERSION", nullable = false)
+    @Expose
     private Long idVersion;
     
     @Column(nullable = false)
+    @Expose
     private Long version;
     
     @Column(nullable = false)
+    @Expose
     private Long vigencia;
     
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "FECHA_CREACION", nullable = false)
+    @Expose
     private Date fechaCreacion;
     
+    @Expose
     private String comentario;
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumns( { @JoinColumn(name = "ID_PERIODO", referencedColumnName = "ID_PERIODO"),
 			        @JoinColumn(name = "ID_RUT", referencedColumnName = "ID_RUT")})
+    @Expose
     private PeriodoEmpresa periodoEmpresa;
 
 	@Fetch(FetchMode.JOIN)
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_CATALOGO")
+	@Expose
     private Catalogo catalogo;
     
     @Fetch(FetchMode.JOIN)
     @ManyToOne
     @JoinColumn(name = "ID_ESTADO_CUADRO")
+    @Expose
     private EstadoCuadro estado;
     
     @Fetch(FetchMode.SUBSELECT)
@@ -149,17 +159,21 @@ public class Version implements Serializable {
     
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "FECHA_ULTIMO_PROCESO", nullable = false)
+    @Expose
     private Date fechaUltimoProceso;
     
+    @Expose
     private String usuario;
     
     @Column(nullable = false, name = "DATOS_MODIFICADOS")
     private Long datosModificados;
     
     @Transient
+    @Expose
     private boolean editable;
     
     @Transient
+    @Expose
     private boolean estadoCambiado;
     
     public Version() {

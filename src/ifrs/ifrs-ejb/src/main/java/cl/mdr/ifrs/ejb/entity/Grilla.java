@@ -18,6 +18,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import com.google.gson.annotations.Expose;
+
 import cl.mdr.ifrs.ejb.common.Constantes;
 
 
@@ -39,9 +41,11 @@ public class Grilla implements Serializable {
     
     @Id    
     @Column(name = "ID_GRILLA",insertable = true)
+    @Expose
     private Long idGrilla;
     
     @Column(length = 256)
+    @Expose
     private String titulo;
     
     @Fetch(FetchMode.SUBSELECT)
@@ -51,9 +55,11 @@ public class Grilla implements Serializable {
     
     @OneToOne(targetEntity = Estructura.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_GRILLA", insertable = false, updatable = false)
+    @Expose
     private Estructura estructura;
     
     @Column(name="TIPO_FORMULA")
+    @Expose
     private Long tipoFormula;
    
     

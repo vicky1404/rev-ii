@@ -10,6 +10,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
+
 import cl.mdr.ifrs.ejb.common.Constantes;
 
 
@@ -27,10 +29,12 @@ public class TipoEstructura implements Serializable {
     
     @Id
     @Column(name = "ID_TIPO_ESTRUCTURA", nullable = false)
+    @Expose
     private Long idTipoEstructura;
     
 
 	@Column(nullable = false, length = 64)
+	@Expose
     private String nombre;
     
 	/*@OneToMany(mappedBy = "tipoEstructura")

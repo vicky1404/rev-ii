@@ -15,6 +15,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
+
 import cl.mdr.ifrs.ejb.common.Constantes;
 import cl.mdr.ifrs.ejb.entity.pk.PeriodoEmpresaPK;
 
@@ -57,23 +59,28 @@ public class PeriodoEmpresa implements Serializable{
 
 	@Id
 	@Column(name="ID_PERIODO", nullable = false, insertable = false, updatable = false)
+	@Expose
 	private Long idPeriodo;
 
 	@Id
 	@Column(name="ID_RUT", nullable = false, insertable = false, updatable = false)
+	@Expose
 	private Long idRut;
 
     @ManyToOne
 	@JoinColumn(name="ID_RUT")
-	private Empresa empresa;
+    @Expose
+    private Empresa empresa;
 
 	@ManyToOne
 	@JoinColumn(name="ID_ESTADO_PERIODO")
+	@Expose
 	private EstadoPeriodo estadoPeriodo;
 
     @ManyToOne
 	@JoinColumn(name="ID_PERIODO")
-	private Periodo periodo;
+    @Expose
+    private Periodo periodo;
 
     @OneToMany(mappedBy="periodoEmpresa", fetch = FetchType.LAZY)
 	private List<RelacionEeff> relacionEeffList;

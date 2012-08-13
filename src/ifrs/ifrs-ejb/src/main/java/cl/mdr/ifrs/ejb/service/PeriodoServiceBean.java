@@ -180,7 +180,10 @@ public class PeriodoServiceBean implements PeriodoServiceLocal{
    		Query query = em.createNamedQuery(PeriodoEmpresa.FIND_BY_ID);
    		query.setParameter("idPeriodo", idPeriodo);
    		query.setParameter("idRut", idRut);
-   		return (PeriodoEmpresa) query.getSingleResult();
+   		if (query.getResultList().size() > 0){
+   			return (PeriodoEmpresa) query.getSingleResult();
+   		}
+   		return null;
    	}
    
 } 

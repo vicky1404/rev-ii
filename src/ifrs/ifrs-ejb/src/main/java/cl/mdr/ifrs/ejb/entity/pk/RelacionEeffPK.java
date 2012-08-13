@@ -7,7 +7,11 @@ import java.lang.Long;
 
 public class RelacionEeffPK implements Serializable {
     
-    private Long idFecu;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -6506132959434868875L;
+	private Long idFecu;
     private Long idPeriodo;
 
     public RelacionEeffPK() {

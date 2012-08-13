@@ -12,6 +12,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
+
 import cl.mdr.ifrs.ejb.common.Constantes;
 
 
@@ -22,7 +24,7 @@ public class AreaNegocio implements Serializable {
 	private static final long serialVersionUID = -2872761746612674267L;
 	@Id
     @Column(name = "ID_AREA_NEGOCIO", nullable = false, length = 3)
-    private String idAreaNegocio;
+	private String idAreaNegocio;
     @Column(length = 256)
     private String nombre;
     @OneToMany(mappedBy = "areaNegocio")

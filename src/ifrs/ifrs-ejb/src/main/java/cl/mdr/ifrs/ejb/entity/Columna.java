@@ -21,6 +21,8 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import com.google.gson.annotations.Expose;
+
 import cl.mdr.ifrs.ejb.common.Constantes;
 import cl.mdr.ifrs.ejb.entity.pk.ColumnaPK;
 
@@ -31,20 +33,25 @@ import cl.mdr.ifrs.ejb.entity.pk.ColumnaPK;
 public class Columna implements Serializable {
 
     private static final long serialVersionUID = 8480508449730276846L;
+    
     private Long ancho;
     
     @Id
     @Column(name = "ID_COLUMNA", nullable = false)
+    @Expose
     private Long idColumna;
     
     @Id
     @Column(name = "ID_GRILLA", nullable = false, insertable = false, updatable = false)
+    @Expose
     private Long idGrilla;
     
     @Column(nullable = false)
+    @Expose
     private Long orden;
     
     @Column(name = "TITULO_COLUMNA", nullable = false, length = 128)
+    @Expose
     private String tituloColumna;
     
     @Fetch(FetchMode.JOIN)
@@ -54,9 +61,11 @@ public class Columna implements Serializable {
     
     @ManyToOne
     @JoinColumn(name = "ID_GRILLA")
+    @Expose
     private Grilla grilla;
     
     @Column(name = "ROW_HEADER")
+    @Expose
     private boolean rowHeader;
     
     @Fetch(FetchMode.SUBSELECT)
@@ -64,12 +73,15 @@ public class Columna implements Serializable {
     private List<AgrupacionColumna> agrupacionColumnaList;
     
     @Transient
+    @Expose
     private Celda celdaModel;    
     
     @Transient
+    @Expose
     private Long desde;
     
     @Transient
+    @Expose
     private Long hasta;
     
     

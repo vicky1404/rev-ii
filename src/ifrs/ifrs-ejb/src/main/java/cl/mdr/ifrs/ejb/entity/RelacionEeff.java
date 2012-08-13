@@ -4,6 +4,7 @@ package cl.mdr.ifrs.ejb.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+
+import com.google.gson.annotations.Expose;
 
 import cl.mdr.ifrs.ejb.common.Constantes;
 import cl.mdr.ifrs.ejb.cross.EeffUtil;
@@ -42,36 +45,55 @@ public class RelacionEeff implements Serializable {
     
     @Id
     @Column(name = "ID_FECU", nullable = false, insertable = false, updatable = false)
+    @Expose
     private Long idFecu;
     
     @Id
     @Column(name = "ID_PERIODO", nullable = false, insertable = false, updatable = false)
+    @Expose
     private Long idPeriodo;
     
     @Id
-    @Column(name = "ID_RUT", nullable = false, insertable = false, updatable = false)
+    @Column(name = "ID_RUT", nullable = false, insertable=false, updatable=false)
+    @Expose
     private Long idRut;
     
-	@Column(name = "ID_GRILLA", insertable = false, updatable = false)
+    @Id
+	@Column(name = "ID_GRILLA", nullable = false, insertable=false, updatable=false)
+	@Expose
     private Long idGrilla;
+
+    @Id
+	@Column(name = "ID_COLUMNA", nullable = false, insertable=false, updatable=false)
+	@Expose
+    private Long idColumna;
+    
+    @Id
+	@Column(name = "ID_FILA", nullable = false, insertable=false, updatable=false)
+	@Expose
+    private Long idFila;
 
 
 	@Column(name = "MONTO_TOTAL")
+	@Expose
     private BigDecimal montoTotal;
 	
     @ManyToOne
     @JoinColumns( { @JoinColumn(name = "ID_COLUMNA", referencedColumnName = "ID_COLUMNA"),
                     @JoinColumn(name = "ID_GRILLA", referencedColumnName = "ID_GRILLA"),
                     @JoinColumn(name = "ID_FILA", referencedColumnName = "ID_FILA") })
+    @Expose
     private Celda celda2;
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumns( { @JoinColumn(name = "ID_PERIODO", referencedColumnName = "ID_PERIODO"),
 			        @JoinColumn(name = "ID_RUT", referencedColumnName = "ID_RUT")})
+    @Expose
     private PeriodoEmpresa periodoEmpresa;
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_FECU")
+    @Expose
     private CodigoFecu codigoFecu;
 
     public RelacionEeff() {
@@ -164,5 +186,110 @@ public class RelacionEeff implements Serializable {
         else
             return "";
     }
+
+	
+
+	public Long getIdColumna() {
+		return idColumna;
+	}
+
+	public void setIdColumna(Long idColumna) {
+		this.idColumna = idColumna;
+	}
+
+	public Long getIdFila() {
+		return idFila;
+	}
+
+	public void setIdFila(Long idFila) {
+		this.idFila = idFila;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((celda2 == null) ? 0 : celda2.hashCode());
+		result = prime * result
+				+ ((codigoFecu == null) ? 0 : codigoFecu.hashCode());
+		result = prime * result
+				+ ((idColumna == null) ? 0 : idColumna.hashCode());
+		result = prime * result + ((idFecu == null) ? 0 : idFecu.hashCode());
+		result = prime * result + ((idFila == null) ? 0 : idFila.hashCode());
+		result = prime * result
+				+ ((idGrilla == null) ? 0 : idGrilla.hashCode());
+		result = prime * result
+				+ ((idPeriodo == null) ? 0 : idPeriodo.hashCode());
+		result = prime * result + ((idRut == null) ? 0 : idRut.hashCode());
+		result = prime * result
+				+ ((montoTotal == null) ? 0 : montoTotal.hashCode());
+		result = prime * result
+				+ ((periodoEmpresa == null) ? 0 : periodoEmpresa.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RelacionEeff other = (RelacionEeff) obj;
+		if (celda2 == null) {
+			if (other.celda2 != null)
+				return false;
+		} else if (!celda2.equals(other.celda2))
+			return false;
+		if (codigoFecu == null) {
+			if (other.codigoFecu != null)
+				return false;
+		} else if (!codigoFecu.equals(other.codigoFecu))
+			return false;
+		if (idColumna == null) {
+			if (other.idColumna != null)
+				return false;
+		} else if (!idColumna.equals(other.idColumna))
+			return false;
+		if (idFecu == null) {
+			if (other.idFecu != null)
+				return false;
+		} else if (!idFecu.equals(other.idFecu))
+			return false;
+		if (idFila == null) {
+			if (other.idFila != null)
+				return false;
+		} else if (!idFila.equals(other.idFila))
+			return false;
+		if (idGrilla == null) {
+			if (other.idGrilla != null)
+				return false;
+		} else if (!idGrilla.equals(other.idGrilla))
+			return false;
+		if (idPeriodo == null) {
+			if (other.idPeriodo != null)
+				return false;
+		} else if (!idPeriodo.equals(other.idPeriodo))
+			return false;
+		if (idRut == null) {
+			if (other.idRut != null)
+				return false;
+		} else if (!idRut.equals(other.idRut))
+			return false;
+		if (montoTotal == null) {
+			if (other.montoTotal != null)
+				return false;
+		} else if (!montoTotal.equals(other.montoTotal))
+			return false;
+		if (periodoEmpresa == null) {
+			if (other.periodoEmpresa != null)
+				return false;
+		} else if (!periodoEmpresa.equals(other.periodoEmpresa))
+			return false;
+		return true;
+	}
+
+	
 
 }

@@ -28,12 +28,12 @@ public class Rol implements Serializable {
 	public static final String FIND_ALL = "Rol.findAll";
 
 	@Id
-	@Expose
+	
 	@Column(name="ID_ROL")
 	private String idRol;
 
 	@Column(name="NOMBRE_ROL")
-	@Expose
+	
 	private String nombreRol;
 	
     public Rol() {

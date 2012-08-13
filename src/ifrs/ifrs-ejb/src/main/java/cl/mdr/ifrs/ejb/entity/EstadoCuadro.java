@@ -10,6 +10,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
+
 import cl.mdr.ifrs.ejb.common.Constantes;
 
 
@@ -23,9 +25,11 @@ public class EstadoCuadro implements Serializable {
     
     @Id
     @Column(name = "ID_ESTADO_CUADRO", nullable = false)
+    @Expose
     private Long idEstado;
     
     @Column(nullable = false, length = 128)
+    @Expose
     private String nombre;
     
     

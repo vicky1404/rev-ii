@@ -16,6 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.google.gson.annotations.Expose;
+
 import cl.mdr.ifrs.ejb.common.Constantes;
 
 
@@ -44,19 +46,23 @@ public class Periodo implements Serializable {
     
     @Id
 	@Column(name="ID_PERIODO")
+    @Expose
 	private Long idPeriodo;
 
     @ManyToOne
 	@JoinColumn(name="ID_ESTADO_PERIODO")
+    @Expose
 	private EstadoPeriodo estadoPeriodo;
 
 	@OneToMany(mappedBy="periodo", fetch = FetchType.LAZY)
 	private List<PeriodoEmpresa> periodoEmpresaList;
     
     @Transient
+    @Expose
     private String mesPeriodo;
     
     @Transient
+    @Expose
     private String anioPeriodo;
 
     public Periodo() {

@@ -17,6 +17,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.google.gson.annotations.Expose;
+
 import cl.mdr.ifrs.ejb.common.Constantes;
 import cl.mdr.ifrs.vo.GrillaVO;
 import cl.mdr.ifrs.vo.HtmlVO;
@@ -52,17 +54,21 @@ public class Estructura implements Serializable {
     @GeneratedValue(generator="ID_GEN_ESTRUCTURA")
     @SequenceGenerator(name="ID_GEN_ESTRUCTURA", sequenceName = "SEQ_ESTRUCTURA" ,allocationSize = 1)
     @Column(name = "ID_ESTRUCTURA", nullable = false)
+    @Expose
     private Long idEstructura;
     
     @Column(nullable = false)
+    @Expose
     private Long orden;
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_TIPO_ESTRUCTURA")
+    @Expose
     private TipoEstructura tipoEstructura;
     
     @ManyToOne    
     @JoinColumn(name = "ID_VERSION")
+    @Expose
     private Version version;
     
     
@@ -83,14 +89,14 @@ public class Estructura implements Serializable {
     //@JoinColumn(name = "ID_TEXTO", referencedColumnName="ID_ESTRUCTURA", insertable = false, updatable = false)
     private Texto texto;
              
-    @Transient
+    @Transient    
     private GrillaVO grillaVO;
     
-    @Transient
+    @Transient    
     private TextoVO textoVo;
     
     
-    @Transient
+    @Transient    
     private HtmlVO htmlVo;
 
 
