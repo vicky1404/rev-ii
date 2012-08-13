@@ -14,6 +14,7 @@ import javax.persistence.Query;
 
 import cl.mdr.ifrs.ejb.entity.Catalogo;
 import cl.mdr.ifrs.ejb.entity.EstadoCuadro;
+import cl.mdr.ifrs.ejb.entity.Periodo;
 import cl.mdr.ifrs.ejb.entity.Rol;
 import cl.mdr.ifrs.ejb.entity.TipoCelda;
 import cl.mdr.ifrs.ejb.entity.TipoCuadro;
@@ -118,6 +119,20 @@ public class MantenedoresTipoServiceBean implements MantenedoresTipoServiceLocal
    	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public List<Rol> findAllRol() throws Exception{
     	return em.createNamedQuery(Rol.FIND_ALL).getResultList();
+    }
+    
+    /**
+     * @return
+     */
+    public Periodo findByPeriodo(Long periodo) throws Exception{
+        Query query = em.createNamedQuery("Periodo.findByPeriodo");
+        query.setParameter("periodo", periodo);
+        Periodo periodoResult = null;
+        if (query.getResultList().size() > 0){
+        	periodoResult = (Periodo)query.getSingleResult();     
+        }
+        return periodoResult;
+        
     }
     
 	    

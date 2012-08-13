@@ -21,16 +21,26 @@ public class GrillaVO implements Serializable {
     
     private String titulo;
     private Grilla grilla;
-    //private transient List<Map<String, Object>> columns;    
-    //private transient List<Map<String, Object>> grupos;
-    //private transient List<Map<String, Object>> gruposResultado;
-    //private transient List<AgrupacionColumnaModelVO> nivel2List;
-    //private transient List<AgrupacionColumnaModelVO> nivel1List;
-    //private transient List<Long> registros;
     
     private List<Columna> columnas;
     private List<Map<Long,Celda>> rows;
     private List<List<AgrupacionModelVO>> agrupaciones;
+
+	private List<List<Celda>> celdaList;
+    private Long nivel = 0L;
+    
+    
+    public GrillaVO() {
+        super();
+    }
+
+    public void setGrilla(Grilla grilla) {
+        this.grilla = grilla;
+    }
+
+    public Grilla getGrilla() {
+        return grilla;
+    }
     
     public Long getNivel() {
 		return nivel;
@@ -42,78 +52,6 @@ public class GrillaVO implements Serializable {
 	}
 
 
-	private List<List<Celda>> celdaList;
-    private Long nivel = 0L;
-    
-
-    
-    
-
-    public GrillaVO() {
-        super();
-    }
-
-
-    public void setGrilla(Grilla grilla) {
-        this.grilla = grilla;
-    }
-
-    public Grilla getGrilla() {
-        return grilla;
-    }
-/*
-    public void setColumns(List<Map<String, Object>> columns) {
-        this.columns = columns;
-    }
-
-    public List<Map<String, Object>> getColumns() {
-        return columns;
-    }
-    
-    public void setGrupos(List<Map<String, Object>> grupos) {
-        this.grupos = grupos;
-    }
-
-    public List<Map<String, Object>> getGrupos() {
-        return grupos;
-    }
-
-    public void setGruposResultado(List<Map<String, Object>> gruposResultado) {
-        this.gruposResultado = gruposResultado;
-    }
-
-    public List<Map<String, Object>> getGruposResultado() {
-        return gruposResultado;
-    }
-*/
-    /*public void setRegistros(List<Long> registros) {
-        this.registros = registros;
-    }
-
-    public List<Long> getRegistros() {
-       
-        registros = new ArrayList<Long>();
-        registros.add(1L);
-                  
-            return registros;
-    }*/
-
-    /*public void setNivel2List(List<AgrupacionColumnaModelVO> nivel2List) {
-        this.nivel2List = nivel2List;
-    }
-
-    public List<AgrupacionColumnaModelVO> getNivel2List() {
-        return nivel2List;
-    }
-
-    public void setNivel1List(List<AgrupacionColumnaModelVO> nivel1List) {
-        this.nivel1List = nivel1List;
-    }
-
-    public List<AgrupacionColumnaModelVO> getNivel1List() {
-        return nivel1List;
-    }*/
-
     public void setColumnas(List<Columna> columnas) {
         this.columnas = columnas;
     }
@@ -124,14 +62,6 @@ public class GrillaVO implements Serializable {
     	}
         return columnas;
     }
-    /*
-    public void setNivel(Long nivel) {
-        this.nivel = nivel;
-    }
-
-    public Long getNivel() {
-        return nivel;
-    }*/
     
     public void setRows(List<Map<Long, Celda>> rows) {
         this.rows = rows;

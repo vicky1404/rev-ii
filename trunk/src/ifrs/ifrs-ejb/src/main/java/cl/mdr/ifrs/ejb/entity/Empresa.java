@@ -41,6 +41,7 @@ public class Empresa implements Serializable {
 
 	@Id
 	@Column(name = "ID_RUT")
+	@Expose
 	private Long idRut;
 
 	@Expose	
@@ -52,8 +53,9 @@ public class Empresa implements Serializable {
 	@Expose
 	private String nombre;
 
-	@Expose
+	
 	@Column(name="RAZON_SOCIAL")
+	@Expose
 	private String razonSocial;
 
 	@OneToMany(mappedBy="empresa")	

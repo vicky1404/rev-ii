@@ -41,4 +41,5 @@ public interface MantenedoresTipoServiceLocal {
     TipoCuadro findTipoCuadroById(final Long idTipoCuadro) throws Exception;
     
     List<Rol> findAllRol() throws Exception;
+    Periodo findByPeriodo(Long periodo) throws Exception;
 }

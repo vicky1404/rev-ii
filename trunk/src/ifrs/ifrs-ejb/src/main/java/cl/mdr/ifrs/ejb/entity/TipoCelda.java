@@ -10,6 +10,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
+
 import cl.mdr.ifrs.ejb.common.Constantes;
 
 
@@ -24,8 +26,10 @@ public class TipoCelda implements Serializable {
     private static final long serialVersionUID = 7453861536937128669L;
     @Id
     @Column(name = "ID_TIPO_CELDA", nullable = false)
+    @Expose
     private Long idTipoCelda;
     @Column(nullable = false, length = 128)
+    @Expose
     private String nombre;
 //    @OneToMany(mappedBy = "tipoCelda")
 //    private List<Celda> celdaList;

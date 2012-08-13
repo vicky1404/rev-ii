@@ -12,6 +12,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
+
 import cl.mdr.ifrs.ejb.common.Constantes;
 
 
@@ -26,10 +28,14 @@ public class EstadoPeriodo implements Serializable {
     public static final Long ESTADO_CONTINGENCIA = 2L;
     
     @Id
-    @Column(name = "ID_ESTADO_PERIODO", nullable = false)
+    @Column(name = "ID_ESTADO_PERIODO", nullable = false)    
+    @Expose
     private Long idEstadoPeriodo;
+    
     @Column(nullable = false, length = 128)
+    @Expose
     private String nombre;
+    
     @OneToMany(mappedBy = "estadoPeriodo")
     private List<Periodo> periodoList;
 
@@ -92,4 +98,30 @@ public class EstadoPeriodo implements Serializable {
         buffer.append(']');
         return buffer.toString();
     }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((idEstadoPeriodo == null) ? 0 : idEstadoPeriodo.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		EstadoPeriodo other = (EstadoPeriodo) obj;
+		if (idEstadoPeriodo == null) {
+			if (other.idEstadoPeriodo != null)
+				return false;
+		} else if (!idEstadoPeriodo.equals(other.idEstadoPeriodo))
+			return false;
+		return true;
+	}
 }

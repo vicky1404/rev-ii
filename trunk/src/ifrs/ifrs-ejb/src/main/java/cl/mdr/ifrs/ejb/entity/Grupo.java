@@ -16,6 +16,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
+
 
 /**
  * The persistent class for the IFRS_GRUPO database table.
@@ -37,11 +39,13 @@ public class Grupo implements Serializable {
 
 	@Id
 	@Column(name="ID_GRUPO_ACCESO")
+	
 	private String idGrupoAcceso;
 
 	@Column(name="ACCESO_BLOQUEADO")
+	
 	private Long accesoBloqueado;
-
+	
 	private String nombre;
 
 	//bi-directional many-to-many association to Catalogo
@@ -60,6 +64,7 @@ public class Grupo implements Serializable {
 	//bi-directional many-to-one association to AreaNegocio    
     @ManyToOne
 	@JoinColumn(name="ID_AREA_NEGOCIO")
+    
 	private AreaNegocio areaNegocio;
 
 	//bi-directional many-to-many association to Empresa

@@ -24,6 +24,8 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import com.google.gson.annotations.Expose;
+
 import cl.mdr.ifrs.ejb.common.Constantes;
 import cl.mdr.ifrs.ejb.common.TipoCeldaEnum;
 import cl.mdr.ifrs.ejb.cross.Util;
@@ -49,25 +51,31 @@ public class Celda implements Serializable {
 
     @Id
     @Column(name = "ID_COLUMNA", nullable = false, insertable = false, updatable = false)
+    @Expose
     private Long idColumna;
     
     @Id
     @Column(name = "ID_FILA", nullable = false, insertable = true, updatable = true)
+    @Expose
     private Long idFila;
     
     @Id
     @Column(name = "ID_GRILLA", nullable = false, insertable = false, updatable = false)
+    @Expose
     private Long idGrilla;
     
     @Column(nullable = false, length = 2048)
+    @Expose
     private String valor;
     
     @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "ID_TIPO_CELDA")
+    @Expose
     private TipoCelda tipoCelda;
     
     @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "ID_TIPO_DATO")
+    @Expose
     private TipoDato tipoDato;
     
     @ManyToOne
@@ -75,21 +83,27 @@ public class Celda implements Serializable {
         @JoinColumn(name = "ID_COLUMNA", referencedColumnName = "ID_COLUMNA"),
         @JoinColumn(name = "ID_GRILLA", referencedColumnName = "ID_GRILLA")
     })
+    @Expose
     private Columna columna;
     
     @Column(name="CHILD_HORIZONTAL")
+    @Expose
     private Long childHorizontal;
     
     @Column(name="PARENT_HORIZONTAL")
+    @Expose
     private Long parentHorizontal;
         
     @Column(name="CHILD_VERTICAL")
+    @Expose
     private Long childVertical;
     
     @Column(name="PARENT_VERTICAL")
+    @Expose
     private Long parentVertical;
     
     @Column(name="FORMULA")
+    @Expose
     private String formula;
     
     @Fetch(FetchMode.SUBSELECT)
@@ -101,21 +115,26 @@ public class Celda implements Serializable {
     private List<RelacionDetalleEeff> relacionDetalleEeffList;
     
     @Transient
+    @Expose
     private boolean esNumero;
     
     @SuppressWarnings("unused")
 	@Transient
+	@Expose
     private Long valorLong;
     
     @SuppressWarnings("unused")
 	@Transient
+	@Expose
     private BigDecimal valorBigDecimal;
     
     @SuppressWarnings("unused")
 	@Transient
+	@Expose
     private Date valorDate;
     
     @Transient
+    @Expose
     private boolean selectedByFormula;
     
     public Celda() {

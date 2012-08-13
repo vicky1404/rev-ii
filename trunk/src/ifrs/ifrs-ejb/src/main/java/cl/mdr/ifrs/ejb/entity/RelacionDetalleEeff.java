@@ -15,7 +15,10 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
+
 import cl.mdr.ifrs.ejb.common.Constantes;
+import cl.mdr.ifrs.ejb.cross.EeffUtil;
 import cl.mdr.ifrs.ejb.entity.pk.RelacionDetalleEeffPK;
 
 
@@ -41,48 +44,68 @@ private static final long serialVersionUID = -2121624962103986848L;
     
     @Id
     @Column(name = "ID_CUENTA", nullable = false)
+    @Expose
     private Long idCuenta;
     
     @Id
     @Column(name = "ID_FECU", nullable = false)
+    @Expose
     private Long idFecu;
     
     @Id
     @Column(name = "ID_PERIODO", nullable = false, insertable = false, updatable = false)
+    @Expose
     private Long idPeriodo;
     
     @Id
-    @Column(name = "ID_RUT", nullable = false, insertable = false, updatable = false)
+    @Column(name = "ID_RUT", nullable = false, insertable = false, updatable = false)    
+    @Expose
     private Long idRut;
     
 	@Column(name = "ID_GRILLA", insertable = false, updatable = false)
-    private String idGrilla;
+	@Expose
+    private Long idGrilla;
 
+	
+	@Column(name = "ID_FILA", insertable = false, updatable = false)
+	@Expose
+    private Long idFila;
+	
+	@Column(name = "ID_COLUMNA", insertable = false, updatable = false)
+	@Expose
+    private Long idColumna;
 
 	@Column(name = "DESCRIPCION_CUENTA", length = 256)
+	@Expose
     private String descripcionCuenta;
     
     @Column(name = "MONTO_EBS", length = 256)
+    @Expose
     private BigDecimal montoEbs;
         
     @Column(name = "MONTO_MILES")
+    @Expose
     private BigDecimal montoMiles;
     
     @Column(name = "MONTO_PESOS")
+    @Expose
     private BigDecimal montoPesos;
     
     @Column(name = "RECLASIFICACION")
+    @Expose
     private BigDecimal montoReclasificacion;
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumns( { @JoinColumn(name = "ID_PERIODO", referencedColumnName = "ID_PERIODO"),
 			        @JoinColumn(name = "ID_RUT", referencedColumnName = "ID_RUT")})
+    @Expose
     private PeriodoEmpresa periodoEmpresa;
     
     @ManyToOne
     @JoinColumns( { @JoinColumn(name = "ID_COLUMNA", referencedColumnName = "ID_COLUMNA"),
                     @JoinColumn(name = "ID_GRILLA", referencedColumnName = "ID_GRILLA"),
                     @JoinColumn(name = "ID_FILA", referencedColumnName = "ID_FILA") })
+    @Expose
     private Celda celda5;
     
 
@@ -213,12 +236,159 @@ private static final long serialVersionUID = -2121624962103986848L;
         
     }
 
-	public String getIdGrilla() {
+	
+	
+	public String getFecuFormat(){
+		
+		if (idFecu != null){
+			return EeffUtil.formatFecu(idFecu);			
+		} else {
+			return "";	
+		}
+		
+	}
+
+	
+
+	public Long getIdGrilla() {
 		return idGrilla;
 	}
 
-	public void setIdGrilla(String idGrilla) {
+	public void setIdGrilla(Long idGrilla) {
 		this.idGrilla = idGrilla;
+	}
+
+	public Long getIdFila() {
+		return idFila;
+	}
+
+	public void setIdFila(Long idFila) {
+		this.idFila = idFila;
+	}
+
+	public Long getIdColumna() {
+		return idColumna;
+	}
+
+	public void setIdColumna(Long idColumna) {
+		this.idColumna = idColumna;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((celda5 == null) ? 0 : celda5.hashCode());
+		result = prime
+				* result
+				+ ((descripcionCuenta == null) ? 0 : descripcionCuenta
+						.hashCode());
+		result = prime * result
+				+ ((idColumna == null) ? 0 : idColumna.hashCode());
+		result = prime * result
+				+ ((idCuenta == null) ? 0 : idCuenta.hashCode());
+		result = prime * result + ((idFecu == null) ? 0 : idFecu.hashCode());
+		result = prime * result + ((idFila == null) ? 0 : idFila.hashCode());
+		result = prime * result
+				+ ((idGrilla == null) ? 0 : idGrilla.hashCode());
+		result = prime * result
+				+ ((idPeriodo == null) ? 0 : idPeriodo.hashCode());
+		result = prime * result + ((idRut == null) ? 0 : idRut.hashCode());
+		result = prime * result
+				+ ((montoEbs == null) ? 0 : montoEbs.hashCode());
+		result = prime * result
+				+ ((montoMiles == null) ? 0 : montoMiles.hashCode());
+		result = prime * result
+				+ ((montoPesos == null) ? 0 : montoPesos.hashCode());
+		result = prime
+				* result
+				+ ((montoReclasificacion == null) ? 0 : montoReclasificacion
+						.hashCode());
+		result = prime * result
+				+ ((periodoEmpresa == null) ? 0 : periodoEmpresa.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RelacionDetalleEeff other = (RelacionDetalleEeff) obj;
+		if (celda5 == null) {
+			if (other.celda5 != null)
+				return false;
+		} else if (!celda5.equals(other.celda5))
+			return false;
+		if (descripcionCuenta == null) {
+			if (other.descripcionCuenta != null)
+				return false;
+		} else if (!descripcionCuenta.equals(other.descripcionCuenta))
+			return false;
+		if (idColumna == null) {
+			if (other.idColumna != null)
+				return false;
+		} else if (!idColumna.equals(other.idColumna))
+			return false;
+		if (idCuenta == null) {
+			if (other.idCuenta != null)
+				return false;
+		} else if (!idCuenta.equals(other.idCuenta))
+			return false;
+		if (idFecu == null) {
+			if (other.idFecu != null)
+				return false;
+		} else if (!idFecu.equals(other.idFecu))
+			return false;
+		if (idFila == null) {
+			if (other.idFila != null)
+				return false;
+		} else if (!idFila.equals(other.idFila))
+			return false;
+		if (idGrilla == null) {
+			if (other.idGrilla != null)
+				return false;
+		} else if (!idGrilla.equals(other.idGrilla))
+			return false;
+		if (idPeriodo == null) {
+			if (other.idPeriodo != null)
+				return false;
+		} else if (!idPeriodo.equals(other.idPeriodo))
+			return false;
+		if (idRut == null) {
+			if (other.idRut != null)
+				return false;
+		} else if (!idRut.equals(other.idRut))
+			return false;
+		if (montoEbs == null) {
+			if (other.montoEbs != null)
+				return false;
+		} else if (!montoEbs.equals(other.montoEbs))
+			return false;
+		if (montoMiles == null) {
+			if (other.montoMiles != null)
+				return false;
+		} else if (!montoMiles.equals(other.montoMiles))
+			return false;
+		if (montoPesos == null) {
+			if (other.montoPesos != null)
+				return false;
+		} else if (!montoPesos.equals(other.montoPesos))
+			return false;
+		if (montoReclasificacion == null) {
+			if (other.montoReclasificacion != null)
+				return false;
+		} else if (!montoReclasificacion.equals(other.montoReclasificacion))
+			return false;
+		if (periodoEmpresa == null) {
+			if (other.periodoEmpresa != null)
+				return false;
+		} else if (!periodoEmpresa.equals(other.periodoEmpresa))
+			return false;
+		return true;
 	}
 	
 }

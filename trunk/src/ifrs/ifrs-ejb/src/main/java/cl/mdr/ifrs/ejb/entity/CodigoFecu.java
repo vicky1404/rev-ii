@@ -13,6 +13,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
+
 import cl.mdr.ifrs.ejb.common.Constantes;
 
 
@@ -29,11 +31,14 @@ public class CodigoFecu implements Serializable {
     public static final String FIND_VIGENTE = "CodigoFecu.findVigente";
 
     @Id
+    @Expose
     @Column(name = "ID_FECU", nullable = false)
     private Long idFecu;
-        
+    
+    @Expose
     private String descripcion;
-        
+    
+    @Expose
     private Short vigencia;
     
     @OneToMany(mappedBy = "codigoFecu", fetch = FetchType.LAZY)

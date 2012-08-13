@@ -18,6 +18,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
+
 import cl.mdr.ifrs.ejb.common.Constantes;
 
 @Entity
@@ -53,19 +55,24 @@ public class VersionEeff implements Serializable {
     @GeneratedValue(generator="ID_GEN_VERSION_EEFF")
     @SequenceGenerator(name="ID_GEN_VERSION_EEFF", sequenceName = "SEQ_VERSION_EEFF" ,allocationSize = 1)
     @Column(name = "ID_VERSION_EEFF", nullable = false)
+    @Expose
     private Long idVersionEeff;
     
     @Column(length = 256)
+    @Expose
     private String usuario;
     
     @Column(nullable = false)
+    @Expose
     private Long version;
     
     @Column(nullable = false)
+    @Expose
     private Long vigencia;
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_ESTADO_EEFF")
+    @Expose
     private TipoEstadoEeff tipoEstadoEeff;
     
     @OneToMany(mappedBy = "versionEeff", cascade = CascadeType.PERSIST)
@@ -74,7 +81,8 @@ public class VersionEeff implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumns( { @JoinColumn(name = "ID_PERIODO", referencedColumnName = "ID_PERIODO"),
 			        @JoinColumn(name = "ID_RUT", referencedColumnName = "ID_RUT")})
-    private PeriodoEmpresa periodoEmpresa;
+	@Expose
+	private PeriodoEmpresa periodoEmpresa;
 
     public VersionEeff() {
     }
@@ -135,5 +143,33 @@ public class VersionEeff implements Serializable {
 
 	public void setPeriodoEmpresa(PeriodoEmpresa periodoEmpresa) {
 		this.periodoEmpresa = periodoEmpresa;
+	}
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((idVersionEeff == null) ? 0 : idVersionEeff.hashCode());
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		VersionEeff other = (VersionEeff) obj;
+		if (idVersionEeff == null) {
+			if (other.idVersionEeff != null)
+				return false;
+		} else if (!idVersionEeff.equals(other.idVersionEeff))
+			return false;
+		return true;
 	}
 }

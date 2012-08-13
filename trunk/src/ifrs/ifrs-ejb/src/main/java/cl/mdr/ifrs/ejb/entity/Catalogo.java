@@ -79,34 +79,35 @@ public class Catalogo implements Serializable {
     
     private static final long serialVersionUID = 5519999923709341563L;
 
-    @Expose
+    
     @Column(name = "COD_CUADRO", nullable = false)
     private Long codigoCuadro;
     
-    @Expose
+   
     @Column(name = "COD_SUBCUADRO", nullable = false)
     private Long codigoSubcuadro;
     
-    @Expose
+    
     @Id
     @GeneratedValue(generator="ID_GEN_CATALOGO")
     @SequenceGenerator(name="ID_GEN_CATALOGO", sequenceName = "SEQ_CATALOGO" ,allocationSize = 1)
     @Column(name = "ID_CATALOGO", nullable = false)
+    @Expose
     private Long idCatalogo;
     
-    @Expose
+    
     @Column(name = "NOMBRE", nullable = false, length = 256)
     private String nombre;
     
-    @Expose
+    
     @Column(nullable = false)
     private Long orden;
     
-    @Expose
+    
     @Column(name = "TITULO", length = 256)
     private String titulo;
     
-    @Expose
+   
     @Column(nullable = false)
     private Long vigencia;
     
@@ -123,12 +124,12 @@ public class Catalogo implements Serializable {
     private List<CatalogoGrupo> catalogoGrupoList;
     
     
-    @Expose
+    
     @ManyToOne
     @JoinColumn(name = "ID_TIPO_CUADRO")
     private TipoCuadro tipoCuadro;
     
-    @Expose
+   
     @ManyToOne
     @JoinColumn(name="RUT")
     private Empresa empresa;
