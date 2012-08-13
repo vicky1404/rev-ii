@@ -13,7 +13,7 @@ import org.apache.log4j.Logger;
 import cl.mdr.ifrs.ejb.entity.EstadoFinanciero;
 import cl.mdr.ifrs.ejb.entity.RelacionDetalleEeff;
 import cl.mdr.ifrs.ejb.entity.RelacionEeff;
-import cl.mdr.ifrs.vo.RelacionCuentaVO;
+
 
 
 import com.google.common.base.Strings;
