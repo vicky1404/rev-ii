@@ -36,15 +36,6 @@ import cl.mdr.ifrs.ejb.entity.RelacionEeff;
 import cl.mdr.ifrs.ejb.entity.TipoCuadro;
 import cl.mdr.ifrs.ejb.entity.Version;
 import cl.mdr.ifrs.vo.GrillaVO;
-import cl.mdr.ifrs.vo.RelacionCuentaVO;
-import cl.mdr.ifrs.vo.RelacionFecuVO;
-
-import static ch.lambdaj.Lambda.having;
-import static ch.lambdaj.Lambda.maxFrom;
-import static ch.lambdaj.Lambda.minFrom;
-import static ch.lambdaj.Lambda.on;
-import static ch.lambdaj.Lambda.select;
-import static org.hamcrest.Matchers.equalTo;
 
 /**
  * @author Manuel Gutierrez C.
@@ -86,8 +77,7 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
     private TreeNode root;
     private boolean renderTreeTabla;
     private boolean renderEstructuraTabla;
-    private RelacionCuentaVO relacionCuentaVo;
-    private RelacionFecuVO relacionFecuVo;
+
     
         
     /*
@@ -520,18 +510,17 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
     public void onChangeFecu(){
         if(this.getRelFecuSeleccionada()!=null){
             relFecuSeleccionada = this.getRelFecuSeleccionada();
-            
         }
     }
     
     public void onChangeCuenta(){
     	
-        if(this.getRelacionCuentaVo()!=null){
+        if(this.getRelCuentaSeleccionada()!=null){
         	
         	RelacionDetalleEeff relacion = new RelacionDetalleEeff();
-        		relacion.setIdCuenta( this.getRelacionCuentaVo().getIdCuenta() );
-        		relacion.setIdFecu(this.getRelacionCuentaVo().getIdFecu());
-        		relacion.setIdPeriodo( this.getRelacionCuentaVo().getIdPeriodo() );
+        		relacion.setIdCuenta( this.getRelCuentaSeleccionada().getIdCuenta() );
+        		relacion.setIdFecu(this.getRelCuentaSeleccionada().getIdFecu());
+        		relacion.setIdPeriodo( this.getRelCuentaSeleccionada().getIdPeriodo() );
         		
             relCuentaSeleccionada = super.getFacadeService().getEstadoFinancieroService().getRelacionDetalleEeffByRelacionDetalleEeff(relacion);
         }
@@ -872,23 +861,6 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
             return 0;
         
         return relacionMap.size();
-    }
-
-	public RelacionCuentaVO getRelacionCuentaVo() {
-		return relacionCuentaVo;
-	}
-
-	public void setRelacionCuentaVo(RelacionCuentaVO relacionCuentaVo) {
-		this.relacionCuentaVo = relacionCuentaVo;
-	}
-
-	public RelacionFecuVO getRelacionFecuVo() {
-		return relacionFecuVo;
-	}
-
-	public void setRelacionFecuVo(RelacionFecuVO relacionFecuVo) {
-		this.relacionFecuVo = relacionFecuVo;
-	}
-	
+    }	
 
 }

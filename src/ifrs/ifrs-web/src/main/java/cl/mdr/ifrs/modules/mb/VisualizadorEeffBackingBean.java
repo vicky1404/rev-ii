@@ -38,6 +38,7 @@ private transient Logger logger = Logger.getLogger(VisualizadorEeffBackingBean.c
     private boolean renderEeffDetList = false;
     private String mesPeriodo;
     private String anioPeriodo;
+    private String selectFecuCuenta;
     
     public VisualizadorEeffBackingBean() {
         
@@ -89,12 +90,18 @@ private transient Logger logger = Logger.getLogger(VisualizadorEeffBackingBean.c
     public void buscar(ActionEvent event){
     	
     	if (versionEeff == null){
-    		
     		super.addErrorMessage("Seleccione una versión antes de continuar");
-    		
     	}
     	
-    	this.buscarFiltroFecu(event);
+		if (getSelectFecuCuenta().equalsIgnoreCase("fecu")){
+				this.buscarFiltroFecu(event);
+		}
+		else if (getSelectFecuCuenta().equalsIgnoreCase("cuenta")){
+				this.buscarFiltroCuenta(event);
+		}
+		else{ 
+			addErrorMessage("La opción seleccionada no existe");
+		}
     	
     }
     
@@ -216,5 +223,13 @@ private transient Logger logger = Logger.getLogger(VisualizadorEeffBackingBean.c
     public String getAnioPeriodo() {
         return anioPeriodo;
     }
+
+	public String getSelectFecuCuenta() {
+		return selectFecuCuenta;
+	}
+
+	public void setSelectFecuCuenta(String selectFecuCuenta) {
+		this.selectFecuCuenta = selectFecuCuenta;
+	}
 
 }

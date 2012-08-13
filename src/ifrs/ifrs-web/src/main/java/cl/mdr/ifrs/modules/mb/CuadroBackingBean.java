@@ -39,7 +39,7 @@ import cl.mdr.ifrs.vo.AgrupacionColumnaModelVO;
 import cl.mdr.ifrs.vo.AgrupacionModelVO;
 
 /**
- * @author Manuel Gutierrez C.
+ * @author MDR Technology
  * @since 29/06/2012
  * Maneja la pagina mantenedora de cuadros * 
  */
