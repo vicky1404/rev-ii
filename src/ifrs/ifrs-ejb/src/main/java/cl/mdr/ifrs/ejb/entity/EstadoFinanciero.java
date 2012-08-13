@@ -21,6 +21,7 @@ import javax.persistence.Table;
 import com.google.gson.annotations.Expose;
 
 import cl.mdr.ifrs.ejb.common.Constantes;
+import cl.mdr.ifrs.ejb.cross.EeffUtil;
 import cl.mdr.ifrs.ejb.entity.pk.EstadoFinancieroPK;
 
 
@@ -163,6 +164,11 @@ public class EstadoFinanciero implements Serializable {
 		return true;
 	}
 
-	
+	public String getFecuFormat(){
+        if(idFecu!=null)
+            return EeffUtil.formatFecu(idFecu);
+        else
+            return "";
+    }
 	
 }

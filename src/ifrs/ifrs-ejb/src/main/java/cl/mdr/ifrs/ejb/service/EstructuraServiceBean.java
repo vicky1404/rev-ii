@@ -290,7 +290,7 @@ public class EstructuraServiceBean implements EstructuraServiceLocal {
     
     /**
      * Distingue si las grillas tienen formulas estaticas o dinamicas.
-     * @author Manuel Gutierrez C.
+     * @author MDR Technology
      * @since 15/02/2012
      * @param grillaList
      * @throws Exception
