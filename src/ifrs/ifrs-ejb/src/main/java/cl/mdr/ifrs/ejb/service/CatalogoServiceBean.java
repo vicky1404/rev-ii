@@ -98,8 +98,9 @@ public class CatalogoServiceBean implements CatalogoServiceLocal{
     @SuppressWarnings("unchecked")
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public List<Catalogo> findAllByTipo(final TipoCuadro tipoCuadro, final Long vigente)throws Exception{
-         Query query = em.createNamedQuery(Catalogo.CATALOGO_FIND_ALL_BY_TIPO)                                             
-                                             .setParameter("tipoCuadro", tipoCuadro != null ? tipoCuadro.getIdTipoCuadro().longValue() : "" )
+    	tipoCuadro.setIdTipoCuadro(1L);
+    	Query query = em.createNamedQuery(Catalogo.CATALOGO_FIND_ALL_BY_TIPO)                                             
+                                             .setParameter("tipoCuadro",  tipoCuadro != null ? tipoCuadro.getIdTipoCuadro() : null)
                                              .setParameter("vigente", vigente);                                           
          return query.getResultList();
     }
