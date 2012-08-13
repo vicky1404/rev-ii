@@ -19,10 +19,10 @@
 	  				<p:outputLabel value="#{msg.label_tipo_cuadro}" for="somTipoCuadro"/>
 	  			</td>
 	  			<td>
-	  				<p:selectOneMenu value="#{cuadroBackinBean.idCuadro}" id="somTipoCuadro">
+	  				<p:selectOneMenu value="#{cuadroBackingBean.idCuadro}" id="somTipoCuadro">
 	  					<f:selectItem itemLabel="#{msg.label_todos}" />
-	  					<f:selectItems value="#{cuadro.componenteBackingBean.tipoCuadroList}" id="siTipoCuadro" var="tipoCuadroVar" itemValue="#{tipoCuadroVar.idTipoCuadro}" itemLabel="#{tipoCuadroVar.nombre}"/>
-	  					<p:ajax update="tabla" listener="#{cuadro.actualizaLista}" event="change"/>
+	  					<f:selectItems value="#{cuadroBackingBean.componenteBackingBean.tipoCuadroList}" id="siTipoCuadro" var="tipoCuadroVar" itemValue="#{tipoCuadroVar.idTipoCuadro}" itemLabel="#{tipoCuadroVar.nombre}"/>
+	  					<p:ajax update="tabla" listener="#{cuadroBackingBean.actualizaLista}" event="change"/>
 	  				</p:selectOneMenu>
 	  			</td>
 	  		</tr>
@@ -33,7 +33,7 @@
     	<p:toolbar style="font-size: 10px; margin-left: auto; margin-right: auto" >
       		<p:toolbarGroup align="left" >
 				<p:commandButton icon="ui-icon-document" value="#{msg.boton_nuevo}" title="#{msg.boton_nuevo}"  type="button" onclick="ingresoRegistro.show()" />
-				<p:commandButton icon="ui-icon-trash" value="#{msg.boton_eliminar}" title="#{msg.boton_eliminar}" action="#{cuadro.eliminar}" update="tabla messages" />
+				<p:commandButton icon="ui-icon-trash" value="#{msg.boton_eliminar}" title="#{msg.boton_eliminar}" action="#{cuadroBackingBean.eliminar}" update="tabla messages" />
 				
 				<p:separator />				  
 				<h:commandLink immediate="true">  
@@ -43,9 +43,9 @@
       		</p:toolbarGroup>	
    		</p:toolbar>
     	
-    	<p:dataTable value="#{cuadro.catalogoList}" var="row" id="tabla" editable="true" emptyMessage="#{msg.mensaje_tabla_sin_registros}" paginator="true" rows="10" selectionMode="single" rowKey="#{row.codigoCuadro}" selection="#{cuadro.selectedCuadro}">
+    	<p:dataTable value="#{cuadroBackingBean.catalogoList}" var="row" id="tabla" editable="true" emptyMessage="#{msg.mensaje_tabla_sin_registros}" paginator="true" rows="10" selectionMode="single" rowKey="#{row.codigoCuadro}" selection="#{cuadroBackingBean.selectedCuadro}">
     	
-    		<p:ajax event="rowEdit" listener="#{cuadro.editar}" /> 
+    		<p:ajax event="rowEdit" listener="#{cuadroBackingBean.editar}" /> 
     		 
     		<p:column headerText="#{msg.tabla_cabecera_cuadro}" id="colRazonSocial">
 	    				<h:outputText value="#{row.empresa.razonSocial}" id="outRazonSocial"/>
@@ -109,7 +109,7 @@
     				</f:facet>
     				<f:facet name="input">
     					<p:selectOneMenu value="#{row.impresionHorizontal}" id="selImpresion">
-		    				<f:selectItems value="#{cuadro.componenteBackingBean.tipoImpresionItems}"/>	
+		    				<f:selectItems value="#{cuadroBackingBean.componenteBackingBean.tipoImpresionItems}"/>	
 		    			</p:selectOneMenu>
     				
     				</f:facet>
@@ -127,7 +127,7 @@
     				</f:facet>
     				<f:facet name="input">
 		    			<p:selectOneMenu value="#{row.vigencia}" id="selVigencia">
-		    				<f:selectItems value="#{cuadro.componenteBackingBean.vigencias}"/>	
+		    				<f:selectItems value="#{cuadroBackingBean.componenteBackingBean.vigencias}"/>	
 		    			</p:selectOneMenu>
     				</f:facet>
     			</p:cellEditor>
@@ -147,35 +147,35 @@
         	<h:panelGrid id="display" columns="3" cellpadding="4">
         	
         		<p:outputLabel for="Empresa" value="#{msg.label_empresa}" />  
-	            	<p:selectOneMenu value="#{cuadro.idEmpresa}" id="Empresa" required="true">
+	            	<p:selectOneMenu value="#{cuadroBackingBean.idEmpresa}" id="Empresa" required="true">
     					<f:selectItem itemLabel="#{msg.label_seleccione}"/>
-    					<f:selectItems value="#{cuadro.componenteBackingBean.empresaList}" var="empresa" itemValue="#{empresa.idRut}" itemLabel="#{empresa.razonSocial}"/>
+    					<f:selectItems value="#{cuadroBackingBean.componenteBackingBean.empresaList}" var="empresa" itemValue="#{empresa.idRut}" itemLabel="#{empresa.razonSocial}"/>
     				</p:selectOneMenu>
 	            <h:message for="Empresa" id="msgEmpresa" style="color:red"/>           
         	  
             
 	            <p:outputLabel for="CodigoCuadro" value="#{msg.label_cuadro}" />  
-	            <p:inputText value="#{cuadro.nuevoCuadro.codigoCuadro}" id="CodigoCuadro" label="#{msg.label_cuadro}" required="true" >
+	            <p:inputText value="#{cuadroBackingBean.nuevoCuadro.codigoCuadro}" id="CodigoCuadro" label="#{msg.label_cuadro}" required="true" >
 	            	<f:convertNumber integerOnly="true"/>
 	            	<f:validateLongRange minimum="1" maximum="99999"  for="Orden"></f:validateLongRange>
 	            </p:inputText>
 	            <h:message for="CodigoCuadro" id="msgCodigoCuadro" style="color:red"/>           
 	  
 	            <p:outputLabel for="Titulo" value="#{msg.label_sub_cuadro}" />  
-	            <p:inputText value="#{cuadro.nuevoCuadro.codigoSubcuadro}" id="CodigoSubCuadro" label="#{msg.label_sub_cuadro}" required="true">
+	            <p:inputText value="#{cuadroBackingBean.nuevoCuadro.codigoSubcuadro}" id="CodigoSubCuadro" label="#{msg.label_sub_cuadro}" required="true">
 	            	<f:convertNumber integerOnly="true"/>
 	            	<f:validateLongRange minimum="1" maximum="99999"  for="Orden"></f:validateLongRange>
 	            </p:inputText>
 	            <h:message for="CodigoSubCuadro" id="msgCodigoSubCuadro" style="color:red"/>
 	            
 	            <p:outputLabel for="Nombre" value="#{msg.label_nombre}" />  
-	            <p:inputText value="#{cuadro.nuevoCuadro.nombre}" id="Nombre" label="#{msg.label_nombre}" required="true">
+	            <p:inputText value="#{cuadroBackingBean.nuevoCuadro.nombre}" id="Nombre" label="#{msg.label_nombre}" required="true">
 	            	<f:validateLength minimum="1" maximum="256"></f:validateLength>
 	            </p:inputText>
 	            <h:message for="Nombre" id="msgNombre" style="color:red"/>	  			
 	            	  			
 	            <p:outputLabel for="Orden" value="#{msg.label_orden}" />  
-	            <p:inputText value="#{cuadro.nuevoCuadro.orden}" id="Orden" label="#{msg.label_orden}" required="true">
+	            <p:inputText value="#{cuadroBackingBean.nuevoCuadro.orden}" id="Orden" label="#{msg.label_orden}" required="true">
 	            	<f:convertNumber integerOnly="true"/>
 	            	<f:validateLongRange minimum="1" maximum="99999"  for="Orden"></f:validateLongRange>	            	
 	            </p:inputText>
@@ -183,33 +183,33 @@
 
 
 	            <p:outputLabel for="Titulo" value="#{msg.label_titulo_cuadro}" />  
-	            <p:inputText value="#{cuadro.nuevoCuadro.titulo}" id="Titulo" label="#{msg.label_titulo_cuadro}" required="true">
+	            <p:inputText value="#{cuadroBackingBean.nuevoCuadro.titulo}" id="Titulo" label="#{msg.label_titulo_cuadro}" required="true">
 	            	<f:validateLength minimum="1" maximum="256"></f:validateLength>
 	            </p:inputText>
 	            <h:message for="Titulo" id="msgTitulo" style="color:red"/>	  			
 
 				<p:outputLabel for="Impresion" value="#{msg.label_tipo_impresion}" />
-    			<p:selectOneMenu value="#{cuadro.nuevoCuadro.impresionHorizontal}" id="Impresion" required="true">
+    			<p:selectOneMenu value="#{cuadroBackingBean.nuevoCuadro.impresionHorizontal}" id="Impresion" required="true">
     				<f:selectItem itemLabel="#{msg.label_seleccione}"/>
-    				<f:selectItems value="#{cuadro.componenteBackingBean.tipoImpresionItems}"/>	
+    				<f:selectItems value="#{cuadroBackingBean.componenteBackingBean.tipoImpresionItems}"/>	
     			</p:selectOneMenu>
 	            <h:message for="Impresion" id="msgImpresion" style="color:red"/>
 	            
 	            <p:outputLabel for="TipoCuadro" value="#{msg.label_tipo_cuadro}" />   			
-    			<p:selectOneMenu value="#{cuadro.idCuadro}" id="TipoCuadro" label="#{msg.label_tipo_cuadro}" required="true">
+    			<p:selectOneMenu value="#{cuadroBackingBean.idCuadro}" id="TipoCuadro" label="#{msg.label_tipo_cuadro}" required="true">
     				<f:selectItem itemLabel="#{msg.label_seleccione}"/>
-    				<f:selectItems value="#{cuadro.componenteBackingBean.tipoCuadroList}" var="tipoCuadroVar" itemValue="#{tipoCuadroVar.idTipoCuadro}" itemLabel="#{tipoCuadroVar.nombre}"/>	
+    				<f:selectItems value="#{cuadroBackingBean.componenteBackingBean.tipoCuadroList}" var="tipoCuadroVar" itemValue="#{tipoCuadroVar.idTipoCuadro}" itemLabel="#{tipoCuadroVar.nombre}"/>	
     			</p:selectOneMenu>
     			<h:message for="Impresion" id="msgTipoCuadro" style="color:red"/>
     			
     			<p:outputLabel for="Vigencia" value="#{msg.label_vigencia}" />  
-    			<p:selectOneMenu value="#{cuadro.nuevoCuadro.vigencia}" id="Vigencia" label="#{msg.label_vigencia}" required="true">
+    			<p:selectOneMenu value="#{cuadroBackingBean.nuevoCuadro.vigencia}" id="Vigencia" label="#{msg.label_vigencia}" required="true">
     				<f:selectItem itemLabel="#{msg.label_seleccione}"/>
-    				<f:selectItems value="#{cuadro.componenteBackingBean.vigencias}"/>	
+    				<f:selectItems value="#{cuadroBackingBean.componenteBackingBean.vigencias}"/>	
     			</p:selectOneMenu>
     			<h:message for="Vigencia" id="msgVigencia" style="color:red"/>
 	  			
-	  			<p:commandButton icon="ui-icon-disk" value="#{msg.boton_guardar}" actionListener="#{cuadro.guardar}" id="btnGuardar" update=":form:tabla :form:messages msgEmpresa msgCodigoCuadro msgCodigoSubCuadro msgNombre msgOrden msgTitulo msgImpresion msgTipoCuadro msgVigencia" oncomplete="handleLoginRequest(xhr, status, args)" ></p:commandButton>
+	  			<p:commandButton icon="ui-icon-disk" value="#{msg.boton_guardar}" actionListener="#{cuadroBackingBean.guardar}" id="btnGuardar" update=":form:tabla :form:messages msgEmpresa msgCodigoCuadro msgCodigoSubCuadro msgNombre msgOrden msgTitulo msgImpresion msgTipoCuadro msgVigencia" oncomplete="handleLoginRequest(xhr, status, args)" ></p:commandButton>
 	  			<p:commandButton icon="ui-icon-cancel" value="#{msg.boton_cancel}" id="btnCancelar" onclick="ingresoRegistro.hide()"></p:commandButton>
         	</h:panelGrid>
         	</h:form>
