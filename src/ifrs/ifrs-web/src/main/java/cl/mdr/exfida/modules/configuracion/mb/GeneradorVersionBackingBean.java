@@ -31,7 +31,6 @@ import cl.mdr.ifrs.ejb.entity.Celda;
 import cl.mdr.ifrs.ejb.entity.Columna;
 import cl.mdr.ifrs.ejb.entity.Estructura;
 import cl.mdr.ifrs.ejb.entity.Grilla;
-import cl.mdr.ifrs.ejb.entity.Html;
 import cl.mdr.ifrs.ejb.entity.TipoCuadro;
 import cl.mdr.ifrs.ejb.entity.TipoEstructura;
 import cl.mdr.ifrs.ejb.entity.Version;
@@ -189,7 +188,7 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
     public void buscarEstructuraActionListener(ActionEvent event){ 
     	this.setEstructuraList(null);    	
     	this.setVersionEditable(((Version)event.getComponent().getAttributes().get("version")));
-    	if(this.getVersionEditable().getDatosModificados().equals(1L)){
+    	if(Util.getLong(this.getVersionEditable().getDatosModificados() , 0L).equals(1L)){
     		this.displayPopUp("dialogVersionNoEditable", FORM_NAME_PRINCIPAL);
     		return;
     	}
@@ -365,7 +364,7 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
                     if(estructuraModelMap.containsKey(estructuraSelected.getOrden())){
                     	estructuraModelTempMap.put(contador, estructuraModelMap.get(estructuraSelected.getOrden()));
                     }else{
-                    	estructuraModelTempMap.put(contador, new EstructuraModel());
+                    	estructuraModelTempMap.put(contador, new EstructuraModel(estructura.getTipoEstructura().getIdTipoEstructura()));
                     }                   
                     estructuraSelected.setOrden(contador);
                     estructurasTemp.add(estructuraSelected);
@@ -375,7 +374,7 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
                 	estructuraModelTempMap.put(contador, estructuraModelMap.get(estructura.getOrden()));
                 }
                 else{
-                	estructuraModelTempMap.put(contador, new EstructuraModel());
+                	estructuraModelTempMap.put(contador, new EstructuraModel(estructura.getTipoEstructura().getIdTipoEstructura()));
                 }                
                 estructura.setOrden(contador);
                 estructurasTemp.add(estructura);
@@ -405,7 +404,7 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
                 	estructuraModelTempMap.put(contador, estructuraModelMap.get(estructura.getOrden()));
                 }
                 else{
-                	estructuraModelTempMap.put(contador, new EstructuraModel());
+                	estructuraModelTempMap.put(contador, new EstructuraModel(estructura.getTipoEstructura().getIdTipoEstructura()));
                 }                
                 estructura.setOrden(contador);
                 estructurasTemp.add(estructura);                
@@ -415,7 +414,7 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
                     	estructuraModelTempMap.put(contador, estructuraModelMap.get(estructuraSelected.getOrden()));
                     }
                     else{
-                    	estructuraModelTempMap.put(contador, new EstructuraModel());
+                    	estructuraModelTempMap.put(contador, new EstructuraModel(estructura.getTipoEstructura().getIdTipoEstructura()));
                     }                                        
                     estructuraSelected.setOrden(contador);
                     estructurasTemp.add(estructuraSelected);
