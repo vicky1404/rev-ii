@@ -23,7 +23,7 @@ import cl.mdr.ifrs.ejb.entity.pk.DetalleEeffPK;
 @NamedQueries( { @NamedQuery(name = DetalleEeff.FIND_ALL, query = "select o from DetalleEeff o"),
                  @NamedQuery(name = DetalleEeff.FIND_BY_EEFF, query = "select o from DetalleEeff o where o.estadoFinanciero1 = :eeff"),
                  @NamedQuery(name = DetalleEeff.FIND_BY_VERSION, query = "select o from DetalleEeff o where o.idVersionEeff = :idVersionEeff"),
-                 @NamedQuery(name = DetalleEeff.FIND_BY_LIKE_CUENTA, query = "select o from DetalleEeff o where o.estadoFinanciero1.idVersionEeff = :idVersionEeff and o.idCuenta like :likeCuenta order by o.idFecu")})
+                 @NamedQuery(name = DetalleEeff.FIND_BY_LIKE_CUENTA, query = "select o from DetalleEeff o where o.estadoFinanciero1.idVersionEeff = :idVersionEeff and str(o.idCuenta) like :likeCuenta order by o.idFecu")})
 @Table(name = Constantes.DETALLE_EEFF)
 public class DetalleEeff implements Serializable {
 	private static final long serialVersionUID = -5505476462941937517L;

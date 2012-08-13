@@ -17,6 +17,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.google.gson.annotations.Expose;
 
@@ -29,7 +30,7 @@ import cl.mdr.ifrs.ejb.entity.pk.EstadoFinancieroPK;
 @NamedQueries( { @NamedQuery(name = EstadoFinanciero.FIND_ALL, query = "select o from EstadoFinanciero o"),
                  @NamedQuery(name = EstadoFinanciero.FIND_VIGENTE_BY_PERIODO, query = "select o from EstadoFinanciero o, VersionEeff v, CodigoFecu f where f.idFecu = o.idFecu and v.idVersionEeff = o.idVersionEeff and v.periodoEmpresa.idPeriodo = :idPeriodo and v.vigencia = 1 order by o.idFecu desc"),
                  @NamedQuery(name = EstadoFinanciero.FIND_BY_VERSION, query = "select o from EstadoFinanciero o where o.idVersionEeff = :idVersionEeff order by o.idFecu"),
-                 @NamedQuery(name = EstadoFinanciero.FIND_BY_LIKE_FECU, query = "select o from EstadoFinanciero o where o.idVersionEeff = :idVersionEeff and o.idFecu like :likeFecu order by o.idFecu")})
+                 @NamedQuery(name = EstadoFinanciero.FIND_BY_LIKE_FECU, query = "select o from EstadoFinanciero o where o.idVersionEeff = :idVersionEeff and str(o.idFecu) like :likeFecu order by o.idFecu")})
 
 @Table(name = Constantes.EEFF)
 @IdClass(EstadoFinancieroPK.class)
@@ -73,6 +74,9 @@ public class EstadoFinanciero implements Serializable {
     @JoinColumn(name = "ID_FECU")    
     @Expose
     private CodigoFecu codigoFecu;
+    
+    @Transient
+    private String idFecuString;
 
     public EstadoFinanciero() {
     }
@@ -170,5 +174,13 @@ public class EstadoFinanciero implements Serializable {
         else
             return "";
     }
+
+	public String getIdFecuString() {
+		return idFecu.toString();
+	}
+
+	public void setIdFecuString(String idFecuString) {
+		this.idFecu = Long.valueOf(idFecuString);
+	}
 	
 }
