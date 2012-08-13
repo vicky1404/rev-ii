@@ -20,9 +20,9 @@ public interface PeriodoServiceLocal {
     Integer abrirPeriodo(String usuario) throws Exception;
     
     /**
-     * Retorna el �ltimo periodo en estado cerrado.
+     * Retorna el ultimo periodo en estado cerrado.
      * @return
-     * @author Manuel Gutierrez C.
+     * @author MDR Technology
      * @throws Exception
      */
     Long findMaxPeriodoCerrado() throws Exception;
@@ -33,7 +33,7 @@ public interface PeriodoServiceLocal {
     /**
      * Retorna el �ltimo periodo .
      * @return
-     * @author Manuel Gutierrez C.
+     * @author MDR Technology
      * @throws Exception
      */
     Long findMaxPeriodo() throws Exception;

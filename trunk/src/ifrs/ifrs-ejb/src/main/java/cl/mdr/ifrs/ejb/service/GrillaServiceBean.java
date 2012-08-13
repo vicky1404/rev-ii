@@ -93,7 +93,7 @@ public class GrillaServiceBean implements GrillaServiceLocal{
     /**
      * Guarda en la base de datos una lista de grillas.
      * @param grillaNotaList
-     * @author Manuel Gutierrez C.
+     * @author MDR Technology
      * @since 18/01/2011
      * @throws Exception
      */
