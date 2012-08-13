@@ -85,10 +85,7 @@ public abstract class AbstractBackingBean {
      */
     public PeriodoEmpresa getFiltroPeriodoEmpresa() throws Exception{
     	
-        this.getFiltroBackingBean().setPeriodoEmpresa(
-        		this.getFacadeService().getPeriodoService().getPeriodoEmpresaById(
-        				Util.getLong(getFiltroBackingBean().getAnio().concat(getFiltroBackingBean().getMes()),null),
-        				getFiltroBackingBean().getEmpresa().getIdRut()));                                                 
+        this.getFiltroBackingBean().setPeriodoEmpresa(this.getFacadeService().getPeriodoService().getPeriodoEmpresaById(Util.getLong(getFiltroBackingBean().getAnio().concat(getFiltroBackingBean().getMes()),null),getFiltroBackingBean().getEmpresa().getIdRut()));                                                 
         
         return this.getFiltroBackingBean().getPeriodoEmpresa();
         

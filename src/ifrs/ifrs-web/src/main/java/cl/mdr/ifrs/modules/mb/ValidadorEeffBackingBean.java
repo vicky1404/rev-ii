@@ -8,7 +8,6 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
@@ -26,7 +25,6 @@ import cl.mdr.ifrs.ejb.cross.EeffUtil;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
 import cl.mdr.ifrs.ejb.entity.Celda;
-import cl.mdr.ifrs.ejb.entity.Columna;
 import cl.mdr.ifrs.ejb.entity.DetalleEeff;
 import cl.mdr.ifrs.ejb.entity.EstadoFinanciero;
 import cl.mdr.ifrs.ejb.entity.Estructura;
@@ -38,6 +36,15 @@ import cl.mdr.ifrs.ejb.entity.RelacionEeff;
 import cl.mdr.ifrs.ejb.entity.TipoCuadro;
 import cl.mdr.ifrs.ejb.entity.Version;
 import cl.mdr.ifrs.vo.GrillaVO;
+import cl.mdr.ifrs.vo.RelacionCuentaVO;
+import cl.mdr.ifrs.vo.RelacionFecuVO;
+
+import static ch.lambdaj.Lambda.having;
+import static ch.lambdaj.Lambda.maxFrom;
+import static ch.lambdaj.Lambda.minFrom;
+import static ch.lambdaj.Lambda.on;
+import static ch.lambdaj.Lambda.select;
+import static org.hamcrest.Matchers.equalTo;
 
 /**
  * @author Manuel Gutierrez C.
@@ -79,9 +86,9 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
     private TreeNode root;
     private boolean renderTreeTabla;
     private boolean renderEstructuraTabla;
+    private RelacionCuentaVO relacionCuentaVo;
+    private RelacionFecuVO relacionFecuVo;
     
-    private static final String POPUP_FECU = "popupFecu";
-    private static final String POPUP_CUENTA = "popupCuenta";
         
     /*
      * String[0] --> Fecus
@@ -143,13 +150,14 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
             
             try{
                 
-                if(getCatalogo() !=null && getCatalogo().getIdCatalogo() !=null){
-                    catalogo = getFacadeService().getCatalogoService().findCatalogoByCatalogo(getCatalogo());
+                if(getFiltroBackingBean().getCatalogo() !=null && getFiltroBackingBean().getCatalogo().getIdCatalogo() !=null){
+                    catalogo = getFacadeService().getCatalogoService().findCatalogoByCatalogo(getFiltroBackingBean().getCatalogo());
                
                 }
             }catch(Exception e){
                 getBusquedaInputText().setValue(null);
                 addWarnMessage("Búsqueda sin resultados");
+                return;
             }
             
             if(catalogo==null){
@@ -157,9 +165,10 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
                 addWarnMessage("Búsqueda sin resultados");
             }else{
                 setCatalogoBusqueda(catalogo);
-                getBusquedaInputText().setReadonly(Boolean.TRUE);
-                getTipoCuadroSelect().setReadonly(Boolean.TRUE);
+                //getBusquedaInputText().setReadonly(Boolean.TRUE);
+                //getTipoCuadroSelect().setReadonly(Boolean.TRUE);
                 getFiltroBackingBean().setCatalogo(catalogo);
+                this.setCatalogo(catalogo);
                 try{
                     versionVigente = getFacadeService().getVersionService().findUltimaVersionVigente(periodo.getIdPeriodo(),getNombreUsuario(),catalogo.getIdCatalogo());
                     estructuras = getFacadeService().getEstructuraService().findEstructuraByVersion(versionVigente);
@@ -176,10 +185,6 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
         lista.add(versionVigente);
         setTreeNode(lista);
         setRenderTreeTabla(Boolean.TRUE);
-        System.out.println("*************************");
-        System.out.println("lista:" + lista.size());
-        System.out.println("*************************");
-        
     }
     
     
@@ -224,15 +229,49 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
         for (EstadoFinanciero eeff : eeffs) {
             fecuItems.add(new SelectItem(eeff, EeffUtil.formatFecu(eeff.getIdFecu())));
         }
+        
         return fecuItems;
     }
     
     public void limpiarCatalogolistener(ActionEvent event){
-        init();
+      
+       
         getBusquedaInputText().setValue(null);
         getTipoCuadroSelect().setValue(null);
         getBusquedaInputText().setReadonly(Boolean.FALSE);
         getTipoCuadroSelect().setReadonly(Boolean.FALSE);
+        this.setRenderTreeTabla(Boolean.FALSE);
+        
+        if (this.getGrillaVO() != null){
+        	this.setGrillaVO(null);
+        }
+        if (this.getEstadoFinanciero() != null){
+        	this.setEstadoFinanciero(null);
+        }
+        if (this.getDetalleEeff() != null){
+        	this.setDetalleEeff(null);	
+        }
+        if (detalleEeffs != null && detalleEeffs.size() > 0){
+        	detalleEeffs = null;
+        }
+        if (relCelda != null){
+        	relCelda = null;
+        }
+        if (relCuentaSeleccionada != null){
+        	relCuentaSeleccionada = null;
+        }
+        if (relFecuSeleccionada != null){
+        	relFecuSeleccionada = null;
+        }
+        if (this.getItemFecuList() != null){
+        	this.getItemFecuList().clear();
+        }
+        if (this.getItemCuentaList() != null){
+        	this.getItemCuentaList().clear();
+        }
+        if(relacionMap != null){
+        	relacionMap = new LinkedHashMap<Celda, List[]>();
+        }
     }
     
     public void buscarEstadoFinanciero(ActionEvent event){
@@ -245,6 +284,8 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
         	
             detalleEeffs = getFacadeService().getEstadoFinancieroService().getDetalleEeffByEeff(this.getEstadoFinanciero());
             
+        } else {
+        	detalleEeffs = new ArrayList<DetalleEeff>();
         }
     }
 
@@ -252,10 +293,13 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
         try{
             //final Long idEstructura = (Long)event.getComponent().getAttributes().get("idEstructura");
         	final Estructura estructura = (Estructura)event.getComponent().getAttributes().get("estructura");
+        	final Catalogo catalogo = (Catalogo)event.getComponent().getAttributes().get("catalogo");
+        	
             Grilla grilla = this.getFacadeService().getGrillaService().findGrillaById(estructura.getIdEstructura());
             grillaVO = this.getFacadeService().getEstructuraService().getGrillaVO(grilla, Boolean.FALSE);
             grillaVO.setGrilla(grilla);
             setRenderEstructuraTabla(Boolean.TRUE);
+            this.setCatalogo(catalogo);
         }catch(Exception e){
             logger.error("Error al buscar estructura", e.getCause());
         }
@@ -263,7 +307,22 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
     
     public void cargarRelacionCeldaListener(ActionEvent event) {
         
-    	final Celda celda = (Celda)event.getComponent().getAttributes().get("celda");
+    	String idColumna = super.getExternalContext().getRequestParameterMap().get("idColumna");
+    	String idGrilla = super.getExternalContext().getRequestParameterMap().get("idGrilla");
+    	String idFila = super.getExternalContext().getRequestParameterMap().get("idFila");
+    	
+    	Celda celda = new Celda();
+    		celda.setIdColumna(Long.parseLong(idColumna));
+    		celda.setIdGrilla(Long.parseLong(idGrilla));
+    		celda.setIdFila(Long.parseLong(idFila));
+    	
+    		try {
+				
+				celda = getFacadeService().getCeldaService().findCeldaById(celda);
+				
+			} catch (Exception e) {
+				logger.error(e);
+			}
         
         if(celda==null)
             return;
@@ -297,8 +356,15 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
         List<RelacionEeff> eeffTempList = new ArrayList<RelacionEeff>();
         RelacionEeff relEeff = new RelacionEeff();
         PeriodoEmpresa periodoEmpresa = new PeriodoEmpresa();
+        	periodoEmpresa.setIdPeriodo(periodo.getIdPeriodo());
+        	
+			periodoEmpresa.setIdRut(super.getFiltroBackingBean().getEmpresa().getIdRut());			
         	periodoEmpresa.setPeriodo(periodo);
+        	
         relEeff.copyEstadoFinanciero(eeff, relCelda, periodoEmpresa);
+        relEeff.setIdFila(relCelda.getIdFila());
+        relEeff.setIdColumna(relCelda.getIdColumna());
+        relEeff.setIdGrilla(relCelda.getIdGrilla());
         eeffTempList.add(relEeff);
         relEeffList = eeffTempList;
         
@@ -313,7 +379,7 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
     
     public void cargarCuentaListener(ActionEvent event) {
         
-final DetalleEeff detalleEeff = (DetalleEeff)event.getComponent().getAttributes().get("detalleEeff");
+    	final DetalleEeff detalleEeff = (DetalleEeff)event.getComponent().getAttributes().get("detalleEeff");
         
         if(detalleEeff==null || !validaRelCelda())
             return;
@@ -325,9 +391,15 @@ final DetalleEeff detalleEeff = (DetalleEeff)event.getComponent().getAttributes(
         
         RelacionDetalleEeff relEeffDet = new RelacionDetalleEeff();
         PeriodoEmpresa periodoEmpresa = new PeriodoEmpresa();
+            periodoEmpresa.setIdPeriodo(periodo.getIdPeriodo());
+            periodoEmpresa.setIdRut(super.getFiltroBackingBean().getEmpresa().getIdRut());
         	periodoEmpresa.setPeriodo(periodo);
+        	
         relEeffDet.copyDetalleEeff(detalleEeff, relCelda, periodoEmpresa);
-    
+        relEeffDet.setIdFila(relCelda.getIdFila());
+        relEeffDet.setIdColumna(relCelda.getIdColumna());
+        relEeffDet.setIdGrilla(relCelda.getIdGrilla());
+        
         if(relacionMap.containsKey(relCelda)){
             relacionMap.get(relCelda)[1].add(relEeffDet);
         }else{
@@ -351,8 +423,9 @@ final DetalleEeff detalleEeff = (DetalleEeff)event.getComponent().getAttributes(
             Grilla grilla = this.getFacadeService().getGrillaService().findGrillaById(grillaVO.getGrilla().getIdGrilla());
             grillaVO = this.getFacadeService().getEstructuraService().getGrillaVO(grilla, Boolean.FALSE);
             grillaVO.setGrilla(grilla);
-            addInfoMessage("Se ha almacenado correctamente la informacón");
+            addInfoMessage("Se ha almacenado correctamente la informacion");
         }catch(Exception e){
+        	e.printStackTrace();
             logger.error(e.getMessage(), e);
             addErrorMessage("Se ha producido un error al almacenar la relación");
         }
@@ -365,20 +438,60 @@ final DetalleEeff detalleEeff = (DetalleEeff)event.getComponent().getAttributes(
             return;
         
         try{
-            final Celda celda = (Celda)event.getComponent().getAttributes().get("celda");
+        	
+        	String idColumna = super.getExternalContext().getRequestParameterMap().get("idColumna");
+        	String idGrilla = super.getExternalContext().getRequestParameterMap().get("idGrilla");
+        	String idFila = super.getExternalContext().getRequestParameterMap().get("idFila");
+        	
+        	Celda celda = new Celda();
+    		celda.setIdColumna(Long.parseLong(idColumna));
+    		celda.setIdGrilla(Long.parseLong(idGrilla));
+    		celda.setIdFila(Long.parseLong(idFila));
+   		
+    	
+    		try {
+				
+				celda = getFacadeService().getCeldaService().findCeldaById(celda);
+				
+			} catch (Exception e) {
+				logger.error(e);
+				addErrorMessage("Se ha producido un error al seleccionar la celda");
+				return;
+			}
+    		
+    		
+        		
             getFacadeService().getEstadoFinancieroService().deleteRelacionAllEeffByCelda(celda);
             if(relacionMap.containsKey(celda)){
                 relacionMap.remove(celda);
             }
+            
             celda.setRelacionEeffList(null);
             celda.setRelacionDetalleEeffList(null);
             relEeffList = null;
             relEeffDetList = null;
             
+            this.buscarCeldaEnGrilla(celda);
+            
         }catch(Exception e){
             logger.error(e.getMessage(), e);
             addErrorMessage("Se ha producido un error al eliminar la relación");
         }
+        
+    }
+    
+    private void buscarCeldaEnGrilla(final Celda celda ){
+        
+        for (Map<Long, Celda> row : this.getGrillaVO().getRows()) {
+            for (Celda cell : row.values() ) {                                
+	             if (celda.equals(cell)) {
+	            	 
+	            	 cell.setRelacionEeffList(null);
+	            	 cell.setRelacionDetalleEeffList(null);
+	            	 return;
+	             }   
+            }
+        } 
         
     }
     
@@ -404,21 +517,23 @@ final DetalleEeff detalleEeff = (DetalleEeff)event.getComponent().getAttributes(
         
     }
     
-    public void onChangeFecu(ValueChangeEvent event){
-        if(event.getNewValue()!=null){
-            relFecuSeleccionada = (RelacionEeff)event.getNewValue();
-            FacesContext context = getFacesContext();
-            //ExtendedRenderKitService extRenderKitSrvc = Service.getRenderKitService(context, ExtendedRenderKitService.class);
-            //extRenderKitSrvc.addScript(context,"AdfPage.PAGE.findComponent('" + POPUP_FECU + "').show();");
+    public void onChangeFecu(){
+        if(this.getRelFecuSeleccionada()!=null){
+            relFecuSeleccionada = this.getRelFecuSeleccionada();
+            
         }
     }
     
-    public void onChangeCuenta(ValueChangeEvent event){
-        if(event.getNewValue()!=null){
-            relCuentaSeleccionada = (RelacionDetalleEeff)event.getNewValue();
-            FacesContext context = getFacesContext();
-            //ExtendedRenderKitService extRenderKitSrvc = Service.getRenderKitService(context, ExtendedRenderKitService.class);
-            //extRenderKitSrvc.addScript(context,"AdfPage.PAGE.findComponent('" + POPUP_CUENTA + "').show();");
+    public void onChangeCuenta(){
+    	
+        if(this.getRelacionCuentaVo()!=null){
+        	
+        	RelacionDetalleEeff relacion = new RelacionDetalleEeff();
+        		relacion.setIdCuenta( this.getRelacionCuentaVo().getIdCuenta() );
+        		relacion.setIdFecu(this.getRelacionCuentaVo().getIdFecu());
+        		relacion.setIdPeriodo( this.getRelacionCuentaVo().getIdPeriodo() );
+        		
+            relCuentaSeleccionada = super.getFacadeService().getEstadoFinancieroService().getRelacionDetalleEeffByRelacionDetalleEeff(relacion);
         }
     }
 
@@ -705,8 +820,8 @@ final DetalleEeff detalleEeff = (DetalleEeff)event.getComponent().getAttributes(
     
     public boolean isValidPeriodoGrilla(){
         
-        if(grillaVO==null || grillaVO.getGrilla()==null || grillaVO.getGrilla().getIdGrilla()==null)
-            addWarnMessage("Debe seleccionar un cuadro");
+        if(grillaVO==null || grillaVO.getGrilla()==null || grillaVO.getGrilla().getIdGrilla()==null && (getRelCelda() != null && (getItemFecuList() != null || getItemCuentaList() != null)))
+            addWarnMessage("Debe generar una relación. Búsque un cuadro primero");
         else if(periodo==null || periodo.getIdPeriodo() == null)
             addWarnMessage("Período inválido, debe ingresar a la página nuevamente");
         else
@@ -758,6 +873,22 @@ final DetalleEeff detalleEeff = (DetalleEeff)event.getComponent().getAttributes(
         
         return relacionMap.size();
     }
+
+	public RelacionCuentaVO getRelacionCuentaVo() {
+		return relacionCuentaVo;
+	}
+
+	public void setRelacionCuentaVo(RelacionCuentaVO relacionCuentaVo) {
+		this.relacionCuentaVo = relacionCuentaVo;
+	}
+
+	public RelacionFecuVO getRelacionFecuVo() {
+		return relacionFecuVo;
+	}
+
+	public void setRelacionFecuVo(RelacionFecuVO relacionFecuVo) {
+		this.relacionFecuVo = relacionFecuVo;
+	}
 	
 
 }
