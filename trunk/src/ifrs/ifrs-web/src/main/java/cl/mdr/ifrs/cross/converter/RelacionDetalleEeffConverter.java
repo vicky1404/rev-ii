@@ -10,39 +10,40 @@ import org.apache.log4j.Logger;
 
 
 
-import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
 import cl.mdr.ifrs.ejb.entity.EstadoFinanciero;
-import cl.mdr.ifrs.ejb.reporte.util.SoporteReporte;
+import cl.mdr.ifrs.ejb.entity.RelacionDetalleEeff;
+import cl.mdr.ifrs.ejb.entity.RelacionEeff;
+import cl.mdr.ifrs.vo.RelacionCuentaVO;
 
 
 import com.google.common.base.Strings;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-@FacesConverter(value = "estadoFinancieroConverter")
-public class EstadoFinancieroConverter extends AbstractBackingBean implements Converter{
+@FacesConverter(value = "relacionDetalleEeffConverter")
+public class RelacionDetalleEeffConverter implements Converter{
 
 	
-private static final Logger LOGGER = Logger.getLogger(EstadoFinancieroConverter.class);
+private static final Logger LOGGER = Logger.getLogger(RelacionDetalleEeffConverter.class);
 	
 	@Override
 	public Object getAsObject(FacesContext facesContext, UIComponent uiComponent, String string) {		
 		
-		EstadoFinanciero estadoFinanciero = new EstadoFinanciero();
+		RelacionDetalleEeff relacionDetalleEeff = new RelacionDetalleEeff();
+		
 		
 		if(!Strings.isNullOrEmpty(string)){
 			Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 			
 			try {
-				estadoFinanciero = gson.fromJson(string, EstadoFinanciero.class);
+				relacionDetalleEeff = gson.fromJson(string, RelacionDetalleEeff.class);
 						
 			} catch (final Exception e) {
-				e.printStackTrace();
 				LOGGER.error("Error con conversion de valor " + string);
 			}
 		}
 		
-			return estadoFinanciero;
+			return relacionDetalleEeff;
 			
 	}
 
@@ -51,9 +52,9 @@ private static final Logger LOGGER = Logger.getLogger(EstadoFinancieroConverter.
 		
 		String json = "";
 		
-		if(object instanceof EstadoFinanciero){
+		if(object instanceof RelacionDetalleEeff){
 			Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-			json = gson.toJson(object, EstadoFinanciero.class);
+			json = gson.toJson(object, RelacionDetalleEeff.class);
 		}
 
 		return json;

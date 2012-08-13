@@ -10,39 +10,36 @@ import org.apache.log4j.Logger;
 
 
 
-import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
 import cl.mdr.ifrs.ejb.entity.EstadoFinanciero;
-import cl.mdr.ifrs.ejb.reporte.util.SoporteReporte;
+import cl.mdr.ifrs.ejb.entity.RelacionEeff;
 
 
 import com.google.common.base.Strings;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-@FacesConverter(value = "estadoFinancieroConverter")
-public class EstadoFinancieroConverter extends AbstractBackingBean implements Converter{
+@FacesConverter(value = "relacionEeffConverter")
+public class RelacionEeffConverter implements Converter{
 
 	
-private static final Logger LOGGER = Logger.getLogger(EstadoFinancieroConverter.class);
+private static final Logger LOGGER = Logger.getLogger(RelacionEeffConverter.class);
 	
 	@Override
 	public Object getAsObject(FacesContext facesContext, UIComponent uiComponent, String string) {		
 		
-		EstadoFinanciero estadoFinanciero = new EstadoFinanciero();
+		RelacionEeff relacionEeff = new RelacionEeff();
 		
 		if(!Strings.isNullOrEmpty(string)){
-			Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-			
+			final Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 			try {
-				estadoFinanciero = gson.fromJson(string, EstadoFinanciero.class);
+				relacionEeff = gson.fromJson(string, RelacionEeff.class);
 						
 			} catch (final Exception e) {
-				e.printStackTrace();
 				LOGGER.error("Error con conversion de valor " + string);
 			}
 		}
 		
-			return estadoFinanciero;
+			return relacionEeff;
 			
 	}
 
@@ -51,9 +48,9 @@ private static final Logger LOGGER = Logger.getLogger(EstadoFinancieroConverter.
 		
 		String json = "";
 		
-		if(object instanceof EstadoFinanciero){
-			Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-			json = gson.toJson(object, EstadoFinanciero.class);
+		if(object instanceof RelacionEeff){
+			final Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+			json = gson.toJson(object, RelacionEeff.class);
 		}
 
 		return json;

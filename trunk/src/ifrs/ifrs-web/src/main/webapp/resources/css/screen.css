@@ -285,6 +285,11 @@ img.right {
 	color: #FFFFFF;
 }
 
+.border_none_2 {
+	border: 0px solid !important;	
+	align:right;
+}
+
 .ui-inputtext{
 	height:10px;
 }

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="/WEB-INF/templates/main-template.xhtml">
+	<ui:define name="content">
+
+		<h:form id="form">  
+			<p:growl id="messages" />
+			<p:ajaxStatus onstart="statusDialogNoModal.show();" oncomplete="statusDialogNoModal.hide();" />
+			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
+			
+			<p:panel header="#{msg.carga_eeff_titulo_pagina} - #{msg.etiqueta_periodo} #{visualizador.periodo.periodoFormat}" toggleable="true"  closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel">
+			
+				<p:selectOneMenu label="#{msg.etiqueta_periodo}" id="soc1Periodo" value="#{visualizador.mesPeriodo}"
+		                         required="true" requiredMessage="#{msg.periodo_mensaje_seleccione_mes}">
+					<f:selectItem itemLabel="#{msg.etiqueta_mes_periodo}"/>	                      
+		            <f:selectItems value="#{visualizador.componenteBackingBean.meses}" id="mesesPeriodo"/>
+	            </p:selectOneMenu>
+	            
+	            <p:selectOneMenu label=" " id="soc2Periodo" value="#{visualizador.anioPeriodo}" required="true"
+                                 requiredMessage="#{msg.periodo_mensaje_seleccione_anio}">
+                    <f:selectItem itemLabel="#{msg.etiqueta_anio_periodo}"/>	 
+                    <f:selectItems value="#{visualizador.componenteBackingBean.anios}" id="aniosPeriodo"/>
+                </p:selectOneMenu>
+                
+                <p:commandButton value="#{msg.general_control_buscar}" id="cbVers" actionListener="#{visualizador.buscarVersionEeff}" icon="ui-icon-search" update="@form"/>
+                            
+               
+            
+			</p:panel>   
+			<p:spacer height="10"></p:spacer>
+			<p:dataTable value="#{visualizador.versionEeffList}" var="row" emptyMessage="#{msg.carga_eeff_empty_eeff}" id="t1" inlineStyle="height:inherit;" width="540" >
+							<p:column sortable="false" headerText="#{msg.tabla_catalogo_version}" align="start" id="c1" width="100">
+                                <p:commandLink title="Seleccione versión para mostrar" id="cl1"  actionListener="#{visualizador.cargarEeff}" update=":form:panelId1x">
+                                	<h:outputText value="#{row.version}" />	
+                                    <f:attribute name="versionEeff" value="#{row}" />                                    
+                                </p:commandLink>
+                            </p:column>
+                            <p:column sortable="false" headerText="#{msg.generador_vigencia}" align="start" id="c2" width="100">
+                                <h:outputText value="#{row.vigencia==1? msg.generador_si : msg.generador_no}" id="ot2"/>
+                            </p:column>
+                            <p:column sortable="false" headerText="#{msg.tabla_catalogo_periodo}" align="start" id="c3" width="120">
+                                <h:outputText value="#{row.periodoEmpresa.periodo.periodoFormat}" id="ot3"/>
+                            </p:column>
+                            <p:column sortable="false" headerText="#{msg.general_usuario}" align="start" id="c4" width="200">
+                                <h:outputText value="#{row.usuario}" id="ot4"/>
+                            </p:column>
+			</p:dataTable>
+			<p:spacer height="10"></p:spacer>
+			<p:panel id="panelId1x" header="Versión seleccionada: #{visualizador.versionEeff != null ? visualizador.versionEeff.version : '-'}" toggleable="true"  closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel2">
+				<p:inputText label="Filtro (Ingrese FECU o Cuenta )" maxlength="10" value="#{visualizador.filtroTablaEeff}" id="it1" converterMessage="Debe ingresar un número para continuar con la búsqueda"/>
+				<p:spacer width="10"/>
+				<p:commandButton value="Buscar" icon="ui-icon-search" id="cb1" actionListener="#{visualizador.buscar}" update="@form" />
+			</p:panel>
+			<p:spacer height="10"/>
+			<p:dataTable value="#{visualizador.eeffList}" var="row" id="t2" emptyMessage="#{msg.general_sin_informacion}" rendered="#{visualizador.renderEeffList}">
+                        
+                        <f:facet name="detailStamp">
+                        <h:dataTable value="#{row.detalleEeffList4}" var="subRow" id="dt1" width="500" >
+                            <p:column id="c16">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.carga_eeff_codigo_cuenta}" id="ot18"/>
+                                </f:facet>
+                                <h:outputText value="#{subRow.idCuenta}" id="ot16B"/>
+                            </p:column>
+                            
+                            <p:column id="c17">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.carga_eeff_desc_cuenta}" id="ot27"/>
+                                </f:facet>
+                                <h:outputText value="#{subRow.descripcionCuenta}" id="ot28"/>
+                            </p:column>
+                            
+                            <p:column id="c18">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg.carga_eeff_monto}" id="ot29"/>
+                                </f:facet>
+                                <h:outputText value="#{subRow.montoPesos}" id="ot21">
+                                <f:convertNumber integerOnly="false" type="number" maxFractionDigits="4" pattern="##,###,###,###.####"/>                            
+                                </h:outputText>
+                            </p:column>
+                            
+                        </h:dataTable>
+                        </f:facet>
+                        <p:column sortable="false" headerText="Código Fecu" align="start" id="c5" width="100">
+                            <h:outputText value="#{row.fecuFormat}" id="ot1"/>
+                        </p:column>
+                        <p:column sortable="false" headerText="Descripción Fecu" align="start" id="c7" width="400">
+                            <h:outputText value="#{row.codigoFecu.descripcion}" id="ot6"/>
+                        </p:column>
+                        <p:column sortable="false" headerText="Monto Total" align="start" id="c8" width="100">
+                            <h:outputText value="#{row.montoTotal}" id="ot7">
+                                <f:convertNumber integerOnly="false" type="number" maxFractionDigits="4" pattern="##,###,###,###.####"/>
+                            </h:outputText>
+                        </p:column>
+                    </p:dataTable>
+                    
+                    
+                    <p:dataTable value="#{visualizador.eeffDetList}"  var="row" id="t4B" inlineStyle="height:inherit;" rendered="#{visualizador.renderEeffDetList}" >
+                    
+                        <p:column headerText="#{msg.carga_eeff_codigo_fecu}" id="c13" width="80">
+                            <h:outputText value="#{row.estadoFinanciero1.fecuFormat}" id="ot15B"/>
+                        </p:column>
+                        <p:column headerText="#{msg.carga_eeff_codigo_cuenta}" id="c10B" width="80">
+                            <h:outputText value="#{row.idCuenta}" id="ot30"/>
+                        </p:column>
+                        <p:column headerText="#{msg.carga_eeff_desc_cuenta}" id="c11B" width="300">
+                            <h:outputText value="#{row.descripcionCuenta}" id="ot17B"/>
+                        </p:column>
+                        <p:column headerText="Valor Pesos" id="c15" width="90">
+                            <h:outputText value="#{row.montoPesos}" id="ot22">
+                            	<f:convertNumber integerOnly="false" type="number" maxFractionDigits="4" pattern="##,###,###,###.####"/>                            
+                            </h:outputText>
+                        </p:column>
+                        
+                    </p:dataTable>
+			
+		</h:form>
+		
+	</ui:define>
+</ui:composition>

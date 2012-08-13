@@ -10,8 +10,7 @@
 			label="#{msg.label_tipo_revelacion}" required="true" id="gVsom1"
 			effect="fade" converter="tipoCuadroConverter">
 			<f:selectItem itemLabel="#{msg.label_seleccione}" />
-			<f:selectItems
-				value="#{generadorVersionBackingBean.componenteBackingBean.tipoCuadroItems}"
+			<f:selectItems value="#{generadorVersionBackingBean.componenteBackingBean.tipoCuadroItems}"
 				id="gVsi2" />
 			<p:ajax listener="#{generadorVersionBackingBean.tipoCuadroChange}"
 				partialSubmit="false" update="gVsom2" />
