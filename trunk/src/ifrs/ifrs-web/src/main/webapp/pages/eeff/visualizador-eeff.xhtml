@@ -36,7 +36,7 @@
 			<p:dataTable value="#{visualizador.versionEeffList}" var="row" emptyMessage="#{msg.carga_eeff_empty_eeff}" id="t1" inlineStyle="height:inherit;" width="540" >
 							<p:column sortable="false" headerText="#{msg.tabla_catalogo_version}" align="start" id="c1" width="100">
                                 <p:commandLink title="Seleccione versión para mostrar" id="cl1"  actionListener="#{visualizador.cargarEeff}" update=":form:panelId1x">
-                                	<h:outputText value="#{row.version}" />	
+                                	<h:outputText value="#{row.version}(#{row.idVersionEeff})" />	
                                     <f:attribute name="versionEeff" value="#{row}" />                                    
                                 </p:commandLink>
                             </p:column>
@@ -56,7 +56,7 @@
 				<p:selectOneMenu id="selFecuCuenta" value="#{visualizador.selectFecuCuenta}">
 					<f:selectItem itemLabel="FECU" itemValue="fecu"/>
 					<f:selectItem itemLabel="Cuenta" itemValue="cuenta"/>
-					<f:selectItem />
+					
 				</p:selectOneMenu>
 				<p:spacer width="10"/>
 				<p:commandButton value="Buscar" icon="ui-icon-search" id="cb1" actionListener="#{visualizador.buscar}" update="@form" />
