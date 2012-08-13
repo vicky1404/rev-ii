@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
 import org.apache.log4j.Logger;
@@ -16,6 +18,8 @@ import cl.mdr.ifrs.ejb.common.VigenciaEnum;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.XbrlTaxonomia;
 
+@ManagedBean
+@ViewScoped
 public class MantenedorTaxonomiaBackingBean extends AbstractBackingBean implements Serializable {
     private final transient Logger logger = Logger.getLogger(this.getClass().getName());    
     private static final long serialVersionUID = -8983975627912345590L;
@@ -41,7 +45,7 @@ public class MantenedorTaxonomiaBackingBean extends AbstractBackingBean implemen
             if(this.fechaHasta != null || this.fechaDesde != null){
                 if(this.fechaHasta != null && this.fechaDesde == null){
                     FacesMessage message = new FacesMessage();
-                    message.setSummary("El rango de fecha ingresado no es valido.");
+                    message.setSummary("El rango de fecha ingresado no es válido.");
                     message.setDetail("La fecha desde no puede estar vacio.");
                     message.setSeverity(FacesMessage.SEVERITY_ERROR);
                     this.getInputFechaDesde().setValid(Boolean.FALSE);
@@ -52,7 +56,7 @@ public class MantenedorTaxonomiaBackingBean extends AbstractBackingBean implemen
                 
                 if(this.fechaDesde != null && this.fechaHasta == null){
                     FacesMessage message = new FacesMessage();
-                    message.setSummary("El rango de fecha ingresado no es valido.");
+                    message.setSummary("El rango de fecha ingresado no es válido.");
                     message.setDetail("La fecha hasta no puede estar vacio.");
                     message.setSeverity(FacesMessage.SEVERITY_ERROR);
                     this.getInputFechaHasta().setValid(Boolean.FALSE);
@@ -63,7 +67,7 @@ public class MantenedorTaxonomiaBackingBean extends AbstractBackingBean implemen
                 
                 if(this.getFechaHasta().before(this.getFechaDesde())){
                     FacesMessage message = new FacesMessage();
-                    message.setSummary("El rango de fecha ingresado no es valido.");
+                    message.setSummary("El rango de fecha ingresado no es válido.");
                     message.setDetail("La fecha hasta no puede ser menor a "+Util.getString(this.getFechaDesde()));
                     message.setSeverity(FacesMessage.SEVERITY_ERROR);  
                     this.getInputFechaHasta().setValid(Boolean.FALSE);
@@ -74,7 +78,7 @@ public class MantenedorTaxonomiaBackingBean extends AbstractBackingBean implemen
             }                        
             this.setXbrlTaxonomias(super.getFacadeService().getTaxonomyLoaderService().findTaxonomiasByFiltro( this.getFechaDesde(), this.getFechaHasta(), this.getVigente() ));
         } catch (Exception e) {
-            super.addErrorMessage("Se ha producido un error al Cargar las Taxonom�as Disponibles.");
+            super.addErrorMessage("Se ha producido un error al Cargar las Taxonomías Disponibles.");
             logger.error(e);
         } 
         return null;
@@ -85,6 +89,9 @@ public class MantenedorTaxonomiaBackingBean extends AbstractBackingBean implemen
      */
     public void agregarFilaAction(ActionEvent event){
         List<XbrlTaxonomia> xbrlTaxonomiasTemp = new ArrayList<XbrlTaxonomia>();
+        if(xbrlTaxonomias == null){
+        	this.setXbrlTaxonomias(new ArrayList<XbrlTaxonomia>());
+        }
         xbrlTaxonomiasTemp.add(new XbrlTaxonomia(VigenciaEnum.VIGENTE.getKey(), new Date(), new Date(), this.getNombreUsuario()));
         xbrlTaxonomiasTemp.addAll(xbrlTaxonomias);
         xbrlTaxonomias = xbrlTaxonomiasTemp;        
@@ -96,11 +103,11 @@ public class MantenedorTaxonomiaBackingBean extends AbstractBackingBean implemen
     public String guardarAction(){
         try {            
             super.getFacadeService().getTaxonomyLoaderService().mergeTaxonomias(this.getXbrlTaxonomias(), super.getNombreUsuario());            
-            super.addInfoMessage("Se han guardado los datos de la Taxonom�a con �xito");
+            super.addInfoMessage("Se han guardado los datos de la Taxonomía con éxito");
             this.setXbrlTaxonomias(null);
         } catch (Exception e) {
             logger.error(e);
-            super.addErrorMessage("Se ha producido un error al guardar la Taxonom�a");
+            super.addErrorMessage("Se ha producido un error al guardar la Taxonomía");
         }
         return null;
     }

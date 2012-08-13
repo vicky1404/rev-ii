@@ -276,6 +276,10 @@ img.right {
 	width: 140px;
 }
 
+.ancho_50{
+	width: 50px;
+}
+
 .border_none{
 	border: 1px solid !important;
 	color: #FFFFFF;
