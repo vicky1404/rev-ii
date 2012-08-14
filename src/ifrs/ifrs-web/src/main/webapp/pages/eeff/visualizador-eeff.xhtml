@@ -13,30 +13,29 @@
 			<p:ajaxStatus onstart="statusDialogNoModal.show();" oncomplete="statusDialogNoModal.hide();" />
 			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
 			
-			<p:panel header="#{msg.carga_eeff_titulo_pagina} - #{msg.etiqueta_periodo} #{visualizador.periodo.periodoFormat}" toggleable="true"  closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel">
-			
+			<p:panel header="Visualizador de EEFF - #{msg.etiqueta_periodo} #{visualizador.periodo.periodoFormat}" toggleable="true"  closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel">
+				<h:panelGrid columns="5" cellpadding="10">
 				<p:selectOneMenu label="#{msg.etiqueta_periodo}" id="soc1Periodo" value="#{visualizador.mesPeriodo}"
-		                         required="true" requiredMessage="#{msg.periodo_mensaje_seleccione_mes}">
+		                         required="true" requiredMessage="#{msg.periodo_mensaje_seleccione_mes}" effect="drop">
 					<f:selectItem itemLabel="#{msg.etiqueta_mes_periodo}"/>	                      
 		            <f:selectItems value="#{visualizador.componenteBackingBean.meses}" id="mesesPeriodo"/>
 	            </p:selectOneMenu>
-	            
+	            <p:spacer width="10"></p:spacer>	
 	            <p:selectOneMenu label=" " id="soc2Periodo" value="#{visualizador.anioPeriodo}" required="true"
-                                 requiredMessage="#{msg.periodo_mensaje_seleccione_anio}">
+                                 requiredMessage="#{msg.periodo_mensaje_seleccione_anio}" effect="drop">
                     <f:selectItem itemLabel="#{msg.etiqueta_anio_periodo}"/>	 
                     <f:selectItems value="#{visualizador.componenteBackingBean.anios}" id="aniosPeriodo"/>
                 </p:selectOneMenu>
-                
+                <p:spacer width="10"></p:spacer>
                 <p:commandButton value="#{msg.general_control_buscar}" id="cbVers" actionListener="#{visualizador.buscarVersionEeff}" icon="ui-icon-search" update="@form"/>
-                            
-               
-            
-			</p:panel>   
-			<p:spacer height="10"></p:spacer>
-			<p:dataTable value="#{visualizador.versionEeffList}" var="row" emptyMessage="#{msg.carga_eeff_empty_eeff}" id="t1" inlineStyle="height:inherit;" width="540" >
+                </h:panelGrid>
+                <p:spacer height="10"></p:spacer>
+                
+                <p:dataTable value="#{visualizador.versionEeffList}" var="row" emptyMessage="#{msg.carga_eeff_empty_eeff}" id="t1" inlineStyle="height:inherit;" width="540" >
+							
 							<p:column sortable="false" headerText="#{msg.tabla_catalogo_version}" align="start" id="c1" width="100">
-                                <p:commandLink title="Seleccione versión para mostrar" id="cl1"  actionListener="#{visualizador.cargarEeff}" update=":form:panelId1x">
-                                	<h:outputText value="#{row.version}(#{row.idVersionEeff})" />	
+                                <p:commandLink immediate="true" title="Seleccione versión para mostrar" id="cl1"  actionListener="#{visualizador.cargarEeff}" update=":form:panelId1x">
+                                	<h:outputText value="#{row.version}" />	
                                     <f:attribute name="versionEeff" value="#{row}" />                                    
                                 </p:commandLink>
                             </p:column>
@@ -49,20 +48,30 @@
                             <p:column sortable="false" headerText="#{msg.general_usuario}" align="start" id="c4" width="200">
                                 <h:outputText value="#{row.usuario}" id="ot4"/>
                             </p:column>
+                          
+                        
 			</p:dataTable>
+                
+			</p:panel>   
+			
+			
 			<p:spacer height="10"></p:spacer>
 			<p:panel id="panelId1x" header="Versión seleccionada: #{visualizador.versionEeff != null ? visualizador.versionEeff.version : 'Seleccione una versión'}" toggleable="true"  closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel2">
-				<p:inputText label="Filtro" maxlength="10" value="#{visualizador.filtroTablaEeff}" id="it1" converterMessage="Debe ingresar un número para continuar con la búsqueda"/>
-				<p:selectOneMenu id="selFecuCuenta" value="#{visualizador.selectFecuCuenta}">
-					<f:selectItem itemLabel="FECU" itemValue="fecu"/>
-					<f:selectItem itemLabel="Cuenta" itemValue="cuenta"/>
-					
-				</p:selectOneMenu>
-				<p:spacer width="10"/>
-				<p:commandButton value="Buscar" icon="ui-icon-search" id="cb1" actionListener="#{visualizador.buscar}" update="@form" />
+				<h:panelGrid columns="5" cellpadding="10">
+					<h:outputText value="Ingrese número de " id="labelIngrese1x"/>
+					<p:selectOneMenu id="selFecuCuenta" value="#{visualizador.selectFecuCuenta}" effect="drop">
+						<f:selectItem itemLabel="FECU" itemValue="fecu"/>
+						<f:selectItem itemLabel="Cuenta" itemValue="cuenta"/>					
+					</p:selectOneMenu>
+					<p:inputText label="Filtro" maxlength="10" value="#{visualizador.filtroTablaEeff}" id="it1" converterMessage="Debe ingresar un número para continuar con la búsqueda"/>
+					<p:commandButton value="Buscar" icon="ui-icon-search" id="cb1" actionListener="#{visualizador.buscar}" update="@form" />
+				</h:panelGrid>
 			</p:panel>
 			<p:spacer height="10"/>
-			<p:dataTable value="#{visualizador.eeffList}" var="row" id="t2" emptyMessage="#{msg.general_sin_informacion}" rendered="#{visualizador.renderEeffList}">
+			
+			<p:tabView id="tabV" rendered="#{visualizador.renderEeffList or visualizador.renderEeffDetList}">
+			<p:tab id="tab" title="Listado">
+			<p:dataTable value="#{visualizador.eeffList}" var="row" id="t2" emptyMessage="#{msg.general_sin_informacion}" rendered="#{visualizador.renderEeffList}" >
                         
                         <f:facet name="detailStamp">
                         <h:dataTable value="#{row.detalleEeffList4}" var="subRow" id="dt1" width="500" >
@@ -105,7 +114,7 @@
                     </p:dataTable>
                     
                     
-                    <p:dataTable value="#{visualizador.eeffDetList}"  var="row" id="t4B" inlineStyle="height:inherit;" rendered="#{visualizador.renderEeffDetList}" >
+                    <p:dataTable value="#{visualizador.eeffDetList}" emptyMessage="#{msg.general_sin_informacion}"  var="row" id="t4B" inlineStyle="height:inherit;" rendered="#{visualizador.renderEeffDetList}" >
                     
                         <p:column headerText="#{msg.carga_eeff_codigo_fecu}" id="c13" width="80">
                             <h:outputText value="#{row.estadoFinanciero1.fecuFormat}" id="ot15B"/>
@@ -123,6 +132,8 @@
                         </p:column>
                         
                     </p:dataTable>
+                    </p:tab>
+                    </p:tabView>
 			
 		</h:form>
 		
