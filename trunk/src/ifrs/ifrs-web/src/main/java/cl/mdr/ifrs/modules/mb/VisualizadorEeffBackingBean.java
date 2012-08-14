@@ -67,8 +67,10 @@ private transient Logger logger = Logger.getLogger(VisualizadorEeffBackingBean.c
         try{
             Long anioMes = Util.getLong(anioPeriodo.concat(mesPeriodo), 0L);
             periodo = getFacadeService().getMantenedoresTipoService().findByPeriodo(anioMes);
-            getFiltroPeriodoEmpresa().setPeriodo(periodo);
-            versionEeffList = getFacadeService().getEstadoFinancieroService().getVersionEeffFindByPeriodo(periodo.getIdPeriodo());
+            if (periodo != null){
+	            //getFiltroPeriodoEmpresa().setPeriodo(periodo);
+	            versionEeffList = getFacadeService().getEstadoFinancieroService().getVersionEeffFindByPeriodo(periodo.getIdPeriodo());
+            } 
         }catch(Exception e){
             logger.error(e);
             addErrorMessage("Error al buscar las versiones");
@@ -78,9 +80,9 @@ private transient Logger logger = Logger.getLogger(VisualizadorEeffBackingBean.c
     public void cargarEeff(ActionEvent event){
         try{
             versionEeff = (VersionEeff)event.getComponent().getAttributes().get("versionEeff");
-            eeffList = getFacadeService().getEstadoFinancieroService().getEeffByVersion(versionEeff.getIdVersionEeff());
-            renderEeffList = true;
-            renderEeffDetList = false;
+            //eeffList = getFacadeService().getEstadoFinancieroService().getEeffByVersion(versionEeff.getIdVersionEeff());
+            //renderEeffList = true;
+            //renderEeffDetList = false;
         }catch(Exception e){
             logger.error("Error al buscar version" , e);
             addErrorMessage("Error al cargar Estados Financieros por Versión");
@@ -89,8 +91,12 @@ private transient Logger logger = Logger.getLogger(VisualizadorEeffBackingBean.c
     
     public void buscar(ActionEvent event){
     	
+    	eeffList = null;
+    	eeffDetList = null;
+    	
     	if (versionEeff == null){
-    		super.addErrorMessage("Seleccione una versión antes de continuar");
+    		super.addErrorMessage("Seleccione una versión del listado superior antes de continuar...");
+    		return;
     	}
     	
 		if (getSelectFecuCuenta().equalsIgnoreCase("fecu")){

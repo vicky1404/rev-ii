@@ -286,8 +286,9 @@ img.right {
 }
 
 .border_none_2 {
-	border: 0px solid !important;	
-	align:right;
+	border-bottom : none;
+	
+	
 }
 
 .ui-inputtext{
