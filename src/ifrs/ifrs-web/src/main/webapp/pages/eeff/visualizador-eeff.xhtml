@@ -72,8 +72,23 @@
 			<p:tabView id="tabV" rendered="#{visualizador.renderEeffList or visualizador.renderEeffDetList}">
 			<p:tab id="tab" title="Listado">
 			<p:dataTable value="#{visualizador.eeffList}" var="row" id="t2" emptyMessage="#{msg.general_sin_informacion}" rendered="#{visualizador.renderEeffList}" >
+						<p:column style="width:4%">  
+            				<p:rowToggler />  
+        				</p:column>  
+			
+						<p:column sortable="false" headerText="Código Fecu" align="start" id="c5" width="100">
+                            <h:outputText value="#{row.fecuFormat}" id="ot1"/>
+                        </p:column>
+                        <p:column sortable="false" headerText="Descripción Fecu" align="start" id="c7" width="400">
+                            <h:outputText value="#{row.codigoFecu.descripcion}" id="ot6"/>
+                        </p:column>
+                        <p:column sortable="false" headerText="Monto Total" align="start" id="c8" width="100">
+                            <h:outputText value="#{row.montoTotal}" id="ot7">
+                                <f:convertNumber integerOnly="false" type="number" maxFractionDigits="4" pattern="##,###,###,###.####"/>
+                            </h:outputText>
+                        </p:column>
                         
-                        <f:facet name="detailStamp">
+                        <p:rowExpansion>
                         <h:dataTable value="#{row.detalleEeffList4}" var="subRow" id="dt1" width="500" >
                             <p:column id="c16">
                                 <f:facet name="header">
@@ -99,18 +114,8 @@
                             </p:column>
                             
                         </h:dataTable>
-                        </f:facet>
-                        <p:column sortable="false" headerText="Código Fecu" align="start" id="c5" width="100">
-                            <h:outputText value="#{row.fecuFormat}" id="ot1"/>
-                        </p:column>
-                        <p:column sortable="false" headerText="Descripción Fecu" align="start" id="c7" width="400">
-                            <h:outputText value="#{row.codigoFecu.descripcion}" id="ot6"/>
-                        </p:column>
-                        <p:column sortable="false" headerText="Monto Total" align="start" id="c8" width="100">
-                            <h:outputText value="#{row.montoTotal}" id="ot7">
-                                <f:convertNumber integerOnly="false" type="number" maxFractionDigits="4" pattern="##,###,###,###.####"/>
-                            </h:outputText>
-                        </p:column>
+                       </p:rowExpansion>
+                        
                     </p:dataTable>
                     
                     
