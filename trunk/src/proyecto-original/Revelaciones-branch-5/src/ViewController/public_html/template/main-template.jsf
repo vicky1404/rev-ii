@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<af:pageTemplateDef xmlns:af="http://xmlns.oracle.com/adf/faces/rich" var="attrs" definition="private"
+                    xmlns:afc="http://xmlns.oracle.com/adf/faces/rich/component" xmlns:f="http://java.sun.com/jsf/core">
+    <af:xmlContent>
+        <afc:component>
+            <afc:display-name>main-template</afc:display-name>
+            <afc:facet>
+                <afc:facet-name>topContent</afc:facet-name>
+            </afc:facet>
+            <afc:facet>
+                <afc:facet-name>leftContent</afc:facet-name>
+            </afc:facet>
+            <afc:facet>
+                <afc:facet-name>rightContent</afc:facet-name>
+            </afc:facet>
+            <afc:facet>
+                <afc:facet-name>mainContent</afc:facet-name>
+            </afc:facet>
+        </afc:component>
+    </af:xmlContent>
+    <af:panelSplitter orientation="vertical" splitterPosition="50" positionedFromEnd="true" id="pt_ps1">
+        <f:facet name="first">
+            <af:panelStretchLayout topHeight="50px" id="pt_psl1">
+                <f:facet name="top">
+                    <af:panelGroupLayout layout="scroll" id="pt_pgl2" halign="right">
+                        <!--af:outputText value="#{requestContext.agent.agentName}" id="ot1"/>
+                        <af:outputText value="#{requestContext.agent.agentVersion}" id="pt_ot2"/-->                       
+                        <af:menuBar id="pt_mb1">
+                            <af:menu text="Home" id="pt_m1" accessKey="H">
+                                <af:commandMenuItem text="Ir a Home" id="pt_cmi1" action="home.jsf" accessKey="I"/>
+                            </af:menu>
+                        </af:menuBar>
+                        <af:panelGroupLayout landmark="banner" id="pgl1" layout="horizontal">
+                            <af:image source="/images/logo/user.png" id="img_usr"
+                                      shortDesc="Nombre de Usuario: #{aplicacionBackingBean.nombreUsuario}"/>
+                            <af:commandLink text="#{aplicacionBackingBean.nombreUsuario}" id="pt_m2"
+                                            inlineStyle="float:right; padding-right:10px; text-transform:lowercase;"></af:commandLink>
+                            <af:selectOneChoice label="Debug:" id="pt_soc1" value="#{aplicacionBackingBean.filtro.debug}"
+                                                showRequired="false"
+                                                rendered="#{aplicacionBackingBean.renderComboDebug}">
+                                <f:selectItems value="#{aplicacionBackingBean.debugOptions}" id="pt_si1"/>
+                            </af:selectOneChoice>
+                        </af:panelGroupLayout>
+                    </af:panelGroupLayout>
+                </f:facet>
+                <f:facet name="center">
+                    <af:panelSplitter orientation="horizontal" splitterPosition="210" id="pt_ps3">
+                        <f:facet name="first">
+                            <af:panelAccordion id="pt_panelAcordeon_Left" reorder="enable">
+                                <af:showDetailItem text="#{msg.general_menu_proceso}" id="pt_sdi2" persist="ALL"
+                                                   rendered="#{not empty menuBackingBean.catalogoList}">
+                                    <af:panelGroupLayout layout="scroll" id="sl1">
+                                        <!--af:panelList id="pt_pl1">
+                                            <af:forEach items="#{menuBackingBean.catalogoList}" var="row">
+                                                <af:commandLink text="#{row.nombre}" id="cl1"
+                                                                action="#{aplicacionBackingBean.navigationHandler}">
+                                                    <f:param id="urlRedirect" name="urlRedirect"
+                                                             value="/pages/cuadros/cuadro.jsf"/>
+                                                    <f:param id="id_catalogo_param" name="id_catalogo_param"
+                                                             value="#{row.idCatalogo}"/>
+                                                </af:commandLink>
+                                            </af:forEach>
+                                        </af:panelList-->
+                                        <!--af:spacer height="10"/> 
+                                        <af:panelGroupLayout id="pgl2" inlineStyle="padding-top:10px; padding-left:10px;" valign="middle">
+                                            <af:image source="/images/icon/disclosecollapsed_ena.png" id="pt_i1"/>
+                                            <af:commandLink text="Home" id="cl1" blocking="true"
+                                                            shortDesc="Home" action="home" rendered="true" inlineStyle="color:#003D5B; font-weight:bold; padding-left:8px;"></af:commandLink>
+                                        </af:panelGroupLayout>
+                                        <af:spacer height="-10"/-->
+                                        <af:tree value="#{menuBackingBean.catalogoModel}" var="node"
+                                                 initiallyExpanded="false"
+                                                 inlineStyle="padding-top:10px; padding-left:10px;" autoHeightRows="500"
+                                                 fetchSize="1000" contentDelivery="immediate"
+                                                 emptyText="No posee privilegios para acceder a este recurso"
+                                                 id="tr_cat" summary="menu de catalogo" styleClass="AFStretchWidth">
+                                            <f:facet name="nodeStamp">
+                                                <af:group id="pt_g1">
+                                                    <af:outputText rendered="#{node.parent}"
+                                                                   value="#{node.object.titulo}"
+                                                                   inlineStyle="color:#003D5B; font-weight:bold;"
+                                                                   id="pt_ot1"/>
+                                                    <af:commandLink text="#{node.object.nombre}" id="pt_cl1"
+                                                                    blocking="true" shortDesc="#{node.object.titulo}"
+                                                                    action="#{aplicacionBackingBean.navigationHandler}"
+                                                                    rendered="#{!node.parent}">
+                                                        <f:param id="urlRedirect" name="urlRedirect"
+                                                                 value="#{node.bloqueado ? '/pages/error/sistema-bloqueado.jsf' : '/pages/cuadros/cuadro.jsf'}"/>
+                                                        <f:param id="id_catalogo_param" name="id_catalogo_param"
+                                                                 value="#{node.object.idCatalogo}"/>
+                                                    </af:commandLink>
+                                                    
+                                                    
+                                                    <!--af:commandLink text="#{node.object.nombre} sasasa" id="pt_cl2"
+                                                                    blocking="true" shortDesc="#{node.object.titulo}"
+                                                                    action="error/sistema-bloqueado"
+                                                                    rendered="#{!node.parent and node.bloqueado}">                                                        
+                                                    </af:commandLink-->
+                                                </af:group>
+                                            </f:facet>
+                                        </af:tree>
+                                    </af:panelGroupLayout>
+                                </af:showDetailItem>
+                                <af:forEach items="#{menuBackingBean.menuModelList}" var="row">
+                                    <af:showDetailItem text="#{row.menuParent.nombre}" id="pt_sdi32" persist="ALL">
+                                        <af:panelList id="pt_pl28">
+                                            <af:forEach items="#{row.menuChild}" var="rowChild">
+                                                <af:commandLink text="#{rowChild.nombre}" id="cl21"
+                                                                action="#{aplicacionBackingBean.navigationHandler}">
+                                                    <f:param id="url_param2" name="urlRedirect"
+                                                             value="#{rowChild.urlMenu}"/>
+                                                </af:commandLink>
+                                            </af:forEach>
+                                        </af:panelList>
+                                    </af:showDetailItem>
+                                </af:forEach>
+                            </af:panelAccordion>
+                        </f:facet>
+                        <f:facet name="second">
+                            <af:panelSplitter orientation="horizontal" splitterPosition="150" positionedFromEnd="true"
+                                              id="pt_ps2">
+                                <f:facet name="first">
+                                    
+                                    <!--af:inlineFrame id="central_iframe"
+                                                    binding="#{aplicacionBackingBean.iframeContenidoCentral}"
+                                                    source="/images/logo/logo-bice.jpg"></af:inlineFrame-->
+                                    <af:inlineFrame id="central_iframe"
+                                                    binding="#{aplicacionBackingBean.iframeContenidoCentral}"/>
+                                    <!--af:facetRef facetName="mainContent">
+                                        
+                                    </af:facetRef-->
+                                    
+                                </f:facet>
+                            </af:panelSplitter>
+                        </f:facet>
+                    </af:panelSplitter>
+                </f:facet>
+            </af:panelStretchLayout>
+        </f:facet>
+        <f:facet name="second"/>
+    </af:panelSplitter>
+</af:pageTemplateDef>

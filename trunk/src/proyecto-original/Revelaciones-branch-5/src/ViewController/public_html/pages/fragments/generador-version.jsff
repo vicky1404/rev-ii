@@ -1,0 +1,204 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+<af:resource source="/css/tabla-jsf.css" type="css"/>
+<af:decorativeBox id="db1" dimensionsFrom="auto" styleClass="AFStretchWidth">
+        <f:facet name="center">
+        <af:group id="g1">
+        <af:outputText value="#{msg.generador_titulo_disenador}" id="ot1" inlineStyle="font-weight:bold; font-size:medium; height:auto;"/>
+        <table align="center">
+        <tr>
+        <td>
+            <af:selectOneChoice label="#{msg.generador_tipo_cuadro}" id="soc01" required="true"
+                                requiredMessageDetail="#{msg.generador_required_tipo_cuadro}"
+                                valueChangeListener="#{generadorVersionBackingBean.tipoCuadroChangeListener}"
+                                unselectedLabel="#{msg.general_control_seleccione}" changed="false" immediate="true" autoSubmit="true"
+                                binding="#{generadorVersionBackingBean.tipoCuadroSelect}">
+                <f:selectItems value="#{generadorVersionBackingBean.componenteBackingBean.tipoCuadroItems}" id="si1"/>
+            </af:selectOneChoice>
+        </td>
+        <td>
+            <af:inputText  autoComplete="on" shortDesc="ej: Nota 1" label="#{msg.generador_cuadro}" 
+            required="true"  requiredMessageDetail="Ingrese nota" id="it1"   validator="#{generadorVersionBackingBean.catalogoValidator}" 
+            value="#{generadorVersionBackingBean.busqueda}"
+            binding="#{generadorVersionBackingBean.busquedaInputText}"
+            partialTriggers="cb02">
+            <af:autoSuggestBehavior suggestItems="#{generadorVersionBackingBean.catalogosSugeridos}"/>
+            </af:inputText>
+        </td>
+        <td>
+            <af:commandButton text="Buscar" id="cb1"  action="#{generadorVersionBackingBean.buscarCatalogo}"/>
+        </td>
+        <td>
+            <af:commandButton text="Limpiar" id="cb02" actionListener="#{generadorVersionBackingBean.limpiarCatalogolistener}"/>
+        </td>
+        </tr>
+        </table>
+        <af:spacer width="10" height="20" id="s1"/>
+        <af:group id="g2" rendered="#{generadorVersionBackingBean.renderedVersiones}">
+        <div align="center">
+        <af:table rowBandingInterval="1" value="#{generadorVersionBackingBean.filtro.catalogo}" 
+        contentDelivery="immediate" id="t1" inlineStyle="width:720px; height:auto;">
+            <af:column sortable="false" headerText="Código Nota" align="center" id="c11" width="120px" inlineStyle="height:22px;">
+                 <af:outputText value="#{generadorVersionBackingBean.catalogo.codigoCuadro}" id="ot211"/>
+            </af:column>
+            <af:column sortable="false" headerText="Código SubNota" align="center" id="c22" width="120px" inlineStyle="height:22px;">
+                <af:outputText value="#{generadorVersionBackingBean.catalogo.codigoSubcuadro}" id="ot212"/>
+            </af:column>
+            <af:column sortable="false" headerText="Nombre Nota" align="center" id="c33" width="120px" inlineStyle="height:22px;">
+                <af:outputText value="#{generadorVersionBackingBean.catalogo.nombre}" id="ot222"/>
+            </af:column>
+             <af:column sortable="false" headerText="Titulo Nota" align="center" id="c44" width="215px" inlineStyle="height:22px;">
+                <af:outputText value="#{generadorVersionBackingBean.catalogo.titulo}" id="ot233"/>
+            </af:column>
+             <af:column sortable="false" headerText="Vigencia" align="center" id="c55" width="120px" inlineStyle="height:22px;">
+                <af:outputText value="#{generadorVersionBackingBean.catalogo.vigencia==1?'Sí':'No'}" id="ot244"/>
+            </af:column>
+        </af:table>
+        <af:spacer width="10" height="20" id="s2"/>
+        <af:table value="#{generadorVersionBackingBean.versiones}" var="row" rowBandingInterval="1" id="t2"
+                  inlineStyle="width:720px; height:auto;" fetchSize="100" editingMode="editAll"
+                  binding="#{generadorVersionBackingBean.versionTable}"
+                  emptyText="No hay versiones creadas"
+                  contentDelivery="immediate">
+            <af:column sortable="false" headerText="Version" align="center" id="c1" width="120px" inlineStyle="height:22px;">
+            <af:switcher defaultFacet="#{(row.vigencia == 1 and row.idVersion != null) ? 'linkVersion' : 'outputVersion'}" id="s3">
+                <f:facet name="outputVersion">
+                    <af:outputText value="#{row.version}" id="ot3"/>
+                </f:facet>
+                <f:facet name="linkVersion">
+                        <af:group id="g3">
+                        <af:outputLabel value="#{row.version}" id="ol1"/>
+                        <af:spacer width="10px;" id="s5"/>
+                        <af:commandLink actionListener="#{generadorVersionBackingBean.buscarEstructuraActionListener}" immediate="true"  id="cl3">
+                            <af:image source="/images/icon/editar.png" id="i1" shortDesc="Editar"/>
+                        </af:commandLink>
+                        <af:spacer width="10px;" id="s6"/>
+                        <af:commandLink id="cl4"  partialSubmit="true" actionListener="#{generadorVersionBackingBean.copiarVersionListener}">
+                            <af:showPopupBehavior popupId="::ppCopiarEstructura" triggerType="click" />
+                            <af:image source="/images/icon/copy2.png" id="i4" shortDesc="#{msg.generador_copiar_estructura}"/>
+                        </af:commandLink>
+                        </af:group>
+                </f:facet>
+            </af:switcher>
+            </af:column>
+            <af:column sortable="false" headerText="#{msg.generador_vigencia}" align="center" id="c2" width="120px" inlineStyle="height:22px;">
+                 <af:outputText value="#{row.vigencia==1? msg.generador_si : msg.generador_no}" id="ot249"/>
+            </af:column>
+            <af:column sortable="false" headerText="#{msg.generador_comentario}" align="left" id="c4" width="340px" inlineStyle="height:22px;">
+                <af:inputText value="#{row.comentario}" id="ot6" readOnly="#{!row.editable}"/>
+            </af:column>
+            <af:column sortable="false" headerText="#{msg.generador_fecha_creacion}" align="center" id="c3" width="120px" inlineStyle="height:22px;">
+                <af:outputText value="#{row.fechaCreacion}" id="ot5"/>
+            </af:column>
+        </af:table>
+        
+        <div align="right" style="width:720px;">
+            <af:commandButton id="cb2" text="#{msg.generador_nueva_version}" inlineStyle="width:124px;"
+                              actionListener="#{generadorVersionBackingBean.agregarVersionListener}"/>
+        </div>
+        <af:popup id="noteWindow" contentDelivery="lazyUncached" eventContext="launcher" launcherVar="source">
+          <af:noteWindow id="nw1">
+            <af:switcher defaultFacet="#{generadorVersionBackingBean.idTipoEstructura == -1 ? 'null'  : 
+                                        (generadorVersionBackingBean.idTipoEstructura == 0 ? 'grilla' : 
+                                        (generadorVersionBackingBean.idTipoEstructura == 1 ? 'html'   : 'texto'))}" id="s9">
+            <f:facet name="grilla">
+            <af:group id="g5">
+                <table class="datalle_flujo">
+                <af:outputText value="#{viewScope.ordenEstructura}" id="ot7"/>
+                <tr>
+                <af:forEach items="#{generadorVersionBackingBean.generadorDiseno.grillaModelMap[generadorVersionBackingBean.idEstructura].columnas}" var="info">
+                    <td>
+                        <af:outputText value="#{info.tituloColumna}" id="ot8"/>
+                    </td>
+                </af:forEach>
+                </tr>
+                </table>
+            </af:group>
+            </f:facet>
+            <f:facet name="html">
+                <af:outputText value="Vista previa para html no disponible" id="ot9"/>
+            </f:facet>
+            <f:facet name="texto">
+                <af:outputText value="#{generadorVersionBackingBean.generadorDiseno.grillaModelMap[generadorVersionBackingBean.idEstructura].texto.texto}" id="ot10"/>
+            </f:facet>
+            </af:switcher>
+          </af:noteWindow>
+        <af:setPropertyListener from="#{source.attributes.ordenEstructura}" to="#{generadorVersionBackingBean.idEstructura}" type="popupFetch"/>
+        <af:setPropertyListener from="#{source.attributes.tipoEstructura}" to="#{generadorVersionBackingBean.idTipoEstructura}" type="popupFetch"/>
+        </af:popup>
+        <af:group rendered="#{generadorVersionBackingBean.renderedEstructura}" id="g4">
+        <af:table rowBandingInterval="1" value="#{generadorVersionBackingBean.estructuras}" 
+            contentDelivery="immediate" id="t3" 
+            width="465"
+            inlineStyle="height:inherit;"
+            var="row"
+            binding="#{generadorVersionBackingBean.estruturaTable}"
+            partialTriggers="cl2 ::cb2"
+            varStatus="status">
+            <af:column sortable="false" headerText="#{msg.generador_orden}" align="center" id="c111" width="50px" inlineStyle="height:32px;">
+                    <af:outputText value="#{row.orden}" id="ot112"/>
+            </af:column>
+            <af:column sortable="false" headerText="#{msg.generador_tipo_estructura}" align="center" id="c121" width="200px" inlineStyle="height:32px;">
+                    <af:switcher defaultFacet="#{ (row.tipoEstructura.idTipoEstructura == 0 || row.tipoEstructura.idTipoEstructura == 1 || 
+                                                   row.tipoEstructura.idTipoEstructura == 2) ? 'outputTipo' : 'outputSelect' }">
+                    <f:facet name="outputTipo">
+                        <af:commandLink text="#{row.tipoEstructura.nombre}">
+                            <af:showPopupBehavior popupId="::noteWindow" triggerType="mouseHover"/>
+                            <af:clientAttribute name="ordenEstructura" value="#{status.count}"/>
+                            <af:clientAttribute name="tipoEstructura" value="#{row.tipoEstructura==null ? -1 : row.tipoEstructura.idTipoEstructura}"/>
+                        </af:commandLink>
+                    </f:facet>
+                    <f:facet name="outputSelect">
+                    <af:selectOneChoice value="#{row.tipoEstructura}" id="soc2" unselectedLabel="#{msg.general_control_seleccione}" required="true">
+                        <f:selectItems value="#{generadorVersionBackingBean.componenteBackingBean.tipoEstructuras}" id="si2"/>
+                    </af:selectOneChoice>
+                    </f:facet>
+                    </af:switcher>
+            </af:column>
+            <af:column sortable="false" headerText="Agregar o Eliminar" align="center" width="100px" inlineStyle="height:32px;" id="c5">
+                    <af:panelGroupLayout rendered="#{generadorVersionBackingBean.renderedBotonEditar}" id="pgl1">
+                    <af:commandLink id="cl1"
+                                    actionListener="#{generadorVersionBackingBean.agregarTipoEstructuraListener}"><af:image source="/images/icon/add2.png" id="i3" shortDesc="Agregar"/></af:commandLink>
+                    <af:spacer width="10" id="s4"/>
+                    <af:commandLink id="cl2" immediate="true"
+                                    actionListener="#{generadorVersionBackingBean.eliminarTipoEstructuraListener}"><af:image source="/images/icon/remove2.png" id="i2" shortDesc="Eliminar" rendered="#{generadorVersionBackingBean.sizeEstructrua > 1 ? true : false}"/></af:commandLink>
+                    </af:panelGroupLayout>
+            </af:column>
+            <af:column sortable="false" headerText="Ordenar" align="center" width="80px" inlineStyle="height:32px;"
+                   id="c6">
+                    <af:panelGroupLayout rendered="#{generadorVersionBackingBean.renderedBotonEditar}" id="pgl3">
+                    <af:commandLink id="cl9" actionListener="#{generadorVersionBackingBean.subirEstructuraListener}">
+                        <af:image source="/images/icon/up_ok.png" id="i9" shortDesc="Subir" rendered="#{(generadorVersionBackingBean.sizeEstructrua > 1 ? true : false) and (status.count == 1 ? false : true)}"/>
+                    </af:commandLink>
+                    <af:spacer width="10" id="s8"/>
+                    <af:commandLink id="cl10"  actionListener="#{generadorVersionBackingBean.bajarEstructuraListener}">
+                        <af:image source="/images/icon/down_ok.png" id="i10" shortDesc="Bajar" rendered="#{(generadorVersionBackingBean.sizeEstructrua > 1 ? true : false) and (status.count == generadorVersionBackingBean.sizeEstructrua ? false : true) and (generadorVersionBackingBean.sizeEstructrua > status.count)}"/>
+                    </af:commandLink>
+                    </af:panelGroupLayout>
+        </af:column>
+        </af:table>
+        <div align="right" style="width:410px;">
+            <af:commandButton id="cb3" text="#{msg.generador_guardar_estructura}" inlineStyle="width:150px;" actionListener="#{generadorVersionBackingBean.guardarEstructuraListener}" rendered="#{generadorVersionBackingBean.renderedBotonEditar}"/>
+        </div>
+        </af:group>
+        </div>        
+        </af:group>
+        </af:group>
+        </f:facet>
+</af:decorativeBox>
+
+<af:popup id="ppCopiarEstructura" contentDelivery="lazyUncached">
+<af:dialog inlineStyle="width:300px;" okVisible="false" modal="true" title="Copiar Estructura">
+<table>
+<tr><td><af:outputText value="#{msg.generador_copiar_version_alert}" id="ot2"/></td></tr>
+<tr><td><af:spacer width="20px;" id="s7"/> </td></tr>
+<tr><td><af:outputText value="#{msg.generador_copiar_version_confirm}" id="ot4"/></td></tr>
+</table>
+<f:facet name="buttonBar">
+    <af:commandButton text="Crear" actionListener="#{generadorVersionBackingBean.copiarEstructuraActionListener}" id="cb5"/>
+</f:facet>
+</af:dialog>
+</af:popup>
+</ui:composition>
