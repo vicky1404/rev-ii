@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+    <af:document title="abrir-periodo.jsf" id="d1">
+        <af:resource type="javascript">
+          function loaderAbrirPeriodo(evt) {
+              var popup = AdfPage.PAGE.findComponentByAbsoluteId('p1_loading');
+              var confirm = AdfPage.PAGE.findComponentByAbsoluteId('confirm');
+              confirm.hide();
+              if (popup != null) {
+                  AdfPage.PAGE.addBusyStateListener(popup, handleBusyState);
+                  evt.preventUserInput();
+              }
+          }
+          //JavaScript call back handler 
+          function handleBusyState(evt) {
+              var popup = AdfPage.PAGE.findComponentByAbsoluteId('p1_loading');
+              if (popup != null) {
+                  if (evt.isBusy()) {
+                      popup.show();
+                  }
+                  else if (popup.isPopupVisible()) {
+                      popup.hide();
+                      AdfPage.PAGE.removeBusyStateListener(popup, handleBusyState);
+                  }
+              }
+          }
+        </af:resource>
+        <af:group id="g1">
+            <af:form id="f1">
+                <af:popup id="p1_loading" contentDelivery="immediate" animate="false">
+                    <af:dialog id="d2" type="none" title="Procesando..." closeIconVisible="false"
+                               inlineStyle="width:350px;" modal="false">
+                        <af:panelGroupLayout id="pgl1" layout="horizontal">
+                            <af:image source="/images/icon/loading5.gif" id="i2"/>
+                            <af:spacer width="30px;" id="s4"/>
+                            <af:outputFormatted value="Abriendo Período. &lt;br> Por Favor Espere mientras se completa el proceso..."
+                                                id="ot11"/>
+                        </af:panelGroupLayout>
+                    </af:dialog>
+                </af:popup>
+                <af:popup id="confirm">
+                    <af:dialog title="Confirme" dialogListener="#{abrirPeriodoBackingBean.confirmAbrirPeriodo}"
+                               modal="false" id="d3" inlineStyle="width:250px;"
+                               affirmativeTextAndAccessKey="#{msg.general_control_abrir_periodo}"
+                               closeIconVisible="false">
+                        <af:activeOutputText value="¿Desea realmente #{msg.general_control_abrir_periodo} #{abrirPeriodoBackingBean.proximoPeriodo}?"
+                                             id="aot1"/>
+                        <af:clientListener type="dialog" method="loaderAbrirPeriodo"/>
+                    </af:dialog>
+                </af:popup>
+                <af:panelBox id="pnBox1Periodo"
+                             text="#{msg.general_control_abrir_periodo} #{abrirPeriodoBackingBean.proximoPeriodo}"
+                             inlineStyle="height:auto;" showDisclosure="true" disclosed="true">
+                    <af:group id="g2">
+                        <af:panelGroupLayout id="pgl2" halign="center" layout="vertical" inlineStyle="height:100px">
+                            <af:outputText value="Período actual : #{abrirPeriodoBackingBean.periodoActual}" id="ot1"/>
+                            <af:spacer height="10px" id="s1"/>
+                            <af:commandButton text="#{msg.general_control_procesar}" id="cb1" blocking="true">
+                                <af:showPopupBehavior popupId="confirm" triggerType="action" align="overlap"/>
+                            </af:commandButton>
+                        </af:panelGroupLayout>
+                    </af:group>
+                </af:panelBox>
+            </af:form>
+        </af:group>
+    </af:document>
+</f:view>

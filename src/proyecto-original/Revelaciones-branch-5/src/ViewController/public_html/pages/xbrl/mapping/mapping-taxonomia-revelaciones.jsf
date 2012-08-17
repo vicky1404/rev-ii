@@ -1,0 +1,243 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+        xmlns:h="http://java.sun.com/jsf/html" xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+    <af:document title="mapping-taxonomia.jsf" id="d1">
+        <af:resource source="/css/tabla-jsf.css" type="css"/>
+        <af:resource type="javascript">
+          function loaderMessage(evt) {
+              var popup = AdfPage.PAGE.findComponentByAbsoluteId('p1_loading');
+              if (popup != null) {
+                  AdfPage.PAGE.addBusyStateListener(popup, handleBusyState);
+                  evt.preventUserInput();
+              }
+          }
+          //JavaScript call back handler 
+          function handleBusyState(evt) {
+              var popup = AdfPage.PAGE.findComponentByAbsoluteId('p1_loading');
+              if (popup != null) {
+                  if (evt.isBusy()) {
+                      popup.show();
+                  }
+                  else if (popup.isPopupVisible()) {
+                      popup.hide();
+                      AdfPage.PAGE.removeBusyStateListener(popup, handleBusyState);
+                  }
+              }
+          }
+        </af:resource>
+        <af:resource type="css">
+            .ancho_100 {
+                width: 140px;
+            }
+        </af:resource>
+        <af:form id="f1">
+            <af:popup id="p1_loading" contentDelivery="immediate" animate="false">
+                <af:dialog id="d2" type="none" title="Cargando..." closeIconVisible="false" inlineStyle="width:220px;"
+                           modal="false">
+                    <af:panelGroupLayout id="pgl1" layout="horizontal">
+                        <af:image shortDesc="Procesando" source="/images/icon/loading5.gif" id="i2"/>
+                        <af:spacer width="30px;" id="s4"/>
+                        <af:outputText value="Cargando..." id="ot11"/>
+                    </af:panelGroupLayout>
+                </af:dialog>
+            </af:popup>
+            <af:panelBox id="pb1" text="Mapeo de Taxonomia y Revelaciones">
+                <h:panelGrid columns="2" id="pg1" columnClasses="ancho_100">
+                    <af:outputLabel value="Taxonomía:" id="ol1" for="sol1"/>
+                    <af:selectOneChoice id="sol1" required="true" unselectedLabel="#{msg.general_control_seleccione}"
+                                        value="#{navegadorTaxonomiaBackingBean.filtro.xbrlTaxonomia}">
+                        <f:selectItems value="#{navegadorTaxonomiaBackingBean.xbrlTaxonomiasSelectItem}" id="si1"/>
+                    </af:selectOneChoice>
+                </h:panelGrid>
+                <h:panelGrid columns="3" id="pg3" columnClasses="ancho_100">
+                    <af:outputLabel value="Tipo y Nombre de Cuadro:" id="ol5" for="cmb_tc"/>
+                    <af:selectOneChoice id="cmb_tc"
+                                        value="#{mapeadorTaxonomiaRevelacionesBackingBean.filtro.tipoCuadro}"
+                                        unselectedLabel="#{msg.general_control_seleccione}" required="true"
+                                        requiredMessageDetail="#{msg.general_control_seleccione} #{msg.etiqueta_tipo_cuadro}"
+                                        autoSubmit="true" contentStyle="width:130px;"
+                                        valueChangeListener="#{mapeadorTaxonomiaRevelacionesBackingBean.onChangeTipoCuadro}">
+                        <f:selectItems value="#{mapeadorTaxonomiaRevelacionesBackingBean.componenteBackingBean.tipoCuadroItems}"
+                                       id="tipos_c"/>
+                        <af:clientListener method="loaderMessage" type="valueChange"/>
+                    </af:selectOneChoice>
+                    <af:selectOneChoice label=" " id="soc1Catalogo"
+                                        value="#{mapeadorTaxonomiaRevelacionesBackingBean.filtro.catalogo}"
+                                        contentStyle="width:130px;" autoSubmit="true"
+                                        unselectedLabel="#{msg.general_control_seleccione}" required="true"
+                                        showRequired="false" partialTriggers="::cmb_tc"
+                                        requiredMessageDetail="#{msg.catalogo_mensaje_seleccione}">
+                        <f:selectItems value="#{mapeadorTaxonomiaRevelacionesBackingBean.catalogoSelectItem}"
+                                       id="catalogo"></f:selectItems>
+                    </af:selectOneChoice>
+                </h:panelGrid>
+                <h:panelGrid columns="3" id="pg2" columnClasses="ancho_100">
+                    <af:spacer id="s3"/>                    
+                    <af:commandButton text="Buscar"
+                                      action="#{mapeadorTaxonomiaRevelacionesBackingBean.buscarEstructurasAction}"
+                                      id="cb4">
+                        <af:clientListener method="loaderMessage" type="action"/>
+                    </af:commandButton>
+                    <af:commandButton text="Limpiar" action="mapping-taxonomia-revelaciones" id="cb1"
+                                      partialSubmit="false" immediate="true">
+                        <af:clientListener method="loaderMessage" type="action"/>
+                    </af:commandButton>
+                </h:panelGrid>
+                <af:group id="g1">
+                    <af:treeTable value="#{mapeadorTaxonomiaRevelacionesBackingBean.catalogoModel}" var="node"
+                                  rowBandingInterval="0" id="tt1"
+                                  visible="#{mapeadorTaxonomiaRevelacionesBackingBean.renderedCatalogoTree}"
+                                  summary="Tabla para el catalogo de estructuras" columnResizing="enabled" width="100%"
+                                  columnStretching="column:c3Periodo" contentDelivery="immediate" fetchSize="50"
+                                  autoHeightRows="100" disableColumnReordering="true" expandAllEnabled="true"
+                                  binding="#{mapeadorTaxonomiaRevelacionesBackingBean.tablaCatalogoTree}">
+                        <f:facet name="nodeStamp">
+                            <af:column headerText="Detalle de Estructuras" align="start" id="c5Periodo"></af:column>
+                        </f:facet>
+                        <af:column id="c2">
+                            <af:column sortable="false" headerText="#{msg.tabla_catalogo_titulo_nota}" align="start"
+                                       id="c3Periodo">
+                                <af:outputText value="#{node.object.version.catalogo.titulo}" id="ot3Periodo"
+                                               rendered="#{node.parent}" inlineStyle="font-weight:bold;"/>
+                                <af:panelGroupLayout landmark="banner" id="pgl6" layout="horizontal">
+                                    <af:image source="/images/icon/OneToManyMapping_16x16.gif" id="img_Maping"
+                                              inlineStyle="padding-left:20px;" shortDesc="Configurar Mapeo XBRL"
+                                              rendered="#{!node.parent and node.object.tipoEstructura.idTipoEstructura == 0}"/>
+                                    <af:commandLink blocking="true" inlineStyle="padding-left:5px;"
+                                                    text="Configurar Mapeo XBRL"
+                                                    rendered="#{!node.parent and node.object.tipoEstructura.idTipoEstructura == 0}"
+                                                    disabled="#{node.object.tipoEstructura.idTipoEstructura != 0 ? true : false}"
+                                                    actionListener="#{mapeadorTaxonomiaRevelacionesBackingBean.buscarEstructuraGrilla}"
+                                                    id="cl1" immediate="false">
+                                        <f:attribute name="estructura" value="#{node.object}"/>
+                                        <f:attribute name="catalogo" value="#{node.object.version.catalogo}"/>
+                                        <af:clientListener method="loaderMessage" type="action"/>
+                                    </af:commandLink>
+                                    <af:commandLink blocking="true" inlineStyle="padding-left:20px;"
+                                                    text="Tipo Texto falta definir"
+                                                    rendered="#{!node.parent and node.object.tipoEstructura.idTipoEstructura != 0}"
+                                                    disabled="#{node.object.tipoEstructura.idTipoEstructura != 0 ? true : false}"
+                                                    id="cl2"></af:commandLink>
+                                </af:panelGroupLayout>
+                            </af:column>
+                            <af:column sortable="false" headerText="#{msg.tabla_catalogo_version}" align="start"
+                                       id="c1">
+                                <af:outputText value="#{node.object.version.version}" id="ot1"
+                                               rendered="#{node.parent}"/>
+                            </af:column>
+                            <af:column sortable="false" headerText="#{msg.tabla_catalogo_nombre_nota}" align="start"
+                                       id="c2Nombre">
+                                <af:outputText value="#{node.object.version.catalogo.nombre}" id="ot2Periodo"
+                                               rendered="#{node.parent}"/>
+                            </af:column>
+                            <af:column sortable="false" headerText="#{msg.tabla_catalogo_estado_nota}" align="start"
+                                       id="c4Periodo">
+                                <af:outputText value="#{node.object.estado.nombre}" id="ot4Periodo"
+                                               rendered="#{node.parent}"/>
+                            </af:column>
+                            <af:column sortable="false" headerText="#{msg.tabla_catalogo_fecha_proceso}" align="start"
+                                       id="c6Periodo">
+                                <af:outputText value="#{node.object.fechaUltimoProceso}" id="ot6Periodo"
+                                               rendered="#{node.parent}"/>
+                            </af:column>
+                            <af:column sortable="false" headerText="Vigente" align="start" id="c7Periodo">
+                                <af:outputText value="#{node.object.version.vigencia eq 1 ? 'SI' : 'NO'}"
+                                               id="ot7Periodo" rendered="#{node.parent}"/>
+                            </af:column>
+                        </af:column>
+                    </af:treeTable>
+                </af:group>
+            </af:panelBox>
+            <af:decorativeBox dimensionsFrom="auto" id="db1" styleClass="AFStretchWidth" inlineStyle="height:auto;"
+                              rendered="#{mapeadorTaxonomiaRevelacionesBackingBean.renderMappingPanel}"
+                              binding="#{mapeadorTaxonomiaRevelacionesBackingBean.mappingRichDecorativeBox}">
+                <f:facet name="top">
+                    <af:panelGroupLayout id="pgl2" layout="horizontal"
+                                         rendered="#{not empty mapeadorTaxonomiaRevelacionesBackingBean.conceptoSelectedForMapping}"
+                                         binding="#{mapeadorTaxonomiaRevelacionesBackingBean.viewMappingPanel}">
+                        <af:outputLabel value="Concepto XBRL:"
+                                        id="ol2"/>
+                        <af:outputText value="#{mapeadorTaxonomiaRevelacionesBackingBean.conceptoSelectedForMapping.id}"
+                                        id="ol3"/>                       
+                    </af:panelGroupLayout>                    
+                </f:facet>
+                <f:facet name="center">
+                    <af:panelSplitter orientation="horizontal" id="ps1" firstBorder="skin" secondBorder="skin"
+                                      dimensionsFrom="auto" splitterPosition="300" inlineStyle="height:auto;">
+                        <f:facet name="first">
+                            <af:panelGroupLayout id="pgl4">
+                                <af:table id="dt1"
+                                          value="#{mapeadorTaxonomiaRevelacionesBackingBean.taxonomyConceptList}"
+                                          contentDelivery="immediate" var="concept" styleClass="AFStretchWidth"
+                                          fetchSize="1000" autoHeightRows="18" columnStretching="column:c4"
+                                          binding="#{mapeadorTaxonomiaRevelacionesBackingBean.taxonomyTable}">
+                                    <af:column id="c4" width="80" headerText="Concepto">
+                                        <f:facet name="header">
+                                            <h:panelGrid columns="3" id="pg4">
+                                                <af:inputText label=" " id="it2" autoComplete="off" columns="20"
+                                                              value="#{mapeadorTaxonomiaRevelacionesBackingBean.taxonomyConceptFilter.id}"/>
+                                                <af:commandButton text="Buscar"
+                                                                  actionListener="#{mapeadorTaxonomiaRevelacionesBackingBean.filterTaxonomyTable}"
+                                                                  id="cb2" partialSubmit="true">
+                                                    <af:clientListener method="loaderMessage" type="action"/>
+                                                </af:commandButton>
+                                                <af:commandButton text="Limpiar"
+                                                                  actionListener="#{mapeadorTaxonomiaRevelacionesBackingBean.cleanFilterTaxonomyTable}"
+                                                                  id="cb3" partialSubmit="true">
+                                                    <af:clientListener method="loaderMessage" type="action"/>
+                                                </af:commandButton>
+                                            </h:panelGrid>
+                                        </f:facet>
+                                        <af:commandLink text="#{concept.id}" id="ot2"
+                                                        actionListener="#{mapeadorTaxonomiaRevelacionesBackingBean.fijarConceptoForMapping}">
+                                            <f:attribute name="concepto" value="#{concept}"/>
+                                        </af:commandLink>
+                                    </af:column>
+                                </af:table>
+                            </af:panelGroupLayout>
+                        </f:facet>
+                        <f:facet name="second">
+                            <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+                                <f:facet name="menus"/>
+                                <f:facet name="toolbar"/>
+                                <f:facet name="statusbar"/>
+                                <af:table id="t1" value="#{mapeadorTaxonomiaRevelacionesBackingBean.grillaVO.rows}"
+                                          var="row" styleClass="AFStretchWidth" fetchSize="50" autoHeightRows="16">
+                                    <af:forEach items="#{mapeadorTaxonomiaRevelacionesBackingBean.grillaVO.columnas}"
+                                                var="col" varStatus="colStatus">
+                                        <af:column id="c3" headerText="#{col.tituloColumna}" width="#{col.ancho}">
+                                            <div align="left" style="border: 0px solid;">
+                                                <!-- TIPO CELDA TEXTO -->
+                                                <af:outputText value="#{row[col.idColumna].valor}" id="ot2b"
+                                                               inlineStyle="padding-left:10px; text-align:left; border: 0px solid;"
+                                                               disabled="true"
+                                                               rendered="#{(row[col.idColumna].tipoCelda.idTipoCelda == 0)}"></af:outputText>
+                                            </div>
+                                            <div align="left" style="border: 0px solid;">
+                                                <!-- TIPO CELDA TITULO -->
+                                                <af:outputText value="#{row[col.idColumna].valor}" id="ot3b"
+                                                               inlineStyle="font-weight:bold; text-align:left; border: 0px solid;"
+                                                               disabled="true"
+                                                               rendered="#{row[col.idColumna].tipoCelda.idTipoCelda == 2}"></af:outputText>
+                                            </div>
+                                            <div align="left"
+                                                 style="padding-left:30px; padding-right:20px; border: 0px solid; display:block;">
+                                                <!--af:outputText value="#{row[col.idColumna].selectedByFormula}"
+                                                               id="ot3"/-->
+                                                <af:outputText value="[#{col.idColumna},#{row[col.idColumna].idFila}]"
+                                                               inlineStyle="font-weight:bold; text-align:center; border: 0px solid;"
+                                                               rendered="#{row[col.idColumna].esNumero}" id="ot4"
+                                                               shortDesc="Columna: #{col.idColumna} , Fila: #{row[col.idColumna].idFila}"/>
+                                            </div>
+                                        </af:column>
+                                    </af:forEach>
+                                </af:table>
+                            </af:panelCollection>
+                        </f:facet>
+                    </af:panelSplitter>
+                </f:facet>
+            </af:decorativeBox>
+        </af:form>
+    </af:document>
+</f:view>

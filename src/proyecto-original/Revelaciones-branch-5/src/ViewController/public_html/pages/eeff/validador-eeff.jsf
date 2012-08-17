@@ -1,0 +1,366 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich" xmlns:ui="http://java.sun.com/jsf/facelets">
+    <af:document title="mantenedor-formula.jsf" id="d1">
+        <af:resource source="/css/tabla-jsf.css" type="css"/>
+        <af:resource source="/js/jquery/jquery-1.6.4.min.js" type="javascript"/>
+        <ui:include src="/pages/util/loadMessage.jsff"/>
+    <af:form id="f1">
+    <af:decorativeBox id="db2" dimensionsFrom="auto" styleClass="AFStretchWidth">
+        <f:facet name="center">
+        <af:group id="g3">
+        <af:outputText value="#{msg.eeff_periodo_titulo} #{validadorEeffBackingBean.periodo.periodoFormat} " id="ot1"
+                       inlineStyle="font-weight:bold; font-size:small; height:auto;"/>
+        <div align="center">
+        <table align="center">
+        <tr>
+        <td>
+            <af:selectOneChoice label="#{msg.generador_tipo_cuadro}" id="soc01" required="true"
+                                requiredMessageDetail="#{msg.generador_required_tipo_cuadro}"
+                                valueChangeListener="#{validadorEeffBackingBean.tipoCuadroChangeListener}"
+                                unselectedLabel="#{msg.general_control_seleccione}" changed="false" immediate="true" autoSubmit="true"
+                                binding="#{validadorEeffBackingBean.tipoCuadroSelect}"
+                                partialTriggers="::cb02">
+                <f:selectItems value="#{validadorEeffBackingBean.componenteBackingBean.tipoCuadroItems}" id="si1"/>
+            </af:selectOneChoice>
+        </td>
+        <td>
+            <af:inputText  autoComplete="on" shortDesc="#{msg.eeff_ej_nota}" label="#{msg.generador_cuadro}" 
+            required="true"  requiredMessageDetail="Ingrese nota" id="it1"   validator="#{validadorEeffBackingBean.catalogoValidator}" 
+            value="#{validadorEeffBackingBean.busqueda}"
+            binding="#{validadorEeffBackingBean.busquedaInputText}"
+            partialTriggers="cb02">
+            <af:autoSuggestBehavior suggestItems="#{validadorEeffBackingBean.catalogosSugeridos}"/>
+            </af:inputText>
+        </td>
+        <td>
+            <af:commandButton text="#{msg.general_control_buscar}" id="cb1"  action="#{validadorEeffBackingBean.buscarCatalogo}"/>
+        </td>
+        <td>
+            <af:commandButton text="#{msg.general_control_limpiar}" id="cb02" actionListener="#{validadorEeffBackingBean.limpiarCatalogolistener}"/>
+        </td>
+        </tr>
+        </table>
+        <af:spacer  height="10px" id="s1"/>
+
+        <af:table value="#{validadorEeffBackingBean.versionVigente}" var="row" rowBandingInterval="0" id="t1" 
+                  columnStretching="column:c2" contentDelivery="immediate"
+                  inlineStyle="height:inherit;" emptyText="#{msg.general_sin_informacion}" varStatus="status"
+                  styleClass="AFStretchWidth" autoHeightRows="50" fetchSize="50" partialTriggers="::cb1 ::cb02">
+            <f:facet name="detailStamp">
+            <af:panelGroupLayout layout="scroll" id="pgl2" halign="center">
+                <table align="left" width="100%">
+                <af:forEach items="#{validadorEeffBackingBean.estructuras}" var="row2">
+                <tr>
+                    <td width="100px" valign="top" class="xzl">
+                    <af:switcher id="s6" defaultFacet="#{row2.tipoEstructura.idTipoEstructura == 0 ? 'link': (row2.tipoEstructura.idTipoEstructura == 2 ? 'text' : 'html')}">
+                        <f:facet name="link">
+                            <af:commandImageLink actionListener="#{validadorEeffBackingBean.buscarEstructuraListener}"
+                             inlineStyle="border: 0px solid;"
+                             icon="/images/icon/search.png"
+                             shortDesc="#{msg.eeff_desc_grilla_num} - #{row2.orden}"
+                             partialSubmit="true" id="cl1"
+                             text="#{msg.eeff_cargar_info_cuadro}">
+                                 <f:attribute name="idEstructura" value="#{row2.idEstructura}"/>
+                            </af:commandImageLink>
+                        </f:facet>
+                        <f:facet name="text">
+                            <af:outputText value="#{msg.eeff_texto_sin_seleccion}" id="ot5"/>
+                        </f:facet>
+                        <f:facet name="html">
+                            <af:outputText value="#{msg.eeff_texto_sin_seleccion}" id="ot6"/>
+                        </f:facet>
+                    </af:switcher>
+                    </td>
+                    <td width="70px" class="xzl">
+                        <af:outputText value="Orden:  #{row2.orden}" id="ot16"/>
+                    </td>
+                    <td width="150px" valign="top" align="left" class="xzl"><af:outputText value="#{msg.eeff_titulo_cuadro}: #{row2.grillaVO.titulo==null ? 'No tiene Título' : row2.grillaVO.titulo}" id="ot13"/></td>
+                </tr>
+                </af:forEach>
+                </table>
+            </af:panelGroupLayout>
+            </f:facet>
+            <af:column sortable="false" headerText="#{msg.eeff_cuadro}" align="start" id="c12" inlineStyle="text-align:center;" width="300px">
+                <af:outputText value="#{row.catalogo.titulo}" id="ot22"/>
+            </af:column>
+            <af:column sortable="false" headerText="#{msg.eeff_fecha_creacion}" align="start" id="c15" width="150px">
+                <af:outputText value="#{row.fechaCreacion}" id="ot18"/>
+            </af:column>
+            <af:column sortable="false" headerText="#{msg.eeff_vigencia}" align="start" id="c17" inlineStyle="text-align:center;" width="150px">
+                <af:outputText value="#{row.vigencia==1?'Sí':'No'}" id="ot3"/>
+            </af:column>
+        </af:table>
+        
+        <af:spacer height="8px" id="s2"/>
+        
+        <af:table var="row" value="#{validadorEeffBackingBean.grillaVO.rows}" 
+                  rowSelection="none"
+                  emptyText="#{msg.general_mensaje_nota_sin_registros}" 
+                  columnResizing="enabled"
+                  autoHeightRows="5" fetchSize="50"  
+                  varStatus="status"
+                  partialTriggers="::t1:cl1 ::cil6 ::t3:clCargarFecu ::t4:clCargarCuenta clRelCalcuB"
+                  styleClass="AFStretchWidth"
+                  inlineStyle="height:inherit;" id="t2"
+                  visible="#{validadorEeffBackingBean.renderTablaCuadro}">
+            <af:forEach items="#{validadorEeffBackingBean.grillaVO.columnas}" var="col" >
+                <af:column headerText="#{col.tituloColumna}" id="c2" rowHeader="#{col.idColumna==1}" align="#{ (row[col.idColumna].tipoDato.idTipoDato == 2 or row[col.idColumna].tipoDato.idTipoDato == 3) ? 'right' : 'left'}"  width="#{col.ancho - 15}">
+                    <af:panelGroupLayout id="pgl3">
+
+                    <af:switcher defaultFacet="#{row[col.idColumna].tipoDato.idTipoDato == 2 ? 'entero' : ( row[col.idColumna].tipoDato.idTipoDato == 3 ? 'decimal' : 'otro' ) }" id="s16">
+                        <f:facet name="entero" >
+                            <af:outputText value="#{row[col.idColumna].valorLong}" id="ot2" inlineStyle="text-align:right;">
+                                    <af:convertNumber integerOnly="true" type="number" maxFractionDigits="0" locale="#{validadorEeffBackingBean.localeCL}" pattern="##,###,###,###" />
+                            </af:outputText>
+                        </f:facet>
+                        <f:facet name="decimal" >
+                            <af:outputText value="#{row[col.idColumna].valorBigDecimal}" id="ot14" inlineStyle="text-align:right;">
+                                <af:convertNumber integerOnly="false" type="number" maxFractionDigits="4" locale="#{validadorEeffBackingBean.localeCL}" pattern="##,###,###,###.####"/>
+                            </af:outputText>
+                        </f:facet>
+                        <f:facet name="otro" >
+                            <af:outputText value="#{row[col.idColumna].valor}" id="ot21" inlineStyle="#{row[col.idColumna].tipoCelda.idTipoCelda == 2 ? 'font-weight:bold; text-align:left;' : ''}"/>
+                        </f:facet>
+                    </af:switcher>
+                    
+                    <af:switcher defaultFacet="#{ !row[col.idColumna].esNumero ? 'nada' :  ( ( row[col.idColumna].sizeRelacionEeffList == 0 and row[col.idColumna].sizeRelacionDetalleEeffList == 0 ) ? 'flecha' : 'calculadora' ) }" id="s14">
+                    
+                    <f:facet name="flecha">
+                        <af:group id="g1">
+                         <af:commandImageLink icon="/images/icon/flecha.jpg"  id="clRelCelda"  shortDesc="#{msg.eeff_cargar} : #{msg.eeff_columna} #{col.idColumna} , #{msg.eeff_fila} #{row[col.idColumna].idFila}" 
+                            partialSubmit="true" actionListener="#{validadorEeffBackingBean.cargarRelacionCeldaListener}">
+                            <f:attribute name="celda" value="#{row[col.idColumna]}"/>
+                        </af:commandImageLink>
+                        <af:outputText value="[#{col.idColumna},#{row[col.idColumna].idFila}]" id="ot23"/>
+                        </af:group>
+                    </f:facet>
+                    
+                    <f:facet name="calculadora">
+                        <af:group id="g2">
+                        <af:commandImageLink icon="/images/icon/calculator12x12.jpg"  id="clRelCalcu"  shortDesc="#{msg.eeff_desc_consultar_rel}" partialSubmit="true" 
+                            actionListener="#{validadorEeffBackingBean.cargarRelacionCeldaListener}">
+                            <f:attribute name="celda" value="#{row[col.idColumna]}"/>   
+                        </af:commandImageLink>
+                        <af:commandImageLink icon="/images/icon/remove-12x12.png"  id="clRelCalcuB"  shortDesc="#{msg.eeff_desc_eliminar_rel}" 
+                            partialSubmit="false" actionListener="#{validadorEeffBackingBean.eliminarRelacionListener}">
+                            <f:attribute name="celda" value="#{row[col.idColumna]}"/>
+                        </af:commandImageLink>
+                        <af:outputText value="[#{col.idColumna},#{row[col.idColumna].idFila}]" id="ot24"/>
+                        </af:group>
+                    </f:facet>
+                    
+                    </af:switcher>
+                    
+                    </af:panelGroupLayout>
+                </af:column>
+            </af:forEach>
+        </af:table>
+        
+        <af:spacer height="30px" id="s8"/>
+            
+        <af:group id="g4">
+        <div class="xb7 p_AFSelected" title="#{msg.eeff_desc_mapeo_titulo}" >
+        <div class="xyk" style="height:2em"></div>
+        <div class="xym" style="height:2em">
+            <af:outputText value="#{msg.eeff_mapeo_titulo}" id="ot11"/> <af:outputText id="otCount" partialTriggers="::cil6 ::cb2 ::t3:clCargarFecu ::t4:clCargarCuenta ::t2:clRelCalcuB" value=" #{msg.eeff_mapeo_sin_guardar}"
+                                                                                                      inlineStyle="color:Red;" visible="#{validadorEeffBackingBean.countMapping>0}"/> 
+        </div>
+        <div class="xyl" style="height:2em"></div>
+        </div>
+        <div class="p_AFHoverTarget xpa xpi" style="height: inherit;">
+        <table align="left">
+            <tr>
+            <td>
+                <af:spacer width="30px;" id="s9"/>
+            </td>
+            <td>
+                <af:outputLabel value="#{msg.eeff_celda_seleccion} " id="ol1"/>
+            </td>
+            <td>
+                <af:inputText value="[#{validadorEeffBackingBean.relCelda.idColumna},#{validadorEeffBackingBean.relCelda.idFila}]" 
+                            disabled="true" columns="7" 
+                            binding="#{validadorEeffBackingBean.relCeldaText}" 
+                            id="it2" visible="#{not empty validadorEeffBackingBean.relCelda}"/>
+            </td>
+            <td>
+                <af:spacer width="25px;" id="s12"/>
+            </td>
+            <td>
+                <af:selectOneChoice label="#{msg.eeff_rel_fecu}" id="socRelFecu" value="#{validadorEeffBackingBean.relFecuSeleccionada}"   
+                    unselectedLabel="Ver" 
+                    autoSubmit="true"
+                    partialTriggers="::t3:clCargarFecu ::t4:clCargarCuenta ::t2:clRelCelda" 
+                    valueChangeListener="#{validadorEeffBackingBean.onChangeFecu}"
+                    binding="#{validadorEeffBackingBean.fecuAgregadasChoice}">
+                    <f:selectItems value="#{validadorEeffBackingBean.itemFecuList}" id="si3">
+                    </f:selectItems>
+                </af:selectOneChoice>
+            </td>
+            <td>
+                <af:spacer width="25px;" id="s11"/>
+            </td>
+            <td>
+                <af:selectOneChoice label="#{msg.eeff_rel_cuenta}" id="socRelCuenta" value="#{validadorEeffBackingBean.relCuentaSeleccionada}"   
+                    unselectedLabel="Ver" 
+                    autoSubmit="true"
+                    partialTriggers="::t3:clCargarFecu ::t4:clCargarCuenta ::t2:clRelCelda"
+                    valueChangeListener="#{validadorEeffBackingBean.onChangeCuenta}"
+                                    binding="#{validadorEeffBackingBean.cuentaAgregadasChoice}">
+                    <f:selectItems value="#{validadorEeffBackingBean.itemCuentaList}" id="si4"/>
+                </af:selectOneChoice>
+            </td>
+            <td>
+                <af:spacer width="25px;" id="s13"/>
+            </td>
+            <td>
+                <af:spacer width="20px;" id="s10"/> 
+            </td>
+            <td>
+                <af:commandButton text="#{msg.generador_guardar}" icon="/images/icon/save2.png" id="cil6" actionListener="#{validadorEeffBackingBean.guardarRelacionListener}" shortDesc="#{msg.eeff_desc_guardar_mapeo}">
+                    <af:clientListener method="loaderMessage" type="action"/>
+                </af:commandButton>
+            </td>
+            <td>
+                <af:spacer width="20px" id="s18"/>
+                <af:commandButton text="#{msg.eeff_eliminar}" icon="/images/icon/remove2.png" id="cb2"  shortDesc="#{msg.eeff_desc_eliminar_todo_mapeo}" partialSubmit="true">
+                    <af:showPopupBehavior popupId="::popupEliminar" triggerType="click"/>
+                </af:commandButton>
+            </td>
+            </tr>
+        </table>
+        </div>
+
+        <af:spacer height="10px;" id="s3"/>
+        <div class="xb7 p_AFSelected" title="#{msg.eeff_fecu_seleccion}" >
+        <div class="xyk" style="height:2em"></div>
+        <div class="xym" style="height:2em">
+            <af:outputText value="#{msg.eeff_info_est_fin}" id="ot37"/>
+        </div>
+        <div class="xyl" style="height:2em"></div>
+        </div>
+        <div class="p_AFHoverTarget xpa xpi" style="height: inherit;">
+           <af:spacer height="10px;" id="s32"/>
+           <table>
+           <tr><td><af:spacer width="25px;" id="s7"/></td>
+           <td>
+            <af:selectOneChoice label="#{msg.eeff_select_fecu}" id="soc1" value="#{validadorEeffBackingBean.estadoFinanciero}"   unselectedLabel="Seleccione Fecu" valueChangeListener="#{validadorEeffBackingBean.codigoFecuChangeListener}" autoSubmit="true">
+                <f:selectItems value="#{validadorEeffBackingBean.fecuItems}" id="si2"/>
+            </af:selectOneChoice>
+            </td>
+            </tr>
+            </table>
+            
+            <af:spacer height="10px;" id="s17"/>
+        
+            <af:table value="#{validadorEeffBackingBean.estadoFinanciero}" var="row"
+                      rowBandingInterval="0" id="t3" partialTriggers="::soc1" styleClass="AFStretchWidth"
+                      inlineStyle="height:inherit;" emptyText="#{msg.general_sin_informacion}">
+                <af:column sortable="false" headerText="#{msg.eeff_codigo_fecu}" align="start" id="c13">
+                    <af:panelGroupLayout id="pgl4">
+                    <af:commandImageLink icon="/images/icon/flecha.jpg"  id="clCargarFecu"  shortDesc="#{row.idFecu}" partialSubmit="true" 
+                            actionListener="#{validadorEeffBackingBean.cargarFecuListener}">
+                        <f:attribute name="eeff" value="#{row}"/>
+                    </af:commandImageLink>
+                   
+                    <af:spacer width="5px;" id="s165"/>
+                    <af:outputText value="#{row.fecuFormat}" id="ot19"/>
+                    </af:panelGroupLayout>
+                </af:column>
+                <af:column sortable="false" headerText="#{msg.eeff_desc_fecu}" align="start" id="c14" width="350px">
+                    <af:outputText value="#{row.codigoFecu.descripcion}" id="ot15"/>
+                </af:column>
+                <af:column sortable="false" headerText="#{msg.eeff_monto_total}" align="start" id="c16">
+                    <af:outputText value="#{row.montoTotal}" id="ot17" >
+                        <af:convertNumber locale="#{validadorEeffBackingBean.localeCL}" pattern="##,###,###,###" />
+                    </af:outputText>
+                </af:column>
+            </af:table>
+            
+        <af:spacer height="20px" id="s5"/>
+        
+            <af:table value="#{validadorEeffBackingBean.detalleEeffs}" var="row" rowBandingInterval="0" id="t4"
+                partialTriggers="::soc1" autoHeightRows="5" fetchSize="100"  styleClass="AFStretchWidth" inlineStyle="height:inherit" emptyText="#{msg.general_sin_informacion}" >
+                <af:column sortable="false" headerText="#{msg.eeff_codigo_fecu}" align="start" id="c5">
+                    <af:panelGroupLayout id="pgl5">
+                    <af:commandImageLink icon="/images/icon/flecha.jpg"  id="clCargarCuenta"  shortDesc="#{row.idCuenta}"
+                        partialSubmit="true" actionListener="#{validadorEeffBackingBean.cargarCuentaListener}">
+                        
+                    <f:attribute name="detalleEeff" value="#{row}"/>
+                    
+                    </af:commandImageLink>
+                    <af:spacer width="5px;" id="s15"/>
+                    <af:outputText value="#{row.fecuFormat}" id="ot20"/>
+                    </af:panelGroupLayout>
+                </af:column>
+                <af:column sortable="false" headerText="#{msg.eeff_numero_cuenta}" align="start" id="c6">
+                    <af:outputText value="#{row.idCuenta}" id="ot4"/>
+                </af:column>
+                <af:column sortable="false" headerText="#{msg.eeff_desc_cuenta}" align="start" id="c7" width="300px">
+                    <af:outputText value="#{row.cuentaContable.descripcion}" id="ot7"/>
+                </af:column>
+                <af:column sortable="false" headerText="#{msg.eeff_monto_pesos}" align="start" id="c10">
+                    <af:outputText value="#{row.montoPesos}" id="ot10">
+                        <af:convertNumber locale="#{validadorEeffBackingBean.localeCL}" pattern="##,###,###,###" />
+                    </af:outputText>
+                </af:column>
+            </af:table>
+            </div>
+        </af:group>
+        </div>
+        </af:group>
+        
+        </f:facet>
+    </af:decorativeBox>
+    
+    <af:popup id="popupFecu" contentDelivery="lazyUncached">
+    <af:dialog title="#{msg.eeff_detalle_fecu}" id="d3" cancelVisible="false">
+        <table class="datalle_flujo" width="350px">
+        <tr>
+            <td><af:outputText value="#{msg.eeff_codigo_fecu}" id="ot25"/></td>
+            <td><af:outputText value="#{msg.eeff_desc_fecu}" id="ot26"/></td>
+            <td><af:outputText value="#{msg.eeff_monto}" id="ot27"/></td>
+        </tr>
+        <tr>
+            <td><af:outputText value="#{validadorEeffBackingBean.relFecuSeleccionada.fecuFormat}" id="ot8"/></td>
+            <td><af:outputText value="#{validadorEeffBackingBean.relFecuSeleccionada.codigoFecu.descripcion}" id="ot9"/></td>
+            <td><af:outputText value="#{validadorEeffBackingBean.relFecuSeleccionada.montoTotal}" id="ot12"/></td>
+        </tr>
+        </table>
+    </af:dialog>
+    </af:popup>
+    
+    
+    <af:popup id="popupCuenta" contentDelivery="lazyUncached">
+    <af:dialog title="#{msg.eeff_detalle_fecu}" id="d4"  cancelVisible="false">
+        <table class="datalle_flujo" width="450px">
+        <tr>
+            <td><af:outputText value="#{msg.eeff_codigo_fecu}" id="ot28"/></td>
+            <td><af:outputText value="#{msg.eeff_numero_cuenta}" id="ot35"/></td>
+            <td><af:outputText value="#{msg.eeff_desc_cuenta}" id="ot29"/></td>
+            <td><af:outputText value="#{msg.eeff_monto}" id="ot30"/></td>
+        </tr>
+        <tr>
+            <td><af:outputText value="#{validadorEeffBackingBean.relCuentaSeleccionada.fecuFormat}" id="ot31"/></td>
+            <td><af:outputText value="#{validadorEeffBackingBean.relCuentaSeleccionada.idCuenta}" id="ot32"/></td>
+            <td><af:outputText value="#{validadorEeffBackingBean.relCuentaSeleccionada.cuentaContable.descripcion}" id="ot33"/></td>
+            <td><af:outputText value="#{validadorEeffBackingBean.relCuentaSeleccionada.montoPesos}" id="ot34"/></td>
+        </tr>
+        </table>
+    </af:dialog>
+    </af:popup>
+    
+    
+    <af:popup id="popupEliminar" contentDelivery="lazyUncached">
+    <af:dialog title="#{msg.eeff_pop_titulo_eli}" id="d5" okVisible="false">
+        <af:outputText value="#{msg.eeff_pop_seguro_eli}" id="ot36"/>
+        <f:facet name="buttonBar">
+            <af:commandButton id="cbpp1" text="#{msg.eeff_eliminar}" actionListener="#{validadorEeffBackingBean.eliminarTodasRelacionListener}" shortDesc="#{msg.eeff_pop_conf_eli}" >
+                <af:clientListener method="loaderMessage" type="action"/>
+            </af:commandButton>
+        </f:facet>
+    </af:dialog>
+    </af:popup>
+    </af:form>
+    </af:document>
+</f:view>
