@@ -20,6 +20,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.faces.component.UIComponent;
+import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ValueChangeEvent;
 
 import org.apache.log4j.Logger;
@@ -73,12 +74,54 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
     private TreeItem treeItem;
     private Map<Long, Catalogo> catalogoMap; 
     private Catalogo catalogoSelected;
+    private boolean renderSelectorEmpresa;
+    private boolean redireccionado;
+    
     
     private org.primefaces.model.MenuModel model; 
                   		
 	public MenuBackingBean() {
 		super();				
-		root = new DefaultTreeNode("Proceso", null);  					 
+		root = new DefaultTreeNode("Proceso", null);  	
+		
+	}
+	
+	
+	public void menuBackingBeanParaUnaEmpresa(ComponentSystemEvent event){
+		
+		
+		List<Empresa> empresaList = super.getFacadeService().getEmpresaService().findAll();
+		
+		if (empresaList.size() == 1){
+			for (Empresa empresa : empresaList){
+				try{
+					this.setEmpresa(empresa);
+					getFiltroBackingBean().setEmpresa(empresa);
+					if(root.getChildCount() > 0)
+						root.getChildren().clear();
+					buildCuadroTreeMenu(this.getRoot());
+					buildAccordionPanelMenu();
+					buildCatalogoMap();
+					this.setRenderSelectorEmpresa(Boolean.FALSE);
+					if (!isRedireccionado()){
+						this.setRedireccionado(Boolean.TRUE);
+					getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(BLANK_VIEW_ID));
+					}
+					return;
+									
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+				
+				
+			}
+		} else if (!this.isRenderSelectorEmpresa()) {
+			
+			getFiltroBackingBean().init();
+			init();
+			this.setRenderSelectorEmpresa(Boolean.TRUE);
+		}
+		
 	}
 	
 	/**
@@ -141,7 +184,7 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 	private void buildCuadroTreeMenu(TreeNode root) throws Exception{		 
         
 		boolean bloqueado = this.isSistemaBloqueado();
-        
+		
         for(TipoCuadro tipoCuadro : this.getTiposCuadroFromCatalogo(this.getCatalogoList())){            
             TreeNode node = new DefaultTreeNode(tipoCuadro.getTitulo(), root);              
             for(Catalogo catalogo : this.getCatalogoList()){
@@ -463,6 +506,26 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 	    treeItem = null;
 	    catalogoMap = null; 
 	    catalogoSelected = null;
+	}
+
+
+	public boolean isRenderSelectorEmpresa() {
+		return renderSelectorEmpresa;
+	}
+
+
+	public void setRenderSelectorEmpresa(boolean renderSelectorEmpresa) {
+		this.renderSelectorEmpresa = renderSelectorEmpresa;
+	}
+
+
+	public boolean isRedireccionado() {
+		return redireccionado;
+	}
+
+
+	public void setRedireccionado(boolean redireccionado) {
+		this.redireccionado = redireccionado;
 	}
 
 }
