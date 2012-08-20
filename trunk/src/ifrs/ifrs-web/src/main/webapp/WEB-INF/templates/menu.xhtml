@@ -10,14 +10,17 @@
 		<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
 		
 			
-		<p:panel header="#{msg.label_seleccione_empresa}">  		
-        	<p:selectOneMenu  id="somEmp1"  value="#{menuBackingBean.idRut}" valueChangeListener="#{menuBackingBean.empresaChangeValue}"  immediate="true">
+		<p:panel header="#{menuBackingBean.renderSelectorEmpresa == true ? msg.label_seleccione_empresa : msg.label_empresa}" >  		
+        	<p:selectOneMenu  id="somEmp1"  value="#{menuBackingBean.idRut}" valueChangeListener="#{menuBackingBean.empresaChangeValue}"  immediate="true" rendered="#{menuBackingBean.renderSelectorEmpresa}">
 				<f:selectItem itemLabel="#{msg.label_seleccione}" />
-				<f:selectItems value="#{componenteBackingBean.empresaList}" var="empresa" itemValue="#{empresa.idRut}" itemLabel="#{empresa.razonSocial}" />
+				<f:selectItems value="#{componenteBackingBean.empresaList}" var="empresa" itemValue="#{empresa.idRut}" itemLabel="#{empresa.nombre}" />
 				<f:ajax execute="@this" render="@form"/>
-			</p:selectOneMenu>	
+			</p:selectOneMenu>				
+        	<h:outputText value="#{menuBackingBean.empresa.nombre}" rendered="#{!menuBackingBean.renderSelectorEmpresa}">
+        		<f:event listener="#{menuBackingBean.menuBackingBeanParaUnaEmpresa}" type="preRenderView"></f:event>
+        	</h:outputText> 
         </p:panel>
-		
+        
 		<p:accordionPanel activeIndex="#{menuBackingBean.activeTabIndex}" id="ap_menu">			
 			<p:tab title="#{msg.label_tab_proceso}" id="m1" rendered="#{menuBackingBean.root.childCount > 0}">			    				
 				<p:tree id="treeSingle" value="#{menuBackingBean.root}" var="nodo"    
