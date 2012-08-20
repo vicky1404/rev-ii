@@ -9,6 +9,7 @@ import javax.faces.event.ActionEvent;
 
 import org.apache.log4j.Logger;
 
+
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.DetalleEeff;
@@ -237,5 +238,7 @@ private transient Logger logger = Logger.getLogger(VisualizadorEeffBackingBean.c
 	public void setSelectFecuCuenta(String selectFecuCuenta) {
 		this.selectFecuCuenta = selectFecuCuenta;
 	}
+	
+	
 
 }
