@@ -113,7 +113,7 @@ private static final long serialVersionUID = -2121624962103986848L;
     private BigDecimal montoPesosNuevo;
     
     @ManyToOne
-    @JoinColumn(name = "ID_CUENTA")
+    @JoinColumn(name = "ID_CUENTA", insertable = false, updatable = false)
     private CuentaContable cuentaContable;
 
     public RelacionDetalleEeff() {

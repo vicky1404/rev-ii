@@ -28,6 +28,7 @@ import cl.mdr.ifrs.ejb.entity.PeriodoEmpresa;
 import cl.mdr.ifrs.ejb.entity.RelacionDetalleEeff;
 import cl.mdr.ifrs.ejb.entity.RelacionEeff;
 import cl.mdr.ifrs.ejb.entity.TipoEstadoEeff;
+import cl.mdr.ifrs.ejb.entity.Version;
 import cl.mdr.ifrs.ejb.entity.VersionEeff;
 import cl.mdr.ifrs.ejb.service.local.EstadoFinancieroServiceLocal;
 
@@ -95,7 +96,12 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
     public VersionEeff getVersionEeffVigenteFindByPeriodo(Long idPeriodo) {
         Query query = em.createNamedQuery(VersionEeff.FIND_VIGENTE_BY_PERIOD);
         query.setParameter("idPeriodo", idPeriodo);
-        return (VersionEeff)query.getSingleResult();
+        
+        if (query.getResultList().size() > 0){
+        	return (VersionEeff)query.getSingleResult();
+        }
+        
+        return null;
     }
     
     public void persistEeffMap(Map<Long, EstadoFinanciero> eeffMap){ 
@@ -114,16 +120,31 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
     }
     
     public void updateNoVigenteByPeriodoEmpresa(PeriodoEmpresa periodoEmpresa){
+    	
+    	em.createNativeQuery("update " + Constantes.VERSION_EEFF + " o set o.VIGENCIA = :valor where o.ID_PERIODO = :idPeriodo and o.ID_RUT = :idRut")
+    	.setParameter("idPeriodo", periodoEmpresa.getIdPeriodo())
+        .setParameter("idRut", periodoEmpresa.getIdRut())
+        .setParameter("valor", 0L)
+        .executeUpdate();
+    	
+    	/*
         em.createNamedQuery(VersionEeff.UPDATE_VIGENCIA_BY_PERIODO_EMPRESA)
             .setParameter("idPeriodo", periodoEmpresa.getIdPeriodo())
             .setParameter("idRut", periodoEmpresa.getIdRut())
+            .setParameter("valor", 0L)
             .executeUpdate();
+       */
     }
     
     public void persisVersionEeff(VersionEeff version){
     	Long versionNueva = getMaxVersionByPeriodoEmpresa(version.getPeriodoEmpresa()) + 1L;
+        
+        if (versionNueva.compareTo(1L) > 0){
+        	updateNoVigenteByPeriodoEmpresa(version.getPeriodoEmpresa());
+        	version = em.find(VersionEeff.class, version.getIdVersionEeff());
+        }
+        
         version.setVersion(versionNueva);
-        updateNoVigenteByPeriodoEmpresa(version.getPeriodoEmpresa());
         em.persist(version);
     }
     
@@ -131,7 +152,13 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
     public TipoEstadoEeff getTipoEstadoEeffById(Long idEstadoEeff){
         Query query = em.createNamedQuery(TipoEstadoEeff.FIND_BY_ID);
         query.setParameter("idEstadoEeff", idEstadoEeff);
-        return (TipoEstadoEeff)query.getSingleResult();
+        
+        if (query.getResultList().size() > 0){
+        	return (TipoEstadoEeff)query.getSingleResult();	
+        }
+        
+        return null;
+        
     }
     
     @SuppressWarnings("unchecked")

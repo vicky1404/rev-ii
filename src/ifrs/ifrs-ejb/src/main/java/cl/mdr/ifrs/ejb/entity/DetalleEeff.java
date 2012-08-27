@@ -72,7 +72,7 @@ public class DetalleEeff implements Serializable {
     private EstadoFinanciero estadoFinanciero1;
     
     @ManyToOne
-    @JoinColumn(name = "ID_CUENTA")
+    @JoinColumn(name = "ID_CUENTA", insertable = false, updatable = false)
     private CuentaContable cuentaContable;
 
     public DetalleEeff() {

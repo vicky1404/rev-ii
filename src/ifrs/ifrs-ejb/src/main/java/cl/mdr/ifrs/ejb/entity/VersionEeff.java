@@ -1,8 +1,10 @@
 package cl.mdr.ifrs.ejb.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
+import javax.ejb.Timeout;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +19,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.google.gson.annotations.Expose;
 
@@ -36,10 +40,7 @@ import cl.mdr.ifrs.ejb.common.Constantes;
 			                 		" o.periodoEmpresa.idRut = :idRut"),
                  		
                  @NamedQuery(name = VersionEeff.UPDATE_VIGENCIA_BY_PERIODO_EMPRESA, 
-			                 query = " update VersionEeff o " +
-			                 		 " set o.vigencia = 0 " +
-			                 		 " where o.periodoEmpresa.idPeriodo = :idPeriodo " +
-			                 		 " and o.periodoEmpresa.idRut = :idRut")
+			                 query = " update VersionEeff o set o.vigencia = :valor where o.periodoEmpresa.idPeriodo = :idPeriodo and o.periodoEmpresa.idRut = :idRut")
 })
 
 @Table(name = Constantes.VERSION_EEFF)
@@ -52,25 +53,29 @@ public class VersionEeff implements Serializable {
     public static final String UPDATE_VIGENCIA_BY_PERIODO_EMPRESA = "VersionEeff.updateVigenciaByPeriodoEmpresa";
     
     @Id    
+    @Expose
     @GeneratedValue(generator="ID_GEN_VERSION_EEFF")
     @SequenceGenerator(name="ID_GEN_VERSION_EEFF", sequenceName = "SEQ_VERSION_EEFF" ,allocationSize = 1)
-    @Column(name = "ID_VERSION_EEFF", nullable = false)
-    @Expose
+    @Column(name = "ID_VERSION_EEFF", nullable = false)    
     private Long idVersionEeff;
     
-    @Column(length = 256)
     @Expose
+    @Column(length = 256)    
     private String usuario;
     
-    @Column(nullable = false)
     @Expose
+    @Column(nullable = false)    
     private Long version;
     
     @Column(nullable = false)
     @Expose
     private Long vigencia;
     
-    @ManyToOne(fetch = FetchType.EAGER)
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column
+    private Date fecha;
+    
+	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_ESTADO_EEFF")
     @Expose
     private TipoEstadoEeff tipoEstadoEeff;
@@ -78,10 +83,10 @@ public class VersionEeff implements Serializable {
     @OneToMany(mappedBy = "versionEeff", cascade = CascadeType.PERSIST)
     private List<EstadoFinanciero> estadoFinancieroList;
 
+    @Expose
 	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumns( { @JoinColumn(name = "ID_PERIODO", referencedColumnName = "ID_PERIODO"),
 			        @JoinColumn(name = "ID_RUT", referencedColumnName = "ID_RUT")})
-	@Expose
 	private PeriodoEmpresa periodoEmpresa;
 
     public VersionEeff() {
@@ -155,6 +160,14 @@ public class VersionEeff implements Serializable {
 		return result;
 	}
 
+	public Date getFecha() {
+		return fecha;
+	}
+
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
 
 	@Override
 	public boolean equals(Object obj) {
