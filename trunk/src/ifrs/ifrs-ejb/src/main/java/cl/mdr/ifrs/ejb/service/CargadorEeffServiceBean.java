@@ -534,7 +534,7 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
                         .append(EeffUtil.getTdFontTag()).append(relEeff.getCelda2().getColumna().getTituloColumna()).append(EeffUtil.getTdFontCloseTag())
                         .append(EeffUtil.getTdFontTag()).append(relEeff.getIdFila()).append(EeffUtil.getTdFontCloseTag())
                         .append(EeffUtil.getTdFontTag()).append(Util.formatCellKey(relEeff.getCelda2())).append(EeffUtil.getTdFontCloseTag())
-                        .append(EeffUtil.getTdFontTag()).append(relEeff.getCelda2().getValor()).append(EeffUtil.getTdFontCloseTag())
+                        .append(EeffUtil.getTdFontTag()).append(relEeff.getCelda2().getValorBigDecimal()).append(EeffUtil.getTdFontCloseTag())
                         .append("</tr>");
                 count++;
                 }
@@ -587,7 +587,7 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
                         .append(EeffUtil.getTdFontTag()).append(relDetalleEeff.getCelda5().getColumna().getTituloColumna()).append(EeffUtil.getTdFontCloseTag())
                         .append(EeffUtil.getTdFontTag()).append(relDetalleEeff.getIdFila()).append(EeffUtil.getTdFontCloseTag())
                         .append(EeffUtil.getTdFontTag()).append(Util.formatCellKey(relDetalleEeff.getCelda5())).append(EeffUtil.getTdFontCloseTag())
-                        .append(EeffUtil.getTdFontTag()).append(relDetalleEeff.getCelda5().getValor()).append(EeffUtil.getTdFontCloseTag())
+                        .append(EeffUtil.getTdFontTag()).append(relDetalleEeff.getCelda5().getValorBigDecimal()).append(EeffUtil.getTdFontCloseTag())
                         .append("</tr>");
                     
                     count++;
@@ -638,7 +638,7 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
                         .append(EeffUtil.getTdFontTag()).append(relEeff.getCelda2().getColumna().getTituloColumna()).append(EeffUtil.getTdFontCloseTag())
                         .append(EeffUtil.getTdFontTag()).append(relEeff.getIdFila()).append(EeffUtil.getTdFontCloseTag())
                         .append(EeffUtil.getTdFontTag()).append(Util.formatCellKey(relEeff.getCelda2())).append(EeffUtil.getTdFontCloseTag())
-                        .append(EeffUtil.getTdFontTag()).append(relEeff.getCelda2().getValor()).append(EeffUtil.getTdFontCloseTag())
+                        .append(EeffUtil.getTdFontTag()).append(relEeff.getCelda2().getValorBigDecimal()).append(EeffUtil.getTdFontCloseTag())
                         .append("</tr>");
                 count++;
                 }
@@ -691,7 +691,7 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
                         .append(EeffUtil.getTdFontTag()).append(relDetalleEeff.getCelda5().getColumna().getTituloColumna()).append(EeffUtil.getTdFontCloseTag())
                         .append(EeffUtil.getTdFontTag()).append(relDetalleEeff.getIdFila()).append(EeffUtil.getTdFontCloseTag())
                         .append(EeffUtil.getTdFontTag()).append(Util.formatCellKey(relDetalleEeff.getCelda5())).append(EeffUtil.getTdFontCloseTag())
-                        .append(EeffUtil.getTdFontTag()).append(relDetalleEeff.getCelda5().getValor()).append(EeffUtil.getTdFontCloseTag())
+                        .append(EeffUtil.getTdFontTag()).append(relDetalleEeff.getCelda5().getValorBigDecimal()).append(EeffUtil.getTdFontCloseTag())
                         .append("</tr>");
                     
                     count++;
@@ -739,7 +739,7 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
                     usuarioMailMap.get(usuarioTemp.getUsuarioOid()).getContenidoMail().append(contenidoMail);
                     usuarioMailMap.get(usuarioTemp.getUsuarioOid()).getCatalogoAsociadoList().add(catalogo);
                 }else{
-                    usuarioTemp.setContenidoMail(contenidoMail);
+                    usuarioTemp.setContenidoMail(new StringBuilder(contenidoMail));
                     usuarioTemp.setCatalogoAsociadoList(new ArrayList<Catalogo>());
                     usuarioTemp.getCatalogoAsociadoList().add(catalogo);
                     usuarioMailMap.put(usuarioTemp.getUsuarioOid(), usuarioTemp);

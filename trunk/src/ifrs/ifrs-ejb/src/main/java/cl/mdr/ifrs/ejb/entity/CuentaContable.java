@@ -14,11 +14,13 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import cl.mdr.ifrs.ejb.common.Constantes;
+
 
 @Entity
 @NamedQueries( { @NamedQuery(name = CuentaContable.FIND_ALL, query = "select o from CuentaContable o"),
                  @NamedQuery(name = CuentaContable.FIND_VIGENTE, query = "select o from CuentaContable o where o.vigencia = 1 order by o.idCuenta")})
-@Table(name = "REV_CUENTA_CONTABLE")
+@Table(name = Constantes.CUENTA_CONTABLE)
 public class CuentaContable implements Serializable {
     
     public static final String FIND_ALL = "CuentaContable.findAll";
