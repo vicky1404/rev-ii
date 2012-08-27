@@ -1,20 +1,14 @@
 package cl.mdr.ifrs.modules.mb;
 
-import java.util.ArrayList;
 import java.util.List;
- 
 import java.util.Map;
- 
-import javax.annotation.PostConstruct;
- 
 
- 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
- 
 
 import org.apache.log4j.Logger;
 import org.primefaces.component.fileupload.FileUpload;
@@ -29,6 +23,7 @@ import cl.mdr.ifrs.ejb.cross.EeffUtil;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.EstadoFinanciero;
 import cl.mdr.ifrs.ejb.entity.Periodo;
+import cl.mdr.ifrs.ejb.entity.PeriodoEmpresa;
 import cl.mdr.ifrs.ejb.entity.TipoEstadoEeff;
 import cl.mdr.ifrs.ejb.entity.VersionEeff;
 import cl.mdr.ifrs.exceptions.EstadoFinancieroException;
@@ -74,20 +69,6 @@ public class CargadorEeffBackingBean extends AbstractBackingBean {
         }
     }
    
-    /*public void buscarVersionEEFF(ActionEvent event){
-       
-        try{ 
-            Long periodoLong = Long.valueOf(getFiltro().getPeriodo().getAnioPeriodo().concat(getFiltro().getPeriodo().getMesPeriodo()));
-            Periodo periodo = getFacade().getMantenedoresTipoService().findByPeriodo(periodoLong);
-            getFiltro().setPeriodo(periodo);
-            renderVersiones = true;
-        }catch(Exception e){
-            agregarErrorMessage("Error al buscar las versiones para el periodo seleccionado");
-            e.printStackTrace();
-        }
-       
-    }*/
-    
     private void init(){
     	
         versionEeff = null;
@@ -97,7 +78,9 @@ public class CargadorEeffBackingBean extends AbstractBackingBean {
    
     public String procesarArchivo(FileUploadEvent event) {
 try {
-            
+    
+			this.setUploadedFile(event.getFile()); 
+	
             if(getUploadedFile() == null){
                 init();
                 addErrorMessage("Seleccione o Actualice el archivo que desea cargar");
@@ -116,11 +99,11 @@ try {
             EeffUtil.setVersionEeffToEeffList(cargadorVO.getEeffList(), versionEeff);
             getFacadeService().getCargadorEeffService().validarNuevoEeff(cargadorVO.getEeffList(), periodo.getIdPeriodo(),cargadorVO);
             
-            String emailFrom = PropertyManager.getInstance().getMessage("cargador_mail_from");
-            String emailHost = PropertyManager.getInstance().getMessage("mail_host");
-            String subject = PropertyManager.getInstance().getMessage("cargador_subject");
+            //String emailFrom = PropertyManager.getInstance().getMessage("cargador_mail_from");
+            //String emailHost = PropertyManager.getInstance().getMessage("mail_host");
+            //String subject = PropertyManager.getInstance().getMessage("cargador_subject");
             
-            getFacadeService().getCargadorEeffService().sendMailEeff(cargadorVO.getUsuarioGrupoList(), emailFrom, subject, emailHost);
+            //getFacadeService().getCargadorEeffService().sendMailEeff(cargadorVO.getUsuarioGrupoList(), emailFrom, subject, emailHost);
             
             if(
                 Util.esListaValida(cargadorVO.getEeffDescuadreList())||
@@ -136,7 +119,10 @@ try {
             versionEeff.setTipoEstadoEeff(tipoEstadoEeff);
             versionEeff.setUsuario(getNombreUsuario());
             versionEeff.setVigencia(1L);
+            versionEeff.setPeriodoEmpresa(new PeriodoEmpresa());
             versionEeff.getPeriodoEmpresa().setPeriodo(periodo);
+            versionEeff.getPeriodoEmpresa().setIdPeriodo(periodo.getIdPeriodo());
+            versionEeff.getPeriodoEmpresa().setIdRut(super.getFiltroBackingBean().getEmpresa().getIdRut());
             versionEeff.setEstadoFinancieroList(cargadorVO.getEeffList());
             
         } catch (EstadoFinancieroException e) {
@@ -244,6 +230,10 @@ try {
 	}
 
 	public CargadorEeffVO getCargadorVO() {
+		if (cargadorVO == null){
+			
+			cargadorVO = new CargadorEeffVO();
+		}
 		return cargadorVO;
 	}
 

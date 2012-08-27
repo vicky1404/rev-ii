@@ -7,9 +7,10 @@
 	template="/WEB-INF/templates/main-template.xhtml">
 	<ui:define name="content">
 		<h:form id="form" enctype="multipart/form-data">  
-		
+			<p:growl id="messages" />
 			<p:ajaxStatus onstart="statusDialogNoModal.show();" oncomplete="statusDialogNoModal.hide();" />
 			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
+			
 		 <p:panel header="Periodo actual : #{cargadorEeff.periodo.periodoFormat}" toggleable="true" >
 		 
 		 	<p:dataTable value="#{cargadorEeff.versionEeffList}" var="row">
@@ -28,20 +29,159 @@
 		 	</p:column>
 		 	</p:dataTable>
 		 </p:panel>
-		 <p:spacer height="10"></p:spacer>
+		 <p:spacer height="10"/>
+		 
 		 <p:panel closable="false" toggleable="false" >
 		 
-		 <p:fileUpload value="#{cargadorEeff.uploadedFile}" fileUploadListener="#{cargadorEeff.procesarArchivo}" binding="#{cargadorEeff.richInputFile}" sizeLimit="#{msg.constantes_max_excel_file_bytes}" label="#{msg.label_seleccione} Excel" mode="advanced" update="@form"  allowTypes="/(.|\/)(xls|xlsx)$/"></p:fileUpload>
+		 <p:fileUpload value="#{cargadorEeff.uploadedFile}" fileUploadListener="#{cargadorEeff.procesarArchivo}" binding="#{cargadorEeff.richInputFile}" sizeLimit="#{msg.constantes_max_excel_file_bytes}" label="#{msg.label_seleccione} Excel" mode="advanced" update="@form"  allowTypes="/(.|\/)(xls|xlsx)$/"/>
+		 <p:spacer height="30"/>
 		 <p:commandButton value="Guardar" id="cb3" actionListener="#{cargadorEeff.guardarListener}" icon="ui-icon-check" update="@form"></p:commandButton>
-		 <p:spacer height="10"></p:spacer>
-		 <p:dataTable value="#{cargadorEeff.sizeEeff}" var="row" rendered="#{cargadorEeff.renderedTablaResultado}">
-		 	<p:column headerText="Cantidad cabecera">
-		 		<h:outputText value="#{cargadorEeff.sizeEeff}" />
-		 	</p:column>
-		 	<p:column headerText="Cantidad detalle">
-		 		<h:outputText value="#{cargadorEeff.sizeEeffDetalle}" />
-		 	</p:column>
-		 </p:dataTable>
+		 
+		 <!-- INFO CARGADA -->
+		 
+		 <p:tabView id="idTabView">
+		 	<p:tab id="tab1" title="#{msg.carga_eeff_info_cargada}" titletip="#{msg.carga_eeff_info_cargada_desc}">
+		 	
+            <p:dataTable value="#{cargadorEeff.cargadorVO.eeffList}" var="row" id="t5" emptyMessage="#{msg.general_sin_informacion}">
+
+				<p:column style="width:4%">  
+            		<p:rowToggler />  
+        		</p:column>
+        		
+                <p:column headerText="#{msg.eeff_codigo_fecu}" id="cA7" width="100">
+                        <h:outputText value="#{row.fecuFormat}" id="otA12"/>
+                </p:column>
+                
+                <p:column headerText="#{msg.carga_eeff_descripcion}" id="cA8" width="400">
+                    <h:outputText value="#{row.codigoFecu.descripcion}" id="otA13"/>
+                </p:column>
+                
+                <p:column headerText="#{msg.carga_eeff_monto}" id="c19" width="100">
+	                <h:outputText value="#{row.montoTotal}" id="otA21">
+	                    <f:convertNumber integerOnly="false" type="number" maxFractionDigits="4" locale="#{cargadorEeff.localeCL}" pattern="##,###,###,###.####"/>
+	                </h:outputText>
+                </p:column>
+            
+                 	<p:rowExpansion>
+		                    <h:dataTable value="#{row.detalleEeffList4}" var="subRow" id="dt1" styleClass="datalle_flujo" width="600" >
+		                        <p:column id="c16">
+		                            <f:facet name="header">
+		                                <h:outputText value="#{msg.carga_eeff_codigo_cuenta}" id="ot18"/>
+		                            </f:facet>
+		                            <h:outputText value="#{subRow.idCuenta}" id="ot16B"/>
+		                        </p:column>
+		                        
+		                        <p:column id="c17">
+		                            <f:facet name="header">
+		                                <h:outputText value="#{msg.carga_eeff_desc_cuenta}" id="ot27"/>
+		                            </f:facet>
+		                            <h:outputText value="#{subRow.cuentaContable.descripcion}" id="ot28"/>
+		                        </p:column>
+		                        
+		                        <p:column id="c18">
+		                            <f:facet name="header">
+		                                <h:outputText value="#{msg.carga_eeff_monto_ebs}" id="ot29"/>
+		                            </f:facet>
+		                            <h:outputText value="#{subRow.montoEbs}" id="ot21">
+		                            	<f:convertNumber integerOnly="false" type="number" maxFractionDigits="4" locale="#{cargadorEeff.localeCL}" pattern="##,###,###,###.####"/>                            
+		                            </h:outputText>
+		                        </p:column>
+		                        
+		                        <p:column id="c49">
+		                            <f:facet name="header">
+		                                <h:outputText value="#{msg.carga_eeff_monto_reclasificacion}" id="ot51"/>
+		                            </f:facet>
+		                            <h:outputText value="#{subRow.montoReclasificacion}" id="ot52">
+		                            	<f:convertNumber integerOnly="false" type="number" maxFractionDigits="4" locale="#{cargadorEeff.localeCL}" pattern="##,###,###,###.####"/>                            
+		                            </h:outputText>
+		                        </p:column>
+		                        
+		                        <p:column id="c50">
+		                            <f:facet name="header">
+		                                <h:outputText value="#{msg.carga_eeff_monto_pesos}" id="ot53"/>
+		                            </f:facet>
+		                            <h:outputText value="#{subRow.montoPesos}" id="ot54">
+		                            	<f:convertNumber integerOnly="false" type="number" maxFractionDigits="4" locale="#{cargadorEeff.localeCL}" pattern="##,###,###,###.####"/>                            
+		                            </h:outputText>
+		                        </p:column>
+		                        
+		                        <p:column id="c51">
+		                            <f:facet name="header">
+		                                <h:outputText value="#{msg.carga_eeff_monto_miles_pesos}" id="ot55"/>
+		                            </f:facet>
+		                            <h:outputText value="#{subRow.montoMiles}" id="ot56">
+		                            	<f:convertNumber integerOnly="false" type="number" maxFractionDigits="4" locale="#{cargadorEeff.localeCL}" pattern="##,###,###,###.####"/>                            
+		                            </h:outputText>
+		                        </p:column>
+		                        
+		                        <p:column id="c52">
+		                            <f:facet name="header">
+		                                <h:outputText value="#{msg.carga_eeff_monto_validar}" id="ot57"/>
+		                            </f:facet>
+		                            <h:outputText value="#{subRow.montoPesosMil}" id="ot58">
+		                            	<f:convertNumber integerOnly="false" type="number" maxFractionDigits="4" locale="#{cargadorEeff.localeCL}" pattern="##,###,###,###.####"/>                            
+		                            </h:outputText>
+		                        </p:column>		                        
+		                    </h:dataTable>
+                 	</p:rowExpansion>
+                
+            </p:dataTable>
+		 	</p:tab>
+		 	<!-- DETALLE DE CARGA -->
+		 	<p:tab id="tab2" title="#{msg.carga_eeff_detalle_carga_eeff}" titletip="#{msg.carga_eeff_detalle_carga_eeff_desc}" rendered="#{!cargadorEeff.renderTableRel}">
+		 	
+		 		<p:dataTable value="#{cargadorEeff.cargadorVO.eeffBorradoList}" var="row" id="t3" inlineStyle="height:inherit;">
+                    <p:column headerText="#{msg.eeff_codigo_fecu}" id="c7" width="100">
+                        <h:outputText value="#{row.fecuFormat}" id="ot12"/>
+                    </p:column>
+                    <p:column headerText="#{msg.carga_eeff_descripcion}" id="c8" width="300">
+                        <h:outputText value="#{row.codigoFecu.descripcion}" id="ot13"/>
+                    </p:column>
+                 </p:dataTable>
+		 	
+		 	</p:tab>
+		 	
+		 	<!-- LISTADO DE EMAILS -->
+		 	
+		 	<p:tab id="tab3" title="#{msg.carga_eeff_mail}" titletip="#{msg.carga_eeff_mail_desc}" rendered="#{!not empty cargadorEeffBackingBean.cargadorVO.usuarioGrupoList}">
+            <h:outputText value="#{msg.eeff_lista_notificacion_mail}" id="ot61"/>
+            <p:dataTable value="#{cargadorEeff.cargadorVO.usuarioGrupoList}" var="row" emptyMessage="#{msg.general_sin_informacion}" id="t10">
+            
+            	<p:column style="width:4%">  
+            				<p:rowToggler />  
+        				</p:column>  
+            	<p:column headerText="#{msg.etiqueta_nombre_usuario}" id="c39" width="200">
+                    <h:outputText value="#{row.usuarioOid}" id="ot41"/>
+                </p:column>
+                <p:column headerText="#{msg.etiqueta_email}" id="c38" width="450">
+                    <h:outputText value="#{row.email}" id="ot40"/>
+                </p:column>
+                
+                 <p:rowExpansion>
+                    
+                    <h:dataTable value="#{row.catalogoAsociadoList}" var="subRow" id="dt2" styleClass="datalle_flujo" width="600" >
+                        <p:column id="c47">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.etiqueta_tipo_cuadro}" id="ot49"/>
+                            </f:facet>
+                            <h:outputText value="#{subRow.tipoCuadro.nombre}" id="ot50"/>
+                        </p:column>
+                        
+                        <p:column id="c48">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.tabla_catalogo_titulo_nota}" id="ot59"/>
+                            </f:facet>
+                            <h:outputText value="#{subRow.titulo}" id="ot60"/>
+                        </p:column>
+                    </h:dataTable>
+                    
+                </p:rowExpansion>
+                
+            </p:dataTable>
+        </p:tab>
+		 	
+	 </p:tabView>
+		 
 		 </p:panel>
 		</h:form>
 	</ui:define>
