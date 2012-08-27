@@ -374,5 +374,16 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
         return query.getResultList();
     }
     
+    public List<RelacionEeff> getRelacionEeffByPeriodo(Long idPeriodo){
+        Query query = em.createNamedQuery(RelacionEeff.FIND_BY_PERIODO);
+        query.setParameter("idPeriodo", idPeriodo);
+        return query.getResultList();
+    }
+    
+    public List<RelacionDetalleEeff> getRelacionDetalleEeffByPeriodo(Long idPeriodo){
+        Query query = em.createNamedQuery(RelacionDetalleEeff.FIND_BY_PERIODO);
+        query.setParameter("idPeriodo", idPeriodo);
+        return query.getResultList();
+    }
    
 }

@@ -4,8 +4,7 @@ package cl.mdr.ifrs.ejb.service;
 import static ch.lambdaj.Lambda.index;
 import static ch.lambdaj.Lambda.on;
 import static ch.lambdaj.Lambda.sort;
-import ch.lambdaj.function.compare.ArgumentComparator;
-
+import static cl.mdr.ifrs.ejb.cross.Constantes.PERSISTENCE_UNIT_NAME;
 
 import java.io.InputStream;
 import java.math.BigDecimal;
@@ -15,9 +14,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
@@ -27,20 +24,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
+import org.apache.commons.collections.ComparatorUtils;
 import org.apache.log4j.Logger;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-
-
+import ch.lambdaj.function.compare.ArgumentComparator;
 import cl.mdr.ifrs.ejb.cross.EeffUtil;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
@@ -54,11 +45,8 @@ import cl.mdr.ifrs.ejb.entity.UsuarioGrupo;
 import cl.mdr.ifrs.ejb.entity.VersionEeff;
 import cl.mdr.ifrs.ejb.facade.local.FacadeServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.CargadorEeffServiceLocal;
-import cl.mdr.ifrs.ejb.service.local.EstadoFinancieroServiceLocal;
-import cl.mdr.ifrs.ejb.service.local.FecuServiceLocal;
 import cl.mdr.ifrs.exceptions.EstadoFinancieroException;
 import cl.mdr.ifrs.vo.CargadorEeffVO;
-import static cl.mdr.ifrs.ejb.cross.Constantes.PERSISTENCE_UNIT_NAME;
 
 
 @Stateless
@@ -739,12 +727,13 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
             
             Catalogo catalogo = facadeService.getCatalogoService().findCatalogoByCatalogo(new Catalogo(mensajeEntry.getKey()));
             
-            Map<String,UsuarioGrupo> usuarioMap = index(facadeService.getSeguridadService().getUsuarioGrupoByCatalogo(mensajeEntry.getKey()), on(UsuarioGrupo.class).getUsuarioOid());
+            //Map<String,UsuarioGrupo> usuarioMap = index(facadeService.getSeguridadService().getUsuarioGrupoByCatalogo(mensajeEntry.getKey()), on(UsuarioGrupo.class).getUsuarioOid());
             
             for(StringBuilder str : mensajeEntry.getValue()){
                 contenidoMail.append(str).append("<br>");
             }
             
+            /*
             for(UsuarioGrupo usuarioTemp : usuarioMap.values()){
                 if(usuarioMailMap.containsKey(usuarioTemp.getUsuarioOid())){
                     usuarioMailMap.get(usuarioTemp.getUsuarioOid()).getContenidoMail().append(contenidoMail);
@@ -756,6 +745,7 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
                     usuarioMailMap.put(usuarioTemp.getUsuarioOid(), usuarioTemp);
                 }
             }
+            */
         }
         
         cargadorVO.setUsuarioGrupoList(new ArrayList<UsuarioGrupo>(usuarioMailMap.values()));
@@ -797,11 +787,11 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
     }
     
     public void sendMailEeff(List<UsuarioGrupo> usuarioGrupoList, String emailFrom, String subject, String host){
-        
-        Map<String,UsuarioGrupo> usuarioMap = index(usuarioGrupoList, on(UsuarioGrupo.class).getUsuarioOid());
+       /*
+       Map<String,UsuarioGrupo> usuarioMap = index(usuarioGrupoList, on(UsuarioGrupo.class).getUsuarioOid());
         
         for(UsuarioGrupo usuario : usuarioMap.values()){
-           
+          
             try {
                 Properties properties = System.getProperties();
                 properties.setProperty("mail.smtp.host", host);
@@ -817,10 +807,11 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
                 }catch (MessagingException mex) {
                    mex.printStackTrace();
                 }
-            } catch (Exception e) {
-                logger.error("Error de dirección de correo" + e.getMessage());
-            }
+	            } catch (Exception e) {
+	                logger.error("Error de dirección de correo" + e.getMessage());
+	            }
+	          
         }
-        
+      */
     }
 }
