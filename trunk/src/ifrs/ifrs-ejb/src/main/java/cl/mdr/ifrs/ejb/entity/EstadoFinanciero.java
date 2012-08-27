@@ -77,6 +77,9 @@ public class EstadoFinanciero implements Serializable {
     
     @Transient
     private String idFecuString;
+    
+    @Transient
+    private BigDecimal montoTotalNuevo;
 
     public EstadoFinanciero() {
     }
@@ -181,6 +184,14 @@ public class EstadoFinanciero implements Serializable {
 
 	public void setIdFecuString(String idFecuString) {
 		this.idFecu = Long.valueOf(idFecuString);
+	}
+
+	public BigDecimal getMontoTotalNuevo() {
+		return montoTotalNuevo;
+	}
+
+	public void setMontoTotalNuevo(BigDecimal montoTotalNuevo) {
+		this.montoTotalNuevo = montoTotalNuevo;
 	}
 	
 }

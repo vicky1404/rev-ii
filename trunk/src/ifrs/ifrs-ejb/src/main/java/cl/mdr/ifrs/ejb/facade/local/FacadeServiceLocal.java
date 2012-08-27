@@ -12,6 +12,7 @@ import cl.mdr.ifrs.ejb.service.local.CeldaServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.EmpresaServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.EstadoFinancieroServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.EstructuraServiceLocal;
+import cl.mdr.ifrs.ejb.service.local.FecuServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.FormulaServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.GrillaServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.MantenedoresTipoServiceLocal;
@@ -106,5 +107,10 @@ public interface FacadeServiceLocal{
      */
     TaxonomyLoaderServiceLocal getTaxonomyLoaderService();
     
+   /**
+    * 
+    * @returnInterfaz local de FecuServiceLocal
+    */
+    FecuServiceLocal getFecuService();
     
 }

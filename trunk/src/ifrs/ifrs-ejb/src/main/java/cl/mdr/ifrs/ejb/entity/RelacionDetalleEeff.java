@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.google.gson.annotations.Expose;
 
@@ -108,6 +109,12 @@ private static final long serialVersionUID = -2121624962103986848L;
     @Expose
     private Celda celda5;
     
+    @Transient
+    private BigDecimal montoPesosNuevo;
+    
+    @ManyToOne
+    @JoinColumn(name = "ID_CUENTA")
+    private CuentaContable cuentaContable;
 
     public RelacionDetalleEeff() {
     }
@@ -389,6 +396,22 @@ private static final long serialVersionUID = -2121624962103986848L;
 		} else if (!periodoEmpresa.equals(other.periodoEmpresa))
 			return false;
 		return true;
+	}
+
+	public BigDecimal getMontoPesosNuevo() {
+		return montoPesosNuevo;
+	}
+
+	public void setMontoPesosNuevo(BigDecimal montoPesosNuevo) {
+		this.montoPesosNuevo = montoPesosNuevo;
+	}
+
+	public CuentaContable getCuentaContable() {
+		return cuentaContable;
+	}
+
+	public void setCuentaContable(CuentaContable cuentaContable) {
+		this.cuentaContable = cuentaContable;
 	}
 	
 }

@@ -374,4 +374,5 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
         return query.getResultList();
     }
     
+   
 }

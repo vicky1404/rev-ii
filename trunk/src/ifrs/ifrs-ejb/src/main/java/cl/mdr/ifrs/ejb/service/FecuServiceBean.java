@@ -1,22 +1,27 @@
 package cl.mdr.ifrs.ejb.service;
 
-import static ch.lambdaj.Lambda.index;
+import static cl.mdr.ifrs.ejb.cross.Constantes.PERSISTENCE_UNIT_NAME;
+import cl.mdr.ifrs.ejb.entity.CodigoFecu;
+import cl.mdr.ifrs.ejb.service.local.FecuServiceLocal;
 import static ch.lambdaj.Lambda.on;
+import static ch.lambdaj.Lambda.index;
+
+import cl.mdr.ifrs.ejb.entity.CuentaContable;
 
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
+
+
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
-import cl.mdr.ifrs.ejb.entity.CodigoFecu;
-import cl.mdr.ifrs.ejb.service.local.FecuServiceLocal;
-import static cl.mdr.ifrs.ejb.cross.Constantes.PERSISTENCE_UNIT_NAME;
 
 @Stateless
 public class FecuServiceBean implements FecuServiceLocal{
@@ -31,10 +36,15 @@ public class FecuServiceBean implements FecuServiceLocal{
     public FecuServiceBean() {
     }
     
-    @SuppressWarnings("unchecked")
-	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public Map<Long, CodigoFecu> getCodigoFecusVigentes(){
         List<CodigoFecu> codigos = em.createNamedQuery(CodigoFecu.FIND_VIGENTE).getResultList();
         return index(codigos, on(CodigoFecu.class).getIdFecu());
+    }
+    
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public Map<Long, CuentaContable> getCodigoCuentasVigentes(){
+        List<CuentaContable> codigos = em.createNamedQuery(CuentaContable.FIND_VIGENTE).getResultList();
+        return index(codigos, on(CuentaContable.class).getIdCuenta());
     }
 }
