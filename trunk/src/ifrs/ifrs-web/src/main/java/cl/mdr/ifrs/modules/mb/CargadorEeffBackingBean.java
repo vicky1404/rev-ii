@@ -1,9 +1,5 @@
 package cl.mdr.ifrs.modules.mb;
 
-
- 
-
- 
 import java.util.ArrayList;
 import java.util.List;
  
@@ -29,6 +25,8 @@ import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
 import cl.mdr.ifrs.cross.util.GeneradorDisenoHelper;
 import cl.mdr.ifrs.cross.util.PropertyManager;
 import cl.mdr.ifrs.ejb.common.TipoEstadoEeffEnum;
+import cl.mdr.ifrs.ejb.cross.EeffUtil;
+import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.EstadoFinanciero;
 import cl.mdr.ifrs.ejb.entity.Periodo;
 import cl.mdr.ifrs.ejb.entity.TipoEstadoEeff;
@@ -138,7 +136,7 @@ try {
             versionEeff.setTipoEstadoEeff(tipoEstadoEeff);
             versionEeff.setUsuario(getNombreUsuario());
             versionEeff.setVigencia(1L);
-            versionEeff.setPeriodo(periodo);
+            versionEeff.getPeriodoEmpresa().setPeriodo(periodo);
             versionEeff.setEstadoFinancieroList(cargadorVO.getEeffList());
             
         } catch (EstadoFinancieroException e) {
