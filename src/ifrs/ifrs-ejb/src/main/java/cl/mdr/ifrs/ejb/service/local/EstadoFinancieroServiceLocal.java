@@ -37,7 +37,7 @@ List<TipoEstadoEeff> getEstadoEeffFindAll();
     
     void deleteAllRelacionByGrillaPeriodo(Long idPeriodo, Long idGrilla);
     
-    
+    VersionEeff getVersionEeffVigenteFindByPeriodo(Long idPeriodo);
     
     void deleteRelacionAllEeffByCelda(Celda celda);
     
@@ -50,4 +50,6 @@ List<TipoEstadoEeff> getEstadoEeffFindAll();
     List<DetalleEeff> getEeffByLikeCuenta(Long idVersionEeff, Long likeCuenta);
     
     List<EstadoFinanciero> getEeffByVersion(Long idVersionEeff);
+    
+    List<DetalleEeff> getDetalleEeffByVersion(Long idVersionEeff);
 }

@@ -1,6 +1,7 @@
 package cl.mdr.ifrs.ejb.cross;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -62,6 +63,14 @@ public static String formatFecu(Long fecu){
     }
     
     public static void addErrorCuantaDu(int col, int row, List<String> errores){
+        errores.add("Número de cuenta contable repetido :columna : "+ col + " - línea " + row);
+    }
+    
+    public static void addErrorCuentaNotFound(int col, int row, List<String> errores){
+        errores.add("Número de cuenta contable  no está registrado en base de datos, columna : "+ col + " - línea " + row);
+    }
+    
+    public static void addErrorCuentaDu(int col, int row, List<String> errores){
         errores.add("Número de cuenta contable repetido :columna : "+ col + " - línea " + row);
     }
     
@@ -143,6 +152,10 @@ public static String formatFecu(Long fecu){
         return str;
     }
     
+    public static  String formatKeyFecuCuenta(Long idFeuc, Long idCuenta){
+        return "["+ idFeuc + "," + idCuenta +"]";
+    }
+    
     public static CargadorEeffVO convertToCargadoEeffVO(Map<Long, EstadoFinanciero> eeffMap, VersionEeff versionEeff){
         
         CargadorEeffVO cargadorVO = new CargadorEeffVO();
@@ -180,5 +193,135 @@ public static String formatFecu(Long fecu){
     	String salida = key.substring(1, key.length()-1);
     	salida = salida.replaceAll("[.]", "");
     	return Util.getLong(salida, new Long("0"));
+    }
+    
+public static String getTbodyRelEeff(){
+        
+        StringBuilder tbody = new StringBuilder();
+        
+        tbody
+            .append("<tbody>")
+            .append("<tr bgcolor='#81BEF7'>")
+            .append("<th >").append(getFontTag()).append("Código FECU").append(getFontCloseTag()).append("</th>")
+            .append("<th >").append(getFontTag()).append("Columna").append(getFontCloseTag()).append("</th>")
+            .append("<th >").append(getFontTag()).append("Número Fila").append(getFontCloseTag()).append("</th>")
+            .append("<th >").append(getFontTag()).append("Celda").append(getFontCloseTag()).append("</th>")
+            .append("<th >").append(getFontTag()).append("Valor").append(getFontCloseTag()).append("</th>")
+            .append("</tr>")
+            .append("</tbody>");
+        
+        return tbody.toString();
+    }
+    
+    public static String getTbodyRelDetEeff(){
+        
+        StringBuilder tbody = new StringBuilder();
+        
+        tbody 
+            .append("<tbody>")
+            .append("<tr bgcolor='#81BEF7'>")
+            .append("<th >").append(getFontTag()).append("Código FECU").append(getFontCloseTag()).append("</th>")
+            .append("<th >").append(getFontTag()).append("Código Cuenta").append(getFontCloseTag()).append("</th>")
+            .append("<th >").append(getFontTag()).append("Columna").append(getFontCloseTag()).append("</th>")
+            .append("<th >").append(getFontTag()).append("Número Fila").append(getFontCloseTag()).append("</th>")
+            .append("<th >").append(getFontTag()).append("Celda").append(getFontCloseTag()).append("</th>")
+            .append("<th >").append(getFontTag()).append("Valor").append(getFontCloseTag()).append("</th>")
+            .append("</tr>")
+            .append("</tbody>");
+        
+        return tbody.toString();
+        
+    }
+    
+    public static String getTableTag(){
+        return "<table cellspacing='0' width='800px'>";
+    }
+    
+    public static String getTableCloseTag(){
+        return "</table>";
+    }
+    
+    public static String getSaltoLineaTag(){
+        return "<br>";
+    }
+    
+    public static String getFontTag(){
+        return "<font face='Arial' size='2'>";
+    }
+    
+    public static String getFontCloseTag(){
+        return "</font>";
+    }
+    
+    public static String getTdFontTag(){
+        return "<td><font face='Arial' size='2'>";
+    }
+    
+    public static String getTdFontCloseTag(){
+        return "</font></td>";
+    }
+    
+    public static Map<Long, List<RelacionEeff>> convertRelEeffListToMapByGrilla(List<RelacionEeff> relEeffList){
+        
+        Map<Long, List<RelacionEeff>> relEeffMap = new HashMap<Long, List<RelacionEeff>>();
+        
+        for(RelacionEeff relEeff : relEeffList){
+            Long idCatalogo = relEeff.getCelda2().getColumna().getGrilla().getEstructura().getVersion().getCatalogo().getIdCatalogo();
+            if(relEeffMap.containsKey(idCatalogo)){
+                relEeffMap.get(idCatalogo).add(relEeff);
+            }else{
+                List<RelacionEeff> relEeffTempList = new ArrayList<RelacionEeff>();
+                relEeffTempList.add(relEeff);
+                relEeffMap.put(idCatalogo, relEeffTempList);
+            }
+        }
+        
+        return relEeffMap;
+    }
+    
+    public static Map<Long, List<RelacionDetalleEeff>> convertRelDetEeffListToMapByGrilla(List<RelacionDetalleEeff> relDetEeffList){
+        
+        Map<Long, List<RelacionDetalleEeff>> relDetEeffMap = new HashMap<Long, List<RelacionDetalleEeff>>();
+        
+        for(RelacionDetalleEeff relDetEeff : relDetEeffList){
+            Long idCatalogo = relDetEeff.getCelda5().getColumna().getGrilla().getEstructura().getVersion().getCatalogo().getIdCatalogo();
+            if(relDetEeffMap.containsKey(idCatalogo)){
+                relDetEeffMap.get(idCatalogo).add(relDetEeff);
+            }else{
+                List<RelacionDetalleEeff> relEeffTempList = new ArrayList<RelacionDetalleEeff>();
+                relEeffTempList.add(relDetEeff);
+                relDetEeffMap.put(idCatalogo, relEeffTempList);
+            }
+        }
+        
+        return relDetEeffMap;
+    }
+    
+    public static String concatUsuarioMail(String usuario){
+        if(usuario==null)
+            return "";
+        return usuario.toUpperCase()+"@BICEVIDA.CL";
+    }
+    
+    public static Map<String, DetalleEeff> convertListEeffDetToMap(List<DetalleEeff> eeffDetList){
+        
+        Map<String, DetalleEeff> relDetMap = new HashMap<String, DetalleEeff>();
+        
+        for(DetalleEeff detEeff : eeffDetList){
+            relDetMap.put(formatKeyFecuCuenta(detEeff.getIdFecu(), detEeff.getIdCuenta()), detEeff);
+        }
+        
+        return relDetMap;
+    }
+    
+    public static Map<String, RelacionDetalleEeff> convertListRelEeffDetToMap(List<RelacionDetalleEeff> eeffDetList){
+        
+        Map<String, RelacionDetalleEeff> relDetMap = new HashMap<String, RelacionDetalleEeff>();
+        
+        for(RelacionDetalleEeff relDet : eeffDetList){
+            relDetMap.put(formatKeyFecuCuenta(relDet.getIdFecu(), relDet.getIdCuenta()), relDet);
+        }
+        
+        return relDetMap;
     }
 }

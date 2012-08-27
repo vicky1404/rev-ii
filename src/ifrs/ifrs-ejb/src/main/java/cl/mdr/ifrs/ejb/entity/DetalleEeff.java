@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import cl.mdr.ifrs.ejb.common.Constantes;
 import cl.mdr.ifrs.ejb.entity.pk.DetalleEeffPK;
@@ -59,10 +60,20 @@ public class DetalleEeff implements Serializable {
     @Column(name = "RECLASIFICACION")
     private BigDecimal montoReclasificacion;
     
+    @Column(name = "MONTO_PESOS_MIL")
+    private BigDecimal montoPesosMil;
+    
+    @Transient
+    private BigDecimal montoPesosNuevo;
+    
     @ManyToOne
     @JoinColumns( { @JoinColumn(name = "ID_FECU", referencedColumnName = "ID_FECU"),
                     @JoinColumn(name = "ID_VERSION_EEFF", referencedColumnName = "ID_VERSION_EEFF") })
     private EstadoFinanciero estadoFinanciero1;
+    
+    @ManyToOne
+    @JoinColumn(name = "ID_CUENTA")
+    private CuentaContable cuentaContable;
 
     public DetalleEeff() {
     }
@@ -156,4 +167,28 @@ public class DetalleEeff implements Serializable {
     public Long getIdVersionEeff() {
         return idVersionEeff;
     }
+
+	public BigDecimal getMontoPesosMil() {
+		return montoPesosMil;
+	}
+
+	public void setMontoPesosMil(BigDecimal montoPesosMil) {
+		this.montoPesosMil = montoPesosMil;
+	}
+
+	public BigDecimal getMontoPesosNuevo() {
+		return montoPesosNuevo;
+	}
+
+	public void setMontoPesosNuevo(BigDecimal montoPesosNuevo) {
+		this.montoPesosNuevo = montoPesosNuevo;
+	}
+
+	public CuentaContable getCuentaContable() {
+		return cuentaContable;
+	}
+
+	public void setCuentaContable(CuentaContable cuentaContable) {
+		this.cuentaContable = cuentaContable;
+	}
 }

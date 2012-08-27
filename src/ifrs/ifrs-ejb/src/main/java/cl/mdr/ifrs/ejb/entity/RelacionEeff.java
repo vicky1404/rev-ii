@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.google.gson.annotations.Expose;
 
@@ -95,6 +96,9 @@ public class RelacionEeff implements Serializable {
     @JoinColumn(name = "ID_FECU")
     @Expose
     private CodigoFecu codigoFecu;
+    
+    @Transient
+    private BigDecimal montoTotalNuevo;
 
     public RelacionEeff() {
     }
@@ -288,6 +292,14 @@ public class RelacionEeff implements Serializable {
 		} else if (!periodoEmpresa.equals(other.periodoEmpresa))
 			return false;
 		return true;
+	}
+
+	public BigDecimal getMontoTotalNuevo() {
+		return montoTotalNuevo;
+	}
+
+	public void setMontoTotalNuevo(BigDecimal montoTotalNuevo) {
+		this.montoTotalNuevo = montoTotalNuevo;
 	}
 
 	
