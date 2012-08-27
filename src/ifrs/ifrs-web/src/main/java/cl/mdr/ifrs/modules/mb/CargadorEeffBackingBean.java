@@ -34,6 +34,7 @@ import cl.mdr.ifrs.ejb.entity.Periodo;
 import cl.mdr.ifrs.ejb.entity.TipoEstadoEeff;
 import cl.mdr.ifrs.ejb.entity.VersionEeff;
 import cl.mdr.ifrs.exceptions.EstadoFinancieroException;
+import cl.mdr.ifrs.vo.CargadorEeffVO;
 
  
 @ManagedBean(name="cargadorEeff") 
@@ -53,6 +54,8 @@ public class CargadorEeffBackingBean extends AbstractBackingBean {
     private int sizeEeff =0;
     private int sizeEeffDetalle =0;
     private boolean renderedTablaResultado;
+    private boolean renderTableRel = false;
+    private CargadorEeffVO cargadorVO;
  
     public CargadorEeffBackingBean() {
     }
@@ -86,58 +89,65 @@ public class CargadorEeffBackingBean extends AbstractBackingBean {
         }
        
     }*/
+    
+    private void init(){
+    	
+        versionEeff = null;
+        renderTableRel = false;
+        cargadorVO = null;
+    }
    
     public String procesarArchivo(FileUploadEvent event) {
-        try {
-           
-            if(event.getFile()  == null){
+try {
+            
+            if(getUploadedFile() == null){
+                init();
                 addErrorMessage("Seleccione o Actualice el archivo que desea cargar");
                 return null;
             }
-            if(event.getFile().getInputstream()  == null){
+            if(getUploadedFile().getInputstream() == null){
+                init();
                 addErrorMessage("Seleccione o Actualice el archivo que desea cargar");
                 return null;
             }
+            
             versionEeff = new VersionEeff();
+            
             TipoEstadoEeff tipoEstadoEeff = getFacadeService().getEstadoFinancieroService().getTipoEstadoEeffById(TipoEstadoEeffEnum.INGRESADO.getKey());
-            eeffMap = getFacadeService().getCargadorEeffService().leerEeff(event.getFile().getInputstream());
-            List<EstadoFinanciero> eeffList = new ArrayList<EstadoFinanciero>();
-           
+            cargadorVO = getFacadeService().getCargadorEeffService().leerEeff(getUploadedFile().getInputstream());
+            EeffUtil.setVersionEeffToEeffList(cargadorVO.getEeffList(), versionEeff);
+            getFacadeService().getCargadorEeffService().validarNuevoEeff(cargadorVO.getEeffList(), periodo.getIdPeriodo(),cargadorVO);
+            
+            String emailFrom = PropertyManager.getInstance().getMessage("cargador_mail_from");
+            String emailHost = PropertyManager.getInstance().getMessage("mail_host");
+            String subject = PropertyManager.getInstance().getMessage("cargador_subject");
+            
+            getFacadeService().getCargadorEeffService().sendMailEeff(cargadorVO.getUsuarioGrupoList(), emailFrom, subject, emailHost);
+            
+            if(
+                Util.esListaValida(cargadorVO.getEeffDescuadreList())||
+                Util.esListaValida(cargadorVO.getEeffDetDescuadreList()) ||
+                Util.esListaValida(cargadorVO.getEeffBorradoList()) ||
+                Util.esListaValida(cargadorVO.getEeffDetBorradoList()) ||            
+                Util.esListaValida(cargadorVO.getRelEeffDescuadreList()) ||
+                Util.esListaValida(cargadorVO.getRelEeffDetDescuadreList()) ||
+                Util.esListaValida(cargadorVO.getRelEeffBorradoList()) ||
+                Util.esListaValida(cargadorVO.getRelEeffDetBorradoList())
+            ) renderTableRel = true;
+            
             versionEeff.setTipoEstadoEeff(tipoEstadoEeff);
             versionEeff.setUsuario(getNombreUsuario());
             versionEeff.setVigencia(1L);
-            //versionEeff.setPeriodoEmpresa(periodo);//TODO Periodo empresa
-           
-            for(EstadoFinanciero eeff : eeffMap.values()){
-               
-                if(eeff.getDetalleEeffList4()!=null)
-                    sizeEeffDetalle += eeff.getDetalleEeffList4().size();
-               
-                eeff.setVersionEeff(versionEeff);
-               
-                eeffList.add(eeff);
-            }
-           
-            sizeEeff = eeffList.size();
-           
-            versionEeff.setEstadoFinancieroList(eeffList);
-           
+            versionEeff.setPeriodo(periodo);
+            versionEeff.setEstadoFinancieroList(cargadorVO.getEeffList());
+            
         } catch (EstadoFinancieroException e) {
-           
-        	if (e.getDetailErrors().size() > 0){
+            
             addErrorMessage("El archivo presenta los siguiente errores : ");
-           
+            
             for(String str : e.getDetailErrors())
             	addErrorMessage(str);
-        	}
-        	
-        	if (e.getMessage().length() > 0){
-        		addErrorMessage("El archivo tiene el siguiente error : " + e.getMessage());        		
-        	}
-            
-            
-           
-       
+        
         } catch (Exception e) {
             logger.error("error al procesar archivo excel ",e);
             addErrorMessage("Error al procesar el archivo");
@@ -149,23 +159,21 @@ public class CargadorEeffBackingBean extends AbstractBackingBean {
     public void guardarListener(ActionEvent event){
         try{
            
-            if(versionEeff!=null && eeffMap!=null){
+        	if(versionEeff!=null && cargadorVO.getEeffList()!=null)
                 getFacadeService().getEstadoFinancieroService().persisVersionEeff(versionEeff);
-           
-            versionEeffList = getFacadeService().getEstadoFinancieroService().getVersionEeffFindByPeriodo(periodo.getIdPeriodo());
-           
-            addInfoMessage("Se ha almacenado correctamente los estados financieros");
-            addInfoMessage("Registros Cabecera :" + sizeEeff);
-            addInfoMessage("Registros Detalle  :" + sizeEeffDetalle);
-           
-            versionEeff = null;
-            sizeEeff = 0;
-            sizeEeffDetalle = 0;
-            eeffMap = null;
-            
-            this.setRenderedTablaResultado(Boolean.TRUE);
+            else{
+                init();
+                addErrorMessage("Debe cargar información antes de guardar");
+                return;
             }
-            addWarnMessage("No hay nada que guardar");
+            
+            versionEeffList = getFacadeService().getEstadoFinancieroService().getVersionEeffFindByPeriodo(periodo.getIdPeriodo());
+            
+            addInfoMessage("Se ha almacenado correctamente los estados financieros");
+            addInfoMessage("Registros Cabecera :" + cargadorVO.getCatidadEeffProcesado());
+            addInfoMessage("Registros Detalle  :" + cargadorVO.getCatidadEeffDetProcesado());
+            
+            init();
            
         }catch(Exception e){
             logger.error("error al guardar eeff", e);
@@ -227,5 +235,21 @@ public class CargadorEeffBackingBean extends AbstractBackingBean {
 
 	public void setRenderedTablaResultado(boolean renderedTablaResultado) {
 		this.renderedTablaResultado = renderedTablaResultado;
+	}
+
+	public boolean isRenderTableRel() {
+		return renderTableRel;
+	}
+
+	public void setRenderTableRel(boolean renderTableRel) {
+		this.renderTableRel = renderTableRel;
+	}
+
+	public CargadorEeffVO getCargadorVO() {
+		return cargadorVO;
+	}
+
+	public void setCargadorVO(CargadorEeffVO cargadorVO) {
+		this.cargadorVO = cargadorVO;
 	}
 }
