@@ -1,17 +1,15 @@
-package cl.bicevida.revelaciones.eeff;
-
-import cl.bicevida.revelaciones.ejb.cross.EeffUtil;
-import cl.bicevida.revelaciones.ejb.entity.Celda;
-
-import cl.bicevida.revelaciones.ejb.entity.Columna;
-
-import cl.bicevida.revelaciones.ejb.entity.EstadoFinanciero;
+package cl.mdr.ifrs.factory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import cl.mdr.ifrs.ejb.cross.EeffUtil;
+import cl.mdr.ifrs.ejb.entity.Celda;
+import cl.mdr.ifrs.vo.DependenciaVO;
+import cl.mdr.ifrs.vo.FilaCeldaVO;
 
 public class DependenciaEeffFactory {
     

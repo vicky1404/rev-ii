@@ -324,4 +324,11 @@ public static String getTbodyRelEeff(){
         
         return relDetMap;
     }
+    
+    public static void setVersionEeffToEeffList(List<EstadoFinanciero> eeffList, VersionEeff versionEeff){
+        
+        for(EstadoFinanciero eeff : eeffList){
+            eeff.setVersionEeff(versionEeff);
+        }
+    }
 }

@@ -5,12 +5,14 @@ import java.util.List;
 import java.util.Map;
 
 import javax.ejb.Local;
+import javax.persistence.Query;
 
 import cl.mdr.ifrs.ejb.entity.Celda;
 import cl.mdr.ifrs.ejb.entity.DetalleEeff;
 import cl.mdr.ifrs.ejb.entity.EstadoFinanciero;
 import cl.mdr.ifrs.ejb.entity.Grilla;
 import cl.mdr.ifrs.ejb.entity.RelacionDetalleEeff;
+import cl.mdr.ifrs.ejb.entity.RelacionEeff;
 import cl.mdr.ifrs.ejb.entity.TipoEstadoEeff;
 import cl.mdr.ifrs.ejb.entity.VersionEeff;
 
@@ -52,4 +54,8 @@ List<TipoEstadoEeff> getEstadoEeffFindAll();
     List<EstadoFinanciero> getEeffByVersion(Long idVersionEeff);
     
     List<DetalleEeff> getDetalleEeffByVersion(Long idVersionEeff);
+    
+    List<RelacionEeff> getRelacionEeffByPeriodo(Long idPeriodo);
+    
+    List<RelacionDetalleEeff> getRelacionDetalleEeffByPeriodo(Long idPeriodo);
 }
