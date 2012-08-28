@@ -1,7 +1,6 @@
 package cl.mdr.ifrs.modules.mb;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -21,7 +20,6 @@ import cl.mdr.ifrs.cross.util.PropertyManager;
 import cl.mdr.ifrs.ejb.common.TipoEstadoEeffEnum;
 import cl.mdr.ifrs.ejb.cross.EeffUtil;
 import cl.mdr.ifrs.ejb.cross.Util;
-import cl.mdr.ifrs.ejb.entity.EstadoFinanciero;
 import cl.mdr.ifrs.ejb.entity.Periodo;
 import cl.mdr.ifrs.ejb.entity.PeriodoEmpresa;
 import cl.mdr.ifrs.ejb.entity.TipoEstadoEeff;
@@ -29,19 +27,23 @@ import cl.mdr.ifrs.ejb.entity.VersionEeff;
 import cl.mdr.ifrs.exceptions.EstadoFinancieroException;
 import cl.mdr.ifrs.vo.CargadorEeffVO;
 
- 
+
+/**
+ * Manejador para las cargas de estados financieros.
+ * @author mdr tech ltda.
+ * @since 28/08/2012
+ */
+
+
 @ManagedBean(name="cargadorEeff") 
 @ViewScoped
 public class CargadorEeffBackingBean extends AbstractBackingBean {
-   
-   
    
     private transient Logger logger = Logger.getLogger(CargadorEeffBackingBean.class);   
     
     private List<VersionEeff> versionEeffList;
     private transient FileUpload richInputFile;
     private transient UploadedFile uploadedFile;
-    private Map<Long, EstadoFinanciero> eeffMap;
     private Periodo periodo;
     VersionEeff versionEeff;
     private int sizeEeff =0;
@@ -94,11 +96,11 @@ try {
             EeffUtil.setVersionEeffToEeffList(cargadorVO.getEeffList(), versionEeff);
             getFacadeService().getCargadorEeffService().validarNuevoEeff(cargadorVO.getEeffList(), periodo.getIdPeriodo(),cargadorVO);
             
-            //String emailFrom = PropertyManager.getInstance().getMessage("cargador_mail_from");
-            //String emailHost = PropertyManager.getInstance().getMessage("mail_host");
-            //String subject = PropertyManager.getInstance().getMessage("cargador_subject");
+            String emailFrom = PropertyManager.getInstance().getMessage("cargador_mail_from");
+            String emailHost = PropertyManager.getInstance().getMessage("mail_host");
+            String subject = PropertyManager.getInstance().getMessage("cargador_subject");
             
-            //getFacadeService().getCargadorEeffService().sendMailEeff(cargadorVO.getUsuarioGrupoList(), emailFrom, subject, emailHost);
+            getFacadeService().getCargadorEeffService().sendMailEeff(cargadorVO.getUsuarioGrupoList(), emailFrom, subject, emailHost);
             
             if(
                 Util.esListaValida(cargadorVO.getEeffDescuadreList())||

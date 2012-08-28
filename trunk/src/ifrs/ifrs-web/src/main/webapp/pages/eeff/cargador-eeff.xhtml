@@ -30,8 +30,18 @@
 		 	</p:dataTable>
 		 </p:panel>
 		 <p:spacer height="10"/>
-		 <p:panel closable="false" toggleable="false" menuTitle="Hola">
-		 <p:fileUpload value="#{cargadorEeff.uploadedFile}" fileUploadListener="#{cargadorEeff.procesarArchivo}" binding="#{cargadorEeff.richInputFile}" sizeLimit="#{msg.constantes_max_excel_file_bytes}" label="#{msg.label_seleccione} Excel" mode="advanced" update="@form"  allowTypes="/(.|\/)(xls|xlsx)$/" showButtons="false" />
+		 <p:panel closable="false" toggleable="false">
+		 <p:fileUpload  value="#{cargadorEeff.uploadedFile}" 
+		 				fileUploadListener="#{cargadorEeff.procesarArchivo}" 
+		 				binding="#{cargadorEeff.richInputFile}" 
+		 				sizeLimit="#{msg.constantes_max_excel_file_bytes}" 
+		 				label="#{msg.label_seleccione} Excel" 
+		 				mode="advanced" 
+		 				update="@form"  
+		 				allowTypes="/(.|\/)(xls|xlsx)$/" 
+		 				showButtons="false" >
+		 	
+		 </p:fileUpload>
 		 <p:commandButton value="Guardar" id="cb3" actionListener="#{cargadorEeff.guardarListener}" icon="ui-icon-check" update="@form"></p:commandButton>
 		 </p:panel>
 		 <!-- INFO CARGADA -->
