@@ -12,6 +12,7 @@ import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -333,4 +334,12 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
     }
     
        
+    /*Retorna los usuario que estan asociados a un catalogo*/
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public List<UsuarioGrupo> getUsuarioGrupoByCatalogo(Long idCatalogo) throws Exception {        
+        Query query = em.createNamedQuery(UsuarioGrupo.FIND_BY_ID_CATALOGO);
+        query.setParameter("idCatalogo", idCatalogo);
+        return query.getResultList();
+    }
+    
 }

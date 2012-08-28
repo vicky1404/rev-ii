@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import javax.ejb.Timeout;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,9 +21,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import cl.mdr.ifrs.ejb.common.Constantes;
+
 import com.google.gson.annotations.Expose;
 
-import cl.mdr.ifrs.ejb.common.Constantes;
 
 @Entity
 @NamedQueries( { @NamedQuery(name = VersionEeff.FIND_ALL, query = "select o from VersionEeff o"),
@@ -72,7 +72,7 @@ public class VersionEeff implements Serializable {
     private Long vigencia;
     
     @Temporal(TemporalType.TIMESTAMP)
-    @Column
+    @Column(name="FECHA")
     private Date fecha;
     
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -151,6 +151,16 @@ public class VersionEeff implements Serializable {
 	}
 
 
+	public Date getFecha() {
+		return fecha;
+	}
+
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}	
+
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -159,16 +169,7 @@ public class VersionEeff implements Serializable {
 				+ ((idVersionEeff == null) ? 0 : idVersionEeff.hashCode());
 		return result;
 	}
-
-	public Date getFecha() {
-		return fecha;
-	}
-
-
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
-	}
-
+	 
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

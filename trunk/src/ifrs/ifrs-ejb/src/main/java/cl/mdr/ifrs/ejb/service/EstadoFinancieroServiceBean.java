@@ -5,6 +5,7 @@ import static ch.lambdaj.Lambda.index;
 import static ch.lambdaj.Lambda.on;
 import static cl.mdr.ifrs.ejb.cross.Constantes.PERSISTENCE_UNIT_NAME;
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -136,16 +137,47 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
        */
     }
     
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void persisVersionEeff(VersionEeff version){
     	Long versionNueva = getMaxVersionByPeriodoEmpresa(version.getPeriodoEmpresa()) + 1L;
         
         if (versionNueva.compareTo(1L) > 0){
         	updateNoVigenteByPeriodoEmpresa(version.getPeriodoEmpresa());
-        	version = em.find(VersionEeff.class, version.getIdVersionEeff());
         }
         
         version.setVersion(versionNueva);
-        em.persist(version);
+        //em.persist(version);
+        
+        int indice = 0;
+        StringBuffer insertVersion = new StringBuffer();
+        insertVersion.append(" insert into " + Constantes.VERSION_EEFF + " (FECHA, ID_PERIODO, ID_RUT, ID_ESTADO_EEFF, usuario, version, vigencia, ID_VERSION_EEFF) ")
+        .append(" values (?,?,?,?,?,?,?,?) ");
+        
+        em.createNativeQuery(insertVersion.toString())
+        .setParameter(++indice, new Date())
+        .setParameter(++indice, version.getPeriodoEmpresa().getIdPeriodo())
+        .setParameter(++indice, version.getPeriodoEmpresa().getIdRut())
+        .setParameter(++indice, version.getTipoEstadoEeff().getIdEstadoEeff())
+        .setParameter(++indice, version.getUsuario())
+        .setParameter(++indice, version.getVersion())
+        .setParameter(++indice, version.getVigencia())
+        .setParameter(++indice, version.getVersion()).executeUpdate();
+        
+
+        StringBuffer insertEeff = new StringBuffer();
+        insertEeff.append("insert into IFRS_EEFF (ID_FECU, MONTO_TOTAL, ID_VERSION_EEFF) values (?, ?, ?) ");
+
+        
+        for (EstadoFinanciero estadoFinanciero : version.getEstadoFinancieroList()){
+            indice = 0;            
+            em.createNativeQuery(insertEeff.toString())
+            .setParameter(++indice, estadoFinanciero.getIdFecu())
+            .setParameter(++indice, estadoFinanciero.getMontoTotal())
+            .setParameter(++indice, version.getVersion()).executeUpdate();
+        }
+        
+        
+
     }
     
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
