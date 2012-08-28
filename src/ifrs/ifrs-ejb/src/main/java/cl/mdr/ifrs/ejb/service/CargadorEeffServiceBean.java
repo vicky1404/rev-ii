@@ -727,25 +727,25 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
             
             Catalogo catalogo = facadeService.getCatalogoService().findCatalogoByCatalogo(new Catalogo(mensajeEntry.getKey()));
             
-            //Map<String,UsuarioGrupo> usuarioMap = index(facadeService.getSeguridadService().getUsuarioGrupoByCatalogo(mensajeEntry.getKey()), on(UsuarioGrupo.class).getUsuarioOid());
+            Map<String,UsuarioGrupo> usuarioMap = index(facadeService.getSeguridadService().getUsuarioGrupoByCatalogo(mensajeEntry.getKey()), on(UsuarioGrupo.class).getNombreUsuario());
             
             for(StringBuilder str : mensajeEntry.getValue()){
                 contenidoMail.append(str).append("<br>");
             }
             
-            /*
+            
             for(UsuarioGrupo usuarioTemp : usuarioMap.values()){
-                if(usuarioMailMap.containsKey(usuarioTemp.getUsuarioOid())){
-                    usuarioMailMap.get(usuarioTemp.getUsuarioOid()).getContenidoMail().append(contenidoMail);
-                    usuarioMailMap.get(usuarioTemp.getUsuarioOid()).getCatalogoAsociadoList().add(catalogo);
+                if(usuarioMailMap.containsKey(usuarioTemp.getNombreUsuario())){
+                    usuarioMailMap.get(usuarioTemp.getNombreUsuario()).getContenidoMail().append(contenidoMail);
+                    usuarioMailMap.get(usuarioTemp.getNombreUsuario()).getCatalogoAsociadoList().add(catalogo);
                 }else{
                     usuarioTemp.setContenidoMail(new StringBuilder(contenidoMail));
                     usuarioTemp.setCatalogoAsociadoList(new ArrayList<Catalogo>());
                     usuarioTemp.getCatalogoAsociadoList().add(catalogo);
-                    usuarioMailMap.put(usuarioTemp.getUsuarioOid(), usuarioTemp);
+                    usuarioMailMap.put(usuarioTemp.getNombreUsuario(), usuarioTemp);
                 }
             }
-            */
+            
         }
         
         cargadorVO.setUsuarioGrupoList(new ArrayList<UsuarioGrupo>(usuarioMailMap.values()));

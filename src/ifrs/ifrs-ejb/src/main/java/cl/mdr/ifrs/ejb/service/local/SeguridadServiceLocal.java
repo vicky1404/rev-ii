@@ -200,5 +200,13 @@ public interface SeguridadServiceLocal {
      * @throws Exception
      */
     void persistGrupoEmpresa(List<GrupoEmpresa> grupoEmpresaList, Empresa empresa) throws Exception;
+    
+    /**
+     * 
+     * @param idCatalogo
+     * @return
+     * @throws Exception
+     */
+    List<UsuarioGrupo> getUsuarioGrupoByCatalogo(Long idCatalogo) throws Exception;
         
 }
