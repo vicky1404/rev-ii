@@ -63,26 +63,26 @@
                 </p:column>
             
                  	<p:rowExpansion>
-		                    <h:dataTable value="#{row.detalleEeffList4}" var="subRow" id="dt1" styleClass="datalle_flujo" width="600" >
-		                        <p:column id="c16">
-		                            <f:facet name="header">
-		                                <h:outputText value="#{msg.carga_eeff_codigo_cuenta}" id="ot18"/>
-		                            </f:facet>
+                 			<p:spacer height="10"/>
+                 			<center>
+		                    <h:dataTable value="#{row.detalleEeffList4}" var="subRow" styleClass="ui-widget-header" id="dt1" style="width:90%" >
+		                    
+		                        <h:column id="c16" headerText="#{msg.carga_eeff_codigo_cuenta}">
 		                            <h:outputText value="#{subRow.idCuenta}" id="ot16B"/>
-		                        </p:column>
+		                        </h:column>
 		                        
-		                        <p:column id="c17">
+		                        <p:column id="c17" >
 		                            <f:facet name="header">
-		                                <h:outputText value="#{msg.carga_eeff_desc_cuenta}" id="ot27"/>
+		                                <h:outputText value="#{msg.carga_eeff_desc_cuenta}" id="ot27" />
 		                            </f:facet>
 		                            <h:outputText value="#{subRow.cuentaContable.descripcion}" id="ot28"/>
 		                        </p:column>
 		                        
-		                        <p:column id="c18">
+		                        <p:column id="c18" >
 		                            <f:facet name="header">
 		                                <h:outputText value="#{msg.carga_eeff_monto_ebs}" id="ot29"/>
 		                            </f:facet>
-		                            <h:outputText value="#{subRow.montoEbs}" id="ot21">
+		                            <h:outputText value="#{subRow.montoEbs}" id="ot21" >
 		                            	<f:convertNumber integerOnly="false" type="number" maxFractionDigits="4" locale="#{cargadorEeff.localeCL}" pattern="##,###,###,###.####"/>                            
 		                            </h:outputText>
 		                        </p:column>
@@ -123,12 +123,14 @@
 		                            </h:outputText>
 		                        </p:column>		                        
 		                    </h:dataTable>
+		                    </center>
+		                    <p:spacer height="10"/>
                  	</p:rowExpansion>
                 
             </p:dataTable>
 		 	</p:tab>
 		 	<!-- DETALLE DE CARGA -->
-		 	<p:tab id="tab2" title="#{msg.carga_eeff_detalle_carga_eeff}" titletip="#{msg.carga_eeff_detalle_carga_eeff_desc}" rendered="#{!cargadorEeff.renderTableRel}">
+		 	<p:tab id="tab2" title="#{msg.carga_eeff_detalle_carga_eeff}" titletip="#{msg.carga_eeff_detalle_carga_eeff_desc}" rendered="#{cargadorEeff.renderTableRel}">
 		 	
 		 		<p:dataTable value="#{cargadorEeff.cargadorVO.eeffBorradoList}" var="row" id="t3" inlineStyle="height:inherit;">
                     <p:column headerText="#{msg.eeff_codigo_fecu}" id="c7" width="100">
@@ -143,7 +145,7 @@
 		 	
 		 	<!-- LISTADO DE EMAILS -->
 		 	
-		 	<p:tab id="tab3" title="#{msg.carga_eeff_mail}" titletip="#{msg.carga_eeff_mail_desc}" rendered="#{!not empty cargadorEeffBackingBean.cargadorVO.usuarioGrupoList}">
+		 	<p:tab id="tab3" title="#{msg.carga_eeff_mail}" titletip="#{msg.carga_eeff_mail_desc}" rendered="#{not empty cargadorEeffBackingBean.cargadorVO.usuarioGrupoList}">
             <h:outputText value="#{msg.eeff_lista_notificacion_mail}" id="ot61"/>
             <p:dataTable value="#{cargadorEeff.cargadorVO.usuarioGrupoList}" var="row" emptyMessage="#{msg.general_sin_informacion}" id="t10">
             

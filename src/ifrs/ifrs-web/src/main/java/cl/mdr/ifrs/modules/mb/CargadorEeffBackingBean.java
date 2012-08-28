@@ -65,7 +65,7 @@ public class CargadorEeffBackingBean extends AbstractBackingBean {
            
         }catch(Exception e){
             logger.error(e);
-            addErrorMessage("Error al buscar los periodos");
+            addErrorMessage(PropertyManager.getInstance().getMessage("carga_eeff_error_buscar_periodo"));
         }
     }
    
@@ -81,14 +81,9 @@ try {
     
 			this.setUploadedFile(event.getFile()); 
 	
-            if(getUploadedFile() == null){
+            if(getUploadedFile() == null || getUploadedFile().getInputstream() == null){
                 init();
-                addErrorMessage("Seleccione o Actualice el archivo que desea cargar");
-                return null;
-            }
-            if(getUploadedFile().getInputstream() == null){
-                init();
-                addErrorMessage("Seleccione o Actualice el archivo que desea cargar");
+                addErrorMessage(PropertyManager.getInstance().getMessage("carga_eeff_seleccione_actualice_archivo"));
                 return null;
             }
             
@@ -114,7 +109,9 @@ try {
                 Util.esListaValida(cargadorVO.getRelEeffDetDescuadreList()) ||
                 Util.esListaValida(cargadorVO.getRelEeffBorradoList()) ||
                 Util.esListaValida(cargadorVO.getRelEeffDetBorradoList())
-            ) renderTableRel = true;
+            ) 
+            
+            	renderTableRel = true;
             
             versionEeff.setTipoEstadoEeff(tipoEstadoEeff);
             versionEeff.setUsuario(getNombreUsuario());
@@ -127,14 +124,14 @@ try {
             
         } catch (EstadoFinancieroException e) {
             
-            addErrorMessage("El archivo presenta los siguiente errores : ");
+            addErrorMessage(PropertyManager.getInstance().getMessage("carga_eeff_archivos_presenta_siguientes_errores"));
             
             for(String str : e.getDetailErrors())
             	addErrorMessage(str);
         
         } catch (Exception e) {
-            logger.error("error al procesar archivo excel ",e);
-            addErrorMessage("Error al procesar el archivo");
+            logger.error(PropertyManager.getInstance().getMessage("carga_eeff_error_procesar_archivo_excel"),e);
+            addErrorMessage(PropertyManager.getInstance().getMessage("carga_eeff_error_procesar_archivo_excel"));
         }
         return null;
     }
@@ -143,25 +140,25 @@ try {
     public void guardarListener(ActionEvent event){
         try{
            
-        	if(versionEeff!=null && cargadorVO.getEeffList()!=null)
-                getFacadeService().getEstadoFinancieroService().persisVersionEeff(versionEeff);
-            else{
+        	if(versionEeff==null && cargadorVO.getEeffList()==null){
                 init();
-                addErrorMessage("Debe cargar información antes de guardar");
+                addErrorMessage(PropertyManager.getInstance().getMessage("carga_eeff_error_debe_argar_info_antes_guardar"));
                 return;
-            }
-            
+        	}
+
+            getFacadeService().getEstadoFinancieroService().persisVersionEeff(versionEeff);
+
             versionEeffList = getFacadeService().getEstadoFinancieroService().getVersionEeffFindByPeriodo(periodo.getIdPeriodo());
             
-            addInfoMessage("Se ha almacenado correctamente los estados financieros");
-            addInfoMessage("Registros Cabecera :" + cargadorVO.getCatidadEeffProcesado());
-            addInfoMessage("Registros Detalle  :" + cargadorVO.getCatidadEeffDetProcesado());
+            addInfoMessage(PropertyManager.getInstance().getMessage("carga_eeff_se_han_almacenado_correctamente_los_eeff"));
+            addInfoMessage(PropertyManager.getInstance().getMessage("carga_eeff_registro_cabecera") + cargadorVO.getCatidadEeffProcesado());
+            addInfoMessage(PropertyManager.getInstance().getMessage("carga_eeff_registro_detalle") + cargadorVO.getCatidadEeffDetProcesado());
             
             init();
            
         }catch(Exception e){
-            logger.error("error al guardar eeff", e);
-            addErrorMessage("Error al guardar información");
+            logger.error(PropertyManager.getInstance().getMessage("carga_eeff_error_guardar_informacion"), e);
+            addErrorMessage(PropertyManager.getInstance().getMessage("carga_eeff_error_guardar_informacion"));
         }
     }
    
@@ -171,7 +168,7 @@ try {
             setUploadedFile(GeneradorDisenoHelper.archivoEstructuraValidator(facesContext, (UploadedFile)object, (FileUpload) uIComponent));
         } catch (Exception e) {
             logger.error(e.getCause(), e);
-            addErrorMessage(PropertyManager.getInstance().getMessage("Error al procesar archivo"));
+            addErrorMessage(PropertyManager.getInstance().getMessage("carga_eeff_error_procesar_archivo"));
         }
     }
    
