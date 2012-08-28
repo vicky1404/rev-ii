@@ -139,20 +139,255 @@
 		 	<!-- DETALLE DE CARGA -->
 		 	<p:tab id="tab2" title="#{msg.carga_eeff_detalle_carga_eeff}" titletip="#{msg.carga_eeff_detalle_carga_eeff_desc}" rendered="#{cargadorEeff.renderTableRel}">
 		 	
-		 		<p:dataTable value="#{cargadorEeff.cargadorVO.eeffBorradoList}" var="row" id="t3" inlineStyle="height:inherit;">
-                    <p:column headerText="#{msg.eeff_codigo_fecu}" id="c7" width="100">
-                        <h:outputText value="#{row.fecuFormat}" id="ot12"/>
-                    </p:column>
-                    <p:column headerText="#{msg.carga_eeff_descripcion}" id="c8" width="300">
-                        <h:outputText value="#{row.codigoFecu.descripcion}" id="ot13"/>
-                    </p:column>
-                 </p:dataTable>
-		 	
+		 		<p:accordionPanel>  
+		 			<p:tab id="borradoList" title="#{msg.carga_eeff_fecu_eliminado}" rendered="#{not empty cargadorEeff.cargadorVO.eeffBorradoList}">
+				 		<p:dataTable value="#{cargadorEeff.cargadorVO.eeffBorradoList}" var="row" id="t3" style="height:inherit;">
+		                    <p:column headerText="#{msg.eeff_codigo_fecu}" id="c7" width="100">
+		                        <h:outputText value="#{row.fecuFormat}" id="ot12"/>
+		                    </p:column>
+		                    <p:column headerText="#{msg.carga_eeff_descripcion}" id="c8" width="300">
+		                        <h:outputText value="#{row.codigoFecu.descripcion}" id="ot13"/>
+		                    </p:column>
+		                 </p:dataTable>
+		 			</p:tab>
+		 			<p:tab id="DetBorradoList" title="#{msg.carga_eeff_cuenta_eliminado}" rendered="#{not empty cargadorEeff.cargadorVO.eeffDetBorradoList}">
+                    <p:dataTable value="#{cargadorEeff.cargadorVO.eeffDetBorradoList}" var="row" id="t4" style="height:inherit;">
+	                    <p:column headerText="#{msg.carga_eeff_codigo_fecu}" id="c9" width="100">
+	                        <h:outputText value="#{row.fecuFormat}" id="ot15"/>
+	                    </p:column>
+	                    <p:column headerText="#{msg.carga_eeff_codigo_cuenta}" id="c10" width="100">
+	                        <h:outputText value="#{row.idCuenta}" id="ot16"/>
+	                    </p:column>
+	                    <p:column headerText="#{msg.carga_eeff_desc_cuenta}" id="c11" width="300">
+	                        <h:outputText value="#{row.cuentaContable.descripcion}" id="ot17"/>
+	                    </p:column>
+                    </p:dataTable>
+                    </p:tab>
+                    
+                    <p:tab title="#{msg.carga_eeff_montos_distinto_fecu}" id="sdi3" rendered="#{not empty cargadorEeff.cargadorVO.eeffDescuadreList}">
+                     
+                     <p:dataTable value="#{cargadorEeff.cargadorVO.eeffDescuadreList}" var="row" id="t3B" style="height:inherit;" emptyMessage="#{msg.general_sin_informacion}">
+                        
+                        <p:column headerText="#{msg.carga_eeff_codigo_fecu}" id="c7B" width="80">
+                            <h:outputText value="#{row.fecuFormat}" id="ot12B"/>
+                        </p:column>
+                        <p:column headerText="#{msg.carga_eeff_descripcion}" id="c8B" width="300">
+                            <h:outputText value="#{row.codigoFecu.descripcion}" id="ot13B"/>
+                        </p:column>
+                        <p:column headerText="#{msg.carga_eeff_monto_anterior}" id="c9B" width="90">
+                            <h:outputText value="#{row.montoTotal}" id="ot19">
+                            <f:convertNumber integerOnly="false" type="number"
+                                                      maxFractionDigits="4"
+                                                      locale="#{cargadorEeff.localeCL}" pattern="##,###,###,###.####"/>                            
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="#{msg.carga_eeff_monto_nuevo}" id="c12" width="90">
+                            <h:outputText value="#{row.montoTotalNuevo}" id="ot20">
+                            <f:convertNumber integerOnly="false" type="number"
+                                                      maxFractionDigits="4"
+                                                      locale="#{cargadorEeff.localeCL}" pattern="##,###,###,###.####"/>                            
+                            </h:outputText>
+                        </p:column>
+                        </p:dataTable>
+                </p:tab>
+                
+                <p:tab text="#{msg.carga_eeff_montos_distinto_cuenta}" id="sdi4" persist="ALL" rendered="#{not empty cargadorEeff.cargadorVO.eeffDetDescuadreList}">
+                     <p:dataTable value="#{cargadorEeff.cargadorVO.eeffDetDescuadreList}"  var="row" id="t4B" inlineStyle="height:inherit;"  emptyMessage="#{msg.general_sin_informacion}">
+                        <p:column headerText="#{msg.carga_eeff_codigo_fecu}" id="c13" width="80">
+                            <h:outputText value="#{row.fecuFormat}" id="ot15B"/>
+                        </p:column>
+                        <p:column headerText="#{msg.carga_eeff_codigo_cuenta}" id="c10B" width="80">
+                            <h:outputText value="#{row.idCuenta}" id="ot30"/>
+                        </p:column>
+                        <p:column headerText="#{msg.carga_eeff_desc_cuenta}" id="c11B" width="300">
+                            <h:outputText value="#{row.cuentaContable.descripcion}" id="ot17B"/>
+                        </p:column>
+                        <p:column headerText="#{msg.carga_eeff_monto_anterior}" id="c15" width="90">
+                            <h:outputText value="#{row.montoPesos}" id="ot22">
+                            <f:convertNumber integerOnly="false" type="number" maxFractionDigits="4" locale="#{cargadorEeff.localeCL}" pattern="##,###,###,###.####"/>                            
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="#{msg.carga_eeff_monto_nuevo}" id="c14" width="90">
+                            <h:outputText value="#{row.montoPesosNuevo}" id="ot31">
+                            <f:convertNumber integerOnly="false" type="number" maxFractionDigits="4" locale="#{cargadorEeff.localeCL}" pattern="##,###,###,###.####"/>                            
+                            </h:outputText>
+                        </p:column>
+                        </p:dataTable>
+                </p:tab>
+                
+                
+                <p:tab  title="#{msg.carga_eeff_resutlado_validacion_celdas}" id="sdi5" persist="ALL" 
+                                    rendered="#{not empty cargadorEeff.cargadorVO.relEeffDescuadreList or 
+                                                not empty cargadorEeff.cargadorVO.relEeffDetDescuadreList}" >
+                                                
+                      <p:scrollPanel  id="pgl1" style="width:auto;height:100px" > 
+                        
+                     <p:dataTable value="#{cargadorEeff.cargadorVO.relEeffDescuadreList}" 
+                        var="row" id="t4C" inlineStyle="height:inherit;" styleClass="AFStretchWidth"
+                        emptyText="#{msg.general_sin_informacion}">
+                        
+                        <p:column headerText="#{msg.carga_eeff_codigo_fecu}" id="c22" width="80">
+                            <h:outputText value="#{row.fecuFormat}" id="ot7"/>
+                        </p:column>
+                        <p:column headerText="#{msg.carga_eeff_cuadro}" id="c10C" width="280">
+                            <h:outputText value="#{row.celda2.columna.grilla.estructura1.version.catalogo.nombre}" id="ot16C"/>
+                        </p:column>
+                        <p:column headerText="#{msg.carga_eeff_columna}" id="c13C" width="150">
+                            <h:outputText value="#{row.celda2.columna.tituloColumna}" id="ot15C"/>
+                        </p:column>                
+                        <p:column headerText="#{msg.carga_eeff_numero_fila}" id="c11C" width="75">
+                            <h:outputText value="#{row.idFila}" id="ot17C"/>
+                        </p:column>
+                        <p:column headerText="Celda" id="c20" width="60">
+                            <h:outputText value="[#{row.idColumna},#{row.idFila}]" id="ot11"/>
+                        </p:column>
+                        <p:column headerText="#{msg.carga_eeff_valor_celda}" id="c14C" width="120">
+                            <h:outputText value="#{row.celda2.valorBigDecimal}" id="ot21C">
+                            <f:convertNumber integerOnly="false" type="number"
+                                                      maxFractionDigits="4"
+                                                      locale="#{cargadorEeff.localeCL}" pattern="##,###,###,###.####"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="#{msg.carga_eeff_monto_nuevo_eeff}" id="c15C" width="120">
+                            <h:outputText value="#{row.montoTotalNuevo}" id="ot22C">
+                            <f:convertNumber integerOnly="false" type="number"
+                                                      maxFractionDigits="4"
+                                                      locale="#{cargadorEeff.localeCL}" pattern="##,###,###,###.####"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="#{msg.carga_eeff_monto_anterior}" id="c21" width="120">
+                            <h:outputText value="#{row.montoTotalNuevo}" id="ot32">
+                            <f:convertNumber integerOnly="false" type="number"
+                                                      maxFractionDigits="4"
+                                                      locale="#{cargadorEeff.localeCL}" pattern="##,###,###,###.####"/>
+                            </h:outputText>
+                        </p:column>
+                        </p:dataTable>
+                        
+                        <p:spacer height="10" id="s6"/>
+                        
+                        <p:dataTable value="#{cargadorEeff.cargadorVO.relEeffDetDescuadreList}" 
+                        var="row" id="t7" inlineStyle="height:inherit;" styleClass="AFStretchWidth"
+                        emptyText="#{msg.general_sin_informacion}">
+                        
+                        <p:column headerText="#{msg.carga_eeff_codigo_fecu}" id="c23" width="80">
+                            <h:outputText value="#{row.fecuFormat}" id="ot23"/>
+                        </p:column>
+                        <p:column headerText="#{msg.carga_eeff_codigo_cuenta}" id="c31" width="80">
+                            <h:outputText value="#{row.idCuenta}" id="ot37"/>
+                        </p:column>
+                        <p:column headerText="#{msg.carga_eeff_cuadro}" id="c24" width="200">
+                            <h:outputText value="#{row.celda5.columna.grilla.estructura1.version.catalogo.nombre}" id="ot24"/>
+                        </p:column>
+                        <p:column headerText="#{msg.carga_eeff_columna}" id="c25" width="150">
+                            <h:outputText value="#{row.celda5.columna.tituloColumna}" id="ot25"/>
+                        </p:column>                
+                        <p:column headerText="#{msg.carga_eeff_numero_fila}" id="c26" width="75">
+                            <h:outputText value="#{row.idFila}" id="ot26"/>
+                        </p:column>
+                        <p:column headerText="Celda" id="c27" width="60">
+                            <h:outputText value="[#{row.idColumna},#{row.idFila}]" id="ot33"/>
+                        </p:column>
+                        <p:column headerText="#{msg.carga_eeff_valor_celda}" id="c28" width="120">
+                            <h:outputText value="#{row.celda5.valorBigDecimal}" id="ot34">
+                            <f:convertNumber integerOnly="false" type="number"
+                                                      maxFractionDigits="4"
+                                                      locale="#{cargadorEeff.localeCL}" pattern="##,###,###,###.####"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="#{msg.carga_eeff_monto_nuevo_eeff}" id="c29" width="120">
+                            <h:outputText value="#{row.montoPesosNuevo}" id="ot35">
+                            <f:convertNumber integerOnly="false" type="number"
+                                                      maxFractionDigits="4"
+                                                      locale="#{cargadorEeff.localeCL}" pattern="##,###,###,###.####"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="#{msg.carga_eeff_monto_anterior}" id="c30" width="120">
+                            <h:outputText value="#{row.montoPesos}" id="ot36">
+                            <f:convertNumber integerOnly="false" type="number"
+                                                      maxFractionDigits="4"
+                                                      locale="#{cargadorEeff.localeCL}" pattern="##,###,###,###.####"/>
+                            </h:outputText>
+                        </p:column>
+                        </p:dataTable>
+                        </p:scrollPanel>
+                </p:tab>
+                
+                <p:tab text="#{msg.carga_eeff_cuadros_sin_relacion}" id="sdi6" 
+                    persist="ALL" rendered="#{not empty cargadorEeff.cargadorVO.relEeffBorradoList or
+                                              not empty cargadorEeff.cargadorVO.relEeffDetBorradoList}" styleClass="AFStretchWidth">
+                      
+                      <p:scrollPanel id="pgl2" style="width:auto;height:100px" >
+                        
+                     <p:dataTable value="#{cargadorEeff.cargadorVO.relEeffBorradoList}" 
+                        var="row" id="t8" inlineStyle="height:inherit;" styleClass="AFStretchWidth"
+                        emptyText="#{msg.general_sin_informacion}">
+                        
+                        <p:column headerText="#{msg.carga_eeff_codigo_fecu}" id="c32" width="80">
+                            <h:outputText value="#{row.fecuFormat}" id="ot8"/>
+                        </p:column>
+                        <p:column headerText="#{msg.carga_eeff_cuadro}" id="c33" width="280">
+                            <h:outputText value="#{row.celda2.columna.grilla.estructura1.version.catalogo.nombre}" id="ot9"/>
+                        </p:column>
+                        <p:column headerText="#{msg.carga_eeff_columna}" id="c34" width="150">
+                            <h:outputText value="#{row.celda2.columna.tituloColumna}" id="ot10"/>
+                        </p:column>                
+                        <p:column headerText="#{msg.carga_eeff_numero_fila}" id="c35" width="75">
+                            <h:outputText value="#{row.idFila}" id="ot14"/>
+                        </p:column>
+                        <p:column headerText="Celda" id="c36" width="60">
+                            <h:outputText value="[#{row.idColumna},#{row.idFila}]" id="ot38"/>
+                        </p:column>
+                        <p:column headerText="#{msg.carga_eeff_valor_celda}" id="c37" width="120">
+                            <h:outputText value="#{row.celda2.valorBigDecimal}" id="ot39">
+                            <f:convertNumber integerOnly="false" type="number"
+                                                      maxFractionDigits="4"
+                                                      locale="#{cargadorEeff.localeCL}" pattern="##,###,###,###.####"/>
+                            </h:outputText>
+                        </p:column>
+                        </p:dataTable>
+                        
+                        <p:spacer height="10" id="s8"/>
+                        
+                        <p:dataTable value="#{cargadorEeff.cargadorVO.relEeffDetBorradoList}" 
+                        var="row" id="t9" inlineStyle="height:inherit;" styleClass="AFStretchWidth"
+                        emptyText="#{msg.general_sin_informacion}">
+                        
+                        <p:column headerText="#{msg.carga_eeff_codigo_fecu}" id="c40" width="80">
+                            <h:outputText value="#{row.fecuFormat}" id="ot42"/>
+                        </p:column>
+                        <p:column headerText="#{msg.carga_eeff_codigo_cuenta}" id="c41" width="80">
+                            <h:outputText value="#{row.idCuenta}" id="ot43"/>
+                        </p:column>
+                        <p:column headerText="#{msg.carga_eeff_cuadro}" id="c42" width="200">
+                            <h:outputText value="#{row.celda5.columna.grilla.estructura1.version.catalogo.nombre}" id="ot44"/>
+                        </p:column>
+                        <p:column headerText="#{msg.carga_eeff_columna}" id="c43" width="150">
+                            <h:outputText value="#{row.celda5.columna.tituloColumna}" id="ot45"/>
+                        </p:column>                
+                        <p:column headerText="#{msg.carga_eeff_numero_fila}" id="c44" width="75">
+                            <h:outputText value="#{row.idFila}" id="ot46"/>
+                        </p:column>
+                        <p:column headerText="Celda" id="c45" width="60">
+                            <h:outputText value="[#{row.idColumna},#{row.idFila}]" id="ot47"/>
+                        </p:column>
+                        <p:column headerText="#{msg.carga_eeff_valor_celda}" id="c46" width="120">
+                            <h:outputText value="#{row.celda5.valorBigDecimal}" id="ot48">
+                            <f:convertNumber integerOnly="false" type="number"
+                                                      maxFractionDigits="4"
+                                                      locale="#{cargadorEeff.localeCL}" pattern="##,###,###,###.####"/>
+                            </h:outputText>
+                        </p:column>
+                        </p:dataTable>
+                        </p:scrollPanel>
+                </p:tab>
+               </p:accordionPanel>
+               
 		 	</p:tab>
 		 	
 		 	<!-- LISTADO DE EMAILS -->
 		 	
-		 	<p:tab id="tab3" title="#{msg.carga_eeff_mail}" titletip="#{msg.carga_eeff_mail_desc}" rendered="#{not empty cargadorEeffBackingBean.cargadorVO.usuarioGrupoList}">
+		 	<p:tab id="tab3" title="#{msg.carga_eeff_mail}" titletip="#{msg.carga_eeff_mail_desc}" rendered="#{not empty cargadorEeff.cargadorVO.usuarioGrupoList}">
             <h:outputText value="#{msg.eeff_lista_notificacion_mail}" id="ot61"/>
             <p:dataTable value="#{cargadorEeff.cargadorVO.usuarioGrupoList}" var="row" emptyMessage="#{msg.general_sin_informacion}" id="t10">
             
@@ -160,7 +395,7 @@
             				<p:rowToggler />  
         				</p:column>  
             	<p:column headerText="#{msg.etiqueta_nombre_usuario}" id="c39" width="200">
-                    <h:outputText value="#{row.usuarioOid}" id="ot41"/>
+                    <h:outputText value="#{row.nombreUsuario}" id="ot41"/>
                 </p:column>
                 <p:column headerText="#{msg.etiqueta_email}" id="c38" width="450">
                     <h:outputText value="#{row.email}" id="ot40"/>
