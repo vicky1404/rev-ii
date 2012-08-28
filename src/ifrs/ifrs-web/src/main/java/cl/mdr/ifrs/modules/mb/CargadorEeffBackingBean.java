@@ -145,14 +145,19 @@ try {
                 addErrorMessage(PropertyManager.getInstance().getMessage("carga_eeff_error_debe_argar_info_antes_guardar"));
                 return;
         	}
-
+        	
+        	
             getFacadeService().getEstadoFinancieroService().persisVersionEeff(versionEeff);
 
             versionEeffList = getFacadeService().getEstadoFinancieroService().getVersionEeffFindByPeriodo(periodo.getIdPeriodo());
             
-            addInfoMessage(PropertyManager.getInstance().getMessage("carga_eeff_se_han_almacenado_correctamente_los_eeff"));
-            addInfoMessage(PropertyManager.getInstance().getMessage("carga_eeff_registro_cabecera") + cargadorVO.getCatidadEeffProcesado());
-            addInfoMessage(PropertyManager.getInstance().getMessage("carga_eeff_registro_detalle") + cargadorVO.getCatidadEeffDetProcesado());
+            StringBuffer sb = new StringBuffer();
+            sb
+            .append(PropertyManager.getInstance().getMessage("carga_eeff_se_han_almacenado_correctamente_los_eeff")).append("\b")
+            .append(PropertyManager.getInstance().getMessage("carga_eeff_registro_cabecera") + cargadorVO.getCatidadEeffProcesado()).append("\b")
+            .append(PropertyManager.getInstance().getMessage("carga_eeff_registro_detalle") + cargadorVO.getCatidadEeffDetProcesado());
+            
+            addInfoMessage(sb.toString());
             
             init();
            
