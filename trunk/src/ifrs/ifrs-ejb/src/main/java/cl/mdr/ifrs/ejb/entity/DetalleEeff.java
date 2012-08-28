@@ -45,20 +45,17 @@ public class DetalleEeff implements Serializable {
     @Column(name = "ID_VERSION_EEFF", nullable = false, insertable = false, updatable = false)
     private Long idVersionEeff;
     
-    @Column(name = "DESCRIPCION_CUENTA", length = 256)
-    private String descripcionCuenta;
-    
     @Column(name = "MONTO_EBS", length = 256)
     private BigDecimal montoEbs;
+    
+    @Column(name = "MONTO_RECLASIFICACION")
+    private BigDecimal montoReclasificacion;
     
     @Column(name = "MONTO_MILES")
     private BigDecimal montoMiles;
     
     @Column(name = "MONTO_PESOS")
     private BigDecimal montoPesos;
-    
-    @Column(name = "RECLASIFICACION")
-    private BigDecimal montoReclasificacion;
     
     @Column(name = "MONTO_PESOS_MIL")
     private BigDecimal montoPesosMil;
@@ -78,25 +75,8 @@ public class DetalleEeff implements Serializable {
     public DetalleEeff() {
     }
 
-    public DetalleEeff(String descripcionCuenta, String descripcionFecu, BigDecimal ebs,
-                       Long idCuenta, EstadoFinanciero estadoFinanciero1, BigDecimal montoMiles,
-                       BigDecimal montoPesos, BigDecimal reclasificacion) {
-        this.descripcionCuenta = descripcionCuenta;
-        this.montoEbs = ebs;
-        this.idCuenta = idCuenta;
-        this.estadoFinanciero1 = estadoFinanciero1;
-        this.montoMiles = montoMiles;
-        this.montoPesos = montoPesos;
-        this.montoReclasificacion = reclasificacion;
-    }
+    
 
-    public String getDescripcionCuenta() {
-        return descripcionCuenta;
-    }
-
-    public void setDescripcionCuenta(String descripcionCuenta) {
-        this.descripcionCuenta = descripcionCuenta;
-    }
 
     public BigDecimal getMontoEbs() {
         return montoEbs;

@@ -14,12 +14,19 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -787,8 +794,8 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
     }
     
     public void sendMailEeff(List<UsuarioGrupo> usuarioGrupoList, String emailFrom, String subject, String host){
-       /*
-       Map<String,UsuarioGrupo> usuarioMap = index(usuarioGrupoList, on(UsuarioGrupo.class).getUsuarioOid());
+       
+       Map<String,UsuarioGrupo> usuarioMap = index(usuarioGrupoList, on(UsuarioGrupo.class).getNombreUsuario());
         
         for(UsuarioGrupo usuario : usuarioMap.values()){
           
@@ -799,11 +806,11 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
                 try{
                    MimeMessage message = new MimeMessage(session);
                    message.setFrom(new InternetAddress(emailFrom));
-                   message.addRecipient(Message.RecipientType.TO, new InternetAddress(usuario.getEmail()));
+                   message.addRecipient(Message.RecipientType.TO, new InternetAddress(usuario.getUsuario().getEmail()));
                    message.setSubject(subject);
                    message.setContent(usuario.getContenidoMail().toString(), "text/html");
                    Transport.send(message);
-                   logger.info("Sent message successfully....");
+                   logger.info("Correo enviado correctamente...");
                 }catch (MessagingException mex) {
                    mex.printStackTrace();
                 }
@@ -812,6 +819,6 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
 	            }
 	          
         }
-      */
+      
     }
 }
