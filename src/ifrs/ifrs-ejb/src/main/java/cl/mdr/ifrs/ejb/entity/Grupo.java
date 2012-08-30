@@ -16,8 +16,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-import com.google.gson.annotations.Expose;
-
 
 /**
  * The persistent class for the IFRS_GRUPO database table.
@@ -26,7 +24,7 @@ import com.google.gson.annotations.Expose;
 @Entity
 @NamedQueries( { 
     @NamedQuery(name = Grupo.FIND_ALL , query = " select new cl.mdr.ifrs.ejb.entity.Grupo(o.idGrupoAcceso, o.nombre, o.accesoBloqueado, o.areaNegocio) " +
-    											" from Grupo o order by o.areaNegocio asc, o.nombre asc"),
+    											" from Grupo o order by o.nombre asc"),
 	@NamedQuery(name = Grupo.FIND_BY_ID , query = " select new cl.mdr.ifrs.ejb.entity.Grupo(o.idGrupoAcceso, o.nombre, o.accesoBloqueado) " +
 												  " from Grupo o where o.idGrupoAcceso =:idGrupoAcceso")
 })

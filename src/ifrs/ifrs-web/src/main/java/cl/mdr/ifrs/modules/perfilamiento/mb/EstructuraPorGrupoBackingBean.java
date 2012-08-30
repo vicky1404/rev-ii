@@ -38,7 +38,11 @@ public class EstructuraPorGrupoBackingBean extends AbstractBackingBean implement
 		super();		
 	}
 	
-	public void buscarEstructurasPorGrupoAction(ActionEvent event){     
+	public void buscarEstructurasPorGrupoAction(ActionEvent event){    
+		
+		if(!super.isSelectedEmpresa())
+			return;
+		
 		this.getTipoCuadroSelected();
         try {
             this.setGrillaCatalogoList(this.getCatalogoByGrupoList(super.getFacadeService().getCatalogoService().findCatalogoByFiltro(getFiltroBackingBean().getEmpresa().getIdRut(), null, this.getTipoCuadroSelected(), new Grupo(this.getIdGrupoSelected()), null), 
@@ -55,12 +59,14 @@ public class EstructuraPorGrupoBackingBean extends AbstractBackingBean implement
         try {
         	final Grupo grupo = super.getFacadeService().getSeguridadService().findGrupoAndCatalogoById(new Grupo(this.getIdGrupoSelected()));
             for (CommonGridModel<Catalogo> grillaCatalogo : getGrillaCatalogoList()) {
-                if (grillaCatalogo.isSelected()) {                    
-                    catalogos.add(grillaCatalogo.getEntity());
+                if (grillaCatalogo.isSelected()) {
+                	getFacadeService().getSeguridadService().persistCatalogoGrupo(grillaCatalogo.getEntity().getIdCatalogo(), grupo.getIdGrupoAcceso());
+                }else{
+                	getFacadeService().getSeguridadService().deleteCatalogoGrupo(grillaCatalogo.getEntity().getIdCatalogo(), grupo.getIdGrupoAcceso());
                 }
             }
             grupo.setCatalogos(catalogos);
-            super.getFacadeService().getSeguridadService().mergeGrupo(grupo);
+            //super.getFacadeService().getSeguridadService().mergeGrupo(grupo);
             super.addInfoMessage("", MessageFormat.format("Se actualizó correctamente la lista de accesos a las estructuras para el grupo {0} ", grupo.getNombre() ));
         } catch (Exception e) {
             logger.error(e.getCause(), e);
