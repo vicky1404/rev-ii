@@ -95,7 +95,6 @@ public class CuadroBackingBean extends AbstractBackingBean implements Serializab
             super.getFacadeService().getCatalogoService().persistEntity(getNuevoCuadro());
             obtenerLista();
             setNuevoCuadro(null);
-            getComponenteBackingBean().getMenuBackingBean().buildMenuByEmpresa(getFiltroBackingBean().getEmpresa().getIdRut());
             super.addInfoMessage(PropertyManager.getInstance().getMessage("mensaje_tabla_guardar_registro"), null );
         } catch (Exception e) {
             logger.error(e);
