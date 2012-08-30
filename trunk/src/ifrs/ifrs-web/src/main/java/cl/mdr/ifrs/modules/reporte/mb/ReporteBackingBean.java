@@ -11,11 +11,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.persistence.NoResultException;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
@@ -23,7 +21,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
-import cl.mdr.ifrs.cross.mb.FiltroBackingBean;
 import cl.mdr.ifrs.cross.model.CommonGridModel;
 import cl.mdr.ifrs.cross.util.PropertyManager;
 import cl.mdr.ifrs.cross.util.UtilBean;
@@ -43,7 +40,7 @@ public class ReporteBackingBean extends AbstractBackingBean implements Serializa
 	@ManagedProperty(value="#{reporteUtilBackingBean}")
 	private ReporteUtilBackingBean reporteUtilBackingBean;
 	
-	private static final String IMAGEN_HEADER_REPORTE = "logo-bice.jpg";
+	private static final String IMAGEN_HEADER_REPORTE = "logo_exfida.png";
     private static final String POPUP_DOWNLOAD_WORD = "p_down_word";
     private static final String POPUP_DOWNLOAD_EXCEL = "p_down_excel";
     private static final String FORMULARIO_EXPORTAR_CUADROS = "f_reporte_cuadro";

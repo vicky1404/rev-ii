@@ -208,5 +208,22 @@ public interface SeguridadServiceLocal {
      * @throws Exception
      */
     List<UsuarioGrupo> getUsuarioGrupoByCatalogo(Long idCatalogo) throws Exception;
+    
+    /**
+     * 
+     * @param idCatalogo, idGrupoAcceso
+     * @return
+     * @throws Exception
+     */
+    void deleteCatalogoGrupo(Long idCatalogo, String idGrupoAcceso) throws Exception;
+    
+    
+    /**
+     * 
+     * @param idCatalogo, idGrupoAcceso
+     * @return
+     * @throws Exception
+     */
+    void persistCatalogoGrupo(Long idCatalogo, String idGrupoAcceso) throws Exception;
         
 }
