@@ -64,6 +64,10 @@ public class HistorialReporte implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="NOMBRE_USUARIO")
 	private Usuario usuario;
+	
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ID_PERIODO" , insertable = false, updatable = false)
+    private Periodo periodo;
 
     public HistorialReporte() {
     }
@@ -174,6 +178,24 @@ public class HistorialReporte implements Serializable {
         buffer.append(']');
         return buffer.toString();
     }
+
+
+
+	/**
+	 * @return the periodo
+	 */
+	public Periodo getPeriodo() {
+		return periodo;
+	}
+
+
+
+	/**
+	 * @param periodo the periodo to set
+	 */
+	public void setPeriodo(Periodo periodo) {
+		this.periodo = periodo;
+	}
 
     
 }

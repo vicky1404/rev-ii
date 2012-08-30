@@ -315,7 +315,7 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
      * @return
      */
     private List<TipoDato> buildTipoDatoFilteredList(final TipoCelda tipoCelda){
-    	tipoDatoFilteredList = new ArrayList<TipoDato>();
+    	tipoDatoFilteredList = new ArrayList<TipoDato>();    	
     	if(tipoCelda.getIdTipoCelda().equals(TipoCeldaEnum.NUMERO.getKey())){
     		tipoDatoFilteredList =  select(this.getTipoDatoList() , 
 									having(on(TipoDato.class).getIdTipoDato(),  

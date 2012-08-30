@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -8,8 +8,7 @@
 	<ui:define name="content">
 		<h:outputScript name="js/util/form-util.js" />
 		<h:form id="f_reporte_cuadro">
-			<p:growl id="messages_reporte_cuadro" autoUpdate="true"
-				showDetail="true" showSummary="true" />
+		    <p:messages autoUpdate="true"></p:messages>
 			<p:ajaxStatus onstart="statusDialog.show();"
 				oncomplete="statusDialog.hide();" />
 			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
