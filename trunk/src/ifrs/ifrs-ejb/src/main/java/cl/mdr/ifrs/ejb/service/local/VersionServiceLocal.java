@@ -39,6 +39,18 @@ public interface VersionServiceLocal {
      * @throws Exception*/
     List<Version> findVersionByFiltro(String usuario,  TipoCuadro tipoCuadro,  PeriodoEmpresa periodoEmpresa,  EstadoCuadro estadoCuadro,  Long vigente,  Catalogo catalogo) throws Exception;     
 
+    
+    /**
+     * @param usuario
+     * @param tipoCuadro
+     * @param periodo
+     * @param estadoCuadro
+     * @param vigente
+     * @return
+     * @throws Exception*/
+    List<Version> findVersionDetalleByFiltro(String usuario,  TipoCuadro tipoCuadro,  PeriodoEmpresa periodoEmpresa,  EstadoCuadro estadoCuadro,  Long vigente,  Catalogo catalogo) throws Exception;
+    
+    
     /**
      * @param entity
      * @return

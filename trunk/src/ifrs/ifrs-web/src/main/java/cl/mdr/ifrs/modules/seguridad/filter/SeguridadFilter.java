@@ -40,6 +40,7 @@ public class SeguridadFilter implements Filter {
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		
 		RequestWrapper requestWrapper = new RequestWrapper(((HttpServletRequest) request));
 		if(!(requestWrapper.getRequestURI().indexOf(LOGIN_PAGE) > 0) || !(requestWrapper.getRequestURI().indexOf(INDEX_PAGE) > 0)){
 			if(requestWrapper.getSession().getAttribute(Usuario.class.getName()) != null){

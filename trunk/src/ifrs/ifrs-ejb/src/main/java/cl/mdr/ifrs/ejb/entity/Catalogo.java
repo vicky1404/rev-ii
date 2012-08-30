@@ -37,11 +37,18 @@ import cl.mdr.ifrs.ejb.common.Constantes;
                  
                  @NamedQuery(name = Catalogo.CATALOGO_FIND_ALL_VIGENTE_BY_TIPO,
                             //TODO Solucionar problema Caused by: java.sql.SQLSyntaxErrorException: ORA-00932: tipos de dato inconsistentes: se esperaba NUMBER se ha obtenido BINARY
-                 			query = "select o from Catalogo o where (:tipoCuadro is null or o.tipoCuadro.idTipoCuadro = :tipoCuadro) and o.vigencia = 1 order by o.orden"),
+                 			query = " select o from Catalogo o where " +
+                 					" (:tipoCuadro is null or o.tipoCuadro.idTipoCuadro = :tipoCuadro) and " +
+                 					" (:rutEmpresa is null or o.empresa.idRut = :rutEmpresa) and " +
+                 					" o.vigencia = 1 order by o.orden"),
                             //query = "select o from Catalogo o where (o.tipoCuadro.idTipoCuadro = 1) and o.vigencia = 1 order by o.orden"),
                  
                  @NamedQuery(name = Catalogo.CATALOGO_FIND_ALL_BY_TIPO,
-                             query = "select o from Catalogo o where (o.tipoCuadro.idTipoCuadro = :tipoCuadro or :tipoCuadro is null ) and (o.vigencia = :vigente or :vigente is null ) order by o.orden"),
+                             query = "select o from Catalogo o where " +
+                             		" (o.tipoCuadro.idTipoCuadro = :tipoCuadro or :tipoCuadro is null ) and " +
+                             		" (o.vigencia = :vigente or :vigente is null ) and " +
+                             		" (o.empresa.idRut = :idRut or :idRut is null ) " +
+                             		" order by o.orden"),
                  
                  @NamedQuery(name = Catalogo.CATALOGO_FIND_BY_NOTA,
                              query = "select o from Catalogo o where o = :nota"),
@@ -78,14 +85,6 @@ public class Catalogo implements Serializable {
         
     
     private static final long serialVersionUID = 5519999923709341563L;
-
-    
-    @Column(name = "COD_CUADRO", nullable = false)
-    private Long codigoCuadro;
-    
-   
-    @Column(name = "COD_SUBCUADRO", nullable = false)
-    private Long codigoSubcuadro;
     
     
     @Id
@@ -115,12 +114,12 @@ public class Catalogo implements Serializable {
     private Long impresionHorizontal;
     
    
-    @OneToMany(mappedBy = "catalogo")
+    @OneToMany(mappedBy = "catalogo", orphanRemoval=true)
     private List<Version> versionList;
     
     
     @Fetch(FetchMode.SUBSELECT)
-    @OneToMany(mappedBy = "catalogo" , fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "catalogo" , fetch=FetchType.EAGER, orphanRemoval=true)
     private List<CatalogoGrupo> catalogoGrupoList;
     
     
@@ -141,10 +140,8 @@ public class Catalogo implements Serializable {
         this.idCatalogo = idCatalogo;
     }
 
-    public Catalogo(Long codigoNota, Long codigoSubnota, Long idCatalogo, String nombre, Long orden, String titulo,
+    public Catalogo(Long idCatalogo, String nombre, Long orden, String titulo,
                     Long vigencia) {
-        this.codigoCuadro = codigoNota;
-        this.codigoSubcuadro = codigoSubnota;
         this.idCatalogo = idCatalogo;
         this.nombre = nombre;
         this.orden = orden;
@@ -152,23 +149,6 @@ public class Catalogo implements Serializable {
         this.vigencia = vigencia;
     }
     
-
-    public Long getCodigoCuadro() {
-        return codigoCuadro;
-    }
-
-    public void setCodigoCuadro(Long codigoNota) {
-        this.codigoCuadro = codigoNota;
-    }
-
-    public Long getCodigoSubcuadro() {
-        return codigoSubcuadro;
-    }
-
-    public void setCodigoSubcuadro(Long codigoSubnota) {
-        this.codigoSubcuadro = codigoSubnota;
-    }
-
     public Long getIdCatalogo() {
         return idCatalogo;
     }

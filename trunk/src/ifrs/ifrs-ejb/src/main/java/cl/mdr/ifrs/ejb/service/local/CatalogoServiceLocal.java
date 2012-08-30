@@ -29,7 +29,7 @@ public interface CatalogoServiceLocal {
     
     List<Catalogo> findCatalogoByFiltro(final Long rutEmpresa, final String usuario, final TipoCuadro tipoCuadro, final Grupo grupo, final Long vigencia) throws Exception;
     
-    List<Catalogo> findAllVigenteByTipo(TipoCuadro tipoCuadro)throws Exception;
+    List<Catalogo> findAllVigenteByTipo(final Long rutEmpresa, final TipoCuadro tipoCuadro)throws Exception;
     
-    List<Catalogo> findAllByTipo(TipoCuadro tipoCuadro, Long vigente)throws Exception;
+    List<Catalogo> findAllByTipo(final Long tipoCuadro, final Long vigente, final Long idRut) throws Exception;
 }

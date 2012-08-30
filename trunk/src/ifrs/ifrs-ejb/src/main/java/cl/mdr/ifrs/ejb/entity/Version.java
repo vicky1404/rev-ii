@@ -81,6 +81,20 @@ import cl.mdr.ifrs.ejb.common.Constantes;
                                     " and v.catalogo.vigencia = 1"),
                                     //" order by v.catalogo.tipoCuadro.nombre , " +
                                     //" v.catalogo.orden asc")
+                @NamedQuery(name = Version.VERSION_DETALLE_FIND_BY_FILTRO,
+	                query = " select distinct v " +
+	                		" from Version v join fetch v.historialVersionList, CatalogoGrupo cg, UsuarioGrupo ug, GrupoEmpresa ge where " +
+	                        " v.catalogo.idCatalogo = cg.idCatalogo " + 
+	                        " and ug.grupo = cg.grupo " +
+	                        " and ug.grupo = ge.grupo " +
+	                        " and v.periodoEmpresa.idRut = :idRut" +
+	                        " and (ug.nombreUsuario = :usuario or :usuario is null) " +
+	                        " and (v.catalogo.tipoCuadro.idTipoCuadro = :tipoCuadro or :tipoCuadro is null) " +
+	                        " and (v.catalogo.idCatalogo = :catalogo or :catalogo is null) " +
+	                        " and (v.periodoEmpresa.idPeriodo = :periodo or :periodo is null) " +
+	                        " and (v.estado.idEstado = :estado or :estado is null) " +
+	                        " and (v.vigencia = :vigente or :vigente is null) "+
+	                        " and v.catalogo.vigencia = 1"),
                                     
                  @NamedQuery(name = Version.VERSION_FIND_BY_ID_CATALOGO_PERIODO_EMPRESA, 
                  			 query = " select o from Version o " +
@@ -105,6 +119,7 @@ public class Version implements Serializable {
     public static final String VERSION_FIND_ULTIMO_VERSION_BY_PERIODO = "Version.findUltimoVersionByPeriodo";
     public static final String FIND_ULTIMA_VERSION_VIGENTE = "Version.findUltimaVersionVigente";
     public static final String VERSION_FIND_BY_FILTRO = "Version.findByFiltro";
+    public static final String VERSION_DETALLE_FIND_BY_FILTRO = "Version.findDetalleByFiltro";
     public static final String VERSION_FIND_BY_ID_CATALOGO_PERIODO_EMPRESA = "Version.findByIdCatalogoIdPeriodoEmpresa";
     public static final String FIND_VIGENTE_SIN_CERRAR = "Version.findVigenteSinCerrar";
     
@@ -150,11 +165,11 @@ public class Version implements Serializable {
     private EstadoCuadro estado;
     
     @Fetch(FetchMode.SUBSELECT)
-    @OneToMany(mappedBy = "version", targetEntity = Estructura.class, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "version", targetEntity = Estructura.class, fetch = FetchType.LAZY, orphanRemoval=true)
     private List<Estructura> estructuraList;
         
     @Fetch(FetchMode.SUBSELECT)
-  	@OneToMany(mappedBy="version", fetch=FetchType.LAZY)
+  	@OneToMany(mappedBy="version", fetch=FetchType.LAZY,orphanRemoval=true)
   	private List<HistorialVersion> historialVersionList;
     
     @Temporal(TemporalType.TIMESTAMP)

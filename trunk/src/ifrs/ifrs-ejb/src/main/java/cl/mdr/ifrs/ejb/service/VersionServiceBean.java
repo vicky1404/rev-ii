@@ -108,6 +108,20 @@ public class VersionServiceBean implements VersionServiceLocal{
     }
     
     @SuppressWarnings("unchecked")
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public List<Version> findVersionDetalleByFiltro(final String usuario, final TipoCuadro tipoCuadro, final PeriodoEmpresa periodoEmpresa, final EstadoCuadro estadoCuadro, final Long vigente, final Catalogo catalogo) throws Exception{
+        return em.createNamedQuery(Version.VERSION_DETALLE_FIND_BY_FILTRO)
+        .setParameter("usuario", usuario)
+        .setParameter("idRut", periodoEmpresa.getIdRut())
+        .setParameter("tipoCuadro", tipoCuadro.getIdTipoCuadro() != null ? tipoCuadro.getIdTipoCuadro() : null )     
+        .setParameter("catalogo", catalogo != null ? catalogo.getIdCatalogo() : null )
+        .setParameter("periodo", periodoEmpresa.getIdPeriodo() != null ? periodoEmpresa.getIdPeriodo() : null)
+        .setParameter("estado", estadoCuadro != null ? estadoCuadro.getIdEstado() : null)
+        .setParameter("vigente", vigente != null ? vigente : null)        
+        .getResultList();
+    }
+    
+    @SuppressWarnings("unchecked")
    	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public List<Version> findVersionListActualToCompare(final List<Version> versionesModificadas){
     	final List<Long> idVersionList = extract(versionesModificadas, on(Version.class).getIdVersion());

@@ -11,7 +11,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import cl.mdr.ifrs.ejb.cross.Util;
+import cl.mdr.ifrs.ejb.entity.Catalogo;
 import cl.mdr.ifrs.ejb.entity.Empresa;
+import cl.mdr.ifrs.ejb.entity.Grupo;
+import cl.mdr.ifrs.ejb.entity.TipoCuadro;
 import cl.mdr.ifrs.ejb.service.local.EmpresaServiceLocal;
 
 @Stateless
@@ -39,6 +42,13 @@ public class EmpresaServiceBean implements EmpresaServiceLocal {
 	public Empresa mergeEmpresa(final Empresa empresa) throws Exception{
 		return em.merge(empresa);
 	}
+	
+	@SuppressWarnings("unchecked")
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public List<Empresa> findDistEmpresa(List<Long> empresaList) throws Exception{ 
+		List<Empresa> empresas = em.createNamedQuery(Empresa.EMPRESA_FIND_DIST_BY_ID).setParameter("rut", empresaList).getResultList();
+        return empresas;
+    }
 	
 	
 

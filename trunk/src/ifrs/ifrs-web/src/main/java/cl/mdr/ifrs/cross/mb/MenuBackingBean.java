@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.PostConstruct;
 import javax.faces.component.UIComponent;
 import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ValueChangeEvent;
@@ -49,10 +50,14 @@ import cl.mdr.ifrs.ejb.entity.TipoCuadro;
  *
  */
 public class MenuBackingBean extends AbstractBackingBean implements Serializable {
+	
+	public static final String BEAN_NAME = "menuBackingBean";
+	
 	private final Logger log = Logger.getLogger(this.getClass().getName());
 	private static final long serialVersionUID = 8077481642975216680L;
 	private static final String PROCESO_VIEW_ID = "/pages/proceso/proceso.jsf";
 	private static final String BLANK_VIEW_ID = "/pages/blank.jsf";
+	private static final String SEGURIDAD_VIEW_ID = "/pages/seguridad/seguridad.jsf";
 	
 	private FiltroBackingBean filtroBackingBean;
 	
@@ -76,6 +81,7 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
     private Catalogo catalogoSelected;
     private boolean renderSelectorEmpresa;
     private boolean redireccionado;
+    private boolean valid = true;
     
     
     private org.primefaces.model.MenuModel model; 
@@ -86,9 +92,26 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 		
 	}
 	
+	@PostConstruct
+	public void load(){
+		
+		
+	try {
+		valid = isValidSoft();
+		if(!valid){
+			getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(SEGURIDAD_VIEW_ID));
+		}
+	} catch (Exception e) {
+		log.error(e.getMessage(),e);
+	}
+		
+	}
+	
 	
 	public void menuBackingBeanParaUnaEmpresa(ComponentSystemEvent event){
 		
+		if(!valid)
+			return;
 		
 		List<Empresa> empresaList = super.getFacadeService().getEmpresaService().findAll();
 		
@@ -144,6 +167,8 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 	public void empresaChangeValue(ValueChangeEvent event) throws IOException{
 		
 		init();
+		if(!valid)
+			return;
 		
 		if(event.getNewValue() == null){
 			getFiltroBackingBean().init();
