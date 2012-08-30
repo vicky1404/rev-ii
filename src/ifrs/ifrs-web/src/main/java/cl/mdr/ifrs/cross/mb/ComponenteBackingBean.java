@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -59,9 +60,9 @@ public class ComponenteBackingBean implements Serializable {
     private List<TipoDato> tipoDatoList;
     private List<Catalogo> catalogoList;
     private List<Rol> rolList;
+    private MenuBackingBean menuBackingBean;
     
-    
-    public ComponenteBackingBean() {
+	public ComponenteBackingBean() {
     }
     
     /*Metodos utiles para aplicacion*/
@@ -400,5 +401,11 @@ public class ComponenteBackingBean implements Serializable {
 		this.rolList = rolList;
 	}
 
+	public MenuBackingBean getMenuBackingBean() {
+		if(menuBackingBean == null){
+			menuBackingBean = UtilBean.findBean(MenuBackingBean.BEAN_NAME);
+		}
+		return menuBackingBean;
+	}
 
 }

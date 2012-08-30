@@ -29,6 +29,7 @@ import cl.mdr.ifrs.cross.util.PropertyManager;
 import cl.mdr.ifrs.cross.util.UtilBean;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
 import cl.mdr.ifrs.ejb.entity.Estructura;
+import cl.mdr.ifrs.ejb.entity.PeriodoEmpresa;
 import cl.mdr.ifrs.ejb.entity.Version;
 import cl.mdr.ifrs.ejb.reporte.util.SoporteReporte;
 import cl.mdr.ifrs.ejb.reporte.vo.ReportePrincipalVO;
@@ -52,6 +53,7 @@ public class ReporteBackingBean extends AbstractBackingBean implements Serializa
     private boolean renderBotonExportarWord;    
     private List<Version> versionDownloadList;
     private Long tipoImpresionHeader;
+    
 	
     
 	/**
@@ -63,27 +65,20 @@ public class ReporteBackingBean extends AbstractBackingBean implements Serializa
     	if(!isSelectedEmpresa()){
     		return;
     	}
-    	
         logger.info("buscando catalogo para impresión de reportes");     
-        FiltroBackingBean filtroPaso = super.getFiltroBackingBean();
-        filtroPaso.getPeriodoEmpresa().setPeriodo(null);
-        try { 
-            final String fechaPeriodo = super.getFiltroBackingBean().getPeriodoEmpresa().getPeriodo().getAnioPeriodo() + super.getFiltroBackingBean().getPeriodoEmpresa().getPeriodo().getMesPeriodo();  
-            try{
-                Long periodo = Long.valueOf(filtroPaso.getPeriodoEmpresa().getPeriodo().getAnioPeriodo().concat(filtroPaso.getPeriodoEmpresa().getPeriodo().getMesPeriodo()));
-                super.getFiltroBackingBean().setPeriodoEmpresa(super.getFacadeService().getPeriodoService().getPeriodoEmpresaById(periodo, getFiltroBackingBean().getEmpresa().getIdRut()));
-            }catch(NoResultException e){
-            	addWarnMessage(MessageFormat.format(PropertyManager.getInstance().getMessage("periodo_busqueda_sin_resultado_periodo"), super.getFiltroBackingBean().getPeriodoEmpresa().getPeriodo().getAnioPeriodo(), super.getFiltroBackingBean().getPeriodoEmpresa().getPeriodo().getMesPeriodo()));                            
-                this.setCatalogoReportes(null); 
-                this.setRenderCatalogoReportes(Boolean.FALSE);
-                return;                    
-            }catch(EJBException e){
-                addWarnMessage(MessageFormat.format(PropertyManager.getInstance().getMessage("periodo_busqueda_sin_resultado_periodo"), super.getFiltroBackingBean().getPeriodoEmpresa().getPeriodo().getAnioPeriodo(), super.getFiltroBackingBean().getPeriodoEmpresa().getPeriodo().getMesPeriodo()));                        
+        try {
+        	
+        	Long periodo = null;
+            periodo = Long.valueOf(super.getFiltroBackingBean().getAnio() + super.getFiltroBackingBean().getMes());
+            PeriodoEmpresa periodoEmpresa = super.getFacadeService().getPeriodoService().getPeriodoEmpresaById(periodo, getFiltroBackingBean().getEmpresa().getIdRut());
+            if(periodoEmpresa == null){
+            	addWarnMessage(MessageFormat.format(PropertyManager.getInstance().getMessage("periodo_busqueda_sin_resultado_periodo"),super.getFiltroBackingBean().getAnio(), super.getFiltroBackingBean().getMes()));                        
                 this.setCatalogoReportes(null);                 
                 this.setRenderCatalogoReportes(Boolean.FALSE);
                 return;
             }
-            List<Version> versionList = super.getFacadeService().getVersionService().findUltimoVersionByPeriodo(Long.valueOf(fechaPeriodo), super.getNombreUsuario(), this.getFiltroBackingBean().getTipoCuadro(), null, super.getFiltroBackingBean().getEmpresa());            
+            super.getFiltroBackingBean().setPeriodoEmpresa(periodoEmpresa);
+            List<Version> versionList = super.getFacadeService().getVersionService().findUltimoVersionByPeriodo(periodo, super.getNombreUsuario(), this.getFiltroBackingBean().getTipoCuadro(), null, super.getFiltroBackingBean().getEmpresa());            
             this.setCatalogoReportes(this.getGrillaReportes(versionList));                
             this.setRenderCatalogoReportes(Boolean.TRUE);
         } catch (Exception e) {

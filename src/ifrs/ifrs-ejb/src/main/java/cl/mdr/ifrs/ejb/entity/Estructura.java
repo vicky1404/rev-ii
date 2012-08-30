@@ -73,19 +73,19 @@ public class Estructura implements Serializable {
     
     
     //@OneToMany(mappedBy = "estructura", targetEntity = Html.class, fetch = FetchType.EAGER)                
-    @OneToOne(mappedBy = "estructura", fetch = FetchType.EAGER, targetEntity = Html.class)        
+    @OneToOne(mappedBy = "estructura", fetch = FetchType.EAGER, targetEntity = Html.class, orphanRemoval=true)        
     //@JoinColumn(name = "ID_HTML", referencedColumnName="ID_ESTRUCTURA", insertable = false, updatable = false)
     private Html html;
     
     
     //@OneToMany(mappedBy = "estructura1", targetEntity = Grilla.class, fetch = FetchType.EAGER)        
-    @OneToOne(mappedBy = "estructura", fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "estructura", fetch = FetchType.EAGER, orphanRemoval=true)
     //@JoinColumn(name = "ID_GRILLA", referencedColumnName="ID_ESTRUCTURA",  insertable = false, updatable = false)
     private Grilla grilla;
        
     
     //@OneToMany(mappedBy = "estructura2", targetEntity = Texto.class, fetch = FetchType.EAGER)        
-    @OneToOne(mappedBy = "estructura", fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "estructura", fetch = FetchType.EAGER, orphanRemoval=true)
     //@JoinColumn(name = "ID_TEXTO", referencedColumnName="ID_ESTRUCTURA", insertable = false, updatable = false)
     private Texto texto;
              

@@ -2,7 +2,10 @@ package cl.mdr.ifrs.cross.mb;
 
 import java.security.Principal;
 import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
+import java.util.StringTokenizer;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -17,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.primefaces.context.RequestContext;
 
 import cl.mdr.ifrs.ejb.cross.Util;
+import cl.mdr.ifrs.ejb.entity.Empresa;
 import cl.mdr.ifrs.ejb.entity.Grilla;
 import cl.mdr.ifrs.ejb.entity.Periodo;
 import cl.mdr.ifrs.ejb.entity.PeriodoEmpresa;
@@ -35,9 +39,14 @@ public abstract class AbstractBackingBean {
 	
 	@ManagedProperty(value="#{filtroBackingBean}")
     private FiltroBackingBean filtroBackingBean;
-	
-	private Locale localeCL = new Locale("es", "CL");
 
+	private Locale localeCL = new Locale("es", "CL");
+	
+	/*Variables que validan las licencias*/
+	private final int VERSION_SOFT = 2;
+	private final String EMP_SOFT = "5588554;15505123;";
+	private final String EMP_SOFT_DV = "0;K;";
+	
 	public FacadeServiceLocal getFacadeService() {
 		return facadeService;
 	}
@@ -242,4 +251,32 @@ public abstract class AbstractBackingBean {
 		}
 		return true;
 	}
+	
+	protected boolean isValidSoft() throws Exception{
+		
+		List<Empresa> empresaList = this.getFacadeService().getEmpresaService().findDistEmpresa(getEmpresaRegList());
+		if(Util.esListaValida(empresaList)){
+			int lic = empresaList.size();
+			StringTokenizer strRut = new StringTokenizer(EMP_SOFT, ";");
+			StringTokenizer strDv = new StringTokenizer(EMP_SOFT_DV, ";");
+			addFatalMessage(new StringBuilder("Cantidad de Empresas Registradas en Base de Datos: ").append(lic).toString());
+			addFatalMessage(new StringBuilder("Usted tiene disponible ").append(VERSION_SOFT).append(" Licencias ").append("para las siguientes Empresas:").toString());
+			for(int i=0; i<VERSION_SOFT; i++){
+				addFatalMessage(new StringBuilder(strRut.nextToken()).append("-").append(strDv.nextElement()).toString());
+			}
+			return false;
+		}
+		
+		return true;
+	}
+	
+	private List<Long> getEmpresaRegList(){
+		StringTokenizer strRut = new StringTokenizer(EMP_SOFT, ";");
+		List<Long> empresaRegList = new ArrayList<Long>();
+		while(strRut.hasMoreElements()){
+			empresaRegList.add(Util.getLong((String)strRut.nextElement(),0L));
+		}
+		return empresaRegList;
+	}
+
 }

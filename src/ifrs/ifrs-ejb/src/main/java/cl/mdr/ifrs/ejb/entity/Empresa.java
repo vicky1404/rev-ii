@@ -27,7 +27,10 @@ import com.google.gson.annotations.Expose;
 																  " from Empresa o order by o.razonSocial"),
 			@NamedQuery(name = Empresa.EMPRESA_FIND_BY_ID, query = " select e " +
 					  											   " from Empresa e left join fetch e.grupos where e.idRut = :rut" +
-					  											   " order by e.razonSocial")
+					  											   " order by e.razonSocial"),
+			@NamedQuery(name = Empresa.EMPRESA_FIND_DIST_BY_ID,  query = " select o " +
+					  											  		 " from Empresa o" +
+					  											  		 " where o.idRut not in(:rut)"),
 })
 @Table(name=Constantes.EMPRESA)
 public class Empresa implements Serializable {
@@ -36,6 +39,7 @@ public class Empresa implements Serializable {
 
 	public static final String EMPRESA_FIND_ALL = "Empresa.findAll";
 	public static final String EMPRESA_FIND_BY_ID = "Empresa.findById";
+	public static final String EMPRESA_FIND_DIST_BY_ID = "Empresa.findDistId";
 	
 	private static final long serialVersionUID = 2904448285907525542L;
 

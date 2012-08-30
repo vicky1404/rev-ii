@@ -49,11 +49,11 @@ public class Grilla implements Serializable {
     private String titulo;
     
     @Fetch(FetchMode.SUBSELECT)
-    @OneToMany(mappedBy = "grilla", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "grilla", fetch = FetchType.EAGER, orphanRemoval=true)
     //@OrderBy("idColumna asc")            
     private List<Columna> columnaList;
     
-    @OneToOne(targetEntity = Estructura.class, fetch = FetchType.EAGER)
+    @OneToOne(targetEntity = Estructura.class, fetch = FetchType.EAGER, orphanRemoval=true)
     @JoinColumn(name = "ID_GRILLA", insertable = false, updatable = false)
     @Expose
     private Estructura estructura;

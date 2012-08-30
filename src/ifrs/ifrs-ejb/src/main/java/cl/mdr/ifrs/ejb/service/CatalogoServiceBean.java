@@ -88,19 +88,20 @@ public class CatalogoServiceBean implements CatalogoServiceLocal{
     
     @SuppressWarnings("unchecked")
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public List<Catalogo> findAllVigenteByTipo(final TipoCuadro tipoCuadro)throws Exception{
+	public List<Catalogo> findAllVigenteByTipo(final Long rutEmpresa, final TipoCuadro tipoCuadro)throws Exception{
         return em.createNamedQuery(Catalogo.CATALOGO_FIND_ALL_VIGENTE_BY_TIPO)
         		//TODO Solucionar problema Caused by: java.sql.SQLSyntaxErrorException: ORA-00932: tipos de dato inconsistentes: se esperaba NUMBER se ha obtenido BINARY
-                                             .setParameter("tipoCuadro", tipoCuadro != null ? tipoCuadro.getIdTipoCuadro().longValue() : "" )                                                                                             
+								        	 .setParameter("rutEmpresa",rutEmpresa)
+								        	 .setParameter("tipoCuadro", tipoCuadro != null ? tipoCuadro.getIdTipoCuadro().longValue() : "" )                                                                                             
                                              .getResultList();
     }
     
     @SuppressWarnings("unchecked")
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-    public List<Catalogo> findAllByTipo(final TipoCuadro tipoCuadro, final Long vigente)throws Exception{
-    	tipoCuadro.setIdTipoCuadro(1L);
+    public List<Catalogo> findAllByTipo(final Long tipoCuadro, final Long vigente, final Long idRut)throws Exception{
     	Query query = em.createNamedQuery(Catalogo.CATALOGO_FIND_ALL_BY_TIPO)                                             
-                                             .setParameter("tipoCuadro",  tipoCuadro != null ? tipoCuadro.getIdTipoCuadro() : null)
+                                             .setParameter("tipoCuadro",  tipoCuadro)
+                                             .setParameter("idRut",  idRut)
                                              .setParameter("vigente", vigente);                                           
          return query.getResultList();
     }
