@@ -24,7 +24,10 @@ import cl.mdr.ifrs.ejb.common.Constantes;
 @Entity
 @NamedQueries({
   @NamedQuery(name = "HistorialReporte.findAll", query = "select o from HistorialReporte o"),
-  @NamedQuery(name = HistorialReporte.FIND_ALL_BY_PERIODO, query = "select o from HistorialReporte o where o.periodoEmpresa.idPeriodo = :idPeriodo order by o.fechaExportacion desc")
+  @NamedQuery(name = HistorialReporte.FIND_ALL_BY_PERIODO, query = " select o from HistorialReporte o " +
+  																   " where o.periodoEmpresa.idPeriodo = :idPeriodo " +
+  																   " and o.periodoEmpresa.idRut =:rutEmpresa " +
+  																   " order by o.fechaExportacion desc")
 })
 @Table(name = Constantes.HISTORIAL_REPORTE)
 public class HistorialReporte implements Serializable {
