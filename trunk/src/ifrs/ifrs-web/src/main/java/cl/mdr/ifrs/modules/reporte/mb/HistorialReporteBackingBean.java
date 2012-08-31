@@ -72,7 +72,7 @@ public class HistorialReporteBackingBean extends AbstractBackingBean implements 
                 return null;
             }
             super.getFiltroBackingBean().setPeriodoEmpresa(periodoEmpresa);                                         
-            this.setHistorialReporteList(super.getFacadeService().getReporteDocxService().findHistorialReporteByPeriodo(super.getFiltroBackingBean().getPeriodoEmpresa().getPeriodo()));
+            this.setHistorialReporteList(super.getFacadeService().getReporteDocxService().findHistorialReporteByPeriodo(super.getFiltroBackingBean().getPeriodoEmpresa().getPeriodo(), super.getFiltroBackingBean().getEmpresa()));
             this.setRenderHistorialReportes(Boolean.TRUE);
         } catch (Exception e) {
             logger.error(e.getCause(), e);

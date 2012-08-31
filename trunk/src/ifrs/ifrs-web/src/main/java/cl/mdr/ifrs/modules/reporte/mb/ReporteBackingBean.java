@@ -14,6 +14,8 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
@@ -23,7 +25,6 @@ import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
 import cl.mdr.ifrs.cross.model.CommonGridModel;
 import cl.mdr.ifrs.cross.util.PropertyManager;
-import cl.mdr.ifrs.cross.util.UtilBean;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
 import cl.mdr.ifrs.ejb.entity.Estructura;
 import cl.mdr.ifrs.ejb.entity.PeriodoEmpresa;
@@ -31,6 +32,12 @@ import cl.mdr.ifrs.ejb.entity.Version;
 import cl.mdr.ifrs.ejb.reporte.util.SoporteReporte;
 import cl.mdr.ifrs.ejb.reporte.vo.ReportePrincipalVO;
 
+/**
+ * @since 2012
+ * @author Todos los derechos reservados
+ * http://www.mdrtech.cl
+ * 
+ */
 @ManagedBean
 @ViewScoped
 public class ReporteBackingBean extends AbstractBackingBean implements Serializable {
@@ -40,7 +47,7 @@ public class ReporteBackingBean extends AbstractBackingBean implements Serializa
 	@ManagedProperty(value="#{reporteUtilBackingBean}")
 	private ReporteUtilBackingBean reporteUtilBackingBean;
 	
-	private static final String IMAGEN_HEADER_REPORTE = "logo_exfida.png";
+	private static final String IMAGEN_HEADER_REPORTE = "/resources/images/logo/logo_exfida.png";
     private static final String POPUP_DOWNLOAD_WORD = "p_down_word";
     private static final String POPUP_DOWNLOAD_EXCEL = "p_down_excel";
     private static final String FORMULARIO_EXPORTAR_CUADROS = "f_reporte_cuadro";
@@ -176,7 +183,7 @@ public class ReporteBackingBean extends AbstractBackingBean implements Serializa
         try{
             final List<ReportePrincipalVO> reportes = this.getReporteUtilBackingBean().getGenerarListReporteVO(this.getVersionDownloadList());
             final String nombreArchivo = SoporteReporte.getNombreReporteDocx(new Date());                        
-            WordprocessingMLPackage wordMLPackage = super.getFacadeService().getReporteDocxService().createDOCX(reportes, getLogoReporte(), super.getNombreUsuario(), super.getIpUsuario(), nombreArchivo, super.getFiltroBackingBean().getPeriodoEmpresa());              
+            WordprocessingMLPackage wordMLPackage = super.getFacadeService().getReporteDocxService().createDOCX(reportes, getLogoReporte(), super.getUsuarioSesion(), super.getIpUsuario(), nombreArchivo, super.getFiltroBackingBean().getPeriodoEmpresa());              
             this.getReporteUtilBackingBean().setOutPutStreamDocx(wordMLPackage, nombreArchivo);
             super.getFacesContext().responseComplete();            
         } catch (Exception e) {
@@ -212,8 +219,8 @@ public class ReporteBackingBean extends AbstractBackingBean implements Serializa
      * @return byte[]
      * @throws IOException
      */
-    private static final byte[] getLogoReporte() throws Exception {        
-        InputStream inputStream = UtilBean.class.getResourceAsStream(IMAGEN_HEADER_REPORTE);
+    private static final byte[] getLogoReporte() throws Exception {                        
+    	InputStream inputStream = ((ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext()).getResourceAsStream(IMAGEN_HEADER_REPORTE);          
         return IOUtils.toByteArray(inputStream);   
     }
 
