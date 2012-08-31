@@ -9,7 +9,9 @@ import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
 
 @ManagedBean
 @ViewScoped
-public class GrupoBackingBean extends AbstractBackingBean implements Serializable {
-	private static final long serialVersionUID = 5161357683025440954L;
+public class AreaNegocioBackingBean extends AbstractBackingBean implements Serializable {
+	private static final long serialVersionUID = 7795748522251877332L;
+	
+	
 
 }
