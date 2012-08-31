@@ -7,12 +7,12 @@
 	template="/WEB-INF/templates/main-template.xhtml">
 	<ui:define name="content">
 		<h:form id="f_historial">
-		    <p:messages autoUpdate="true"></p:messages>
+			<p:messages autoUpdate="true"></p:messages>
 			<p:ajaxStatus onstart="statusDialog.show();"
 				oncomplete="statusDialog.hide();" />
 			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
 			<p:panel id="filtro_reporte_cuadro"
-				header="#{msg.titulo_exportar_reportes}" toggleable="true"
+				header="#{msg.titulo_exportar_reportes} (falta filtrar la empresa)" toggleable="true"
 				closable="false" toggleSpeed="500" closeSpeed="2000"
 				widgetVar="panel">
 
@@ -69,9 +69,10 @@
 				emptyMessage="#{msg.mensaje_tabla_sin_registros}"
 				id="tabla_historial_reporte" var="row" lazy="true"
 				rendered="#{historialReporteBackingBean.renderHistorialReportes}"
-				selectionMode="single" rowKey="#{row.idHistorialReporte}">
+				selectionMode="single" rowKey="#{row.idHistorialReporte}"
+				binding="#{historialReporteBackingBean.historialReporteTable}">
 				<p:column headerText="Usuario" sortable="true"
-					sortProperty="usuarioOid" align="start" id="c1">
+					sortProperty="usuario" align="start" id="c1">
 					<h:outputText value="#{row.usuario}" id="ot1" />
 				</p:column>
 				<p:column sortable="false" headerText="IP Usuario" align="right"
@@ -79,62 +80,78 @@
 					<h:outputText value="#{row.ipUsuario}" id="ot2" />
 				</p:column>
 				<p:column sortable="true" sortProperty="fechaExportacion"
-					headerText="Fecha Generación" align="right" id="c3" width="120">
+					headerText="Fecha Generación" align="right" id="c3">
 					<h:outputText value="#{row.fechaExportacion}" id="ot3">
 						<f:convertDateTime pattern="dd-MM-yyyy HH:mm:ss" />
 					</h:outputText>
 				</p:column>
 				<p:column sortable="false" headerText="Check Sum Comprobación"
-					align="start" id="c4" width="220">
+					align="start" id="c4">
 					<h:outputText value="#{row.checkSumExportacion}" id="ot4"
-						inlineStyle="text-transform:uppercase;" />
+						style="text-transform:uppercase;" />
 				</p:column>
-				<p:column sortable="false" headerText="Comentario" align="start"
+				<p:column sortable="false" headerText="Comentario"
 					id="c5">
 					<h:outputText value="#{row.comentario}" id="ot5" />
 				</p:column>
 				<p:column sortable="false" headerText="Período" align="right"
-					id="c8" width="70">
+					id="c8">
 					<h:outputText
 						value="#{row.periodo.anioPeriodo}-#{row.periodo.mesPeriodo}"
 						id="ot8_1" />
 				</p:column>
-				<p:column sortable="false" headerText="Validar Archivo" align="center" id="c6" width="60">
-                        <p:commandLink icon="/images/icon/validate-file.gif" shortDesc="Validar Archivo: \'#{row.nombreArchivo}\'"
-                                             id="cil1">                                                    
-                            
-                        </p:commandLink>
-                        
-                            <p:dialog title="Validar Archivo" id="d2" contentWidth="250" type="cancel" modal="false">
-                                <af:panelFormLayout id="pfl2">
-                                    <div align="left" style="width: 720px;">
-									<p:fileUpload label="Seleccionar Archivo" id="gDif1"
-										required="true"										
-										requiredMessage="Debe seleccionar el Archivo para validar."
-										multiple="false" mode="advanced" update="@form"
-										cancelLabel="Cancelar"
-										invalidFileMessage="El formato del Archivo es invalido, solo se permiten archivos MS Word en formato 2007 o superior"
-										invalidSizeMessage="El Archivo a utilizar no puede superar los 3 MB."
-										sizeLimit="3145728" allowTypes="/(\.|\/)(docx)$/"
-										fileUploadListener="#{historialReporteBackingBean.cargaArchivoListener}">
-									</p:fileUpload>
-								</div>
-                                    <af:spacer width="10" height="20" id="s3"/>
-                                    <f:facet name="footer">
-                                        <af:panelGroupLayout id="pgl1" halign="right">
-                                            <af:commandButton text="Validar Archivo" id="cb1223" blocking="true"
-                                                              partialSubmit="false"
-                                                              actionListener="#{historialReporteBackingBean.validarArchivo}"
-                                                              icon="/images/icon/drive-upload.png">
-                                                <f:attribute name="historialReporte" value="#{row}"/>
-                                            </af:commandButton>
-                                        </af:panelGroupLayout>
-                                    </f:facet>
-                                </af:panelFormLayout>
-                            </p:dialog>
-                        
-                    </p:column>
+				<p:column headerText="Descargar">
+					<div align="center">
+						<p:commandLink id="downloadLink" ajax="false"
+						    title="Descargar Archivo: #{row.nombreArchivo}"
+							actionListener="#{historialReporteBackingBean.fileDownloadListener}"
+							onclick="PrimeFaces.monitorDownload(start, stop)">
+							<p:graphicImage styleClass="ui-icon ui-icon-arrowstop-1-s"></p:graphicImage>
+							<p:fileDownload
+								value="#{historialReporteBackingBean.downloadedFile}" />
+						</p:commandLink>
+					</div>
+				</p:column>
+				<p:column sortable="false" headerText="Validar Archivo" id="c6">
+					<div align="center">
+						<p:commandLink title="Validar Archivo: #{row.nombreArchivo}"
+							id="cil1"
+							actionListener="#{historialReporteBackingBean.prepareValidarArchivo}">
+							<p:graphicImage styleClass="ui-icon ui-icon-check"></p:graphicImage>
+							<f:attribute name="historialReporte" value="#{row}" />
+						</p:commandLink>
+					</div>
+				</p:column>
 			</p:dataTable>
+			<p:dialog id="d2" width="640" header="Validar Archivo"
+				type="cancel" modal="false" widgetVar="dialogValidaReporte">
+				<h:panelGrid columns="1">
+					<h:column>
+					    <div align="left" style="width: 600px;">
+						<p:fileUpload label="Seleccionar Archivo" id="gDif1"
+							required="true" 
+							requiredMessage="Debe seleccionar el Archivo para validar."
+							multiple="false" mode="advanced" auto="true"
+							cancelLabel="Cancelar" update="@form" 
+							invalidFileMessage="El formato del Archivo es invalido, solo se permiten archivos MS Word en formato 2007 o superior"
+							invalidSizeMessage="El Archivo a utilizar no puede superar los 3 MB."
+							sizeLimit="3145728" allowTypes="/(\.|\/)(docx)$/"
+							fileUploadListener="#{historialReporteBackingBean.cargaArchivoListener}">
+						</p:fileUpload>
+						</div>
+					</h:column>				
+					
+				</h:panelGrid>
+			</p:dialog>
 		</h:form>
+		<script type="text/javascript">  
+			function start() {  
+			    statusDialog.show();  
+			}  
+			  
+			function stop() {  
+			    statusDialog.hide();  
+			}  
+		</script>
 	</ui:define>
 </ui:composition>
