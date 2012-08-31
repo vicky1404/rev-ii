@@ -19,6 +19,8 @@ import javax.faces.event.ActionEvent;
 import org.apache.log4j.Logger;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
@@ -39,16 +41,14 @@ public class HistorialReporteBackingBean extends AbstractBackingBean implements 
 	private transient Logger logger = Logger.getLogger(HistorialReporteBackingBean.class);
 	
 	public HistorialReporteBackingBean() {
-		// TODO Auto-generated constructor stub
+		super();
 	}
-	
-    private static final String WORD_EXTENSION = "docx";
-    /*private transient RichTable historialReporteTable;
-    private transient RichInputFile richInputFile;
-    private transient UploadedFile uploadedFile;*/
+	    
     private transient DataTable historialReporteTable;
     private transient UploadedFile uploadedFile;
+    private StreamedContent downloadedFile;  
     private List<HistorialReporte> historialReporteList;
+    private HistorialReporte historialReporte;
     private boolean renderHistorialReportes;
     
     /**
@@ -83,31 +83,28 @@ public class HistorialReporteBackingBean extends AbstractBackingBean implements 
     
     public void cargaArchivoListener(FileUploadEvent event) { 
     	this.setUploadedFile(event.getFile());
+    	this.validarArchivo();
     }
+        
     /**
-     * @param context
-     * @param out
-     * @throws IOException
+     * Action Listener encargado de la descarga del archivo
      */
-    public void download(FacesContext context, OutputStream out) throws IOException {   
-        final HistorialReporte historialReporte = (HistorialReporte)this.getHistorialReporteTable().getRowData();
-        InputStream inputStream;
-        byte[] b;
-        try {
-            inputStream = new ByteArrayInputStream(historialReporte.getDocumento());
-            int n;
-            while ((n = inputStream.available()) > 0) {
-                b = new byte[n];
-                int result = inputStream.read(b);
-                out.write(b, 0, b.length);
-                if (result == -1)
-                    break;
-            }
-        } catch (Exception e) {
+    public void fileDownloadListener() { 
+    	try {
+	    	final HistorialReporte historialReporte = (HistorialReporte)this.getHistorialReporteTable().getRowData();
+	        InputStream stream = new ByteArrayInputStream(historialReporte.getDocumento());
+	        downloadedFile = new DefaultStreamedContent(stream, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", historialReporte.getNombreArchivo());
+    	} catch (Exception e) {
         	super.addErrorMessage("Se ha producido un error al descargar el Archivo "+historialReporte.getNombreArchivo());
             logger.error(e.getMessage(), e);
         }
-        out.flush();
+        
+    }  
+  
+    
+    public void prepareValidarArchivo(ActionEvent event){
+    	this.setHistorialReporte((HistorialReporte)event.getComponent().getAttributes().get("historialReporte"));
+    	super.displayPopUp("dialogValidaReporte", "tabla_historial_reporte");
     }
     
     /**
@@ -115,10 +112,12 @@ public class HistorialReporteBackingBean extends AbstractBackingBean implements 
      * contra el archivo subido a la aplicacion.
      * @param event
      */
-    public void validarArchivo(ActionEvent event){
-        HistorialReporte historialReporte = null;
+    public void validarArchivo(){        
         try {
-            historialReporte = (HistorialReporte)event.getComponent().getAttributes().get("historialReporte");
+            if(this.historialReporte == null){
+            	super.addErrorMessage("Seleccione el archivo a validar desde el Historial de Reportes");
+            	return;
+            }
             if(this.getUploadedFile() == null){
             	super.addErrorMessage("Seleccione el archivo a cargar y luego proceda a validar el reporte");
                 return;
@@ -126,11 +125,7 @@ public class HistorialReporteBackingBean extends AbstractBackingBean implements 
             if(this.getUploadedFile().getInputstream() == null){
             	super.addErrorMessage("Seleccione el archivo a cargar y luego proceda a validar el reporte");
                 return;
-            }
-            if(historialReporte == null){
-            	super.addErrorMessage("Seleccione el reporte que desea validar");
-                return;
-            }
+            }            
             String checkSumDoc = historialReporte.getCheckSumExportacion();
             String chechSumDocUploaded = MD5CheckSum.getMD5Checksum(this.getUploadedFile().getInputstream());
             if(!checkSumDoc.equals(chechSumDocUploaded)){
@@ -199,6 +194,22 @@ public class HistorialReporteBackingBean extends AbstractBackingBean implements 
 	 */
 	public void setHistorialReporteTable(DataTable historialReporteTable) {
 		this.historialReporteTable = historialReporteTable;
+	}
+
+	public HistorialReporte getHistorialReporte() {
+		return historialReporte;
+	}
+
+	public void setHistorialReporte(HistorialReporte historialReporte) {
+		this.historialReporte = historialReporte;
+	}
+
+	public StreamedContent getDownloadedFile() {
+		return downloadedFile;
+	}
+
+	public void setDownloadedFile(StreamedContent downloadedFile) {
+		this.downloadedFile = downloadedFile;
 	}
 	
 	
