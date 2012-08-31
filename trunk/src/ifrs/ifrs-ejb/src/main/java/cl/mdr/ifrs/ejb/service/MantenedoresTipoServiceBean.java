@@ -33,21 +33,25 @@ public class MantenedoresTipoServiceBean implements MantenedoresTipoServiceLocal
     public MantenedoresTipoServiceBean() {
         super();
     }
-    
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Object mergeEntity(Object entity){
         return em.merge(entity);
     }
-
+    	
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Object persistEntity(Object entity){
         em.persist(entity);
         return entity;
     }
     
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void deleteTipoCuadro(TipoCuadro entity) throws Exception {
     	TipoCuadro tipoCuadro = em.find(TipoCuadro.class, entity.getIdTipoCuadro());
     	em.remove(tipoCuadro);
     }
     
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void deleteCuadro(Catalogo entity) throws Exception {
     	Catalogo cuadro = em.find(Catalogo.class, entity.getIdCatalogo());
     	em.remove(cuadro);
@@ -124,16 +128,20 @@ public class MantenedoresTipoServiceBean implements MantenedoresTipoServiceLocal
     /**
      * @return
      */
-    public Periodo findByPeriodo(Long periodo) throws Exception{
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public Periodo findByPeriodo(final Long periodo) throws Exception{
         Query query = em.createNamedQuery("Periodo.findByPeriodo");
         query.setParameter("periodo", periodo);
         Periodo periodoResult = null;
         if (query.getResultList().size() > 0){
         	periodoResult = (Periodo)query.getSingleResult();     
         }
-        return periodoResult;
-        
+        return periodoResult;        
     }
+    
+    
+    
+    
     
 	    
 }
