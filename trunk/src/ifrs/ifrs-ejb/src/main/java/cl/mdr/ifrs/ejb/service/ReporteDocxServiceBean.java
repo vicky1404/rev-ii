@@ -70,6 +70,7 @@ import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.AgrupacionColumna;
 import cl.mdr.ifrs.ejb.entity.Celda;
 import cl.mdr.ifrs.ejb.entity.Columna;
+import cl.mdr.ifrs.ejb.entity.Empresa;
 import cl.mdr.ifrs.ejb.entity.Estructura;
 import cl.mdr.ifrs.ejb.entity.Grilla;
 import cl.mdr.ifrs.ejb.entity.HistorialReporte;
@@ -77,6 +78,7 @@ import cl.mdr.ifrs.ejb.entity.Html;
 import cl.mdr.ifrs.ejb.entity.Periodo;
 import cl.mdr.ifrs.ejb.entity.PeriodoEmpresa;
 import cl.mdr.ifrs.ejb.entity.Texto;
+import cl.mdr.ifrs.ejb.entity.Usuario;
 import cl.mdr.ifrs.ejb.facade.local.FacadeServiceLocal;
 import cl.mdr.ifrs.ejb.reporte.util.SoporteReporte;
 import cl.mdr.ifrs.ejb.reporte.vo.ReportePrincipalVO;
@@ -117,7 +119,7 @@ public class ReporteDocxServiceBean implements ReporteDocxServiceLocal {
     }
     
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public WordprocessingMLPackage createDOCX(final List<ReportePrincipalVO> reportes, final byte[] headerImage, final String usuarioOid, final String ipUsuario, final String nombreArchivo, final PeriodoEmpresa periodoEmpresa) throws Exception {  
+    public WordprocessingMLPackage createDOCX(final List<ReportePrincipalVO> reportes, final byte[] headerImage, final Usuario usuario , final String ipUsuario, final String nombreArchivo, final PeriodoEmpresa periodoEmpresa) throws Exception {  
         PageDimensions pageDimensions;            
         this.setHeaderImage(headerImage);
         int totalReportes = reportes.size();
@@ -220,9 +222,8 @@ public class ReporteDocxServiceBean implements ReporteDocxServiceLocal {
         byte[] documentData = byteArrayOutputStream.toByteArray();
         InputStream inputStream = new ByteArrayInputStream(documentData);            
         
-        historialReporte = new HistorialReporte();
-        //TODO agregar el objeto usuario
-        //historialReporte.setUsuarioOid(usuarioOid);
+        historialReporte = new HistorialReporte();        
+        historialReporte.setUsuario(usuario);
         historialReporte.setIpUsuario(ipUsuario);
         historialReporte.setCheckSumExportacion(MD5CheckSum.getMD5Checksum(inputStream));
         historialReporte.setFechaExportacion(new Date());
@@ -609,8 +610,11 @@ public class ReporteDocxServiceBean implements ReporteDocxServiceLocal {
     
     @SuppressWarnings("unchecked")
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public List<HistorialReporte> findHistorialReporteByPeriodo(final Periodo periodo) throws Exception{
-        return em.createNamedQuery(HistorialReporte.FIND_ALL_BY_PERIODO).setParameter("idPeriodo", periodo.getIdPeriodo()).getResultList();
+	public List<HistorialReporte> findHistorialReporteByPeriodo(final Periodo periodo, final Empresa empresa) throws Exception{
+        return em.createNamedQuery(HistorialReporte.FIND_ALL_BY_PERIODO).
+        		  setParameter("idPeriodo", periodo.getIdPeriodo()).
+        		  setParameter("rutEmpresa", empresa.getIdRut()).
+        		  getResultList();
     }
     
     
