@@ -4,16 +4,13 @@
 package cl.mdr.ifrs.modules.reporte.mb;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import org.apache.log4j.Logger;
@@ -25,7 +22,6 @@ import org.primefaces.model.UploadedFile;
 
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
 import cl.mdr.ifrs.cross.mb.FiltroBackingBean;
-import cl.mdr.ifrs.cross.util.PropertyManager;
 import cl.mdr.ifrs.ejb.cross.MD5CheckSum;
 import cl.mdr.ifrs.ejb.entity.HistorialReporte;
 import cl.mdr.ifrs.ejb.entity.PeriodoEmpresa;
