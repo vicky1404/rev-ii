@@ -7,3 +7,5 @@ ADD (VIGENTE NUMBER(1) );
 alter table IFRS_AREA_NEGOCIO
    add constraint FK_IFRS_ARE_REFERENCE_IFRS_EMP foreign key (ID_RUT)
       references IFRS_EMPRESA (ID_RUT);
+	  
+UPDATE IFRS_AREA_NEGOCIO SET ID_RUT = '15505123', VIGENTE = '1'	  
