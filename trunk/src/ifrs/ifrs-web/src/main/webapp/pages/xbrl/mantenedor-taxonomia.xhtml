@@ -100,12 +100,12 @@
 					<p:inputText value="#{row.uri}" id="ot5" required="true" />
 				</p:column>
 				<p:column sortable="false" headerText="Vigente" align="start"
-					id="c6" rowHeader="unstyled">
-					<p:selectOneMenu label=" " id="soc1" value="#{row.vigente}"
+					rowHeader="unstyled">
+					<p:selectOneMenu label=" "  value="#{row.vigente}"
 						showRequired="true" requiredMessageDetail="Seleccione Vigencia"
 						required="true" clientComponent="true">
 						<f:selectItems
-							value="#{mantenedorTaxonomiaBackingBean.componenteBackingBean.vigencias}"
+							value="#{mantenedorTaxonomiaBackingBean.componenteBackingBean.vigenciaItems}"
 							id="si1" />
 					</p:selectOneMenu>
 				</p:column>
