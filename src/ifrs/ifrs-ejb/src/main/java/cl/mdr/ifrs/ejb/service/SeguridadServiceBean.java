@@ -41,6 +41,7 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
     }
     
     /*Mantenedor de Usuaario*/
+    
     /* (non-Javadoc)
      * @see cl.mdr.ifrs.ejb.service.local.SeguridadServiceLocal#findUsuariosByFiltro(cl.mdr.ifrs.ejb.entity.Usuario)
      */
@@ -252,7 +253,7 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
      */
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void mergeGrupoList(final List<Grupo> grupoList) throws Exception {        
-        for(Grupo grupo : grupoList) {
+        for(final Grupo grupo : grupoList) {
             em.merge(grupo);
         }
     }

@@ -14,6 +14,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
+
 import cl.mdr.ifrs.ejb.common.Constantes;
 
 
@@ -33,9 +35,11 @@ public class AreaNegocio implements Serializable {
 	
 	@Id
     @Column(name = "ID_AREA_NEGOCIO", nullable = false, length = 3)
+	@Expose
 	private String idAreaNegocio;
 
 	@Column(length = 256)
+	@Expose
     private String nombre;
     
 	@OneToMany(mappedBy = "areaNegocio")
@@ -46,12 +50,25 @@ public class AreaNegocio implements Serializable {
     private Empresa empresa;
 	
 	@Column(name = "VIGENTE")
+	@Expose
     private Long vigente;
 
     public AreaNegocio() {
     }
 
-    public AreaNegocio(String idAreaNegocio, String nombre) {
+    public AreaNegocio(String idAreaNegocio) {
+		super();
+		this.idAreaNegocio = idAreaNegocio;
+	}
+
+	public AreaNegocio(String idAreaNegocio, String nombre, Long vigente) {
+		super();
+		this.idAreaNegocio = idAreaNegocio;
+		this.nombre = nombre;
+		this.vigente = vigente;
+	}
+
+	public AreaNegocio(String idAreaNegocio, String nombre) {
         this.idAreaNegocio = idAreaNegocio;
         this.nombre = nombre;
     }

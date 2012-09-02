@@ -23,10 +23,14 @@ import javax.persistence.Table;
  */
 @Entity
 @NamedQueries( { 
-    @NamedQuery(name = Grupo.FIND_ALL , query = " select new cl.mdr.ifrs.ejb.entity.Grupo(o.idGrupoAcceso, o.nombre, o.accesoBloqueado, o.areaNegocio) " +
-    											" from Grupo o order by o.nombre asc"),
-	@NamedQuery(name = Grupo.FIND_BY_ID , query = " select new cl.mdr.ifrs.ejb.entity.Grupo(o.idGrupoAcceso, o.nombre, o.accesoBloqueado) " +
-												  " from Grupo o where o.idGrupoAcceso =:idGrupoAcceso")
+    @NamedQuery(name = Grupo.FIND_ALL , 		query = " select new cl.mdr.ifrs.ejb.entity.Grupo(o.idGrupoAcceso, o.nombre, o.accesoBloqueado, o.areaNegocio) " +
+    													" from Grupo o order by o.nombre asc"),
+	@NamedQuery(name = Grupo.FIND_BY_ID , 		query = " select new cl.mdr.ifrs.ejb.entity.Grupo(o.idGrupoAcceso, o.nombre, o.accesoBloqueado) " +
+												  		" from Grupo o where o.idGrupoAcceso =:idGrupoAcceso"),
+    @NamedQuery(name = Grupo.FIND_BY_FILTRO , 	query = " select o " +
+    											  		" from Grupo o  " +
+    											  		" where o.areaNegocio.empresa.idRut =:rutEmpresa" +
+    											  		" and (o.areaNegocio.idAreaNegocio =:areaNegocio or :areaNegocio is null)")
 })
 @Table(name="IFRS_GRUPO")
 public class Grupo implements Serializable {
@@ -34,6 +38,7 @@ public class Grupo implements Serializable {
 
 	public static final String FIND_ALL = "Grupo.findAll";
 	public static final String FIND_BY_ID = "Grupo.findById";
+	public static final String FIND_BY_FILTRO = "Grupo.findByFiltro";
 
 	@Id
 	@Column(name="ID_GRUPO_ACCESO")
@@ -61,8 +66,7 @@ public class Grupo implements Serializable {
 
 	//bi-directional many-to-one association to AreaNegocio    
     @ManyToOne
-	@JoinColumn(name="ID_AREA_NEGOCIO")
-    
+	@JoinColumn(name="ID_AREA_NEGOCIO")    
 	private AreaNegocio areaNegocio;
 
 	//bi-directional many-to-many association to Empresa
@@ -95,31 +99,20 @@ public class Grupo implements Serializable {
 	@ManyToMany(mappedBy="grupos", fetch = FetchType.LAZY)
 	private List<Usuario> usuarios;
 
-    
 	public Grupo() {
     }
-	
-	
 
 	public Grupo(String idGrupoAcceso) {
 		super();
 		this.idGrupoAcceso = idGrupoAcceso;
 	}
 	
-	
-
-
-
 	public Grupo(String idGrupoAcceso, String nombre, Long accesoBloqueado) {
 		super();
 		this.idGrupoAcceso = idGrupoAcceso;
 		this.nombre = nombre;
 		this.accesoBloqueado = accesoBloqueado;		
 	}
-	
-	
-
-
 
 	public Grupo(String idGrupoAcceso, String nombre, Long accesoBloqueado, AreaNegocio areaNegocio) {
 		super();
@@ -128,9 +121,8 @@ public class Grupo implements Serializable {
 		this.accesoBloqueado = accesoBloqueado;	
 		this.areaNegocio = areaNegocio;
 	}
-
-
-
+	
+	
 	public String getIdGrupoAcceso() {
 		return idGrupoAcceso;
 	}
