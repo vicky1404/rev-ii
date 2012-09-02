@@ -9,3 +9,4 @@ alter table IFRS_AREA_NEGOCIO
       references IFRS_EMPRESA (ID_RUT);
 	  
 UPDATE IFRS_AREA_NEGOCIO SET ID_RUT = '15505123', VIGENTE = '1'	  
+commit;
