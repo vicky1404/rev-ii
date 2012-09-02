@@ -16,3 +16,4 @@ commit;
 
 --menu de mantenedores
 INSERT INTO "IFRS_MENU" (ID_MENU, NOMBRE, ESTADO, GRUPO, URL_MENU, ES_PADRE) VALUES ('27', 'Mantenedor de Areas de Negocio', '1', '8', '/pages/mantenedores/area-negocio.jsf', '0')
+INSERT INTO "IFRS_MENU" (ID_MENU, NOMBRE, ESTADO, GRUPO, URL_MENU, ES_PADRE) VALUES ('28', 'Mantenedor de Grupos', '1', '8', '/pages/mantenedores/grupo.jsf', '0')
