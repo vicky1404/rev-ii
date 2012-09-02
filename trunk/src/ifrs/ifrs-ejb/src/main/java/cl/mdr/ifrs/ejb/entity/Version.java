@@ -67,7 +67,7 @@ import cl.mdr.ifrs.ejb.common.Constantes;
                  
                  @NamedQuery(name = Version.VERSION_FIND_BY_FILTRO,
                             query = " select distinct v " +
-                            		" from Version v, CatalogoGrupo cg, UsuarioGrupo ug, GrupoEmpresa ge where " +
+                            		" from Version v, CatalogoGrupo cg, UsuarioGrupo ug, GrupoEmpresa ge join fetch v.estructuraList where " +
                                     " v.catalogo.idCatalogo = cg.idCatalogo " + 
                                     " and ug.grupo = cg.grupo " +
                                     " and ug.grupo = ge.grupo " +
