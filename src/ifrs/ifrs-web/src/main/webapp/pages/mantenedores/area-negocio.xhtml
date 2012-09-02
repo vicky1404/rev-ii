@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -6,8 +6,151 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/main-template.xhtml">
 	<ui:define name="content">
-		<h:form id="f2">  
-		 <h:outputText value="PAGINA 2" />
+		<h:form id="f_area_negocio">
+			<p:messages id="messages_area_negocio" autoUpdate="true" globalOnly="true"></p:messages>
+			<p:ajaxStatus onstart="statusDialog.show();"
+				oncomplete="statusDialog.hide();" />
+			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
+			<p:panel id="filtro_area_negocio" header="햞ea de Negocio"
+				toggleable="true" closable="false" toggleSpeed="500"
+				closeSpeed="2000" widgetVar="panel">
+				<h:panelGrid columns="3">
+					<p:outputLabel value="#{msg.label_vigencia}:" for="soc1" />
+					<p:selectOneMenu id="soc1"
+						value="#{areaNegocioBackingBean.vigente}" required="false">
+						<f:selectItem itemLabel="#{msg.label_todos}" itemValue="100" />
+						<f:selectItems
+							value="#{areaNegocioBackingBean.componenteBackingBean.vigenciaItems}"
+							id="si1" />
+					</p:selectOneMenu>
+					<p:message for="soc1" />
+				</h:panelGrid>
+				<h:panelGrid columns="3">
+					<h:outputLabel value=" " />
+					<p:commandButton value="#{msg.boton_buscar}" icon="ui-icon-search"
+						actionListener="#{areaNegocioBackingBean.buscarAction}"
+						update="tabla_areas" ajax="false">
+					</p:commandButton>
+					<p:commandButton icon="ui-icon-cancel" value="#{msg.boton_cancel}"
+						id="btnCancelar11" immediate="true"
+						action="area-negocio?faces-redirect=true">
+					</p:commandButton>
+				</h:panelGrid>
+			</p:panel>
+			<p:spacer height="10"></p:spacer>
+			<p:toolbar rendered="#{areaNegocioBackingBean.renderAreaNegocio}">
+				<p:toolbarGroup>
+					<p:commandButton
+						actionListener="#{areaNegocioBackingBean.editarAllAction}"
+						value="#{msg.general_control_guardar}" id="cb1Guardar"
+						partialSubmit="true" update="tabla_areas" icon="ui-icon-disk">
+					</p:commandButton>
+					<p:separator />
+					<p:commandButton value="Nueva 햞ea Negocio" id="cb1Agregar"
+						onclick="dialogNuevo.show()" icon="ui-icon-plus">
+					</p:commandButton>
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:dataTable emptyMessage="#{msg.mensaje_tabla_sin_registros}"
+				value="#{areaNegocioBackingBean.areaNegocioList}" id="tabla_areas"
+				var="row" lazy="false" rowKey="#{row.idAreaNegocio}"
+				selectionMode="single"
+				selection="#{areaNegocioBackingBean.areaNegocio}"
+				rendered="#{areaNegocioBackingBean.renderAreaNegocio}"
+				editable="true">
+				<p:ajax event="rowEdit"
+					listener="#{areaNegocioBackingBean.editarAction}" />
+				<p:column headerText="ID" align="left" id="c3">
+					<h:outputText value="#{row.idAreaNegocio}" id="t1"
+						style="font-weight:bold;" />
+				</p:column>
+				<p:column sortable="false" headerText="Nombre 햞ea Negocio"
+					align="left" id="c5">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{row.nombre}" id="t3" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{row.nombre}" id="t31" maxlength="255"
+								size="80" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column sortable="false" headerText="Vigente" align="start"
+					id="c8" rowHeader="unstyled">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="Vigente" rendered="#{row.vigente == 1}" />
+							<h:outputText value="No Vigente" rendered="#{row.vigente == 0}" />
+						</f:facet>
+						<f:facet name="input">
+							<h:selectOneMenu value="#{row.vigente}" id="selVigencia">
+								<f:selectItems
+									value="#{cuadroBackingBean.componenteBackingBean.vigenciaItems}" />
+							</h:selectOneMenu>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="#{msg.tabla_cabecera_editar}" id="cEditar"
+					style="width:5%">
+					<div align="center">
+						<p:rowEditor id="rEditor" />
+					</div>
+				</p:column>
+				<f:facet name="footer">
+					<br />
+				</f:facet>
+			</p:dataTable>
 		</h:form>
+		<!-- popup de creacion de area negocio -->
+		<p:dialog id="pd11" widgetVar="dialogNuevo" showEffect="drop"
+			hideEffect="drop" header="Nueva 햞ea de Negocio" modal="false"
+			closable="true" dynamic="true">
+			<h:form id="form_new">
+				<h:panelGrid columns="3">
+					<p:outputLabel value="ID de 햞ea de Negocio" for="it11" />
+					<p:inputText id="it11" required="true"
+						style="text-transform: uppercase;"
+						value="#{areaNegocioBackingBean.nuevaAreaNegocio.idAreaNegocio}">
+						<f:validateLength minimum="1" maximum="3"></f:validateLength>
+					</p:inputText>
+					<h:message for="it11" styleClass="ui-outputlabel ui-state-error" />
+
+					<p:outputLabel value="Nombre" for="it21" />
+					<p:inputText id="it21" size="40" required="true"
+						value="#{areaNegocioBackingBean.nuevaAreaNegocio.nombre}">
+						<f:validateLength minimum="1" maximum="256"></f:validateLength>
+					</p:inputText>
+					<h:message for="it21" styleClass="ui-outputlabel ui-state-error" />
+
+					<p:outputLabel value="Vigente" for="it31" />
+					<p:selectOneMenu required="true"
+						value="#{areaNegocioBackingBean.nuevaAreaNegocio.vigente}"
+						id="it31">
+						<f:selectItems
+							value="#{cuadroBackingBean.componenteBackingBean.vigenciaItems}" />
+					</p:selectOneMenu>
+					<h:message for="it31" styleClass="ui-outputlabel ui-state-error" />
+
+					<p:commandButton value="#{msg.boton_guardar}" icon="ui-icon-disk"
+						id="btnG"
+						actionListener="#{areaNegocioBackingBean.agregarAction}"
+						update=":f_area_negocio:tabla_areas form_new"
+						oncomplete="handleRequest(xhr, status, args)">
+					</p:commandButton>
+					<p:commandButton icon="ui-icon-cancel" value="#{msg.boton_cancel}"
+						type="button" id="btnCancelar" onclick="dialogNuevo.hide()"></p:commandButton>
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+		<script type="text/javascript">  
+		    function handleRequest(xhr, status, args) {  			 		       
+		        if(args.validationFailed ) {			      
+		            jQuery('#pd11').effect("shake", { times:3 }, 100);  
+		        } else { 		        
+		        	dialogNuevo.hide(); 		             
+		        }  
+		    }  
+		</script>
 	</ui:define>
 </ui:composition>

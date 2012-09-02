@@ -18,6 +18,7 @@ import org.apache.log4j.Logger;
 import cl.mdr.ifrs.cross.util.UtilBean;
 import cl.mdr.ifrs.cross.vo.TipoFormulaVO;
 import cl.mdr.ifrs.ejb.common.TipoImpresionEnum;
+import cl.mdr.ifrs.ejb.common.VigenciaEnum;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
 import cl.mdr.ifrs.ejb.entity.Empresa;
@@ -205,6 +206,19 @@ public class ComponenteBackingBean implements Serializable {
         SelectItem[] items = new SelectItem[TipoImpresionEnum.values().length];
         int i = 0;
         for (TipoImpresionEnum t : TipoImpresionEnum.values()) {
+            items[i++] = new SelectItem(t.getKey(), t.getValue());
+        }
+        return items;
+    }
+    
+    /**
+     * construye una lista de selectItems en base a las opciones de el enum VigenciaEnum
+     * @return
+     */
+    public SelectItem[] getVigenciaItems() {
+        SelectItem[] items = new SelectItem[VigenciaEnum.values().length];
+        int i = 0;
+        for (VigenciaEnum t : VigenciaEnum.values()) {
             items[i++] = new SelectItem(t.getKey(), t.getValue());
         }
         return items;

@@ -12,29 +12,29 @@
 				oncomplete="statusDialog.hide();" />
 			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
 			<p:panel id="filtro_reporte_cuadro"
-				header="#{msg.titulo_exportar_reportes} (falta filtrar la empresa)"
+				header="Historial de generación de reportes MS Word"
 				toggleable="true" closable="false" toggleSpeed="500"
 				closeSpeed="2000" widgetVar="panel">
 
 				<h:panelGrid border="0" columns="3" style="width:335px;">
 					<h:column headerClass="ancho250">
-						<p:outputLabel value="#{msg.label_periodo}:" style="width:200px;"
+						<h:outputLabel value="#{msg.label_periodo}:" style="width:200px;"
 							for="soc1" />
 					</h:column>
 					<h:column>
-						<p:selectOneMenu id="soc1" label=" "
+						<p:selectOneMenu id="soc1" label="Año período"
 							unselectedLabel="#{msg.label_seleccione}"
 							value="#{reporteBackingBean.filtroBackingBean.mes}"
-							required="true">
+							required="true" effect="fade">
 							<f:selectItem itemLabel="#{msg.label_seleccione}" />
 							<f:selectItems
 								value="#{reporteBackingBean.componenteBackingBean.meses}"
 								id="si1" />
 						</p:selectOneMenu>
-						<p:selectOneMenu id="soc2" label=" " style="margin-left:5px;"
+						<p:selectOneMenu id="soc2" label="Mes período" style="margin-left:5px;"
 							unselectedLabel="#{msg.label_seleccione}"
 							value="#{reporteBackingBean.filtroBackingBean.anio}"
-							required="true">
+							required="true" effect="fade">
 							<f:selectItem itemLabel="#{msg.label_seleccione}" />
 							<f:selectItems
 								value="#{reporteBackingBean.componenteBackingBean.anios}"
