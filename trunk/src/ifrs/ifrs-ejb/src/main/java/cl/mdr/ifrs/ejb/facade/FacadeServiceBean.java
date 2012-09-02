@@ -18,6 +18,7 @@ import cl.mdr.ifrs.ejb.service.local.EstructuraServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.FecuServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.FormulaServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.GrillaServiceLocal;
+import cl.mdr.ifrs.ejb.service.local.GrupoServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.MantenedoresTipoServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.PeriodoServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.ReporteDocxServiceLocal;
@@ -49,6 +50,7 @@ public class FacadeServiceBean implements FacadeServiceLocal{
     @EJB private TaxonomyLoaderServiceLocal taxonomyLoaderService;
     @EJB private FecuServiceLocal fecuService;
     @EJB private AreaNegocioServiceLocal areaNegocioService;
+    @EJB private GrupoServiceLocal grupoService;
     
     
     public CatalogoServiceLocal getCatalogoService() {
@@ -123,5 +125,9 @@ public class FacadeServiceBean implements FacadeServiceLocal{
 
 	public AreaNegocioServiceLocal getAreaNegocioService() {
 		return areaNegocioService;
+	}
+
+	public GrupoServiceLocal getGrupoService() {
+		return grupoService;
 	}
 }
