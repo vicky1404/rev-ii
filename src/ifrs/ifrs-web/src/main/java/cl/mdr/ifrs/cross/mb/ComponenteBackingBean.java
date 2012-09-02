@@ -20,6 +20,7 @@ import cl.mdr.ifrs.cross.vo.TipoFormulaVO;
 import cl.mdr.ifrs.ejb.common.TipoImpresionEnum;
 import cl.mdr.ifrs.ejb.common.VigenciaEnum;
 import cl.mdr.ifrs.ejb.cross.Util;
+import cl.mdr.ifrs.ejb.entity.AreaNegocio;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
 import cl.mdr.ifrs.ejb.entity.Empresa;
 import cl.mdr.ifrs.ejb.entity.EstadoCuadro;
@@ -60,8 +61,9 @@ public class ComponenteBackingBean implements Serializable {
     private List<Empresa> empresaList;
     private List<TipoDato> tipoDatoList;
     private List<Catalogo> catalogoList;
-    private List<Rol> rolList;
+    private List<Rol> rolList;	
     private MenuBackingBean menuBackingBean;
+    
     
 	public ComponenteBackingBean() {
     }
@@ -353,17 +355,15 @@ public class ComponenteBackingBean implements Serializable {
             logger.error(e.getMessage(), e);            
         }
         return empresaItems;
-    } 
-    
-    
+    }
+        
     public List<Rol> getRolList() throws Exception {
     	if(rolList == null){
     		rolList = this.getFacade().getMantenedoresTipoService().findAllRol();
     	}
 		return rolList;
 	}
-    
-    
+       
     public FacadeServiceLocal getFacade() {
         return facade;
     }
@@ -421,5 +421,5 @@ public class ComponenteBackingBean implements Serializable {
 		}
 		return menuBackingBean;
 	}
-
+	
 }
