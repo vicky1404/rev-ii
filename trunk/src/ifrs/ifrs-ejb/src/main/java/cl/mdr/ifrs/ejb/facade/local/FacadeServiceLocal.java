@@ -9,6 +9,7 @@ import cl.mdr.ifrs.ejb.service.local.CargadorEstructuraServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.CatalogoServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.CeldaServiceLocal;
 //import cl.mdr.ifrs.ejb.service.local.EmpresaServiceLocal;
+import cl.mdr.ifrs.ejb.service.local.AreaNegocioServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.EmpresaServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.EstadoFinancieroServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.EstructuraServiceLocal;
@@ -108,9 +109,13 @@ public interface FacadeServiceLocal{
     TaxonomyLoaderServiceLocal getTaxonomyLoaderService();
     
    /**
-    * 
-    * @returnInterfaz local de FecuServiceLocal
+    * @return Interfaz local de FecuServiceLocal
     */
     FecuServiceLocal getFecuService();
+    
+    /**
+     * @return Interfaz local de AreaNegocioServiceLocal
+     */
+    AreaNegocioServiceLocal getAreaNegocioService();
     
 }

@@ -7,28 +7,46 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.google.gson.annotations.Expose;
-
 import cl.mdr.ifrs.ejb.common.Constantes;
 
 
 @Entity
-@NamedQueries( { @NamedQuery(name = "AreaNegocio.findAll", query = "select o from AreaNegocio o") })
+@NamedQueries( { 
+				@NamedQuery(name = AreaNegocio.FIND_ALL, query = "select o from AreaNegocio o where o.vigente = 1"),
+				@NamedQuery(name = AreaNegocio.FIND_ALL_BY_EMPRESA, query = " select o from AreaNegocio o " +
+																			" where o.empresa.idRut =:rutEmpresa and " +
+																			" (o.vigente = :vigente or :vigente is null)")
+				})
 @Table(name = Constantes.AREA_NEGOCIO)
 public class AreaNegocio implements Serializable {
 	private static final long serialVersionUID = -2872761746612674267L;
+	
+	public static final String FIND_ALL = "AreaNegocio.findAll";
+	public static final String FIND_ALL_BY_EMPRESA = "AreaNegocio.findAllByEmpresa";
+	
 	@Id
     @Column(name = "ID_AREA_NEGOCIO", nullable = false, length = 3)
 	private String idAreaNegocio;
-    @Column(length = 256)
+
+	@Column(length = 256)
     private String nombre;
-    @OneToMany(mappedBy = "areaNegocio")
+    
+	@OneToMany(mappedBy = "areaNegocio")
     private List<Grupo> grupoList1;
+	
+	@ManyToOne
+	@JoinColumn(name="ID_RUT")    
+    private Empresa empresa;
+	
+	@Column(name = "VIGENTE")
+    private Long vigente;
 
     public AreaNegocio() {
     }
@@ -88,4 +106,20 @@ public class AreaNegocio implements Serializable {
         buffer.append(']');
         return buffer.toString();
     }
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
+
+	public Long getVigente() {
+		return vigente;
+	}
+
+	public void setVigente(Long vigente) {
+		this.vigente = vigente;
+	}
 }
