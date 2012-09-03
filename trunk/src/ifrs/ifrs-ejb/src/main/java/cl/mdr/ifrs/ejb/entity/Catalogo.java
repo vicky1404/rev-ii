@@ -96,6 +96,7 @@ public class Catalogo implements Serializable {
     
     
     @Column(name = "NOMBRE", nullable = false, length = 256)
+    @Expose
     private String nombre;
     
     
@@ -104,10 +105,12 @@ public class Catalogo implements Serializable {
     
     
     @Column(name = "TITULO", length = 256)
+    @Expose
     private String titulo;
     
    
     @Column(nullable = false)
+    @Expose
     private Long vigencia;
     
     @Column(name = "IMPRESION_HORIZONTAL")
