@@ -13,7 +13,7 @@
 				oncomplete="statusDialog.hide();" />
 			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
 			<p:panel id="filtro_grupo_empresa"
-				header="Grupo de Usuario por Empresa" toggleable="true"
+				header="#{menuBackingBean.breadcrumb}" toggleable="true"
 				closable="false" toggleSpeed="500" closeSpeed="2000"
 				widgetVar="panel">
 				<h:panelGrid columns="3">

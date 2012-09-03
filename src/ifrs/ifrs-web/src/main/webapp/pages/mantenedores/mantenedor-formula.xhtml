@@ -13,7 +13,7 @@
 		<p:growl id="messages" />
 		<p:ajaxStatus onstart="statusDialogNoModal.show();" oncomplete="statusDialogNoModal.hide();" />
 		<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
-		<p:panel id="filtro" header="#{msg.titulo_mantenedor_formula}" toggleable="true"  closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel">  
+		<p:panel id="filtro" header="#{menuBackingBean.breadcrumb}" toggleable="true"  closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel">  
   		
 	  		<table border="0" width="40%">
 	  		<tr>
