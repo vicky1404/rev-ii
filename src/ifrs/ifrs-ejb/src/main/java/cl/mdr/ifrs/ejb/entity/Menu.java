@@ -59,6 +59,9 @@ public class Menu implements Serializable {
 			}
 		)
 	private List<Grupo> grupoList;
+    
+    @Column(name = "ORDEN", nullable = true)
+    private Long orden;
 
     public Menu() {
     }
@@ -173,6 +176,14 @@ public class Menu implements Serializable {
 
 	public void setGrupoList(List<Grupo> grupoList) {
 		this.grupoList = grupoList;
+	}
+
+	public Long getOrden() {
+		return orden;
+	}
+
+	public void setOrden(Long orden) {
+		this.orden = orden;
 	}
 
 	
