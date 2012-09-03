@@ -14,14 +14,16 @@ import org.primefaces.event.RowEditEvent;
 
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
 import cl.mdr.ifrs.ejb.entity.AreaNegocio;
+import cl.mdr.ifrs.exceptions.RegistroNoEditableException;
 
 @ManagedBean
 @ViewScoped
 public class AreaNegocioBackingBean extends AbstractBackingBean implements Serializable {
 	private transient Logger logger = Logger.getLogger(AreaNegocioBackingBean.class);
 	private static final long serialVersionUID = 7795748522251877332L;
+	private static final Long TODOS = 100L;
 	
-	private Long vigente;
+	private Long vigente;	
 	private List<AreaNegocio> areaNegocioList;
 	private AreaNegocio areaNegocio;
 	private AreaNegocio nuevaAreaNegocio;
@@ -46,9 +48,12 @@ public class AreaNegocioBackingBean extends AbstractBackingBean implements Seria
 	
 	public void editarAction(RowEditEvent event){
 		try {
-			super.getFacadeService().getAreaNegocioService().mergeAreaNegocio((AreaNegocio) event.getObject());
+			super.getFacadeService().getAreaNegocioService().editarAreaNegocio((AreaNegocio) event.getObject());
 			super.addInfoMessage("Se ha modificado el Área de Negocio correctamente");
-			this.buildAreaNegocioList();		
+			this.buildAreaNegocioList();
+		} catch (RegistroNoEditableException e) {
+			super.addErrorMessage(e.getMessage());
+			logger.error(e);		
 		} catch (Exception e) {
 			super.addErrorMessage("Se ha producido un error al editar el Área de Negocio.");
 			logger.error(e);
@@ -58,8 +63,11 @@ public class AreaNegocioBackingBean extends AbstractBackingBean implements Seria
 	
 	public void editarAllAction(ActionEvent event){
 		try {
-			super.getFacadeService().getAreaNegocioService().mergeAreaNegocioList(this.getAreaNegocioList());
+			super.getFacadeService().getAreaNegocioService().editarAreaNegocioList(this.getAreaNegocioList());
 			super.addInfoMessage("Se han modificado las Áreas de Negocio correctamente");
+		} catch (RegistroNoEditableException e) {
+			super.addErrorMessage(e.getMessage());
+			logger.error(e);				
 		} catch (Exception e) {
 			super.addErrorMessage("Se ha producido un error al editar las Áreas de Negocio.");
 			logger.error(e);
@@ -68,7 +76,7 @@ public class AreaNegocioBackingBean extends AbstractBackingBean implements Seria
 	
 	private void buildAreaNegocioList(){
 		try{
-			if(this.getVigente() == 100L)
+			if(this.getVigente() == TODOS)
 				vigente = null;
 			this.setAreaNegocioList(super.getFacadeService().getAreaNegocioService().findAllByEmpresa(super.getFiltroBackingBean().getEmpresa(), this.getVigente()));
 		} catch (Exception e) {

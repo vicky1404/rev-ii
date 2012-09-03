@@ -13,7 +13,7 @@
 			<p:ajaxStatus onstart="statusDialogNoModal.show();" oncomplete="statusDialogNoModal.hide();" />
 			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
 			
-			<p:panel header="Visualizador de EEFF - #{msg.etiqueta_periodo} #{visualizador.periodo.periodoFormat}" toggleable="true"  closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel">
+			<p:panel header="#{menuBackingBean.breadcrumb} > #{msg.etiqueta_periodo} #{visualizador.periodo.periodoFormat}" toggleable="true"  closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel">
 				<h:panelGrid columns="5" cellpadding="10">
 				<p:selectOneMenu label="#{msg.etiqueta_periodo}" id="soc1Periodo" value="#{visualizador.mesPeriodo}"
 		                         required="true" requiredMessage="#{msg.periodo_mensaje_seleccione_mes}" effect="drop">

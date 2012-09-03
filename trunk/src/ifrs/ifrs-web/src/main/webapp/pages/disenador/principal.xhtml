@@ -14,7 +14,11 @@
 			<p:ajaxStatus onstart="statusDialog.show();"
 				oncomplete="statusDialog.hide();" />
 			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
-
+			<p:panel id="filtro_navegador_taxonomia"
+				header="#{menuBackingBean.breadcrumb}" toggleable="false"
+				closable="false" toggleSpeed="500" closeSpeed="2000"
+				widgetVar="panel">
+			</p:panel>
 			<p:tabView effect="fade" id="tv1"
 				onTabChange="$('.linkLoadEstructura').click();"
 				style="border-left:0px; border-bottom:0px;">
@@ -200,42 +204,27 @@
 															</ui:fragment>
 															<td role="gridcell">
 																<div class="ui-dt-c">
-																	<span style="padding-left: 5px"> 
-																	
-																		<h:panelGroup
+																	<span style="padding-left: 5px"> <h:panelGroup
 																			layout="block" style="text-align: right;"
 																			rendered="#{ (row.tipoCelda.idTipoCelda == 4 or row.tipoCelda.idTipoCelda == 5) and (row.tipoDato.idTipoDato != 2 and row.tipoDato.idTipoDato != 3) }">
 																			<h:outputText value="#{row.valor}" id="ot7"
 																				style="font-weight:bold;"
 																				rendered="#{ (row.tipoCelda.idTipoCelda == 4 or row.tipoCelda.idTipoCelda == 5) and (row.tipoDato.idTipoDato != 2 and row.tipoDato.idTipoDato != 3) }">
 																			</h:outputText>
-																		</h:panelGroup> 
-																		
-																		<!-- Texto --> 
-																		<h:outputText value="#{row.valor}"
+																		</h:panelGroup> <!-- Texto --> <h:outputText value="#{row.valor}"
 																			id="ot71"
 																			rendered="#{ (row.tipoCelda.idTipoCelda == 0) and (row.tipoDato.idTipoDato != 2 and row.tipoDato.idTipoDato != 3) }">
-																		</h:outputText> 
-																		
-																		<!-- Titulos --> 
-																		<h:outputText value="#{row.valor}"
+																		</h:outputText> <!-- Titulos --> <h:outputText value="#{row.valor}"
 																			id="ot8" style="font-weight:bold; text-align:left;"
 																			rendered="#{row.tipoCelda.idTipoCelda == 2}">
-																		</h:outputText> 
-																		
-																		<!-- Input Texto Editable --> 
-																		<p:inputText
+																		</h:outputText> <!-- Input Texto Editable --> <p:inputText
 																			value="#{row.valor}" id="it7"
 																			style="text-align:left; "
 																			rendered="#{row.tipoCelda.idTipoCelda == 6 and row.tipoDato.idTipoDato == 0}"
 																			maximumLength="#{msg.constantes_max_caracter_cuadro}">
 																			<f:validateLength
 																				maximum="#{msg.constantes_max_caracter_cuadro}" />
-																		</p:inputText> 
-																		
-																		<!-- Input Entero --> 
-																		
-																		<p:inputText
+																		</p:inputText> <!-- Input Entero --> <p:inputText
 																			value="#{row.valorLong}" id="it8"
 																			label="Valor de la Columna: #{row.idColumna} , Fila: #{row.idFila}"
 																			rendered="#{( row.tipoDato.idTipoDato == 2 and (row.tipoCelda.idTipoCelda != 4 and row.tipoCelda.idTipoCelda != 5))}"
@@ -249,11 +238,7 @@
 																				pattern="##,###,###,###" />
 																			<f:validateLongRange
 																				maximum="#{msg.constantes_maximum_validate_long_range}" />
-																		</p:inputText> 
-																		
-																		<!-- Total Entero --> 
-																		
-																		<h:panelGroup layout="block"
+																		</p:inputText> <!-- Total Entero --> <h:panelGroup layout="block"
 																			style="text-align: right;"
 																			rendered="#{row.tipoDato.idTipoDato == 2 and (row.tipoCelda.idTipoCelda == 4 or row.tipoCelda.idTipoCelda == 5)}">
 																			<h:outputText value="#{row.valorLong}" id="it28"
@@ -269,11 +254,7 @@
 
 
 																			</h:outputText>
-																		</h:panelGroup> 
-																		
-																		<!-- Total Decimal --> 
-																		
-																		<h:panelGroup layout="block"
+																		</h:panelGroup> <!-- Total Decimal --> <h:panelGroup layout="block"
 																			style="text-align: right;"
 																			rendered="#{row.tipoDato.idTipoDato == 3 and (row.tipoCelda.idTipoCelda == 4 or row.tipoCelda.idTipoCelda == 5)}">
 																			<h:outputText value="#{row.valorBigDecimal}"
@@ -290,9 +271,7 @@
 
 
 																			</h:outputText>
-																		</h:panelGroup> 
-																		
-																		<p:inputText value="#{row.valorBigDecimal}" id="it9"
+																		</h:panelGroup> <p:inputText value="#{row.valorBigDecimal}" id="it9"
 																			label="Valor de la Columna: #{row.idColumna} , Fila: #{row.idFila}"
 																			rendered="#{row.tipoDato.idTipoDato == 3 and (row.tipoCelda.idTipoCelda != 4 and row.tipoCelda.idTipoCelda != 5)}"
 																			maximumLength="#{msg.constantes_text_length_decimal}"
@@ -305,9 +284,7 @@
 																				pattern="##,###,###,###.####" />
 																			<f:validateDoubleRange
 																				maximum="#{msg.constantes_maximum_validate_long_range}" />
-																		</p:inputText> 
-																		
-																		<p:inputText value="#{row.valorBigDecimal}" id="it09"
+																		</p:inputText> <p:inputText value="#{row.valorBigDecimal}" id="it09"
 																			label="Valor de la Columna: #{row.idColumna} , Fila: #{row.idFila}"
 																			rendered="#{row.tipoDato.idTipoDato == 3 and (row.tipoCelda.idTipoCelda == 4 or row.tipoCelda.idTipoCelda == 5)}"
 																			maximumLength="#{msg.constantes_text_length_decimal}"
@@ -320,16 +297,12 @@
 																				locale="#{configuradorDisenoBackingBean.localeCL}"
 																				pattern="##,###,###,###.####" />
 
-																		</p:inputText> 
-																		
-																		<!-- Selector de Fecha --> <p:calendar
+																		</p:inputText> <!-- Selector de Fecha --> <p:calendar
 																			value="#{row.valorDate}" id="it10" navigator="true"
 																			pattern="dd-MM-yyyy" label=" " effect="fade"
 																			locale="#{configuradorDisenoBackingBean.localeCL}"
 																			rendered="#{row.tipoDato.idTipoDato == 1 and row.tipoCelda.idTipoCelda == 6}">
-																		</p:calendar> 
-																		
-																		<!-- Editor de tipo de celda y tipo de dato --> <p:tooltip
+																		</p:calendar> <!-- Editor de tipo de celda y tipo de dato --> <p:tooltip
 																			for="clEditCell"
 																			value="Editar Celda [#{row.idFila},#{row.idColumna}]"
 																			showEffect="drop" /> <p:commandLink id="clEditCell"
@@ -359,14 +332,14 @@
 									<h:panelGrid columns="2">
 										<h:outputLabel value="Tipo de Celda:" />
 										<p:selectOneMenu label="Tipo Celda"
-										    valueChangeListener="#{configuradorDisenoBackingBean.changeTipoDatoByTipoCeldaListener}"
+											valueChangeListener="#{configuradorDisenoBackingBean.changeTipoDatoByTipoCeldaListener}"
 											converter="tipoCeldaConverter"
 											value="#{configuradorDisenoBackingBean.tipoCeldaCelda}"
 											style="width:130px;" id="somec1">
 											<f:selectItem itemLabel="#{msg.general_control_seleccione}" />
 											<f:selectItems
 												value="#{configuradorDisenoBackingBean.componenteBackingBean.tipoCeldas}" />
-												<f:ajax render="cmbTipoDato2" execute="@this" />
+											<f:ajax render="cmbTipoDato2" execute="@this" />
 										</p:selectOneMenu>
 										<h:outputLabel value="Tipo de Dato:" />
 										<p:selectOneMenu label="Tipo Dato" id="cmbTipoDato2"
@@ -374,8 +347,9 @@
 											style="width:130px;" converter="tipoDatoConverter">
 											<f:selectItem itemLabel="#{msg.general_control_seleccione}" />
 											<f:selectItems
-												value="#{configuradorDisenoBackingBean.tipoDatoFilteredList}" var="tipoDato" 
-												itemValue="#{tipoDato}" itemLabel="#{tipoDato.nombre}" />
+												value="#{configuradorDisenoBackingBean.tipoDatoFilteredList}"
+												var="tipoDato" itemValue="#{tipoDato}"
+												itemLabel="#{tipoDato.nombre}" />
 										</p:selectOneMenu>
 										<p:commandButton value="Editar Celda"
 											actionListener="#{configuradorDisenoBackingBean.editarCeldaAction}"
@@ -404,14 +378,15 @@
 
 										<!-- tipo celda -->
 										<h:outputLabel value="Tipo de Celda:" />
-										<p:selectOneMenu label="Tipo Celda" valueChangeListener="#{configuradorDisenoBackingBean.changeTipoDatoByTipoCeldaListener}"
+										<p:selectOneMenu label="Tipo Celda"
+											valueChangeListener="#{configuradorDisenoBackingBean.changeTipoDatoByTipoCeldaListener}"
 											converter="tipoCeldaConverter"
 											value="#{configuradorDisenoBackingBean.tipoCeldaColumna}"
-											style="width:130px;">											
+											style="width:130px;">
 											<f:selectItem itemLabel="#{msg.general_control_seleccione}" />
 											<f:selectItems
 												value="#{configuradorDisenoBackingBean.componenteBackingBean.tipoCeldas}" />
-												<f:ajax render="cmbTipoDato1" execute="@this" />
+											<f:ajax render="cmbTipoDato1" execute="@this" />
 										</p:selectOneMenu>
 
 										<!-- tipo de dato -->
@@ -421,8 +396,9 @@
 											style="width:130px;" converter="tipoDatoConverter">
 											<f:selectItem itemLabel="#{msg.general_control_seleccione}" />
 											<f:selectItems
-												value="#{configuradorDisenoBackingBean.tipoDatoFilteredList}" var="tipoDato" 
-												itemValue="#{tipoDato}" itemLabel="#{tipoDato.nombre}" />
+												value="#{configuradorDisenoBackingBean.tipoDatoFilteredList}"
+												var="tipoDato" itemValue="#{tipoDato}"
+												itemLabel="#{tipoDato.nombre}" />
 										</p:selectOneMenu>
 
 										<h:outputText value=" " />
@@ -450,7 +426,7 @@
 											<f:selectItem itemLabel="#{msg.general_control_seleccione}" />
 											<f:selectItems
 												value="#{configuradorDisenoBackingBean.componenteBackingBean.tipoCeldas}" />
-												<f:ajax render="cmbTipoDato3" execute="@this" />
+											<f:ajax render="cmbTipoDato3" execute="@this" />
 										</p:selectOneMenu>
 										<h:outputLabel value="Tipo de Dato:" />
 										<p:selectOneMenu label="Tipo Dato" id="cmbTipoDato3"
@@ -458,8 +434,9 @@
 											style="width:130px;" converter="tipoDatoConverter">
 											<f:selectItem itemLabel="#{msg.general_control_seleccione}" />
 											<f:selectItems
-												value="#{configuradorDisenoBackingBean.tipoDatoFilteredList}" var="tipoDato" 
-												itemValue="#{tipoDato}" itemLabel="#{tipoDato.nombre}" />
+												value="#{configuradorDisenoBackingBean.tipoDatoFilteredList}"
+												var="tipoDato" itemValue="#{tipoDato}"
+												itemLabel="#{tipoDato.nombre}" />
 										</p:selectOneMenu>
 										<p:commandButton value="Editar Fila"
 											actionListener="#{configuradorDisenoBackingBean.editarFilaAction}"
@@ -496,8 +473,8 @@
 								actionListener="#{generadorVisualizadorBackingBean.guardarDisenoActionListener}"
 								partialSubmit="false" update="@form" />
 
-							<p:commandButton value="Guardar Configuración" icon="ui-icon-disk"
-								id="btn3"
+							<p:commandButton value="Guardar Configuración"
+								icon="ui-icon-disk" id="btn3"
 								rendered="#{generadorVersionBackingBean.renderBotonEditarVersion}"
 								actionListener="#{generadorVisualizadorBackingBean.editarDisenoActionListener}"
 								partialSubmit="false" update="@form" />
@@ -532,12 +509,14 @@
 
 			</p:tabView>
 
+
 			<!-- Dialogo de estructuras no confirmadas -->
 			<p:dialog id="dialogNoDataSavedId" header="Información"
 				widgetVar="dialogNoDataSaved" dynamic="true" closable="true"
 				draggable="false" resizable="false">
 				<h:panelGrid columns="3">
-					<h:outputText value="Por favor, confirme las Estructuras incluidas en la configuración." />
+					<h:outputText
+						value="Por favor, confirme las Estructuras incluidas en la configuración." />
 					<p:spacer />
 					<p:spacer />
 
@@ -550,13 +529,14 @@
 					</p:commandButton>
 				</h:panelGrid>
 			</p:dialog>
-			
+
 			<!-- Dialogo de version no editable debido a que posee datos ingresados -->
 			<p:dialog id="dialogVersionNoEditableId" header="Información"
 				widgetVar="dialogVersionNoEditable" dynamic="true" closable="true"
 				draggable="false" resizable="false">
 				<h:panelGrid columns="3">
-					<h:outputText value="Esta Versión no puede ser modificada ya que posee datos ingresados." />
+					<h:outputText
+						value="Esta Versión no puede ser modificada ya que posee datos ingresados." />
 					<p:spacer />
 					<p:spacer />
 
@@ -569,13 +549,14 @@
 					</p:commandButton>
 				</h:panelGrid>
 			</p:dialog>
-			
+
 			<!-- Dialogo de version no editable debido a que posee formulas -->
 			<p:dialog id="dialogVersionNoEditableFormulaId" header="Información"
-				widgetVar="dialogVersionNoEditableFormula" dynamic="true" closable="true"
-				draggable="false" resizable="false">
+				widgetVar="dialogVersionNoEditableFormula" dynamic="true"
+				closable="true" draggable="false" resizable="false">
 				<h:panelGrid columns="3">
-					<h:outputText value="Esta Versión no puede ser modificada ya que tiene Fórmulas configuradas." />
+					<h:outputText
+						value="Esta Versión no puede ser modificada ya que tiene Fórmulas configuradas." />
 					<p:spacer />
 					<p:spacer />
 
@@ -588,7 +569,7 @@
 					</p:commandButton>
 				</h:panelGrid>
 			</p:dialog>
-			
+
 
 		</h:form>
 

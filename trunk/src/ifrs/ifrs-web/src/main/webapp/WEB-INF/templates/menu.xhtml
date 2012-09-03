@@ -37,9 +37,10 @@
 					<ul>
 						<ui:repeat var="rowChild" value="#{row.menuChild}">							
 							<li style="margin-left:-40px;">
-								<h:commandLink id="cl1" value="#{rowChild.nombre}" action="#{menuBackingBean.navigation}" style="text-decoration: none;"  onmouseover="javascript:this.style.color='SlateGray';" onmouseout="javascript:this.style.color='black';" >
+								<h:commandLink id="cl1" value="#{rowChild.nombre}" action="#{menuBackingBean.navigation}"  style="text-decoration: none;"  onmouseover="javascript:this.style.color='SlateGray';" onmouseout="javascript:this.style.color='black';" >
 									<f:param name="urlAction" value="#{rowChild.urlMenu}"/>
-									<f:param name="tabNumber" value="${status.count}"/>									
+									<f:param name="tabNumber" value="${status.count}"/>
+									<f:param name="breadcrumb" value="#{row.menuParent.nombre} > #{rowChild.nombre}"/>									
 								</h:commandLink>
 							</li>																	
 						</ui:repeat>

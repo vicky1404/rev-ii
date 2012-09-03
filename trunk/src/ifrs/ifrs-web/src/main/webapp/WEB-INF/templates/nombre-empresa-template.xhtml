@@ -10,10 +10,10 @@
 		<p:toolbarGroup align="left" rendered="#{not empty filtroBackingBean.empresa}">
 			<h:panelGrid columns="6" id="grid" > 
 			<span class="ui-icon ui-icon-grip-dotted-vertical"></span>
-			<h:outputText value="Empresa : " style="width:60px;"/>
+			<h:outputText value="#{msg.label_nombre_empresa}: " style="width:60px;"/>
 			<h:outputText value="#{filtroBackingBean.empresa.nombre}" rendered="#{not empty filtroBackingBean.empresa.nombre}" />			
 			<span class="ui-icon ui-icon-grip-dotted-vertical"></span>
-			<h:outputText value="Razón Social : " style="width:60px;" />
+			<h:outputText value="#{msg.label_razon_social}: " style="width:60px;" />
 			<h:outputText value="#{filtroBackingBean.empresa.razonSocial}" rendered="#{not empty filtroBackingBean.empresa.nombre}" />
 			</h:panelGrid>
 		</p:toolbarGroup>

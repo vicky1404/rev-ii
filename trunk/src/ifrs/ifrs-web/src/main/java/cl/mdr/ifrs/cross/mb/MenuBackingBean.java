@@ -7,6 +7,7 @@ import static ch.lambdaj.Lambda.having;
 import static ch.lambdaj.Lambda.index;
 import static ch.lambdaj.Lambda.on;
 import static ch.lambdaj.Lambda.select;
+import static ch.lambdaj.Lambda.sort;
 import static org.hamcrest.Matchers.equalTo;
 
 import java.io.IOException;
@@ -82,9 +83,18 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
     private boolean renderSelectorEmpresa;
     private boolean redireccionado;
     private boolean valid = true;
-    
-    
-    private org.primefaces.model.MenuModel model; 
+    private String breadcrumb;
+          
+    public String getBreadcrumb() {
+		return breadcrumb;
+	}
+
+	public void setBreadcrumb(String breadcrumb) {
+		this.breadcrumb = breadcrumb;
+	}
+
+
+	private org.primefaces.model.MenuModel model; 
                   		
 	public MenuBackingBean() {
 		super();				
@@ -240,7 +250,8 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
                 menuChildList.add(m);
             }
         }
-
+                
+        ordenarMenuByOrden(menuParentList);
         for(Menu menuParent : menuParentList) {
             menuModel = new MenuModel();
             menuChildModelList = new ArrayList<Menu>();
@@ -250,7 +261,7 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
                     menuChildModelList.add(menuChild);
                 }
             }
-            ordenarMenuByNombre(menuChildModelList);
+            ordenarMenuByOrden(menuChildModelList);
             menuModel.setMenuChild(menuChildModelList);
             menuModelList.add(menuModel);
         }
@@ -288,9 +299,13 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
     public String navigation(){    
     	final String action = super.getExternalContext().getRequestParameterMap().get("urlAction");
     	final String tabNumber = super.getExternalContext().getRequestParameterMap().get("tabNumber");
+    	final String breadcrumb = super.getExternalContext().getRequestParameterMap().get("breadcrumb");
+    	this.setBreadcrumb(null);
+    	this.setBreadcrumb(breadcrumb);
     	this.setActiveTabIndex(tabNumber);
     	log.info("accion "+action);
     	log.info("tabNumber "+tabNumber);
+    	log.info("breadcrumb "+breadcrumb);
     	return action;
     }
     
@@ -341,6 +356,14 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
         Collections.sort(menuList, new Comparator<Menu>() {
             public int compare(Menu m1, Menu m2) {
                 return m1.getNombre().compareTo(m2.getNombre());
+            }
+        });
+    }
+    
+    private static void ordenarMenuByOrden(List<Menu> menuList) {
+        Collections.sort(menuList, new Comparator<Menu>() {
+            public int compare(Menu m1, Menu m2) {
+                return m1.getOrden().compareTo(m2.getOrden());
             }
         });
     }

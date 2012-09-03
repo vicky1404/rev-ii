@@ -43,15 +43,7 @@
 	<p:dataTable id="gVdt1" var="var" emptyMessage=" "
 		rendered="#{not empty generadorVersionBackingBean.catalogo}"
 		value="#{generadorVersionBackingBean.catalogo}" style="width:720px">
-
-		<p:column id="gVc1" headerText="Código Revelación">
-			<h:outputText value="#{var.codigoCuadro}" />
-		</p:column>
-
-		<p:column id="gVc2" headerText="Sub Código Revelación">
-			<h:outputText value="#{var.codigoSubcuadro}" />
-		</p:column>
-
+		
 		<p:column id="gVc3" headerText="Nombre de la Revelación">
 			<h:outputText value="#{var.nombre}" />
 		</p:column>
@@ -72,7 +64,7 @@
 		binding="#{generadorVersionBackingBean.versionTable}"
 		rendered="#{not empty generadorVersionBackingBean.versionList}"
 		value="#{generadorVersionBackingBean.versionList}" style="width:720px"
-		paginator="true" rows="5" paginatorPosition="top">
+		paginator="true" rows="5" paginatorPosition="top" rowsPerPageTemplate="5,10,15,20">
 
 		<p:column id="gVc1" headerText="Versión">
 			<div align="right">

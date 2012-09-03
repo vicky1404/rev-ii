@@ -5,88 +5,102 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/main-template.xhtml">
-	
+
 	<ui:define name="content">
-		
-		<h:form id="form_cerrar_periodo">  
-		
-		<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
-		
-		<p:messages id="messages_cerrar_p" autoUpdate="true" showSummary="true" />
-		
-		<p:panel header="#{msg.periodo_titulo_periodo_actual} #{periodoBackingBean.periodoEmpresa.periodo.periodoFormat}">
-		
-		<p:ajaxStatus onstart="statusDialog.show();" oncomplete="statusDialog.hide();" />
-			
-		<div align="center">
-			<p:commandButton value="#{msg.cerrar_periodo}" onclick="confirmation.show()" type="button"/>
-		</div>
-		
-		</p:panel>
-		
-		<p:panel header="Los siguientes cuadros no se encuentran cerrados :" rendered="#{periodoBackingBean.renderTableVersion}">
-		
-		<p:toolbar >
-				<p:toolbarGroup>
-					<p:commandLink actionListener="#{periodoBackingBean.displayEstadoChartAction}" value="Ver Gráfico por Estado"></p:commandLink>
-					<p:separator />
-					<p:commandLink actionListener="#{periodoBackingBean.displayEmpresaChartAction}" value="Ver Gráfico por Empresa"></p:commandLink>
-				</p:toolbarGroup>
-		</p:toolbar>
-			
-		<p:dataTable value="#{periodoBackingBean.versionSinCerrarList}" var="row">
-		<p:column headerText="Empresa">
-			<h:outputText value="#{row.catalogo.empresa.nombre}" />
-		</p:column>
-		<p:column headerText="Cuadro">
-			<h:outputText value="#{row.catalogo.titulo}" />
-		</p:column>
-		<p:column headerText="Estado">
-			<h:outputText value="#{row.estado.nombre}" />
-		</p:column>
-		<p:column headerText="Version">
-			<h:outputText value="#{row.version}" />
-		</p:column>
-		</p:dataTable>
-		
-		</p:panel>
-		
-		
-		<p:dialog id="confirmDialog" header="#{msg.cerrar_periodo}" widgetVar="confirmation" >
-		<h:outputText value="El período se cerrará para todas las empresas"  />  
-        <p:spacer height="5px" />
-		<h:outputText value="#{msg.cerrar_periodo_confirm}"  />  
-        <p:spacer width="10px" />          
-        <p:commandButton id="cbD1" value="#{msg.general_control_aceptar}" oncomplete="confirmation.hide()"  action="#{periodoBackingBean.cerrarPeriodo}"  update="@form"/>
-        <p:spacer width="5px" />  
-        <p:commandButton id="cbD2" value="#{msg.general_control_cancelar}" onclick="confirmation.hide()" />   
-                  
-    	</p:dialog>
-    	
-    	<p:dialog id="p2" widgetVar="popUpEstadoChart" modal="false"
+
+		<h:form id="form_cerrar_periodo">
+
+			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
+
+			<p:messages id="messages_cerrar_p" autoUpdate="true"
+				showSummary="true" />
+
+			<p:panel
+				header="#{menuBackingBean.breadcrumb} > #{msg.periodo_titulo_periodo_actual} #{periodoBackingBean.periodoEmpresa.periodo.periodoFormat}">
+
+				<p:ajaxStatus onstart="statusDialog.show();"
+					oncomplete="statusDialog.hide();" />
+
+				<div align="center">
+					<p:commandButton value="#{msg.cerrar_periodo}"
+						onclick="confirmation.show()" type="button" />
+				</div>
+
+			</p:panel>
+
+			<p:panel header="Los siguientes cuadros no se encuentran cerrados :"
+				rendered="#{periodoBackingBean.renderTableVersion}">
+
+				<p:toolbar>
+					<p:toolbarGroup>
+						<p:commandLink
+							actionListener="#{periodoBackingBean.displayEstadoChartAction}"
+							value="Ver Gráfico por Estado"></p:commandLink>
+						<p:separator />
+						<p:commandLink
+							actionListener="#{periodoBackingBean.displayEmpresaChartAction}"
+							value="Ver Gráfico por Empresa"></p:commandLink>
+					</p:toolbarGroup>
+				</p:toolbar>
+
+				<p:dataTable value="#{periodoBackingBean.versionSinCerrarList}"
+					var="row">
+					<p:column headerText="Empresa">
+						<h:outputText value="#{row.catalogo.empresa.nombre}" />
+					</p:column>
+					<p:column headerText="Cuadro">
+						<h:outputText value="#{row.catalogo.titulo}" />
+					</p:column>
+					<p:column headerText="Estado">
+						<h:outputText value="#{row.estado.nombre}" />
+					</p:column>
+					<p:column headerText="Version">
+						<h:outputText value="#{row.version}" />
+					</p:column>
+				</p:dataTable>
+
+			</p:panel>
+
+
+			<p:dialog id="confirmDialog" header="#{msg.cerrar_periodo}"
+				widgetVar="confirmation">
+				<h:outputText value="El período se cerrará para todas las empresas" />
+				<p:spacer height="5px" />
+				<h:outputText value="#{msg.cerrar_periodo_confirm}" />
+				<p:spacer width="10px" />
+				<p:commandButton id="cbD1" value="#{msg.general_control_aceptar}"
+					oncomplete="confirmation.hide()"
+					action="#{periodoBackingBean.cerrarPeriodo}" update="@form" />
+				<p:spacer width="5px" />
+				<p:commandButton id="cbD2" value="#{msg.general_control_cancelar}"
+					onclick="confirmation.hide()" />
+
+			</p:dialog>
+
+			<p:dialog id="p2" widgetVar="popUpEstadoChart" modal="false"
 				showEffect="drop" hideEffect="drop"
 				header="Resumen por estado para el período : #{periodoBackingBean.periodoEmpresa.periodo.periodoFormat}">
 				<p:pieChart id="pch1"
-					value="#{periodoBackingBean.estadoCuadroChart}"
-					legendPosition="w"
+					value="#{periodoBackingBean.estadoCuadroChart}" legendPosition="w"
 					seriesColors="#{msg.flujo_aprobacion_grafico_series_colors}"
-					title="#{msg.label_resumen_general_de_cuadros}" style="width:400px;height:300px"
+					title="#{msg.label_resumen_general_de_cuadros}"
+					style="width:400px;height:300px"
 					rendered="#{periodoBackingBean.renderCharNumber == 1}" />
-		</p:dialog>
-		
-		<p:dialog id="p3" widgetVar="popUpEmpresaChart" modal="false"
+			</p:dialog>
+
+			<p:dialog id="p3" widgetVar="popUpEmpresaChart" modal="false"
 				showEffect="drop" hideEffect="drop"
 				header="Resumen cuadros sin cerrar por empresa, período : #{periodoBackingBean.periodoEmpresa.periodo.periodoFormat}">
 				<p:pieChart id="pch2"
-					value="#{periodoBackingBean.estadoCuadroChart}"
-					legendPosition="w"
+					value="#{periodoBackingBean.estadoCuadroChart}" legendPosition="w"
 					seriesColors="#{msg.flujo_aprobacion_grafico_series_colors}"
-					title="#{msg.label_resumen_general_de_cuadros}" style="width:400px;height:300px"
+					title="#{msg.label_resumen_general_de_cuadros}"
+					style="width:400px;height:300px"
 					rendered="#{periodoBackingBean.renderCharNumber == 2}" />
-		</p:dialog>
-    	
-    	</h:form>
-    	  
+			</p:dialog>
+
+		</h:form>
+
 	</ui:define>
-	
+
 </ui:composition>

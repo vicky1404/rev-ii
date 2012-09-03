@@ -12,7 +12,7 @@
 			<p:ajaxStatus onstart="statusDialog.show();"
 				oncomplete="statusDialog.hide();" />
 			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
-			<p:panel id="filtro_usuario" header="#{msg.label_usuario}"
+			<p:panel id="filtro_usuario" header="#{menuBackingBean.breadcrumb}"
 				toggleable="true" closable="false" toggleSpeed="500"
 				closeSpeed="2000" widgetVar="panel">
 				<h:panelGrid columns="2">
