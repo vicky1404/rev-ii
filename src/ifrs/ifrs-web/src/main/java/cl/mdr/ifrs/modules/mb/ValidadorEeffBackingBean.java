@@ -1,5 +1,7 @@
 package cl.mdr.ifrs.modules.mb;
 
+
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -21,6 +23,7 @@ import org.primefaces.model.TreeNode;
 
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
 import cl.mdr.ifrs.cross.model.TreeFormula;
+import cl.mdr.ifrs.cross.util.PropertyManager;
 import cl.mdr.ifrs.ejb.cross.EeffUtil;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
@@ -40,7 +43,7 @@ import cl.mdr.ifrs.vo.GrillaVO;
 /**
  * @author Manuel Gutierrez C.
  * @since 15/07/2012
- * Clase controladora para la pagina de estados financieros.
+ * Clase controladora para la pagina de mapeo de estados financieros.
  *
  */
 @ManagedBean(name="eeff")
@@ -146,30 +149,28 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
                 }
             }catch(Exception e){
                 getBusquedaInputText().setValue(null);
-                addWarnMessage("Búsqueda sin resultados");
+                addWarnMessage(PropertyManager.getInstance().getMessage("general_busqueda_sin_resultado"));
                 return;
             }
             
             if(catalogo==null){
                 init();
-                addWarnMessage("Búsqueda sin resultados");
+                addWarnMessage(PropertyManager.getInstance().getMessage("general_busqueda_sin_resultado"));
             }else{
                 setCatalogoBusqueda(catalogo);
-                //getBusquedaInputText().setReadonly(Boolean.TRUE);
-                //getTipoCuadroSelect().setReadonly(Boolean.TRUE);
                 getFiltroBackingBean().setCatalogo(catalogo);
                 this.setCatalogo(catalogo);
                 try{
                     versionVigente = getFacadeService().getVersionService().findUltimaVersionVigente(periodo.getIdPeriodo(),getNombreUsuario(),catalogo.getIdCatalogo());
                     estructuras = getFacadeService().getEstructuraService().findEstructuraByVersion(versionVigente);
                 }catch(Exception e){
-                    addErrorMessage("Error al buscar versiones");
-                    logger.error("Error al buscar versiones",e);
+                    addErrorMessage(PropertyManager.getInstance().getMessage("general_error_al_buscar_versiones"));
+                    logger.error(PropertyManager.getInstance().getMessage("general_error_al_buscar_versiones"),e);
                 }
             }
         }else{
             init();
-            addWarnMessage("No debe modificar el valor autocompletado");
+            addWarnMessage(PropertyManager.getInstance().getMessage("general_error_no_modificar_valor_autocompletado"));
             getBusquedaInputText().setValue(null);
         }
         lista.add(versionVigente);
@@ -375,7 +376,7 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
             return;
 
         if(EeffUtil.esCuentaRepetida(relEeffDetList, detalleEeff)){
-            addWarnMessage("Número de cuenta ya esta ingresado para la celda seleccionada " + Util.formatCellKey(relCelda));
+            addWarnMessage(MessageFormat.format(PropertyManager.getInstance().getMessage("general_error_numero_de_cuenta_ya_ingresado"), Util.formatCellKey(relCelda) ) );
             return;
         }
         
@@ -413,11 +414,11 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
             Grilla grilla = this.getFacadeService().getGrillaService().findGrillaById(grillaVO.getGrilla().getIdGrilla());
             grillaVO = this.getFacadeService().getEstructuraService().getGrillaVO(grilla, Boolean.FALSE);
             grillaVO.setGrilla(grilla);
-            addInfoMessage("Se ha almacenado correctamente la informacion");
+            addInfoMessage(PropertyManager.getInstance().getMessage("mensaje_tabla_guardar_registro"));
         }catch(Exception e){
         	e.printStackTrace();
             logger.error(e.getMessage(), e);
-            addErrorMessage("Se ha producido un error al almacenar la relación");
+            addErrorMessage(PropertyManager.getInstance().getMessage("carga_eeff_error_guardar_informacion"));
         }
         
     }
@@ -445,7 +446,7 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
 				
 			} catch (Exception e) {
 				logger.error(e);
-				addErrorMessage("Se ha producido un error al seleccionar la celda");
+				addErrorMessage(PropertyManager.getInstance().getMessage("general_error_seleccionar_celda"));
 				return;
 			}
     		
@@ -465,7 +466,7 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
             
         }catch(Exception e){
             logger.error(e.getMessage(), e);
-            addErrorMessage("Se ha producido un error al eliminar la relación");
+            addErrorMessage(PropertyManager.getInstance().getMessage("general_error_eliminar_relacion"));
         }
         
     }
@@ -502,7 +503,7 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
             
         }catch(Exception e){
             logger.error(e.getMessage(), e);
-            addErrorMessage("Se ha producido un error al almacenar la información");
+            addErrorMessage(PropertyManager.getInstance().getMessage("general_error_almacenar_informacion"));
         }
         
     }
@@ -546,7 +547,7 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
     
     public boolean validaRelCelda(){
         if(relCelda==null){
-            addWarnMessage("Debe seleccionar celda primero");
+            addWarnMessage(PropertyManager.getInstance().getMessage("general_error_debe_seleccionar_celda_primero"));
             return false;
         }
         return true;
@@ -810,9 +811,9 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
     public boolean isValidPeriodoGrilla(){
         
         if(grillaVO==null || grillaVO.getGrilla()==null || grillaVO.getGrilla().getIdGrilla()==null && (getRelCelda() != null && (getItemFecuList() != null || getItemCuentaList() != null)))
-            addWarnMessage("Debe generar una relación. Búsque un cuadro primero");
+            addWarnMessage(PropertyManager.getInstance().getMessage("general_error_debe_generar_una_relacion"));
         else if(periodo==null || periodo.getIdPeriodo() == null)
-            addWarnMessage("Período inválido, debe ingresar a la página nuevamente");
+            addWarnMessage(PropertyManager.getInstance().getMessage("general_error_periodo_invalido_reingresar"));
         else
             return true;
         
