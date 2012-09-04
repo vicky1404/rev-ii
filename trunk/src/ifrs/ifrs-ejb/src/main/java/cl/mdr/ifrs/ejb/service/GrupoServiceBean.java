@@ -10,6 +10,8 @@ import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.hibernate.exception.ConstraintViolationException;
+
 import cl.mdr.ifrs.ejb.entity.AreaNegocio;
 import cl.mdr.ifrs.ejb.entity.Empresa;
 import cl.mdr.ifrs.ejb.entity.Grupo;
@@ -42,6 +44,27 @@ public class GrupoServiceBean implements GrupoServiceLocal {
     				getResultList();
     }
     
+    public void editarGrupo(final Grupo grupo) throws Exception{
+    	
+    }
+    
+    public void editarGrupoList(final List<Grupo> grupoList) throws Exception{
+    	
+    }
+    
+    public void mergeAreaNegocio(final Grupo grupo) throws Exception{
+    	em.merge(grupo);
+    }
+    
+    public void mergeAreaNegocioList(final List<Grupo> grupoLis) throws Exception{
+    	for (final Grupo grupo : grupoLis) {
+    		em.merge(grupo);
+		}    	    	
+    }
+    
+    public void persistAreaNegocio(final Grupo grupo) throws ConstraintViolationException, Exception{
+    	em.persist(grupo);
+    }
     
     
     
