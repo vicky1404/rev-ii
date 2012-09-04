@@ -3,11 +3,14 @@ package cl.mdr.ifrs.modules.mantenedores.mb;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ActionEvent;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.primefaces.event.RowEditEvent;
 
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
 import cl.mdr.ifrs.ejb.common.VigenciaEnum;
@@ -22,9 +25,15 @@ public class GrupoBackingBean extends AbstractBackingBean implements Serializabl
 	
 	private String idAreaNegocio;
 	private AreaNegocio areaNegocio;
+	private Grupo nuevoGrupo;
 	private List<Grupo> grupoList;
 	private boolean renderGrupos;
 	private List<AreaNegocio> areaNegocioByEmpresaList;
+	
+	@PostConstruct
+	void init(){
+		nuevoGrupo = new Grupo();
+	}
 	
 	public String buscarAction(){		
 		try {
@@ -35,6 +44,14 @@ public class GrupoBackingBean extends AbstractBackingBean implements Serializabl
 			logger.error(e);
 		}
 		return null;
+	}
+	
+	public void editarAction(RowEditEvent event){
+		
+	}
+	
+	public void editarAllAction(ActionEvent event){
+		
 	}
 	
 	private void buildGrupoList() throws Exception{		
@@ -87,6 +104,14 @@ public class GrupoBackingBean extends AbstractBackingBean implements Serializabl
 
 	public void setAreaNegocioByEmpresaList(List<AreaNegocio> areaNegocioByEmpresaList) {
 		this.areaNegocioByEmpresaList = areaNegocioByEmpresaList;
+	}
+
+	public Grupo getNuevoGrupo() {
+		return nuevoGrupo;
+	}
+
+	public void setNuevoGrupo(Grupo nuevoGrupo) {
+		this.nuevoGrupo = nuevoGrupo;
 	}
 
 }
