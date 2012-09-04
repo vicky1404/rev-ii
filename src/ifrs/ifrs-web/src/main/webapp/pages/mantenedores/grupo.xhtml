@@ -57,7 +57,7 @@
 				lazy="false" rowKey="#{row.idGrupoAcceso}"
 				rendered="#{grupoBackingBean.renderGrupos}" editable="true">
 				<p:ajax event="rowEdit"
-					listener="#{areaNegocioBackingBean.editarAction}" />
+					listener="#{grupoBackingBean.editarAction}" />
 				<p:column headerText="ID Grupo" align="left" id="c3">
 					<h:outputText value="#{row.idGrupoAcceso}" id="t1"
 						style="font-weight:bold;" />
@@ -101,5 +101,55 @@
 				</f:facet>
 			</p:dataTable>
 		</h:form>
+		<!-- popup de creacion de area negocio -->
+		<p:dialog id="pd11" widgetVar="dialogNuevo" showEffect="drop"
+			hideEffect="drop" header="Nueva Área de Negocio" modal="false"
+			closable="true" dynamic="true">
+			<h:form id="form_new">
+				<h:panelGrid columns="3">
+					<p:outputLabel value="ID de Área de Negocio" for="it11" />
+					<p:inputText id="it11" required="true"
+						style="text-transform: uppercase;"
+						value="#{areaNegocioBackingBean.nuevaAreaNegocio.idAreaNegocio}">
+						<f:validateLength minimum="1" maximum="3"></f:validateLength>
+					</p:inputText>
+					<h:message for="it11" styleClass="ui-outputlabel ui-state-error" />
+
+					<p:outputLabel value="Nombre" for="it21" />
+					<p:inputText id="it21" size="40" required="true"
+						value="#{areaNegocioBackingBean.nuevaAreaNegocio.nombre}">
+						<f:validateLength minimum="1" maximum="256"></f:validateLength>
+					</p:inputText>
+					<h:message for="it21" styleClass="ui-outputlabel ui-state-error" />
+
+					<p:outputLabel value="Vigente" for="it31" />
+					<p:selectOneMenu required="true"
+						value="#{areaNegocioBackingBean.nuevaAreaNegocio.vigente}"
+						id="it31">
+						<f:selectItems
+							value="#{cuadroBackingBean.componenteBackingBean.vigenciaItems}" />
+					</p:selectOneMenu>
+					<h:message for="it31" styleClass="ui-outputlabel ui-state-error" />
+
+					<p:commandButton value="#{msg.boton_guardar}" icon="ui-icon-disk"
+						id="btnG"
+						actionListener="#{areaNegocioBackingBean.agregarAction}"
+						update=":f_area_negocio:tabla_grupos form_new"
+						oncomplete="handleRequest(xhr, status, args)">
+					</p:commandButton>
+					<p:commandButton icon="ui-icon-cancel" value="#{msg.boton_cancel}"
+						type="button" id="btnCancelar" onclick="dialogNuevo.hide()"></p:commandButton>
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+		<script type="text/javascript">  
+		    function handleRequest(xhr, status, args) {  			 		       
+		        if(args.validationFailed ) {			      
+		            jQuery('#pd11').effect("shake", { times:3 }, 100);  
+		        } else { 		        
+		        	dialogNuevo.hide(); 		             
+		        }  
+		    }  
+		</script>
 	</ui:define>
 </ui:composition>
