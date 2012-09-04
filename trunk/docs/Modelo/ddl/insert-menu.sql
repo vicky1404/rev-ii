@@ -10,8 +10,6 @@ luego para asignar el ordenamiento utilizen el campo orden.
 DELETE FROM IFRS_MENU_GRUPO;
 DELETE FROM IFRS_MENU;
 
-ALTER TABLE IFRS_MENU ADD ( ORDEN NUMBER(4) );
-
 --menu de configuracion	
 Insert into IFRS_MENU (ID_MENU,NOMBRE,ESTADO,GRUPO,URL_MENU,ES_PADRE, ORDEN) values ('3','Configuración','1','3','#','1',200);
 	Insert into IFRS_MENU (ID_MENU,NOMBRE,ESTADO,GRUPO,URL_MENU,ES_PADRE, ORDEN) values ('31','Configuración y Diseñador de Cuadros','1','3','/pages/disenador/principal.jsf','0',201);
