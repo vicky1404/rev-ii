@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
@@ -13,9 +14,9 @@ import org.apache.log4j.Logger;
 import org.primefaces.event.RowEditEvent;
 
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
-import cl.mdr.ifrs.ejb.common.VigenciaEnum;
 import cl.mdr.ifrs.ejb.entity.AreaNegocio;
 import cl.mdr.ifrs.ejb.entity.Grupo;
+import cl.mdr.ifrs.exceptions.RegistroNoEditableException;
 
 @ManagedBean
 @ViewScoped
@@ -27,14 +28,22 @@ public class GrupoBackingBean extends AbstractBackingBean implements Serializabl
 	private AreaNegocio areaNegocio;
 	private Grupo nuevoGrupo;
 	private List<Grupo> grupoList;
-	private boolean renderGrupos;
-	private List<AreaNegocio> areaNegocioByEmpresaList;
+	private boolean renderGrupos;	
 	
 	@PostConstruct
 	void init(){
-		nuevoGrupo = new Grupo();
+		this.inicializarNuevoGrupo();
 	}
 	
+	private void inicializarNuevoGrupo(){
+		nuevoGrupo = new Grupo();
+		nuevoGrupo.setAreaNegocio(new AreaNegocio());
+	}
+	
+	/**
+	 * busca segun los criterios de busqueda ingresados
+	 * @return
+	 */
 	public String buscarAction(){		
 		try {
 			this.buildGrupoList();
@@ -46,14 +55,64 @@ public class GrupoBackingBean extends AbstractBackingBean implements Serializabl
 		return null;
 	}
 	
+	/**
+	 * edita un elemento seleccionado de la grilla.
+	 * @param event
+	 */
 	public void editarAction(RowEditEvent event){
-		
+		try {
+			super.getFacadeService().getGrupoService().editarGrupo((Grupo) event.getObject());
+		} catch (RegistroNoEditableException e) {
+			super.addErrorMessage(e.getMessage());
+			logger.error(e);
+		} catch (Exception e) {
+			super.addErrorMessage("Se ha producido un error al editar el Grupo");
+			logger.error(e);
+		}
 	}
 	
+	/**
+	 * edita todos los elementos de la grilla
+	 * @param event
+	 */
 	public void editarAllAction(ActionEvent event){
-		
+		try {
+			super.getFacadeService().getGrupoService().editarGrupoList(this.getGrupoList());
+		} catch (RegistroNoEditableException e) {
+			super.addErrorMessage(e.getMessage());
+			logger.error(e);
+		} catch (Exception e) {			
+			super.addErrorMessage("Se ha producido un error al editar los Grupos");
+			logger.error(e);
+		}
 	}
 	
+	/**
+	 * @param event
+	 */
+	public void agregarAction(ActionEvent event){
+		Grupo grupo = this.getNuevoGrupo();
+		try {
+			grupo.setAccesoBloqueado(0L);
+			super.getFacadeService().getGrupoService().persistGrupo(grupo);
+			super.addInfoMessage("Se ha creado el Grupo correctamente");
+			this.buildGrupoList();
+			this.inicializarNuevoGrupo();
+		} catch (EJBException e) {
+			super.addErrorMessage("El Grupo que intenta crear ya existe");
+			this.getNuevoGrupo().setIdGrupoAcceso(null);
+			logger.error(e);
+		} catch (Exception e) {
+			super.addErrorMessage("Se ha producido un error al agregar el Grupo");
+			logger.error(e);
+		}
+	}
+	
+	/**
+	 * construlle el listado de grupos segun criterios para ser
+	 * desplegados en la grilla.
+	 * @throws Exception
+	 */
 	private void buildGrupoList() throws Exception{		
 		if(idAreaNegocio == StringUtils.EMPTY){
 			areaNegocio = null;
@@ -95,16 +154,7 @@ public class GrupoBackingBean extends AbstractBackingBean implements Serializabl
 		this.idAreaNegocio = idAreaNegocio;
 	}
 
-	public List<AreaNegocio> getAreaNegocioByEmpresaList() throws Exception {
-		if(areaNegocioByEmpresaList == null){
-			areaNegocioByEmpresaList = this.getFacadeService().getAreaNegocioService().findAllByEmpresa(this.getFiltroBackingBean().getEmpresa(), VigenciaEnum.VIGENTE.getKey());
-    	}
-		return areaNegocioByEmpresaList;
-	}
-
-	public void setAreaNegocioByEmpresaList(List<AreaNegocio> areaNegocioByEmpresaList) {
-		this.areaNegocioByEmpresaList = areaNegocioByEmpresaList;
-	}
+	
 
 	public Grupo getNuevoGrupo() {
 		return nuevoGrupo;

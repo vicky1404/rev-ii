@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 import org.primefaces.event.RowEditEvent;
 
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
+import cl.mdr.ifrs.ejb.common.VigenciaEnum;
 import cl.mdr.ifrs.ejb.entity.AreaNegocio;
 import cl.mdr.ifrs.exceptions.RegistroNoEditableException;
 
@@ -28,6 +29,7 @@ public class AreaNegocioBackingBean extends AbstractBackingBean implements Seria
 	private AreaNegocio areaNegocio;
 	private AreaNegocio nuevaAreaNegocio;
 	private boolean renderAreaNegocio;
+	private List<AreaNegocio> areaNegocioByEmpresaList;
 	
 	@PostConstruct
 	void init(){
@@ -101,9 +103,20 @@ public class AreaNegocioBackingBean extends AbstractBackingBean implements Seria
 			this.getNuevaAreaNegocio().setIdAreaNegocio(null);
 			logger.error(e);
 		}catch (Exception e) {
-			super.addErrorMessage("Se ha producido un error al editar el Área de Negocio.");
+			super.addErrorMessage("Se ha producido un error al agregar el Área de Negocio.");
 			logger.error(e);
 		}		
+	}
+	
+	public List<AreaNegocio> getAreaNegocioByEmpresaList() throws Exception {
+		if(areaNegocioByEmpresaList == null){
+			areaNegocioByEmpresaList = this.getFacadeService().getAreaNegocioService().findAllByEmpresa(this.getFiltroBackingBean().getEmpresa(), VigenciaEnum.VIGENTE.getKey());
+    	}
+		return areaNegocioByEmpresaList;
+	}
+
+	public void setAreaNegocioByEmpresaList(List<AreaNegocio> areaNegocioByEmpresaList) {
+		this.areaNegocioByEmpresaList = areaNegocioByEmpresaList;
 	}
 
 	public Long getVigente() {
