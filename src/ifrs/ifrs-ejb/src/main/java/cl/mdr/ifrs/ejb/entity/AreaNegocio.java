@@ -24,7 +24,8 @@ import cl.mdr.ifrs.ejb.common.Constantes;
 				@NamedQuery(name = AreaNegocio.FIND_ALL, query = "select o from AreaNegocio o where o.vigente = 1"),
 				@NamedQuery(name = AreaNegocio.FIND_ALL_BY_EMPRESA, query = " select o from AreaNegocio o " +
 																			" where o.empresa.idRut =:rutEmpresa and " +
-																			" (o.vigente = :vigente or :vigente is null)")
+																			" (o.vigente = :vigente or :vigente is null) " +
+																			" order by o.nombre asc")
 				})
 @Table(name = Constantes.AREA_NEGOCIO)
 public class AreaNegocio implements Serializable {

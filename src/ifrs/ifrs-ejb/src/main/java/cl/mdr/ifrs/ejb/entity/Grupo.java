@@ -16,6 +16,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
+
 
 /**
  * The persistent class for the IFRS_GRUPO database table.
@@ -32,8 +34,10 @@ import javax.persistence.Table;
     @NamedQuery(name = Grupo.FIND_BY_FILTRO ,query = " select o " +
     											  	 " from Grupo o  " +
     											  	 " where 1 = 1 " +
+    											  	 " and (o.areaNegocio.empresa.idRut is null or 1 = 1) " +
     											  	 " and (o.areaNegocio.empresa.idRut =:rutEmpresa or :rutEmpresa is null)" +
-    											  	 " and (o.areaNegocio.idAreaNegocio =:areaNegocio or :areaNegocio is null)")
+    											  	 " and (o.areaNegocio.idAreaNegocio =:areaNegocio or :areaNegocio is null) " +
+    											  	 " order by o.nombre asc , o.areaNegocio.nombre asc")
 })
 @Table(name="IFRS_GRUPO")
 public class Grupo implements Serializable {
@@ -102,6 +106,10 @@ public class Grupo implements Serializable {
 	//bi-directional many-to-many association to Usuario
 	@ManyToMany(mappedBy="grupos", fetch = FetchType.LAZY)
 	private List<Usuario> usuarios;
+	
+	@Column(name = "VIGENTE")
+	@Expose
+    private Long vigente;
 
 	public Grupo() {
     }
@@ -266,6 +274,14 @@ public class Grupo implements Serializable {
 		} else if (!usuarios.equals(other.usuarios))
 			return false;
 		return true;
+	}
+
+	public Long getVigente() {
+		return vigente;
+	}
+
+	public void setVigente(Long vigente) {
+		this.vigente = vigente;
 	}
 	
 	
