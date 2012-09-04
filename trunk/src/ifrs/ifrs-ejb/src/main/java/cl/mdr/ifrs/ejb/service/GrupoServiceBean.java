@@ -2,6 +2,7 @@ package cl.mdr.ifrs.ejb.service;
 
 import static cl.mdr.ifrs.ejb.cross.Constantes.PERSISTENCE_UNIT_NAME;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -16,6 +17,7 @@ import cl.mdr.ifrs.ejb.entity.AreaNegocio;
 import cl.mdr.ifrs.ejb.entity.Empresa;
 import cl.mdr.ifrs.ejb.entity.Grupo;
 import cl.mdr.ifrs.ejb.service.local.GrupoServiceLocal;
+import cl.mdr.ifrs.exceptions.RegistroNoEditableException;
 
 /**
  * @author http://www.mdrtech.cl
@@ -40,29 +42,67 @@ public class GrupoServiceBean implements GrupoServiceLocal {
 	public List<Grupo> findGruposByFiltro(final AreaNegocio areaNegocio, final Empresa empresa) throws Exception{
     	return em.createNamedQuery(Grupo.FIND_BY_FILTRO).
     				setParameter("areaNegocio", areaNegocio != null ? areaNegocio.getIdAreaNegocio() : null ).
-    				setParameter("rutEmpresa", empresa.getIdRut()).
+    				setParameter("rutEmpresa", empresa.getIdRut()).    				
     				getResultList();
     }
     
-    public void editarGrupo(final Grupo grupo) throws Exception{
-    	
+    public void editarGrupo(final Grupo grupo) throws RegistroNoEditableException, Exception{
+    	final int usuariosEnGrupo = this.validateUsuariosEnGrupo(grupo);
+    	final int menuEnGrupo = this.validateMenuEnGrupo(grupo);
+    	final int catalogoEnGrupo = this.validateCatalogoEnGrupo(grupo);
+    	if(usuariosEnGrupo > 0){
+    		throw new RegistroNoEditableException(MessageFormat.format("No es posible editar el Grupo {0} ya que posee {1} usuario(s) asociados", grupo.getNombre(), usuariosEnGrupo));
+    	}
+    	if(menuEnGrupo > 0){
+    		throw new RegistroNoEditableException(MessageFormat.format("No es posible editar el Grupo {0} ya que posee opciones de Menú asociadas", grupo.getNombre()));
+    	}
+    	if(catalogoEnGrupo > 0){
+    		throw new RegistroNoEditableException(MessageFormat.format("No es posible editar el Grupo {0} ya que posee {1} Revelaciones asociadas", grupo.getNombre(), catalogoEnGrupo));
+    	}
+    	this.mergeGrupo(grupo);
     }
     
-    public void editarGrupoList(final List<Grupo> grupoList) throws Exception{
-    	
+    public void editarGrupoList(final List<Grupo> grupoList) throws RegistroNoEditableException, Exception{
+    	for (Grupo grupo : grupoList) {
+			this.editarGrupo(grupo);
+		}
     }
     
-    public void mergeAreaNegocio(final Grupo grupo) throws Exception{
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	private int validateUsuariosEnGrupo(final Grupo grupo) throws Exception{
+		return em
+				.createQuery("select u from UsuarioGrupo u where u.idGrupo =:idGrupo")
+				.setParameter("idGrupo", grupo.getIdGrupoAcceso())
+				.getResultList().size();
+	}
+    
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	private int validateMenuEnGrupo(final Grupo grupo) throws Exception{
+		return em
+				.createQuery("select u from MenuGrupo u where u.idGrupoAcceso =:idGrupo")
+				.setParameter("idGrupo", grupo.getIdGrupoAcceso())
+				.getResultList().size();
+	}
+    
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	private int validateCatalogoEnGrupo(final Grupo grupo) throws Exception{
+		return em
+				.createQuery("select u from CatalogoGrupo u where u.idGrupoAcceso =:idGrupo")
+				.setParameter("idGrupo", grupo.getIdGrupoAcceso())
+				.getResultList().size();
+	}
+    
+    public void mergeGrupo(final Grupo grupo) throws Exception{
     	em.merge(grupo);
     }
     
-    public void mergeAreaNegocioList(final List<Grupo> grupoLis) throws Exception{
+    public void mergeGrupoList(final List<Grupo> grupoLis) throws Exception{
     	for (final Grupo grupo : grupoLis) {
     		em.merge(grupo);
 		}    	    	
     }
     
-    public void persistAreaNegocio(final Grupo grupo) throws ConstraintViolationException, Exception{
+    public void persistGrupo(final Grupo grupo) throws ConstraintViolationException, Exception{
     	em.persist(grupo);
     }
     
