@@ -150,11 +150,18 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
     	this.setRenderBarraFormula(Boolean.FALSE);
     	Long periodoLong = Long.parseLong( super.getFiltroBackingBean().getPeriodoEmpresa().getPeriodo().getAnioPeriodo() ) * 100 + Long.parseLong( super.getFiltroBackingBean().getPeriodoEmpresa().getPeriodo().getMesPeriodo() );
         PeriodoEmpresa periodoEmpresa = getFacadeService().getPeriodoService().getPeriodoEmpresaById(periodoLong, super.getFiltroBackingBean().getEmpresa().getIdRut());
+        
         try {
-        	List<Version> lista = getFacadeService().getVersionService().findVersionByFiltro(null, new TipoCuadro(getIdTipoCuadro()) , periodoEmpresa, null, VigenciaEnum.VIGENTE.getKey(), new Catalogo(getIdCatalogo()));
-        	setTreeNode(lista);
+        	
+        	List<Version> lista = null;
+        	
+        	if (periodoEmpresa != null){
+        		lista = getFacadeService().getVersionService().findVersionByFiltro(null, new TipoCuadro(getIdTipoCuadro()) , periodoEmpresa, null, VigenciaEnum.VIGENTE.getKey(), new Catalogo(getIdCatalogo()));
+        		setTreeNode(lista);
+        	}
+        	
     		if(lista == null || lista.size() == 0){
-    			super.addWarnMessage("No se encontraron Versiones de Revelaciones para este período");
+    			super.addWarnMessage(PropertyManager.getInstance().getMessage("periodo_busqueda_sin_resultado"));
     			this.setRenderedCatalogoTree(Boolean.FALSE);
     		}
 		} catch (Exception e) {
@@ -344,7 +351,13 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
         
         
         final String parOrdenado = CORCHETE_IZQUIERDO.concat(""+celda.getIdColumna()).concat(COMA).concat(""+celda.getIdFila()).concat(CORCHETE_DERECHO); 
-        final String formulaSaved = this.getFormulaMap().get(this.getCeldaTarget());        
+        final String formulaSaved = this.getFormulaMap().get(this.getCeldaTarget());
+        
+        if (this.getCeldaTarget() == null){
+        	super.addWarnMessage(PropertyManager.getInstance().getMessage("general_mensaje_formula_selecionar_campo_total"));
+        	return;
+        }
+        
         this.setFormula(formulaSaved == null ? this.getCeldaTarget().getFormula() : formulaSaved);                         
         if(EqualsBuilder.reflectionEquals(this.getCeldaTarget(), celda, true)){
             super.addWarnMessage(MessageFormat.format(PropertyManager.getInstance().getMessage("general_mensaje_celda_destino_existe_en_formula"), parOrdenado));             

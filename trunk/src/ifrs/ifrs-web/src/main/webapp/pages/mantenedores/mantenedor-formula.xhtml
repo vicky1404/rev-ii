@@ -72,7 +72,7 @@
     	
     	<p:treeTable id="tabla" value="#{formula.root}" var="tree" rendered="#{formula.renderedCatalogoTree}" selectionMode="single" selection="#{formula.selectedNode}">
     		
-    		<p:column headerText="Cuadros editables" resizable="true" selectionMode="single">
+    		<p:column headerText="Revelaciones editables" resizable="true" selectionMode="single">
     		
     			<h:outputText value="#{tree.col1}" style="font-weight:bold;"/>
     			    <p:commandLink actionListener="#{formula.buscarEstructuraGrilla}" update="@form" rendered="#{tree.image != null}"
@@ -176,7 +176,7 @@
        </p:outputPanel>
     	
     	
-    	<p:fieldset legend="Cuadro" id="fs1" binding="#{formula.panelGroupLayoutTablaFormula}" rendered="#{formula.renderTablaFormula}">
+    	<p:fieldset legend="Revelación" id="fs1" binding="#{formula.panelGroupLayoutTablaFormula}" rendered="#{formula.renderTablaFormula}">
     	  
     	  
     	  		<h:outputText value="(versión: #{formula.estructura.version.version})" id="ot2"/>
