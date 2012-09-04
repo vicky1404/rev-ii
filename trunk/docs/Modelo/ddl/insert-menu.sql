@@ -52,7 +52,7 @@ Insert into IFRS_MENU (ID_MENU,NOMBRE,ESTADO,GRUPO,URL_MENU,ES_PADRE, ORDEN) val
 --menu de mantenedores
 Insert into IFRS_MENU (ID_MENU,NOMBRE,ESTADO,GRUPO,URL_MENU,ES_PADRE, ORDEN) values ('2','Mantenedores','1','2','#','1',800);
 	INSERT INTO IFRS_MENU (ID_MENU, NOMBRE, ESTADO, GRUPO, URL_MENU, ES_PADRE, ORDEN) VALUES ('22', 'Areas de Negocio', '1', '2', '/pages/mantenedores/area-negocio.jsf', '0',803);
-	INSERT INTO IFRS_MENU (ID_MENU, NOMBRE, ESTADO, GRUPO, URL_MENU, ES_PADRE, ORDEN) VALUES ('23', 'Grupos', '1', '2', '/pages/mantenedores/grupo.jsf', '0', 804);
+	INSERT INTO IFRS_MENU (ID_MENU, NOMBRE, ESTADO, GRUPO, URL_MENU, ES_PADRE, ORDEN) VALUES ('23', 'Grupos de Usuario', '1', '2', '/pages/mantenedores/grupo.jsf', '0', 804);
 	INSERT INTO IFRS_MENU (ID_MENU, NOMBRE, ESTADO, GRUPO, URL_MENU, ES_PADRE, ORDEN) VALUES ('24', 'Catalogo de Revelaciones',1, 2, '/pages/mantenedores/ingreso-nota.jsf', '0', 802);
 	INSERT INTO IFRS_MENU (ID_MENU, NOMBRE, ESTADO, GRUPO, URL_MENU, ES_PADRE, ORDEN) VALUES ('25', 'Tipo Revelacion',	1,	2,	'/pages/mantenedores/tipo-cuadro.jsf', '0',	801);
 
