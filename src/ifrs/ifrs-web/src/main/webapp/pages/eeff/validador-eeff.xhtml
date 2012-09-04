@@ -9,7 +9,7 @@
 	<ui:define name="content">
 
 		<h:form id="form">  
-			<p:growl id="messages" />
+			<p:messages id="messages" autoUpdate="true" globalOnly="true"/>
 			<p:ajaxStatus onstart="statusDialogNoModal.show();" oncomplete="statusDialogNoModal.hide();" />
 			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
 			<p:panel id="filtro" header="#{menuBackingBean.breadcrumb} > Periodo : #{eeff.periodo.periodoFormat}" toggleable="true"  closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel">

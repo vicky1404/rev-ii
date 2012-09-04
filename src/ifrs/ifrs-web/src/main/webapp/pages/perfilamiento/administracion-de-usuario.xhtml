@@ -7,8 +7,7 @@
 	template="/WEB-INF/templates/main-template.xhtml">
 	<ui:define name="content">
 		<h:form id="form_usuario">
-			<p:growl id="messages_usuario" autoUpdate="true" showSummary="true"
-				globalOnly="true" />
+			<p:messages id="messages" autoUpdate="true" globalOnly="true" showSummary="true"/>
 			<p:ajaxStatus onstart="statusDialog.show();"
 				oncomplete="statusDialog.hide();" />
 			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
