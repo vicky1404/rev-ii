@@ -16,13 +16,13 @@
 			<p:panel header="#{menuBackingBean.breadcrumb} > #{msg.etiqueta_periodo} #{visualizador.periodo.periodoFormat}" toggleable="true"  closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel">
 				<h:panelGrid columns="5" cellpadding="10">
 				<p:selectOneMenu label="#{msg.etiqueta_periodo}" id="soc1Periodo" value="#{visualizador.mesPeriodo}"
-		                         required="true" requiredMessage="#{msg.periodo_mensaje_seleccione_mes}" effect="drop">
+		                         required="true" requiredMessage="#{msg.periodo_mensaje_seleccione_mes}">
 					<f:selectItem itemLabel="#{msg.etiqueta_mes_periodo}"/>	                      
 		            <f:selectItems value="#{visualizador.componenteBackingBean.meses}" id="mesesPeriodo"/>
 	            </p:selectOneMenu>
 	            <p:spacer width="10"></p:spacer>	
 	            <p:selectOneMenu label=" " id="soc2Periodo" value="#{visualizador.anioPeriodo}" required="true"
-                                 requiredMessage="#{msg.periodo_mensaje_seleccione_anio}" effect="drop">
+                                 requiredMessage="#{msg.periodo_mensaje_seleccione_anio}">
                     <f:selectItem itemLabel="#{msg.etiqueta_anio_periodo}"/>	 
                     <f:selectItems value="#{visualizador.componenteBackingBean.anios}" id="aniosPeriodo"/>
                 </p:selectOneMenu>
@@ -59,7 +59,7 @@
 			<p:panel id="panelId1x" header="Versión seleccionada: #{visualizador.versionEeff != null ? visualizador.versionEeff.version : 'Seleccione una versión'}" toggleable="true"  closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel2">
 				<h:panelGrid columns="5" cellpadding="10">
 					<h:outputText value="Ingrese número de " id="labelIngrese1x"/>
-					<p:selectOneMenu id="selFecuCuenta" value="#{visualizador.selectFecuCuenta}" effect="drop">
+					<p:selectOneMenu id="selFecuCuenta" value="#{visualizador.selectFecuCuenta}">
 						<f:selectItem itemLabel="FECU" itemValue="fecu"/>
 						<f:selectItem itemLabel="Cuenta" itemValue="cuenta"/>					
 					</p:selectOneMenu>

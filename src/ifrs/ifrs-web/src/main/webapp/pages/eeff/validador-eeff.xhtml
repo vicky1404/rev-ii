@@ -26,8 +26,7 @@
 	            	<p:outputLabel for="it1" value="#{msg.label_cuadro}" />
 					<p:autoComplete value="#{eeff.filtroBackingBean.catalogo}" maxResults="20" maxlength="10" 
 									completeMethod="#{eeff.catalogosSugeridos}"
-									converter="catalogoConverter"
-									effect="drop"	
+									converter="catalogoConverter"										
 									var="cat"	
 									binding="#{eeff.busquedaInputText}"		
 									itemValue="#{cat}"													
@@ -169,7 +168,7 @@
 		<p:tabView id="tabView2">
     		<p:tab id="tab2" title="Información de estados financieros">
     		
-    		<p:selectOneMenu label="Código Fecu" id="soc1" value="#{eeff.estadoFinanciero}" effect="drop" converter="estadoFinancieroConverter">
+    		<p:selectOneMenu label="Código Fecu" id="soc1" value="#{eeff.estadoFinanciero}" converter="estadoFinancieroConverter">
                 		<f:selectItem itemLabel="#{msg.label_seleccionar}"></f:selectItem>
                         <f:selectItems value="#{eeff.fecuItems}" id="mesesPeriodo" />
                         <p:ajax update="@form" listener="#{eeff.codigoFecuChangeListener}" event="change"  />
