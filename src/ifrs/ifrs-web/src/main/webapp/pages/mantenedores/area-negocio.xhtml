@@ -39,13 +39,7 @@
 			</p:panel>
 			<p:spacer height="10"></p:spacer>
 			<p:toolbar rendered="#{areaNegocioBackingBean.renderAreaNegocio}">
-				<p:toolbarGroup>
-					<p:commandButton
-						actionListener="#{areaNegocioBackingBean.editarAllAction}"
-						value="#{msg.general_control_guardar}" id="cb1Guardar"
-						partialSubmit="true" update="tabla_areas" icon="ui-icon-disk">
-					</p:commandButton>
-					<p:separator />
+				<p:toolbarGroup>					
 					<p:commandButton value="Nueva Área Negocio" id="cb1Agregar"
 						onclick="dialogNuevo.show()" icon="ui-icon-plus">
 					</p:commandButton>

@@ -24,7 +24,7 @@
 						requiredMessage="#{msg.mensaje_seleccione_valor}">
 						<f:selectItem itemLabel="#{msg.label_seleccione}" />
 						<f:selectItems
-							value="#{menuPorGrupoBackingBean.componenteBackingBean.grupoList}"
+							value="#{grupoBackingBean.grupoByEmpresaList}"
 							var="grupo" itemLabel="#{grupo.nombre}"
 							itemValue="#{grupo.idGrupoAcceso}" />
 					</p:selectOneMenu>

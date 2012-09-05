@@ -108,6 +108,11 @@ public class AreaNegocioBackingBean extends AbstractBackingBean implements Seria
 		}		
 	}
 	
+	/**
+	 * Obtiene una lista de areas de negocio vigentes por empresa
+	 * @return
+	 * @throws Exception
+	 */
 	public List<AreaNegocio> getAreaNegocioByEmpresaList() throws Exception {
 		if(areaNegocioByEmpresaList == null){
 			areaNegocioByEmpresaList = this.getFacadeService().getAreaNegocioService().findAllByEmpresa(this.getFiltroBackingBean().getEmpresa(), VigenciaEnum.VIGENTE.getKey());
