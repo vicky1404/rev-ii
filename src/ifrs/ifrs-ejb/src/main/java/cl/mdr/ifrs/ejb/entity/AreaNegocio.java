@@ -22,17 +22,22 @@ import cl.mdr.ifrs.ejb.common.Constantes;
 @Entity
 @NamedQueries( { 
 				@NamedQuery(name = AreaNegocio.FIND_ALL, query = "select o from AreaNegocio o where o.vigente = 1"),
+				
+				@NamedQuery(name = AreaNegocio.FIND_SIN_EMPRESA, query = " select o from AreaNegocio o " +
+																		 " where o.empresa.idRut is null "),
+
 				@NamedQuery(name = AreaNegocio.FIND_ALL_BY_EMPRESA, query = " select o from AreaNegocio o " +
 																			" where o.empresa.idRut =:rutEmpresa and " +
 																			" (o.vigente = :vigente or :vigente is null) " +
 																			" order by o.nombre asc")
 				})
 @Table(name = Constantes.AREA_NEGOCIO)
-public class AreaNegocio implements Serializable {
+public class AreaNegocio implements Serializable, Comparable<AreaNegocio> {
 	private static final long serialVersionUID = -2872761746612674267L;
 	
 	public static final String FIND_ALL = "AreaNegocio.findAll";
 	public static final String FIND_ALL_BY_EMPRESA = "AreaNegocio.findAllByEmpresa";
+	public static final String FIND_SIN_EMPRESA = "AreaNegocio.findSinEmpresa";
 	
 	@Id
     @Column(name = "ID_AREA_NEGOCIO", nullable = false, length = 3)
@@ -140,4 +145,45 @@ public class AreaNegocio implements Serializable {
 	public void setVigente(Long vigente) {
 		this.vigente = vigente;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((idAreaNegocio == null) ? 0 : idAreaNegocio.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AreaNegocio other = (AreaNegocio) obj;
+		if (idAreaNegocio == null) {
+			if (other.idAreaNegocio != null)
+				return false;
+		} else if (!idAreaNegocio.equals(other.idAreaNegocio))
+			return false;
+		return true;
+	}
+
+	@Override
+	public int compareTo(AreaNegocio o) {
+		return this.idAreaNegocio.compareTo(o.idAreaNegocio);
+	}
+	
+	
+	
+	
 }

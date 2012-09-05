@@ -33,9 +33,8 @@ import com.google.gson.annotations.Expose;
 														  		
     @NamedQuery(name = Grupo.FIND_BY_FILTRO ,query = " select o " +
     											  	 " from Grupo o  " +
-    											  	 " where 1 = 1 " +
-    											  	 " and (o.areaNegocio.empresa.idRut is null or 1 = 1) " +
-    											  	 " and (o.areaNegocio.empresa.idRut =:rutEmpresa or :rutEmpresa is null)" +
+    											  	 " where 1 = 1 " +    											  	 
+    											  	 " and (o.areaNegocio.empresa.idRut =:rutEmpresa or o.areaNegocio.empresa.idRut is null or :rutEmpresa is null)" +
     											  	 " and (o.areaNegocio.idAreaNegocio =:areaNegocio or :areaNegocio is null) " +
     											  	 " order by o.nombre asc , o.areaNegocio.nombre asc")
 })
