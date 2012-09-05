@@ -88,6 +88,18 @@ public class CatalogoServiceBean implements CatalogoServiceLocal{
     
     @SuppressWarnings("unchecked")
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public List<Catalogo> findCatalogoByGrupo(final Long rutEmpresa, final TipoCuadro tipoCuadro, final Grupo grupo, final Long vigencia) throws Exception{        
+		return em.createNamedQuery(Catalogo.CATALOGO_FIND_BY_GRUPO)
+											 .setParameter("rut", rutEmpresa )											 
+                                             .setParameter("tipoCuadro", tipoCuadro != null ? tipoCuadro.getIdTipoCuadro().longValue() : "" )   
+                                             .setParameter("grupo", grupo != null ? grupo.getIdGrupoAcceso() : null)
+                                             .setParameter("vigencia", vigencia != null ? vigencia.longValue() : "")                                                
+                                             .getResultList();
+        
+    }
+    
+    @SuppressWarnings("unchecked")
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public List<Catalogo> findAllVigenteByTipo(final Long rutEmpresa, final TipoCuadro tipoCuadro)throws Exception{
         return em.createNamedQuery(Catalogo.CATALOGO_FIND_ALL_VIGENTE_BY_TIPO)
         		//TODO Solucionar problema Caused by: java.sql.SQLSyntaxErrorException: ORA-00932: tipos de dato inconsistentes: se esperaba NUMBER se ha obtenido BINARY

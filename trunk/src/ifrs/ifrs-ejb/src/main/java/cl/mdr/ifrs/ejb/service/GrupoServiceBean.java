@@ -51,13 +51,13 @@ public class GrupoServiceBean implements GrupoServiceLocal {
     	final int menuEnGrupo = this.validateMenuEnGrupo(grupo);
     	final int catalogoEnGrupo = this.validateCatalogoEnGrupo(grupo);
     	if(usuariosEnGrupo > 0){
-    		throw new RegistroNoEditableException(MessageFormat.format("No es posible editar el Grupo {0} ya que posee {1} usuario(s) asociados", grupo.getNombre(), usuariosEnGrupo));
+    		throw new RegistroNoEditableException(MessageFormat.format("No es posible editar el Grupo {0} ya que posee {1} Usuario(s) asociados", grupo.getNombre(), usuariosEnGrupo));
     	}
     	if(menuEnGrupo > 0){
     		throw new RegistroNoEditableException(MessageFormat.format("No es posible editar el Grupo {0} ya que posee opciones de Menú asociadas", grupo.getNombre()));
     	}
     	if(catalogoEnGrupo > 0){
-    		throw new RegistroNoEditableException(MessageFormat.format("No es posible editar el Grupo {0} ya que posee {1} Revelaciones asociadas", grupo.getNombre(), catalogoEnGrupo));
+    		throw new RegistroNoEditableException(MessageFormat.format("No es posible editar el Grupo {0} ya que posee {1} Revelacion(es) asociadas", grupo.getNombre(), catalogoEnGrupo));
     	}
     	this.mergeGrupo(grupo);
     }
