@@ -107,13 +107,18 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 	
 	public void menuBackingBeanParaUnaEmpresa(ComponentSystemEvent event){		
 		if(!valid)
-			return;
-		
+			return;		
 		List<Empresa> empresaList = this.getEmpresaList();
+//		//List<Empresa> empresaList = this.getFacadeService().getEmpresaService().findAll();
+//		List<Empresa> empresaList = new ArrayList<Empresa>();
+//		empresaList.add(this.getFacadeService().getEmpresaService().findAll().get(0));
+		
+		Empresa empresa = null;
 		
 		if (empresaList.size() == 1){
-			for (Empresa empresa : empresaList){
+			for (Empresa empresa1 : empresaList){
 				try{
+					empresa = new Empresa(empresa1.getIdRut(), empresa1.getDv(), empresa1.getGiro(), empresa1.getNombre(), empresa1.getRazonSocial());
 					this.setEmpresa(empresa);
 					getFiltroBackingBean().setEmpresa(empresa);
 					if(root.getChildCount() > 0)
