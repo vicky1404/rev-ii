@@ -18,6 +18,10 @@ import cl.mdr.ifrs.ejb.entity.AreaNegocio;
 import cl.mdr.ifrs.ejb.entity.Grupo;
 import cl.mdr.ifrs.exceptions.RegistroNoEditableException;
 
+/**
+ * @author http://www.mdrtech.cl
+ * 
+ */
 @ManagedBean
 @ViewScoped
 public class GrupoBackingBean extends AbstractBackingBean implements Serializable {

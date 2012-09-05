@@ -13,7 +13,7 @@
 		<p:panel header="#{menuBackingBean.renderSelectorEmpresa == true ? msg.label_seleccione_empresa : msg.label_empresa}" >  		
         	<p:selectOneMenu  id="somEmp1"  value="#{menuBackingBean.idRut}" valueChangeListener="#{menuBackingBean.empresaChangeValue}"  rendered="#{menuBackingBean.renderSelectorEmpresa}">
 				<f:selectItem itemLabel="#{msg.label_seleccione}" />
-				<f:selectItems value="#{componenteBackingBean.empresaList}" var="empresa" itemValue="#{empresa.idRut}" itemLabel="#{empresa.nombre}" />
+				<f:selectItems value="#{menuBackingBean.empresaList}" var="empresa" itemValue="#{empresa.idRut}" itemLabel="#{empresa.nombre}" />
 				<f:ajax execute="@this" render="@form"/>
 			</p:selectOneMenu>				
         	<h:outputText value="#{menuBackingBean.empresa.nombre}" rendered="#{!menuBackingBean.renderSelectorEmpresa}">

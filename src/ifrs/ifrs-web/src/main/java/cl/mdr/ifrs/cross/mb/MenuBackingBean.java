@@ -7,7 +7,6 @@ import static ch.lambdaj.Lambda.having;
 import static ch.lambdaj.Lambda.index;
 import static ch.lambdaj.Lambda.on;
 import static ch.lambdaj.Lambda.select;
-import static ch.lambdaj.Lambda.sort;
 import static org.hamcrest.Matchers.equalTo;
 
 import java.io.IOException;
@@ -15,6 +14,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +39,7 @@ import cl.mdr.ifrs.cross.util.PropertyManager;
 import cl.mdr.ifrs.cross.util.UtilBean;
 import cl.mdr.ifrs.ejb.common.VigenciaEnum;
 import cl.mdr.ifrs.ejb.cross.Util;
+import cl.mdr.ifrs.ejb.entity.AreaNegocio;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
 import cl.mdr.ifrs.ejb.entity.Empresa;
 import cl.mdr.ifrs.ejb.entity.Grupo;
@@ -50,10 +51,8 @@ import cl.mdr.ifrs.ejb.entity.TipoCuadro;
  * @link http://cl.linkedin.com/in/rreyesc
  *
  */
-public class MenuBackingBean extends AbstractBackingBean implements Serializable {
-	
-	public static final String BEAN_NAME = "menuBackingBean";
-	
+public class MenuBackingBean extends AbstractBackingBean implements Serializable {	
+	public static final String BEAN_NAME = "menuBackingBean";	
 	private final Logger log = Logger.getLogger(this.getClass().getName());
 	private static final long serialVersionUID = 8077481642975216680L;
 	private static final String PROCESO_VIEW_ID = "/pages/proceso/proceso.jsf";
@@ -74,6 +73,7 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 	//tree catalogo
     private Long idRut;
     private Empresa empresa;
+    private List<Empresa> empresaList;
     private Tree treeCatalogo;
     private List<Catalogo> catalogoList;    
     private boolean sistemaBloqueado;
@@ -84,46 +84,32 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
     private boolean redireccionado;
     private boolean valid = true;
     private String breadcrumb;
-          
-    public String getBreadcrumb() {
-		return breadcrumb;
-	}
-
-	public void setBreadcrumb(String breadcrumb) {
-		this.breadcrumb = breadcrumb;
-	}
-
-
-	private org.primefaces.model.MenuModel model; 
-                  		
+    private org.primefaces.model.MenuModel model; 
+    
 	public MenuBackingBean() {
 		super();				
-		root = new DefaultTreeNode("Proceso", null);  	
-		
+		root = new DefaultTreeNode("Proceso", null);  		
 	}
 	
 	@PostConstruct
-	public void load(){
-		
-		
-	try {
-		valid = isValidSoft();
-		if(!valid){
-			getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(SEGURIDAD_VIEW_ID));
-		}
-	} catch (Exception e) {
-		log.error(e.getMessage(),e);
-	}
-		
+	public void load(){				
+		try {	
+			valid = isValidSoft();
+			if(!valid){
+				super.getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(SEGURIDAD_VIEW_ID));
+			}
+			this.buildEmpresaList();		
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		}		
 	}
 	
 	
-	public void menuBackingBeanParaUnaEmpresa(ComponentSystemEvent event){
-		
+	public void menuBackingBeanParaUnaEmpresa(ComponentSystemEvent event){		
 		if(!valid)
 			return;
 		
-		List<Empresa> empresaList = super.getFacadeService().getEmpresaService().findAll();
+		List<Empresa> empresaList = this.getEmpresaList();
 		
 		if (empresaList.size() == 1){
 			for (Empresa empresa : empresaList){
@@ -138,7 +124,7 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 					this.setRenderSelectorEmpresa(Boolean.FALSE);
 					if (!isRedireccionado()){
 						this.setRedireccionado(Boolean.TRUE);
-					getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(BLANK_VIEW_ID));
+						getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(BLANK_VIEW_ID));
 					}
 					return;
 									
@@ -232,6 +218,28 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 	}
 	
 	/**
+	 * Construye un listado con las empresas asociadas al Usuario. 
+	 */
+	private void buildEmpresaList(){
+		try {
+			Set<Empresa> empresaSet = new HashSet<Empresa>();
+			final List<Grupo> grupos  = super.getFacadeService().getSeguridadService().findGruposByUsuario(super.getNombreUsuario());
+			for (final Grupo grupo : grupos) {
+				if(grupo.getAreaNegocio().getEmpresa() == null){
+					this.setEmpresaList(super.getFacadeService().getEmpresaService().findAll());
+					return;
+				}
+				empresaSet.add(grupo.getAreaNegocio().getEmpresa());
+            }
+			this.setEmpresaList(new ArrayList<Empresa>(empresaSet));
+		} catch (Exception e) {
+			super.addErrorMessage("Se ha producido un error al obtener las Empresas asociadas al Usuario");
+			log.error(e);
+		}
+		
+	}
+	
+	/**
 	 * Construye el model de menu acordeon para navegacion
 	 */
 	private void buildAccordionPanelMenu(){
@@ -283,9 +291,7 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
                         menus.add(menu1);
                     }
                 }
-                for(Menu menu : menus) {
-                    menuList.add(menu);
-                }
+                menuList = new ArrayList<Menu>(menus);                
             } catch (Exception e) {
             	log.error(e.getCause(), e);
             }
@@ -574,6 +580,22 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 
 	public void setRedireccionado(boolean redireccionado) {
 		this.redireccionado = redireccionado;
+	}
+
+	public List<Empresa> getEmpresaList() {
+		return empresaList;
+	}
+
+	public void setEmpresaList(List<Empresa> empresaList) {
+		this.empresaList = empresaList;
+	}
+
+	public String getBreadcrumb() {
+		return breadcrumb;
+	}
+
+	public void setBreadcrumb(String breadcrumb) {
+		this.breadcrumb = breadcrumb;
 	}
 
 }
