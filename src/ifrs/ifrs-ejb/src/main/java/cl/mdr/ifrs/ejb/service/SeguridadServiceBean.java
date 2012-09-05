@@ -101,7 +101,7 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public List<Grupo> findGruposByUsuario(final String usuario) throws Exception{        
         return em.createNamedQuery(UsuarioGrupo.FIND_GRUPOS_BY_USUARIO)                
-        .setParameter("usuarioOid", usuario)
+        .setParameter("nombreUsuario", usuario)
         .getResultList();
     }
     

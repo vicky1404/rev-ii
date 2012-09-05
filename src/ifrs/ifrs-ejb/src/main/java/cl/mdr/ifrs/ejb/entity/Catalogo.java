@@ -55,19 +55,33 @@ import cl.mdr.ifrs.ejb.common.Constantes;
                  
                 @NamedQuery(name = Catalogo.CATALOGO_FIND_BY_FILTRO,
                 		//TODO Solucionar problema Caused by: java.sql.SQLSyntaxErrorException: ORA-00932: tipos de dato inconsistentes: se esperaba NUMBER se ha obtenido BINARY
-                             query = " select distinct c from Catalogo c , " +
+                             query = " select distinct c from " +
+                             		 " Catalogo c , " +
                              		 " CatalogoGrupo cg, " +
                              		 " UsuarioGrupo ug, " +
                              		 " TipoCuadro tc "+
                              		 " where c.idCatalogo = cg.idCatalogo " +                             		
                              		 " and c.tipoCuadro.idTipoCuadro = tc.idTipoCuadro "+
-                             		 " and ug.idGrupo = cg.idGrupoAcceso "+
+                             		 " and ug.idGrupo = cg.idGrupoAcceso "+                             		 
                              		 " and (:rut is null or c.empresa.idRut = :rut) " +
                              		 " and (:usuario is null or ug.nombreUsuario = :usuario) " +
                              		 " and (:tipoCuadro is null or c.tipoCuadro.idTipoCuadro = :tipoCuadro) " +                             		 
                              		 " and (:grupo is null or cg.grupo = :grupo) " +
                              		 " and (:vigencia is null or c.vigencia = :vigencia) " +
-                             		 " order by c.orden asc" ) 
+                             		 " order by c.orden asc" ),
+                             		 
+         		@NamedQuery(name = Catalogo.CATALOGO_FIND_BY_GRUPO,        		
+		                     query = " select c from " +
+		                     		 " Catalogo c , " +
+		                     		 " CatalogoGrupo cg " +                     		 
+		                     		 " where c.idCatalogo = cg.idCatalogo " +                             		                     		                          		
+		                     		 " and (:rut is null or c.empresa.idRut = :rut) " +		                     		
+		                     		 " and (:tipoCuadro is null or c.tipoCuadro.idTipoCuadro = :tipoCuadro) " +                             		 
+		                     		 " and (:grupo is null or cg.grupo = :grupo) " +
+		                     		 " and (:vigencia is null or c.vigencia = :vigencia) " +
+		                     		 " order by c.orden asc" )
+
+
 
 })
 @Table(name = Constantes.CATALOGO)
@@ -82,6 +96,7 @@ public class Catalogo implements Serializable {
     public static final String CATALOGO_FIND_BY_ID_CATALOGO = "Catalogo.findCatalogoByIdCatalogo";
     public static final String CATALOGO_FIND_BY_FILTRO = "Catalogo.findCatalogoByFiltro";
     public static final String CATALOGO_FIND_BY_NOTA_FETCH = "Catalogo.findCatalogoByNotaFetch";
+    public static final String CATALOGO_FIND_BY_GRUPO = "Catalogo.findCatalogoByGrupo";
         
     
     private static final long serialVersionUID = 5519999923709341563L;
