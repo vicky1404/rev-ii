@@ -3,13 +3,18 @@ package cl.mdr.ifrs.ejb.service;
 import static cl.mdr.ifrs.ejb.cross.Constantes.PERSISTENCE_UNIT_NAME;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.hibernate.exception.ConstraintViolationException;
 
@@ -39,11 +44,18 @@ public class AreaNegocioServiceBean implements AreaNegocioServiceLocal {
     
     @SuppressWarnings("unchecked")
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public List<AreaNegocio> findAllByEmpresa(final Empresa empresa, final Long vigente) throws Exception{    
-    	return em.createNamedQuery(AreaNegocio.FIND_ALL_BY_EMPRESA).
-    			setParameter("rutEmpresa", empresa.getIdRut()).
-    			setParameter("vigente", vigente).    			    			    			
-    			getResultList();
+	public List<AreaNegocio> findAllByEmpresa(final Empresa empresa, final Long vigente) throws Exception{ 
+    	final Query query1 = em.createNamedQuery(AreaNegocio.FIND_ALL_BY_EMPRESA).
+    				         setParameter("rutEmpresa", empresa.getIdRut()).
+    				         setParameter("vigente", vigente);
+    	
+    	final Query query2 = em.createNamedQuery(AreaNegocio.FIND_SIN_EMPRESA);
+    	
+    	Set<AreaNegocio> areaNegocioSet = new HashSet<AreaNegocio>(query1.getResultList());    	
+    	areaNegocioSet.addAll(query2.getResultList());    	
+    	List<AreaNegocio> areaNegocioList = new ArrayList<AreaNegocio>(areaNegocioSet);    			
+    	Collections.sort(areaNegocioList);
+    	return areaNegocioList;
     }
     
     public void editarAreaNegocio(final AreaNegocio areaNegocio) throws RegistroNoEditableException, Exception{
