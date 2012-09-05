@@ -72,7 +72,7 @@
 			</p:toolbar>
 			<p:dataTable emptyMessage="#{msg.mensaje_tabla_sin_registros}"
 				value="#{estructuraPorGrupoBackingBean.grillaCatalogoList}"
-				id="tabla_catalogo" var="row" lazy="false"
+				id="tabla_catalogo" var="row" lazy="false" selectionMode="single" rowKey="#{row.entity.idCatalogo}"
 				rendered="#{estructuraPorGrupoBackingBean.renderTablaCatalogo}">
 				<p:column headerText="#{msg.label_seleccionar}"
 					style="text-align:center;" id="c2" width="100">
