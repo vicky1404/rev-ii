@@ -40,13 +40,7 @@
 			</p:panel>
 			<p:spacer height="10"></p:spacer>
 			<p:toolbar rendered="#{grupoBackingBean.renderGrupos}">
-				<p:toolbarGroup>
-					<p:commandButton
-						actionListener="#{grupoBackingBean.editarAllAction}"
-						value="#{msg.general_control_guardar}" id="cb1Guardar"
-						partialSubmit="true" update="tabla_grupos" icon="ui-icon-disk">
-					</p:commandButton>
-					<p:separator />
+				<p:toolbarGroup>				    										
 					<p:commandButton value="Nuevo Grupo" id="cb1Agregar"
 						onclick="dialogNuevo.show()" icon="ui-icon-plus">
 					</p:commandButton>
@@ -54,7 +48,7 @@
 			</p:toolbar>
 			<p:dataTable emptyMessage="#{msg.mensaje_tabla_sin_registros}"
 				value="#{grupoBackingBean.grupoList}" id="tabla_grupos" var="row"
-				lazy="false" rowKey="#{row.idGrupoAcceso}"
+				lazy="false" rowKey="#{row.idGrupoAcceso}" selectionMode="single"
 				rendered="#{grupoBackingBean.renderGrupos}" editable="true">
 				<p:ajax event="rowEdit"
 					listener="#{grupoBackingBean.editarAction}" />
@@ -142,7 +136,7 @@
 						value="#{grupoBackingBean.nuevoGrupo.areaNegocio.idAreaNegocio}"
 						id="it31">
 						<f:selectItems
-									value="#{grupoBackingBean.areaNegocioByEmpresaList}"
+									value="#{areaNegocioBackingBean.areaNegocioByEmpresaList}"
 									var="an" itemValue="#{an.idAreaNegocio}"
 									itemLabel="#{an.nombre}" />
 					</p:selectOneMenu>

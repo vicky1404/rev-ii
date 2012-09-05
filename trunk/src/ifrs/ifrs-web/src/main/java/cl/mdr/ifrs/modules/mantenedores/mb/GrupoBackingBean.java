@@ -28,6 +28,7 @@ public class GrupoBackingBean extends AbstractBackingBean implements Serializabl
 	private AreaNegocio areaNegocio;
 	private Grupo nuevoGrupo;
 	private List<Grupo> grupoList;
+	private List<Grupo> grupoByEmpresaList;
 	private boolean renderGrupos;	
 	
 	@PostConstruct
@@ -62,6 +63,8 @@ public class GrupoBackingBean extends AbstractBackingBean implements Serializabl
 	public void editarAction(RowEditEvent event){
 		try {
 			super.getFacadeService().getGrupoService().editarGrupo((Grupo) event.getObject());
+			super.addInfoMessage("Se ha modificado el Grupo correctamente");
+			this.buildGrupoList();
 		} catch (RegistroNoEditableException e) {
 			super.addErrorMessage(e.getMessage());
 			logger.error(e);
@@ -78,6 +81,8 @@ public class GrupoBackingBean extends AbstractBackingBean implements Serializabl
 	public void editarAllAction(ActionEvent event){
 		try {
 			super.getFacadeService().getGrupoService().editarGrupoList(this.getGrupoList());
+			super.addInfoMessage("Se ha modificado los Grupos correctamente");
+			this.buildGrupoList();
 		} catch (RegistroNoEditableException e) {
 			super.addErrorMessage(e.getMessage());
 			logger.error(e);
@@ -162,6 +167,28 @@ public class GrupoBackingBean extends AbstractBackingBean implements Serializabl
 
 	public void setNuevoGrupo(Grupo nuevoGrupo) {
 		this.nuevoGrupo = nuevoGrupo;
+	}
+
+	/**
+	 * @return the grupoByEmpresaList
+	 */
+	public List<Grupo> getGrupoByEmpresaList() {
+		if(grupoByEmpresaList == null){
+			try {
+				grupoByEmpresaList = super.getFacadeService().getGrupoService().findGruposByFiltro(null, this.getFiltroBackingBean().getEmpresa());
+			} catch (Exception e) {
+				super.addErrorMessage("Ocurrio un error al obtener el listado de Grupos de la empresa");
+				logger.error(e);
+			}
+		}
+		return grupoByEmpresaList;
+	}
+
+	/**
+	 * @param grupoByEmpresaList the grupoByEmpresaList to set
+	 */
+	public void setGrupoByEmpresaList(List<Grupo> grupoByEmpresaList) {
+		this.grupoByEmpresaList = grupoByEmpresaList;
 	}
 
 }

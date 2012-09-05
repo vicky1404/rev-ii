@@ -80,13 +80,13 @@ public class BloqueoPorGrupoBackingBean extends AbstractBackingBean implements S
 	 private List<Grupo> getGrupoListByFiltroAcceso() throws Exception {
         List<Grupo> grupoList;
         if(this.getAccesoBloqueado() != null && !this.getAccesoBloqueado().equals(100L)){
-            grupoList = select(super.getFacadeService().getSeguridadService().findGruposAll() ,having(on(Grupo.class).getAccesoBloqueado(), equalTo(this.getAccesoBloqueado())));
+            grupoList = select(super.getFacadeService().getGrupoService().findGruposByFiltro(null, this.getFiltroBackingBean().getEmpresa()) ,having(on(Grupo.class).getAccesoBloqueado(), equalTo(this.getAccesoBloqueado())));
         }
         else if (this.getAccesoBloqueado().equals(100L)){
-        	grupoList = super.getFacadeService().getSeguridadService().findGruposAll();
+        	grupoList = super.getFacadeService().getGrupoService().findGruposByFiltro(null, this.getFiltroBackingBean().getEmpresa());
         }
         else{
-            grupoList = super.getFacadeService().getSeguridadService().findGruposAll();
+            grupoList = super.getFacadeService().getGrupoService().findGruposByFiltro(null, this.getFiltroBackingBean().getEmpresa());
         }
         return grupoList;
     }

@@ -24,7 +24,7 @@
 						id="som1">
 						<f:selectItem itemLabel="#{msg.label_seleccione}" />
 						<f:selectItems
-							value="#{usuarioPorGrupoBackingBean.componenteBackingBean.grupoList}"
+							value="#{grupoBackingBean.grupoByEmpresaList}"
 							var="grupo" itemLabel="#{grupo.nombre}"
 							itemValue="#{grupo.idGrupoAcceso}" />
 					</p:selectOneMenu>
