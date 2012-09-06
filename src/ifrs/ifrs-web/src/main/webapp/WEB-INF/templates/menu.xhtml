@@ -1,10 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
-	<h:form id="form_menu">
+	<h:form id="form_menu" acceptcharset="ISO-8859-1">
 		<!-- p:growl id="growl" autoUpdate="true"  /-->
 		<p:ajaxStatus onstart="statusDialog.show();" oncomplete="statusDialog.hide();" />
 		<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
@@ -16,9 +17,7 @@
 				<f:selectItems value="#{menuBackingBean.empresaList}" var="empresa" itemValue="#{empresa.idRut}" itemLabel="#{empresa.nombre}" />
 				<f:ajax execute="@this" render="@form"/>
 			</p:selectOneMenu>				
-        	<h:outputText value="#{menuBackingBean.empresa.nombre}" rendered="#{!menuBackingBean.renderSelectorEmpresa}">
-        		<f:event listener="#{menuBackingBean.menuBackingBeanParaUnaEmpresa}" type="preRenderView"></f:event>
-        	</h:outputText> 
+        	<h:outputText value="#{menuBackingBean.empresa.nombre}" rendered="#{!menuBackingBean.renderSelectorEmpresa}"/>        		        	
         </p:panel>
         
 		<p:accordionPanel activeIndex="#{menuBackingBean.activeTabIndex}" id="ap_menu">			

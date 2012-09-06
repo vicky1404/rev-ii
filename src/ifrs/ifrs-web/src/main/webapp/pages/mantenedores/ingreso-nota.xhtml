@@ -42,22 +42,12 @@
       		</p:toolbarGroup>	
    		</p:toolbar>
     	
-    	<p:dataTable value="#{cuadroBackingBean.catalogoList}" var="row" id="tabla" editable="true" emptyMessage="#{msg.mensaje_tabla_sin_registros}" paginator="true" rows="10" selectionMode="single" rowKey="#{row.idCatalogo}" selection="#{cuadroBackingBean.selectedCuadro}">
+    	<p:dataTable value="#{cuadroBackingBean.catalogoList}" var="row" id="tabla" editable="true" emptyMessage="#{msg.mensaje_tabla_sin_registros}" rowsPerPageTemplate="10,20,30,40,50,60,100" paginator="true" rows="10" selectionMode="single" rowKey="#{row.idCatalogo}" selection="#{cuadroBackingBean.selectedCuadro}">
     	
     		<p:ajax event="rowEdit" listener="#{cuadroBackingBean.editar}" /> 
     		 
-    		<p:column headerText="#{msg.tabla_cabecera_cuadro}" id="colRazonSocial">
+    		<p:column headerText="#{msg.label_empresa}" id="colRazonSocial">
 	    				<h:outputText value="#{row.empresa.razonSocial}" id="outRazonSocial"/>
-    		</p:column>
-    		<p:column headerText="#{msg.tabla_cabecera_nombre}" id="colNombre">
-    			<p:cellEditor id="cellNombre">
-	    			<f:facet name="output">
-	    				<h:outputText value="#{row.nombre}" id="outNombre"/>
-	    			</f:facet>
-	    			<f:facet name="input">
-	    				<p:inputText value="#{row.nombre}" id="inpNombre"/>
-	    			</f:facet>
-    			</p:cellEditor>
     		</p:column>
     		<p:column headerText="#{msg.tabla_cabecera_orden}" id="colOrden">
     			<p:cellEditor id="cellOrden">
@@ -69,7 +59,17 @@
 	    			</f:facet>
 	    		</p:cellEditor>	
     		</p:column>
-    		<p:column headerText="#{msg.tabla_cabecera_titulo}" id="colTitulo">  
+    		<p:column headerText="#{msg.tabla_cabecera_nombre}" id="colNombre">
+    			<p:cellEditor id="cellNombre">
+	    			<f:facet name="output">
+	    				<h:outputText value="#{row.nombre}" id="outNombre"/>
+	    			</f:facet>
+	    			<f:facet name="input">
+	    				<p:inputText value="#{row.nombre}" id="inpNombre"/>
+	    			</f:facet>
+    			</p:cellEditor>
+    		</p:column>    		
+    		<p:column headerText="#{msg.tabla_cabecera_titulo} #{msg.tabla_cabecera_cuadro}" id="colTitulo">  
     			<p:cellEditor id="cellTitulo">  			
     				<f:facet name="output">
     					<h:outputText value="#{row.titulo}" id="outTitulo"/>
