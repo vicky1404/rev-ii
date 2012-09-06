@@ -11,6 +11,7 @@ import static org.hamcrest.Matchers.equalTo;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -22,10 +23,10 @@ import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.faces.component.UIComponent;
-import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ValueChangeEvent;
 
 import org.apache.log4j.Logger;
+import org.hamcrest.Matchers;
 import org.primefaces.component.accordionpanel.AccordionPanel;
 import org.primefaces.component.tree.Tree;
 import org.primefaces.event.NodeSelectEvent;
@@ -39,7 +40,6 @@ import cl.mdr.ifrs.cross.util.PropertyManager;
 import cl.mdr.ifrs.cross.util.UtilBean;
 import cl.mdr.ifrs.ejb.common.VigenciaEnum;
 import cl.mdr.ifrs.ejb.cross.Util;
-import cl.mdr.ifrs.ejb.entity.AreaNegocio;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
 import cl.mdr.ifrs.ejb.entity.Empresa;
 import cl.mdr.ifrs.ejb.entity.Grupo;
@@ -47,16 +47,15 @@ import cl.mdr.ifrs.ejb.entity.Menu;
 import cl.mdr.ifrs.ejb.entity.TipoCuadro;
 
 /**
- * @author rreyes
- * @link http://cl.linkedin.com/in/rreyesc
+ * @author http://www.mdrtech.cl
  *
  */
 public class MenuBackingBean extends AbstractBackingBean implements Serializable {	
 	public static final String BEAN_NAME = "menuBackingBean";	
 	private final Logger log = Logger.getLogger(this.getClass().getName());
 	private static final long serialVersionUID = 8077481642975216680L;
-	private static final String PROCESO_VIEW_ID = "/pages/proceso/proceso.jsf";
-	private static final String BLANK_VIEW_ID = "/pages/blank.jsf";
+	private static final String PROCESO_VIEW_ID = "/pages/proceso/proceso.jsf";	
+	private static final String HOME_VIEW_ID = "/pages/home.jsf";
 	private static final String SEGURIDAD_VIEW_ID = "/pages/seguridad/seguridad.jsf";
 	
 	private FiltroBackingBean filtroBackingBean;
@@ -98,96 +97,80 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 			if(!valid){
 				super.getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(SEGURIDAD_VIEW_ID));
 			}
-			this.buildEmpresaList();		
+			this.buildEmpresaList();
+			this.buildMenuEmpresa();
 		} catch (Exception e) {
 			log.error(e.getMessage(),e);
 		}		
 	}
 	
+	public void resetMenu(){
+		try{
+			this.buildEmpresaList();
+			this.buildMenuEmpresa();
+			super.getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(HOME_VIEW_ID));
+		}catch(Exception e){
+			log.error(e);
+			super.addFatalMessage("Se ha producido un error al desplegar el Menú asociado al Usuario");
+		}	
+	}
 	
-	public void menuBackingBeanParaUnaEmpresa(ComponentSystemEvent event){		
-		if(!valid)
-			return;		
-		List<Empresa> empresaList = this.getEmpresaList();
-//		//List<Empresa> empresaList = this.getFacadeService().getEmpresaService().findAll();
-//		List<Empresa> empresaList = new ArrayList<Empresa>();
-//		empresaList.add(this.getFacadeService().getEmpresaService().findAll().get(0));
-		
-		Empresa empresa = null;
-		
-		if (empresaList.size() == 1){
-			for (Empresa empresa1 : empresaList){
-				try{
-					empresa = new Empresa(empresa1.getIdRut(), empresa1.getDv(), empresa1.getGiro(), empresa1.getNombre(), empresa1.getRazonSocial());
+	public void buildMenuEmpresa(){
+		init();
+		if (this.getEmpresaList().size() == 1){
+			for (Empresa empresa : this.getEmpresaList()){
+				try{					
 					this.setEmpresa(empresa);
-					getFiltroBackingBean().setEmpresa(empresa);
-					if(root.getChildCount() > 0)
+					this.getFiltroBackingBean().setEmpresa(empresa);
+					if(root.getChildCount() > 0){
 						root.getChildren().clear();
-					buildCuadroTreeMenu(this.getRoot());
-					buildAccordionPanelMenu();
-					buildCatalogoMap();
-					this.setRenderSelectorEmpresa(Boolean.FALSE);
-					if (!isRedireccionado()){
-						this.setRedireccionado(Boolean.TRUE);
-						getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(BLANK_VIEW_ID));
 					}
-					return;
-									
+					this.buildCuadroTreeMenu(this.getRoot());
+					this.buildAccordionPanelMenu();
+					this.buildCatalogoMap();
+					this.setRenderSelectorEmpresa(Boolean.FALSE);														
+					super.getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(HOME_VIEW_ID));
 				}catch(Exception e){
-					e.printStackTrace();
-				}
-				
-				
+					log.error(e);
+					super.addFatalMessage("Se ha producido un error al desplegar el Menú asociado al Usuario");
+				}				
 			}
-		} else if (!this.isRenderSelectorEmpresa()) {
-			
-			getFiltroBackingBean().init();
+		}else{			
+			this.getFiltroBackingBean().init();
 			init();
 			this.setRenderSelectorEmpresa(Boolean.TRUE);
 		}
-		
 	}
-	
-	/**
-	 * 
-	
-	@throws IOException 
-	 * @PostConstruct
-	void init(){	
-		try{
-			this.buildCuadroTreeMenu(this.getRoot());
-			this.buildAccordionPanelMenu();
-			this.buildCatalogoMap();
-		}catch (Exception e) {
-			addErrorMessage("Error", "Se ha producido un error al inicializar el Menú");
-			log.error(e.getCause(), e);
-		}
-	}*/
-
-	
+		
 	public void empresaChangeValue(ValueChangeEvent event) throws IOException{
 		
 		init();
 		if(!valid)
 			return;
 		
+		if(super.getPrincipal() == null){
+    		super.addFatalMessage("Debido a su inactividad, la Sesión ha Caducado. por favor ingrese nuevamente.");
+    		return;
+    	}
+		
 		if(event.getNewValue() == null){
-			getFiltroBackingBean().init();
-			addWarnMessage(PropertyManager.getInstance().getMessage("general_seleccionar_empresa"));
-			getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(BLANK_VIEW_ID));
+			this.getFiltroBackingBean().init();
+			super.addWarnMessage(PropertyManager.getInstance().getMessage("general_seleccionar_empresa"));
+			super.getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(HOME_VIEW_ID));
 			return;
 		}
 		
 		try{
 			idRut = (Long)event.getNewValue();
 			empresa = getFacadeService().getEmpresaService().findById(idRut);
-			getFiltroBackingBean().setEmpresa(empresa);
-			buildCuadroTreeMenu(this.getRoot());
-			buildAccordionPanelMenu();
-			buildCatalogoMap();
-			getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(BLANK_VIEW_ID));
+			this.getFiltroBackingBean().setEmpresa(empresa);
+			this.buildCuadroTreeMenu(this.getRoot());
+			this.buildAccordionPanelMenu();
+			this.buildCatalogoMap();
+			super.getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(HOME_VIEW_ID));
 		}catch(Exception e){
-			e.printStackTrace();
+			log.error(e);
+			super.addFatalMessage("Se ha producido un error al desplegar el Menú asociado al Usuario");
 		}
 	}
 	
@@ -209,6 +192,8 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 	
 	private void buildCuadroTreeMenu(TreeNode root) throws Exception{		 
         
+		@SuppressWarnings("unused")
+		//TODO implementar bloqueo de sistema.
 		boolean bloqueado = this.isSistemaBloqueado();
 		
         for(TipoCuadro tipoCuadro : this.getTiposCuadroFromCatalogo(this.getCatalogoList())){            
@@ -286,11 +271,16 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
      */
     public List<Menu> getMenuList() {
         if (menuList == null) {
-            final List<Grupo> grupoList;
+            List<Grupo> grupoList;
             Set<Menu> menus = new LinkedHashSet<Menu>();
             menuList = new ArrayList<Menu>();
-            try {                
-            	grupoList = super.getFacadeService().getSeguridadService().findUsuarioByUserName(super.getNombreUsuario()).getGrupos();
+            try {
+            	final List<Grupo> gruposByUsuario = super.getFacadeService().getSeguridadService().findUsuarioByUserName(super.getNombreUsuario()).getGrupos();
+            	grupoList = select(gruposByUsuario,
+            				having(on(Grupo.class).getAreaNegocio().getEmpresa().getIdRut(), Matchers.equalTo(this.getFiltroBackingBean().getEmpresa().getIdRut())));
+            	if(grupoList.isEmpty()){
+            		grupoList = gruposByUsuario;
+            	}
                 for (Grupo grupo : grupoList) {
                     for(final Menu menu1 : super.getFacadeService().getSeguridadService().findGrupoById(grupo).getMenus())  {
                         menus.add(menu1);
@@ -312,7 +302,7 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
     	final String tabNumber = super.getExternalContext().getRequestParameterMap().get("tabNumber");
     	final String breadcrumb = super.getExternalContext().getRequestParameterMap().get("breadcrumb");
     	this.setBreadcrumb(null);
-    	this.setBreadcrumb(breadcrumb);
+    	this.setBreadcrumb(new String(breadcrumb.getBytes(), Charset.forName("ISO-8859-1")));
     	this.setActiveTabIndex(tabNumber);
     	log.info("accion "+action);
     	log.info("tabNumber "+tabNumber);
@@ -320,16 +310,8 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
     	return action;
     }
     
-    /**
-     * @return
-     */
-    @Deprecated
-    public String cargarNotaAction(){    	
-    	log.info("cargando cuadro ");
-    	log.info("idCatalogo "+this.getCatalogoSelected().getNombre());    	
-    	return "/pages/cuadro/cuadroBackingBean.jsf";
-    }
     
+        
     /**
      * @param event
      * @throws Exception
@@ -363,7 +345,8 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
     /**
      * @param menuList
      */
-    private static void ordenarMenuByNombre(List<Menu> menuList) {
+    @SuppressWarnings("unused")
+	private static void ordenarMenuByNombre(List<Menu> menuList) {
         Collections.sort(menuList, new Comparator<Menu>() {
             public int compare(Menu m1, Menu m2) {
                 return m1.getNombre().compareTo(m2.getNombre());
@@ -549,22 +532,22 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 	
 	private void init(){
 		
-		if(root !=null)
-			root.getChildren().clear();
+		if(this.root !=null)
+			this.root.getChildren().clear();
 		
-		tabActivo = null;
-		menuAcordionPanel = null;
-		activeTabIndex = null;		
-		menuList = null;
-	    menuModelList = null;
-	    idRut = null;
-	    empresa = null;
-	    treeCatalogo = null;
-	    catalogoList = null;    
-	    sistemaBloqueado = false;
-	    treeItem = null;
-	    catalogoMap = null; 
-	    catalogoSelected = null;
+		this.tabActivo = null;
+		this.menuAcordionPanel = null;
+		this.activeTabIndex = null;		
+		this.menuList = null;
+		this.menuModelList = null;
+		this.idRut = null;
+		this.empresa = null;
+		this.treeCatalogo = null;
+		this.catalogoList = null;    
+		this.sistemaBloqueado = false;
+		this.treeItem = null;
+		this.catalogoMap = null; 
+		this.catalogoSelected = null;
 	}
 
 
