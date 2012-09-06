@@ -23,7 +23,7 @@ import cl.mdr.ifrs.ejb.entity.pk.UsuarioGrupoPK;
 @NamedQueries({
     @NamedQuery(name = UsuarioGrupo.FIND_ALL , query = "select o from UsuarioGrupo o"),
     @NamedQuery(name = UsuarioGrupo.FIND_USUARIOS_DISTINCT_ALL , query = "select distinct(o.nombreUsuario) from UsuarioGrupo o order by o.nombreUsuario"),
-    @NamedQuery(name = UsuarioGrupo.FIND_GRUPOS_BY_USUARIO , query = "select o.grupo from UsuarioGrupo o where o.nombreUsuario =:nombreUsuario"),
+    @NamedQuery(name = UsuarioGrupo.FIND_GRUPOS_BY_USUARIO , query = "select o.grupo from UsuarioGrupo o where o.nombreUsuario =:nombreUsuario"),    
     @NamedQuery(name = UsuarioGrupo.DELETE_BY_USUARIO , query = "delete from UsuarioGrupo o where upper(o.nombreUsuario) =:usuario"),
     @NamedQuery(name = UsuarioGrupo.DELETE_BY_GRUPO , query = "delete from UsuarioGrupo o where o.grupo =:grupo"),
     @NamedQuery(name = UsuarioGrupo.FIND_BY_ID_CATALOGO , query = "select distinct new cl.mdr.ifrs.ejb.entity.UsuarioGrupo(ug.nombreUsuario) from CatalogoGrupo cg, Grupo g, UsuarioGrupo ug where cg.idCatalogo = :idCatalogo and g.idGrupoAcceso = cg.idGrupoAcceso and ug.idGrupo = g.idGrupoAcceso order by ug.nombreUsuario")
@@ -35,7 +35,7 @@ public class UsuarioGrupo implements Serializable {
     
     public static final String FIND_ALL = "UsuarioGrupo.findAll";
     public static final String FIND_USUARIOS_DISTINCT_ALL = "UsuarioGrupo.findUsuariosDistinctAll";
-    public static final String FIND_GRUPOS_BY_USUARIO = "UsuarioGrupo.findGruposByUsuario";
+    public static final String FIND_GRUPOS_BY_USUARIO = "UsuarioGrupo.findGruposByUsuario";    
     public static final String DELETE_BY_USUARIO = "UsuarioGrupo.deleteByUsuario";
     public static final String DELETE_BY_GRUPO = "UsuarioGrupo.deleteByGrupo";
     public static final String FIND_BY_ID_CATALOGO = "UsuarioGrupo.findByIdCatalogo";
