@@ -9,8 +9,7 @@
 	<ui:define name="content">
 		<h:form id="f1">
 			<p:messages globalOnly="true" id="mensajes_proceso" autoUpdate="true" />
-			<p:ajaxStatus onstart="statusDialog.show();"
-				oncomplete="statusDialog.hide();" />
+			<p:ajaxStatus onstart="statusDialogNoModal.show();" oncomplete="statusDialogNoModal.hide();" />
 			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
 			<p:panel id="pb1" header="#{msg.general_titulo_busqueda_aplicacion}"
 				toggleable="true" closable="false">
@@ -115,9 +114,13 @@
 								icon="ui-icon-disk" id="btn1"
 								action="#{procesoBackingBean.guardar}" partialSubmit="false"
 								update="@form" />
+						<p:spacer width="10px" />		
+							<p:commandButton value="#{msg.boton_validar}" 
+								icon="ui-icon-check" id="btn2" partialSubmit="false"
+                                rendered="#{procesoBackingBean.versionSeleccionada.validadoEeff eq 0 }"
+                                onclick="widPopupValidar.show()"/>                                
 							<p:spacer width="10px" />
-							<h:outputText
-								value="Periodo : #{procesoBackingBean.versionSeleccionada.periodoEmpresa.periodo.periodoFormat} - #{procesoBackingBean.filtroBackingBean.catalogo.titulo}" />
+							<h:outputText value="Período : #{procesoBackingBean.versionSeleccionada.periodoEmpresa.periodo.periodoFormat} - #{procesoBackingBean.filtroBackingBean.catalogo.titulo}" />
 						</p:toolbarGroup>
 
 					</p:toolbar>
@@ -140,8 +143,14 @@
 					</ui:repeat>
 
 				</div>
-
 			</h:panelGroup>
+			
+			<p:dialog id="popupValidar" header="Validar estructura" widgetVar="widPopupValidar" width="500" resizable="false" showEffect="drop" hideEffect="drop" dynamic="true" modal="false" closable="true">
+    		<center>    
+    			<h:outputText value="#{msg.genetal_mensaje_desea_validar}" id="ot82x" style="font-weight:bold"/><BR /><BR />
+    			<p:commandButton  icon="ui-icon-check" value="Validar" actionListener="#{procesoBackingBean.validarEstructuraListener}" id="cb5" update="@form"/>
+    		</center>
+    	</p:dialog>
 
 		</h:form>
 	</ui:define>	

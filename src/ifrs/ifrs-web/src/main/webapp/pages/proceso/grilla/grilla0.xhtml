@@ -82,7 +82,7 @@
 										<!-- Input Entero -->
 										<p:inputText value="#{row.valorLong}" id="it8" label="Valor de la Columna: #{row.idColumna} , Fila: #{row.idFila}"
 											rendered="#{( row.tipoDato.idTipoDato == 2 and (row.tipoCelda.idTipoCelda != 4 and row.tipoCelda.idTipoCelda != 5))}"
-											style="text-align:right; "
+											style="text-align:right; #{row.valid ? 'color:black' : 'color:red'}"
 											maxlength="#{msg.constantes_text_length_long}">
 
 											<f:convertNumber integerOnly="true" type="number"
@@ -99,7 +99,7 @@
 										    rendered="#{row.tipoDato.idTipoDato == 2 and (row.tipoCelda.idTipoCelda == 4 or row.tipoCelda.idTipoCelda == 5)}"> 
 											<h:outputText value="#{row.valorLong}" id="it28"
 												rendered="#{row.tipoDato.idTipoDato == 2 and (row.tipoCelda.idTipoCelda == 4 or row.tipoCelda.idTipoCelda == 5)}"
-												style="font-weight:bold;"
+												style="text-align:right;font-weight:bold;#{row.valid ? 'color:black' : 'color:red'}"
 												maxlength="#{msg.constantes_text_length_long}">
 	
 												<f:convertNumber integerOnly="true" type="number"
@@ -117,7 +117,7 @@
 										   rendered="#{row.tipoDato.idTipoDato == 3 and (row.tipoCelda.idTipoCelda == 4 or row.tipoCelda.idTipoCelda == 5)}">
 											<h:outputText value="#{row.valorBigDecimal}" id="it282"
 												rendered="#{row.tipoDato.idTipoDato == 3 and (row.tipoCelda.idTipoCelda == 4 or row.tipoCelda.idTipoCelda == 5)}"
-												style="font-weight:bold;"
+												style="text-align:right;font-weight:bold;#{row.valid ? 'color:black' : 'color:red'}"
 												maxlength="#{msg.constantes_text_length_long}">
 	
 												<f:convertNumber integerOnly="true" type="number"
@@ -133,6 +133,7 @@
 										<p:inputText value="#{row.valorBigDecimal}" id="it9" label="Valor de la Columna: #{row.idColumna} , Fila: #{row.idFila}"
 											rendered="#{row.tipoDato.idTipoDato == 3 and (row.tipoCelda.idTipoCelda != 4 and row.tipoCelda.idTipoCelda != 5)}"
 											maximumLength="#{msg.constantes_text_length_decimal}"
+											style="text-align:right;#{row.valid ? 'color:black' : 'color:red'}"
 											disabled="#{row.tipoCelda.idTipoCelda == 4 or row.tipoCelda.idTipoCelda == 5}"
 											>
 
@@ -149,7 +150,7 @@
 											rendered="#{row.tipoDato.idTipoDato == 3 and (row.tipoCelda.idTipoCelda == 4 or row.tipoCelda.idTipoCelda == 5)}"
 											maximumLength="#{msg.constantes_text_length_decimal}"
 											disabled="#{row.tipoCelda.idTipoCelda == 4 or row.tipoCelda.idTipoCelda == 5}"
-											style="border:none;background-color: white;font-weight:bold;color:black;">
+											style="border:none;background-color: white;font-weight:bold;#{row.valid ? 'color:black' : 'color:red'}">
 
 											<f:convertNumber integerOnly="false" type="number"
 												maxIntegerDigits="#{msg.constantes_max_lenght_number}"
