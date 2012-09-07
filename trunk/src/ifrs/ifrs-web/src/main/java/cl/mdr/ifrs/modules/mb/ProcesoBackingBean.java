@@ -6,11 +6,9 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
-import javax.persistence.NoResultException;
 
 import org.apache.log4j.Logger;
 
@@ -20,6 +18,7 @@ import cl.mdr.ifrs.cross.mb.FiltroBackingBean;
 import cl.mdr.ifrs.cross.util.GeneradorDisenoHelper;
 import cl.mdr.ifrs.cross.util.PropertyManager;
 import cl.mdr.ifrs.ejb.common.TipoEstructuraEnum;
+import cl.mdr.ifrs.ejb.common.VigenciaEnum;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.AgrupacionColumna;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
@@ -53,7 +52,7 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
 	private Catalogo nuevoCuadro;
 	private boolean renderVersionList = false;
 	private List<Version> versionList;
-	private Version versionSeleccionada;
+	private Version versionSeleccionada;	
 	
 	
 	@PostConstruct
@@ -533,4 +532,45 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
         estructuraList = null;
 	}
     
+	
+	 public void validarEstructuraListener(ActionEvent event){
+	        
+	        boolean valid = true;
+	        this.guardar();
+	        
+	        for(Estructura estructuras : getEstructuraList()){
+	            
+	            if(estructuras.getTipoEstructura().getIdTipoEstructura().equals(TipoEstructura.ESTRUCTURA_TIPO_GRILLA)){
+	                try {
+	                    
+	                    boolean result = getFacadeService().getFormulaService().processValidatorEEFF(estructuras.getGrillaVO().getGrilla());
+	                    
+	                    if(!result)
+	                        valid = false;
+	                    
+	                } catch (Exception e) {
+	                    addErrorMessage(PropertyManager.getInstance().getMessage("general_error_validar"));
+	                    logger.error(e.getMessage(),e);
+	                }
+	            }
+	        }
+	        try{
+	            actualizarValidado(valid ? VigenciaEnum.VIGENTE.getKey() : VigenciaEnum.NO_VIGENTE.getKey());
+	        } catch (Exception e) {
+	        	addErrorMessage(PropertyManager.getInstance().getMessage("general_error_validar_estado"));
+	            logger.error(e.getMessage(), e);
+	        }
+	        
+	        if(valid){
+	            addInfoMessage(PropertyManager.getInstance().getMessage("general_mensaje_validado_ok"));
+	        }else
+	            addWarnMessage(PropertyManager.getInstance().getMessage("general_mensaje_validado_mal"));
+	        
+	    }
+	 
+	 	private void actualizarValidado(Long valido){
+	 		versionSeleccionada.setValidadoEeff(valido);	        
+	        getFacadeService().getVersionService().mergeEntity(versionSeleccionada);
+	    }
+	 
 }
