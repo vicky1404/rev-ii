@@ -18,6 +18,8 @@ import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Celda;
 import cl.mdr.ifrs.ejb.entity.Columna;
 import cl.mdr.ifrs.ejb.entity.Grilla;
+import cl.mdr.ifrs.ejb.entity.RelacionDetalleEeff;
+import cl.mdr.ifrs.ejb.entity.RelacionEeff;
 import cl.mdr.ifrs.ejb.service.local.FormulaServiceLocal;
 import cl.mdr.ifrs.exceptions.FormulaException;
 
@@ -329,5 +331,38 @@ public class FormulaServiceBean implements FormulaServiceLocal{
             }
         }
         return false;
+    }
+    
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public boolean processValidatorEEFF(Grilla grid) throws Exception{
+        
+        boolean isValid = true;
+        
+        for(Columna column : grid.getColumnaList()){
+            
+            for(Celda cell : column.getCeldaList()){
+                
+                BigDecimal sum = new BigDecimal(0);
+                
+                for(RelacionEeff relEeff : cell.getRelacionEeffList()){
+                    sum = sum.add(Util.getBigDecimal(relEeff.getMontoTotal(), new BigDecimal(0)));
+                }
+                
+                for(RelacionDetalleEeff relDetEeff : cell.getRelacionDetalleEeffList()){
+                    sum = sum.add(Util.getBigDecimal(relDetEeff.getMontoPesos(), new BigDecimal(0)));
+                }
+                
+                if(Util.esListaValida(cell.getRelacionEeffList()) || Util.esListaValida(cell.getRelacionDetalleEeffList())){
+                    if(!cell.getValorBigDecimal().equals(sum)){
+                        cell.setValid(false);
+                        isValid = false;
+                    }
+                }
+                
+                cell.setSumaEeff(sum);
+            }
+        }
+        
+        return isValid;
     }
 }

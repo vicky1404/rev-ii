@@ -191,7 +191,12 @@ public class Version implements Serializable {
     @Expose
     private boolean estadoCambiado;
     
-    public Version() {
+    @Column(name = "VALIDADO_EEFF")
+    private Long validadoEeff;
+    
+    
+
+	public Version() {
     }
 
     public Version(Long idVersion) {
@@ -365,5 +370,13 @@ public class Version implements Serializable {
 
 	public void setDatosModificados(Long datosModificados) {
 		this.datosModificados = datosModificados;
+	}
+	
+	public Long getValidadoEeff() {
+		return validadoEeff;
+	}
+
+	public void setValidadoEeff(Long validadoEeff) {
+		this.validadoEeff = validadoEeff;
 	}
 }
