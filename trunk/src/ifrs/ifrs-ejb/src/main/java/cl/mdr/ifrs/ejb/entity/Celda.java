@@ -137,7 +137,14 @@ public class Celda implements Serializable {
     @Expose
     private boolean selectedByFormula;
     
-    public Celda() {
+    @Transient
+    private BigDecimal sumaEeff;
+    
+    @Transient
+    private boolean valid = true;
+    
+   
+	public Celda() {
     }
 
     public Celda(Columna columna, Long idFila, TipoCelda tipoCelda, TipoDato tipoDato, String valor) {
@@ -403,4 +410,21 @@ public class Celda implements Serializable {
         else
             return getRelacionDetalleEeffList().size();
     }
+    
+    public BigDecimal getSumaEeff() {
+		return sumaEeff;
+	}
+
+	public void setSumaEeff(BigDecimal sumaEeff) {
+		this.sumaEeff = sumaEeff;
+	}
+	
+	public boolean isValid() {
+		return valid;
+	}
+
+	public void setValid(boolean valid) {
+		this.valid = valid;
+	}
+
 }

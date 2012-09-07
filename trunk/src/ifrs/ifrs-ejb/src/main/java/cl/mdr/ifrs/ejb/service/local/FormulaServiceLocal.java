@@ -13,4 +13,6 @@ public interface FormulaServiceLocal {
     
     void processDynamicFomula(final Grilla grid) throws Exception;
     
+    boolean processValidatorEEFF(Grilla grid) throws Exception;
+    
 }
