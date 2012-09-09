@@ -428,27 +428,13 @@ public class GeneradorDisenoHelper {
     public static Map<Long, EstructuraModel> createEstructuraModel(List<Estructura> estructuras){        
         Map<Long, EstructuraModel> estructuraModelMap = new LinkedHashMap<Long, EstructuraModel>();        
         Long i=1L;        
-        for(Estructura estructura : estructuras){
-            
+        for(Estructura estructura : estructuras){            
         	if(estructura.getGrilla() != null){
         		EstructuraModel estructuraModel = new EstructuraModel();
-        		estructuraModel.setTituloGrilla(estructura.getGrilla().getTitulo());
-	            List<Long> niveles = new ArrayList<Long>();
-	            Map<Long,List<AgrupacionColumna>> agrupacionesMap = new LinkedHashMap<Long,List<AgrupacionColumna>>();
-	            for(Columna columna : estructura.getGrilla().getColumnaList()){
-	                createAgrupadorMap(columna, niveles, agrupacionesMap, COPY_AGRUPACION);
-	            }
+        		estructuraModel.setTituloGrilla(estructura.getGrilla().getTitulo());	            
 	            estructuraModel.setColumnas(estructura.getGrilla().getColumnaList());
 	            estructuraModel.setIdGrilla(estructura.getGrilla().getIdGrilla());
-	            estructuraModel.setTipoEstructura(TipoEstructura.ESTRUCTURA_TIPO_GRILLA);
-	            estructuraModel.setNivelesAgregados(niveles);
-	            estructuraModel.setAgrupacionesMap(agrupacionesMap);
-	            Long cantidadFila = GeneradorDisenoHelper.getContadorFilaByColumnas(estructura.getGrilla().getColumnaList());
-	            List<Long> filas = new ArrayList<Long>();
-	            for(Long j=1L; j<=cantidadFila; j++){
-	                filas.add(j);
-	            }
-	            estructuraModel.setFilas(filas);
+	            estructuraModel.setTipoEstructura(TipoEstructura.ESTRUCTURA_TIPO_GRILLA);	       
 	            estructuraModelMap.put(i, estructuraModel);
 	            i++;
         	}

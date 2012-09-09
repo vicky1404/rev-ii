@@ -8,7 +8,7 @@
 		<h:outputLabel value="#{msg.label_tipo_y_nombre_de_revelacion}" />
 		<p:selectOneMenu value="#{generadorVersionBackingBean.tipoCuadro}"
 			label="#{msg.label_tipo_revelacion}" required="true" id="gVsom1"
-			effect="fade" converter="tipoCuadroConverter">
+			effect="fade" converter="tipoCuadroConverter" binding="#{generadorVersionBackingBean.comboTipoCatalogo}">
 			<f:selectItem itemLabel="#{msg.label_seleccione}" />
 			<f:selectItems value="#{generadorVersionBackingBean.componenteBackingBean.tipoCuadroItems}"
 				id="gVsi2" />
@@ -16,7 +16,7 @@
 				partialSubmit="false" update="gVsom2" />
 		</p:selectOneMenu>
 
-		<p:selectOneMenu value="#{generadorVersionBackingBean.catalogo}"
+		<p:selectOneMenu value="#{generadorVersionBackingBean.catalogo}" binding="#{generadorVersionBackingBean.comboCatalogo}"
 			label="#{msg.label_nombre_revelacion}" required="true" id="gVsom2"
 			effect="fade" converter="catalogoConverter">
 			<f:selectItem itemLabel="#{msg.label_seleccione}" />
@@ -26,7 +26,7 @@
 
 
 
-		<p:commandButton id="gVcb1" value="#{msg.boton_buscar}"
+		<p:commandButton id="gVcb1" value="#{msg.boton_buscar}" binding="#{generadorVersionBackingBean.botonBuscarVersiones}"
 			icon="ui-icon-search"
 			actionListener="#{generadorVersionBackingBean.buscarListener}"
 			update="@form">
@@ -61,8 +61,7 @@
 	<p:spacer id="gVsp2" height="20px;" />
 
 	<p:dataTable id="gVdt2" var="ver" emptyMessage=" "
-		binding="#{generadorVersionBackingBean.versionTable}"
-		rendered="#{not empty generadorVersionBackingBean.versionList}"
+		binding="#{generadorVersionBackingBean.versionTable}" rendered="#{generadorVersionBackingBean.renderTablaVersiones}"	
 		value="#{generadorVersionBackingBean.versionList}" style="width:720px"
 		paginator="true" rows="5" paginatorPosition="top" rowsPerPageTemplate="5,10,15,20">
 
@@ -163,8 +162,7 @@
 
 	<div id="gVdv1" align="right" style="width: 720px;">
 		<p:commandButton id="gVcb2" value="#{msg.generador_nueva_version}"
-			icon="ui-icon-document"
-			rendered="#{not empty generadorVersionBackingBean.versionList}"
+			icon="ui-icon-document"	rendered="#{generadorVersionBackingBean.renderTablaVersiones}"		
 			actionListener="#{generadorVersionBackingBean.agregarVersionListener}"
 			partialSubmit="true" update="@form" />
 	</div>
@@ -186,14 +184,14 @@
 
 		<p:column id="gVc2" headerText="Tipo de Estructura"
 			style="text-align:center;">
-			<p:selectOneMenu value="#{row.tipoEstructura}"
+			<p:selectOneMenu value="#{row.tipoEstructura}" 
 				style="width:130px; text-align:left; border:20px;"
 				converter="tipoEstructuraConverter" effect="fade" required="true"
 				label="Tipo de Estructura">
 				<f:selectItem itemLabel="#{msg.label_seleccione}" />
 				<f:selectItems
 					value="#{generadorVersionBackingBean.componenteBackingBean.tipoEstructuras}" />
-			</p:selectOneMenu>
+			</p:selectOneMenu>							
 		</p:column>
 
 		<p:column id="gVc3" headerText="Agregar o Eliminar"
@@ -247,6 +245,23 @@
 			<p:commandButton icon="ui-icon-cancel" value="#{msg.boton_cancel}"
 				type="button" id="btnCancelarDialog"
 				onclick="dialogNotDeleteEstr.hide()"></p:commandButton>
+		</h:panelGrid>
+	</p:dialog>
+	
+	<p:dialog id="idCambiarRevelacion" header="Información"
+		widgetVar="dialogCambiarRevelacion" dynamic="true" closable="false"
+		draggable="false" resizable="false">
+		<h:panelGrid columns="3">
+			<h:outputText
+				value="Para configurar otra Revelación debe presionar el boton Cancelar y anular todas las acciones de edición." />
+			<p:spacer/>
+			<p:spacer/>
+			
+			<p:spacer width="30"/>
+			<p:spacer/>
+			<p:commandButton icon="ui-icon-wrench" value="#{msg.general_control_aceptar}"
+				type="button"
+				onclick="dialogCambiarRevelacion.hide()"></p:commandButton>
 		</h:panelGrid>
 	</p:dialog>
 

@@ -47,11 +47,11 @@ public class GeneradorVisualizadorBackingBean extends AbstractBackingBean implem
 	
 	private List<Estructura> estructuraList;
 			
-	public void cargarEstructuraAction(ActionEvent event){
+	public void cargarEstructuraAction(ActionEvent event){		
 		if(!this.generadorVersionBackingBean.isAlmacenado()){
 			super.displayPopUp("dialogNoDataSaved", GeneradorVersionBackingBean.FORM_NAME_PRINCIPAL);
 			return;
-		}
+		}		
 		this.getEstructuraList();
 	}
 	
@@ -117,23 +117,26 @@ public class GeneradorVisualizadorBackingBean extends AbstractBackingBean implem
                  }
              }
          }                                     
-         this.getGeneradorVersionBackingBean().setAlmacenado(true);
-         this.getGeneradorVersionBackingBean().setRenderBotonEditar(false);
+         this.getGeneradorVersionBackingBean().setAlmacenado(Boolean.TRUE);
+         this.getGeneradorVersionBackingBean().setRenderBotonEditar(Boolean.FALSE);
          this.getGeneradorVersionBackingBean().setRenderBotonEditarVersion(Boolean.TRUE);
+         this.getGeneradorVersionBackingBean().setVersionEditable(versionResult);
          this.getGeneradorVersionBackingBean().setEstructuraList(estructuras);
-         this.getGeneradorVersionBackingBean().setRenderEstructura(true);
+         this.getGeneradorVersionBackingBean().setRenderEstructura(Boolean.TRUE);
     }
     
     public void editarDisenoActionListener(ActionEvent action){
         try {
             GeneradorDisenoHelper.validarContenidoCelda(this.getConfiguradorDisenoBackingBean().getEstructuraModelMap());
-        } catch (GrillaIncorrectaException e) {
-            if(e.getErrores()==null)
+        } catch (GrillaIncorrectaException e) {        	
+            if(e.getErrores()==null){
                 super.addWarnMessage(e.getMessage());
-            else
+            }else{
                 for(String error : e.getErrores()){
                 	super.addWarnMessage(error);
                 }
+            }
+            logger.error(e);
             return;          
         } catch (Exception e) {            
             super.addErrorMessage("Error al procesar la información");
