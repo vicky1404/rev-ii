@@ -98,6 +98,9 @@ public class Estructura implements Serializable {
     
     @Transient    
     private HtmlVO htmlVo;
+    
+    @Transient
+    private boolean cambiaTipo;
 
 
     public Estructura() {
@@ -220,5 +223,20 @@ public class Estructura implements Serializable {
         buffer.append(']');
         return buffer.toString();
     }
+
+	/**
+	 * @return the cambiaTipo
+	 */
+	public boolean isCambiaTipo() {
+		return cambiaTipo;
+	}
+
+	/**
+	 * @param cambiaTipo the cambiaTipo to set
+	 */
+	public void setCambiaTipo(boolean cambiaTipo) {
+		this.cambiaTipo = cambiaTipo;
+	}
+	
 	
 }
