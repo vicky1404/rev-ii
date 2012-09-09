@@ -279,6 +279,15 @@ public class VersionServiceBean implements VersionServiceLocal{
     
     
     public void editarVersion(final Version version, final List<Estructura> estructuras, final Map<Long, EstructuraModel> estructuraModelMap, final String usuario) throws PeriodoException, Exception{
+    	Grilla grilla = null;
+    	
+    	for(Estructura estructuraDelete : estructuras){
+    		if(estructuraDelete.getIdEstructura() != null){
+    			final Estructura entity = em.find(Estructura.class, estructuraDelete.getIdEstructura());
+    			em.remove(entity);
+    		}
+    	}
+    	    	
     	for(int i=0; i<estructuras.size(); i++){            
             Estructura estructura = estructuras.get(i);
             
@@ -287,52 +296,32 @@ public class VersionServiceBean implements VersionServiceLocal{
             if(estructuraModelMap.containsKey(estructura.getOrden())){
                 EstructuraModel estructuraModel = estructuraModelMap.get(estructura.getOrden());
                 
-                if(estructura.getTipoEstructura().getIdTipoEstructura() == TipoEstructura.ESTRUCTURA_TIPO_GRILLA){   
-                	Grilla grilla = null;
-                	if(estructura.getIdEstructura() == null){
-                    	final BigDecimal idEstructura = (BigDecimal) em.createNativeQuery("select SEQ_ESTRUCTURA.nextval from dual").getSingleResult();
-                    	estructura.setIdEstructura(idEstructura.longValue());
-                    	
-                    	em.createNativeQuery(" INSERT "+
-				           		             " INTO "+Constantes.ESTRUCTURA+" (ID_ESTRUCTURA, ID_VERSION,ID_TIPO_ESTRUCTURA,ORDEN)"+
-				           					 " VALUES(?,?,?,?)").
-				           					   setParameter(1, idEstructura).
-				           					   setParameter(2, version.getIdVersion()).
-				           					   setParameter(3, estructura.getTipoEstructura().getIdTipoEstructura()).
-				           					   setParameter(4, estructura.getOrden()).
-				           					   executeUpdate();
-                    	
-                    	
-                    	grilla = new Grilla();
-                        grilla.setIdGrilla(estructura.getIdEstructura());
-                        grilla.setEstructura(estructura);
-                        grilla.setTitulo(estructuraModel.getTituloGrilla());
-                    	em.createNativeQuery(" INSERT "+
-				           			   		 " INTO "+Constantes.GRILLA+" (ID_GRILLA,TITULO,TIPO_FORMULA)"+
-				           		       		 " VALUES(?, ?, ?)").
-				           		       		   setParameter(1, grilla.getIdGrilla().longValue()).
-				           		       		   setParameter(2, grilla.getTitulo()).
-				           		       		   setParameter(3, 0L)
-				           		       		   .executeUpdate();
-                    }else{                	                	
-	                    grilla = new Grilla();
-	                    grilla.setIdGrilla(estructura.getIdEstructura());
-	                    grilla.setEstructura(estructura);
-	                    grilla.setTitulo(estructuraModel.getTituloGrilla());
-	                                                           	                    
-	                    em.createNativeQuery(" UPDATE "+Constantes.GRILLA+" SET titulo = ?  WHERE ID_GRILLA  = ?").
-	                    		       		   setParameter(1,grilla.getTitulo()).
-	                    		       		   setParameter(2, grilla.getIdGrilla())                    		       		   
-	                    		       		   .executeUpdate();	                                        	                    
-                    }
-                	
-                	em.createNativeQuery("DELETE FROM "+Constantes.CELDA+" WHERE ID_GRILLA = ?").setParameter(1, grilla.getIdGrilla()).executeUpdate();                    
-                    em.createNativeQuery("DELETE FROM "+Constantes.AGRUPACION_COLUMNA+" WHERE ID_GRILLA = ?").setParameter(1, grilla.getIdGrilla()).executeUpdate();                    
-                    em.createNativeQuery("DELETE FROM "+Constantes.COLUMNA+" WHERE ID_GRILLA = ?").setParameter(1, grilla.getIdGrilla()).executeUpdate();
-                	
-                    for(Columna columna : estructuraModel.getColumnas()){
-                        //columna.setGrilla(grilla);                        
-                        
+                final BigDecimal idEstructura = (BigDecimal) em.createNativeQuery("select SEQ_ESTRUCTURA.nextval from dual").getSingleResult();
+            	estructura.setIdEstructura(idEstructura.longValue());
+            	
+            	em.createNativeQuery(" INSERT "+
+			      		             " INTO "+Constantes.ESTRUCTURA+" (ID_ESTRUCTURA, ID_VERSION,ID_TIPO_ESTRUCTURA,ORDEN)"+
+			      					 " VALUES(?,?,?,?)").
+			      					   setParameter(1, idEstructura).
+			      					   setParameter(2, version.getIdVersion()).
+			      					   setParameter(3, estructura.getTipoEstructura().getIdTipoEstructura()).
+			      					   setParameter(4, estructura.getOrden()).
+			      					   executeUpdate();
+                
+            	if(estructura.getTipoEstructura().getIdTipoEstructura() == TipoEstructura.ESTRUCTURA_TIPO_GRILLA){                   	          
+                	grilla = new Grilla();
+                    grilla.setIdGrilla(estructura.getIdEstructura());
+                    grilla.setEstructura(estructura);
+                    grilla.setTitulo(estructuraModel.getTituloGrilla());
+                	em.createNativeQuery(" INSERT "+
+			           			   		 " INTO "+Constantes.GRILLA+" (ID_GRILLA,TITULO,TIPO_FORMULA)"+
+			           		       		 " VALUES(?, ?, ?)").
+			           		       		   setParameter(1, grilla.getIdGrilla().longValue()).
+			           		       		   setParameter(2, grilla.getTitulo()).
+			           		       		   setParameter(3, 0L)
+			           		       		   .executeUpdate();
+                                 	                	              
+                    for(Columna columna : estructuraModel.getColumnas()){                                                            
                         em.createNativeQuery(" INSERT "+
                         					 " INTO "+Constantes.COLUMNA+" (ID_COLUMNA, ID_GRILLA, TITULO_COLUMNA, ORDEN, ANCHO, ROW_HEADER)"+
                         					 " VALUES(?, ?, ?, ?, ?, ?)").
@@ -375,12 +364,12 @@ public class VersionServiceBean implements VersionServiceLocal{
                     
                 }else if(estructura.getTipoEstructura().getIdTipoEstructura() == TipoEstructura.ESTRUCTURA_TIPO_TEXTO){
                     Texto texto = estructuraModel.getTexto();
-                    texto.setIdTexto(estructura.getIdEstructura());                    
-                    em.merge(texto);                    
+                    texto.setIdTexto(idEstructura.longValue());                    
+                    em.persist(texto);                    
                 }else if(estructura.getTipoEstructura().getIdTipoEstructura() == TipoEstructura.ESTRUCTURA_TIPO_HTML){                    
                     Html html = estructuraModel.getHtml();
-                    html.setIdHtml(estructura.getIdEstructura());                   
-                    em.merge(html);                    
+                    html.setIdHtml(idEstructura.longValue());                   
+                    em.persist(html);                    
                 }
             }
         }
