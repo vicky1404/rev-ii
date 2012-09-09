@@ -140,8 +140,6 @@ public class Catalogo implements Serializable {
     @OneToMany(mappedBy = "catalogo" , fetch=FetchType.EAGER, orphanRemoval=true)
     private List<CatalogoGrupo> catalogoGrupoList;
     
-    
-    
     @ManyToOne
     @JoinColumn(name = "ID_TIPO_CUADRO")
     private TipoCuadro tipoCuadro;
@@ -150,8 +148,11 @@ public class Catalogo implements Serializable {
     @ManyToOne
     @JoinColumn(name="RUT")
     private Empresa empresa;
+    
+    @Column (name = "VALIDAR_EEFF")
+    private Long validarEeff;
 
-    public Catalogo() {
+	public Catalogo() {
     }
     
     public Catalogo(Long idCatalogo) {
@@ -251,6 +252,23 @@ public class Catalogo implements Serializable {
         return impresionHorizontal;
     }
     
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
+    }
+
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+    
+    public Long getValidarEeff() {
+		return validarEeff;
+	}
+
+	public void setValidarEeff(Long validarEeff) {
+		this.validarEeff = validarEeff;
+	}
+	
+    
     @Override
     public boolean equals(Object object) {
         if (this == object) {
@@ -274,12 +292,4 @@ public class Catalogo implements Serializable {
         return result;
     }
 
-
-    public void setEmpresa(Empresa empresa) {
-        this.empresa = empresa;
-    }
-
-    public Empresa getEmpresa() {
-        return empresa;
-    }
 }
