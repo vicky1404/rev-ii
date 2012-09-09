@@ -111,6 +111,20 @@
     				</f:facet>
     			</p:cellEditor>
     		</p:column>
+    		
+    		<p:column headerText="#{msg.etiqueta_validar_eeff}" id="colValidar">
+    			<p:cellEditor>
+    				<f:facet name="output">
+						<h:outputText value="Sí" rendered="#{row.validarEeff == 1}"/>
+						<h:outputText value="No" rendered="#{row.validarEeff == 0}"/>       				
+    				</f:facet>
+    				<f:facet name="input">
+		    			<p:selectOneMenu value="#{row.validarEeff}" id="selValidar">
+		    				<f:selectItems value="#{cuadroBackingBean.componenteBackingBean.vigencias}"/>	
+		    			</p:selectOneMenu>
+    				</f:facet>
+    			</p:cellEditor>
+    		</p:column>
 
     		<p:column headerText="#{msg.tabla_cabecera_editar}" id="cEditar" style="width:5%" >
 		 		<p:rowEditor id="rEditor" />
