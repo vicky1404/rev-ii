@@ -316,7 +316,7 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
      * @param event
      * @throws Exception
      */
-    public void onSelectNodeMenuCuadro(NodeSelectEvent event) throws Exception {
+    public void onSelectNodeMenuCuadro(NodeSelectEvent event) throws Exception {    	
     	this.setActiveTabIndex("0");
     	event.getTreeNode().getParent().setExpanded(Boolean.TRUE);
     	event.getTreeNode().getParent().setSelected(Boolean.TRUE);

@@ -56,24 +56,19 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
 	
 	
 	@PostConstruct
-	public void cargarCuadro(){
-		
-		init();
-		
-		try {
-			
+	public void cargarCuadro(){		
+		init();		
+		try {			
 			if(!isSelectedEmpresa())
-	    		return;
-			
-			try{
+	    		return;								
+			try{				
 				PeriodoEmpresa periodoEmpresa = getFacadeService().getPeriodoService().getMaxPeriodoEmpresaByEmpresa(getFiltroBackingBean().getEmpresa().getIdRut());
 				getFiltroBackingBean().setPeriodoEmpresa(periodoEmpresa);
 			}catch(Exception e) {
 				logger.error(e.getCause(), e);
 	            addWarnMessage("El período consultado no existe");
 	            return;
-			}
-			
+			}			
 			versionList = getFacadeService().getVersionService().findVersionByCatalogoPeriodo(getFiltroBackingBean().getCatalogo().getIdCatalogo(), 
 																							  getFiltroBackingBean().getPeriodoEmpresa());
 			versionSeleccionada = getFacadeService().getVersionService().findUltimaVersionVigente(getFiltroBackingBean().getPeriodoEmpresa().getIdPeriodo(), 
@@ -116,7 +111,7 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
     	try{
     		if(!isSelectedEmpresa() || getFiltroBackingBean().getCatalogo().getIdCatalogo()==null)
     			return null;
-    	
+    		super.displayPopUp("statusDialog", "f1");
     		FiltroBackingBean filtro = getFiltroBackingBean();    	
     	
     		Long periodo = Long.valueOf(filtro.getAnio().concat(filtro.getMes()));
@@ -158,7 +153,7 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
     public void buscarCuadro(ActionEvent event){
         try{
         	
-        	System.out.println("metodo buscar cuadro");
+        	super.displayPopUp("statusDialog", "f1");
         	versionSeleccionada = (Version)event.getComponent().getAttributes().get("version");
             
             estructuraList = getFacadeService().getEstructuraService().getEstructuraByVersion(versionSeleccionada, true);
@@ -177,6 +172,10 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
             logger.error(e.getCause(), e);
             addErrorMessage(PropertyManager.getInstance().getMessage("general_mensaje_nota_get_catalogo_error"));  
         }
+    }
+    
+    public void displayLoaderCuadro(){
+    	super.displayPopUp("statusDialog", "f1");
     }
     
     public void addRowListener(ActionEvent event) {
@@ -307,7 +306,7 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
             	
             	if(grilla==null)
             		continue;
-            	
+            	estructuras.getGrillaVO().setTitulo(grilla.getTitulo());
             	estructuras.getGrillaVO().setCeldaList(GeneradorDisenoHelper.builHtmlGrilla(grilla.getColumnaList()));
             		
                 List<AgrupacionColumna> agrupaciones = getFacadeService().getEstructuraService().findAgrupacionColumnaByGrilla(grilla);
@@ -320,123 +319,6 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
         }
     }
     
-    
-    
-    //TODO Mover metodo
-    /*private List<AgrupacionColumnaModelVO> soporteAgrupacionColumna(Long idGrilla, List<Columna> columnas , List<AgrupacionColumna> agrupaciones) {
-
-        Map<Long, Columna> columnaMap = new LinkedHashMap<Long, Columna>();
-        Map<Long, AgrupacionColumnaModelVO> nivel1Map = new LinkedHashMap<Long, AgrupacionColumnaModelVO>();
-        Map<Long, AgrupacionColumnaModelVO> nivel2Map = new LinkedHashMap<Long, AgrupacionColumnaModelVO>();
-        List<AgrupacionColumnaModelVO> nivelesList = new ArrayList<AgrupacionColumnaModelVO>();
-        Map<Long,Long> nivel = new HashMap<Long,Long>();
-        Long niveles = 0L;
-        
-        try {
-            
-            for(Columna columna : columnas){
-                columnaMap.put(columna.getIdColumna(), columna);
-            }
-            
-            List<AgrupacionVO> agrupacionesNivel = GeneradorDisenoHelper.crearAgrupadorVO(agrupaciones);
-            
-            List<AgrupacionModelVO> agrupacionesModel = new ArrayList<AgrupacionModelVO>();
-            
-            for(AgrupacionVO agrupacion : agrupacionesNivel){
-                
-                AgrupacionModelVO agrupacionModel = new AgrupacionModelVO();
-                agrupacionModel.setDesde(agrupacion.getDesde());
-                agrupacionModel.setHasta(agrupacion.getHasta());
-                agrupacionModel.setGrupo(agrupacion.getGrupo());
-                agrupacionModel.setAncho(agrupacion.getAncho());
-                agrupacionModel.setNivel(agrupacion.getNivel());
-                agrupacionModel.setIdGrilla(agrupacion.getIdGrilla());
-                agrupacionModel.setTitulo(agrupacion.getTitulo());
-                agrupacionesModel.add(agrupacionModel);
-            }
-            
-            
-            
-            for(AgrupacionModelVO agrupacion : agrupacionesModel){
-                
-                if(agrupacion.getNivel() == 1L){
-                    
-                    List<Columna> columnasNew = new ArrayList<Columna>();
-                    AgrupacionColumnaModelVO agrupacionN1VO = new AgrupacionColumnaModelVO();
-                    agrupacionN1VO.setTituloNivel(agrupacion.getTitulo());
-                    agrupacionN1VO.setNivel(1L);
-                    agrupacionN1VO.setAgrupacion(agrupacion);
-                    for(Long i=agrupacion.getDesde(); i<= agrupacion.getHasta(); i++){
-                        if(columnaMap.containsKey(i)){
-                            columnasNew.add(columnaMap.get(i));
-                            niveles = 1L;
-                        }
-                    }
-                    agrupacionN1VO.setColumnas(columnasNew);
-                    nivel1Map.put(agrupacion.getGrupo(), agrupacionN1VO);
-                    
-                }else  if(agrupacion.getNivel() == 2L){
-
-                    AgrupacionColumnaModelVO agrupacionN2VO = new AgrupacionColumnaModelVO();
-                    
-                    List<AgrupacionColumnaModelVO> niveles1New = new ArrayList<AgrupacionColumnaModelVO>();
-                    
-                    for(Long i=agrupacion.getDesde(); i<= agrupacion.getHasta(); i++){
-                        
-                        //Long grupoNivel1 = GeneradorDisenoHelper.getGrupoNivel1(nivel1Map,i);
-                        AgrupacionColumna col = new AgrupacionColumna();
-                        col.setIdNivel(1L);
-                        col.setIdGrilla(idGrilla);
-                        col.setIdColumna(i);
-                        col = getFacadeService().getEstructuraService().findAgrupacionColumnaById(col);
-                        Long grupoNivel1 = col.getGrupo();
-                        
-                        if(grupoNivel1 != null && !nivel.containsKey(grupoNivel1)){
-                            nivel.put(grupoNivel1, grupoNivel1);
-                            niveles1New.add(nivel1Map.get(grupoNivel1));
-                            niveles = 2L;
-                        }
-                    }
-                    
-                    agrupacionN2VO.setTituloNivel(agrupacion.getTitulo());
-                    agrupacionN2VO.setNivel(2L);
-                    agrupacionN2VO.setNiveles(niveles1New);
-                    
-                    nivel2Map.put(agrupacion.getGrupo(), agrupacionN2VO);
-              }
-            }
-            
-            if (niveles == 0L) {
-                return null;   
-            }
-            
-            if (niveles == 1L) {
-                @SuppressWarnings("rawtypes")
-				Iterator it = nivel1Map.entrySet().iterator();
-                while (it.hasNext()) {
-                    @SuppressWarnings("rawtypes")
-					Map.Entry entry = (Map.Entry)it.next();
-                    nivelesList.add((AgrupacionColumnaModelVO)entry.getValue());
-                    
-                }
-            }
-
-            if (niveles == 2L) {
-                @SuppressWarnings("rawtypes")
-				Iterator it = nivel2Map.entrySet().iterator();
-                while (it.hasNext()) {
-                    @SuppressWarnings("rawtypes")
-					Map.Entry entry = (Map.Entry)it.next();
-                    nivelesList.add((AgrupacionColumnaModelVO)entry.getValue());
-                }
-            }
-
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-        
-        return nivelesList;
-    }*/
     
     private void addNotFoundMessage(){
     	addWarnMessage(MessageFormat.format(PropertyManager.getInstance().getMessage("periodo_busqueda_sin_resultado_periodo"), 

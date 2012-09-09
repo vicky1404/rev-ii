@@ -11,6 +11,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
@@ -18,7 +19,10 @@ import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 
 import org.apache.log4j.Logger;
+import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.datatable.DataTable;
+import org.primefaces.component.selectonemenu.SelectOneMenu;
+import org.primefaces.component.tabview.Tab;
 
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
 import cl.mdr.ifrs.cross.util.GeneradorDisenoHelper;
@@ -62,7 +66,25 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 	private boolean renderBotonEditar;
 	private boolean renderEstructura;
 	private boolean renderBotonEditarVersion;	
+	private boolean renderTablaVersiones;
 	
+	//binding de tabs
+	private Tab tabVersion = new Tab();
+	private Tab tabDisenio = new Tab();
+	private Tab tabPrevisualizador = new Tab();
+	
+	//binding de selectores de catalogo
+	private SelectOneMenu comboTipoCatalogo;
+	private SelectOneMenu comboCatalogo;
+	private CommandButton botonBuscarVersiones;
+	
+	@PostConstruct
+	void init(){
+		this.getTabDisenio().setDisabled(Boolean.TRUE);
+		this.getTabPrevisualizador().setDisabled(Boolean.TRUE);
+	}
+
+				
 	@ManagedProperty(value="#{configuradorDisenoBackingBean}")
     private ConfiguradorDisenoBackingBean configuradorDisenoBackingBean;
 	
@@ -70,7 +92,8 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 		try{			
 			if(catalogo!=null){
 				this.setVersionList(super.getFacadeService().getVersionService().findVersionAllByIdCatalogo(catalogo.getIdCatalogo()));
-				SortHelper.sortVersionDesc(this.getVersionList());
+				SortHelper.sortVersionDesc(this.getVersionList());	
+				this.setRenderTablaVersiones(Boolean.TRUE);
 			}else{
 				super.addInfoMessage("No existen versiones para Catálogo seleccionado");
 			}
@@ -79,6 +102,21 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 			LOG.error(e);
 		}
 		
+	}
+	
+	public void habilitarTabs(){
+		if(!this.catalogoList.isEmpty() && this.catalogo != null){
+			this.getTabDisenio().setDisabled(Boolean.FALSE);
+			this.getTabPrevisualizador().setDisabled(Boolean.FALSE);
+		}
+	}
+	
+	public void desHabilitarSelectoresCatalogo(){
+		this.getComboTipoCatalogo().setReadonly(Boolean.TRUE);
+		this.getComboCatalogo().setReadonly(Boolean.TRUE);
+		this.getBotonBuscarVersiones().setDisabled(Boolean.TRUE);			
+		this.getComboTipoCatalogo().setOnchange("dialogCambiarRevelacion.show();");
+		this.getComboCatalogo().setOnchange("dialogCambiarRevelacion.show();");			
 	}
 
 	public List<Catalogo> completeCatalogo(String query) {		
@@ -100,8 +138,9 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 	
 	public void tipoCuadroChange(){
 		try{								
-			if(tipoCuadro != null)
-				catalogoList = getFacadeService().getCatalogoService().findCatalogoByFiltro(getFiltroBackingBean().getEmpresa().getIdRut(), getNombreUsuario(), this.getTipoCuadro() , null, 1L);
+			if(tipoCuadro != null){
+				catalogoList = super.getFacadeService().getCatalogoService().findCatalogoByFiltro(getFiltroBackingBean().getEmpresa().getIdRut(), getNombreUsuario(), this.getTipoCuadro() , null, 1L);
+			}									
 		}catch(Exception e){
 			addErrorMessage("Error al buscar Catálogo");
 			LOG.error(e);
@@ -125,7 +164,7 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
     
     public void agregarTipoEstructuraListener(ActionEvent actionEvent) {
         setAlmacenado(false);
-        final Estructura estructuraSelected = (Estructura)actionEvent.getComponent().getAttributes().get("estructura");        
+        final Estructura estructuraSelected = (Estructura)actionEvent.getComponent().getAttributes().get("estructura");          
         List<Estructura> estructuras = new ArrayList<Estructura>();
         Estructura estructura;
         Long i=0L;
@@ -149,7 +188,8 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
             if(estructuraI.getOrden().equals(estructuraSelected.getOrden())){                
                 i++;
                 estructuraModelPasoMap.put(i, new EstructuraModel(estructuraI.getTipoEstructura().getIdTipoEstructura()));
-                estructura = new Estructura();                
+                estructura = new Estructura();  
+                estructura.setCambiaTipo(Boolean.TRUE);
                 estructura.setOrden(i);
                 estructuras.add(estructura);
             }
@@ -230,7 +270,9 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
                         }
                     }
                 }
-                //this.getConfiguradorDisenoBackingBean().setEstructuraModelMap(GeneradorDisenoHelper.createEstructuraModel(estructuras));                                
+                
+                //TODO agregado
+                this.getConfiguradorDisenoBackingBean().setEstructuraModelMap(GeneradorDisenoHelper.createEstructuraModel(estructuras));                                
                 this.setAlmacenado(true);
                 this.setRenderBotonEditar(false);
                 this.setRenderBotonEditarVersion(Boolean.TRUE);
@@ -281,11 +323,13 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
     }
 
     
-    public String guardarEstructura(){                       
-        for(int i=versionList.size(); i==1; i--){
-        	versionList.get(i).setCatalogo(catalogo);
-        	versionList.get(i).setVigencia(0L);        	
-        } 
+    public String guardarEstructura(){ 
+    	if(versionList.size() > 1){
+	        for(int i=versionList.size(); i==1; i--){
+	        	versionList.get(i).setCatalogo(catalogo);
+	        	versionList.get(i).setVigencia(0L);        	
+	        } 
+    	}
                
         Version nuevaVersion = this.getVersionList().iterator().next();
         nuevaVersion.setVigencia(1L);
@@ -300,7 +344,9 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
             }
         }
         
-        this.setAlmacenado(true);        
+        this.setAlmacenado(true);
+        this.habilitarTabs();
+        this.desHabilitarSelectoresCatalogo();
         return "";
     }
     
@@ -317,7 +363,9 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
             	this.getConfiguradorDisenoBackingBean().getEstructuraModelMap().put(estructura.getOrden(), new EstructuraModel(estructura.getTipoEstructura().getIdTipoEstructura()));
             }
         }        
-        this.setAlmacenado(true);   
+        this.setAlmacenado(true);  
+        this.habilitarTabs();
+        this.desHabilitarSelectoresCatalogo();
     	return null;
     }
     
@@ -451,6 +499,7 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
                      List<Estructura> estructurasNew = new ArrayList<Estructura>();
                      for(Estructura estructura : estructuras){
                          Estructura estructuraNew = new Estructura();
+                         estructuraNew.setCambiaTipo(Boolean.FALSE);
                          estructuraNew.setOrden(estructura.getOrden());
                          estructuraNew.setTipoEstructura(estructura.getTipoEstructura());
                          estructuraNew.setVersion(estructura.getVersion());
@@ -610,6 +659,104 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 
 	public void setVersionClonable(Version versionClonable) {
 		this.versionClonable = versionClonable;
+	}
+
+	/**
+	 * @return the tabVersion
+	 */
+	public Tab getTabVersion() {
+		return tabVersion;
+	}
+
+	/**
+	 * @param tabVersion the tabVersion to set
+	 */
+	public void setTabVersion(Tab tabVersion) {
+		this.tabVersion = tabVersion;
+	}
+
+	/**
+	 * @return the tabDisenio
+	 */
+	public Tab getTabDisenio() {
+		return tabDisenio;
+	}
+
+	/**
+	 * @param tabDisenio the tabDisenio to set
+	 */
+	public void setTabDisenio(Tab tabDisenio) {
+		this.tabDisenio = tabDisenio;
+	}
+
+	/**
+	 * @return the tabPrevisualizador
+	 */
+	public Tab getTabPrevisualizador() {
+		return tabPrevisualizador;
+	}
+
+	/**
+	 * @param tabPrevisualizador the tabPrevisualizador to set
+	 */
+	public void setTabPrevisualizador(Tab tabPrevisualizador) {
+		this.tabPrevisualizador = tabPrevisualizador;
+	}
+
+	/**
+	 * @return the comboTipoCatalogo
+	 */
+	public SelectOneMenu getComboTipoCatalogo() {
+		return comboTipoCatalogo;
+	}
+
+	/**
+	 * @param comboTipoCatalogo the comboTipoCatalogo to set
+	 */
+	public void setComboTipoCatalogo(SelectOneMenu comboTipoCatalogo) {
+		this.comboTipoCatalogo = comboTipoCatalogo;
+	}
+
+	/**
+	 * @return the comboCatalogo
+	 */
+	public SelectOneMenu getComboCatalogo() {
+		return comboCatalogo;
+	}
+
+	/**
+	 * @param comboCatalogo the comboCatalogo to set
+	 */
+	public void setComboCatalogo(SelectOneMenu comboCatalogo) {
+		this.comboCatalogo = comboCatalogo;
+	}
+
+	/**
+	 * @return the botonBuscarVersiones
+	 */
+	public CommandButton getBotonBuscarVersiones() {
+		return botonBuscarVersiones;
+	}
+
+	/**
+	 * @param botonBuscarVersiones the botonBuscarVersiones to set
+	 */
+	public void setBotonBuscarVersiones(CommandButton botonBuscarVersiones) {
+		this.botonBuscarVersiones = botonBuscarVersiones;
+	}
+
+	/**
+	 * @return the renderTablaVersiones
+	 */
+	public boolean isRenderTablaVersiones() {
+		return renderTablaVersiones;
+	}
+
+	/**
+	 * @param renderTablaVersiones the renderTablaVersiones to set
+	 */
+	public void setRenderTablaVersiones(boolean renderTablaVersiones) {
+		this.renderTablaVersiones = renderTablaVersiones;
 	}
 	
 

@@ -359,6 +359,13 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
     	return tipoDatoFilteredList;
     }
     
+    public void clearTabConfiguracion(){
+    	logger.info("limpiando tab de configuración");
+    	this.setRenderEditarGrilla(Boolean.FALSE);
+    	this.setRenderEditarHtml(Boolean.FALSE);
+    	this.setRenderEditarTexto(Boolean.FALSE);	
+    }
+    
          
 	public UploadedFile getUploadedFile() {
 		return uploadedFile;
