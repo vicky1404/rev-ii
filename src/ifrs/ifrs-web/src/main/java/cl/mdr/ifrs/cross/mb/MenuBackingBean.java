@@ -79,7 +79,7 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
     private TreeItem treeItem;
     private Map<Long, Catalogo> catalogoMap; 
     private Catalogo catalogoSelected;
-    private boolean renderSelectorEmpresa;
+    private boolean renderSelectorEmpresa = false;
     private boolean redireccionado;
     private boolean valid = true;
     private String breadcrumb;

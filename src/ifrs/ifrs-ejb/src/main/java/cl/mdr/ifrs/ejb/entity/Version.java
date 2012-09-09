@@ -67,7 +67,7 @@ import cl.mdr.ifrs.ejb.common.Constantes;
                  
                  @NamedQuery(name = Version.VERSION_FIND_BY_FILTRO,
                             query = " select distinct v " +
-                            		" from Version v, CatalogoGrupo cg, UsuarioGrupo ug, GrupoEmpresa ge join fetch v.estructuraList where " +
+                            		" from Version v  join fetch v.historialVersionList, CatalogoGrupo cg, UsuarioGrupo ug, GrupoEmpresa ge where " +
                                     " v.catalogo.idCatalogo = cg.idCatalogo " + 
                                     " and ug.grupo = cg.grupo " +
                                     " and ug.grupo = ge.grupo " +
@@ -81,20 +81,6 @@ import cl.mdr.ifrs.ejb.common.Constantes;
                                     " and v.catalogo.vigencia = 1"),
                                     //" order by v.catalogo.tipoCuadro.nombre , " +
                                     //" v.catalogo.orden asc")
-                @NamedQuery(name = Version.VERSION_DETALLE_FIND_BY_FILTRO,
-	                query = " select distinct v " +
-	                		" from Version v join fetch v.historialVersionList, CatalogoGrupo cg, UsuarioGrupo ug, GrupoEmpresa ge where " +
-	                        " v.catalogo.idCatalogo = cg.idCatalogo " + 
-	                        " and ug.grupo = cg.grupo " +
-	                        " and ug.grupo = ge.grupo " +
-	                        " and v.periodoEmpresa.idRut = :idRut" +
-	                        " and (ug.nombreUsuario = :usuario or :usuario is null) " +
-	                        " and (v.catalogo.tipoCuadro.idTipoCuadro = :tipoCuadro or :tipoCuadro is null) " +
-	                        " and (v.catalogo.idCatalogo = :catalogo or :catalogo is null) " +
-	                        " and (v.periodoEmpresa.idPeriodo = :periodo or :periodo is null) " +
-	                        " and (v.estado.idEstado = :estado or :estado is null) " +
-	                        " and (v.vigencia = :vigente or :vigente is null) "+
-	                        " and v.catalogo.vigencia = 1"),
                                     
                  @NamedQuery(name = Version.VERSION_FIND_BY_ID_CATALOGO_PERIODO_EMPRESA, 
                  			 query = " select o from Version o " +
@@ -119,7 +105,6 @@ public class Version implements Serializable {
     public static final String VERSION_FIND_ULTIMO_VERSION_BY_PERIODO = "Version.findUltimoVersionByPeriodo";
     public static final String FIND_ULTIMA_VERSION_VIGENTE = "Version.findUltimaVersionVigente";
     public static final String VERSION_FIND_BY_FILTRO = "Version.findByFiltro";
-    public static final String VERSION_DETALLE_FIND_BY_FILTRO = "Version.findDetalleByFiltro";
     public static final String VERSION_FIND_BY_ID_CATALOGO_PERIODO_EMPRESA = "Version.findByIdCatalogoIdPeriodoEmpresa";
     public static final String FIND_VIGENTE_SIN_CERRAR = "Version.findVigenteSinCerrar";
     
@@ -165,11 +150,11 @@ public class Version implements Serializable {
     private EstadoCuadro estado;
     
     @Fetch(FetchMode.SUBSELECT)
-    @OneToMany(mappedBy = "version", targetEntity = Estructura.class, fetch = FetchType.LAZY, orphanRemoval=true)
+    @OneToMany(mappedBy = "version", targetEntity = Estructura.class, fetch = FetchType.LAZY)
     private List<Estructura> estructuraList;
         
     @Fetch(FetchMode.SUBSELECT)
-  	@OneToMany(mappedBy="version", fetch=FetchType.LAZY,orphanRemoval=true)
+  	@OneToMany(mappedBy="version", fetch=FetchType.LAZY)
   	private List<HistorialVersion> historialVersionList;
     
     @Temporal(TemporalType.TIMESTAMP)
@@ -191,12 +176,7 @@ public class Version implements Serializable {
     @Expose
     private boolean estadoCambiado;
     
-    @Column(name = "VALIDADO_EEFF")
-    private Long validadoEeff;
-    
-    
-
-	public Version() {
+    public Version() {
     }
 
     public Version(Long idVersion) {
@@ -371,12 +351,30 @@ public class Version implements Serializable {
 	public void setDatosModificados(Long datosModificados) {
 		this.datosModificados = datosModificados;
 	}
-	
-	public Long getValidadoEeff() {
-		return validadoEeff;
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((idVersion == null) ? 0 : idVersion.hashCode());
+		return result;
 	}
 
-	public void setValidadoEeff(Long validadoEeff) {
-		this.validadoEeff = validadoEeff;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Version other = (Version) obj;
+		if (idVersion == null) {
+			if (other.idVersion != null)
+				return false;
+		} else if (!idVersion.equals(other.idVersion))
+			return false;
+		return true;
 	}
 }
