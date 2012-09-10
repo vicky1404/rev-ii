@@ -18,6 +18,8 @@ public interface GrupoServiceLocal {
 	
 	void editarGrupo(Grupo grupo) throws RegistroNoEditableException, Exception;
 	
+	void eliminarGrupo(Grupo grupo) throws RegistroNoEditableException, Exception;
+	
 	void editarGrupoList(List<Grupo> grupoList) throws RegistroNoEditableException, Exception;
 	
 	void mergeGrupo(Grupo grupo) throws Exception;

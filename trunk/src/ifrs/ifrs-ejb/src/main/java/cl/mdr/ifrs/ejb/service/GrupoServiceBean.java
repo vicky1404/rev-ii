@@ -13,6 +13,7 @@ import javax.persistence.PersistenceContext;
 
 import org.hibernate.exception.ConstraintViolationException;
 
+import cl.mdr.ifrs.ejb.common.Constantes;
 import cl.mdr.ifrs.ejb.entity.AreaNegocio;
 import cl.mdr.ifrs.ejb.entity.Empresa;
 import cl.mdr.ifrs.ejb.entity.Grupo;
@@ -62,6 +63,22 @@ public class GrupoServiceBean implements GrupoServiceLocal {
     	this.mergeGrupo(grupo);
     }
     
+    public void eliminarGrupo(final Grupo grupo) throws RegistroNoEditableException, Exception{
+    	final int usuariosEnGrupo = this.validateUsuariosEnGrupo(grupo);
+    	final int menuEnGrupo = this.validateMenuEnGrupo(grupo);
+    	final int catalogoEnGrupo = this.validateCatalogoEnGrupo(grupo);
+    	if(usuariosEnGrupo > 0){
+    		throw new RegistroNoEditableException(MessageFormat.format("No es posible eliminar el Grupo {0} ya que posee {1} Usuario(s) asociados", grupo.getNombre(), usuariosEnGrupo));
+    	}
+    	if(menuEnGrupo > 0){
+    		throw new RegistroNoEditableException(MessageFormat.format("No es posible eliminar el Grupo {0} ya que posee opciones de Menú asociadas", grupo.getNombre()));
+    	}
+    	if(catalogoEnGrupo > 0){
+    		throw new RegistroNoEditableException(MessageFormat.format("No es posible eliminar el Grupo {0} ya que posee {1} Revelacion(es) asociadas", grupo.getNombre(), catalogoEnGrupo));
+    	}
+    	this.deleteGrupo(grupo);
+    }
+    
     public void editarGrupoList(final List<Grupo> grupoList) throws RegistroNoEditableException, Exception{
     	for (Grupo grupo : grupoList) {
 			this.editarGrupo(grupo);
@@ -71,24 +88,24 @@ public class GrupoServiceBean implements GrupoServiceLocal {
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	private int validateUsuariosEnGrupo(final Grupo grupo) throws Exception{
 		return em
-				.createQuery("select u from UsuarioGrupo u where u.idGrupo =:idGrupo")
-				.setParameter("idGrupo", grupo.getIdGrupoAcceso())
+				.createNativeQuery("select nombre_usuario from "+Constantes.USUARIO_GRUPO+" where id_grupo_acceso = ? ")
+				.setParameter(1, grupo.getIdGrupoAcceso())
 				.getResultList().size();
 	}
     
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	private int validateMenuEnGrupo(final Grupo grupo) throws Exception{
 		return em
-				.createQuery("select u from MenuGrupo u where u.idGrupoAcceso =:idGrupo")
-				.setParameter("idGrupo", grupo.getIdGrupoAcceso())
+				.createNativeQuery("select id_menu from "+Constantes.MENU_GRUPO+" where id_grupo_acceso = ? ")
+				.setParameter(1, grupo.getIdGrupoAcceso())
 				.getResultList().size();
 	}
     
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	private int validateCatalogoEnGrupo(final Grupo grupo) throws Exception{
 		return em
-				.createQuery("select u from CatalogoGrupo u where u.idGrupoAcceso =:idGrupo")
-				.setParameter("idGrupo", grupo.getIdGrupoAcceso())
+				.createNativeQuery("select id_catalogo from "+Constantes.CATALOGO_GRUPO+" where id_grupo_acceso = ? ")
+				.setParameter(1, grupo.getIdGrupoAcceso())
 				.getResultList().size();
 	}
     
@@ -104,6 +121,11 @@ public class GrupoServiceBean implements GrupoServiceLocal {
     
     public void persistGrupo(final Grupo grupo) throws ConstraintViolationException, Exception{
     	em.persist(grupo);
+    }
+    
+    public void deleteGrupo(final Grupo grupo) throws Exception{
+    	Grupo grupoDel = em.find(Grupo.class, grupo.getIdGrupoAcceso());
+    	em.remove(grupoDel);
     }
     
     
