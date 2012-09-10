@@ -11,6 +11,7 @@ import javax.faces.event.ActionEvent;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.primefaces.component.datatable.DataTable;
 import org.primefaces.event.RowEditEvent;
 
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
@@ -31,9 +32,11 @@ public class GrupoBackingBean extends AbstractBackingBean implements Serializabl
 	private String idAreaNegocio;
 	private AreaNegocio areaNegocio;
 	private Grupo nuevoGrupo;
+	private Grupo tableGrupoSelected;
 	private List<Grupo> grupoList;
 	private List<Grupo> grupoByEmpresaList;
 	private boolean renderGrupos;	
+	private DataTable tablaGrupos;
 	
 	@PostConstruct
 	void init(){
@@ -117,6 +120,26 @@ public class GrupoBackingBean extends AbstractBackingBean implements Serializabl
 		}
 	}
 	
+	public void eliminarAction(ActionEvent event){		
+		try {	
+			if(tableGrupoSelected == null){
+				super.addWarnMessage("Para eliminar un Grupo de Usuario antes debe seleccionar un registro desde la tabla.");
+				return;
+			}
+			super.getFacadeService().getGrupoService().eliminarGrupo(this.getTableGrupoSelected());
+			super.addInfoMessage("Se ha eliminado el Grupo correctamente.");
+			this.buildGrupoList();
+			this.inicializarNuevoGrupo();
+		} catch (RegistroNoEditableException e) {
+			super.addErrorMessage(e.getMessage());
+			logger.error(e);
+		} catch (Exception e) {			
+			super.addErrorMessage("Se ha producido un error al eliminar el Grupo.");
+			logger.error(e);
+		}
+		
+	}
+	
 	/**
 	 * construlle el listado de grupos segun criterios para ser
 	 * desplegados en la grilla.
@@ -193,6 +216,34 @@ public class GrupoBackingBean extends AbstractBackingBean implements Serializabl
 	 */
 	public void setGrupoByEmpresaList(List<Grupo> grupoByEmpresaList) {
 		this.grupoByEmpresaList = grupoByEmpresaList;
+	}
+
+	/**
+	 * @return the tablaGrupos
+	 */
+	public DataTable getTablaGrupos() {
+		return tablaGrupos;
+	}
+
+	/**
+	 * @param tablaGrupos the tablaGrupos to set
+	 */
+	public void setTablaGrupos(DataTable tablaGrupos) {
+		this.tablaGrupos = tablaGrupos;
+	}
+
+	/**
+	 * @return the tableGrupoSelected
+	 */
+	public Grupo getTableGrupoSelected() {
+		return tableGrupoSelected;
+	}
+
+	/**
+	 * @param tableGrupoSelected the tableGrupoSelected to set
+	 */
+	public void setTableGrupoSelected(Grupo tableGrupoSelected) {
+		this.tableGrupoSelected = tableGrupoSelected;
 	}
 
 }

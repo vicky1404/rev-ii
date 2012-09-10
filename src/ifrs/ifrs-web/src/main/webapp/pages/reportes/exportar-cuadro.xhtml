@@ -42,13 +42,13 @@
 				header="#{menuBackingBean.breadcrumb}" toggleable="true"
 				closable="false" toggleSpeed="500" closeSpeed="2000"
 				widgetVar="panel">
-				<h:panelGrid border="0" columns="3" style="width:335px;">
+				<h:panelGrid border="0" columns="3" columnClasses="ancho_100">
 					<h:column headerClass="ancho250">
-						<p:outputLabel value="#{msg.label_periodo}:" style="width:200px;"
-							for="soc1" />
+						<h:outputLabel value="#{msg.label_periodo}:"
+							/>
 					</h:column>
 					<h:column>
-						<p:selectOneMenu id="soc1" label=" "
+						<p:selectOneMenu id="soc1" label="#{msg.etiqueta_mes_periodo}"
 							unselectedLabel="#{msg.label_seleccione}"
 							value="#{reporteBackingBean.filtroBackingBean.mes}"
 							required="true">
@@ -57,7 +57,7 @@
 								value="#{reporteBackingBean.componenteBackingBean.meses}"
 								id="si1" />
 						</p:selectOneMenu>
-						<p:selectOneMenu id="soc2" label=" " style="margin-left:5px;"
+						<p:selectOneMenu id="soc2" label="#{msg.etiqueta_anio_periodo}" style="margin-left:5px;"
 							unselectedLabel="#{msg.label_seleccione}"
 							value="#{reporteBackingBean.filtroBackingBean.anio}"
 							required="true">
@@ -65,14 +65,13 @@
 							<f:selectItems
 								value="#{reporteBackingBean.componenteBackingBean.anios}"
 								id="si2" />
-						</p:selectOneMenu>
-						<h:message for="si1" styleClass="ui-outputlabel ui-state-error" />
+						</p:selectOneMenu>						
 					</h:column>
 					<h:column>
 						
 					</h:column>
 				</h:panelGrid>				
-				<h:panelGrid columns="2">
+				<h:panelGrid columns="2" columnClasses="ancho_100">
 					<p:outputLabel value="#{msg.label_tipo_cuadro}:" for="stc" />
 					<p:selectOneMenu label="#{msg.label_tipo_cuadro}"
 						converter="tipoCuadroConverter" id="stc"
