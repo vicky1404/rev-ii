@@ -10,7 +10,8 @@
 		<h:form id="form">  
 		
 		<p:messages id="messages" autoUpdate="true" globalOnly="true"/>
-		
+		<p:ajaxStatus onstart="statusDialogNoModal.show();" oncomplete="statusDialogNoModal.hide();" />
+		<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
 		<p:panel id="filtro" header="#{menuBackingBean.breadcrumb}" toggleable="true"  closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel">  
   		
 	  		<table border="0" width="40%">
@@ -105,7 +106,7 @@
 						<h:outputText value="No" rendered="#{row.vigencia == 0}"/>       				
     				</f:facet>
     				<f:facet name="input">
-		    			<p:selectOneMenu value="#{row.vigencia}" id="selVigencia">
+		    			<p:selectOneMenu value="#{row.vigencia}" id="selVigencia" style="width:50px">
 		    				<f:selectItems value="#{cuadroBackingBean.componenteBackingBean.vigencias}"/>	
 		    			</p:selectOneMenu>
     				</f:facet>
@@ -119,7 +120,7 @@
 						<h:outputText value="No" rendered="#{row.validarEeff == 0}"/>       				
     				</f:facet>
     				<f:facet name="input">
-		    			<p:selectOneMenu value="#{row.validarEeff}" id="selValidar">
+		    			<p:selectOneMenu value="#{row.validarEeff}" id="selValidar" style="width:50px">
 		    				<f:selectItems value="#{cuadroBackingBean.componenteBackingBean.vigencias}"/>	
 		    			</p:selectOneMenu>
     				</f:facet>
@@ -197,13 +198,13 @@
 		  
 		        <h:panelGrid columns="1" style="margin-bottom:10px">  
 		            <h:outputText value="Al realizar esta acción, se eliminará toda la información del cuadro seleccionado y no podrá recuperarla" />
-		            <h:outputText value="¿ Está seguro que desea eliminar catalgo ?" />  
+		            <h:outputText value="¿Está seguro que desea eliminar catalogo?" />  
 		        </h:panelGrid>  
 		  		
 		  		<h:panelGrid columns="3" style="margin-bottom:10px">  
-		        <p:commandButton id="sb1" value="Aceptar"  oncomplete="confirmEliminar.hide();"  action="#{cuadroBackingBean.eliminar}" update=":form:tabla"/>
-		        <p:separator/>  
-		        <p:commandButton id="sb2" value="Cancelar"  oncomplete="confirmEliminar.hide();"  />
+		        	<p:commandButton id="sb1" value="#{msg.general_control_aceptar}" icon="ui-icon-disk"  oncomplete="confirmEliminar.hide();"  action="#{cuadroBackingBean.eliminar}" update=":form:tabla"/>
+		        	<p:separator/>  
+		        	<p:commandButton id="sb2" value="#{msg.general_control_cancelar}"  icon="ui-icon-cancel" oncomplete="confirmEliminar.hide();"/>
 		        </h:panelGrid>
 		              
 		    </h:form>  
