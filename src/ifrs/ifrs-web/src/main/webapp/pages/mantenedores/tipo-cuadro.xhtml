@@ -10,7 +10,9 @@
 	
 		<h:form id="form">  
 		
-		<p:messages id="messages" />
+		<p:messages id="messages" autoUpdate="true" globalOnly="true"/>
+		<p:ajaxStatus onstart="statusDialogNoModal.show();" oncomplete="statusDialogNoModal.hide();" />
+		<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
 		
 		<p:panel id="filtro" header="#{menuBackingBean.breadcrumb}" toggleable="true"  closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel">  
   		
@@ -44,13 +46,7 @@
       		<p:toolbarGroup align="left" >
 				<p:commandButton icon="ui-icon-document" value="#{msg.boton_nuevo}" title="#{msg.boton_nuevo}"  type="button" onclick="ingresoRegistro.show()" />
 				<p:commandButton icon="ui-icon-trash" value="#{msg.boton_eliminar}" title="#{msg.boton_eliminar}" action="#{tipoCuadro.eliminar}" update="tabla messages" />
-				<p:commandButton icon="ui-icon-trash" value="Tabla"  action="#{tipoCuadro.verTabla}" />
 				
-				<p:separator />				  
-				<h:commandLink immediate="true">  
-            		<p:commandButton  icon="ui-icon-link" value="#{msg.boton_excel}"></p:commandButton>  
-            		<p:dataExporter type="xls" target="tabla" fileName="tiposCuadro" />  
-        		</h:commandLink>
       		</p:toolbarGroup>
    		</p:toolbar>
 		

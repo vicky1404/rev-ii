@@ -5,21 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIComponentBase;
-
 import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
+import javax.persistence.RollbackException;
 
 import org.apache.log4j.Logger;
-import org.primefaces.component.column.Column;
+import org.hibernate.exception.ConstraintViolationException;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.event.RowEditEvent;
-
-
 
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
 import cl.mdr.ifrs.cross.mb.PropertyManager;
@@ -105,11 +100,19 @@ public class TipoCuadroBackingBean extends AbstractBackingBean implements Serial
 		
 			
 			try {
-				getFacadeService().getMantenedoresTipoService().deleteTipoCuadro(getSelectedTipoCuadro());
-				super.addInfoMessage(PropertyManager.getInstance().getMessage("mensaje_tabla_eliminar_registro"), null );
+				if (getSelectedTipoCuadro() != null && getSelectedTipoCuadro().getIdTipoCuadro() != null){
+					getFacadeService().getMantenedoresTipoService().deleteTipoCuadro(getSelectedTipoCuadro());
+				}else{
+					super.addWarnMessage(PropertyManager.getInstance().getMessage("mensaje_tabla_seleccionar_registro"), null );
+					return;
+				}
+				
+					super.addInfoMessage(PropertyManager.getInstance().getMessage("mensaje_tabla_eliminar_registro"), null );
+			 				
 			} catch (Exception e) {
-				e.printStackTrace();
-				super.addErrorMessage(PropertyManager.getInstance().getMessage("mensaje_error_generico"), null );
+				
+				super.addWarnMessage(PropertyManager.getInstance().getMessage("mensaje_error_tipo_utilizado_no_borrar"), null );
+				//super.addErrorMessage(PropertyManager.getInstance().getMessage("mensaje_error_generico"), null );
 			}
 			obtenerLista();
 			setSelectedTipoCuadro(null);
