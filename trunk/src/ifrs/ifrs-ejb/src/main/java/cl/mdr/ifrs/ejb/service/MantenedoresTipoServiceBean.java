@@ -12,6 +12,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.hibernate.exception.ConstraintViolationException;
+
 import cl.mdr.ifrs.ejb.entity.Catalogo;
 import cl.mdr.ifrs.ejb.entity.EstadoCuadro;
 import cl.mdr.ifrs.ejb.entity.Periodo;
@@ -46,7 +48,7 @@ public class MantenedoresTipoServiceBean implements MantenedoresTipoServiceLocal
     }
     
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void deleteTipoCuadro(TipoCuadro entity) throws Exception {
+    public void deleteTipoCuadro(TipoCuadro entity) throws ConstraintViolationException, Exception  {
     	TipoCuadro tipoCuadro = em.find(TipoCuadro.class, entity.getIdTipoCuadro());
     	em.remove(tipoCuadro);
     }
