@@ -51,7 +51,7 @@ public class AreaNegocioBackingBean extends AbstractBackingBean implements Seria
 	public void editarAction(RowEditEvent event){
 		try {
 			super.getFacadeService().getAreaNegocioService().editarAreaNegocio((AreaNegocio) event.getObject());
-			super.addInfoMessage("Se ha modificado el Área de Negocio correctamente");
+			super.addInfoMessage("Se ha modificado el Área de Negocio correctamente.");
 			this.buildAreaNegocioList();
 		} catch (RegistroNoEditableException e) {
 			super.addErrorMessage(e.getMessage());
@@ -66,7 +66,7 @@ public class AreaNegocioBackingBean extends AbstractBackingBean implements Seria
 	public void editarAllAction(ActionEvent event){
 		try {
 			super.getFacadeService().getAreaNegocioService().editarAreaNegocioList(this.getAreaNegocioList());
-			super.addInfoMessage("Se han modificado las Áreas de Negocio correctamente");
+			super.addInfoMessage("Se han modificado las Áreas de Negocio correctamente.");
 		} catch (RegistroNoEditableException e) {
 			super.addErrorMessage(e.getMessage());
 			logger.error(e);				
@@ -95,7 +95,7 @@ public class AreaNegocioBackingBean extends AbstractBackingBean implements Seria
 			nuevaAreaNegocio.setIdAreaNegocio(this.getNuevaAreaNegocio().getIdAreaNegocio().toUpperCase());
 			nuevaAreaNegocio.setEmpresa(this.getFiltroBackingBean().getEmpresa());
 			super.getFacadeService().getAreaNegocioService().persistAreaNegocio(nuevaAreaNegocio);
-			super.addInfoMessage("Se ha creado el Área de Negocio correctamente");
+			super.addInfoMessage("Se ha creado el Área de Negocio correctamente.");
 			this.buildAreaNegocioList();
 			this.setNuevaAreaNegocio(new AreaNegocio());
 		}catch (EJBException e) {
@@ -104,6 +104,25 @@ public class AreaNegocioBackingBean extends AbstractBackingBean implements Seria
 			logger.error(e);
 		}catch (Exception e) {
 			super.addErrorMessage("Se ha producido un error al agregar el Área de Negocio.");
+			logger.error(e);
+		}		
+	}
+	
+	public void eliminarAction(ActionEvent event){
+		
+		try {
+			if(areaNegocio == null){
+				super.addWarnMessage("Para eliminar un Área de Negocio antes debe seleccionar un registro desde la tabla.");
+				return;
+			}
+			super.getFacadeService().getAreaNegocioService().eliminarAreaNegocio(this.getAreaNegocio());
+			super.addInfoMessage("Se ha eliminado el Área de Negocio correctamente.");
+			this.buildAreaNegocioList();
+		} catch (RegistroNoEditableException e) {
+			super.addErrorMessage(e.getMessage());
+			logger.error(e);				
+		} catch (Exception e) {
+			super.addErrorMessage("Se ha producido un error al eliminar las Áreas de Negocio.");
 			logger.error(e);
 		}		
 	}
@@ -163,5 +182,6 @@ public class AreaNegocioBackingBean extends AbstractBackingBean implements Seria
 	public void setNuevaAreaNegocio(AreaNegocio nuevaAreaNegocio) {
 		this.nuevaAreaNegocio = nuevaAreaNegocio;
 	}
+	
 
 }

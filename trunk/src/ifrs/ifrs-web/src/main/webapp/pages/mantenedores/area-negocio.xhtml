@@ -41,8 +41,11 @@
 			<p:toolbar rendered="#{areaNegocioBackingBean.renderAreaNegocio}">
 				<p:toolbarGroup>					
 					<p:commandButton value="Nueva Área Negocio" id="cb1Agregar"
-						onclick="dialogNuevo.show()" icon="ui-icon-plus">
+						onclick="dialogNuevo.show()" icon="ui-icon-document">
 					</p:commandButton>
+					<p:separator/>
+					<p:commandButton icon="ui-icon-trash" value="#{msg.boton_eliminar}"
+						title="#{msg.boton_eliminar}" onclick="confirmEliminar.show()" />
 				</p:toolbarGroup>
 			</p:toolbar>
 			<p:dataTable emptyMessage="#{msg.mensaje_tabla_sin_registros}"
@@ -50,7 +53,7 @@
 				var="row" lazy="false" rowKey="#{row.idAreaNegocio}"
 				selectionMode="single"
 				selection="#{areaNegocioBackingBean.areaNegocio}"
-				rendered="#{areaNegocioBackingBean.renderAreaNegocio}"
+				rendered="#{areaNegocioBackingBean.renderAreaNegocio}"				
 				editable="true">
 				<p:ajax event="rowEdit"
 					listener="#{areaNegocioBackingBean.editarAction}" />
@@ -135,6 +138,28 @@
 					<p:commandButton icon="ui-icon-cancel" value="#{msg.boton_cancel}"
 						type="button" id="btnCancelar" onclick="dialogNuevo.hide()"></p:commandButton>
 				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+		<!-- dialogo de eliminacion -->
+		<p:dialog header="Confirmar"
+			widgetVar="confirmEliminar" resizable="false">
+			<h:form id="formBorrar">
+
+				<h:panelGrid columns="1" style="margin-bottom:10px">
+					<h:outputText
+						value="Al realizar esta acción, se eliminará el Área de Negocio seleccionada" />
+					<h:outputText value="¿ Está seguro que desea eliminar esta Área de Negocio ?" />
+				</h:panelGrid>
+
+				<h:panelGrid columns="3" style="margin-bottom:10px">
+					<p:commandButton id="sb1" value="#{msg.boton_eliminar}"
+						icon="ui-icon-trash" oncomplete="confirmEliminar.hide();"
+						actionListener="#{areaNegocioBackingBean.eliminarAction}" update=":f_area_negocio:tabla_areas" />
+					<p:separator />
+					<p:commandButton id="sb2" value="#{msg.boton_cancel}"
+						icon="ui-icon-cancel" oncomplete="confirmEliminar.hide();" />
+				</h:panelGrid>
+
 			</h:form>
 		</p:dialog>
 		<script type="text/javascript">  

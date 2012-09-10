@@ -11,9 +11,9 @@
 			<p:ajaxStatus onstart="statusDialog.show();"
 				oncomplete="statusDialog.hide();" />
 			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
-			<p:panel id="filtro_grupo" header="#{menuBackingBean.breadcrumb}" toggleable="true"
-				closable="false" toggleSpeed="500" closeSpeed="2000"
-				widgetVar="panel">
+			<p:panel id="filtro_grupo" header="#{menuBackingBean.breadcrumb}"
+				toggleable="true" closable="false" toggleSpeed="500"
+				closeSpeed="2000" widgetVar="panel">
 				<h:panelGrid columns="3">
 					<p:outputLabel value="Área de Negocio:" for="soc1" />
 					<p:selectOneMenu id="soc1"
@@ -40,18 +40,22 @@
 			</p:panel>
 			<p:spacer height="10"></p:spacer>
 			<p:toolbar rendered="#{grupoBackingBean.renderGrupos}">
-				<p:toolbarGroup>				    										
+				<p:toolbarGroup>
 					<p:commandButton value="Nuevo Grupo" id="cb1Agregar"
-						onclick="dialogNuevo.show()" icon="ui-icon-plus">
+						onclick="dialogNuevo.show()" icon="ui-icon-document">
 					</p:commandButton>
+					<p:separator />
+					<p:commandButton icon="ui-icon-trash" value="#{msg.boton_eliminar}"
+						title="#{msg.boton_eliminar}" onclick="confirmEliminar.show()" />
 				</p:toolbarGroup>
 			</p:toolbar>
 			<p:dataTable emptyMessage="#{msg.mensaje_tabla_sin_registros}"
 				value="#{grupoBackingBean.grupoList}" id="tabla_grupos" var="row"
 				lazy="false" rowKey="#{row.idGrupoAcceso}" selectionMode="single"
-				rendered="#{grupoBackingBean.renderGrupos}" editable="true">
-				<p:ajax event="rowEdit"
-					listener="#{grupoBackingBean.editarAction}" />
+				rendered="#{grupoBackingBean.renderGrupos}" editable="true"
+				binding="#{grupoBackingBean.tablaGrupos}"
+				selection="#{grupoBackingBean.tableGrupoSelected}">
+				<p:ajax event="rowEdit" listener="#{grupoBackingBean.editarAction}" />
 				<p:column headerText="ID Grupo" align="left" id="c3">
 					<h:outputText value="#{row.idGrupoAcceso}" id="t1"
 						style="font-weight:bold;" />
@@ -112,12 +116,13 @@
 		</h:form>
 		<!-- popup de creacion de grupo -->
 		<p:dialog id="pd11" widgetVar="dialogNuevo" showEffect="drop"
-			hideEffect="drop" header="Nuevo Grupo" modal="false"
-			closable="true" dynamic="true">
+			hideEffect="drop" header="Nuevo Grupo" modal="false" closable="true"
+			dynamic="true">
 			<h:form id="form_new">
 				<h:panelGrid columns="3">
 					<p:outputLabel value="ID de Grupo" for="it11" />
-					<p:inputText id="it11" required="true" validatorMessage="El identificador del Grupo debe comenzar con el prefijo 'GRP_' seguido de letras Mayúsculas."				
+					<p:inputText id="it11" required="true"
+						validatorMessage="El identificador del Grupo debe comenzar con el prefijo 'GRP_' seguido de letras Mayúsculas."
 						value="#{grupoBackingBean.nuevoGrupo.idGrupoAcceso}">
 						<f:validateLength minimum="1" maximum="32"></f:validateLength>
 						<f:validateRegex pattern="\bGRP_\S*[A-Z]\b"></f:validateRegex>
@@ -130,36 +135,54 @@
 						<f:validateLength minimum="1" maximum="256"></f:validateLength>
 					</p:inputText>
 					<h:message for="it21" styleClass="ui-outputlabel ui-state-error" />
-					
+
 					<p:outputLabel value="Área de Negocio" for="it31" />
 					<p:selectOneMenu required="true"
 						value="#{grupoBackingBean.nuevoGrupo.areaNegocio.idAreaNegocio}"
 						id="it31">
 						<f:selectItems
-									value="#{areaNegocioBackingBean.areaNegocioByEmpresaList}"
-									var="an" itemValue="#{an.idAreaNegocio}"
-									itemLabel="#{an.nombre}" />
+							value="#{areaNegocioBackingBean.areaNegocioByEmpresaList}"
+							var="an" itemValue="#{an.idAreaNegocio}" itemLabel="#{an.nombre}" />
 					</p:selectOneMenu>
 					<h:message for="it31" styleClass="ui-outputlabel ui-state-error" />
-					
+
 					<p:outputLabel value="Vigente" for="it33" />
 					<p:selectOneMenu required="true"
-						value="#{grupoBackingBean.nuevoGrupo.vigente}"
-						id="it33">
+						value="#{grupoBackingBean.nuevoGrupo.vigente}" id="it33">
 						<f:selectItems
 							value="#{grupoBackingBean.componenteBackingBean.vigenciaItems}" />
 					</p:selectOneMenu>
 					<h:message for="it33" styleClass="ui-outputlabel ui-state-error" />
 
 					<p:commandButton value="#{msg.boton_guardar}" icon="ui-icon-disk"
-						id="btnG"
-						actionListener="#{grupoBackingBean.agregarAction}"
+						id="btnG" actionListener="#{grupoBackingBean.agregarAction}"
 						update=":f_grupo:tabla_grupos form_new"
 						oncomplete="handleRequest(xhr, status, args)">
 					</p:commandButton>
 					<p:commandButton icon="ui-icon-cancel" value="#{msg.boton_cancel}"
 						type="button" id="btnCancelar" onclick="dialogNuevo.hide()"></p:commandButton>
 				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+		<p:dialog header="Confirmar"
+			widgetVar="confirmEliminar" resizable="false">
+			<h:form id="formBorrar">
+
+				<h:panelGrid columns="1" style="margin-bottom:10px">
+					<h:outputText
+						value="Al realizar esta acción, se eliminará el Grupo seleccionado" />
+					<h:outputText value="¿ Está seguro que desea eliminar este grupo ?" />
+				</h:panelGrid>
+
+				<h:panelGrid columns="3" style="margin-bottom:10px">
+					<p:commandButton id="sb1" value="#{msg.boton_eliminar}"
+						icon="ui-icon-trash" oncomplete="confirmEliminar.hide();"
+						actionListener="#{grupoBackingBean.eliminarAction}" update=":f_grupo:tabla_grupos" />
+					<p:separator />
+					<p:commandButton id="sb2" value="#{msg.boton_cancel}"
+						icon="ui-icon-cancel" oncomplete="confirmEliminar.hide();" />
+				</h:panelGrid>
+
 			</h:form>
 		</p:dialog>
 		<script type="text/javascript">  
