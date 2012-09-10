@@ -71,7 +71,13 @@ public class CuadroBackingBean extends AbstractBackingBean implements Serializab
 		
 		
 		try {
-			getFacadeService().getMantenedoresTipoService().deleteCuadro(getSelectedCuadro());
+			if (getSelectedCuadro() != null && getSelectedCuadro().getIdCatalogo() != null){
+				getFacadeService().getMantenedoresTipoService().deleteCuadro(getSelectedCuadro());
+			} else {
+				super.addWarnMessage(PropertyManager.getInstance().getMessage("mensaje_tabla_seleccionar_registro"), null );
+				return;
+			}
+			
 			super.addInfoMessage(PropertyManager.getInstance().getMessage("mensaje_tabla_eliminar_registro"), null );
 		} catch (Exception e) {
 			e.printStackTrace();
