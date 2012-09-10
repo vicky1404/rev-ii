@@ -68,6 +68,16 @@ public class AreaNegocioServiceBean implements AreaNegocioServiceLocal {
 		this.mergeAreaNegocio(areaNegocio);
     }
     
+    public void eliminarAreaNegocio(final AreaNegocio areaNegocio) throws RegistroNoEditableException, Exception{
+		if (areaNegocio.getVigente().equals(VigenciaEnum.NO_VIGENTE.getKey())
+				&& em.createNamedQuery(Grupo.FIND_BY_AREA_NEGOCIO)
+						.setParameter("idAreaNegocio", areaNegocio.getIdAreaNegocio()).getResultList()
+						.size() > 0) {
+			throw new RegistroNoEditableException(MessageFormat.format("El Área de Negocio {0} no puede ser eliminada ya que tiene Grupos asociados.", areaNegocio.getNombre()));
+		}
+		this.deleteAreaNegocio(areaNegocio);
+    }
+    
     public void editarAreaNegocioList(final List<AreaNegocio> areaNegocioList) throws RegistroNoEditableException, Exception{
     	for (final AreaNegocio areaNegocio : areaNegocioList) {
     		if (areaNegocio.getVigente().equals(VigenciaEnum.NO_VIGENTE.getKey())
@@ -92,6 +102,11 @@ public class AreaNegocioServiceBean implements AreaNegocioServiceLocal {
     
     public void persistAreaNegocio(final AreaNegocio areaNegocio) throws ConstraintViolationException, Exception{
     	em.persist(areaNegocio);
+    }
+    
+    public void deleteAreaNegocio(final AreaNegocio areaNegocio)throws Exception{
+    	AreaNegocio areaNegocioDel = em.find(AreaNegocio.class, areaNegocio.getIdAreaNegocio());
+    	em.remove(areaNegocioDel);
     }
 
 }

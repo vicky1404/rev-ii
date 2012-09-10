@@ -17,6 +17,8 @@ public interface AreaNegocioServiceLocal {
 	
 	void editarAreaNegocio(AreaNegocio areaNegocio) throws RegistroNoEditableException, Exception;
 	
+	void eliminarAreaNegocio(AreaNegocio areaNegocio) throws RegistroNoEditableException, Exception;
+	
 	void editarAreaNegocioList(List<AreaNegocio> areaNegocioList) throws RegistroNoEditableException, Exception;
 	
 	void mergeAreaNegocio(AreaNegocio areaNegocio) throws Exception;
