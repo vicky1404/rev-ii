@@ -27,7 +27,7 @@ public class ThemeBackingBean implements Serializable {
     public void init() {                   
         themes = new TreeMap<String, String>();  
         themes.put("Aristo", "aristo");          
-        themes.put("Bluesky", "bluesky");          
+        themes.put("Bluesky", "bluesky");        
     }
 
 	public Map<String, String> getThemes() {
