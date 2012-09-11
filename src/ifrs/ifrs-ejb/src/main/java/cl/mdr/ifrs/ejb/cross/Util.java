@@ -333,7 +333,12 @@ public class Util{
      * @return
      */
     public static String capitalizar(String arg1){
-        return WordUtils.capitalize(arg1.toLowerCase());
+    	if(arg1 != null){
+    		return WordUtils.capitalize(arg1.toLowerCase());
+    	}else{
+    		return null;
+    	}
+         
     }
     
     public static String stripInvalidXmlCharacters(String input) {        
