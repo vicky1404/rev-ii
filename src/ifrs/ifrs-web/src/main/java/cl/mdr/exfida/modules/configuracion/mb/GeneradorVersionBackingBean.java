@@ -68,6 +68,9 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 	private boolean renderBotonEditarVersion;	
 	private boolean renderTablaVersiones;
 	
+	private boolean renderCombosRevelacion;
+	private boolean lockBotonNuevaVersion;
+	
 	//binding de tabs
 	private Tab tabVersion = new Tab();
 	private Tab tabDisenio = new Tab();
@@ -82,6 +85,7 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 	void init(){
 		this.getTabDisenio().setDisabled(Boolean.TRUE);
 		this.getTabPrevisualizador().setDisabled(Boolean.TRUE);
+		this.setRenderCombosRevelacion(Boolean.TRUE);
 	}
 
 				
@@ -111,12 +115,18 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 		}
 	}
 	
-	public void desHabilitarSelectoresCatalogo(){
+	@Deprecated
+	public void _desHabilitarSelectoresCatalogo(){
 		this.getComboTipoCatalogo().setReadonly(Boolean.TRUE);
 		this.getComboCatalogo().setReadonly(Boolean.TRUE);
 		this.getBotonBuscarVersiones().setDisabled(Boolean.TRUE);			
 		this.getComboTipoCatalogo().setOnchange("dialogCambiarRevelacion.show();");
 		this.getComboCatalogo().setOnchange("dialogCambiarRevelacion.show();");			
+	}
+	
+	public void desHabilitarSelectoresCatalogo(){
+		this.getBotonBuscarVersiones().setDisabled(Boolean.TRUE);	
+		this.setRenderCombosRevelacion(Boolean.FALSE);
 	}
 
 	public List<Catalogo> completeCatalogo(String query) {		
@@ -379,7 +389,7 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
                      versionPaso.setVigencia(0L);
                  }
                  this.setEstructuraList(null);
-                 this.getVersionList().add(new Version(version.getVersion()+1, true, new Date(), 1L));
+                 this.getVersionList().add(new Version(Util.getLong((version.getVersion()+1L), 0L), true, new Date(), 1L));
                  this.setRenderEstructura(true);
              }
          }else{
@@ -392,6 +402,7 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
          SortHelper.sortVersionDesc(this.getVersionList());
          setAlmacenado(false);
          setRenderBotonEditar(true);
+         this.setLockBotonNuevaVersion(Boolean.TRUE);
      }
     
     
@@ -757,6 +768,22 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 	 */
 	public void setRenderTablaVersiones(boolean renderTablaVersiones) {
 		this.renderTablaVersiones = renderTablaVersiones;
+	}
+
+	public boolean isRenderCombosRevelacion() {
+		return renderCombosRevelacion;
+	}
+
+	public void setRenderCombosRevelacion(boolean renderCombosRevelacion) {
+		this.renderCombosRevelacion = renderCombosRevelacion;
+	}
+
+	public boolean isLockBotonNuevaVersion() {
+		return lockBotonNuevaVersion;
+	}
+
+	public void setLockBotonNuevaVersion(boolean lockBotonNuevaVersion) {
+		this.lockBotonNuevaVersion = lockBotonNuevaVersion;
 	}
 	
 

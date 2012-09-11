@@ -3,29 +3,36 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">    
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">    
 	<h:panelGrid columns="5">
-		<h:outputLabel value="#{msg.label_tipo_y_nombre_de_revelacion}" />
-		<p:selectOneMenu value="#{generadorVersionBackingBean.tipoCuadro}"
-			label="#{msg.label_tipo_revelacion}" required="true" id="gVsom1"
-			effect="fade" converter="tipoCuadroConverter" binding="#{generadorVersionBackingBean.comboTipoCatalogo}">
-			<f:selectItem itemLabel="#{msg.label_seleccione}" />
-			<f:selectItems value="#{generadorVersionBackingBean.componenteBackingBean.tipoCuadroItems}"
-				id="gVsi2" />
-			<p:ajax listener="#{generadorVersionBackingBean.tipoCuadroChange}"
-				partialSubmit="false" update="gVsom2" />
-		</p:selectOneMenu>
-
-		<p:selectOneMenu value="#{generadorVersionBackingBean.catalogo}" binding="#{generadorVersionBackingBean.comboCatalogo}"
-			label="#{msg.label_nombre_revelacion}" required="true" id="gVsom2"
-			effect="fade" converter="catalogoConverter">
-			<f:selectItem itemLabel="#{msg.label_seleccione}" />
-			<f:selectItems value="#{generadorVersionBackingBean.catalogoList}"
-				var="c" itemLabel="#{c.nombre}" itemValue="#{c}" />
-		</p:selectOneMenu>
-
-
-
+		<h:outputLabel value="#{msg.label_tipo_y_nombre_de_revelacion}:" />
+		<h:panelGroup layout="block" rendered="#{generadorVersionBackingBean.renderCombosRevelacion}">
+			<p:selectOneMenu value="#{generadorVersionBackingBean.tipoCuadro}"
+				label="#{msg.label_tipo_revelacion}" required="true" id="gVsom1"
+				effect="fade" converter="tipoCuadroConverter" binding="#{generadorVersionBackingBean.comboTipoCatalogo}">
+				<f:selectItem itemLabel="#{msg.label_seleccione}" />
+				<f:selectItems value="#{generadorVersionBackingBean.componenteBackingBean.tipoCuadroItems}"
+					id="gVsi2" />
+				<p:ajax listener="#{generadorVersionBackingBean.tipoCuadroChange}"
+					partialSubmit="false" update="gVsom2" />
+			</p:selectOneMenu>
+	
+			<p:selectOneMenu value="#{generadorVersionBackingBean.catalogo}" binding="#{generadorVersionBackingBean.comboCatalogo}"
+				label="#{msg.label_nombre_revelacion}" required="true" id="gVsom2"
+				effect="fade" converter="catalogoConverter">
+				<f:selectItem itemLabel="#{msg.label_seleccione}" />
+				<f:selectItems value="#{generadorVersionBackingBean.catalogoList}"
+					var="c" itemLabel="#{c.nombre}" itemValue="#{c}" />
+			</p:selectOneMenu>
+		</h:panelGroup>
+		<h:panelGroup layout="block" rendered="#{not generadorVersionBackingBean.renderCombosRevelacion}">		    
+		    <h:panelGrid columns="3">
+				<h:outputText value="#{generadorVersionBackingBean.tipoCuadro.nombre}" style="font-weight: bold; text-decoration:underline;" />	
+				<span class="ui-icon ui-icon-grip-dotted-vertical"></span>			
+				<h:outputText value="#{generadorVersionBackingBean.catalogo.nombre}" style="font-weight: bold; text-decoration:underline;" />
+			</h:panelGrid>
+		</h:panelGroup>        
 		<p:commandButton id="gVcb1" value="#{msg.boton_buscar}" binding="#{generadorVersionBackingBean.botonBuscarVersiones}"
 			icon="ui-icon-search"
 			actionListener="#{generadorVersionBackingBean.buscarListener}"
@@ -161,7 +168,7 @@
 	<p:spacer id="gVsp3" height="20px;" />
 
 	<div id="gVdv1" align="right" style="width: 720px;">
-		<p:commandButton id="gVcb2" value="#{msg.generador_nueva_version}"
+		<p:commandButton id="gVcb2" value="#{msg.generador_nueva_version}" disabled="#{generadorVersionBackingBean.lockBotonNuevaVersion}"
 			icon="ui-icon-document"	rendered="#{generadorVersionBackingBean.renderTablaVersiones}"		
 			actionListener="#{generadorVersionBackingBean.agregarVersionListener}"
 			partialSubmit="true" update="@form" />
