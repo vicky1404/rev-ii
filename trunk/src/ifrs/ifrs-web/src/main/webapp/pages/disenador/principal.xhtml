@@ -259,7 +259,11 @@
 
 
 																			</h:outputText>
-																		</h:panelGroup> <!-- Total Decimal --> <h:panelGroup layout="block"
+																		</h:panelGroup> 
+																		
+																		<!-- Total Decimal --> 
+																		
+																		<h:panelGroup layout="block"
 																			style="text-align: right;"
 																			rendered="#{row.tipoDato.idTipoDato == 3 and (row.tipoCelda.idTipoCelda == 4 or row.tipoCelda.idTipoCelda == 5)}">
 																			<h:outputText value="#{row.valorBigDecimal}"
@@ -276,7 +280,9 @@
 
 
 																			</h:outputText>
-																		</h:panelGroup> <p:inputText value="#{row.valorBigDecimal}" id="it9"
+																		</h:panelGroup> 
+																		
+																		<p:inputText value="#{row.valorBigDecimal}" id="it9" style="text-align: right;"
 																			label="Valor de la Columna: #{row.idColumna} , Fila: #{row.idFila}"
 																			rendered="#{row.tipoDato.idTipoDato == 3 and (row.tipoCelda.idTipoCelda != 4 and row.tipoCelda.idTipoCelda != 5)}"
 																			maximumLength="#{msg.constantes_text_length_decimal}"
