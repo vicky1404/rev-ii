@@ -13,6 +13,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import cl.mdr.ifrs.ejb.common.Constantes;
+import cl.mdr.ifrs.ejb.cross.Util;
 
 
 @Entity
@@ -63,7 +64,7 @@ public class TipoCuadro implements Serializable {
     }
 
     public String getNombre() {
-        return nombre;
+        return Util.capitalizar(nombre);
     }
 
     public void setNombre(String nombre) {
