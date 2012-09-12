@@ -8,10 +8,8 @@
 	<ui:define name="content">
 		<h:outputScript name="js/util/form-util.js" />
 		<h:form id="f_menu_grupo">
-			<p:messages id="messages_menu_grupo" autoUpdate="true" showDetail="true"
-				showSummary="true" />
-			<p:ajaxStatus onstart="statusDialog.show();"
-				oncomplete="statusDialog.hide();" />
+			<p:messages id="messages_menu_grupo" autoUpdate="true" showDetail="true" showSummary="true" globalOnly="true"/>
+			<p:ajaxStatus onstart="statusDialog.show();" oncomplete="statusDialog.hide();" />
 			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
 			<p:panel id="filtro_menu_grupo"
 				header="#{menuBackingBean.breadcrumb}" toggleable="true"
@@ -34,7 +32,7 @@
 					<h:outputLabel value="" />
 					<p:commandButton value="#{msg.boton_buscar}" icon="ui-icon-search"
 						actionListener="#{menuPorGrupoBackingBean.buscarMenuPorGrupoAction}"
-						update="tabla_menu" ajax="false">
+						update="@form" >
 					</p:commandButton>
 					<p:commandButton icon="ui-icon-cancel" value="#{msg.boton_cancel}"
 						id="btnCancelar11" immediate="true"
