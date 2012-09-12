@@ -209,12 +209,10 @@
 				update="@form" icon="ui-icon-circle-plus">
 				<f:attribute name="estructura" value="#{row}" />
 			</p:commandButton>
-
 			<p:spacer id="gVsp5" width="3px" />
 
-			<p:commandButton id="gVcl2" title="Eliminar"
-				icon="ui-icon-circle-minus"
-				actionListener="#{generadorVersionBackingBean.eliminarTipoEstructuraListener}"
+			<p:commandButton id="gVcl2" title="Eliminar"	icon="ui-icon-circle-minus"
+				actionListener="#{generadorVersionBackingBean.eliminarTipoEstructuraListener}" immediate="true"
 				update="@form">
 				<f:attribute name="estructura" value="#{row}" />
 			</p:commandButton>
