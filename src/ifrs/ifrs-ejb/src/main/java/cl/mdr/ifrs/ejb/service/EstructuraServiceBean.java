@@ -100,7 +100,7 @@ public class EstructuraServiceBean implements EstructuraServiceLocal {
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public List<Estructura> findEstructuraByVersion(Version version) throws Exception{
         return em.createNamedQuery(Estructura.FIND_ESTRUCTURA_BY_VERSION)                 
-                 .setParameter("version", version)                 
+                 .setParameter("version", version.getIdVersion())                 
                  .getResultList();
     }
     

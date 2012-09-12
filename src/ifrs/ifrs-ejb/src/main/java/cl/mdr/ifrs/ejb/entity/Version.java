@@ -164,11 +164,11 @@ public class Version implements Serializable {
     @Expose
     private EstadoCuadro estado;
     
-    @Fetch(FetchMode.SUBSELECT)
+    //@Fetch(FetchMode.SUBSELECT)
     @OneToMany(mappedBy = "version", targetEntity = Estructura.class, fetch = FetchType.LAZY, orphanRemoval=true)
     private List<Estructura> estructuraList;
         
-    @Fetch(FetchMode.SUBSELECT)
+    //@Fetch(FetchMode.SUBSELECT)
   	@OneToMany(mappedBy="version", fetch=FetchType.LAZY,orphanRemoval=true)
   	private List<HistorialVersion> historialVersionList;
     

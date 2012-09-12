@@ -28,7 +28,7 @@ import cl.mdr.ifrs.vo.TextoVO;
 @Entity
 @NamedQueries({
     @NamedQuery(name = Estructura.FIND_ESTRUCTURA_ALL, query = "select o from Estructura o"),    
-    @NamedQuery(name = Estructura.FIND_ESTRUCTURA_BY_VERSION,  query = "select o from Estructura o where o.version = :version order by o.orden"),
+    @NamedQuery(name = Estructura.FIND_ESTRUCTURA_BY_VERSION,  query = "select o from Estructura o where o.version.idVersion = :version order by o.orden"),
     @NamedQuery(name = Estructura.FIND_ESTRUCTURA_BY_VERSION_TIPO,  query = "select o from Estructura o where o.version = :version and o.tipoEstructura.idTipoEstructura = :idTipoEstructura order by o.orden"),
     @NamedQuery(name = Estructura.FIND_ESTRUCTURA_BY_ID,  query = "select o from Estructura o where o.idEstructura = :id")
     /*@NamedQuery(name = Estructura.FIND_ESTRUCTURA_BY_VERSION_CASCADE,  query = "select o from Estructura o join fetch o.grillaList where o.version = :version order by o.orden")
