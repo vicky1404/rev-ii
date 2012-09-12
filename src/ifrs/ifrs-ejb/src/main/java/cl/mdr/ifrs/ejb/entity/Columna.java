@@ -68,8 +68,8 @@ public class Columna implements Serializable {
     @Expose
     private boolean rowHeader;
     
-    //@Fetch(FetchMode.SUBSELECT)
-    @OneToMany(mappedBy = "columna" ,cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, orphanRemoval=true)
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(mappedBy = "columna" ,cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, orphanRemoval=true)
     private List<AgrupacionColumna> agrupacionColumnaList;
     
     @Transient
