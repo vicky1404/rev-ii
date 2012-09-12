@@ -290,6 +290,8 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
     							  .getSingleResult();
     }
     
+    
+    
     //Grupos por empresas   
     
     /* (non-Javadoc)

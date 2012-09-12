@@ -86,6 +86,9 @@ public class Usuario implements Serializable {
 
 	private Long vigente;
 	
+	@Column(name="CAMBIAR_PASSWORD")
+	private Long cambiarPassword;
+	
 	//bi-directional many-to-one association to Rol
     @ManyToOne
 	@JoinColumn(name="ID_ROL")
@@ -391,6 +394,20 @@ public class Usuario implements Serializable {
 		} else if (!vigente.equals(other.vigente))
 			return false;
 		return true;
+	}
+
+	/**
+	 * @return the cambiarPassword
+	 */
+	public Long getCambiarPassword() {
+		return cambiarPassword;
+	}
+
+	/**
+	 * @param cambiarPassword the cambiarPassword to set
+	 */
+	public void setCambiarPassword(Long cambiarPassword) {
+		this.cambiarPassword = cambiarPassword;
 	}
 
 	
