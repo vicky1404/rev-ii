@@ -34,8 +34,19 @@ public class CatalogoServiceBean implements CatalogoServiceLocal{
     
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Object persistEntity(Catalogo entity){
-        em.persist(entity);
-        return entity;
+    	
+       Catalogo catalogo = new Catalogo();
+	    		catalogo.setVigencia(entity.getVigencia());
+	    		catalogo.setImpresionHorizontal(entity.getImpresionHorizontal());
+	    		catalogo.setNombre(entity.getNombre());
+	    		catalogo.setOrden(entity.getOrden());
+	    		catalogo.setTipoCuadro(entity.getTipoCuadro());
+	    		catalogo.setTitulo(entity.getTitulo());
+	    		catalogo.setValidarEeff(entity.getValidarEeff());
+	    		catalogo.setEmpresa(entity.getEmpresa());
+	    		catalogo.setValidarEeff(0L);    		
+        em.persist(catalogo);
+        return null;
     }
     
     @SuppressWarnings("unchecked")
