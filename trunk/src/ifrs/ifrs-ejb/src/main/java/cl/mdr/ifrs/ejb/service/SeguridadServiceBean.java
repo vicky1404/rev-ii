@@ -15,8 +15,6 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import org.apache.commons.lang3.StringUtils;
-
 import cl.mdr.ifrs.ejb.common.Constantes;
 import cl.mdr.ifrs.ejb.entity.CatalogoGrupo;
 import cl.mdr.ifrs.ejb.entity.Empresa;
@@ -49,11 +47,11 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public List<Usuario> findUsuariosByFiltro(final Usuario usuario, final Rol rol) throws Exception{
     	return em.createNamedQuery(Usuario.FIND_BY_FILTRO)
-    		.setParameter("nombreUsuario", usuario.getNombreUsuario() != StringUtils.EMPTY ? MessageFormat.format("%{0}%", usuario.getNombreUsuario().toUpperCase()) : null)
-    		.setParameter("nombre", usuario.getNombre() != StringUtils.EMPTY ? MessageFormat.format("%{0}%", usuario.getNombre().toUpperCase()) : null)
-    		.setParameter("apellidoPaterno", usuario.getApellidoPaterno() != StringUtils.EMPTY ? MessageFormat.format("%{0}%", usuario.getApellidoPaterno().toUpperCase()) : null)
-    		.setParameter("apellidoMaterno", usuario.getApellidoMaterno() != StringUtils.EMPTY ? MessageFormat.format("%{0}%", usuario.getApellidoMaterno().toUpperCase()) : null)
-    		.setParameter("rol", rol)
+    		.setParameter("nombreUsuario", usuario.getNombreUsuario() != null ? MessageFormat.format("%{0}%", usuario.getNombreUsuario().toUpperCase()) : null)
+    		.setParameter("nombre", usuario.getNombre() != null ? MessageFormat.format("%{0}%", usuario.getNombre().toUpperCase()) : null)
+    		.setParameter("apellidoPaterno", usuario.getApellidoPaterno() != null ? MessageFormat.format("%{0}%", usuario.getApellidoPaterno().toUpperCase()) : null)
+    		.setParameter("apellidoMaterno", usuario.getApellidoMaterno() != null ? MessageFormat.format("%{0}%", usuario.getApellidoMaterno().toUpperCase()) : null)
+    		.setParameter("rol", rol.getIdRol())
     		.getResultList();    	
     }
     
@@ -290,7 +288,17 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
     							  .getSingleResult();
     }
     
-    
+    @SuppressWarnings("unchecked")
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public String validaUsuarioExiste(final String nombreUsuario) throws Exception{
+    	List<String> usuarios = em.createQuery("select nombreUsuario from Usuario where nombreUsuario = :nombreUsuario")
+				  .setParameter("nombreUsuario", nombreUsuario)    							  
+				  .getResultList();
+    	if(!usuarios.isEmpty()){
+    		return usuarios.get(0);
+    	}
+    	return null;
+    }
     
     //Grupos por empresas   
     

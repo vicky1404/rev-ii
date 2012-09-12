@@ -181,6 +181,13 @@ public interface SeguridadServiceLocal {
     Usuario authenticateUser(String nombreUsuario) throws Exception, NoResultException;
     
     /**
+     * @param nombreUsuario
+     * @return
+     * @throws Exception
+     */
+    String validaUsuarioExiste(String nombreUsuario) throws Exception;
+    
+    /**
      * @param empresa
      * @return
      * @throws Exception
