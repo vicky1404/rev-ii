@@ -41,7 +41,7 @@ import com.google.common.base.Strings;
     													" and (:nombre is null or upper(u.nombre) like :nombre) " +
     													" and (:apellidoPaterno is null or upper(u.apellidoPaterno) like :apellidoPaterno)" +
     													" and (:apellidoMaterno is null or upper(u.apellidoMaterno) like :apellidoMaterno)" +
-    													" and (:rol is null or u.rol = :rol) ORDER BY u.nombreUsuario ASC")
+    													" and (:rol is null or u.rol.idRol = :rol) ORDER BY u.nombreUsuario ASC")
 })    
 @Table(name="IFRS_USUARIO")
 public class Usuario implements Serializable {
