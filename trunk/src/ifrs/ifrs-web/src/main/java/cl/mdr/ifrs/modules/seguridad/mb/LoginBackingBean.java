@@ -3,6 +3,7 @@ package cl.mdr.ifrs.modules.seguridad.mb;
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.MessageFormat;
+import java.util.Date;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -12,6 +13,7 @@ import javax.persistence.NoResultException;
 import org.apache.log4j.Logger;
 
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
+import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Usuario;
 
 /**
@@ -47,10 +49,16 @@ public class LoginBackingBean extends AbstractBackingBean implements Serializabl
 				this.getUsuarioLogin().setPassword(null);				
 				return null;
 			}
-						
-			logger.info("Login OK");			
-			super.getExternalContext().getSessionMap().put(Usuario.class.getName(), usuario);			
-			super.getExternalContext().redirect("pages/home.jsf");
+			else if (Util.getLong(usuario.getCambiarPassword(), 0L).equals(1L)){
+				super.getExternalContext().getSessionMap().put(Usuario.class.getName(), usuario);			
+				super.getExternalContext().redirect("pages/mis-datos.jsf");				
+			}else{									
+				logger.info("Login OK");
+				usuario.setFechaUltimoAcceso(new Date());
+				super.getFacadeService().getSeguridadService().mergeUsuario(usuario);
+				super.getExternalContext().getSessionMap().put(Usuario.class.getName(), usuario);			
+				super.getExternalContext().redirect("pages/home.jsf");
+			}
 		
 		} catch (NoResultException e) {	
 			super.addWarnMessage(MessageFormat.format("El Usuario <u>{0}</u> no existe", this.getUsuarioLogin().getNombreUsuario()));
