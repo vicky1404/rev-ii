@@ -69,8 +69,7 @@ public class AreaNegocioServiceBean implements AreaNegocioServiceLocal {
     }
     
     public void eliminarAreaNegocio(final AreaNegocio areaNegocio) throws RegistroNoEditableException, Exception{
-		if (areaNegocio.getVigente().equals(VigenciaEnum.NO_VIGENTE.getKey())
-				&& em.createNamedQuery(Grupo.FIND_BY_AREA_NEGOCIO)
+		if (em.createNamedQuery(Grupo.FIND_BY_AREA_NEGOCIO)
 						.setParameter("idAreaNegocio", areaNegocio.getIdAreaNegocio()).getResultList()
 						.size() > 0) {
 			throw new RegistroNoEditableException(MessageFormat.format("El Área de Negocio {0} no puede ser eliminada ya que tiene Grupos asociados.", areaNegocio.getNombre()));
