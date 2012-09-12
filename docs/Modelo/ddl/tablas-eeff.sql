@@ -42,7 +42,7 @@ create table IFRS_TIPO_ESTADO_EEFF  (
 create table IFRS_VERSION_EEFF  (
    ID_VERSION_EEFF      NUMBER(10)                      not null,
    ID_PERIODO           NUMBER(6)                       not null,
-   ID_RUT               NUMBER(4)                       not null,
+   ID_RUT               NUMBER(10)                       not null,
    ID_ESTADO_EEFF       NUMBER(4),
    VERSION              NUMBER(4)                       not null,
    VIGENCIA             NUMBER(1)                       not null,
@@ -111,7 +111,7 @@ alter table IFRS_DETALLE_EEFF
 create table IFRS_RELACION_EEFF  (
    ID_FECU              number(12)                      not null,
    ID_PERIODO           NUMBER(6)                       not null,
-   ID_RUT               NUMBER(4)                       not null,
+   ID_RUT               NUMBER(10)                       not null,
    ID_GRILLA            NUMBER(10,0),
    ID_COLUMNA           NUMBER(8,0)                     not null,
    ID_FILA              NUMBER(4,0),
@@ -139,7 +139,7 @@ create table IFRS_RELACION_DETALLE_EEFF  (
    ID_CUENTA            NUMBER(10)                      not null,
    ID_FECU              number(12)                      not null,
    ID_PERIODO           NUMBER(6)                       not null,
-   ID_RUT               NUMBER(4)                       not null,
+   ID_RUT               NUMBER(10)                       not null,
    ID_GRILLA            NUMBER(10,0)                    not null,
    ID_COLUMNA           NUMBER(8,0)                     not null,
    ID_FILA              NUMBER(4,0)                     not null,
