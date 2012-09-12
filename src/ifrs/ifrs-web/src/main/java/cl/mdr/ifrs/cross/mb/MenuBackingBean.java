@@ -56,6 +56,7 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 	private static final long serialVersionUID = 8077481642975216680L;
 	private static final String PROCESO_VIEW_ID = "/pages/proceso/proceso.jsf";	
 	private static final String HOME_VIEW_ID = "/pages/home.jsf";
+	private static final String MIS_DATOS_VIEW_ID = "/pages/mis-datos.jsf";
 	private static final String SEGURIDAD_VIEW_ID = "/pages/seguridad/seguridad.jsf";
 	
 	private FiltroBackingBean filtroBackingBean;
@@ -97,8 +98,11 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 			if(!valid){
 				super.getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(SEGURIDAD_VIEW_ID));
 			}
+			if (Util.getLong(super.getUsuarioSesion().getCambiarPassword(), 0L).equals(1L)){
+				super.getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(MIS_DATOS_VIEW_ID));
+			}			
 			this.buildEmpresaList();
-			this.buildMenuEmpresa();
+			this.buildMenuEmpresa();									
 		} catch (Exception e) {
 			log.error(e.getMessage(),e);
 		}		
@@ -148,7 +152,11 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 		if(!valid)
 			return;
 		
-		if(super.getPrincipal() == null){
+		if (Util.getLong(super.getUsuarioSesion().getCambiarPassword(), 0L).equals(1L)){
+			super.getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(MIS_DATOS_VIEW_ID));
+		}
+		
+		if(super.getUsuarioSesion() == null){
     		super.addFatalMessage("Debido a su inactividad, la Sesión ha Caducado. por favor ingrese nuevamente.");
     		return;
     	}

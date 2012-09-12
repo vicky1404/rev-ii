@@ -8,23 +8,29 @@
 	template="/WEB-INF/templates/main-template.xhtml">
 	<ui:define name="content">
 		<h:form id="form_misdatos">
-			<p:messages id="messages" autoUpdate="true" globalOnly="true"
-				/>
+			<p:messages id="messages" autoUpdate="true" globalOnly="true" />
 			<p:ajaxStatus onstart="statusDialog.show();"
 				oncomplete="statusDialog.hide();" />
 			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
-			<c:if test="#{misDatosBackingBean.usuario.cambiarPassword eq 1}">
-						<div class="ui-messages ui-widget">
-							<div class="ui-messages-info ui-corner-all">
-								<span class="ui-messages-info-icon"></span>
-								<ul>
-									<li><span class="ui-messages-info-summary"
-										style="font-size: 11px;">Bienvenido a EXFIDA. <br /> Estimado usuario, el administrador del sistema ha creado su clave y es necesario que sea cambiada la primera vez que ingresa al sistema.</span></li>
-								</ul>
-							</div>
-						</div>
-					</c:if>
-			<p:panel header="Mis Datos" toggleable="true" closable="false"
+			<h:panelGroup layout="block"
+				rendered="#{misDatosBackingBean.usuario.cambiarPassword eq 1}">
+				<div class="ui-messages ui-widget">
+					<div class="ui-messages-warn ui-corner-all">
+						<span class="ui-messages-warn-icon"></span>
+						<ul>
+						    <li><span class="ui-messages-warn-summary"
+								style="font-size: 11px;">Bienvenido a EXFIDA.<br />									
+							</span></li>
+							<li><span class="ui-messages-warn-detail"
+								style="font-size: 11px;">
+									Estimado(a) #{misDatosBackingBean.usuario.nombre} #{misDatosBackingBean.usuario.apellidoPaterno} #{misDatosBackingBean.usuario.apellidoMaterno}, 
+									es necesario cambiar su clave.
+							</span></li>
+						</ul>
+					</div>
+				</div>
+			</h:panelGroup>
+			<p:panel header="Mis Datos" toggleable="true" closable="false" 
 				toggleSpeed="500" closeSpeed="2000" widgetVar="panel">
 				<h:panelGrid columns="3">
 					<p:outputLabel value="Nombre de Usuario" for="it11" />
@@ -58,17 +64,17 @@
 					<h:message for="it411" styleClass="ui-outputlabel ui-state-error" />
 
 					<p:outputLabel value="Nueva Clave" for="itcl" />
-					<p:password size="40" required="true" id="itcl" 
-						autocomplete="off" inline="false" feedback="true"
-						weakLabel="Seguridad Baja" goodLabel="Seguridad Media" strongLabel="Muy Segura"
-						promptLabel="Ingrese una Clave" match="itcl2" 
+					<p:password size="40" required="true" id="itcl" autocomplete="off"
+						inline="false" feedback="true" weakLabel="Seguridad Baja"
+						goodLabel="Seguridad Media" strongLabel="Muy Segura"
+						promptLabel="Ingrese una Clave" match="itcl2"
 						value="#{misDatosBackingBean.usuario.password}" />
 					<h:message for="itcl" styleClass="ui-outputlabel ui-state-error" />
-					
+
 					<p:outputLabel value="Verificar Clave" for="itcl2" />
-					<p:password size="40" required="true" id="itcl2" 
-						autocomplete="off" value="#{misDatosBackingBean.usuario.password}" />
-					<h:message for="itcl22" styleClass="ui-outputlabel ui-state-error" />
+					<p:password size="40" required="true" id="itcl2" autocomplete="off"
+						value="#{misDatosBackingBean.usuario.password}" />
+					<h:message for="itcl2" styleClass="ui-outputlabel ui-state-error" />
 
 					<p:outputLabel value="Email" for="ite1" />
 					<p:inputText size="40" required="true" id="ite1"
@@ -88,12 +94,14 @@
 						rendered="#{misDatosBackingBean.usuario.vigente eq 0}" />
 					<p:spacer width="5" />
 
-					<p:commandButton value="#{msg.boton_guardar}" icon="ui-icon-disk"
-						id="btnG1" actionListener="#{usuarioBackingBean.editarAction}"
+					<p:spacer width="5" />					
+					<p:commandButton value="Modificar" icon="ui-icon-disk"
+						id="btnG1" actionListener="#{misDatosBackingBean.editAction}"
 						update="@form">
 					</p:commandButton>
+					<p:spacer width="5" />
 				</h:panelGrid>
 			</p:panel>
-		</h:form>
+		</h:form>		
 	</ui:define>
 </ui:composition>

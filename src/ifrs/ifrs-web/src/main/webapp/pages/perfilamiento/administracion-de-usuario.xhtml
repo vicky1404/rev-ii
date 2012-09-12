@@ -7,7 +7,8 @@
 	template="/WEB-INF/templates/main-template.xhtml">
 	<ui:define name="content">
 		<h:form id="form_usuario">
-			<p:messages id="messages" autoUpdate="true" globalOnly="true" showSummary="true"/>
+			<p:messages id="messages" autoUpdate="true" globalOnly="true"
+				showSummary="true" />
 			<p:ajaxStatus onstart="statusDialog.show();"
 				oncomplete="statusDialog.hide();" />
 			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
@@ -57,7 +58,8 @@
 				var="row" lazy="false" rows="10" paginator="true"
 				rendered="#{usuarioBackingBean.renderTablaUsuarios}"
 				binding="#{usuarioBackingBean.usuariosTable}">
-				<p:column headerText="Nombre de Usuario" sortBy="#{row.nombreUsuario}">
+				<p:column headerText="Nombre de Usuario"
+					sortBy="#{row.nombreUsuario}">
 					<h:outputText value="#{row.nombreUsuario}" />
 				</p:column>
 				<p:column headerText="Nombre">
@@ -88,19 +90,25 @@
 		</h:form>
 
 		<!-- popup de creacion de usuario -->
-		<p:dialog id="pd1" widgetVar="dialogNuevoUsuario" showEffect="drop" hideEffect="drop"
-			header="Agregar Nuevo Usuario" modal="false" closable="true"
-			dynamic="true">
+		<p:dialog id="pd1" widgetVar="dialogNuevoUsuario" showEffect="drop"
+			hideEffect="drop" header="Agregar Nuevo Usuario" modal="false"
+			closable="true" dynamic="true">
 			<h:form id="form_newusuario">
 				<h:panelGrid columns="3">
-					<p:outputLabel value="Nombre de Usuario" for="it11" />
-					<p:inputText id="it11" required="true"
-						style="text-transform: lowercase;"
-						value="#{usuarioBackingBean.nuevoUsuario.nombreUsuario}">
-						<f:validateLength minimum="1" maximum="256"></f:validateLength>
-					</p:inputText>
-					<h:message for="it11" styleClass="ui-outputlabel ui-state-error" />
-
+					<p:column>
+						<p:outputLabel value="Nombre de Usuario" for="it11" />
+					</p:column>
+					<p:column>
+						<p:inputText id="it11" required="true"
+							style="text-transform: lowercase;"
+							binding="#{usuarioBackingBean.inputNombreUsuario}" size="40"
+							value="#{usuarioBackingBean.nuevoUsuario.nombreUsuario}" validator="#{usuarioBackingBean.validarNuevoUsuario}">
+							<f:validateLength minimum="1" maximum="256"></f:validateLength>
+						</p:inputText>						
+					</p:column>
+					<p:column>						
+						<h:message for="it11" styleClass="ui-outputlabel ui-state-error" />
+					</p:column>
 					<p:outputLabel value="Nombre" for="it21" />
 					<p:inputText id="it21" size="40" required="true"
 						value="#{usuarioBackingBean.nuevoUsuario.nombre}">
@@ -121,19 +129,6 @@
 						<f:validateLength minimum="1" maximum="256"></f:validateLength>
 					</p:inputText>
 					<h:message for="it41" styleClass="ui-outputlabel ui-state-error" />
-
-					<p:outputLabel value="Clave" for="itcl" />
-					<p:password size="40" required="true" id="itcl" 
-						autocomplete="off" inline="false" feedback="true"
-						weakLabel="Seguridad Baja" goodLabel="Seguridad Media" strongLabel="Muy Segura"
-						promptLabel="Ingrese una Clave" match="itcl2" 
-						value="#{usuarioBackingBean.nuevoUsuario.password}" />
-					<h:message for="itcl" styleClass="ui-outputlabel ui-state-error" />
-					
-					<p:outputLabel value="Verificar Clave" for="itcl2" />
-					<p:password size="40" required="true" id="itcl2" 
-						autocomplete="off" value="#{usuarioBackingBean.nuevoUsuario.password}" />
-					<h:message for="itcl22" styleClass="ui-outputlabel ui-state-error" />
 
 					<p:outputLabel value="Email" for="ite" />
 					<p:inputText size="40" required="true" id="ite"
@@ -176,8 +171,9 @@
 		</p:dialog>
 
 		<!-- popup de edicion de usuario -->
-		<p:dialog id="pd2" widgetVar="dialogEditarUsuario" showEffect="drop" hideEffect="drop"
-			header="Editar Usuario" modal="false" closable="true" dynamic="true">
+		<p:dialog id="pd2" widgetVar="dialogEditarUsuario" showEffect="drop"
+			hideEffect="drop" header="Editar Usuario" modal="false"
+			closable="true" dynamic="true">
 			<h:form id="form_editusuario">
 				<h:panelGrid columns="3">
 					<p:outputLabel value="Nombre de Usuario" for="it11" />

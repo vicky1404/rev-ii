@@ -1,19 +1,26 @@
 package cl.mdr.ifrs.modules.perfilamiento.mb;
 
 import java.io.Serializable;
+import java.text.MessageFormat;
 import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.validator.ValidatorException;
 
 import org.apache.log4j.Logger;
 import org.primefaces.component.datatable.DataTable;
+import org.primefaces.component.inputtext.InputText;
 
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
 import cl.mdr.ifrs.cross.mb.PropertyManager;
+import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Rol;
 import cl.mdr.ifrs.ejb.entity.Usuario;
 
@@ -31,6 +38,7 @@ public class UsuarioBackingBean extends AbstractBackingBean implements Serializa
 	public boolean renderTablaUsuarios;
 	public Rol rol;
 	private DataTable usuariosTable;
+	private InputText inputNombreUsuario;
 	
 			
 	@PostConstruct
@@ -53,9 +61,12 @@ public class UsuarioBackingBean extends AbstractBackingBean implements Serializa
 	
 	public void guardarAction(ActionEvent event){
 		try {
-			this.getNuevoUsuario().setNombreUsuario(this.getNuevoUsuario().getNombreUsuario().toLowerCase());			
+			this.getNuevoUsuario().setNombreUsuario(this.getNuevoUsuario().getNombreUsuario().toLowerCase());	
+			this.getNuevoUsuario().setPassword(this.getNuevoUsuario().getNombreUsuario());
+			this.getNuevoUsuario().setCambiarPassword(1L);
 			super.getFacadeService().getSeguridadService().persistUsuario(this.getNuevoUsuario());
-			super.addInfoMessage("Se ha Creado el Usuario con éxito");
+			super.addInfoMessage(MessageFormat.format("Se ha creado el Usuario con éxito y se ha generado la siguiente clave temporal de acceso: {0}", this.getNuevoUsuario().getPassword()));
+			this.setNuevoUsuario(null);
 			buscarAction();
 		} catch (Exception e) {
 			logger.error(e);
@@ -80,11 +91,26 @@ public class UsuarioBackingBean extends AbstractBackingBean implements Serializa
 		}
 	}
 	
+	public void validarNuevoUsuario(FacesContext context, UIComponent toValidate, Object value) {
+		try {			
+			final String nombreUsuario = super.getFacadeService().getSeguridadService().validaUsuarioExiste(Util.getString(value, null));
+			if(nombreUsuario != null){
+				FacesMessage message = new FacesMessage();
+				message.setSeverity(FacesMessage.SEVERITY_ERROR);
+				message.setSummary(MessageFormat.format("El Usuario {0} ya existe, intente nuevamente", Util.getString(value, null)));				
+				context.addMessage(this.getInputNombreUsuario().getClientId(context), message);
+				throw new ValidatorException(message);
+			}		
+		} catch (Exception e) {
+			FacesMessage message = new FacesMessage();
+			message.setSeverity(FacesMessage.SEVERITY_ERROR);
+			message.setSummary("Ocurrio un error al validar al usuario que intenta crear, intente nuevamente.");			
+			context.addMessage(this.getInputNombreUsuario().getClientId(context), message);
+			throw new ValidatorException(message);
+		}
+		
+	}
 	
-	
-	
-	
-
 	public Usuario getFiltroUsuario() {
 		return filtroUsuario;
 	}
@@ -156,6 +182,16 @@ public class UsuarioBackingBean extends AbstractBackingBean implements Serializa
 
 	public void setUsuariosTable(DataTable usuariosTable) {
 		this.usuariosTable = usuariosTable;
+	}
+
+
+	public InputText getInputNombreUsuario() {
+		return inputNombreUsuario;
+	}
+
+
+	public void setInputNombreUsuario(InputText inputNombreUsuario) {
+		this.inputNombreUsuario = inputNombreUsuario;
 	}
 	
 	
