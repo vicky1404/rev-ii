@@ -332,7 +332,7 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
         //em.createQuery("delete from GrupoEmpresa ge where ge.idRut =:rut").setParameter("rut", empresa.getIdRut()).executeUpdate();
     	em.createQuery("delete from GrupoEmpresa ge where ge.empresa.idRut =:rut").setParameter("rut", empresa.getIdRut()).executeUpdate();
         for (GrupoEmpresa grupoEmpresa : grupoEmpresaList) {            
-        	em.createNativeQuery("INSERT INTO "+Constantes.GRUPO_EMPRESA+" (ID_GRUPO_ACCESO, ID_RUT) VALUES(?, ? )")
+        	em.createNativeQuery("INSERT INTO "+Constantes.GRUPO_EMPRESA+" (ID_GRUPO_ACCESO, ID_RUT) VALUES(?,?)")
 								 .setParameter(1, grupoEmpresa.getGrupo().getIdGrupoAcceso())
 								 .setParameter(2, grupoEmpresa.getEmpresa().getIdRut()).executeUpdate();
         }
