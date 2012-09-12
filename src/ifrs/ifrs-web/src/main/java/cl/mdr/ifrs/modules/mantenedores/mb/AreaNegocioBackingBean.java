@@ -99,7 +99,7 @@ public class AreaNegocioBackingBean extends AbstractBackingBean implements Seria
 			this.buildAreaNegocioList();
 			this.setNuevaAreaNegocio(new AreaNegocio());
 		}catch (EJBException e) {
-			super.addErrorMessage("El Área de Negocio que intenta crear ya existe.");
+			super.addWarnMessage("El Área de Negocio que intenta crear ya existe.");
 			this.getNuevaAreaNegocio().setIdAreaNegocio(null);
 			logger.error(e);
 		}catch (Exception e) {
@@ -119,7 +119,7 @@ public class AreaNegocioBackingBean extends AbstractBackingBean implements Seria
 			super.addInfoMessage("Se ha eliminado el Área de Negocio correctamente.");
 			this.buildAreaNegocioList();
 		} catch (RegistroNoEditableException e) {
-			super.addErrorMessage(e.getMessage());
+			super.addWarnMessage(e.getMessage());
 			logger.error(e);				
 		} catch (Exception e) {
 			super.addErrorMessage("Se ha producido un error al eliminar las Áreas de Negocio.");

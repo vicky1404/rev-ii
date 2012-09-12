@@ -131,7 +131,7 @@ public class GrupoBackingBean extends AbstractBackingBean implements Serializabl
 			this.buildGrupoList();
 			this.inicializarNuevoGrupo();
 		} catch (RegistroNoEditableException e) {
-			super.addErrorMessage(e.getMessage());
+			super.addWarnMessage(e.getMessage());
 			logger.error(e);
 		} catch (Exception e) {			
 			super.addErrorMessage("Se ha producido un error al eliminar el Grupo.");
