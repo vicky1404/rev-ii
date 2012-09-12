@@ -8,10 +8,8 @@
 	<ui:define name="content">
 		<h:outputScript name="js/util/form-util.js" />
 		<h:form id="f_bloqueo">
-			<p:messages id="messages_estructura_grupo" autoUpdate="true"
-				showDetail="true" showSummary="true" />
-			<p:ajaxStatus onstart="statusDialog.show();"
-				oncomplete="statusDialog.hide();" />
+			<p:messages id="messages_estructura_grupo" autoUpdate="true" globalOnly="true" showDetail="true" showSummary="true" />
+			<p:ajaxStatus onstart="statusDialogNoModal.show();" oncomplete="statusDialogNoModal.hide();" />
 			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
 			<p:panel id="filtro_bloqueo_grupo"
 				header="#{menuBackingBean.breadcrumb}" toggleable="true"
@@ -34,7 +32,7 @@
 					<h:outputLabel value=" " />
 					<p:commandButton value="#{msg.boton_buscar}" icon="ui-icon-search"
 						actionListener="#{bloqueoPorGrupoBackingBean.buscarBloqueoPorGrupo}"
-						update="tabla_grupos" ajax="false">
+						update="tabla_grupos">
 					</p:commandButton>
 					<p:commandButton icon="ui-icon-cancel" value="#{msg.boton_cancel}"
 						id="btnCancelar11" immediate="true"
@@ -48,7 +46,7 @@
 				rendered="#{bloqueoPorGrupoBackingBean.renderTablaGruposBloqueados}">
 				<p:toolbarGroup>
 					<p:commandButton icon="ui-icon-disk"
-						value="Actializar Bloqueo de Grupos" id="btnGuardar"
+						value="Actualizar Bloqueo de Grupos" id="btnGuardar"
 						actionListener="#{bloqueoPorGrupoBackingBean.guardarBloqueoGrupoAction}"
 						update="messages_estructura_grupo">
 					</p:commandButton>
