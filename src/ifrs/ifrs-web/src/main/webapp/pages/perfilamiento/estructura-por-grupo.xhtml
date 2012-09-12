@@ -44,7 +44,7 @@
 					<h:outputLabel value=" " />
 					<p:commandButton value="#{msg.boton_buscar}" icon="ui-icon-search"
 						actionListener="#{estructuraPorGrupoBackingBean.buscarEstructurasPorGrupoAction}"
-						update="tabla_menu" ajax="false">
+						update="@form">
 					</p:commandButton>
 					<p:commandButton icon="ui-icon-cancel" value="#{msg.boton_cancel}"
 						id="btnCancelar11" immediate="true"
