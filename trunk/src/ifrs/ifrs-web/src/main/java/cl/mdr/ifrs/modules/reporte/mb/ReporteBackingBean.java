@@ -114,9 +114,9 @@ public class ReporteBackingBean extends AbstractBackingBean implements Serializa
                 catalogoList.add(grillaReporte.getEntity().getCatalogo());
             }            
         }
-        if(!catalogoList.isEmpty()){
+        /*if(!catalogoList.isEmpty()){
             this.getFacadeService().getCatalogoService().persistEntity(catalogoList);        
-        }
+        }*/
         sort(versiones, on(Version.class).getCatalogo().getOrden()); 
         
         return versiones;
@@ -148,7 +148,7 @@ public class ReporteBackingBean extends AbstractBackingBean implements Serializa
             this.setVersionDownloadList(null);
             List<Version> versionList = this.getVersionesSelected();
             for(Version version : versionList){
-                List<Estructura> estructuras = getFacadeService().getEstructuraService().getEstructuraByVersion(version, Boolean.FALSE);
+                List<Estructura> estructuras = getFacadeService().getEstructuraService().findEstructuraByVersion(version);
                 version.setEstructuraList(estructuras);
             }
             if(versionList.isEmpty() || versionList == null){

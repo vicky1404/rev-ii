@@ -1,6 +1,7 @@
 package cl.mdr.ifrs.ejb.service;
 
 
+import java.math.BigDecimal;
 import java.text.MessageFormat;
 import java.util.List;
 
@@ -52,15 +53,15 @@ public class ReporteServiceBean implements ReporteServiceLocal {
 
         XSSFWorkbook wb = new XSSFWorkbook();
         XSSFFont font;
-        XSSFCellStyle style = wb.createCellStyle();
-        
+        XSSFCellStyle style = wb.createCellStyle();        
         DataFormat format = wb.createDataFormat();
 
         for (ReportePrincipalVO reporte : reportes) {
 
             XSSFSheet sheet =
-                wb.createSheet(reporte.getPropiedades().getNombreHoja() == null ? "" : reporte.getPropiedades().getNombreHoja());
-
+            wb.createSheet(reporte.getPropiedades().getNombreHoja() == null ? "" : reporte.getPropiedades().getNombreHoja());
+            sheet.setZoom(6,7);
+            sheet.setFitToPage(true);
             int posRow = 2;
             int grillaMayor = 1;
             int tituloPrincipal = 1;
@@ -81,23 +82,26 @@ public class ReporteServiceBean implements ReporteServiceLocal {
                 style.setFont(SoporteReporte.getFontTitle(wb));
                 XSSFCell cell = row.createCell(1);
                 cell.setCellValue(reporte.getPropiedades().getTituloPrincipal());
-                cell.setCellStyle(style);                
+                cell.setCellStyle(style);
+                
+                
+                
+
             }
 
             for (Estructura estructura : reporte.getVersion().getEstructuraList()) {
                 
                 posRow++;
                 
-                if (estructura.getGrilla()!=null)
+                if (estructura.getGrilla()==null)
                     continue;
                 
                 //text part
-                if (estructura.getTexto()!=null) {
-                    
-                }
+                if (estructura.getTexto() != null)
+                	continue;
                 
                 Grilla grilla = estructura.getGrilla();
-                       
+
                 tituloPrincipal = posRow;
                 
                 if(grilla.getTitulo() != null && !StringUtils.isEmpty(grilla.getTitulo())){
@@ -114,7 +118,7 @@ public class ReporteServiceBean implements ReporteServiceLocal {
                     posRow++;
                     
                 }
-    
+
                 if (grillaMayor < grilla.getColumnaList().size()) {
                     grillaMayor = grilla.getColumnaList().size();
                 }
@@ -195,7 +199,7 @@ public class ReporteServiceBean implements ReporteServiceLocal {
                     style.setFillForegroundColor(new XSSFColor(new java.awt.Color(230, 233, 238)));
                     style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
                     style.setFont(SoporteReporte.getFontColumnHeader(wb));
-                    cell = row.createCell(columna.getIdColumna().intValue());
+                    cell = row.createCell(columna.getIdColumna().intValue());                            
                     cell.setCellValue(columna.getTituloColumna());
                     cell.setCellStyle(style);
                 }
@@ -224,43 +228,34 @@ public class ReporteServiceBean implements ReporteServiceLocal {
                         //System.out.println("row->" + posRow + " celda->"+columna.getIdColumna().intValue()+" valor->"+ celda.getValor());
                         cell = row.createCell(columna.getIdColumna().intValue());
                         
-                        if(StringUtils.isEmpty(celda.getValor())){
-                            if( celda.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.NUMERO.getKey()) ){                                                                                
-                                
-                                XSSFCellStyle style2 = wb.createCellStyle();
-                                
-                                if(rowColor!=null){
-                                    style2.setFillForegroundColor(rowColor);
-                                    style2.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);      
-                                }
+                        if(StringUtils.isEmpty(celda.getValor()) || (celda.getValor()==null?"0":celda.getValor().trim()).equals("0")){
+                            if( celda.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.NUMERO.getKey()) || celda.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.TOTAL.getKey()) || celda.getTipoCelda().getIdTipoCelda().equals( TipoCeldaEnum.SUBTOTAL.getKey()) ){                                                                                
+                                //style2.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);  
                                 //cell.setCellType(Cell.CELL_TYPE_NUMERIC);
-                                cell.setCellValue(new Double("5000"));
-                                //cell.setCellStyle(style2);
-                            }else{
-                                
-                                XSSFCellStyle style2 = wb.createCellStyle();
-                                
-                                if(rowColor!=null){
-                                    style2.setFillForegroundColor(rowColor);
-                                    style2.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);      
-                                }
+                                cell.setCellValue(new Double("0"));
+                                cell.setCellStyle(style);
+                            }else{                                    
                                 cell.setCellType(Cell.CELL_TYPE_STRING);
                                 cell.setCellValue(StringUtils.EMPTY);
-                                cell.setCellStyle(style2);
+                                cell.setCellStyle(style);
                             }
                         }else{                                                                
-                            if( celda.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.TOTAL.getKey()) && celda.getTipoCelda().getIdTipoCelda().equals( TipoCeldaEnum.SUBTOTAL.getKey()) ){
+                                if( celda.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.TOTAL.getKey()) || celda.getTipoCelda().getIdTipoCelda().equals( TipoCeldaEnum.SUBTOTAL.getKey()) ){
                                 if ( celda.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.ENTERO.getKey()) ) {                                    
                                     //style.setDataFormat(format.getFormat("#,###,###,###"));
                                     cell.setCellType(Cell.CELL_TYPE_NUMERIC);
                                     cell.setCellValue(celda.getValorLong());
-                                    cell.setCellStyle(SoporteReporte.getCellIntegerStyle(wb, rowColor));
+                                    if(!celda.getValorLong().equals(0L)){
+                                        cell.setCellStyle(SoporteReporte.getCellIntegerStyle(wb, rowColor));
+                                    }
                                 }                                    
                                 else if (celda.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.DECIMAL.getKey()) ) {
                                     //style.setDataFormat(format.getFormat("#,###,###,###.####"));
                                     cell.setCellType(Cell.CELL_TYPE_NUMERIC);
                                     cell.setCellValue(celda.getValorBigDecimal().doubleValue());
-                                    cell.setCellStyle(SoporteReporte.getCellDecimalStyle(wb, rowColor));
+                                    if(celda.getValorBigDecimal().equals(new BigDecimal(0))){
+                                        cell.setCellStyle(SoporteReporte.getCellDecimalStyle(wb, rowColor));
+                                    }
                                 }                                                                
                             }
                             
@@ -280,7 +275,7 @@ public class ReporteServiceBean implements ReporteServiceLocal {
                             }
                             
                             else if( celda.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.TITULO.getKey()) ){
-                                //style.setFont(SoporteReporte.getFontTitulo(wb));
+                                style.setFont(SoporteReporte.getFontTitulo(wb));
                                 cell.setCellType(Cell.CELL_TYPE_STRING);
                                 cell.setCellValue(celda.getValor());
                                 cell.setCellStyle(style);
@@ -289,19 +284,24 @@ public class ReporteServiceBean implements ReporteServiceLocal {
                             else if( celda.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.NUMERO.getKey())){
                                 if(celda.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.ENTERO.getKey())){ 
                                     //style.setDataFormat(format.getFormat("#,###,###,###"));
-                                    //cell.setCellType(Cell.CELL_TYPE_NUMERIC);
-                                    cell.setCellValue(celda.getValorLong());
-                                    cell.setCellStyle(SoporteReporte.getCellIntegerStyle(wb, rowColor));
+                                    cell.setCellType(Cell.CELL_TYPE_NUMERIC);
+                                    cell.setCellValue(celda.getValorLong());                                            
+                                    if(!celda.getValorLong().equals(0L)){
+                                        cell.setCellStyle(SoporteReporte.getCellIntegerStyle(wb, rowColor));
+                                    }
                                 }
                                 else if(celda.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.DECIMAL.getKey())){
                                     //style.setDataFormat(format.getFormat("#,###,###,###.####"));
-                                    //cell.setCellType(Cell.CELL_TYPE_NUMERIC);
+                                    cell.setCellType(Cell.CELL_TYPE_NUMERIC);
                                     cell.setCellValue(celda.getValorBigDecimal().doubleValue());
-                                    cell.setCellStyle(SoporteReporte.getCellDecimalStyle(wb, rowColor));
+                                    cell.setCellStyle(style);
+                                    if(celda.getValorBigDecimal().equals(new BigDecimal(0))){
+                                        cell.setCellStyle(SoporteReporte.getCellDecimalStyle(wb, rowColor));
+                                    }
                                 }
                             }                                
                         }
-    
+
                         //cell.setCellStyle(style);
                         
                     }
@@ -314,9 +314,7 @@ public class ReporteServiceBean implements ReporteServiceLocal {
         return wb;
     }
     
-    
-    
-    public XSSFWorkbook createInterfaceXBRL(List<ReportePrincipalVO> reportes) throws Exception{
+public XSSFWorkbook createInterfaceXBRL(List<ReportePrincipalVO> reportes) throws Exception{
         
         return null;
     }
@@ -444,6 +442,5 @@ public class ReporteServiceBean implements ReporteServiceLocal {
         cell9.setCellValue("VIGENTE");
         
     }
-    
     
 }

@@ -106,12 +106,12 @@ public class Celda implements Serializable {
     @Expose
     private String formula;
     
-    @Fetch(FetchMode.SUBSELECT)
-    @OneToMany(mappedBy = "celda2", fetch = FetchType.EAGER, orphanRemoval=true)
+    //@Fetch(FetchMode.SUBSELECT)
+    @OneToMany(mappedBy = "celda2", fetch = FetchType.LAZY, orphanRemoval=true)
     private List<RelacionEeff> relacionEeffList;
     
-    @Fetch(FetchMode.SUBSELECT)
-    @OneToMany(mappedBy = "celda5", fetch = FetchType.EAGER, orphanRemoval=true)
+    //@Fetch(FetchMode.SUBSELECT)
+    @OneToMany(mappedBy = "celda5", fetch = FetchType.LAZY, orphanRemoval=true)
     private List<RelacionDetalleEeff> relacionDetalleEeffList;
     
     @Transient

@@ -4,7 +4,9 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.apache.poi.ss.usermodel.CreationHelper;
@@ -193,5 +195,62 @@ public abstract class SoporteReporte {
         String sufijoNombreReporte = "_".concat(new SimpleDateFormat("dd-MM-yyyy_HH-mm").format(date));
         return SoporteReporte.NOMBRE_REPORTE.concat(sufijoNombreReporte).concat(".").concat(SoporteReporte.TIPO_DOCX);
     }
+    
+    public static List<List<AgrupacionModelVO>> crearAgrupadorHTMLVO(List<AgrupacionColumna> agrupaciones){
+    	
+    	List<List<AgrupacionModelVO>> agrupacionesVO = new ArrayList<List<AgrupacionModelVO>>();
+    	Map<Long,List<AgrupacionModelVO>> agrupacionMap = new LinkedHashMap<Long,List<AgrupacionModelVO>>();
+        
+        if(!Util.esListaValida(agrupaciones))
+            return agrupacionesVO;
+        
+        Long min=100L;
+        Long max=0L;
+        AgrupacionColumna agrupacionPaso =null;
+        int contador = 0;
+        
+        for(AgrupacionColumna agrupacion : agrupaciones){
+        	
+            contador++;
+            
+            if(agrupacionPaso !=null && agrupacion.getGrupo()==agrupacionPaso.getGrupo()){
+                if(min>agrupacion.getIdColumna()){
+                    min=agrupacion.getIdColumna();
+                }
+                if(max<agrupacion.getIdColumna()){
+                    max=agrupacion.getIdColumna();
+                }
+            }else{
+                if(agrupacionPaso!=null){
+                	setAgrupadorMap(agrupacionMap, new AgrupacionModelVO(min, max, agrupacionPaso.getGrupo(), agrupacionPaso.getAncho(), agrupacionPaso.getTitulo(),agrupacionPaso.getIdGrilla(),agrupacionPaso.getIdNivel()));
+                }
+                agrupacionPaso = agrupacion;
+                min = agrupacion.getIdColumna();
+                max = agrupacion.getIdColumna();
+            }
+            if(contador == agrupaciones.size()){
+            	setAgrupadorMap(agrupacionMap,new AgrupacionModelVO(min, max, agrupacionPaso.getGrupo(), agrupacion.getAncho(), agrupacion.getTitulo(),agrupacionPaso.getIdGrilla(),agrupacionPaso.getIdNivel()));
+            }
+            
+        }
+        
+        for(List<AgrupacionModelVO> agrupacionesNew : agrupacionMap.values()){
+        	agrupacionesVO.add(agrupacionesNew);
+        }
+        
+        return agrupacionesVO;
+    	
+    }
+
+	private static void setAgrupadorMap(Map<Long,List<AgrupacionModelVO>> agrupacionMap, AgrupacionModelVO agrupacion){
+	
+		if(agrupacionMap.containsKey(agrupacion.getNivel())){
+			agrupacionMap.get(agrupacion.getNivel()).add(agrupacion);
+		}else{
+			List<AgrupacionModelVO> agrupaciones = new ArrayList<AgrupacionModelVO>();
+			agrupaciones.add(agrupacion);
+			agrupacionMap.put(agrupacion.getNivel(), agrupaciones);
+		}
+	}
     
 }

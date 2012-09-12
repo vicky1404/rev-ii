@@ -258,8 +258,34 @@ public class ReporteDocxServiceBean implements ReporteDocxServiceLocal {
     private void createTableWordReference(R run, Grilla grilla) throws Exception {
         TableV2 table = null;
         table = new TableV2();
-        //agrupacion columnas nivel 2
-        List<AgrupacionColumna> agrupacionesNivel2 = facadeService.getEstructuraService().findAgrupacionColumnaByGrillaNivel(grilla.getIdGrilla(), 2L);
+        //RDV REVISAR agrupacion columnas nivel 2
+        List<AgrupacionColumna> agrupaciones = facadeService.getEstructuraService().findAgrupacionColumnaByGrilla(grilla);
+        if(Util.esListaValida(agrupaciones)){
+        	List<List<AgrupacionModelVO>> agrupacionesListVO = SoporteReporte.crearAgrupadorHTMLVO(agrupaciones);
+            
+            for(List<AgrupacionModelVO> agrupacionesVO : agrupacionesListVO){
+            	
+            	List<IElement> headerNivelCells = new ArrayList<IElement>();            
+                int columna = 1;
+            
+	            for(AgrupacionModelVO agrupacion : agrupacionesVO){
+	                columna++;
+	                int desde = agrupacion.getDesde().intValue();
+	                int hasta = agrupacion.getHasta().intValue();
+	                if(columna == (agrupacionesVO.size())){
+	                    if(grilla.getColumnaList().get(grilla.getColumnaList().size()-1).getTituloColumna().replaceAll(" ", "").equals(SoporteReporte.LINK_NAME)){
+	                        hasta=hasta-1;
+	                    }
+	                }               
+	                headerNivelCells.add(TableCell.with(Paragraph.withPieces(ParagraphPiece.with(agrupacion.getTitulo()).withStyle().bold().fontSize(HEADER_FONT_SIZE).create()).create()).withStyle().gridSpan(((hasta-desde)+1)).bgColor(HEADER_FONT_COLOR).create());
+	                
+	            }            
+	            table.addRow(TableRow.with(Boolean.TRUE, headerNivelCells.toArray()));
+            
+            }
+        }
+        
+        /*List<AgrupacionColumna> agrupacionesNivel2 = facadeService.getEstructuraService().findAgrupacionColumnaByGrillaNivel(grilla.getIdGrilla(), 2L);
         if(Util.esListaValida(agrupacionesNivel2)){
             List<AgrupacionModelVO> agrupacionesVO = SoporteReporte.createAgrupadorVO(agrupacionesNivel2);
             List<IElement> headerNivel2Cells = new ArrayList<IElement>();            
@@ -297,7 +323,7 @@ public class ReporteDocxServiceBean implements ReporteDocxServiceLocal {
                 
             }            
             table.addRow(TableRow.with(Boolean.TRUE, headerNivel1Cells.toArray()));
-        }
+        }*/
         
         //agrega los titulos de columna para la grilla
         List<IElement> headerCells = new ArrayList<IElement>();
