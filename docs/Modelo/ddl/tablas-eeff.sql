@@ -1,12 +1,12 @@
 
-drop table IFRS_TIPO_ESTADO_EEFF;
 drop table IFRS_DETALLE_EEFF;
 drop table IFRS_RELACION_DETALLE_EEFF;
 drop table IFRS_EEFF;
 drop table IFRS_RELACION_EEFF;
 DROP TABLE IFRS_VERSION_EEFF;
-drop table IFRS_CODIGO_FECU;
 drop table IFRS_CUENTA_CONTABLE;
+drop table IFRS_CODIGO_FECU;
+drop table IFRS_TIPO_ESTADO_EEFF;
 
 /*==============================================================*/
 /* Table: IFRS_CUENTA_CONTABLE                                  */
