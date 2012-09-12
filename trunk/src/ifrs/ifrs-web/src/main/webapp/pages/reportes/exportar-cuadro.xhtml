@@ -8,9 +8,8 @@
 	<ui:define name="content">
 		<h:outputScript name="js/util/form-util.js" />
 		<h:form id="f_reporte_cuadro">
-		    <p:messages autoUpdate="true"></p:messages>
-			<p:ajaxStatus onstart="statusDialog.show();"
-				oncomplete="statusDialog.hide();" />
+		    <p:messages autoUpdate="true" globalOnly="true"></p:messages>
+			<p:ajaxStatus onstart="statusDialog.show();" oncomplete="statusDialog.hide();" />
 			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
 
 			<!-- dialogo de descarga word -->
@@ -86,7 +85,7 @@
 						<h:outputLabel value=" " />
 						<p:commandButton value="#{msg.boton_buscar}" icon="ui-icon-search"
 							action="#{reporteBackingBean.buscarAction}"
-							update="tabla_catalogo_export" ajax="false">
+							update="@form">
 						</p:commandButton>
 						<p:commandButton icon="ui-icon-cancel" value="#{msg.boton_cancel}"
 										 id="btnCancelar11" immediate="true"
