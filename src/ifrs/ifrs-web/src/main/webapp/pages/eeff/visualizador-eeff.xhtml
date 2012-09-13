@@ -90,28 +90,32 @@
                         
                         <p:rowExpansion>
                         <center>
-                        <h:dataTable value="#{row.detalleEeffList4}" var="subRow" id="dt1" style="width:90%" styleClass="ui-widget-header">
+                        <h:dataTable value="#{row.detalleEeffList4}" var="subRow" id="dt1" style="width:50%" styleClass="ui-widget-header">
                             <p:column id="c16">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg.carga_eeff_codigo_cuenta}" id="ot18"/>
                                 </f:facet>
-                                <h:outputText value="#{subRow.idCuenta}" id="ot16B"/>
+                                <div align="right">
+                                	<h:outputText value="#{subRow.idCuenta}" id="ot16B"/>
+                                </div>
                             </p:column>
-                            
+                            <!-- 
                             <p:column id="c17">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg.carga_eeff_desc_cuenta}" id="ot27"/>
                                 </f:facet>
                                 <h:outputText value="#{subRow.descripcionCuenta}" id="ot28"/>
                             </p:column>
-                            
+                             -->
                             <p:column id="c18">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg.carga_eeff_monto}" id="ot29"/>
                                 </f:facet>
-                                <h:outputText value="#{subRow.montoPesos}" id="ot21">
-                                <f:convertNumber integerOnly="false" type="number" maxFractionDigits="4" pattern="##,###,###,###.####"/>                            
-                                </h:outputText>
+                                <div align="right">
+	                                <h:outputText value="#{subRow.montoPesos}" id="ot21" >
+		                                <f:convertNumber integerOnly="false" type="number" maxFractionDigits="4" pattern="##,###,###,###.####"/>                            
+	                                </h:outputText>
+                                </div>
                             </p:column>
                             
                         </h:dataTable>
@@ -123,19 +127,25 @@
                     
                     <p:dataTable value="#{visualizador.eeffDetList}" emptyMessage="#{msg.general_sin_informacion}"  var="row" id="t4B" inlineStyle="height:inherit;" rendered="#{visualizador.renderEeffDetList}" >
                     
-                        <p:column headerText="#{msg.carga_eeff_codigo_fecu}" id="c13" width="80">
+                        <p:column headerText="#{msg.carga_eeff_codigo_fecu}" id="c13" >
                             <h:outputText value="#{row.estadoFinanciero1.fecuFormat}" id="ot15B"/>
                         </p:column>
-                        <p:column headerText="#{msg.carga_eeff_codigo_cuenta}" id="c10B" width="80">
-                            <h:outputText value="#{row.idCuenta}" id="ot30"/>
+                        <p:column headerText="#{msg.carga_eeff_codigo_cuenta}" id="c10B">
+                        	<div align="right">
+                            	<h:outputText value="#{row.idCuenta}" id="ot30"/>
+                            </div>
                         </p:column>
+                        <!-- 
                         <p:column headerText="#{msg.carga_eeff_desc_cuenta}" id="c11B" width="300">
                             <h:outputText value="#{row.descripcionCuenta}" id="ot17B"/>
                         </p:column>
-                        <p:column headerText="Valor Pesos" id="c15" width="90">
-                            <h:outputText value="#{row.montoPesos}" id="ot22">
-                            	<f:convertNumber integerOnly="false" type="number" maxFractionDigits="4" pattern="##,###,###,###.####"/>                            
-                            </h:outputText>
+                         -->
+                        <p:column headerText="Valor Pesos" id="c15">
+                        	<div align="right">
+	                            <h:outputText value="#{row.montoPesos}" id="ot22">
+	                            	<f:convertNumber integerOnly="false" type="number" maxFractionDigits="4" pattern="##,###,###,###.####"/>                            
+	                            </h:outputText>
+                            </div>
                         </p:column>
                         
                     </p:dataTable>
