@@ -1,6 +1,8 @@
 package cl.mdr.ifrs.modules.perfilamiento.mb;
 
 import java.io.Serializable;
+import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.text.MessageFormat;
 import java.util.Date;
 import java.util.List;
@@ -13,7 +15,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.validator.ValidatorException;
+import javax.mail.MessagingException;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.inputtext.InputText;
@@ -62,12 +66,15 @@ public class UsuarioBackingBean extends AbstractBackingBean implements Serializa
 	public void guardarAction(ActionEvent event){
 		try {
 			this.getNuevoUsuario().setNombreUsuario(this.getNuevoUsuario().getNombreUsuario().toLowerCase());	
-			this.getNuevoUsuario().setPassword(this.getNuevoUsuario().getNombreUsuario());
+			this.getNuevoUsuario().setPassword(RandomStringUtils.randomAlphanumeric(16).toUpperCase());
 			this.getNuevoUsuario().setCambiarPassword(1L);
-			super.getFacadeService().getSeguridadService().persistUsuario(this.getNuevoUsuario());
-			super.addInfoMessage(MessageFormat.format("Se ha creado el Usuario con éxito y se ha generado la siguiente clave temporal de acceso: {0}", this.getNuevoUsuario().getPassword()));
+			super.getFacadeService().getSeguridadService().crearNuevoUsuario(this.getNuevoUsuario());
+			super.addInfoMessage(MessageFormat.format("Se ha creado el Usuario con éxito y se ha enviado un email de confirmación a: {0}", this.getNuevoUsuario().getEmail()));
 			this.setNuevoUsuario(null);
 			buscarAction();
+		} catch (MessagingException e) {
+			logger.error(e);
+			super.addErrorMessage("Se ha producido un error al enviar el mensaje de confirmación al usuario");
 		} catch (Exception e) {
 			logger.error(e);
 			super.addErrorMessage(PropertyManager.getInstance().getMessage("mensaje_error_generico"));
@@ -122,6 +129,11 @@ public class UsuarioBackingBean extends AbstractBackingBean implements Serializa
 			logger.error(e);
 			super.addErrorMessage(PropertyManager.getInstance().getMessage("mensaje_error_generico"));
 		}
+	}
+	
+	private String generaClave() throws Exception{
+		SecureRandom random = new SecureRandom();
+		return new BigInteger(130, random).toString(32);
 	}
 	
 	public Usuario getFiltroUsuario() {

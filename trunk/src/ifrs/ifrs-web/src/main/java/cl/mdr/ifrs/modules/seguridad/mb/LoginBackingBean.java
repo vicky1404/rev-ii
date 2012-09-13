@@ -17,8 +17,7 @@ import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Usuario;
 
 /**
- * @author rreyes
- * @link http://cl.linkedin.com/in/rreyesc
+ * @author http://www.mdrtech.cl
  */
 @ManagedBean
 @ViewScoped
@@ -26,11 +25,13 @@ public class LoginBackingBean extends AbstractBackingBean implements Serializabl
 	private transient Logger logger = Logger.getLogger(this.getClass().getName());
 	private static final long serialVersionUID = -1985498172517251460L;
 	
+	
 	private Usuario usuarioLogin;
+		
 		
 	@PostConstruct
 	void init(){	
-		usuarioLogin = new Usuario();
+		usuarioLogin = new Usuario();		
 	}
 	
 	/**
@@ -92,6 +93,7 @@ public class LoginBackingBean extends AbstractBackingBean implements Serializabl
 
 	public void setUsuarioLogin(Usuario usuarioLogin) {
 		this.usuarioLogin = usuarioLogin;
-	}	
+	}
+	
 
 }
