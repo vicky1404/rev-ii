@@ -97,7 +97,7 @@ public class UsuarioBackingBean extends AbstractBackingBean implements Serializa
 			if(nombreUsuario != null){
 				FacesMessage message = new FacesMessage();
 				message.setSeverity(FacesMessage.SEVERITY_ERROR);
-				message.setSummary(MessageFormat.format("El Usuario {0} ya existe, intente nuevamente", Util.getString(value, null)));				
+				message.setSummary(MessageFormat.format("El Usuario {0} ya existe en el sistema, intente nuevamente", Util.getString(value, null)));				
 				context.addMessage(this.getInputNombreUsuario().getClientId(context), message);
 				throw new ValidatorException(message);
 			}		
@@ -107,8 +107,21 @@ public class UsuarioBackingBean extends AbstractBackingBean implements Serializa
 			message.setSummary("Ocurrio un error al validar al usuario que intenta crear, intente nuevamente.");			
 			context.addMessage(this.getInputNombreUsuario().getClientId(context), message);
 			throw new ValidatorException(message);
+		}		
+	}
+	
+	public void resetUsuarioPassword(ActionEvent event){
+		try{
+			this.getEditUsuario().setFechaActualizacion(new Date());
+			this.getEditUsuario().setPassword(this.getEditUsuario().getNombreUsuario());
+			this.getEditUsuario().setCambiarPassword(1L);
+			super.getFacadeService().getSeguridadService().mergeUsuario(this.getEditUsuario());
+			super.addInfoMessage("Se ha regenerado la clave de Usuario éxitosamente");
+			super.hidePopUp(POP_UP_EDITAR_USUARIO, FORM_EDITAR_USUARIO);
+		} catch (Exception e) {
+			logger.error(e);
+			super.addErrorMessage(PropertyManager.getInstance().getMessage("mensaje_error_generico"));
 		}
-		
 	}
 	
 	public Usuario getFiltroUsuario() {

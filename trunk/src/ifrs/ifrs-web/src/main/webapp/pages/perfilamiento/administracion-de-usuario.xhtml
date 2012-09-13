@@ -102,11 +102,12 @@
 						<p:inputText id="it11" required="true"
 							style="text-transform: lowercase;"
 							binding="#{usuarioBackingBean.inputNombreUsuario}" size="40"
-							value="#{usuarioBackingBean.nuevoUsuario.nombreUsuario}" validator="#{usuarioBackingBean.validarNuevoUsuario}">
+							value="#{usuarioBackingBean.nuevoUsuario.nombreUsuario}"
+							validator="#{usuarioBackingBean.validarNuevoUsuario}">
 							<f:validateLength minimum="1" maximum="256"></f:validateLength>
-						</p:inputText>						
+						</p:inputText>
 					</p:column>
-					<p:column>						
+					<p:column>
 						<h:message for="it11" styleClass="ui-outputlabel ui-state-error" />
 					</p:column>
 					<p:outputLabel value="Nombre" for="it21" />
@@ -206,10 +207,11 @@
 					</p:inputText>
 					<h:message for="it411" styleClass="ui-outputlabel ui-state-error" />
 
-					<p:outputLabel value="Clave" for="itcl1" />
-					<p:password size="40" required="true" id="itcl1" redisplay="true"
-						value="#{usuarioBackingBean.editUsuario.password}" />
-					<h:message for="itcl1" styleClass="ui-outputlabel ui-state-error" />
+					<h:outputLabel value="Clave" />
+					<p:commandLink value="Regenerar clave"
+						title="Regenerar clave de Usuario"
+						actionListener="#{usuarioBackingBean.resetUsuarioPassword}" update=":form_usuario:tabla_usuario form_editusuario" />
+					<p:spacer width="5"/>
 
 					<p:outputLabel value="Email" for="ite1" />
 					<p:inputText size="40" required="true" id="ite1"
