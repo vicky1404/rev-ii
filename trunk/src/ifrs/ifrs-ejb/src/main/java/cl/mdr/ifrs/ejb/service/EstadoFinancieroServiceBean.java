@@ -361,14 +361,13 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
     	
     	
     	sql.append(" INSERT INTO " + Constantes.RELACION_DETALLE_EEFF )
-    	.append(" (DESCRIPCION_CUENTA,ID_COLUMNA,ID_CUENTA,ID_FECU,ID_FILA,ID_GRILLA,ID_PERIODO,ID_RUT,MONTO_EBS,MONTO_MILES,MONTO_PESOS,RECLASIFICACION) values ")
+    	.append(" (ID_COLUMNA,ID_CUENTA,ID_FECU,ID_FILA,ID_GRILLA,ID_PERIODO,ID_RUT,MONTO_EBS,MONTO_MILES,MONTO_PESOS,MONTO_RECLASIFICACION) values ")
     	.append("  (?,?,?,?,?,?,?,?,?,?,?,?) ");
     	
     	
     		
     		Query query = em.createNativeQuery(sql.toString());
         	int contador = 0;
-        	query.setParameter(++contador, relDetalleEeff.getDescripcionCuenta());        	
         	query.setParameter(++contador, relDetalleEeff.getIdColumna());
         	query.setParameter(++contador, relDetalleEeff.getIdCuenta());        	
         	query.setParameter(++contador, relDetalleEeff.getIdFecu());

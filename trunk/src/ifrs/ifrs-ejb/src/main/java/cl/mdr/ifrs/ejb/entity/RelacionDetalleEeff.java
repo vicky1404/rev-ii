@@ -76,10 +76,6 @@ private static final long serialVersionUID = -2121624962103986848L;
 	@Expose
     private Long idColumna;
 
-	@Column(name = "DESCRIPCION_CUENTA", length = 256)
-	@Expose
-    private String descripcionCuenta;
-    
     @Column(name = "MONTO_EBS", length = 256)
     @Expose
     private BigDecimal montoEbs;
@@ -119,10 +115,9 @@ private static final long serialVersionUID = -2121624962103986848L;
     public RelacionDetalleEeff() {
     }
 
-    public RelacionDetalleEeff(String descripcionCuenta,
-                                BigDecimal ebs, Celda celda5, Long idCuenta, 
+    public RelacionDetalleEeff(BigDecimal ebs, Celda celda5, Long idCuenta, 
                                 BigDecimal montoMiles, BigDecimal montoPesos, BigDecimal reclasificacion) {
-        this.descripcionCuenta = descripcionCuenta;
+        
         this.montoEbs = ebs;
         this.celda5 = celda5;
         this.idCuenta = idCuenta;
@@ -150,14 +145,6 @@ private static final long serialVersionUID = -2121624962103986848L;
         }
 		this.periodoEmpresa = periodoEmpresa;
 	}
-
-    public String getDescripcionCuenta() {
-        return descripcionCuenta;
-    }
-
-    public void setDescripcionCuenta(String descripcionCuenta) {
-        this.descripcionCuenta = descripcionCuenta;
-    }
 
     public BigDecimal getMontoEbs() {
         return montoEbs;
@@ -233,8 +220,7 @@ private static final long serialVersionUID = -2121624962103986848L;
         	this.idPeriodo = periodoEmpresa.getIdPeriodo();
         	this.idRut = periodoEmpresa.getIdRut();
         }
-        this.periodoEmpresa = periodoEmpresa;
-        this.descripcionCuenta = detalleEeff.getDescripcionCuenta();
+        this.periodoEmpresa = periodoEmpresa;        
         this.montoEbs = detalleEeff.getMontoEbs();
         this.montoMiles = detalleEeff.getMontoMiles();
         this.montoPesos = detalleEeff.getMontoPesos();
@@ -286,10 +272,6 @@ private static final long serialVersionUID = -2121624962103986848L;
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((celda5 == null) ? 0 : celda5.hashCode());
-		result = prime
-				* result
-				+ ((descripcionCuenta == null) ? 0 : descripcionCuenta
-						.hashCode());
 		result = prime * result
 				+ ((idColumna == null) ? 0 : idColumna.hashCode());
 		result = prime * result
@@ -329,11 +311,6 @@ private static final long serialVersionUID = -2121624962103986848L;
 			if (other.celda5 != null)
 				return false;
 		} else if (!celda5.equals(other.celda5))
-			return false;
-		if (descripcionCuenta == null) {
-			if (other.descripcionCuenta != null)
-				return false;
-		} else if (!descripcionCuenta.equals(other.descripcionCuenta))
 			return false;
 		if (idColumna == null) {
 			if (other.idColumna != null)
