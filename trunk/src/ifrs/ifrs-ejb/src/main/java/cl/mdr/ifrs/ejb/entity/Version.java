@@ -63,7 +63,8 @@ import cl.mdr.ifrs.ejb.common.Constantes;
                  			 		 " and ve.catalogo.idCatalogo = cg.catalogo.idCatalogo " +
                  			 		 " and ug.nombreUsuario = :usuario " +
                  			 		 " and cg.idGrupoAcceso = ug.idGrupo " +
-                 			 		 " and ve.periodoEmpresa.idPeriodo = :idPeriodo"),                 
+                 			 		 " and ve.periodoEmpresa.idPeriodo = :idPeriodo " +
+                 			 		 " and ve.periodoEmpresa.idRut = :idRut "),                 
                  
                  @NamedQuery(name = Version.VERSION_FIND_BY_FILTRO,
                             query = " select distinct v " +

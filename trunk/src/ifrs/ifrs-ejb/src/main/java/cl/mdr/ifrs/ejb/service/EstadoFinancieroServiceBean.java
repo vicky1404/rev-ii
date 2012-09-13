@@ -1,15 +1,12 @@
 package cl.mdr.ifrs.ejb.service;
 
 
-import static ch.lambdaj.Lambda.index;
-import static ch.lambdaj.Lambda.on;
 import static cl.mdr.ifrs.ejb.cross.Constantes.PERSISTENCE_UNIT_NAME;
 
+import java.math.BigDecimal;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
 
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -19,23 +16,20 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import cl.mdr.ifrs.ejb.common.Constantes;
-import cl.mdr.ifrs.ejb.cross.EeffUtil;
+import cl.mdr.ifrs.ejb.common.VigenciaEnum;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Celda;
 import cl.mdr.ifrs.ejb.entity.DetalleEeff;
 import cl.mdr.ifrs.ejb.entity.EstadoFinanciero;
-import cl.mdr.ifrs.ejb.entity.Grilla;
-import cl.mdr.ifrs.ejb.entity.PeriodoEmpresa;
 import cl.mdr.ifrs.ejb.entity.RelacionDetalleEeff;
 import cl.mdr.ifrs.ejb.entity.RelacionEeff;
 import cl.mdr.ifrs.ejb.entity.TipoEstadoEeff;
-import cl.mdr.ifrs.ejb.entity.Version;
 import cl.mdr.ifrs.ejb.entity.VersionEeff;
 import cl.mdr.ifrs.ejb.service.local.EstadoFinancieroServiceLocal;
 
 @Stateless
 public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal {
-  
+	
 	@PersistenceContext(unitName = PERSISTENCE_UNIT_NAME)
     private EntityManager em;
 
@@ -44,65 +38,23 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
 
 
     @SuppressWarnings("unchecked")
-    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public List<TipoEstadoEeff> getEstadoEeffFindAll() {
         return em.createNamedQuery("EstadoEeff.findAll").getResultList();
     }
     
     @SuppressWarnings("unchecked")
-    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public List<VersionEeff> getVersionEeffFindByPeriodo(Long idPeriodo) {
-        Query query = em.createNamedQuery(VersionEeff.FIND_BY_PERIOD);
+    public List<VersionEeff> getVersionEeffFindByPeriodo(Long idPeriodo, Long idRut) {
+        Query query = em.createNamedQuery(VersionEeff.FIND_BY_PERIODO_EMPRESA);
         query.setParameter("idPeriodo", idPeriodo);
+        query.setParameter("idRut", idRut);
         return query.getResultList();
     }
     
-    
-   
-    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public EstadoFinanciero getEstadoFinancieroByEstadoFinanciero(EstadoFinanciero estadoFinanciero) {
-    	EstadoFinanciero objeto = new EstadoFinanciero();
-    	
-    	try
-    	{
-    		objeto = (EstadoFinanciero) em.find(EstadoFinanciero.class, estadoFinanciero);
-    		
-    	} catch (Exception ex){
-    		
-    		ex.printStackTrace();
-    	}
-    	
-    	
-       return objeto;
-    }   
-    
-    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public RelacionDetalleEeff getRelacionDetalleEeffByRelacionDetalleEeff(RelacionDetalleEeff relacionDetalleEeff) {
-    	RelacionDetalleEeff objeto = new RelacionDetalleEeff();
-    	
-    	try
-    	{
-    		objeto = (RelacionDetalleEeff) em.find(RelacionDetalleEeff.class, relacionDetalleEeff);
-    		
-    	} catch (Exception ex){
-    		
-    		ex.printStackTrace();
-    	}
-    	
-    	
-       return objeto;
-    }   
-    
-    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-    public VersionEeff getVersionEeffVigenteFindByPeriodo(Long idPeriodo) {
-        Query query = em.createNamedQuery(VersionEeff.FIND_VIGENTE_BY_PERIOD);
+    public VersionEeff getVersionEeffVigenteFindByPeriodo(Long idPeriodo, Long idRut) {
+        Query query = em.createNamedQuery(VersionEeff.FIND_VIGENTE_BY_PERIODO_EMPRESA);
         query.setParameter("idPeriodo", idPeriodo);
-        
-        if (query.getResultList().size() > 0){
-        	return (VersionEeff)query.getSingleResult();
-        }
-        
-        return null;
+        query.setParameter("idRut", idRut);
+        return (VersionEeff)query.getSingleResult();
     }
     
     public void persistEeffMap(Map<Long, EstadoFinanciero> eeffMap){ 
@@ -111,283 +63,114 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
         }
     }
     
-    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-    public Long getMaxVersionByPeriodoEmpresa(PeriodoEmpresa periodoEmpresa){
+    public Long getMaxVersionByPeriodo(Long idPeriodo, Long idRut){
         Long maxVersion = (Long) em.createNamedQuery(VersionEeff.FIN_MAX_VERSION_BY_PERIODO_EMPRESA)
-            .setParameter("idPeriodo", periodoEmpresa.getIdPeriodo())
-            .setParameter("idRut", periodoEmpresa.getIdRut())
+            .setParameter("idPeriodo", idPeriodo)
+            .setParameter("idRut", idRut)
             .getSingleResult();
         return maxVersion==null?0L:maxVersion;
     }
     
-    public void updateNoVigenteByPeriodoEmpresa(PeriodoEmpresa periodoEmpresa){
+    public void updateNoVigenteByPeriodo(Long idPeriodo, Long idRut, Long vigencia){
     	
-    	em.createNativeQuery("update " + Constantes.VERSION_EEFF + " o set o.VIGENCIA = :valor where o.ID_PERIODO = :idPeriodo and o.ID_RUT = :idRut")
-    	.setParameter("idPeriodo", periodoEmpresa.getIdPeriodo())
-        .setParameter("idRut", periodoEmpresa.getIdRut())
-        .setParameter("valor", 0L)
+    	em.createNativeQuery(" UPDATE IFRS_VERSION_EEFF SET VIGENCIA = ? WHERE ID_PERIODO = ? AND ID_RUT = ? " )
+        .setParameter(1, vigencia)
+        .setParameter(2, idPeriodo)
+        .setParameter(3, idRut)
         .executeUpdate();
     	
-    	/*
-        em.createNamedQuery(VersionEeff.UPDATE_VIGENCIA_BY_PERIODO_EMPRESA)
-            .setParameter("idPeriodo", periodoEmpresa.getIdPeriodo())
-            .setParameter("idRut", periodoEmpresa.getIdRut())
-            .setParameter("valor", 0L)
-            .executeUpdate();
-       */
     }
     
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void persisVersionEeff(VersionEeff version){
-    	Long versionNueva = getMaxVersionByPeriodoEmpresa(version.getPeriodoEmpresa()) + 1L;
+    	
+    	if(version.getIdVersionEeff() != null)
+    		return;
+    	
+        version.setVersion(getMaxVersionByPeriodo(version.getPeriodoEmpresa().getIdPeriodo(), version.getPeriodoEmpresa().getIdRut()) +1L);
+        updateNoVigenteByPeriodo(version.getPeriodoEmpresa().getIdPeriodo(), version.getPeriodoEmpresa().getIdRut(), VigenciaEnum.NO_VIGENTE.getKey());
         
-        if (versionNueva.compareTo(1L) > 0){
-        	updateNoVigenteByPeriodoEmpresa(version.getPeriodoEmpresa());
+        BigDecimal seq =  (BigDecimal) em.createNativeQuery(" SELECT SEQ_VERSION_EEFF.NEXTVAL FROM DUAL ").getSingleResult();
+        
+        em.createNativeQuery(" Insert into " + Constantes.VERSION_EEFF + " (ID_VERSION_EEFF,ID_PERIODO, ID_RUT ,ID_ESTADO_EEFF,VERSION,VIGENCIA,USUARIO,FECHA) values (?,?,?,?,?,?,?,?) " )
+        .setParameter(1, seq)
+        .setParameter(2, version.getPeriodoEmpresa().getIdPeriodo())
+        .setParameter(3, version.getPeriodoEmpresa().getIdRut())
+        .setParameter(4, version.getTipoEstadoEeff().getIdEstadoEeff())
+        .setParameter(5, version.getVersion())
+        .setParameter(6, version.getVigencia())
+        .setParameter(7, version.getUsuario())
+        .setParameter(8, new Date())
+        .executeUpdate();
+        
+        version.setIdVersionEeff(seq.longValue());
+        
+        if(Util.esListaValida(version.getEstadoFinancieroList())){
+        
+        	for(EstadoFinanciero eeff : version.getEstadoFinancieroList()) {
+		        em.createNativeQuery(" Insert into " + Constantes.EEFF + " (ID_VERSION_EEFF, ID_FECU, MONTO_TOTAL) values (?,?,?) ")
+		        .setParameter(1, seq)
+		        .setParameter(2, eeff.getIdFecu())
+		        .setParameter(3, eeff.getMontoTotal())
+		        .executeUpdate();
+		        eeff.setIdVersionEeff(seq.longValue());
+		        
+		        if(Util.esListaValida(eeff.getDetalleEeffList4())){
+		        	
+		        	for(DetalleEeff detEeff : eeff.getDetalleEeffList4()){
+		        		em.createNativeQuery(" Insert into " + Constantes.DETALLE_EEFF + " (ID_CUENTA,ID_FECU,ID_VERSION_EEFF,MONTO_EBS,MONTO_RECLASIFICACION,MONTO_PESOS,MONTO_MILES,MONTO_PESOS_MIL) " +
+		        																		 " values " +
+		        																		 " (?,?,?,?,?,?,?,?) ")
+		        		.setParameter(1, detEeff.getIdCuenta())
+		        		.setParameter(2, detEeff.getIdFecu())
+		        		.setParameter(3, seq)
+		        		.setParameter(4, detEeff.getMontoEbs())
+		        		.setParameter(5, detEeff.getMontoReclasificacion())
+		        		.setParameter(6, detEeff.getMontoPesos())
+		        		.setParameter(7, detEeff.getMontoMiles())
+		        		.setParameter(8, detEeff.getMontoPesosMil())
+		        		.executeUpdate();
+		        	}
+		        	
+		        }
+        	}
+        
         }
         
-        version.setVersion(versionNueva);
-        //em.persist(version);
-        
-        int indice = 0;
-        StringBuffer insertVersion = new StringBuffer();
-        insertVersion.append(" insert into " + Constantes.VERSION_EEFF + " (FECHA, ID_PERIODO, ID_RUT, ID_ESTADO_EEFF, usuario, version, vigencia, ID_VERSION_EEFF) ")
-        .append(" values (?,?,?,?,?,?,?,?) ");
-        
-        em.createNativeQuery(insertVersion.toString())
-        .setParameter(++indice, new Date())
-        .setParameter(++indice, version.getPeriodoEmpresa().getIdPeriodo())
-        .setParameter(++indice, version.getPeriodoEmpresa().getIdRut())
-        .setParameter(++indice, version.getTipoEstadoEeff().getIdEstadoEeff())
-        .setParameter(++indice, version.getUsuario())
-        .setParameter(++indice, version.getVersion())
-        .setParameter(++indice, version.getVigencia())
-        .setParameter(++indice, version.getVersion()).executeUpdate();
-        
-
-        StringBuffer insertEeff = new StringBuffer();
-        insertEeff.append("insert into IFRS_EEFF (ID_FECU, MONTO_TOTAL, ID_VERSION_EEFF) values (?, ?, ?) ");
-
-        
-        for (EstadoFinanciero estadoFinanciero : version.getEstadoFinancieroList()){
-            indice = 0;            
-            em.createNativeQuery(insertEeff.toString())
-            .setParameter(++indice, estadoFinanciero.getIdFecu())
-            .setParameter(++indice, estadoFinanciero.getMontoTotal())
-            .setParameter(++indice, version.getVersion()).executeUpdate();
-        }
-        
-        
-
     }
     
-    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public TipoEstadoEeff getTipoEstadoEeffById(Long idEstadoEeff){
         Query query = em.createNamedQuery(TipoEstadoEeff.FIND_BY_ID);
         query.setParameter("idEstadoEeff", idEstadoEeff);
-        
-        if (query.getResultList().size() > 0){
-        	return (TipoEstadoEeff)query.getSingleResult();	
-        }
-        
-        return null;
-        
+        return (TipoEstadoEeff)query.getSingleResult();
     }
     
     @SuppressWarnings("unchecked")
-    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public List<EstadoFinanciero> getEeffVigenteByPeriodo(Long idPeriodo){
-        Query query = em.createNamedQuery(EstadoFinanciero.FIND_VIGENTE_BY_PERIODO);
+    public List<EstadoFinanciero> getEeffVigenteByPeriodo(Long idPeriodo, Long idRut){
+        Query query = em.createNamedQuery(EstadoFinanciero.FIND_VIGENTE_BY_PERIODO_EMPRESA);
         query.setParameter("idPeriodo", idPeriodo);
+        query.setParameter("idRut", idRut);
         return query.getResultList();
     }
     
     @SuppressWarnings("unchecked")
-    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public List<EstadoFinanciero> getEeffVigenteByVersion(Long idVersionEeff){
+    public List<EstadoFinanciero> getEeffByVersion(Long idVersionEeff){
         Query query = em.createNamedQuery(EstadoFinanciero.FIND_BY_VERSION);
         query.setParameter("idVersionEeff", idVersionEeff);
         return query.getResultList();
     }
     
     @SuppressWarnings("unchecked")
-    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public List<DetalleEeff> getDetalleEeffByEeff(EstadoFinanciero eeff){
+    public List<DetalleEeff> getDetalleEeffByEeff(EstadoFinanciero eeff){
         Query query = em.createNamedQuery(DetalleEeff.FIND_BY_EEFF);
         query.setParameter("eeff", eeff);
         return query.getResultList();
     }
     
     @SuppressWarnings("unchecked")
-    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public List<DetalleEeff> getDetalleEeffByVersion(Long idVersionEeff){
+    public List<DetalleEeff> getDetalleEeffByVersion(Long idVersionEeff){
         Query query = em.createNamedQuery(DetalleEeff.FIND_BY_VERSION);
         query.setParameter("idVersionEeff", idVersionEeff);
         return query.getResultList();
-    }
-    
-    
-    @SuppressWarnings("rawtypes")
-	public void persistRelaccionEeff(Map<String, String[]> relacionMap, Long idPeriodo, Grilla grilla){
-        
-        VersionEeff version =  getVersionEeffVigenteFindByPeriodo(idPeriodo);
-        
-        List<EstadoFinanciero> eeffs = getEeffVigenteByVersion(version.getIdVersionEeff());
-        List<DetalleEeff> detalleEeffs = getDetalleEeffByVersion(version.getIdVersionEeff());
-        
-        Map<String, Celda> celdaMap = Util.createCeldaMap(grilla);
-        Map<Long, EstadoFinanciero>  eeffMap = index(eeffs, on(EstadoFinanciero.class).getIdFecu());
-        Map<Long, DetalleEeff>  detalleMap = index(detalleEeffs,on(DetalleEeff.class).getIdCuenta());
-        
-   
-        Iterator i = relacionMap.entrySet().iterator();
-        while(i.hasNext()){
-            
-            Map.Entry entry = (Map.Entry)i.next();
-            
-            String celdaKey = (String) entry.getKey();
-            String[] valueKey = (String[] )entry.getValue();
-            
-            StringTokenizer fecuToken = new StringTokenizer(valueKey[0], ";");
-            StringTokenizer cuentaToken = new StringTokenizer(valueKey[1], ";");
-            
-            Celda celda = celdaMap.get(celdaKey);
-            
-            if(celda!=null){
-                
-                while(fecuToken.hasMoreTokens()){
-                    String token = fecuToken.nextToken();
-                    Long key = EeffUtil.getLongFromKey(token); 
-                    if(!key.equals(0L)){
-                        EstadoFinanciero eeff = eeffMap.get(key);
-                        if(eeff != null){
-                            RelacionEeff relEeff = new RelacionEeff();
-                            relEeff.copyEstadoFinanciero(eeff, celda, version.getPeriodoEmpresa());
-                            em.persist(relEeff);
-                        }
-                    }
-                }
-                
-                while(cuentaToken.hasMoreTokens()){
-                    String token = cuentaToken.nextToken();
-                    Long key = EeffUtil.getLongFromKey(token);
-                    if(!key.equals(0L)){
-                        DetalleEeff detEeff = detalleMap.get(key);
-                        if(detEeff != null){
-                            RelacionDetalleEeff relDetEeff = new RelacionDetalleEeff();
-                            relDetEeff.copyDetalleEeff(detEeff, celda, version.getPeriodoEmpresa());
-                            em.persist(relDetEeff);
-                        }
-                    }
-                }
-
-            }
-            
-        }
-        
-    }
-    
-    public void deleteAllRelacionByGrillaPeriodo(Long idPeriodo, Long idGrilla){
-        
-        Query query = em.createNamedQuery(RelacionEeff.DELETE_BY_GRILLA_PERIODO);
-        query.setParameter("idPeriodo", idPeriodo);
-        query.setParameter("idGrilla", idGrilla);
-        query.executeUpdate();
-        
-        query = em.createNamedQuery(RelacionDetalleEeff.DELETE_BY_GRILLA_PERIODO);
-        query.setParameter("idPeriodo", idPeriodo);
-        query.setParameter("idGrilla", idGrilla);
-        query.executeUpdate();
-
-    }
-    
-    /**
-     * @param relacionMap
-     * @param idPeriodo
-     * @throws Exception 
-     */
-    public void persistRelaccionEeff(Map<Celda, List[]> relacionMap, Long idPeriodo) throws Exception{
-
-        for(List[] arrayListas : relacionMap.values()){
-            // 0 contiene las RelacionesEeff
-            if(Util.esListaValida(arrayListas[0])){
-                List<RelacionEeff> relList = arrayListas[0];
-                for(RelacionEeff relEeff : relList){
-                    //em.merge(relEeff);
-                	this.insertRelacionEeff(relEeff);
-                }
-            }
-            
-            // 1 contiene las RelacionesDetalleEeff
-            if(Util.esListaValida(arrayListas[1])){
-                List<RelacionDetalleEeff> relList = arrayListas[1];
-                for(RelacionDetalleEeff relDetEeff : relList){
-                    //em.merge(relDetEeff);
-                	this.insertRelacionDetalleEeff(relDetEeff);
-                }
-            }
-        }
-    }
-    
-    private void insertRelacionEeff(RelacionEeff relEeff) throws Exception{
-    	
-    	StringBuffer sql = new StringBuffer();
-    	
-    	
-    	sql.append(" INSERT INTO " + Constantes.RELACION_EEFF + " ( ID_COLUMNA,ID_FECU,ID_FILA,ID_GRILLA,ID_PERIODO,ID_RUT,MONTO_TOTAL) values ");
-    	sql.append("  (?,?,?,?,?,?,?) ");
-    	
-    	
-    		
-    		Query query = em.createNativeQuery(sql.toString());
-        	int contador = 0;
-        	query.setParameter(++contador, relEeff.getIdColumna());
-        	query.setParameter(++contador, relEeff.getIdFecu());
-        	query.setParameter(++contador, relEeff.getIdFila());
-        	query.setParameter(++contador, relEeff.getIdGrilla());
-        	query.setParameter(++contador, relEeff.getPeriodoEmpresa().getIdPeriodo());        	
-        	query.setParameter(++contador, relEeff.getPeriodoEmpresa().getIdRut());
-        	query.setParameter(++contador, relEeff.getMontoTotal());
-        	
-        	query.executeUpdate();
-    		
-    		
-    	
-    }
-    
-    
-    private void insertRelacionDetalleEeff(RelacionDetalleEeff relDetalleEeff) throws Exception{
-    	
-    	StringBuffer sql = new StringBuffer();
-    	
-    	
-    	sql.append(" INSERT INTO " + Constantes.RELACION_DETALLE_EEFF )
-    	.append(" (ID_COLUMNA,ID_CUENTA,ID_FECU,ID_FILA,ID_GRILLA,ID_PERIODO,ID_RUT,MONTO_EBS,MONTO_MILES,MONTO_PESOS,MONTO_RECLASIFICACION) values ")
-    	.append("  (?,?,?,?,?,?,?,?,?,?,?,?) ");
-    	
-    	
-    		
-    		Query query = em.createNativeQuery(sql.toString());
-        	int contador = 0;
-        	query.setParameter(++contador, relDetalleEeff.getIdColumna());
-        	query.setParameter(++contador, relDetalleEeff.getIdCuenta());        	
-        	query.setParameter(++contador, relDetalleEeff.getIdFecu());
-        	query.setParameter(++contador, relDetalleEeff.getIdFila());
-        	query.setParameter(++contador, relDetalleEeff.getIdGrilla());
-        	query.setParameter(++contador, relDetalleEeff.getPeriodoEmpresa().getIdPeriodo());        	
-        	query.setParameter(++contador, relDetalleEeff.getPeriodoEmpresa().getIdRut());
-        	query.setParameter(++contador, relDetalleEeff.getMontoEbs());
-        	query.setParameter(++contador, relDetalleEeff.getMontoMiles());
-        	query.setParameter(++contador, relDetalleEeff.getMontoPesos());
-        	query.setParameter(++contador, relDetalleEeff.getMontoReclasificacion());
-        	query.executeUpdate();
-    		
-    		
-    	
-    }
-    
-    public void deleteRelacionAllEeffByCelda(Celda celda){
-        deleteRelacionEeffByCelda(celda);
-        deleteRelacionDetalleEeffByCelda(celda);
     }
     
     public void deleteRelacionEeffByCelda(Celda celda){
@@ -402,15 +185,95 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
         query.executeUpdate();
     }
     
+    public void deleteRelacionAllEeffByCelda(Celda celda){
+        deleteRelacionEeffByCelda(celda);
+        deleteRelacionDetalleEeffByCelda(celda);
+    }
+    
+    @SuppressWarnings("unchecked")
+    public List<RelacionEeff> getRelacionEeffByPeriodo(Long idPeriodo, Long idRut){
+        Query query = em.createNamedQuery(RelacionEeff.FIND_BY_PERIODO_EMPRESA);
+        query.setParameter("idPeriodo", idPeriodo);
+        query.setParameter("idRut", idRut);
+        return query.getResultList();
+    }
+    
+    @SuppressWarnings("unchecked")
+    public List<RelacionDetalleEeff> getRelacionDetalleEeffByPeriodo(Long idPeriodo, Long idRut){
+        Query query = em.createNamedQuery(RelacionDetalleEeff.FIND_BY_PERIODO_EMPRESA);
+        query.setParameter("idPeriodo", idPeriodo);
+        query.setParameter("idRut", idRut);
+        return query.getResultList();
+    }
+    
+    @SuppressWarnings("unchecked")
+    public List<RelacionEeff> getRelacionEeffByPeriodoFecu(Long idPeriodo, Long idRut, Long idFecu){
+        Query query = em.createNamedQuery(RelacionEeff.FIND_BY_PERIODO_FECU);
+        query.setParameter("idPeriodo", idPeriodo);
+        query.setParameter("idRut", idRut);
+        query.setParameter("idFecu", idFecu);
+        return query.getResultList();
+    }
+    
+    @SuppressWarnings("unchecked")
+    public List<RelacionDetalleEeff> getRelacionDetalleEeffByPeriodoFecuCuenta(Long idPeriodo, Long idRut, Long idFecu, Long idCuenta){
+        Query query = em.createNamedQuery(RelacionDetalleEeff.FIND_BY_PERIODO_FECU_CUENTA);
+        query.setParameter("idPeriodo", idPeriodo);
+        query.setParameter("idRut", idRut);
+        query.setParameter("idFecu", idFecu);
+        query.setParameter("idCuenta", idCuenta);
+        return query.getResultList();
+    }
+
+    
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void persistRelaccionEeff(Map<Celda, List[]> relacionMap){
+
+        for(List[] arrayListas : relacionMap.values()){
+            // 0 contiene las RelacionesEeff
+            if(Util.esListaValida(arrayListas[0])){
+                List<RelacionEeff> relList = arrayListas[0];
+                for(RelacionEeff relEeff : relList){
+                    em.merge(relEeff);
+                }
+            }
+            
+            // 1 contiene las RelacionesDetalleEeff
+            if(Util.esListaValida(arrayListas[1])){
+                List<RelacionDetalleEeff> relList = arrayListas[1];
+                for(RelacionDetalleEeff relDetEeff : relList){
+                    em.merge(relDetEeff);
+                }
+            }
+        }
+    }
+
+    public void deleteAllRelacionByGrillaPeriodo(Long idPeriodo, Long idRut, Long idGrilla){
+        
+        Query query = em.createNamedQuery(RelacionEeff.DELETE_BY_GRILLA_PERIODO_EMPRESA);
+        query.setParameter("idPeriodo", idPeriodo);
+        query.setParameter("idRut", idRut);
+        query.setParameter("idGrilla", idGrilla);
+        query.executeUpdate();
+        
+        query = em.createNamedQuery(RelacionDetalleEeff.DELETE_BY_GRILLA_PERIODO_EMPRESA);
+        query.setParameter("idPeriodo", idPeriodo);
+        query.setParameter("idRut", idRut);
+        query.setParameter("idGrilla", idGrilla);
+        query.executeUpdate();
+
+    }
+
     /**
      * @param idVersionEeff
      * @param likeFecu
      * @return
      */
+    @SuppressWarnings("unchecked")
     public List<EstadoFinanciero> getEeffByLikeFecu(Long idVersionEeff, Long likeFecu){
         Query query = em.createNamedQuery(EstadoFinanciero.FIND_BY_LIKE_FECU);
         query.setParameter("idVersionEeff", idVersionEeff);
-        query.setParameter("likeFecu","%"+likeFecu+"%");
+        query.setParameter("likeFecu", "%"+likeFecu+"%");
         return query.getResultList();
     }
     
@@ -419,6 +282,7 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
      * @param likeFecu
      * @return
      */
+    @SuppressWarnings("unchecked")
     public List<DetalleEeff> getEeffByLikeCuenta(Long idVersionEeff, Long likeCuenta){
         Query query = em.createNamedQuery(DetalleEeff.FIND_BY_LIKE_CUENTA);
         query.setParameter("idVersionEeff", idVersionEeff);
@@ -426,22 +290,9 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
         return query.getResultList();
     }
     
-    public List<EstadoFinanciero> getEeffByVersion(Long idVersionEeff){
-        Query query = em.createNamedQuery(EstadoFinanciero.FIND_BY_VERSION);
-        query.setParameter("idVersionEeff", idVersionEeff);
-        return query.getResultList();
-    }
-    
-    public List<RelacionEeff> getRelacionEeffByPeriodo(Long idPeriodo){
-        Query query = em.createNamedQuery(RelacionEeff.FIND_BY_PERIODO);
-        query.setParameter("idPeriodo", idPeriodo);
-        return query.getResultList();
-    }
-    
-    public List<RelacionDetalleEeff> getRelacionDetalleEeffByPeriodo(Long idPeriodo){
-        Query query = em.createNamedQuery(RelacionDetalleEeff.FIND_BY_PERIODO);
-        query.setParameter("idPeriodo", idPeriodo);
-        return query.getResultList();
-    }
-   
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	public RelacionDetalleEeff getRelacionDetalleEeffByRelacionDetalleEeff(RelacionDetalleEeff relacionDetalleEeff) {
+       return (RelacionDetalleEeff) em.find(RelacionDetalleEeff.class, relacionDetalleEeff);
+    }   
+
 }

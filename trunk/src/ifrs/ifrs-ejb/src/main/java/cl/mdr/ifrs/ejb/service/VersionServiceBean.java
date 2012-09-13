@@ -450,9 +450,10 @@ public class VersionServiceBean implements VersionServiceLocal{
     }
         
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-    public Version findUltimaVersionVigente(final Long idPeriodo, final String usuario, final Long idCatalogo){
+    public Version findUltimaVersionVigente(final Long idPeriodo, final Long idRut, final String usuario, final Long idCatalogo){
         Query query = em.createNamedQuery(Version.FIND_ULTIMA_VERSION_VIGENTE);
         query.setParameter("idPeriodo", idPeriodo);
+        query.setParameter("idRut", idRut);
         query.setParameter("usuario", usuario);
         query.setParameter("idCatalogo", idCatalogo);
         return (Version)query.getSingleResult();

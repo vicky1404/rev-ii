@@ -5,12 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 import javax.ejb.Local;
-import javax.persistence.Query;
 
 import cl.mdr.ifrs.ejb.entity.Celda;
 import cl.mdr.ifrs.ejb.entity.DetalleEeff;
 import cl.mdr.ifrs.ejb.entity.EstadoFinanciero;
-import cl.mdr.ifrs.ejb.entity.Grilla;
 import cl.mdr.ifrs.ejb.entity.RelacionDetalleEeff;
 import cl.mdr.ifrs.ejb.entity.RelacionEeff;
 import cl.mdr.ifrs.ejb.entity.TipoEstadoEeff;
@@ -19,43 +17,53 @@ import cl.mdr.ifrs.ejb.entity.VersionEeff;
 
 @Local
 public interface EstadoFinancieroServiceLocal {
+	
+	List<TipoEstadoEeff> getEstadoEeffFindAll();
     
-List<TipoEstadoEeff> getEstadoEeffFindAll();
+    List<VersionEeff> getVersionEeffFindByPeriodo(Long idPeriodo, Long idRut);
     
-    List<VersionEeff> getVersionEeffFindByPeriodo(Long idPeriodo);
+    VersionEeff getVersionEeffVigenteFindByPeriodo(Long idPeriodo, Long idRut);
     
     void persistEeffMap(Map<Long, EstadoFinanciero> eeffMap);
     
+    Long getMaxVersionByPeriodo(Long idPeriodo, Long idRut);
+    
+    void updateNoVigenteByPeriodo(Long idPeriodo, Long idRut, Long vigencia);
+    
     void persisVersionEeff(VersionEeff version);
-    void persistRelaccionEeff(Map<Celda, List[]> relacionMap, Long idPeriodo) throws Exception;
     
     TipoEstadoEeff getTipoEstadoEeffById(Long idEstadoEeff);
     
-    List<EstadoFinanciero> getEeffVigenteByPeriodo(Long idPeriodo);
+    List<EstadoFinanciero> getEeffVigenteByPeriodo(Long idPeriodo, Long idRut);
+    
+    List<EstadoFinanciero> getEeffByVersion(Long idVersionEeff);
     
     List<DetalleEeff> getDetalleEeffByEeff(EstadoFinanciero eeff);
     
-    void persistRelaccionEeff(Map<String, String[]> relacionMap, Long idPeriodo, Grilla grilla);
+    List<DetalleEeff> getDetalleEeffByVersion(Long idVersionEeff);
     
-    void deleteAllRelacionByGrillaPeriodo(Long idPeriodo, Long idGrilla);
+    void deleteRelacionEeffByCelda(Celda celda);
     
-    VersionEeff getVersionEeffVigenteFindByPeriodo(Long idPeriodo);
+    void deleteRelacionDetalleEeffByCelda(Celda celda);
     
     void deleteRelacionAllEeffByCelda(Celda celda);
     
-    EstadoFinanciero getEstadoFinancieroByEstadoFinanciero(EstadoFinanciero estadoFinanciero);
+    List<RelacionEeff> getRelacionEeffByPeriodo(Long idPeriodo, Long idRut);
     
-    RelacionDetalleEeff getRelacionDetalleEeffByRelacionDetalleEeff(RelacionDetalleEeff relacionDetalleEeff);
+    List<RelacionDetalleEeff> getRelacionDetalleEeffByPeriodo(Long idPeriodo, Long idRut);
     
+    List<RelacionEeff> getRelacionEeffByPeriodoFecu(Long idPeriodo, Long idRut, Long idFecu);
+    
+    List<RelacionDetalleEeff> getRelacionDetalleEeffByPeriodoFecuCuenta(Long idPeriodo, Long idRut, Long idFecu, Long idCuenta);
+
+    void persistRelaccionEeff(Map<Celda, List[]> relacionMap);
+
+    void deleteAllRelacionByGrillaPeriodo(Long idPeriodo, Long idRut, Long idGrilla);
+
     List<EstadoFinanciero> getEeffByLikeFecu(Long idVersionEeff, Long likeFecu);
     
     List<DetalleEeff> getEeffByLikeCuenta(Long idVersionEeff, Long likeCuenta);
     
-    List<EstadoFinanciero> getEeffByVersion(Long idVersionEeff);
+    RelacionDetalleEeff getRelacionDetalleEeffByRelacionDetalleEeff(RelacionDetalleEeff relacionDetalleEeff);
     
-    List<DetalleEeff> getDetalleEeffByVersion(Long idVersionEeff);
-    
-    List<RelacionEeff> getRelacionEeffByPeriodo(Long idPeriodo);
-    
-    List<RelacionDetalleEeff> getRelacionDetalleEeffByPeriodo(Long idPeriodo);
 }

@@ -223,6 +223,15 @@ public interface SeguridadServiceLocal {
      */
     List<UsuarioGrupo> getUsuarioGrupoByCatalogo(Long idCatalogo) throws Exception;
     
+    
+    /**
+     * 
+     * @param idCatalogo
+     * @return
+     * @throws Exception
+     */
+    public List<UsuarioGrupo> getUsuarioGrupoByCatalogoEmailNotNull(Long idCatalogo) throws Exception;
+    
     /**
      * 
      * @param idCatalogo, idGrupoAcceso

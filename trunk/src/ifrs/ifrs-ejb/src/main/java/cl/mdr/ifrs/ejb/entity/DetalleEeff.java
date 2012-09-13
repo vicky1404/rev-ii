@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
@@ -16,6 +17,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import cl.mdr.ifrs.ejb.common.Constantes;
+import cl.mdr.ifrs.ejb.cross.EeffUtil;
 import cl.mdr.ifrs.ejb.entity.pk.DetalleEeffPK;
 
 
@@ -24,17 +26,23 @@ import cl.mdr.ifrs.ejb.entity.pk.DetalleEeffPK;
 @NamedQueries( { @NamedQuery(name = DetalleEeff.FIND_ALL, query = "select o from DetalleEeff o"),
                  @NamedQuery(name = DetalleEeff.FIND_BY_EEFF, query = "select o from DetalleEeff o where o.estadoFinanciero1 = :eeff"),
                  @NamedQuery(name = DetalleEeff.FIND_BY_VERSION, query = "select o from DetalleEeff o where o.idVersionEeff = :idVersionEeff"),
-                 @NamedQuery(name = DetalleEeff.FIND_BY_LIKE_CUENTA, query = "select o from DetalleEeff o where o.estadoFinanciero1.idVersionEeff = :idVersionEeff and str(o.idCuenta) like :likeCuenta order by o.idFecu")})
+                 @NamedQuery(name = DetalleEeff.FIND_BY_LIKE_CUENTA, query = "select o from DetalleEeff o where o.estadoFinanciero1.idVersionEeff = :idVersionEeff and o.idCuenta like :likeCuenta order by o.idFecu")})
 @Table(name = Constantes.DETALLE_EEFF)
 public class DetalleEeff implements Serializable {
-	private static final long serialVersionUID = -5505476462941937517L;
+    
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -3516145513740254071L;
+	
 	public static final String FIND_ALL = "DetalleEeff.findAll";
     public static final String FIND_BY_EEFF = "DetalleEeff.findByEeff";
     public static final String FIND_BY_VERSION = "DetalleEeff.findByVersion";
     public static final String FIND_BY_LIKE_CUENTA = "DetalleEeff.findByLikeCuenta";
     
+    
     @Id
-    @Column(name = "ID_CUENTA", nullable = false)
+    @Column(name = "ID_CUENTA", nullable = false, insertable = false, updatable = false)
     private Long idCuenta;
     
     @Id
@@ -48,35 +56,35 @@ public class DetalleEeff implements Serializable {
     @Column(name = "MONTO_EBS", length = 256)
     private BigDecimal montoEbs;
     
-    @Column(name = "MONTO_RECLASIFICACION")
-    private BigDecimal montoReclasificacion;
+    @Column(name = "MONTO_PESOS")
+    private BigDecimal montoPesos;
     
     @Column(name = "MONTO_MILES")
     private BigDecimal montoMiles;
     
-    @Column(name = "MONTO_PESOS")
-    private BigDecimal montoPesos;
-    
     @Column(name = "MONTO_PESOS_MIL")
     private BigDecimal montoPesosMil;
     
-    @Transient
-    private BigDecimal montoPesosNuevo;
+    @Column(name = "MONTO_RECLASIFICACION")
+    private BigDecimal montoReclasificacion;
+    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ID_CUENTA")
+    private CuentaContable cuentaContable;
     
     @ManyToOne
     @JoinColumns( { @JoinColumn(name = "ID_FECU", referencedColumnName = "ID_FECU"),
                     @JoinColumn(name = "ID_VERSION_EEFF", referencedColumnName = "ID_VERSION_EEFF") })
     private EstadoFinanciero estadoFinanciero1;
     
-    @ManyToOne
-    @JoinColumn(name = "ID_CUENTA", insertable = false, updatable = false)
-    private CuentaContable cuentaContable;
+    @Transient
+    private BigDecimal montoPesosNuevo;
+    
+    @Transient
+    private boolean selectedForMapping;
 
     public DetalleEeff() {
     }
-
-    
-
 
     public BigDecimal getMontoEbs() {
         return montoEbs;
@@ -147,28 +155,42 @@ public class DetalleEeff implements Serializable {
     public Long getIdVersionEeff() {
         return idVersionEeff;
     }
+    public String getFecuFormat(){
+        if(idFecu!=null)
+            return EeffUtil.formatFecu(idFecu);
+        else
+            return "";
+    }
 
-	public BigDecimal getMontoPesosMil() {
-		return montoPesosMil;
-	}
+    public void setMontoPesosNuevo(BigDecimal montoPesosNuevo) {
+        this.montoPesosNuevo = montoPesosNuevo;
+    }
 
-	public void setMontoPesosMil(BigDecimal montoPesosMil) {
-		this.montoPesosMil = montoPesosMil;
-	}
+    public BigDecimal getMontoPesosNuevo() {
+        return montoPesosNuevo;
+    }
 
-	public BigDecimal getMontoPesosNuevo() {
-		return montoPesosNuevo;
-	}
+    public void setMontoPesosMil(BigDecimal montoPesosMil) {
+        this.montoPesosMil = montoPesosMil;
+    }
 
-	public void setMontoPesosNuevo(BigDecimal montoPesosNuevo) {
-		this.montoPesosNuevo = montoPesosNuevo;
-	}
+    public BigDecimal getMontoPesosMil() {
+        return montoPesosMil;
+    }
 
-	public CuentaContable getCuentaContable() {
-		return cuentaContable;
-	}
+    public void setCuentaContable(CuentaContable cuentaContable) {
+        this.cuentaContable = cuentaContable;
+    }
 
-	public void setCuentaContable(CuentaContable cuentaContable) {
-		this.cuentaContable = cuentaContable;
-	}
+    public CuentaContable getCuentaContable() {
+        return cuentaContable;
+    }
+
+    public void setSelectedForMapping(boolean selectedForMapping) {
+        this.selectedForMapping = selectedForMapping;
+    }
+
+    public boolean isSelectedForMapping() {
+        return selectedForMapping;
+    }
 }

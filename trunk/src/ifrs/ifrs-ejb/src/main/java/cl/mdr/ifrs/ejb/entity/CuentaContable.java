@@ -26,7 +26,6 @@ public class CuentaContable implements Serializable {
     public static final String FIND_ALL = "CuentaContable.findAll";
     public static final String FIND_VIGENTE = "CuentaContable.findVigente";
     
-    @SuppressWarnings("compatibility:8617578974005001601")
     private static final long serialVersionUID = -5769613251964045031L;
 
     @Id

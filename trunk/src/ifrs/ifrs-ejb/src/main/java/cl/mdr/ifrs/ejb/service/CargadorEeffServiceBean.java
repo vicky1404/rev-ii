@@ -16,10 +16,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -46,6 +44,7 @@ import cl.mdr.ifrs.ejb.entity.CodigoFecu;
 import cl.mdr.ifrs.ejb.entity.CuentaContable;
 import cl.mdr.ifrs.ejb.entity.DetalleEeff;
 import cl.mdr.ifrs.ejb.entity.EstadoFinanciero;
+import cl.mdr.ifrs.ejb.entity.PeriodoEmpresa;
 import cl.mdr.ifrs.ejb.entity.RelacionDetalleEeff;
 import cl.mdr.ifrs.ejb.entity.RelacionEeff;
 import cl.mdr.ifrs.ejb.entity.UsuarioGrupo;
@@ -59,14 +58,11 @@ import cl.mdr.ifrs.vo.CargadorEeffVO;
 @Stateless
 public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
     
-	private final Logger logger = Logger.getLogger(CargadorEeffServiceBean.class);
-	
-    @Resource
-    SessionContext sessionContext;
+    private final Logger logger = Logger.getLogger(CargadorEeffServiceBean.class);
+    
     @PersistenceContext(unitName = PERSISTENCE_UNIT_NAME)
     private EntityManager em;
-   
-    
+
     @EJB
     private FacadeServiceLocal facadeService;
 
@@ -292,12 +288,12 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
         }
     }
     
-    public void validarNuevoEeff(final List<EstadoFinanciero> eeffListNuevo,final Long idPeriodo,final CargadorEeffVO cargadorVO) throws Exception{
+    public void validarNuevoEeff(final List<EstadoFinanciero> eeffListNuevo,final PeriodoEmpresa periodoEmpresa,final CargadorEeffVO cargadorVO) throws Exception{
         
         VersionEeff versionEeff = null;
         
         try{
-            versionEeff = facadeService.getEstadoFinancieroService().getVersionEeffVigenteFindByPeriodo(idPeriodo);
+            versionEeff = facadeService.getEstadoFinancieroService().getVersionEeffVigenteFindByPeriodo(periodoEmpresa.getIdPeriodo(), periodoEmpresa.getIdRut());
         }catch(EJBException e){
             if(!(e.getCause() instanceof NoResultException)){
                 throw e;
@@ -318,8 +314,8 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
         Map<String,DetalleEeff> detalleEeffMap = EeffUtil.convertListEeffDetToMap(eeffDetList);
         
         /*Lista con los mapeos de estados financieros vigentes de la bdd*/
-        List<RelacionEeff> relEeffList = facadeService.getEstadoFinancieroService().getRelacionEeffByPeriodo(idPeriodo);
-        List<RelacionDetalleEeff> relDetEeffList = facadeService.getEstadoFinancieroService().getRelacionDetalleEeffByPeriodo(idPeriodo);
+        List<RelacionEeff> relEeffList = facadeService.getEstadoFinancieroService().getRelacionEeffByPeriodo(periodoEmpresa.getIdPeriodo(), periodoEmpresa.getIdRut());
+        List<RelacionDetalleEeff> relDetEeffList = facadeService.getEstadoFinancieroService().getRelacionDetalleEeffByPeriodo(periodoEmpresa.getIdPeriodo(), periodoEmpresa.getIdRut());
         
         Map<Long,RelacionEeff> relEeffMap = index(relEeffList, on(RelacionEeff.class).getIdFecu());
         Map<String,RelacionDetalleEeff> relDetalleEeffMap = EeffUtil.convertListRelEeffDetToMap(relDetEeffList);
@@ -698,7 +694,7 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
                         .append(EeffUtil.getTdFontTag()).append(relDetalleEeff.getCelda5().getColumna().getTituloColumna()).append(EeffUtil.getTdFontCloseTag())
                         .append(EeffUtil.getTdFontTag()).append(relDetalleEeff.getIdFila()).append(EeffUtil.getTdFontCloseTag())
                         .append(EeffUtil.getTdFontTag()).append(Util.formatCellKey(relDetalleEeff.getCelda5())).append(EeffUtil.getTdFontCloseTag())
-                        .append(EeffUtil.getTdFontTag()).append(relDetalleEeff.getCelda5().getValorBigDecimal()).append(EeffUtil.getTdFontCloseTag())
+                        .append(EeffUtil.getTdFontTag()).append(relDetalleEeff.getCelda5().getValor()).append(EeffUtil.getTdFontCloseTag())
                         .append("</tr>");
                     
                     count++;
@@ -734,31 +730,36 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
             
             Catalogo catalogo = facadeService.getCatalogoService().findCatalogoByCatalogo(new Catalogo(mensajeEntry.getKey()));
             
-            Map<String,UsuarioGrupo> usuarioMap = index(facadeService.getSeguridadService().getUsuarioGrupoByCatalogo(mensajeEntry.getKey()), on(UsuarioGrupo.class).getNombreUsuario());
+            List<UsuarioGrupo> usuarioList =  facadeService.getSeguridadService().getUsuarioGrupoByCatalogoEmailNotNull(mensajeEntry.getKey());
+            
+            if(!Util.esListaValida(usuarioList))
+            	continue;
+            
+            
+            Map<String,UsuarioGrupo> usuarioMap = index(usuarioList, on(UsuarioGrupo.class).getUsuario().getEmail());
             
             for(StringBuilder str : mensajeEntry.getValue()){
                 contenidoMail.append(str).append("<br>");
             }
             
-            
             for(UsuarioGrupo usuarioTemp : usuarioMap.values()){
-                if(usuarioMailMap.containsKey(usuarioTemp.getNombreUsuario())){
-                    usuarioMailMap.get(usuarioTemp.getNombreUsuario()).getContenidoMail().append(contenidoMail);
-                    usuarioMailMap.get(usuarioTemp.getNombreUsuario()).getCatalogoAsociadoList().add(catalogo);
+                if(usuarioMailMap.containsKey(usuarioTemp.getUsuario().getEmail())){
+                    usuarioMailMap.get(usuarioTemp.getUsuario().getEmail()).getContenidoMail().append(contenidoMail);
+                    usuarioMailMap.get(usuarioTemp.getUsuario().getEmail()).getCatalogoAsociadoList().add(catalogo);
                 }else{
                     usuarioTemp.setContenidoMail(new StringBuilder(contenidoMail));
                     usuarioTemp.setCatalogoAsociadoList(new ArrayList<Catalogo>());
                     usuarioTemp.getCatalogoAsociadoList().add(catalogo);
-                    usuarioMailMap.put(usuarioTemp.getNombreUsuario(), usuarioTemp);
+                    usuarioMailMap.put(usuarioTemp.getUsuario().getEmail(), usuarioTemp);
                 }
             }
-            
         }
         
         cargadorVO.setUsuarioGrupoList(new ArrayList<UsuarioGrupo>(usuarioMailMap.values()));
     }
     
-    private void sortList(final CargadorEeffVO cargadorVO){
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	private void sortList(final CargadorEeffVO cargadorVO){
         
         final Comparator byIdFecu = new ArgumentComparator(on(EstadoFinanciero.class).getIdFecu());
         
@@ -793,32 +794,42 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
         
     }
     
-    public void sendMailEeff(List<UsuarioGrupo> usuarioGrupoList, String emailFrom, String subject, String host){
-       
-       Map<String,UsuarioGrupo> usuarioMap = index(usuarioGrupoList, on(UsuarioGrupo.class).getNombreUsuario());
+    public void sendMailEeff(List<UsuarioGrupo> usuarioGrupoList, String emailFrom, String subject, String host, String usuarioTest, Boolean isTest){
         
-        for(UsuarioGrupo usuario : usuarioMap.values()){
-          
-            try {
-                Properties properties = System.getProperties();
-                properties.setProperty("mail.smtp.host", host);
-                Session session = Session.getDefaultInstance(properties);
-                try{
-                   MimeMessage message = new MimeMessage(session);
-                   message.setFrom(new InternetAddress(emailFrom));
-                   message.addRecipient(Message.RecipientType.TO, new InternetAddress(usuario.getUsuario().getEmail()));
-                   message.setSubject(subject);
-                   message.setContent(usuario.getContenidoMail().toString(), "text/html");
-                   Transport.send(message);
-                   logger.info("Correo enviado correctamente...");
-                }catch (MessagingException mex) {
-                   mex.printStackTrace();
-                }
-	            } catch (Exception e) {
-	                logger.error("Error de dirección de correo" + e.getMessage());
-	            }
-	          
+        Map<String,UsuarioGrupo> usuarioMap = index(usuarioGrupoList, on(UsuarioGrupo.class).getUsuario().getEmail());
+        
+        if(isTest!=null && isTest.equals(Boolean.TRUE)){
+            for(UsuarioGrupo usuario : usuarioMap.values()){
+                if(usuarioTest!=null && usuarioTest.equalsIgnoreCase(usuario.getUsuario().getEmail()))
+                    sendMail(host, emailFrom, usuario.getUsuario().getEmail(), subject, usuario.getContenidoMail().toString(),"text/html");
+            }
+        }else{
+            for(UsuarioGrupo usuario : usuarioMap.values()){
+                sendMail(host, emailFrom, usuario.getUsuario().getEmail(), subject, usuario.getContenidoMail().toString(),"text/html");
+            }
         }
-      
+        
     }
+    
+    private void sendMail(String host, String emailFrom, String emailTo, String subject, String mensaje, String type){
+        try {
+            Properties properties = System.getProperties();
+            properties.setProperty("mail.smtp.host", host);
+            Session session = Session.getDefaultInstance(properties);
+            try{
+               MimeMessage message = new MimeMessage(session);
+               message.setFrom(new InternetAddress(emailFrom));
+               message.addRecipient(Message.RecipientType.TO, new InternetAddress(emailTo));
+               message.setSubject(subject);
+               message.setContent(mensaje, type);
+               Transport.send(message);
+               logger.info("Sent message successfully....");
+            }catch (MessagingException mex) {
+               mex.printStackTrace();
+            }
+        } catch (Exception e) {
+            logger.error("Error de dirección de correo" + e.getMessage());
+        }
+    }
+    
 }
