@@ -92,7 +92,7 @@ private static final long serialVersionUID = -2121624962103986848L;
     @Expose
     private BigDecimal montoPesos;
     
-    @Column(name = "RECLASIFICACION")
+    @Column(name = "MONTO_RECLASIFICACION")
     @Expose
     private BigDecimal montoReclasificacion;
     
