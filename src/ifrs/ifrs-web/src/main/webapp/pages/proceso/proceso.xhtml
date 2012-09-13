@@ -118,7 +118,7 @@
 								<p:spacer width="10px" />								
 								<p:commandButton value="#{msg.boton_validar}"
 									icon="ui-icon-check" id="btn2" partialSubmit="false"
-									rendered="#{procesoBackingBean.versionSeleccionada.validadoEeff eq 0 }"
+									rendered="#{procesoBackingBean.versionSeleccionada.catalogo.validarEeff == 1 and procesoBackingBean.versionSeleccionada.validadoEeff eq 0 }"
 									onclick="widPopupValidar.show()" />
 								<span class="ui-icon ui-icon-grip-dotted-vertical"></span>								
 								<h:outputText
