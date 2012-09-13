@@ -6,10 +6,13 @@ import static cl.mdr.ifrs.ejb.cross.Constantes.PERSISTENCE_UNIT_NAME;
 import java.math.BigDecimal;
 import java.text.MessageFormat;
 import java.util.List;
+import java.util.ResourceBundle;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import javax.mail.MessagingException;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -25,6 +28,7 @@ import cl.mdr.ifrs.ejb.entity.MenuGrupo;
 import cl.mdr.ifrs.ejb.entity.Rol;
 import cl.mdr.ifrs.ejb.entity.Usuario;
 import cl.mdr.ifrs.ejb.entity.UsuarioGrupo;
+import cl.mdr.ifrs.ejb.service.local.MailServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.SeguridadServiceLocal;
 
 
@@ -33,6 +37,9 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
     
     @PersistenceContext(unitName = PERSISTENCE_UNIT_NAME)
     private EntityManager em;
+    
+    @EJB
+    private MailServiceLocal mailService;
     
     public SeguridadServiceBean() {
         super();
@@ -53,6 +60,15 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
     		.setParameter("apellidoMaterno", usuario.getApellidoMaterno() != null ? MessageFormat.format("%{0}%", usuario.getApellidoMaterno().toUpperCase()) : null)
     		.setParameter("rol", rol.getIdRol())
     		.getResultList();    	
+    }
+    
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void crearNuevoUsuario(final Usuario usuario) throws MessagingException, Exception{    	
+    	em.persist(usuario);
+    	mailService.sendMail("Usuario Creado", 
+    						 MessageFormat.format(ResourceBundle.getBundle("exfida-mail-template").getString("exfida_nuevo_usuario_mail_template"), usuario.getNombre(), usuario.getApellidoPaterno(), usuario.getPassword()), 
+    						 "rodrigo.reyes@bicevida.cl", 
+    						 usuario.getEmail());
     }
     
     /* (non-Javadoc)

@@ -12,18 +12,17 @@ import cl.mdr.ifrs.ejb.common.Constantes;
  */
 @Entity
 @Table(name=Constantes.PARAMETRO)
-public class Parametro implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Parametro implements Serializable {	
+	private static final long serialVersionUID = 4250392142307076068L;
 
 	@EmbeddedId
 	private ParametroPK id;
 
 	private String valor;
-
-	//bi-directional many-to-one association to TipoParametro
+	
     @ManyToOne
 	@JoinColumn(name="ID_TIPO_PARAMETRO" , insertable = false, updatable = false)
-	private TipoParametro exfidaTipoParametro;
+	private TipoParametro tipoParametro;
 
     public Parametro() {
     }
@@ -44,12 +43,14 @@ public class Parametro implements Serializable {
 		this.valor = valor;
 	}
 
-	public TipoParametro getExfidaTipoParametro() {
-		return this.exfidaTipoParametro;
+	public TipoParametro getTipoParametro() {
+		return tipoParametro;
 	}
 
-	public void setExfidaTipoParametro(TipoParametro exfidaTipoParametro) {
-		this.exfidaTipoParametro = exfidaTipoParametro;
+	public void setTipoParametro(TipoParametro tipoParametro) {
+		this.tipoParametro = tipoParametro;
 	}
+	
+	
 	
 }
