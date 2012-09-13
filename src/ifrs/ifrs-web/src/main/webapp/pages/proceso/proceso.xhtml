@@ -6,11 +6,10 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/main-template.xhtml"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
-	<ui:define name="content">
+	<ui:define name="content">		
 		<h:form id="f1">
-			<p:messages globalOnly="true" id="mensajes_proceso" autoUpdate="true" />
-			<p:ajaxStatus onstart="statusDialogNoModal.show();"
-				oncomplete="statusDialogNoModal.hide();" />
+			<p:messages id="messages" autoUpdate="true"/>
+			<p:ajaxStatus onstart="statusDialogNoModal.show();" oncomplete="statusDialogNoModal.hide();" />
 			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
 			<p:panel id="pb1" header="#{msg.general_titulo_busqueda_aplicacion}"
 				toggleable="true" closable="false">
@@ -45,7 +44,7 @@
 								icon="ui-icon-search" update="@form" /></td>
 					</tr>
 				</table>
-
+				<p:messages id="messages2" autoUpdate="true" rendered="#{procesoBackingBean.renderMensajePostConstructor}"/>
 				<p:spacer height="10px" />
 
 				<div align="center">

@@ -8,9 +8,13 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.FacesComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import org.apache.log4j.Logger;
+import org.primefaces.component.messages.Messages;
+import org.primefaces.context.RequestContext;
 
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
 import cl.mdr.ifrs.cross.mb.ComponenteBackingBean;
@@ -53,7 +57,7 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
 	private boolean renderVersionList = false;
 	private List<Version> versionList;
 	private Version versionSeleccionada;	
-	
+	private boolean renderMensajePostConstructor; 
 	
 	@PostConstruct
 	public void cargarCuadro(){		
@@ -61,16 +65,18 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
 		try {			
 			if(!isSelectedEmpresa())
 	    		return;								
-			try{				
+			try{
+				
 				PeriodoEmpresa periodoEmpresa = getFacadeService().getPeriodoService().getMaxPeriodoEmpresaByEmpresa(getFiltroBackingBean().getEmpresa().getIdRut());
 				getFiltroBackingBean().setPeriodoEmpresa(periodoEmpresa);
+				
 			}catch(Exception e) {
 				logger.error(e.getCause(), e);
-	            addWarnMessage("El período consultado no existe");
+	            super.addWarnMessage("El período consultado no existe");
 	            return;
-			}			
-			versionList = getFacadeService().getVersionService().findVersionByCatalogoPeriodo(getFiltroBackingBean().getCatalogo().getIdCatalogo(), 
-																							  getFiltroBackingBean().getPeriodoEmpresa());
+			}	
+			
+			versionList = getFacadeService().getVersionService().findVersionByCatalogoPeriodo(getFiltroBackingBean().getCatalogo().getIdCatalogo(),getFiltroBackingBean().getPeriodoEmpresa());
 			versionSeleccionada = getFacadeService().getVersionService().findUltimaVersionVigente(getFiltroBackingBean().getPeriodoEmpresa().getIdPeriodo(), 
 																								  getNombreUsuario(), getFiltroBackingBean().getCatalogo().getIdCatalogo());
 			if(versionSeleccionada==null){
@@ -86,18 +92,18 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
             }
 			
             setListGrilla(estructuraList);
-            
             this.renderVersionList = true;
-
 			
 		} catch (FormulaException e){
             logger.error(e.getCause(), e);
-            addErrorMessage(PropertyManager.getInstance().getMessage("general_mensaje_cuadro_formula_loop_error"));  
-            addErrorMessage(e.getFormula());  
+            super.addErrorMessage(PropertyManager.getInstance().getMessage("general_mensaje_cuadro_formula_loop_error"));  
+            super.addErrorMessage(e.getFormula());
+            this.setRenderMensajePostConstructor(true);
+            return;
         } catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			this.renderVersionList = false;
-            addWarnMessage(MessageFormat.format(
+            super.addWarnMessage(MessageFormat.format(
             				PropertyManager.getInstance().getMessage("periodo_busqueda_sin_resultado_periodo"), 
 		            		getFiltroBackingBean().getPeriodoEmpresa().getPeriodo().getAnioPeriodo(), 
 		            		getFiltroBackingBean().getPeriodoEmpresa().getPeriodo().getMesPeriodo()));
@@ -321,7 +327,7 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
     
     
     private void addNotFoundMessage(){
-    	addWarnMessage(MessageFormat.format(PropertyManager.getInstance().getMessage("periodo_busqueda_sin_resultado_periodo"), 
+    	super.addWarnMessage(MessageFormat.format(PropertyManager.getInstance().getMessage("periodo_busqueda_sin_resultado_periodo"), 
     			getFiltroBackingBean().getPeriodoEmpresa().getPeriodo().getAnioPeriodo(), 
     			getFiltroBackingBean().getPeriodoEmpresa().getPeriodo().getMesPeriodo()));
         this.renderVersionList = false;  
@@ -455,4 +461,12 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
 	        getFacadeService().getVersionService().mergeEntity(versionSeleccionada);
 	    }
 	 
+	 	
+	 	public boolean isRenderMensajePostConstructor() {
+			return renderMensajePostConstructor;
+		}
+
+		public void setRenderMensajePostConstructor(boolean renderMensajePostConstructor) {
+			this.renderMensajePostConstructor = renderMensajePostConstructor;
+		}
 }
