@@ -18,6 +18,7 @@ import cl.mdr.ifrs.ejb.service.local.FormulaServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.GrillaServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.GrupoServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.MantenedoresTipoServiceLocal;
+import cl.mdr.ifrs.ejb.service.local.ParametroServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.PeriodoServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.ReporteDocxServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.ReporteServiceLocal;
@@ -123,5 +124,10 @@ public interface FacadeServiceLocal{
      * @return Interfaz local de GrupoServiceLocal
      */
     GrupoServiceLocal getGrupoService();
+    
+    /**
+     * @return Interfaz local de ParametroServiceBean
+     */
+    ParametroServiceLocal getParametroService();
     
 }

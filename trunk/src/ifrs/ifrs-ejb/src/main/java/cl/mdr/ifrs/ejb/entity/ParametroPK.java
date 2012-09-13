@@ -8,9 +8,8 @@ import javax.persistence.*;
  * 
  */
 @Embeddable
-public class ParametroPK implements Serializable {
-	//default serial version id, required for serializable classes.
-	private static final long serialVersionUID = 1L;
+public class ParametroPK implements Serializable {	
+	private static final long serialVersionUID = -1988651332857745507L;
 
 	@Column(name="ID_TIPO_PARAMETRO", insertable = false, updatable = false)
 	private long idTipoParametro;

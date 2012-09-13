@@ -4,6 +4,7 @@ package cl.mdr.ifrs.ejb.service.local;
 import java.util.List;
 
 import javax.ejb.Local;
+import javax.mail.MessagingException;
 import javax.persistence.NoResultException;
 
 import cl.mdr.ifrs.ejb.entity.CatalogoGrupo;
@@ -27,6 +28,12 @@ public interface SeguridadServiceLocal {
 	 */
 	List<Usuario> findUsuariosByFiltro(Usuario usuario , Rol rol) throws Exception;
 	
+	/**
+	 * @param usuario
+	 * @throws MessagingException
+	 * @throws Exception
+	 */
+	void crearNuevoUsuario(Usuario usuario) throws MessagingException, Exception;
 	
     /**
      * @param usuario
