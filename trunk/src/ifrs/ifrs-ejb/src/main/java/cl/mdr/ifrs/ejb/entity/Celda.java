@@ -24,6 +24,8 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+
+
 import com.google.gson.annotations.Expose;
 
 import cl.mdr.ifrs.ejb.common.Constantes;
@@ -106,12 +108,12 @@ public class Celda implements Serializable {
     @Expose
     private String formula;
     
-    //@Fetch(FetchMode.SUBSELECT)
-    @OneToMany(mappedBy = "celda2", fetch = FetchType.LAZY, orphanRemoval=true)
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(mappedBy = "celda2", fetch = FetchType.EAGER, orphanRemoval=true)
     private List<RelacionEeff> relacionEeffList;
     
-    //@Fetch(FetchMode.SUBSELECT)
-    @OneToMany(mappedBy = "celda5", fetch = FetchType.LAZY, orphanRemoval=true)
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(mappedBy = "celda5", fetch = FetchType.EAGER, orphanRemoval=true)
     private List<RelacionDetalleEeff> relacionDetalleEeffList;
     
     @Transient
@@ -394,13 +396,14 @@ public class Celda implements Serializable {
         return relacionDetalleEeffList;
     }
     
+    
     @Transient
     public int getSizeRelacionEeffList(){
-        
-        if(relacionEeffList==null)
+    	
+        if(getRelacionEeffList()==null)
             return 0;
         else
-            return relacionEeffList.size();
+            return getRelacionEeffList().size();
     }
     
     @Transient
