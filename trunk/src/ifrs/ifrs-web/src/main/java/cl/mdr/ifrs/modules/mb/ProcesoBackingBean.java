@@ -431,8 +431,8 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
 	            if(estructuras.getTipoEstructura().getIdTipoEstructura().equals(TipoEstructura.ESTRUCTURA_TIPO_GRILLA)){
 	                try {
 	                    
-	                    boolean result = getFacadeService().getFormulaService().processValidatorEEFF(estructuras.getGrillaVO().getGrilla());
-	                    
+	                    //boolean result = getFacadeService().getFormulaService().processValidatorEEFF(estructuras.getGrillaVO().getGrilla());
+	                	boolean result = getFacadeService().getFormulaService().processValidatorEEFF(estructuras.getGrilla());
 	                    if(!result)
 	                        valid = false;
 	                    
