@@ -47,6 +47,8 @@ public class Constantes {
     public static final String EMPRESA = PREFIX + "EMPRESA";
     public static final String XBRL_TAXONOMIA = PREFIX + "XBRL_TAXONOMIA";
     public static final String CUENTA_CONTABLE = PREFIX + "CUENTA_CONTABLE";
+    public static final String TIPO_PARAMETRO = PREFIX + "TIPO_PARAMETRO";
+    public static final String PARAMETRO = PREFIX + "PARAMETRO";
     
     
     
