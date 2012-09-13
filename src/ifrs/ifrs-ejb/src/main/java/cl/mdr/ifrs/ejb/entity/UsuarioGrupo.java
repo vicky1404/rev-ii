@@ -26,7 +26,14 @@ import cl.mdr.ifrs.ejb.entity.pk.UsuarioGrupoPK;
     @NamedQuery(name = UsuarioGrupo.FIND_GRUPOS_BY_USUARIO , query = "select o.grupo from UsuarioGrupo o where o.nombreUsuario =:nombreUsuario"),    
     @NamedQuery(name = UsuarioGrupo.DELETE_BY_USUARIO , query = "delete from UsuarioGrupo o where upper(o.nombreUsuario) =:usuario"),
     @NamedQuery(name = UsuarioGrupo.DELETE_BY_GRUPO , query = "delete from UsuarioGrupo o where o.grupo =:grupo"),
-    @NamedQuery(name = UsuarioGrupo.FIND_BY_ID_CATALOGO , query = "select distinct new cl.mdr.ifrs.ejb.entity.UsuarioGrupo(ug.nombreUsuario) from CatalogoGrupo cg, Grupo g, UsuarioGrupo ug where cg.idCatalogo = :idCatalogo and g.idGrupoAcceso = cg.idGrupoAcceso and ug.idGrupo = g.idGrupoAcceso order by ug.nombreUsuario")
+    @NamedQuery(name = UsuarioGrupo.FIND_BY_ID_CATALOGO , query = "select distinct new cl.mdr.ifrs.ejb.entity.UsuarioGrupo(ug.nombreUsuario) from CatalogoGrupo cg, Grupo g, UsuarioGrupo ug where cg.idCatalogo = :idCatalogo and g.idGrupoAcceso = cg.idGrupoAcceso and ug.idGrupo = g.idGrupoAcceso order by ug.nombreUsuario"),
+    @NamedQuery(name = UsuarioGrupo.FIND_BY_ID_CATALOGO_EMAIL_NOT_NULL , query = "select distinct new cl.mdr.ifrs.ejb.entity.UsuarioGrupo(ug.nombreUsuario) " +
+    		" from CatalogoGrupo cg, Grupo g, UsuarioGrupo ug " +
+    		" where cg.idCatalogo = :idCatalogo and " +
+    		" g.idGrupoAcceso = cg.idGrupoAcceso and " +
+    		" ug.idGrupo = g.idGrupoAcceso and " +
+    		" ug.usuario.email is not null " +
+    		" order by ug.nombreUsuario ")
 })
 @Table(name = Constantes.USUARIO_GRUPO)
 @IdClass(UsuarioGrupoPK.class)
@@ -39,6 +46,7 @@ public class UsuarioGrupo implements Serializable {
     public static final String DELETE_BY_USUARIO = "UsuarioGrupo.deleteByUsuario";
     public static final String DELETE_BY_GRUPO = "UsuarioGrupo.deleteByGrupo";
     public static final String FIND_BY_ID_CATALOGO = "UsuarioGrupo.findByIdCatalogo";
+    public static final String FIND_BY_ID_CATALOGO_EMAIL_NOT_NULL = "UsuarioGrupo.findByIdCatalogoEmailNotNull";
     
     @Id
     @Column(name="ID_GRUPO_ACCESO",nullable = false, insertable = false,updatable = false)

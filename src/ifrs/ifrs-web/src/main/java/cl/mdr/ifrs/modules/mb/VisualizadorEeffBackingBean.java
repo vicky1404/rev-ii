@@ -15,6 +15,7 @@ import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.DetalleEeff;
 import cl.mdr.ifrs.ejb.entity.EstadoFinanciero;
 import cl.mdr.ifrs.ejb.entity.Periodo;
+import cl.mdr.ifrs.ejb.entity.PeriodoEmpresa;
 import cl.mdr.ifrs.ejb.entity.VersionEeff;
 
 /**
@@ -29,7 +30,7 @@ public class VisualizadorEeffBackingBean extends AbstractBackingBean{
 	
 private transient Logger logger = Logger.getLogger(VisualizadorEeffBackingBean.class);    
     
-    private Periodo periodo;
+    private PeriodoEmpresa periodoEmpresa;
     private VersionEeff versionEeff;
     private List<VersionEeff> versionEeffList;
     private List<EstadoFinanciero> eeffList;
@@ -49,11 +50,9 @@ private transient Logger logger = Logger.getLogger(VisualizadorEeffBackingBean.c
     public void init(){
         try{
             
-            periodo = getFacadeService().getPeriodoService().findMaxPeriodoObj();
-            mesPeriodo = periodo.getMesPeriodo();
-            anioPeriodo = periodo.getAnioPeriodo();
-            versionEeffList = getFacadeService().getEstadoFinancieroService().getVersionEeffFindByPeriodo(periodo.getIdPeriodo());
-            getFiltroPeriodoEmpresa().setPeriodo(periodo);
+        	periodoEmpresa = getFacadeService().getPeriodoService().getMaxPeriodoEmpresaByEmpresa(getFiltroBackingBean().getEmpresa().getIdRut());
+            getFiltroBackingBean().setPeriodoEmpresa(periodoEmpresa);
+            versionEeffList = getFacadeService().getEstadoFinancieroService().getVersionEeffFindByPeriodo(periodoEmpresa.getIdPeriodo(), periodoEmpresa.getIdRut());
 
         }catch(Exception e){
             logger.error(e);
@@ -66,11 +65,8 @@ private transient Logger logger = Logger.getLogger(VisualizadorEeffBackingBean.c
         eeffList = null;
         renderFalse();
         try{
-            Long anioMes = Util.getLong(anioPeriodo.concat(mesPeriodo), 0L);
-            periodo = getFacadeService().getMantenedoresTipoService().findByPeriodo(anioMes);
-            if (periodo != null){
-	            //getFiltroPeriodoEmpresa().setPeriodo(periodo);
-	            versionEeffList = getFacadeService().getEstadoFinancieroService().getVersionEeffFindByPeriodo(periodo.getIdPeriodo());
+            if (periodoEmpresa != null){
+	            versionEeffList = getFacadeService().getEstadoFinancieroService().getVersionEeffFindByPeriodo(periodoEmpresa.getIdPeriodo(), periodoEmpresa.getIdRut());
             } 
         }catch(Exception e){
             logger.error(e);
@@ -151,15 +147,6 @@ private transient Logger logger = Logger.getLogger(VisualizadorEeffBackingBean.c
             logger.error(e);
             addErrorMessage("Error al buscar los estados financieros por el filtro");
         }
-    }
-
-
-    public void setPeriodo(Periodo periodo) {
-        this.periodo = periodo;
-    }
-
-    public Periodo getPeriodo() {
-        return periodo;
     }
 
     public void setVersionEeff(VersionEeff versionEeff) {

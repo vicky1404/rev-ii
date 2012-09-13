@@ -57,8 +57,16 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
     private Catalogo catalogo;
     private List<Catalogo> catalogos;
     private String busqueda;
-    private Periodo periodo;
-    private List<EstadoFinanciero> eeffs;
+    private PeriodoEmpresa periodoEmpresa;
+    public PeriodoEmpresa getPeriodoEmpresa() {
+		return periodoEmpresa;
+	}
+
+	public void setPeriodoEmpresa(PeriodoEmpresa periodoEmpresa) {
+		this.periodoEmpresa = periodoEmpresa;
+	}
+
+	private List<EstadoFinanciero> eeffs;
     private Version versionVigente;
     private List<Estructura> estructuras;
     private List<Catalogo> catalogosFiltrados;
@@ -98,8 +106,8 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
 	@PostConstruct
     public void cargarPeriodo(){
         try{
-            periodo = getFacadeService().getPeriodoService().findMaxPeriodoObj();
-            eeffs = getFacadeService().getEstadoFinancieroService().getEeffVigenteByPeriodo(periodo.getIdPeriodo());
+        	periodoEmpresa = getFacadeService().getPeriodoService().getMaxPeriodoEmpresaByEmpresa(getFiltroBackingBean().getEmpresa().getIdRut());
+            eeffs = getFacadeService().getEstadoFinancieroService().getEeffVigenteByPeriodo(periodoEmpresa.getIdPeriodo(), periodoEmpresa.getIdRut());
             relacionMap = new LinkedHashMap<Celda, List[]>();
         }catch(Exception e){
             logger.error("Error en metodo cargarPeriodo", e);
@@ -161,7 +169,7 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
                 getFiltroBackingBean().setCatalogo(catalogo);
                 this.setCatalogo(catalogo);
                 try{
-                    versionVigente = getFacadeService().getVersionService().findUltimaVersionVigente(periodo.getIdPeriodo(),getNombreUsuario(),catalogo.getIdCatalogo());
+                    versionVigente = getFacadeService().getVersionService().findUltimaVersionVigente(periodoEmpresa.getIdPeriodo(), periodoEmpresa.getIdRut(), getNombreUsuario(),catalogo.getIdCatalogo());
                     estructuras = getFacadeService().getEstructuraService().findEstructuraByVersion(versionVigente);
                 }catch(Exception e){
                     addErrorMessage(PropertyManager.getInstance().getMessage("general_error_al_buscar_versiones"));
@@ -345,13 +353,7 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
             return;
         
         List<RelacionEeff> eeffTempList = new ArrayList<RelacionEeff>();
-        RelacionEeff relEeff = new RelacionEeff();
-        PeriodoEmpresa periodoEmpresa = new PeriodoEmpresa();
-        	periodoEmpresa.setIdPeriodo(periodo.getIdPeriodo());
-        	
-			periodoEmpresa.setIdRut(super.getFiltroBackingBean().getEmpresa().getIdRut());			
-        	periodoEmpresa.setPeriodo(periodo);
-        	
+        RelacionEeff relEeff = new RelacionEeff();		
         relEeff.copyEstadoFinanciero(eeff, relCelda, periodoEmpresa);
         relEeff.setIdFila(relCelda.getIdFila());
         relEeff.setIdColumna(relCelda.getIdColumna());
@@ -381,11 +383,7 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
         }
         
         RelacionDetalleEeff relEeffDet = new RelacionDetalleEeff();
-        PeriodoEmpresa periodoEmpresa = new PeriodoEmpresa();
-            periodoEmpresa.setIdPeriodo(periodo.getIdPeriodo());
-            periodoEmpresa.setIdRut(super.getFiltroBackingBean().getEmpresa().getIdRut());
-        	periodoEmpresa.setPeriodo(periodo);
-        	
+
         relEeffDet.copyDetalleEeff(detalleEeff, relCelda, periodoEmpresa);
         relEeffDet.setIdFila(relCelda.getIdFila());
         relEeffDet.setIdColumna(relCelda.getIdColumna());
@@ -409,7 +407,7 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
             return;
         
         try{        
-            getFacadeService().getEstadoFinancieroService().persistRelaccionEeff(relacionMap, periodo.getIdPeriodo());
+            getFacadeService().getEstadoFinancieroService().persistRelaccionEeff(relacionMap);
             relacionMap.clear();
             Grilla grilla = this.getFacadeService().getGrillaService().findGrillaById(grillaVO.getGrilla().getIdGrilla());
             grillaVO = this.getFacadeService().getEstructuraService().getGrillaVO(grilla, Boolean.FALSE);
@@ -493,7 +491,7 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
             return;
         
         try{
-        	super.getFacadeService().getEstadoFinancieroService().deleteAllRelacionByGrillaPeriodo(periodo.getIdPeriodo(), grillaVO.getGrilla().getIdGrilla());
+        	super.getFacadeService().getEstadoFinancieroService().deleteAllRelacionByGrillaPeriodo(periodoEmpresa.getIdPeriodo(), periodoEmpresa.getIdRut(), grillaVO.getGrilla().getIdGrilla());
             relacionMap.clear();
             Grilla grilla = super.getFacadeService().getGrillaService().findGrillaById(grillaVO.getGrilla().getIdGrilla());
             grillaVO = super.getFacadeService().getEstructuraService().getGrillaVO(grilla, Boolean.FALSE);
@@ -618,14 +616,6 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
 
     public Long getNumeroCuenta() {
         return numeroCuenta;
-    }
-
-    public void setPeriodo(Periodo periodo) {
-        this.periodo = periodo;
-    }
-
-    public Periodo getPeriodo() {
-        return periodo;
     }
 
     public Logger getLogger() {
@@ -812,7 +802,7 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
         
         if(grillaVO==null || grillaVO.getGrilla()==null || grillaVO.getGrilla().getIdGrilla()==null && (getRelCelda() != null && (getItemFecuList() != null || getItemCuentaList() != null)))
             addWarnMessage(PropertyManager.getInstance().getMessage("general_error_debe_generar_una_relacion"));
-        else if(periodo==null || periodo.getIdPeriodo() == null)
+        else if(periodoEmpresa==null || periodoEmpresa.getIdPeriodo() == null)
             addWarnMessage(PropertyManager.getInstance().getMessage("general_error_periodo_invalido_reingresar"));
         else
             return true;

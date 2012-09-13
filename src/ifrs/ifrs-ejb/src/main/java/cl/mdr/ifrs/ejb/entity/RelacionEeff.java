@@ -27,22 +27,20 @@ import cl.mdr.ifrs.ejb.entity.pk.RelacionEeffPK;
 
 @Entity
 @NamedQueries( { @NamedQuery(name = RelacionEeff.FIND_ALL, query = "select o from RelacionEeff o"),
-    @NamedQuery(name = RelacionEeff.FIND_BY_PERIODO, query = "select o from RelacionEeff o where o.periodoEmpresa.periodo.idPeriodo = :idPeriodo order by o.idFecu"),
-    @NamedQuery(name = RelacionEeff.FIND_BY_PERIODO_FECU, query = "select o from RelacionEeff o where o.periodoEmpresa.periodo.idPeriodo = :idPeriodo and o.idFecu = :idFecu"),
+    @NamedQuery(name = RelacionEeff.FIND_BY_PERIODO_EMPRESA, query = "select o from RelacionEeff o where o.periodoEmpresa.idPeriodo = :idPeriodo and o.periodoEmpresa.idRut = :idRut order by o.idFecu"),
+    @NamedQuery(name = RelacionEeff.FIND_BY_PERIODO_FECU, query = "select o from RelacionEeff o where o.periodoEmpresa.idPeriodo = :idPeriodo and o.periodoEmpresa.idRut = :idRut and o.idFecu = :idFecu"),
     @NamedQuery(name = RelacionEeff.DELETE_BY_CELDA, query = "delete from RelacionEeff o where o.celda2 = :celda"),
-    @NamedQuery(name = RelacionEeff.DELETE_BY_GRILLA_PERIODO, query = "delete from RelacionEeff o where o.idGrilla = :idGrilla and o.idPeriodo = :idPeriodo")})
+    @NamedQuery(name = RelacionEeff.DELETE_BY_GRILLA_PERIODO_EMPRESA, query = "delete from RelacionEeff o where o.idGrilla = :idGrilla and o.idPeriodo = :idPeriodo and o.idRut = :idRut")})
 @Table(name = Constantes.RELACION_EEFF)
 @IdClass(RelacionEeffPK.class)
 
 public class RelacionEeff implements Serializable {
 	
-	public static final String FIND_ALL = "RelacionEeff.findAll";
-    public static final String FIND_BY_PERIODO = "RelacionEeff.findByPeriodo";
+    public static final String FIND_ALL = "RelacionEeff.findAll";
+    public static final String FIND_BY_PERIODO_EMPRESA = "RelacionEeff.findByPeriodo";
     public static final String FIND_BY_PERIODO_FECU = "RelacionEeff.findByPeriodoFecu";
     public static final String DELETE_BY_CELDA = "RelacionEeff.deleteByCelda";
-    public static final String DELETE_BY_GRILLA_PERIODO = "RelacionEeff.deleteByGrillaPeriodo";
-        
-    private static final long serialVersionUID = -6886308246258165195L;
+    public static final String DELETE_BY_GRILLA_PERIODO_EMPRESA = "RelacionEeff.deleteByGrillaPeriodo";
     
     @Id
     @Column(name = "ID_FECU", nullable = false, insertable = false, updatable = false)
@@ -60,30 +58,27 @@ public class RelacionEeff implements Serializable {
     private Long idRut;
     
     @Id
-	@Column(name = "ID_GRILLA", nullable = false, insertable=false, updatable=false)
-	@Expose
+    @Column(name = "ID_GRILLA", nullable = false, insertable = false, updatable = false)
+    @Expose
     private Long idGrilla;
-
+    
     @Id
-	@Column(name = "ID_COLUMNA", nullable = false, insertable=false, updatable=false)
-	@Expose
+    @Column(name = "ID_COLUMNA", nullable = false, insertable = false, updatable = false)
+    @Expose
     private Long idColumna;
     
     @Id
-	@Column(name = "ID_FILA", nullable = false, insertable=false, updatable=false)
-	@Expose
+    @Column(name = "ID_FILA", nullable = false, insertable = false, updatable = false)
+    @Expose
     private Long idFila;
-
-
-	@Column(name = "MONTO_TOTAL")
-	@Expose
+    
+    @Column(name = "MONTO_TOTAL")
     private BigDecimal montoTotal;
-	
+    
     @ManyToOne
     @JoinColumns( { @JoinColumn(name = "ID_COLUMNA", referencedColumnName = "ID_COLUMNA"),
                     @JoinColumn(name = "ID_GRILLA", referencedColumnName = "ID_GRILLA"),
                     @JoinColumn(name = "ID_FILA", referencedColumnName = "ID_FILA") })
-    @Expose
     private Celda celda2;
     
     @ManyToOne(fetch = FetchType.EAGER)
@@ -94,7 +89,6 @@ public class RelacionEeff implements Serializable {
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_FECU")
-    @Expose
     private CodigoFecu codigoFecu;
     
     @Transient
@@ -119,14 +113,6 @@ public class RelacionEeff implements Serializable {
     public void setIdPeriodo(Long idPeriodo) {
         this.idPeriodo = idPeriodo;
     }
-    
-    public Long getIdRut() {
-		return idRut;
-	}
-
-	public void setIdRut(Long idRut) {
-		this.idRut = idRut;
-	}
 
     public BigDecimal getMontoTotal() {
         return montoTotal;
@@ -143,6 +129,14 @@ public class RelacionEeff implements Serializable {
     public void setCelda2(Celda celda2) {
         this.celda2 = celda2;
     }
+    
+    public Long getIdRut() {
+		return idRut;
+	}
+
+	public void setIdRut(Long idRut) {
+		this.idRut = idRut;
+	}
     
     public PeriodoEmpresa getPeriodoEmpresa() {
         return periodoEmpresa;
@@ -164,6 +158,37 @@ public class RelacionEeff implements Serializable {
         return codigoFecu;
     }
     
+    public void setIdGrilla(Long idGrilla) {
+        this.idGrilla = idGrilla;
+    }
+
+    public Long getIdGrilla() {
+        return idGrilla;
+    }
+
+    public void setIdColumna(Long idColumna) {
+        this.idColumna = idColumna;
+    }
+
+    public Long getIdColumna() {
+        return idColumna;
+    }
+
+    public void setIdFila(Long idFila) {
+        this.idFila = idFila;
+    }
+
+    public Long getIdFila() {
+        return idFila;
+    }
+    
+    public String getFecuFormat(){
+        if(idFecu!=null)
+            return EeffUtil.formatFecu(idFecu);
+        else
+            return "";
+    }
+    
     public void copyEstadoFinanciero(EstadoFinanciero eeff,Celda celda, PeriodoEmpresa periodoEmpresa){
         this.idFecu = eeff.getIdFecu();
         if(periodoEmpresa!=null){
@@ -176,131 +201,13 @@ public class RelacionEeff implements Serializable {
         this.codigoFecu = eeff.getCodigoFecu();
     }
 
-	public Long getIdGrilla() {
-		return idGrilla;
-	}
-
-	public void setIdGrilla(Long idGrilla) {
-		this.idGrilla = idGrilla;
-	}
-	
-	public String getFecuFormat(){
-        if(idFecu!=null)
-            return EeffUtil.formatFecu(idFecu);
-        else
-            return "";
+    public void setMontoTotalNuevo(BigDecimal montoTotalNuevo) {
+        this.montoTotalNuevo = montoTotalNuevo;
     }
 
-	
-
-	public Long getIdColumna() {
-		return idColumna;
-	}
-
-	public void setIdColumna(Long idColumna) {
-		this.idColumna = idColumna;
-	}
-
-	public Long getIdFila() {
-		return idFila;
-	}
-
-	public void setIdFila(Long idFila) {
-		this.idFila = idFila;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((celda2 == null) ? 0 : celda2.hashCode());
-		result = prime * result
-				+ ((codigoFecu == null) ? 0 : codigoFecu.hashCode());
-		result = prime * result
-				+ ((idColumna == null) ? 0 : idColumna.hashCode());
-		result = prime * result + ((idFecu == null) ? 0 : idFecu.hashCode());
-		result = prime * result + ((idFila == null) ? 0 : idFila.hashCode());
-		result = prime * result
-				+ ((idGrilla == null) ? 0 : idGrilla.hashCode());
-		result = prime * result
-				+ ((idPeriodo == null) ? 0 : idPeriodo.hashCode());
-		result = prime * result + ((idRut == null) ? 0 : idRut.hashCode());
-		result = prime * result
-				+ ((montoTotal == null) ? 0 : montoTotal.hashCode());
-		result = prime * result
-				+ ((periodoEmpresa == null) ? 0 : periodoEmpresa.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		RelacionEeff other = (RelacionEeff) obj;
-		if (celda2 == null) {
-			if (other.celda2 != null)
-				return false;
-		} else if (!celda2.equals(other.celda2))
-			return false;
-		if (codigoFecu == null) {
-			if (other.codigoFecu != null)
-				return false;
-		} else if (!codigoFecu.equals(other.codigoFecu))
-			return false;
-		if (idColumna == null) {
-			if (other.idColumna != null)
-				return false;
-		} else if (!idColumna.equals(other.idColumna))
-			return false;
-		if (idFecu == null) {
-			if (other.idFecu != null)
-				return false;
-		} else if (!idFecu.equals(other.idFecu))
-			return false;
-		if (idFila == null) {
-			if (other.idFila != null)
-				return false;
-		} else if (!idFila.equals(other.idFila))
-			return false;
-		if (idGrilla == null) {
-			if (other.idGrilla != null)
-				return false;
-		} else if (!idGrilla.equals(other.idGrilla))
-			return false;
-		if (idPeriodo == null) {
-			if (other.idPeriodo != null)
-				return false;
-		} else if (!idPeriodo.equals(other.idPeriodo))
-			return false;
-		if (idRut == null) {
-			if (other.idRut != null)
-				return false;
-		} else if (!idRut.equals(other.idRut))
-			return false;
-		if (montoTotal == null) {
-			if (other.montoTotal != null)
-				return false;
-		} else if (!montoTotal.equals(other.montoTotal))
-			return false;
-		if (periodoEmpresa == null) {
-			if (other.periodoEmpresa != null)
-				return false;
-		} else if (!periodoEmpresa.equals(other.periodoEmpresa))
-			return false;
-		return true;
-	}
-
-	public BigDecimal getMontoTotalNuevo() {
-		return montoTotalNuevo;
-	}
-
-	public void setMontoTotalNuevo(BigDecimal montoTotalNuevo) {
-		this.montoTotalNuevo = montoTotalNuevo;
-	}
+    public BigDecimal getMontoTotalNuevo() {
+        return montoTotalNuevo;
+    }
 
 	
 

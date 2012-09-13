@@ -153,7 +153,7 @@ public interface VersionServiceLocal {
      * @param idCatalogo
      * @return
      */
-    Version findUltimaVersionVigente( Long idPeriodo,  String usuario,  Long idCatalogo);
+    Version findUltimaVersionVigente( Long idPeriodo, Long idRut,  String usuario,  Long idCatalogo);
     
     /**
      * @param versionesModificadas

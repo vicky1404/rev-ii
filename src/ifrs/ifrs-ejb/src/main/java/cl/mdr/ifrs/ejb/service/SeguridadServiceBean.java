@@ -372,6 +372,15 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
         return query.getResultList();
     }
     
+    /*Retorna los usuario que estan asociados a un catalogo*/
+    @SuppressWarnings("unchecked")
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public List<UsuarioGrupo> getUsuarioGrupoByCatalogoEmailNotNull(Long idCatalogo) throws Exception {        
+        Query query = em.createNamedQuery(UsuarioGrupo.FIND_BY_ID_CATALOGO_EMAIL_NOT_NULL);
+        query.setParameter("idCatalogo", idCatalogo);
+        return query.getResultList();
+    }
+    
     public void deleteCatalogoGrupo(Long idCatalogo, String idGrupoAcceso) throws Exception{
     	em.createNativeQuery("DELETE FROM " + Constantes.CATALOGO_GRUPO + " WHERE ID_CATALOGO = ? AND ID_GRUPO_ACCESO = ? ")
     	  .setParameter(1, idCatalogo)

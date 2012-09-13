@@ -11,7 +11,7 @@
 			<p:ajaxStatus onstart="statusDialogNoModal.show();" oncomplete="statusDialogNoModal.hide();" />
 			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
 			
-		 <p:panel header="#{menuBackingBean.breadcrumb} > Período actual : #{cargadorEeff.periodo.periodoFormat}" toggleable="true" collapsed="#{cargadorEeff.versionEeffList.size() == 0}">
+		 <p:panel header="#{menuBackingBean.breadcrumb} > Período actual : #{cargadorEeff.periodoEmpresa.periodo.periodoFormat}" toggleable="true" collapsed="#{cargadorEeff.versionEeffList.size() == 0}">
 		 
 		 	<p:dataTable value="#{cargadorEeff.versionEeffList}" var="row">
 		 		<p:column headerText="Versión" id="c1">
