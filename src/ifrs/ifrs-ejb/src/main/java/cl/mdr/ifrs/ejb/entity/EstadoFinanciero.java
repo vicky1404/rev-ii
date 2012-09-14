@@ -29,6 +29,7 @@ import cl.mdr.ifrs.ejb.entity.pk.EstadoFinancieroPK;
 @NamedQueries( { @NamedQuery(name = EstadoFinanciero.FIND_ALL, query = "select o from EstadoFinanciero o"),
     @NamedQuery(name = EstadoFinanciero.FIND_VIGENTE_BY_PERIODO_EMPRESA, query = "select o from EstadoFinanciero o, VersionEeff v, CodigoFecu f where f.idFecu = o.idFecu and v.idVersionEeff = o.idVersionEeff and v.periodoEmpresa.idPeriodo = :idPeriodo and v.periodoEmpresa.idRut = :idRut and v.vigencia = 1 order by o.idFecu desc"),
     @NamedQuery(name = EstadoFinanciero.FIND_BY_VERSION, query = "select o from EstadoFinanciero o where o.idVersionEeff = :idVersionEeff order by o.idFecu"),
+    @NamedQuery(name = EstadoFinanciero.FIND_EAGER_BY_VERSION, query = "select distinct o from EstadoFinanciero o join fetch o.detalleEeffList4 where o.idVersionEeff = :idVersionEeff order by o.idFecu"),
     @NamedQuery(name = EstadoFinanciero.FIND_BY_LIKE_FECU, query = "select distinct o from EstadoFinanciero o join fetch o.detalleEeffList4 where o.idVersionEeff = :idVersionEeff and str(o.idFecu) like :likeFecu order by o.idFecu")})
 @Table(name = Constantes.EEFF)
 @IdClass(EstadoFinancieroPK.class)
@@ -41,6 +42,7 @@ public class EstadoFinanciero implements Serializable {
 	public static final String FIND_ALL = "EstadoFinanciero.findAll";
     public static final String FIND_VIGENTE_BY_PERIODO_EMPRESA = "EstadoFinanciero.findVigenteByPeriodo";
     public static final String FIND_BY_VERSION = "EstadoFinanciero.findByVersion";
+    public static final String FIND_EAGER_BY_VERSION = "EstadoFinanciero.findEagerByVersion";
     public static final String FIND_BY_LIKE_FECU = "EstadoFinanciero.findByLikeFecu";
     public static final String FIND_BY_LIKE_CUENTA= "EstadoFinanciero.findByLikeCuenta";
     

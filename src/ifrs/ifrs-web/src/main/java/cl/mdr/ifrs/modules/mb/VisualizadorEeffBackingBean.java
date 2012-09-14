@@ -31,7 +31,7 @@ public class VisualizadorEeffBackingBean extends AbstractBackingBean{
 private transient Logger logger = Logger.getLogger(VisualizadorEeffBackingBean.class);    
     
     private PeriodoEmpresa periodoEmpresa;
-    private VersionEeff versionEeff;
+	private VersionEeff versionEeff;
     private List<VersionEeff> versionEeffList;
     private List<EstadoFinanciero> eeffList;
     private List<DetalleEeff> eeffDetList;
@@ -50,7 +50,9 @@ private transient Logger logger = Logger.getLogger(VisualizadorEeffBackingBean.c
     public void init(){
         try{
             
-        	periodoEmpresa = getFacadeService().getPeriodoService().getMaxPeriodoEmpresaByEmpresa(getFiltroBackingBean().getEmpresa().getIdRut());
+        	this.periodoEmpresa = getFacadeService().getPeriodoService().getMaxPeriodoEmpresaByEmpresa(getFiltroBackingBean().getEmpresa().getIdRut());
+        	this.anioPeriodo = this.periodoEmpresa.getPeriodo().getAnioPeriodo();
+        	this.mesPeriodo = this.periodoEmpresa.getPeriodo().getMesPeriodo();
             getFiltroBackingBean().setPeriodoEmpresa(periodoEmpresa);
             versionEeffList = getFacadeService().getEstadoFinancieroService().getVersionEeffFindByPeriodo(periodoEmpresa.getIdPeriodo(), periodoEmpresa.getIdRut());
 
@@ -77,9 +79,9 @@ private transient Logger logger = Logger.getLogger(VisualizadorEeffBackingBean.c
     public void cargarEeff(ActionEvent event){
         try{
             versionEeff = (VersionEeff)event.getComponent().getAttributes().get("versionEeff");
-            //eeffList = getFacadeService().getEstadoFinancieroService().getEeffByVersion(versionEeff.getIdVersionEeff());
-            //renderEeffList = true;
-            //renderEeffDetList = false;
+            eeffList = getFacadeService().getEstadoFinancieroService().getEeffEagerByVersion(versionEeff.getIdVersionEeff());
+            renderEeffList = true;
+            renderEeffDetList = false;
         }catch(Exception e){
             logger.error("Error al buscar version" , e);
             addErrorMessage("Error al cargar Estados Financieros por Versión");
@@ -226,6 +228,8 @@ private transient Logger logger = Logger.getLogger(VisualizadorEeffBackingBean.c
 		this.selectFecuCuenta = selectFecuCuenta;
 	}
 	
-	
+	public PeriodoEmpresa getPeriodoEmpresa() {
+		return periodoEmpresa;
+	}
 
 }

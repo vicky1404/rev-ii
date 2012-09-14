@@ -160,6 +160,13 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
     }
     
     @SuppressWarnings("unchecked")
+    public List<EstadoFinanciero> getEeffEagerByVersion(Long idVersionEeff){
+        Query query = em.createNamedQuery(EstadoFinanciero.FIND_EAGER_BY_VERSION);
+        query.setParameter("idVersionEeff", idVersionEeff);
+        return query.getResultList();
+    }
+    
+    @SuppressWarnings("unchecked")
     public List<DetalleEeff> getDetalleEeffByEeff(EstadoFinanciero eeff){
         Query query = em.createNamedQuery(DetalleEeff.FIND_BY_EEFF);
         query.setParameter("eeff", eeff);
