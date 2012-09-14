@@ -12,7 +12,7 @@
 			<p:messages id="messages" autoUpdate="true" globalOnly="true"/>
 			<p:ajaxStatus onstart="statusDialogNoModal.show();" oncomplete="statusDialogNoModal.hide();" />
 			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
-			<p:panel id="filtro" header="#{menuBackingBean.breadcrumb} > Periodo : #{eeff.periodo.periodoFormat}" toggleable="true"  closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel">
+			<p:panel id="filtro" header="#{menuBackingBean.breadcrumb} > Periodo : #{eeff.periodoEmpresa.periodo.periodoFormat}" toggleable="true"  closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel">
 		 		<h:panelGrid columns="6" cellpadding="10">
 		 			<p:outputLabel for="soc01" value="#{msg.label_tipo_cuadro}"/>
 			 		<p:selectOneMenu label="#{msg.label_tipo_cuadro}" id="soc01" 
@@ -188,7 +188,7 @@
 		                    <h:outputText value="#{row.idFecu}" id="ot19"/>
 	               
                 </p:column>
-                <p:column sortable="false" headerText="Descripcion" align="start" id="c14">
+                <p:column sortable="false" headerText="Descripción" align="start" id="c14">
                     <h:outputText value="#{row.codigoFecu.descripcion}" id="ot15"/>
                 </p:column>
                 <p:column sortable="false" headerText="Monto Total" align="start" id="c16">
@@ -216,23 +216,10 @@
                     <h:outputText value="#{row.idCuenta}" id="ot4"/>
                 </p:column>
                 <p:column sortable="false" headerText="Descripción Cuenta" align="start" id="c7" width="300">
-                    <h:outputText value="#{row.descripcionCuenta}" id="ot7"/>
+                    <h:outputText value="#{row.cuentaContable.descripcion}" id="ot7"/>
                 </p:column>
-                <p:column sortable="false" headerText="Monto Miles" align="start" id="c8">
-                    <h:outputText value="#{row.montoMiles}" id="ot8"/>
-                </p:column>
-                <p:column sortable="false" headerText="Monto Ebs" align="start" id="c9">
-                    <h:outputText value="#{row.montoEbs}" id="ot9">
-                        <f:convertNumber pattern="##,###,###,###" />
-                    </h:outputText>
-                </p:column>
-                <p:column sortable="false" headerText="Monto Pesos" align="start" id="c10">
-                    <h:outputText value="#{row.montoPesos}" id="ot10">
-                        <f:convertNumber pattern="##,###,###,###" />
-                    </h:outputText>
-                </p:column>
-                <p:column sortable="false" headerText="Mto Reclasificacion" align="start" id="c11" width="250">
-                    <h:outputText value="#{row.montoReclasificacion}" id="ot12">
+                <p:column sortable="false" headerText="Monto Miles Pesos" align="start" id="c9">
+                    <h:outputText value="#{row.montoPesosMil}" id="ot9">
                         <f:convertNumber pattern="##,###,###,###" />
                     </h:outputText>
                 </p:column>
@@ -265,12 +252,12 @@
 				<h:outputText value="FECU" id="ot823x" style="font-weight:bold;"/>
 	   			<h:outputText value="Código cuenta" id="ot923x" style="font-weight:bold"/>
 	   			<h:outputText value="Descripción" id="ot1224x" style="font-weight:bold"/>
-	   			<h:outputText value="Monto ($)" id="ot1223x" style="font-weight:bold"/>
+	   			<h:outputText value="Monto Miles Pesos" id="ot1223x" style="font-weight:bold"/>
 			    			
 				<h:outputText value="#{eeff.relCuentaSeleccionada.fecuFormat}" id="ot823"/>
 	   			<h:outputText value="#{eeff.relCuentaSeleccionada.idCuenta}" id="ot923"/>
-	   			<h:outputText value="#{eeff.relCuentaSeleccionada.descripcionCuenta}" id="ot1224"/>
-	   			<h:outputText value="#{eeff.relCuentaSeleccionada.montoPesos}" id="ot1223" style="text-align:left;">
+	   			<h:outputText value="#{eeff.relCuentaSeleccionada.cuentaContable.descripcion}" id="ot1224"/>
+	   			<h:outputText value="#{eeff.relCuentaSeleccionada.montoPesosMil}" id="ot1223" style="text-align:left;">
 	   				<f:convertNumber pattern="##,###,###,###" />
 	   			</h:outputText>
   			</h:panelGrid>

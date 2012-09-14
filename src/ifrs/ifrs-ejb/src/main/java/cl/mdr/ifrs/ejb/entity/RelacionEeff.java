@@ -73,12 +73,14 @@ public class RelacionEeff implements Serializable {
     private Long idFila;
     
     @Column(name = "MONTO_TOTAL")
+    @Expose
     private BigDecimal montoTotal;
     
     @ManyToOne
     @JoinColumns( { @JoinColumn(name = "ID_COLUMNA", referencedColumnName = "ID_COLUMNA"),
                     @JoinColumn(name = "ID_GRILLA", referencedColumnName = "ID_GRILLA"),
                     @JoinColumn(name = "ID_FILA", referencedColumnName = "ID_FILA") })
+    @Expose
     private Celda celda2;
     
     @ManyToOne(fetch = FetchType.EAGER)
@@ -89,9 +91,11 @@ public class RelacionEeff implements Serializable {
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_FECU")
+    @Expose
     private CodigoFecu codigoFecu;
     
     @Transient
+    @Expose
     private BigDecimal montoTotalNuevo;
 
     public RelacionEeff() {

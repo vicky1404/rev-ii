@@ -76,37 +76,46 @@ public class RelacionDetalleEeff implements Serializable {
     private Long idFila;
     
     @Column(name = "MONTO_EBS", length = 256)
+    @Expose
     private BigDecimal montoEbs;
         
     @Column(name = "MONTO_MILES")
+    @Expose
     private BigDecimal montoMiles;
     
     @Column(name = "MONTO_PESOS")
+    @Expose
     private BigDecimal montoPesos;
     
     @Column(name = "MONTO_RECLASIFICACION")
+    @Expose
     private BigDecimal montoReclasificacion;
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_CUENTA")
+    @Expose
     private CuentaContable cuentaContable;
     
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumns( { @JoinColumn(name = "ID_COLUMNA", referencedColumnName = "ID_COLUMNA"),
                     @JoinColumn(name = "ID_GRILLA", referencedColumnName = "ID_GRILLA"),
                     @JoinColumn(name = "ID_FILA", referencedColumnName = "ID_FILA") })
+    @Expose
     private Celda celda5;
     
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumns( { @JoinColumn(name = "ID_PERIODO", referencedColumnName = "ID_PERIODO"),
 			        @JoinColumn(name = "ID_RUT", referencedColumnName = "ID_RUT")})
+    @Expose
     private PeriodoEmpresa periodoEmpresa;
     
     @Column(name = "MONTO_PESOS_MIL")
+    @Expose
     private BigDecimal montoPesosMil;
     
     @Transient
+    @Expose
     private BigDecimal montoPesosNuevo;
 
     public RelacionDetalleEeff() {
