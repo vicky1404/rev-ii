@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+    <af:document title="usuario-grupo.jsf" id="d1">
+        <af:resource source="/js/jquery/jquery-1.6.4.min.js" type="javascript"/>
+        <af:resource source="/js/util/form-utils.js" type="javascript"/>
+        <af:group id="g1">
+            <af:form id="f1">
+                <af:panelBox id="pb1" text="Usuario por grupo" styleClass="AFStretchWidth">
+                    <af:panelFormLayout id="pf1">
+                        <af:inputText id="txt1" autoComplete="on" value="#{perfilamientoBackingBean.user}"
+                                      shortDesc="ej: NOMBRE.APELLIDO" label="Usuario" required="true"
+                                      contentStyle="text-transform: uppercase;"
+                                      requiredMessageDetail="Seleccione Nombre de Usuario desde la lista sugerida"
+                                      maximumLength="255">
+                            <af:autoSuggestBehavior suggestItems="#{perfilamientoBackingBean.usuariosSuggestList}"/>
+                            <af:validateRegExp pattern="^[A-Za-z0-9.]*[A-Za-z0-9][A-Za-z0-9.]*$"
+                                               messageDetailNoMatch="El valor ingresado no corresponde a un patrón de nombre de usuario válido"/>
+                        </af:inputText>
+                    </af:panelFormLayout>
+                    <af:spacer width="10" height="10" id="s1"/>
+                    <af:panelFormLayout id="pf2" rows="1">
+                        <af:commandButton text="#{msg.general_control_buscar}" blocking="true" partialSubmit="false"
+                                          action="#{perfilamientoBackingBean.buscarGrupoPorUsuarioAction}" id="btn1">
+                        </af:commandButton>
+                        <af:commandButton text="#{msg.general_control_limpiar}" blocking="true"
+                                          action="#{perfilamientoBackingBean.limpiarGrupoPorUsuarioAction}"
+                                          immediate="true" id="btn2" partialSubmit="false" partialTriggers="pc1">
+                            <af:clientListener method="clearAllText" type="action"/>
+                            <!--af:clientListener method="unSelectAll" type="action"/-->
+                        </af:commandButton>
+                    </af:panelFormLayout>
+                </af:panelBox>
+                <af:spacer width="10" height="10" id="s2"/>
+                <af:panelCollection id="pc1" styleClass="AFStretchWidth"
+                                    rendered="#{perfilamientoBackingBean.renderTablaGrupos}">
+                    <f:facet name="toolbar">
+                        <af:toolbar id="tb1">
+                            <af:commandToolbarButton text="Asignar Grupos" id="botonGuardar1"
+                                                     rendered="#{perfilamientoBackingBean.renderTablaGrupos}"
+                                                     action="#{perfilamientoBackingBean.guardarUsuarioGrupoAction}"
+                                                     icon="/images/icon/save.png"/>
+                            <!--af:commandToolbarButton text="#{msg.general_control_exportar_excel}" id="excb1"
+                                                     inlineStyle="padding-bottom:0px;"
+                                                     icon="/images/icon/page_excel_16x16.png">
+                                <af:exportCollectionActionListener filename="#{perfilamientoBackingBean.nombreArchivoExport}"
+                                                                   type="excelHTML" exportedId="tb_grp"
+                                                                   title="Catalogo"/>
+                            </af:commandToolbarButton-->
+                        </af:toolbar>
+                    </f:facet>
+                    <f:facet name="secondaryToolbar">
+                        <af:toolbar id="tb3">
+                            <af:commandLink text="#{msg.general_control_seleccionar_todo}" id="sel_all"
+                                            partialSubmit="true" immediate="true">
+                                <af:clientListener method="selectAll" type="click"/>
+                            </af:commandLink>
+                            <af:commandLink text="#{msg.general_control_no_seleccionar_todo}" immediate="true"
+                                            id="unsel_all" partialSubmit="true">
+                                <af:clientListener method="unSelectAll" type="click"/>
+                            </af:commandLink>
+                        </af:toolbar>
+                    </f:facet>
+                    <af:table emptyText="#{msg.general_mensaje_busqueda_sin_registros}"
+                              value="#{perfilamientoBackingBean.grillaGrupoList}" var="row" id="tb_grp" rows="0"
+                              styleClass="AFStretchWidth" binding="#{perfilamientoBackingBean.tablaGrupos}"
+                              rendered="#{perfilamientoBackingBean.renderTablaGrupos}" fetchSize="1000"
+                              columnResizing="enabled" inlineStyle="width:inherit; height:auto;" rowSelection="single"
+                              columnStretching="column:c3" summary="Tabla de grupos por usuario" autoHeightRows="500">
+                        <af:column sortable="true" sortProperty="selected" headerText="Seleccionar" align="center"
+                                   id="c2" width="100">                            
+                                <af:selectBooleanCheckbox value="#{row.selected}" id="sel1" label=" "/>
+                        </af:column>
+                        <af:column sortable="true" sortProperty="entity.idGrupo" headerText="Grupo Acceso"
+                                   align="left" id="c3" width="150">
+                            <af:outputText value="#{row.entity.idGrupo}" id="t1"/>
+                        </af:column>
+                        <af:column sortable="true" sortProperty="entity.grupoOid.idGrupoOid" headerText="Grupo Oid"
+                                   align="left" id="c4" width="200">
+                            <af:outputText value="#{row.entity.grupoOid.idGrupoOid}" id="t2"/>
+                        </af:column>
+                        <af:column sortable="false" headerText="Descripción Grupo Acceso" align="left" id="c5"
+                                   width="400">
+                            <af:outputText value="#{row.entity.nombre}" id="t3"/>
+                        </af:column>
+                        <af:column sortable="true" sortProperty="entity.areaNegocio.idAreaNegocio" headerText="Area Negocio" align="left" id="c6" rowHeader="unstyled"
+                                   width="200">
+                            <af:outputText value="#{row.entity.areaNegocio.nombre}" id="t4"/>
+                        </af:column>
+                    </af:table>
+                </af:panelCollection>
+            </af:form>
+        </af:group>
+    </af:document>
+</f:view>
