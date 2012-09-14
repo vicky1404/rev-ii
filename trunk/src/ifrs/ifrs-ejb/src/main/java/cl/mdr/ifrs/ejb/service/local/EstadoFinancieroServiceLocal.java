@@ -38,6 +38,8 @@ public interface EstadoFinancieroServiceLocal {
     
     List<EstadoFinanciero> getEeffByVersion(Long idVersionEeff);
     
+    List<EstadoFinanciero> getEeffEagerByVersion(Long idVersionEeff);
+    
     List<DetalleEeff> getDetalleEeffByEeff(EstadoFinanciero eeff);
     
     List<DetalleEeff> getDetalleEeffByVersion(Long idVersionEeff);
