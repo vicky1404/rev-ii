@@ -227,22 +227,18 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
 
     
     @SuppressWarnings({ "rawtypes", "unchecked" })
-	public void persistRelaccionEeff(Map<Celda, List[]> relacionMap){
-
+    public void persistRelaccionEeff(Map<Celda, List[]> relacionMap) throws Exception{
         for(List[] arrayListas : relacionMap.values()){
-            // 0 contiene las RelacionesEeff
             if(Util.esListaValida(arrayListas[0])){
                 List<RelacionEeff> relList = arrayListas[0];
                 for(RelacionEeff relEeff : relList){
-                    em.merge(relEeff);
+                	this.insertRelacionEeff(relEeff);
                 }
             }
-            
-            // 1 contiene las RelacionesDetalleEeff
             if(Util.esListaValida(arrayListas[1])){
                 List<RelacionDetalleEeff> relList = arrayListas[1];
                 for(RelacionDetalleEeff relDetEeff : relList){
-                    em.merge(relDetEeff);
+                	this.insertRelacionDetalleEeff(relDetEeff);
                 }
             }
         }
@@ -293,6 +289,43 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public RelacionDetalleEeff getRelacionDetalleEeffByRelacionDetalleEeff(RelacionDetalleEeff relacionDetalleEeff) {
        return (RelacionDetalleEeff) em.find(RelacionDetalleEeff.class, relacionDetalleEeff);
-    }   
+    }
+    
+    private void insertRelacionEeff(RelacionEeff relEeff) throws Exception{
+    	StringBuffer sql = new StringBuffer();
+    	sql.append(" INSERT INTO " + Constantes.RELACION_EEFF + " ( ID_COLUMNA,ID_FECU,ID_FILA,ID_GRILLA,ID_PERIODO,ID_RUT,MONTO_TOTAL) values ");
+    	sql.append("  (?,?,?,?,?,?,?) ");
+    		Query query = em.createNativeQuery(sql.toString());
+        	int contador = 0;
+        	query.setParameter(++contador, relEeff.getIdColumna());
+        	query.setParameter(++contador, relEeff.getIdFecu());
+        	query.setParameter(++contador, relEeff.getIdFila());
+        	query.setParameter(++contador, relEeff.getIdGrilla());
+        	query.setParameter(++contador, relEeff.getPeriodoEmpresa().getIdPeriodo());        	
+        	query.setParameter(++contador, relEeff.getPeriodoEmpresa().getIdRut());
+        	query.setParameter(++contador, relEeff.getMontoTotal());
+        	query.executeUpdate();
+    }
+    
+    private void insertRelacionDetalleEeff(RelacionDetalleEeff relDetalleEeff) throws Exception{
+    	StringBuffer sql = new StringBuffer();
+    	sql.append(" INSERT INTO " + Constantes.RELACION_DETALLE_EEFF )
+    	.append(" (ID_COLUMNA,ID_CUENTA,ID_FECU,ID_FILA,ID_GRILLA,ID_PERIODO,ID_RUT,MONTO_EBS,MONTO_MILES,MONTO_PESOS,MONTO_RECLASIFICACION) values ")
+    	.append("  (?,?,?,?,?,?,?,?,?,?,?,?) ");
+    		Query query = em.createNativeQuery(sql.toString());
+        	int contador = 0;
+        	query.setParameter(++contador, relDetalleEeff.getIdColumna());
+        	query.setParameter(++contador, relDetalleEeff.getIdCuenta());        	
+        	query.setParameter(++contador, relDetalleEeff.getIdFecu());
+        	query.setParameter(++contador, relDetalleEeff.getIdFila());
+        	query.setParameter(++contador, relDetalleEeff.getIdGrilla());
+        	query.setParameter(++contador, relDetalleEeff.getPeriodoEmpresa().getIdPeriodo());        	
+        	query.setParameter(++contador, relDetalleEeff.getPeriodoEmpresa().getIdRut());
+        	query.setParameter(++contador, relDetalleEeff.getMontoEbs());
+        	query.setParameter(++contador, relDetalleEeff.getMontoMiles());
+        	query.setParameter(++contador, relDetalleEeff.getMontoPesos());
+        	query.setParameter(++contador, relDetalleEeff.getMontoReclasificacion());
+        	query.executeUpdate();
+    }
 
 }

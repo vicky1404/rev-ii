@@ -43,8 +43,8 @@ public abstract class AbstractBackingBean {
 	
 	/*Variables que validan las licencias*/
 	private final int VERSION_SOFT = 2;
-	private final String EMP_SOFT = "1;15505123;";
-	private final String EMP_SOFT_DV = "9;K;";
+	private final String EMP_SOFT = "5588554;15505123;";
+	private final String EMP_SOFT_DV = "1;K;";
 	
 	public FacadeServiceLocal getFacadeService() {
 		return facadeService;

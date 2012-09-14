@@ -56,7 +56,7 @@ public interface EstadoFinancieroServiceLocal {
     
     List<RelacionDetalleEeff> getRelacionDetalleEeffByPeriodoFecuCuenta(Long idPeriodo, Long idRut, Long idFecu, Long idCuenta);
 
-    void persistRelaccionEeff(Map<Celda, List[]> relacionMap);
+    void persistRelaccionEeff(Map<Celda, List[]> relacionMap)  throws Exception;
 
     void deleteAllRelacionByGrillaPeriodo(Long idPeriodo, Long idRut, Long idGrilla);
 
