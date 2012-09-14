@@ -96,7 +96,9 @@ public class RelacionDetalleEeff implements Serializable {
     @Expose
     private CuentaContable cuentaContable;
     
-    @ManyToOne(fetch = FetchType.EAGER)
+    
+
+	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumns( { @JoinColumn(name = "ID_COLUMNA", referencedColumnName = "ID_COLUMNA"),
                     @JoinColumn(name = "ID_GRILLA", referencedColumnName = "ID_GRILLA"),
                     @JoinColumn(name = "ID_FILA", referencedColumnName = "ID_FILA") })
@@ -284,5 +286,118 @@ public class RelacionDetalleEeff implements Serializable {
         this.celda5 = celda;
         
     }
+
+    @Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((celda5 == null) ? 0 : celda5.hashCode());
+		result = prime * result
+				+ ((idColumna == null) ? 0 : idColumna.hashCode());
+		result = prime * result
+				+ ((idCuenta == null) ? 0 : idCuenta.hashCode());
+		result = prime * result + ((idFecu == null) ? 0 : idFecu.hashCode());
+		result = prime * result + ((idFila == null) ? 0 : idFila.hashCode());
+		result = prime * result
+				+ ((idGrilla == null) ? 0 : idGrilla.hashCode());
+		result = prime * result
+				+ ((idPeriodo == null) ? 0 : idPeriodo.hashCode());
+		result = prime * result + ((idRut == null) ? 0 : idRut.hashCode());
+		result = prime * result
+				+ ((montoEbs == null) ? 0 : montoEbs.hashCode());
+		result = prime * result
+				+ ((montoMiles == null) ? 0 : montoMiles.hashCode());
+		result = prime * result
+				+ ((montoPesos == null) ? 0 : montoPesos.hashCode());
+		result = prime
+				* result
+				+ ((montoReclasificacion == null) ? 0 : montoReclasificacion
+						.hashCode());
+		result = prime * result
+				+ ((periodoEmpresa == null) ? 0 : periodoEmpresa.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RelacionDetalleEeff other = (RelacionDetalleEeff) obj;
+		if (celda5 == null) {
+			if (other.celda5 != null)
+				return false;
+		} else if (!celda5.equals(other.celda5))
+			return false;
+		if (idColumna == null) {
+			if (other.idColumna != null)
+				return false;
+		} else if (!idColumna.equals(other.idColumna))
+			return false;
+		if (idCuenta == null) {
+			if (other.idCuenta != null)
+				return false;
+		} else if (!idCuenta.equals(other.idCuenta))
+			return false;
+		if (idFecu == null) {
+			if (other.idFecu != null)
+				return false;
+		} else if (!idFecu.equals(other.idFecu))
+			return false;
+		if (idFila == null) {
+			if (other.idFila != null)
+				return false;
+		} else if (!idFila.equals(other.idFila))
+			return false;
+		if (idGrilla == null) {
+			if (other.idGrilla != null)
+				return false;
+		} else if (!idGrilla.equals(other.idGrilla))
+			return false;
+		if (idPeriodo == null) {
+			if (other.idPeriodo != null)
+				return false;
+		} else if (!idPeriodo.equals(other.idPeriodo))
+			return false;
+		if (idRut == null) {
+			if (other.idRut != null)
+				return false;
+		} else if (!idRut.equals(other.idRut))
+			return false;
+		if (montoEbs == null) {
+			if (other.montoEbs != null)
+				return false;
+		} else if (!montoEbs.equals(other.montoEbs))
+			return false;
+		if (montoMiles == null) {
+			if (other.montoMiles != null)
+				return false;
+		} else if (!montoMiles.equals(other.montoMiles))
+			return false;
+		if (montoPesos == null) {
+			if (other.montoPesos != null)
+				return false;
+		} else if (!montoPesos.equals(other.montoPesos))
+			return false;
+		if (montoReclasificacion == null) {
+			if (other.montoReclasificacion != null)
+				return false;
+		} else if (!montoReclasificacion.equals(other.montoReclasificacion))
+			return false;
+		if (periodoEmpresa == null) {
+			if (other.periodoEmpresa != null)
+				return false;
+		} else if (!periodoEmpresa.equals(other.periodoEmpresa))
+			return false;
+		return true;
+	}
+
+	
+
+    
+	
 
 }

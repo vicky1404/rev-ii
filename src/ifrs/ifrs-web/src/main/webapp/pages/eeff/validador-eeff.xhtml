@@ -124,7 +124,7 @@
 		</p:scrollPanel>
     	
     	<p:spacer height="10"></p:spacer>
-    	<h:outputText value="Hay #{eeff.countMapping} relación sin guardar" rendered="#{eeff.countMapping > 0}" style="color:red;"/>
+    	<h:outputText value="Hay #{eeff.countMapping} relación sin guardar" rendered="#{eeff.countMapping > 0 and eeff.mostrarMensajeRelacionesSinGuardar}" style="color:red;"/>
     	<p:spacer height="10"></p:spacer>
     	
     	<p:tabView id="tabView1">
@@ -232,13 +232,11 @@
     	
     	<p:dialog id="popupFecu" header="Información adicional FECU seleccionada" widgetVar="widPopupFecu" width="600" resizable="false" showEffect="drop" hideEffect="drop" dynamic="true" modal="false" closable="true">
     		<center>    		
-    		<h:panelGrid columns="3" cellpadding="10" border="1" style="width:auto;" >
+    		<h:panelGrid columns="2" cellpadding="10" border="1" style="width:auto;" >
     		    <h:outputText value="FECU" id="ot82x" style="font-weight:bold"/>
-    			<h:outputText value="Descripción" id="ot92x" style="font-weight:bold"/>
     			<h:outputText value="Monto ($)" id="ot122x" style="font-weight:bold"/>
     		
-    			<h:outputText value="#{eeff.relFecuSeleccionada.fecuFormat}" id="ot82"/>
-    			<h:outputText value="#{eeff.relFecuSeleccionada.codigoFecu.descripcion}" id="ot92"/>
+    			<h:outputText value="#{eeff.relFecuSeleccionada.fecuFormat}" id="ot82"/>    			
     			<h:outputText value="#{eeff.relFecuSeleccionada.montoTotal}" id="ot122" style="text-align:left;">
     				<f:convertNumber pattern="##,###,###,###" />
     			</h:outputText>
@@ -251,12 +249,10 @@
 			<h:panelGrid columns="4" cellpadding="10" border="1" style="width:auto;" >
 				<h:outputText value="FECU" id="ot823x" style="font-weight:bold;"/>
 	   			<h:outputText value="Código cuenta" id="ot923x" style="font-weight:bold"/>
-	   			<h:outputText value="Descripción" id="ot1224x" style="font-weight:bold"/>
 	   			<h:outputText value="Monto Miles Pesos" id="ot1223x" style="font-weight:bold"/>
 			    			
 				<h:outputText value="#{eeff.relCuentaSeleccionada.fecuFormat}" id="ot823"/>
-	   			<h:outputText value="#{eeff.relCuentaSeleccionada.idCuenta}" id="ot923"/>
-	   			<h:outputText value="#{eeff.relCuentaSeleccionada.cuentaContable.descripcion}" id="ot1224"/>
+	   			<h:outputText value="#{eeff.relCuentaSeleccionada.idCuenta}" id="ot923"/>	   			
 	   			<h:outputText value="#{eeff.relCuentaSeleccionada.montoPesosMil}" id="ot1223" style="text-align:left;">
 	   				<f:convertNumber pattern="##,###,###,###" />
 	   			</h:outputText>

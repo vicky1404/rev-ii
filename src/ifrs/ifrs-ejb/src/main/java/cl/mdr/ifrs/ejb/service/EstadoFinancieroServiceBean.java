@@ -25,6 +25,7 @@ import cl.mdr.ifrs.ejb.entity.RelacionDetalleEeff;
 import cl.mdr.ifrs.ejb.entity.RelacionEeff;
 import cl.mdr.ifrs.ejb.entity.TipoEstadoEeff;
 import cl.mdr.ifrs.ejb.entity.VersionEeff;
+import cl.mdr.ifrs.ejb.entity.pk.RelacionDetalleEeffPK;
 import cl.mdr.ifrs.ejb.service.local.EstadoFinancieroServiceLocal;
 
 @Stateless
@@ -295,7 +296,13 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
     
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public RelacionDetalleEeff getRelacionDetalleEeffByRelacionDetalleEeff(RelacionDetalleEeff relacionDetalleEeff) {
-       return (RelacionDetalleEeff) em.find(RelacionDetalleEeff.class, relacionDetalleEeff);
+    	
+    	RelacionDetalleEeffPK pk = new RelacionDetalleEeffPK();
+    		pk.setIdCuenta(relacionDetalleEeff.getIdCuenta());
+    		pk.setIdFecu(relacionDetalleEeff.getIdFecu());
+    		pk.setIdPeriodo(relacionDetalleEeff.getIdPeriodo());
+    	
+       return (RelacionDetalleEeff) em.find(RelacionDetalleEeff.class, pk);
     }
     
     private void insertRelacionEeff(RelacionEeff relEeff) throws Exception{

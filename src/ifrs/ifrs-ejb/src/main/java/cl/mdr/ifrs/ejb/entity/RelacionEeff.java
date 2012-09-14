@@ -42,7 +42,9 @@ public class RelacionEeff implements Serializable {
     public static final String DELETE_BY_CELDA = "RelacionEeff.deleteByCelda";
     public static final String DELETE_BY_GRILLA_PERIODO_EMPRESA = "RelacionEeff.deleteByGrillaPeriodo";
     
-    @Id
+   
+
+	@Id
     @Column(name = "ID_FECU", nullable = false, insertable = false, updatable = false)
     @Expose
     private Long idFecu;
@@ -212,6 +214,98 @@ public class RelacionEeff implements Serializable {
     public BigDecimal getMontoTotalNuevo() {
         return montoTotalNuevo;
     }
+    
+    @Override
+   	public int hashCode() {
+   		final int prime = 31;
+   		int result = 1;
+   		result = prime * result + ((celda2 == null) ? 0 : celda2.hashCode());
+   		result = prime * result
+   				+ ((codigoFecu == null) ? 0 : codigoFecu.hashCode());
+   		result = prime * result
+   				+ ((idColumna == null) ? 0 : idColumna.hashCode());
+   		result = prime * result + ((idFecu == null) ? 0 : idFecu.hashCode());
+   		result = prime * result + ((idFila == null) ? 0 : idFila.hashCode());
+   		result = prime * result
+   				+ ((idGrilla == null) ? 0 : idGrilla.hashCode());
+   		result = prime * result
+   				+ ((idPeriodo == null) ? 0 : idPeriodo.hashCode());
+   		result = prime * result + ((idRut == null) ? 0 : idRut.hashCode());
+   		result = prime * result
+   				+ ((montoTotal == null) ? 0 : montoTotal.hashCode());
+   		result = prime * result
+   				+ ((montoTotalNuevo == null) ? 0 : montoTotalNuevo.hashCode());
+   		result = prime * result
+   				+ ((periodoEmpresa == null) ? 0 : periodoEmpresa.hashCode());
+   		return result;
+   	}
+
+   	@Override
+   	public boolean equals(Object obj) {
+   		if (this == obj)
+   			return true;
+   		if (obj == null)
+   			return false;
+   		if (getClass() != obj.getClass())
+   			return false;
+   		RelacionEeff other = (RelacionEeff) obj;
+   		if (celda2 == null) {
+   			if (other.celda2 != null)
+   				return false;
+   		} else if (!celda2.equals(other.celda2))
+   			return false;
+   		if (codigoFecu == null) {
+   			if (other.codigoFecu != null)
+   				return false;
+   		} else if (!codigoFecu.equals(other.codigoFecu))
+   			return false;
+   		if (idColumna == null) {
+   			if (other.idColumna != null)
+   				return false;
+   		} else if (!idColumna.equals(other.idColumna))
+   			return false;
+   		if (idFecu == null) {
+   			if (other.idFecu != null)
+   				return false;
+   		} else if (!idFecu.equals(other.idFecu))
+   			return false;
+   		if (idFila == null) {
+   			if (other.idFila != null)
+   				return false;
+   		} else if (!idFila.equals(other.idFila))
+   			return false;
+   		if (idGrilla == null) {
+   			if (other.idGrilla != null)
+   				return false;
+   		} else if (!idGrilla.equals(other.idGrilla))
+   			return false;
+   		if (idPeriodo == null) {
+   			if (other.idPeriodo != null)
+   				return false;
+   		} else if (!idPeriodo.equals(other.idPeriodo))
+   			return false;
+   		if (idRut == null) {
+   			if (other.idRut != null)
+   				return false;
+   		} else if (!idRut.equals(other.idRut))
+   			return false;
+   		if (montoTotal == null) {
+   			if (other.montoTotal != null)
+   				return false;
+   		} else if (!montoTotal.equals(other.montoTotal))
+   			return false;
+   		if (montoTotalNuevo == null) {
+   			if (other.montoTotalNuevo != null)
+   				return false;
+   		} else if (!montoTotalNuevo.equals(other.montoTotalNuevo))
+   			return false;
+   		if (periodoEmpresa == null) {
+   			if (other.periodoEmpresa != null)
+   				return false;
+   		} else if (!periodoEmpresa.equals(other.periodoEmpresa))
+   			return false;
+   		return true;
+   	}
 
 	
 
