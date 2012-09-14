@@ -94,13 +94,15 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 	@PostConstruct
 	public void load(){				
 		try {	
+			
 			valid = isValidSoft();
 			if(!valid){
 				super.getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(SEGURIDAD_VIEW_ID));
-			}
+			}			
 			if (Util.getLong(super.getUsuarioSesion().getCambiarPassword(), 0L).equals(1L)){
 				super.getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(MIS_DATOS_VIEW_ID));
-			}			
+			}
+						
 			this.buildEmpresaList();
 			this.buildMenuEmpresa();									
 		} catch (Exception e) {

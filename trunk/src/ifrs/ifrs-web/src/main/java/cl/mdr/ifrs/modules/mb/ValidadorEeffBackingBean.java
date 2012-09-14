@@ -32,7 +32,6 @@ import cl.mdr.ifrs.ejb.entity.DetalleEeff;
 import cl.mdr.ifrs.ejb.entity.EstadoFinanciero;
 import cl.mdr.ifrs.ejb.entity.Estructura;
 import cl.mdr.ifrs.ejb.entity.Grilla;
-import cl.mdr.ifrs.ejb.entity.Periodo;
 import cl.mdr.ifrs.ejb.entity.PeriodoEmpresa;
 import cl.mdr.ifrs.ejb.entity.RelacionDetalleEeff;
 import cl.mdr.ifrs.ejb.entity.RelacionEeff;
@@ -88,10 +87,10 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
     private TreeNode root;
     private boolean renderTreeTabla;
     private boolean renderEstructuraTabla;
-
+    private boolean mostrarMensajeRelacionesSinGuardar = true;
     
-        
-    /*
+
+	/*
      * String[0] --> Fecus
      * String[1] --> Cuentas
      */
@@ -330,7 +329,7 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
         relEeffList = celda.getRelacionEeffList();
         relEeffDetList = celda.getRelacionDetalleEeffList();
         
-        
+        this.setMostrarMensajeRelacionesSinGuardar(false);
         
         if(Util.esListaValida(relEeffList) || Util.esListaValida(relEeffDetList))
             aplicarRelacion(relacionMap, relCelda, relEeffList, relEeffDetList);
@@ -367,6 +366,8 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
             aplicarRelacion(relacionMap, relCelda, eeffTempList, new ArrayList<RelacionDetalleEeff>());
         }
         
+        this.setMostrarMensajeRelacionesSinGuardar(true);
+        
         relCelda.setRelacionEeffList(eeffTempList);
     }
     
@@ -398,6 +399,7 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
         }
         
         getRelEeffDetList().add(relEeffDet);
+        this.setMostrarMensajeRelacionesSinGuardar(true);
         
     }
     
@@ -853,5 +855,15 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
         
         return relacionMap.size();
     }	
+    
+    
+    public boolean isMostrarMensajeRelacionesSinGuardar() {
+		return mostrarMensajeRelacionesSinGuardar;
+	}
+
+	public void setMostrarMensajeRelacionesSinGuardar(
+			boolean mostrarMensajeRelacionesSinGuardar) {
+		this.mostrarMensajeRelacionesSinGuardar = mostrarMensajeRelacionesSinGuardar;
+	}
 
 }

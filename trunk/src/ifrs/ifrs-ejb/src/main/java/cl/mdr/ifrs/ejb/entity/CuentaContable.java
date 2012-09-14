@@ -85,4 +85,61 @@ public class CuentaContable implements Serializable {
     public List<DetalleEeff> getDetalleEeffList() {
         return detalleEeffList;
     }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((descripcion == null) ? 0 : descripcion.hashCode());
+		result = prime * result
+				+ ((detalleEeffList == null) ? 0 : detalleEeffList.hashCode());
+		result = prime * result
+				+ ((idCuenta == null) ? 0 : idCuenta.hashCode());
+		result = prime
+				* result
+				+ ((relacionDetalleEeffList == null) ? 0
+						: relacionDetalleEeffList.hashCode());
+		result = prime * result
+				+ ((vigencia == null) ? 0 : vigencia.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CuentaContable other = (CuentaContable) obj;
+		if (descripcion == null) {
+			if (other.descripcion != null)
+				return false;
+		} else if (!descripcion.equals(other.descripcion))
+			return false;
+		if (detalleEeffList == null) {
+			if (other.detalleEeffList != null)
+				return false;
+		} else if (!detalleEeffList.equals(other.detalleEeffList))
+			return false;
+		if (idCuenta == null) {
+			if (other.idCuenta != null)
+				return false;
+		} else if (!idCuenta.equals(other.idCuenta))
+			return false;
+		if (relacionDetalleEeffList == null) {
+			if (other.relacionDetalleEeffList != null)
+				return false;
+		} else if (!relacionDetalleEeffList
+				.equals(other.relacionDetalleEeffList))
+			return false;
+		if (vigencia == null) {
+			if (other.vigencia != null)
+				return false;
+		} else if (!vigencia.equals(other.vigencia))
+			return false;
+		return true;
+	}
 }

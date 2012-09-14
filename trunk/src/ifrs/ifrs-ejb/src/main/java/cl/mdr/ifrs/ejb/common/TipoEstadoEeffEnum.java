@@ -3,7 +3,7 @@ package cl.mdr.ifrs.ejb.common;
 public enum TipoEstadoEeffEnum {
 
     INGRESADO(1L,"INGRESADO"),
-    APROVADO(2L,"APROVADO");
+    APROVADO(2L,"APROBADO");
     
 
     private Long key;

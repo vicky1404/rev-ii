@@ -42,11 +42,11 @@ public class LoginBackingBean extends AbstractBackingBean implements Serializabl
 		try {
 			final Usuario usuario = super.getFacadeService().getSeguridadService().authenticateUser(this.getUsuarioLogin().getNombreUsuario());
 			if(!usuario.getVigente().equals(1L)){
-				super.addErrorMessage("<p>El Usuario se encuentra suspendido del sistema,</p> <p>por favor, consulte al Administrador</p>");				
+				super.addErrorMessage("<p>El usuario se encuentra suspendido del sistema,</p> <p>por favor, consulte al administrador</p>");				
 				return null;
 			}
 			else if(!usuario.getPassword().equals(this.getUsuarioLogin().getPassword())){
-				super.addErrorMessage("La Clave ingresada es incorrecta");
+				super.addErrorMessage("La clave ingresada es incorrecta");
 				this.getUsuarioLogin().setPassword(null);				
 				return null;
 			}
@@ -62,10 +62,10 @@ public class LoginBackingBean extends AbstractBackingBean implements Serializabl
 			}
 		
 		} catch (NoResultException e) {	
-			super.addWarnMessage(MessageFormat.format("El Usuario <u>{0}</u> no existe", this.getUsuarioLogin().getNombreUsuario()));
+			super.addWarnMessage(MessageFormat.format("El usuario <u>{0}</u> no existe", this.getUsuarioLogin().getNombreUsuario()));
 			logger.error(e.getCause(), e);
 		} catch (Exception e) {
-			super.addErrorMessage("Se ha producido un Error al realizar el proceso de Autentificación");
+			super.addErrorMessage("Se ha producido un error al realizar el proceso de autentificación");
 			logger.error(e.getCause(), e);
 		}
 		return null;
@@ -78,9 +78,9 @@ public class LoginBackingBean extends AbstractBackingBean implements Serializabl
 		try{
 			super.getExternalContext().invalidateSession();
 			super.getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat("/login.jsf?logout=1"));
-			super.addInfoMessage("", "Se ha Cerrado correctamente su Sesión en el Sistema");
+			super.addInfoMessage("", "Se ha cerrado correctamente su sesión en el sistema");
 		} catch (IOException e) {		
-			super.addErrorMessage("Se ha producido un Error al realizar el proceso de Logout");
+			super.addErrorMessage("Se ha producido un error al realizar el proceso de logout");
 			logger.error(e.getCause(), e);
 		}
         return null;
