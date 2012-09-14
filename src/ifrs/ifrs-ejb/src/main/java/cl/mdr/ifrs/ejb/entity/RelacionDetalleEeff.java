@@ -28,7 +28,8 @@ import cl.mdr.ifrs.ejb.entity.pk.RelacionDetalleEeffPK;
     @NamedQuery(name = RelacionDetalleEeff.FIND_BY_PERIODO_EMPRESA, query = "select o from RelacionDetalleEeff o where o.periodoEmpresa.idPeriodo = :idPeriodo and o.periodoEmpresa.idRut = :idRut  order by o.idCuenta"),
     @NamedQuery(name = RelacionDetalleEeff.FIND_BY_PERIODO_FECU_CUENTA, query = "select o from RelacionDetalleEeff o where o.periodoEmpresa.idPeriodo = :idPeriodo and o.periodoEmpresa.idRut = :idRut and o.idFecu = :idFecu and o.idCuenta = :idCuenta"),
     @NamedQuery(name = RelacionDetalleEeff.DELETE_BY_CELDA, query = "delete from RelacionDetalleEeff o where o.celda5 = :celda"),
-    @NamedQuery(name = RelacionDetalleEeff.DELETE_BY_GRILLA_PERIODO_EMPRESA, query = "delete from RelacionDetalleEeff o where o.idGrilla = :idGrilla and o.idPeriodo = :idPeriodo and o.idRut = :idRut")})
+    @NamedQuery(name = RelacionDetalleEeff.DELETE_BY_GRILLA_PERIODO_EMPRESA, query = "delete from RelacionDetalleEeff o where o.idGrilla = :idGrilla and o.idPeriodo = :idPeriodo and o.idRut = :idRut"),
+    @NamedQuery(name = RelacionDetalleEeff.FIND_BY_CELDA, query = "select o from RelacionDetalleEeff o where o.celda5 = :celda")})
 
 @Table(name = Constantes.RELACION_DETALLE_EEFF)
 @IdClass(RelacionDetalleEeffPK.class)
@@ -39,6 +40,7 @@ public class RelacionDetalleEeff implements Serializable {
     public static final String FIND_BY_PERIODO_EMPRESA = "RelacionDetalleEeff.findByPeriodo";
     public static final String DELETE_BY_CELDA = "RelacionDetalleEeff.deleteByCelda";
     public static final String DELETE_BY_GRILLA_PERIODO_EMPRESA = "RelacionDetalleEeff.deleteByGrillaPeriodo";
+    public static final String FIND_BY_CELDA = "RelacionDetalleEeff.findByCelda";
     
     @Id
     @Column(name = "ID_CUENTA", nullable = false, insertable = false, updatable = false)
@@ -96,9 +98,7 @@ public class RelacionDetalleEeff implements Serializable {
     @Expose
     private CuentaContable cuentaContable;
     
-    
-
-	@ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumns( { @JoinColumn(name = "ID_COLUMNA", referencedColumnName = "ID_COLUMNA"),
                     @JoinColumn(name = "ID_GRILLA", referencedColumnName = "ID_GRILLA"),
                     @JoinColumn(name = "ID_FILA", referencedColumnName = "ID_FILA") })
@@ -286,7 +286,7 @@ public class RelacionDetalleEeff implements Serializable {
         this.celda5 = celda;
         
     }
-
+    
     @Override
 	public int hashCode() {
 		final int prime = 31;
@@ -394,10 +394,5 @@ public class RelacionDetalleEeff implements Serializable {
 			return false;
 		return true;
 	}
-
-	
-
-    
-	
 
 }

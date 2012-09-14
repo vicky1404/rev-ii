@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -20,6 +21,7 @@ import cl.mdr.ifrs.ejb.entity.Columna;
 import cl.mdr.ifrs.ejb.entity.Grilla;
 import cl.mdr.ifrs.ejb.entity.RelacionDetalleEeff;
 import cl.mdr.ifrs.ejb.entity.RelacionEeff;
+import cl.mdr.ifrs.ejb.facade.local.FacadeServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.FormulaServiceLocal;
 import cl.mdr.ifrs.exceptions.FormulaException;
 
@@ -37,6 +39,9 @@ public class FormulaServiceBean implements FormulaServiceLocal{
     private final String vPrefix = "v-";
     private final char subtract = '-';
     private final char add = '+';
+    
+    @EJB
+    FacadeServiceLocal facadeService;
     
     public FormulaServiceBean() {
         super();
@@ -344,12 +349,24 @@ public class FormulaServiceBean implements FormulaServiceLocal{
                 
                 BigDecimal sum = new BigDecimal(0);
                 
-                for(RelacionEeff relEeff : cell.getRelacionEeffList()){
-                    sum = sum.add(Util.getBigDecimal(relEeff.getMontoTotal(), new BigDecimal(0)));
-                }
+                List<RelacionEeff> relacionEeffList = facadeService.getEstadoFinancieroService().getRelacionEeffByCelda(cell);
                 
-                for(RelacionDetalleEeff relDetEeff : cell.getRelacionDetalleEeffList()){
-                    sum = sum.add(Util.getBigDecimal(relDetEeff.getMontoPesos(), new BigDecimal(0)));
+                if(Util.esListaValida(relacionEeffList)){
+                
+	                for(RelacionEeff relEeff : relacionEeffList){
+	                    sum = sum.add(Util.getBigDecimal(relEeff.getMontoTotal(), new BigDecimal(0)));
+	                }
+                
+            	}
+                
+                List<RelacionDetalleEeff> relacionDetalleEeffList = facadeService.getEstadoFinancieroService().getRelacionDetalleEeffByCelda(cell);
+                
+                if(Util.esListaValida(relacionDetalleEeffList)){
+                
+	                for(RelacionDetalleEeff relDetEeff : relacionDetalleEeffList){
+	                    sum = sum.add(Util.getBigDecimal(relDetEeff.getMontoPesos(), new BigDecimal(0)));
+	                }
+                
                 }
                 
                 if(Util.esListaValida(cell.getRelacionEeffList()) || Util.esListaValida(cell.getRelacionDetalleEeffList())){
