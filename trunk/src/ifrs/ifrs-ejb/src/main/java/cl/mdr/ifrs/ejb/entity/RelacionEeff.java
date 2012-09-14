@@ -30,7 +30,8 @@ import cl.mdr.ifrs.ejb.entity.pk.RelacionEeffPK;
     @NamedQuery(name = RelacionEeff.FIND_BY_PERIODO_EMPRESA, query = "select o from RelacionEeff o where o.periodoEmpresa.idPeriodo = :idPeriodo and o.periodoEmpresa.idRut = :idRut order by o.idFecu"),
     @NamedQuery(name = RelacionEeff.FIND_BY_PERIODO_FECU, query = "select o from RelacionEeff o where o.periodoEmpresa.idPeriodo = :idPeriodo and o.periodoEmpresa.idRut = :idRut and o.idFecu = :idFecu"),
     @NamedQuery(name = RelacionEeff.DELETE_BY_CELDA, query = "delete from RelacionEeff o where o.celda2 = :celda"),
-    @NamedQuery(name = RelacionEeff.DELETE_BY_GRILLA_PERIODO_EMPRESA, query = "delete from RelacionEeff o where o.idGrilla = :idGrilla and o.idPeriodo = :idPeriodo and o.idRut = :idRut")})
+    @NamedQuery(name = RelacionEeff.DELETE_BY_GRILLA_PERIODO_EMPRESA, query = "delete from RelacionEeff o where o.idGrilla = :idGrilla and o.idPeriodo = :idPeriodo and o.idRut = :idRut"),
+    @NamedQuery(name = RelacionEeff.FIND_BY_CELDA, query = "select o from RelacionEeff o where o.celda2 = :celda"),})
 @Table(name = Constantes.RELACION_EEFF)
 @IdClass(RelacionEeffPK.class)
 
@@ -41,10 +42,9 @@ public class RelacionEeff implements Serializable {
     public static final String FIND_BY_PERIODO_FECU = "RelacionEeff.findByPeriodoFecu";
     public static final String DELETE_BY_CELDA = "RelacionEeff.deleteByCelda";
     public static final String DELETE_BY_GRILLA_PERIODO_EMPRESA = "RelacionEeff.deleteByGrillaPeriodo";
+    public static final String FIND_BY_CELDA = "RelacionEeff.findByCelda";
     
-   
-
-	@Id
+    @Id
     @Column(name = "ID_FECU", nullable = false, insertable = false, updatable = false)
     @Expose
     private Long idFecu;
@@ -214,7 +214,7 @@ public class RelacionEeff implements Serializable {
     public BigDecimal getMontoTotalNuevo() {
         return montoTotalNuevo;
     }
-    
+
     @Override
    	public int hashCode() {
    		final int prime = 31;
@@ -306,7 +306,5 @@ public class RelacionEeff implements Serializable {
    			return false;
    		return true;
    	}
-
-	
 
 }

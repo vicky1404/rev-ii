@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.ejb.Local;
+import javax.persistence.Query;
 
 import cl.mdr.ifrs.ejb.entity.Celda;
 import cl.mdr.ifrs.ejb.entity.DetalleEeff;
@@ -67,5 +68,9 @@ public interface EstadoFinancieroServiceLocal {
     List<DetalleEeff> getEeffByLikeCuenta(Long idVersionEeff, Long likeCuenta);
     
     RelacionDetalleEeff getRelacionDetalleEeffByRelacionDetalleEeff(RelacionDetalleEeff relacionDetalleEeff);
+    
+    List<RelacionEeff> getRelacionEeffByCelda(Celda celda);
+
+    List<RelacionDetalleEeff> getRelacionDetalleEeffByCelda(Celda celda);
     
 }

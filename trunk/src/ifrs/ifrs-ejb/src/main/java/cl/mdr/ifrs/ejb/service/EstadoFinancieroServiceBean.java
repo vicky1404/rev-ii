@@ -341,5 +341,19 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
         	query.setParameter(++contador, relDetalleEeff.getMontoReclasificacion());
         	query.executeUpdate();
     }
+    
+    @SuppressWarnings("unchecked")
+	public List<RelacionEeff> getRelacionEeffByCelda(Celda celda){
+        Query query = em.createNamedQuery(RelacionEeff.FIND_BY_CELDA);
+        query.setParameter("celda", celda);
+        return query.getResultList();
+    }
+    
+    @SuppressWarnings("unchecked")
+    public List<RelacionDetalleEeff> getRelacionDetalleEeffByCelda(Celda celda){
+        Query query = em.createNamedQuery(RelacionDetalleEeff.FIND_BY_CELDA);
+        query.setParameter("celda", celda);
+        return query.getResultList();
+    }
 
 }
