@@ -110,6 +110,5 @@ public class GrillaServiceBean implements GrillaServiceLocal{
     
     public void consolidarGrilla(final Grilla grilla)throws Exception{
         
-    }
-    
+    } 
 }
