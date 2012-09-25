@@ -311,17 +311,18 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
     	String idFila = super.getExternalContext().getRequestParameterMap().get("idFila");
     	
     	Celda celda = new Celda();
-    		celda.setIdColumna(Long.parseLong(idColumna));
-    		celda.setIdGrilla(Long.parseLong(idGrilla));
-    		celda.setIdFila(Long.parseLong(idFila));
+		celda.setIdColumna(Long.parseLong(idColumna));
+		celda.setIdGrilla(Long.parseLong(idGrilla));
+		celda.setIdFila(Long.parseLong(idFila));
     	
-    		try {
-				
-				celda = getFacadeService().getCeldaService().findCeldaById(celda);
-				
-			} catch (Exception e) {
-				logger.error(e);
-			}
+		try {
+			
+			celda = getFacadeService().getCeldaService().findCeldaById(celda);
+			this.getFacadeService().getCeldaService().loadEEFFByCelda(celda);
+			
+		} catch (Exception e) {
+			logger.error(e);
+		}
         
         if(celda==null)
             return;
