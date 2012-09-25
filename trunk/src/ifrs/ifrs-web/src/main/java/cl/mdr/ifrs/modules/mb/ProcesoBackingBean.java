@@ -286,6 +286,10 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
                 
                 setListGrilla(estructuraList);
                 
+                if(version.getValidadoEeff()!=null && version.getValidadoEeff().equals(VigenciaEnum.VIGENTE.getKey())){
+                    actualizarValidado(VigenciaEnum.NO_VIGENTE.getKey());
+                }
+                
                 super.addInfoMessage(PropertyManager.getInstance().getMessage("general_mensaje_nota_guardar_exito"));  
             //}            
         } catch(Exception e){
@@ -423,13 +427,12 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
 	        boolean valid = true;
 	        this.guardar();
 	        
-	        for(Estructura estructuras : getEstructuraList()){
+	        for(Estructura estructura : getEstructuraList()){
 	            
-	            if(estructuras.getTipoEstructura().getIdTipoEstructura().equals(TipoEstructura.ESTRUCTURA_TIPO_GRILLA)){
+	            if(estructura.getTipoEstructura().getIdTipoEstructura().equals(TipoEstructura.ESTRUCTURA_TIPO_GRILLA)){
 	                try {
-	                    
-	                    //boolean result = getFacadeService().getFormulaService().processValidatorEEFF(estructuras.getGrillaVO().getGrilla());
-	                	boolean result = getFacadeService().getFormulaService().processValidatorEEFF(estructuras.getGrilla());
+	                	getFacadeService().getEstadoFinancieroService().loadEEFFByGrilla(estructura.getGrilla());
+	                	boolean result = getFacadeService().getFormulaService().processValidatorEEFF(estructura.getGrilla());
 	                    if(!result)
 	                        valid = false;
 	                    
