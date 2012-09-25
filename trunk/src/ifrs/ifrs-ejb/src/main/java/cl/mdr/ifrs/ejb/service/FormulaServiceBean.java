@@ -348,22 +348,22 @@ public class FormulaServiceBean implements FormulaServiceLocal{
                 
                 BigDecimal sum = new BigDecimal(0);
                 
-                List<RelacionEeff> relacionEeffList = facadeService.getEstadoFinancieroService().getRelacionEeffByCelda(cell);
+                //List<RelacionEeff> relacionEeffList = facadeService.getEstadoFinancieroService().getRelacionEeffByCelda(cell);
                 
-                if(Util.esListaValida(relacionEeffList)){
+                if(Util.esListaValida(cell.getRelacionEeffList())){
                 
-	                for(RelacionEeff relEeff : relacionEeffList){
+	                for(RelacionEeff relEeff : cell.getRelacionEeffList()){
 	                    sum = sum.add(Util.getBigDecimal(relEeff.getMontoTotal(), new BigDecimal(0)));
 	                }
                 
             	}
                 
-                List<RelacionDetalleEeff> relacionDetalleEeffList = facadeService.getEstadoFinancieroService().getRelacionDetalleEeffByCelda(cell);
+                //List<RelacionDetalleEeff> relacionDetalleEeffList = facadeService.getEstadoFinancieroService().getRelacionDetalleEeffByCelda(cell);
                 
-                if(Util.esListaValida(relacionDetalleEeffList)){
+                if(Util.esListaValida(cell.getRelacionDetalleEeffList())){
                 
-	                for(RelacionDetalleEeff relDetEeff : relacionDetalleEeffList){
-	                    sum = sum.add(Util.getBigDecimal(relDetEeff.getMontoPesos(), new BigDecimal(0)));
+	                for(RelacionDetalleEeff relDetEeff : cell.getRelacionDetalleEeffList()){
+	                    sum = sum.add(Util.getBigDecimal(relDetEeff.getMontoPesosMil(), new BigDecimal(0)));
 	                }
                 
                 }
