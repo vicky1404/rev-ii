@@ -294,7 +294,7 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
         	final Catalogo catalogo = (Catalogo)event.getComponent().getAttributes().get("catalogo");
         	
             Grilla grilla = this.getFacadeService().getGrillaService().findGrillaById(estructura.getIdEstructura());
-            this.getFacadeService().getCeldaService().loadEEFFByGrilla(grilla);
+            this.getFacadeService().getEstadoFinancieroService().loadEEFFByGrilla(grilla);
             grillaVO = this.getFacadeService().getEstructuraService().getGrillaVO(grilla, Boolean.FALSE);
             grillaVO.setGrilla(grilla);
             setRenderEstructuraTabla(Boolean.TRUE);
@@ -311,14 +311,14 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
     	String idFila = super.getExternalContext().getRequestParameterMap().get("idFila");
     	
     	Celda celda = new Celda();
-		celda.setIdColumna(Long.parseLong(idColumna));
-		celda.setIdGrilla(Long.parseLong(idGrilla));
-		celda.setIdFila(Long.parseLong(idFila));
+    		celda.setIdColumna(Long.parseLong(idColumna));
+    		celda.setIdGrilla(Long.parseLong(idGrilla));
+    		celda.setIdFila(Long.parseLong(idFila));
     	
 		try {
 			
 			celda = getFacadeService().getCeldaService().findCeldaById(celda);
-			this.getFacadeService().getCeldaService().loadEEFFByCelda(celda);
+			this.getFacadeService().getEstadoFinancieroService().loadEEFFByCelda(celda);
 			
 		} catch (Exception e) {
 			logger.error(e);
@@ -414,6 +414,7 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
             getFacadeService().getEstadoFinancieroService().persistRelaccionEeff(relacionMap);
             relacionMap.clear();
             Grilla grilla = this.getFacadeService().getGrillaService().findGrillaById(grillaVO.getGrilla().getIdGrilla());
+            this.getFacadeService().getEstadoFinancieroService().loadEEFFByGrilla(grilla);
             grillaVO = this.getFacadeService().getEstructuraService().getGrillaVO(grilla, Boolean.FALSE);
             grillaVO.setGrilla(grilla);
             addInfoMessage(PropertyManager.getInstance().getMessage("mensaje_tabla_guardar_registro"));

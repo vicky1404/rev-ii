@@ -1,9 +1,14 @@
 package cl.mdr.ifrs.ejb.service;
 
 
+import static ch.lambdaj.Lambda.having;
+import static ch.lambdaj.Lambda.on;
+import static ch.lambdaj.Lambda.select;
 import static cl.mdr.ifrs.ejb.cross.Constantes.PERSISTENCE_UNIT_NAME;
+import static org.hamcrest.Matchers.equalTo;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -19,8 +24,10 @@ import cl.mdr.ifrs.ejb.common.Constantes;
 import cl.mdr.ifrs.ejb.common.VigenciaEnum;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Celda;
+import cl.mdr.ifrs.ejb.entity.Columna;
 import cl.mdr.ifrs.ejb.entity.DetalleEeff;
 import cl.mdr.ifrs.ejb.entity.EstadoFinanciero;
+import cl.mdr.ifrs.ejb.entity.Grilla;
 import cl.mdr.ifrs.ejb.entity.RelacionDetalleEeff;
 import cl.mdr.ifrs.ejb.entity.RelacionEeff;
 import cl.mdr.ifrs.ejb.entity.TipoEstadoEeff;
@@ -344,6 +351,7 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
     }
     
     @SuppressWarnings("unchecked")
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public List<RelacionEeff> getRelacionEeffByCelda(Celda celda){
         Query query = em.createNamedQuery(RelacionEeff.FIND_BY_CELDA);
         query.setParameter("celda", celda);
@@ -351,10 +359,77 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
     }
     
     @SuppressWarnings("unchecked")
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public List<RelacionDetalleEeff> getRelacionDetalleEeffByCelda(Celda celda){
         Query query = em.createNamedQuery(RelacionDetalleEeff.FIND_BY_CELDA);
         query.setParameter("celda", celda);
         return query.getResultList();
+    }
+    
+    @SuppressWarnings("unchecked")
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	public List<RelacionEeff> getRelacionEeffByGrilla(Long idGrilla){
+        Query query = em.createNamedQuery(RelacionEeff.FIND_BY_GRILLA);
+        query.setParameter("idGrilla", idGrilla);
+        return query.getResultList();
+    }
+    
+    @SuppressWarnings("unchecked")
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public List<RelacionDetalleEeff> getRelacionDetalleEeffByCelda(Long idGrilla){
+        Query query = em.createNamedQuery(RelacionDetalleEeff.FIND_BY_GRILLA);
+        query.setParameter("idGrilla", idGrilla);
+        return query.getResultList();
+    }
+    
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public void loadEEFFByGrilla(final Grilla grid){
+    	
+    	List<RelacionEeff> relacionEeffList = this.getRelacionEeffByGrilla(grid.getIdGrilla());
+    	
+    	List<RelacionDetalleEeff> relacionDetEeffList = this.getRelacionDetalleEeffByCelda(grid.getIdGrilla());
+    	
+    	boolean isRelEeff = Util.esListaValida(relacionEeffList);
+    	boolean isRelDetEeff = Util.esListaValida(relacionDetEeffList);
+    	
+    	for(Columna column : grid.getColumnaList()){
+            
+            for(Celda cell : column.getCeldaList()){
+                
+            	if(isRelEeff){
+            		List<RelacionEeff> relacionEeffTempList = select(relacionEeffList, having
+            												   (on(RelacionEeff.class).getIdGrilla(), equalTo(cell.getIdGrilla()))
+            											   .and(having(on(RelacionEeff.class).getIdColumna(), equalTo(cell.getIdColumna())))
+            											   .and(having(on(RelacionEeff.class).getIdFila(), equalTo(cell.getIdFila()))));
+            		
+            		cell.setRelacionEeffList(relacionEeffTempList);
+            	}else{
+            		cell.setRelacionEeffList(new ArrayList<RelacionEeff>());
+            	}
+
+            	
+            	if(isRelDetEeff){
+            		List<RelacionDetalleEeff> relacionDetEeffTempList = select(relacionDetEeffList, having
+						   										(on(RelacionDetalleEeff.class).getIdGrilla(), equalTo(cell.getIdGrilla()))
+						   										.and(having(on(RelacionDetalleEeff.class).getIdColumna(), equalTo(cell.getIdColumna())))
+						   										.and(having(on(RelacionDetalleEeff.class).getIdFila(), equalTo(cell.getIdFila()))));
+            	
+            		cell.setRelacionDetalleEeffList(relacionDetEeffTempList);
+            	}else{
+            		cell.setRelacionDetalleEeffList(new ArrayList<RelacionDetalleEeff>());
+            	}
+            	
+
+            }
+    	}
+    }
+    
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public void loadEEFFByCelda(final Celda cell){
+
+        cell.setRelacionEeffList(this.getRelacionEeffByCelda(cell));
+        cell.setRelacionDetalleEeffList(this.getRelacionDetalleEeffByCelda(cell));
+        
     }
 
 }

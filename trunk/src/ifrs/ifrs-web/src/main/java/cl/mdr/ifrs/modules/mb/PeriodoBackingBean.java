@@ -21,7 +21,6 @@ import cl.mdr.ifrs.ejb.common.MensajePeriodoEnum;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Empresa;
 import cl.mdr.ifrs.ejb.entity.EstadoPeriodo;
-import cl.mdr.ifrs.ejb.entity.Periodo;
 import cl.mdr.ifrs.ejb.entity.PeriodoEmpresa;
 import cl.mdr.ifrs.ejb.entity.Version;
 
