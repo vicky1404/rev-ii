@@ -167,4 +167,12 @@ public class CeldaServiceBean implements CeldaServiceLocal{
     	}
     }
     
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public void loadEEFFByCelda(final Celda cell){
+
+        cell.setRelacionEeffList(estadoFinanciero.getRelacionEeffByCelda(cell));
+        cell.setRelacionDetalleEeffList(estadoFinanciero.getRelacionDetalleEeffByCelda(cell));
+        
+    }
+    
 }

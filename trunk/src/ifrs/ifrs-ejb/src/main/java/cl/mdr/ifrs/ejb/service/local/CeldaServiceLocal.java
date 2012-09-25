@@ -39,4 +39,6 @@ public interface CeldaServiceLocal {
     Celda findCeldaByColumnaGrilla(Columna columna);
     
     void loadEEFFByGrilla(final Grilla grid);
+    
+    void loadEEFFByCelda(final Celda cell);
 }
