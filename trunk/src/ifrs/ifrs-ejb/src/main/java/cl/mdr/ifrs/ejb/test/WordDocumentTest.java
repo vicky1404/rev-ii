@@ -46,11 +46,11 @@ public class WordDocumentTest {
         /*IDocument myDoc = new Document2004();
         
         Header2004 hd = new Header2004();            
-        hd.addEle(Paragraph.with("BiceVida - Revelaciones"));
+        hd.addEle(Paragraph.with("Revelaciones"));
         myDoc.addEle(hd);
         
         Footer2004 footer = new Footer2004();
-        footer.addEle(Paragraph.with("BiceVida - Revelaciones" + new Date()));
+        footer.addEle(Paragraph.with("Revelaciones" + new Date()));
         footer.showPageNumber(true);
         myDoc.addEle(footer);
         
