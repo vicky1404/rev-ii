@@ -37,4 +37,6 @@ public interface CeldaServiceLocal {
     void deleteFormulaDinamica(Celda celdaParent, List<Celda> celdaChildList) throws Exception;
     
     Celda findCeldaByColumnaGrilla(Columna columna);
+    
+    void loadEEFFByGrilla(final Grilla grid);
 }

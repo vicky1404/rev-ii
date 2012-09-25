@@ -154,6 +154,9 @@ public class CargadorEeffBackingBean extends AbstractBackingBean {
 	            addInfoMessage(PropertyManager.getInstance().getMessage("eeff_cuentas_procesadas") + cargadorVO.getCatidadEeffDetProcesado());
             
             }
+            
+            addInfoMessage(PropertyManager.getInstance().getMessage("carga_eeff_guardar_correcto"));
+            
             init();
             
         }catch(Exception e){
