@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.html.HtmlInputText;
@@ -99,6 +100,7 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
     private SelectOneMenu comboBuscarMeses;
     private SelectOneMenu comboBuscarAnio;
     private int largoBarraFormula;
+    private List<Celda> celdaList;
     
 	
 	private TreeNode root;
@@ -124,6 +126,10 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
 	 */
 	private static final long serialVersionUID = -4726692791898733737L;
 	
+	@PostConstruct
+	void init(){
+		celdaList = new ArrayList<Celda>();
+	}
 	
     public void changeTipoCuadro() {
     	
@@ -954,8 +960,7 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
 				
 				celdaTarget = getFacadeService().getCeldaService().findCeldaById(celdaTarget);
 				
-			} catch (Exception e) {
-				
+			} catch (Exception e) {				
 				e.printStackTrace();
 			}
 			
@@ -1269,7 +1274,7 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
                 celdaRangoList.get(0).setChildHorizontal(parentHorizontal);
                 celdaListByTarget.add(celdaRangoList.get(0));
             }
-
+            //TODO
         }else if (!celdaRangoList.isEmpty() && celdaRangoList.size()>1) {
             List<Celda> celdaList = this.celdaMapToList();
             List<Celda> celdasByColumna = new ArrayList<Celda>();
@@ -1307,7 +1312,7 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
                     celdaListByTarget.add(celda);
                 }
             }
-        }
+        }                        
         return celdaListByTarget;
     }
     
@@ -1318,9 +1323,8 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
     private Long getMaxParentHorizontal(final Celda celdaTarget){        
         if(celdaTarget.getParentHorizontal() != null){
             return celdaTarget.getParentHorizontal();
-        }else{
-            final List<Celda> celdas = this.celdaMapToList();
-            return (Util.getLong(maxFrom(celdas).getParentHorizontal(), 0L)+1L);
+        }else{            
+            return (Util.getLong(maxFrom(this.celdaMapToList()).getParentHorizontal(), 0L)+1L);
         }
     }
 
@@ -1331,9 +1335,8 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
     private Long getMaxParentVertical(final Celda celdaTarget){ 
         if(celdaTarget.getParentVertical() != null){
             return celdaTarget.getParentVertical();
-        }else{
-            final List<Celda> celdas = this.celdaMapToList();
-            return (Util.getLong(maxFrom(celdas).getParentVertical(), 0L)+1L);
+        }else{            
+            return (Util.getLong(maxFrom(this.celdaMapToList()).getParentVertical(), 0L)+1L);
         }
     }
     
@@ -1341,8 +1344,7 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
      * Convierte un Map de celda a List
      * @return
      */
-    private List<Celda> celdaMapToList(){
-        List<Celda> celdaList = new ArrayList<Celda>();
+    private List<Celda> celdaMapToList(){        
         for (Map<Long, Celda> row : this.getGrillaVO().getRows()) {
             for (Map.Entry<Long, Celda> entry : row.entrySet()) {                                
                 celdaList.add(entry.getValue());
@@ -1420,6 +1422,7 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
                     celda.setParentVertical(null);
                     celda.setChildHorizontal(null);
                     celda.setChildVertical(null);
+                    celda.setFormula(null);  
                     celda.setSelectedByFormula(Boolean.FALSE);
                     celdaList.add(celda);
                 }
@@ -1845,5 +1848,15 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
 			}*/
 		}
 		
+	}
+
+
+	public List<Celda> getCeldaList() {
+		return celdaList;
+	}
+
+
+	public void setCeldaList(List<Celda> celdaList) {
+		this.celdaList = celdaList;
 	}
 }
