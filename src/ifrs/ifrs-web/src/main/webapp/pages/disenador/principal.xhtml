@@ -122,7 +122,7 @@
 										requiredMessage="Debe seleccionar el Archivo de Plantilla de Configuración."
 										multiple="false" mode="advanced" update="@form"
 										cancelLabel="Cancelar"
-										invalidFileMessage="El formato del Archivo es invalido, solo se permiten archivos MS Excel en formato 2007 o superior"
+										invalidFileMessage="El formato del Archivo es inválido, solo se permiten archivos MS Excel en formato 2007 o superior."
 										invalidSizeMessage="El Archivo a utilizar no puede superar los 3 MB."
 										sizeLimit="3145728" allowTypes="/(\.|\/)(xlsx)$/"
 										fileUploadListener="#{configuradorDisenoBackingBean.cargaArchivoListener}">
@@ -171,7 +171,8 @@
 												</h:panelGroup>
 												<tr role="row">
 													<th class="ui-state-default ui-resizable-column"
-														role="columnheader"></th>
+														role="columnheader">														    													
+													</th>
 													<ui:repeat var="col"
 														value="#{configuradorDisenoBackingBean.grillaVO.columnas}">
 														<th class="ui-state-default ui-resizable-column"
@@ -342,15 +343,14 @@
 									modal="false" dynamic="false">
 									<h:panelGrid columns="2">
 										<h:outputLabel value="Tipo de Celda:" />
-										<p:selectOneMenu label="Tipo Celda"
-											valueChangeListener="#{configuradorDisenoBackingBean.changeTipoDatoByTipoCeldaListener}"
+										<p:selectOneMenu label="Tipo Celda"											
 											converter="tipoCeldaConverter"
 											value="#{configuradorDisenoBackingBean.tipoCeldaCelda}"
 											style="width:130px;" id="somec1">
 											<f:selectItem itemLabel="#{msg.general_control_seleccione}" />
 											<f:selectItems
 												value="#{configuradorDisenoBackingBean.componenteBackingBean.tipoCeldas}" />
-											<f:ajax render="cmbTipoDato2" execute="@this" />
+											<p:ajax update="cmbTipoDato2"  listener="#{configuradorDisenoBackingBean.changeTipoDatoByTipoCeldaForEditCeldaListener}"/>  											
 										</p:selectOneMenu>
 										<h:outputLabel value="Tipo de Dato:" />
 										<p:selectOneMenu label="Tipo Dato" id="cmbTipoDato2"
@@ -376,7 +376,7 @@
 								<p:dialog widgetVar="editColumnDialog" header="Editar Columna"
 									showEffect="drop" style="text-align:left;" hideEffect="drop"
 									modal="false" dynamic="true" minimizable="false">
-									<h:panelGrid columns="3">
+									<h:panelGrid columns="2">
 										<!-- titulo de columna -->
 										<p:outputLabel for="it_tc" value="Título de Columna:" />
 										<p:inputText id="it_tc"
@@ -389,15 +389,14 @@
 
 										<!-- tipo celda -->
 										<h:outputLabel value="Tipo de Celda:" />
-										<p:selectOneMenu label="Tipo Celda"
-											valueChangeListener="#{configuradorDisenoBackingBean.changeTipoDatoByTipoCeldaListener}"
+										<p:selectOneMenu label="Tipo Celda"											
 											converter="tipoCeldaConverter"
 											value="#{configuradorDisenoBackingBean.tipoCeldaColumna}"
 											style="width:130px;">
 											<f:selectItem itemLabel="#{msg.general_control_seleccione}" />
 											<f:selectItems
-												value="#{configuradorDisenoBackingBean.componenteBackingBean.tipoCeldas}" />
-											<f:ajax render="cmbTipoDato1" execute="@this" />
+												value="#{configuradorDisenoBackingBean.componenteBackingBean.tipoCeldas}" />											
+											<p:ajax update="cmbTipoDato1"  listener="#{configuradorDisenoBackingBean.changeTipoDatoByTipoCeldaForEditColumnaListener}"/>
 										</p:selectOneMenu>
 
 										<!-- tipo de dato -->
@@ -412,7 +411,7 @@
 												itemLabel="#{tipoDato.nombre}" />
 										</p:selectOneMenu>
 
-										<h:outputText value=" " />
+										
 										<p:commandButton value="Editar Columna"
 											actionListener="#{configuradorDisenoBackingBean.editarColumnaAction}"
 											icon="ui-icon-disk" update="@form">
@@ -430,14 +429,13 @@
 									<h:panelGrid columns="2">
 										<h:outputLabel value="Tipo de Celda:" />
 										<p:selectOneMenu label="Tipo Celda"
-											converter="tipoCeldaConverter"
-											valueChangeListener="#{configuradorDisenoBackingBean.changeTipoDatoByTipoCeldaListener}"
+											converter="tipoCeldaConverter"											
 											value="#{configuradorDisenoBackingBean.tipoCeldaFila}"
 											style="width:130px;" id="somec3">
 											<f:selectItem itemLabel="#{msg.general_control_seleccione}" />
 											<f:selectItems
-												value="#{configuradorDisenoBackingBean.componenteBackingBean.tipoCeldas}" />
-											<f:ajax render="cmbTipoDato3" execute="@this" />
+												value="#{configuradorDisenoBackingBean.componenteBackingBean.tipoCeldas}" />											
+											<p:ajax update="cmbTipoDato3"  listener="#{configuradorDisenoBackingBean.changeTipoDatoByTipoCeldaForEditFilaListener}"/>
 										</p:selectOneMenu>
 										<h:outputLabel value="Tipo de Dato:" />
 										<p:selectOneMenu label="Tipo Dato" id="cmbTipoDato3"

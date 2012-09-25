@@ -15,7 +15,6 @@ import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
-import javax.faces.event.ValueChangeEvent;
 
 import org.apache.log4j.Logger;
 import org.hamcrest.Matchers;
@@ -297,18 +296,62 @@ public class ConfiguradorDisenoBackingBean extends AbstractBackingBean implement
      * creando un combo anidado para la configuracion de las celdas.
      * @param event
      */
-    public void changeTipoDatoByTipoCeldaListener(ValueChangeEvent event){
-    	try{
-    		final TipoCelda tipoCelda = ((TipoCelda) event.getNewValue());
-    		this.buildTipoDatoFilteredList(tipoCelda);
-    		super.getFacesContext().renderResponse();    
+//    public void changeTipoDatoByTipoCeldaListener(ValueChangeEvent event){
+//    	try{
+//    		final TipoCelda tipoCelda = ((TipoCelda) event.getNewValue());
+//    		this.buildTipoDatoFilteredList(tipoCelda);
+//    		super.getFacesContext().renderResponse();    
+//    	}catch (Exception e) {
+//			logger.error(e);
+//			super.addErrorMessage("Ha ocurrido un error al filtrar los Tipos de dato");
+//		}    	 
+//    }
+    
+    /**
+     * Metodo que filtra los tipos de dato segun el tipo de celda
+     * creando un combo anidado para la configuracion de las celdas.
+     * para cuadro de edicion de celda
+     */
+    public void changeTipoDatoByTipoCeldaForEditCeldaListener(){
+    	try{    
+    		Thread.sleep(100);
+    		this.buildTipoDatoFilteredList(tipoCeldaCelda);    		  
     	}catch (Exception e) {
 			logger.error(e);
 			super.addErrorMessage("Ha ocurrido un error al filtrar los Tipos de dato");
 		}    	 
     }
     
+    /**
+     * Metodo que filtra los tipos de dato segun el tipo de celda
+     * creando un combo anidado para la configuracion de las celdas.
+     * para cuadro de edicion de fila
+     */
+    public void changeTipoDatoByTipoCeldaForEditFilaListener(){
+    	try{    		
+    		Thread.sleep(100);
+    		this.buildTipoDatoFilteredList(tipoCeldaFila);    		  
+    	}catch (Exception e) {
+			logger.error(e);
+			super.addErrorMessage("Ha ocurrido un error al filtrar los Tipos de dato");
+		}    	 
+    }
     
+    /**
+     * Metodo que filtra los tipos de dato segun el tipo de celda
+     * creando un combo anidado para la configuracion de las celdas.
+     * para cuadro de edicion de columna
+     */
+    public void changeTipoDatoByTipoCeldaForEditColumnaListener(){
+    	try{   
+    		Thread.sleep(100);
+    		this.buildTipoDatoFilteredList(tipoCeldaColumna);    		  
+    	}catch (Exception e) {
+			logger.error(e);
+			super.addErrorMessage("Ha ocurrido un error al filtrar los Tipos de dato");
+		}    	 
+    }
+                
     /**
      * Metodo que construye una lista de List<TipoDato> filtrada segun el tipo de celda.
      * @param tipoCelda
