@@ -28,8 +28,7 @@ import cl.mdr.ifrs.exceptions.FormulaException;
 
 /**
  * EJB encargado de hacer operaciones matematicas sobre las celdas,
- * las operaciones pueden ser sobre formulas din�micas y est�ticas.
- * @author rodrigo.diazv@bicevida.cl
+ * las operaciones pueden ser sobre formulas din�micas y est�ticas. 
  * @since 03/05/2011
  */
 @Stateless

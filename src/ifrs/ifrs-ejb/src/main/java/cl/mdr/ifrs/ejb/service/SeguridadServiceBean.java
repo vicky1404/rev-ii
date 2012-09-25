@@ -66,8 +66,7 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
     public void crearNuevoUsuario(final Usuario usuario) throws MessagingException, Exception{    	
     	em.persist(usuario);
     	mailService.sendMail("Usuario Creado", 
-    						 MessageFormat.format(ResourceBundle.getBundle("exfida-mail-template").getString("exfida_nuevo_usuario_mail_template"), usuario.getNombre(), usuario.getApellidoPaterno(), usuario.getPassword()), 
-    						 "rodrigo.reyes@bicevida.cl", 
+    						 MessageFormat.format(ResourceBundle.getBundle("exfida-mail-template").getString("exfida_nuevo_usuario_mail_template"), usuario.getNombre(), usuario.getApellidoPaterno(), usuario.getPassword()),     						
     						 usuario.getEmail());
     }
     
