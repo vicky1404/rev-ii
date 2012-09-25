@@ -29,7 +29,8 @@ import cl.mdr.ifrs.ejb.entity.pk.RelacionDetalleEeffPK;
     @NamedQuery(name = RelacionDetalleEeff.FIND_BY_PERIODO_FECU_CUENTA, query = "select o from RelacionDetalleEeff o where o.periodoEmpresa.idPeriodo = :idPeriodo and o.periodoEmpresa.idRut = :idRut and o.idFecu = :idFecu and o.idCuenta = :idCuenta"),
     @NamedQuery(name = RelacionDetalleEeff.DELETE_BY_CELDA, query = "delete from RelacionDetalleEeff o where o.celda5 = :celda"),
     @NamedQuery(name = RelacionDetalleEeff.DELETE_BY_GRILLA_PERIODO_EMPRESA, query = "delete from RelacionDetalleEeff o where o.idGrilla = :idGrilla and o.idPeriodo = :idPeriodo and o.idRut = :idRut"),
-    @NamedQuery(name = RelacionDetalleEeff.FIND_BY_CELDA, query = "select o from RelacionDetalleEeff o where o.celda5 = :celda")})
+    @NamedQuery(name = RelacionDetalleEeff.FIND_BY_CELDA, query = "select o from RelacionDetalleEeff o where o.celda5 = :celda"),
+    @NamedQuery(name = RelacionDetalleEeff.FIND_BY_GRILLA, query = "select o from RelacionDetalleEeff o where o.idGrilla = :idGrilla order by o.idColumna, o.idFila")})
 
 @Table(name = Constantes.RELACION_DETALLE_EEFF)
 @IdClass(RelacionDetalleEeffPK.class)
@@ -41,6 +42,7 @@ public class RelacionDetalleEeff implements Serializable {
     public static final String DELETE_BY_CELDA = "RelacionDetalleEeff.deleteByCelda";
     public static final String DELETE_BY_GRILLA_PERIODO_EMPRESA = "RelacionDetalleEeff.deleteByGrillaPeriodo";
     public static final String FIND_BY_CELDA = "RelacionDetalleEeff.findByCelda";
+    public static final String FIND_BY_GRILLA = "RelacionDetalleEeff.findByGrilla";
     
     @Id
     @Column(name = "ID_CUENTA", nullable = false, insertable = false, updatable = false)

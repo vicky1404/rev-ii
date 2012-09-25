@@ -10,6 +10,7 @@ import javax.persistence.Query;
 import cl.mdr.ifrs.ejb.entity.Celda;
 import cl.mdr.ifrs.ejb.entity.DetalleEeff;
 import cl.mdr.ifrs.ejb.entity.EstadoFinanciero;
+import cl.mdr.ifrs.ejb.entity.Grilla;
 import cl.mdr.ifrs.ejb.entity.RelacionDetalleEeff;
 import cl.mdr.ifrs.ejb.entity.RelacionEeff;
 import cl.mdr.ifrs.ejb.entity.TipoEstadoEeff;
@@ -72,5 +73,9 @@ public interface EstadoFinancieroServiceLocal {
     List<RelacionEeff> getRelacionEeffByCelda(Celda celda);
 
     List<RelacionDetalleEeff> getRelacionDetalleEeffByCelda(Celda celda);
+    
+    void loadEEFFByGrilla(final Grilla grid);
+    
+    void loadEEFFByCelda(final Celda cell);
     
 }

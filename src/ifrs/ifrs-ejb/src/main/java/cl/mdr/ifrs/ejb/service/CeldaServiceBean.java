@@ -6,7 +6,6 @@ import static cl.mdr.ifrs.ejb.cross.Constantes.PERSISTENCE_UNIT_NAME;
 import java.util.List;
 import java.util.Map;
 
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -19,16 +18,12 @@ import cl.mdr.ifrs.ejb.entity.Columna;
 import cl.mdr.ifrs.ejb.entity.Grilla;
 import cl.mdr.ifrs.ejb.entity.pk.CeldaPK;
 import cl.mdr.ifrs.ejb.service.local.CeldaServiceLocal;
-import cl.mdr.ifrs.ejb.service.local.EstadoFinancieroServiceLocal;
 
 @Stateless
 public class CeldaServiceBean implements CeldaServiceLocal{
     
     @PersistenceContext(unitName = PERSISTENCE_UNIT_NAME)
     private EntityManager em;
-    
-    @EJB
-    EstadoFinancieroServiceLocal estadoFinanciero;
     
     public CeldaServiceBean() {
         super();
@@ -153,26 +148,5 @@ public class CeldaServiceBean implements CeldaServiceLocal{
         }
     }
     
-    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-    public void loadEEFFByGrilla(final Grilla grid){
-
-    	for(Columna column : grid.getColumnaList()){
-            
-            for(Celda cell : column.getCeldaList()){
-                
-                cell.setRelacionEeffList(estadoFinanciero.getRelacionEeffByCelda(cell));
-                cell.setRelacionDetalleEeffList(estadoFinanciero.getRelacionDetalleEeffByCelda(cell));
-
-            }
-    	}
-    }
-    
-    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-    public void loadEEFFByCelda(final Celda cell){
-
-        cell.setRelacionEeffList(estadoFinanciero.getRelacionEeffByCelda(cell));
-        cell.setRelacionDetalleEeffList(estadoFinanciero.getRelacionDetalleEeffByCelda(cell));
-        
-    }
     
 }
