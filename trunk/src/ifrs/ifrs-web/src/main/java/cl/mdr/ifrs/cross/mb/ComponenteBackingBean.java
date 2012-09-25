@@ -128,14 +128,11 @@ public class ComponenteBackingBean implements Serializable {
         return anios;
     }
 
-    public List<SelectItem> getTipoCeldas(){
-        
-        List<SelectItem> celdas = new ArrayList<SelectItem>();
-        
+    public List<SelectItem> getTipoCeldas(){        
+        List<SelectItem> celdas = new ArrayList<SelectItem>();        
         for(TipoCelda celda : getTipoCeldaList()){
             celdas.add(new SelectItem(celda, celda.getNombre()));
-        }
-        
+        }        
         return celdas;
     }
 

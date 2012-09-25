@@ -11,6 +11,7 @@ import cl.mdr.ifrs.ejb.entity.TipoCelda;
 
 import com.google.common.base.Strings;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 @FacesConverter(value = "tipoCeldaConverter", forClass= TipoCelda.class)
 public class TipoCeldaConverter implements Converter{
@@ -23,7 +24,7 @@ public class TipoCeldaConverter implements Converter{
 		TipoCelda tipoCelda = null;
 		
 		if(!Strings.isNullOrEmpty(string)){
-			final Gson gson = new Gson();
+			final Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 			try {
 				tipoCelda = gson.fromJson(string, TipoCelda.class);
 			} catch (final Exception e) {
@@ -40,7 +41,7 @@ public class TipoCeldaConverter implements Converter{
 		String json = "";
 		
 		if(object instanceof TipoCelda){
-			final Gson gson = new Gson();
+			final Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 			json = gson.toJson(object, TipoCelda.class);
 		}
 
