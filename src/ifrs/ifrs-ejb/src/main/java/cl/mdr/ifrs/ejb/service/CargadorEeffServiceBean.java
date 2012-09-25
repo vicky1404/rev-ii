@@ -714,9 +714,10 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
             }
         }
         
-        logger.info(mensaje);
-        
-        buildUsuarioGrupo(cargadorVO, mensajeMap);
+        if(mensajeMap != null && !mensajeMap.isEmpty()){
+        	logger.info(mensaje);
+        	buildUsuarioGrupo(cargadorVO, mensajeMap);
+        }
         
     }
     

@@ -143,7 +143,7 @@
 		 	
 		 		<p:accordionPanel>  
 		 			<p:tab id="borradoList" title="#{msg.carga_eeff_fecu_eliminado}" rendered="#{not empty cargadorEeff.cargadorVO.eeffBorradoList}">
-				 		<p:dataTable value="#{cargadorEeff.cargadorVO.eeffBorradoList}" var="row" id="t3" style="height:inherit;">
+				 		<p:dataTable value="#{cargadorEeff.cargadorVO.eeffBorradoList}" var="row" id="t3" style="height:inherit;" emptyMessage="#{msg.general_sin_informacion}">
 		                    <p:column headerText="#{msg.eeff_codigo_fecu}" id="c7" width="100">
 		                        <h:outputText value="#{row.fecuFormat}" id="ot12"/>
 		                    </p:column>
@@ -153,7 +153,7 @@
 		                 </p:dataTable>
 		 			</p:tab>
 		 			<p:tab id="DetBorradoList" title="#{msg.carga_eeff_cuenta_eliminado}" rendered="#{not empty cargadorEeff.cargadorVO.eeffDetBorradoList}">
-                    <p:dataTable value="#{cargadorEeff.cargadorVO.eeffDetBorradoList}" var="row" id="t4" style="height:inherit;">
+                    <p:dataTable value="#{cargadorEeff.cargadorVO.eeffDetBorradoList}" var="row" id="t4" style="height:inherit;" emptyMessage="#{msg.general_sin_informacion}">
 	                    <p:column headerText="#{msg.carga_eeff_codigo_fecu}" id="c9" width="100">
 	                        <h:outputText value="#{row.fecuFormat}" id="ot15"/>
 	                    </p:column>
@@ -205,7 +205,7 @@
                             <h:outputText value="#{row.cuentaContable.descripcion}" id="ot17B"/>
                         </p:column>
                         <p:column headerText="#{msg.carga_eeff_monto_anterior}" id="c15" width="90">
-                            <h:outputText value="#{row.montoPesos}" id="ot22">
+                            <h:outputText value="#{row.montoPesosMil}" id="ot22">
                             <f:convertNumber integerOnly="false" type="number" maxFractionDigits="4" locale="#{cargadorEeff.localeCL}" pattern="##,###,###,###.####"/>                            
                             </h:outputText>
                         </p:column>
@@ -226,13 +226,13 @@
                         
                      <p:dataTable value="#{cargadorEeff.cargadorVO.relEeffDescuadreList}" 
                         var="row" id="t4C" inlineStyle="height:inherit;" styleClass="AFStretchWidth"
-                        emptyText="#{msg.general_sin_informacion}">
+                        emptyMessage="#{msg.general_sin_informacion}">
                         
                         <p:column headerText="#{msg.carga_eeff_codigo_fecu}" id="c22" width="80">
                             <h:outputText value="#{row.fecuFormat}" id="ot7"/>
                         </p:column>
                         <p:column headerText="#{msg.carga_eeff_cuadro}" id="c10C" width="280">
-                            <h:outputText value="#{row.celda2.columna.grilla.estructura1.version.catalogo.nombre}" id="ot16C"/>
+                            <h:outputText value="#{row.celda2.columna.grilla.estructura.version.catalogo.nombre}" id="ot16C"/>
                         </p:column>
                         <p:column headerText="#{msg.carga_eeff_columna}" id="c13C" width="150">
                             <h:outputText value="#{row.celda2.columna.tituloColumna}" id="ot15C"/>
@@ -258,7 +258,7 @@
                             </h:outputText>
                         </p:column>
                         <p:column headerText="#{msg.carga_eeff_monto_anterior}" id="c21" width="120">
-                            <h:outputText value="#{row.montoTotalNuevo}" id="ot32">
+                            <h:outputText value="#{row.montoTotal}" id="ot32">
                             <f:convertNumber integerOnly="false" type="number"
                                                       maxFractionDigits="4"
                                                       locale="#{cargadorEeff.localeCL}" pattern="##,###,###,###.####"/>
@@ -270,7 +270,7 @@
                         
                         <p:dataTable value="#{cargadorEeff.cargadorVO.relEeffDetDescuadreList}" 
                         var="row" id="t7" inlineStyle="height:inherit;" styleClass="AFStretchWidth"
-                        emptyText="#{msg.general_sin_informacion}">
+                        emptyMessage="#{msg.general_sin_informacion}">
                         
                         <p:column headerText="#{msg.carga_eeff_codigo_fecu}" id="c23" width="80">
                             <h:outputText value="#{row.fecuFormat}" id="ot23"/>
@@ -279,7 +279,7 @@
                             <h:outputText value="#{row.idCuenta}" id="ot37"/>
                         </p:column>
                         <p:column headerText="#{msg.carga_eeff_cuadro}" id="c24" width="200">
-                            <h:outputText value="#{row.celda5.columna.grilla.estructura1.version.catalogo.nombre}" id="ot24"/>
+                            <h:outputText value="#{row.celda5.columna.grilla.estructura.version.catalogo.nombre}" id="ot24"/>
                         </p:column>
                         <p:column headerText="#{msg.carga_eeff_columna}" id="c25" width="150">
                             <h:outputText value="#{row.celda5.columna.tituloColumna}" id="ot25"/>

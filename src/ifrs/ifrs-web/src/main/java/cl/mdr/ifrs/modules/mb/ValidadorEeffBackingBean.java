@@ -294,6 +294,7 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
         	final Catalogo catalogo = (Catalogo)event.getComponent().getAttributes().get("catalogo");
         	
             Grilla grilla = this.getFacadeService().getGrillaService().findGrillaById(estructura.getIdEstructura());
+            this.getFacadeService().getCeldaService().loadEEFFByGrilla(grilla);
             grillaVO = this.getFacadeService().getEstructuraService().getGrillaVO(grilla, Boolean.FALSE);
             grillaVO.setGrilla(grilla);
             setRenderEstructuraTabla(Boolean.TRUE);
