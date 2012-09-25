@@ -230,7 +230,7 @@
     	</p:tabView>
     	
     	
-    	<p:dialog id="popupFecu" header="Información adicional FECU seleccionada" widgetVar="widPopupFecu" width="600" resizable="false" showEffect="drop" hideEffect="drop" dynamic="true" modal="false" closable="true">
+    	<p:dialog id="popupFecu" header="#{msg.pop_up_titulo_informacion_adicional_fecu}" widgetVar="widPopupFecu" width="600" resizable="false" showEffect="drop" hideEffect="drop" dynamic="true" modal="false" closable="true">
     		<center>    		
     		<h:panelGrid columns="2" cellpadding="10" border="1" style="width:auto;" >
     		    <h:outputText value="FECU" id="ot82x" style="font-weight:bold"/>
@@ -244,9 +244,9 @@
     		</center>
     	</p:dialog>
     	
-    	<p:dialog id="popupCuenta" header="Información adicional cuenta seleccionada" widgetVar="widPopupCuenta" width="600" resizable="false" showEffect="drop" hideEffect="drop" dynamic="true" modal="false" closable="true">
+    	<p:dialog id="popupCuenta" header="#{msg.pop_up_titulo_informacion_adicional_cuenta}" widgetVar="widPopupCuenta" width="600" resizable="false" showEffect="drop" hideEffect="drop" dynamic="true" modal="false" closable="true">
     		<center>
-			<h:panelGrid columns="4" cellpadding="10" border="1" style="width:auto;" >
+			<h:panelGrid columns="3" cellpadding="10" border="1" style="width:auto;" >
 				<h:outputText value="FECU" id="ot823x" style="font-weight:bold;"/>
 	   			<h:outputText value="Código cuenta" id="ot923x" style="font-weight:bold"/>
 	   			<h:outputText value="Monto Miles Pesos" id="ot1223x" style="font-weight:bold"/>
@@ -260,7 +260,7 @@
   			</center>
     	</p:dialog>
     	
-    	<p:dialog id="popupEliminar" header="Confirmación" widgetVar="widPopupEliminar" width="400" resizable="false" showEffect="drop" hideEffect="drop" dynamic="true" modal="false" closable="true">
+    	<p:dialog id="popupEliminar" header="#{msg.pop_up_titulo_confirmacion}" widgetVar="widPopupEliminar" width="400" resizable="false" showEffect="drop" hideEffect="drop" dynamic="true" modal="false" closable="true">
     		<center>
 			<h:panelGrid columns="1" cellpadding="10" border="0" style="width:auto;" >
 				<h:outputText value="Esta acción eliminará todo. ¿Esta seguro?" id="ot823xy"/>	
