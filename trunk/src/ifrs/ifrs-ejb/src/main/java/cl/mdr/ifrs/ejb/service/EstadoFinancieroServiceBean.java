@@ -324,7 +324,7 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
     private void insertRelacionDetalleEeff(RelacionDetalleEeff relDetalleEeff) throws Exception{
     	StringBuffer sql = new StringBuffer();
     	sql.append(" INSERT INTO " + Constantes.RELACION_DETALLE_EEFF )
-    	.append(" (ID_COLUMNA,ID_CUENTA,ID_FECU,ID_FILA,ID_GRILLA,ID_PERIODO,ID_RUT,MONTO_EBS,MONTO_MILES,MONTO_PESOS,MONTO_RECLASIFICACION) values ")
+    	.append(" (ID_COLUMNA,ID_CUENTA,ID_FECU,ID_FILA,ID_GRILLA,ID_PERIODO,ID_RUT,MONTO_EBS,MONTO_MILES,MONTO_PESOS,MONTO_RECLASIFICACION, MONTO_PESOS_MIL) values ")
     	.append("  (?,?,?,?,?,?,?,?,?,?,?,?) ");
     		Query query = em.createNativeQuery(sql.toString());
         	int contador = 0;
@@ -339,6 +339,7 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
         	query.setParameter(++contador, relDetalleEeff.getMontoMiles());
         	query.setParameter(++contador, relDetalleEeff.getMontoPesos());
         	query.setParameter(++contador, relDetalleEeff.getMontoReclasificacion());
+        	query.setParameter(++contador, relDetalleEeff.getMontoPesosMil());
         	query.executeUpdate();
     }
     
