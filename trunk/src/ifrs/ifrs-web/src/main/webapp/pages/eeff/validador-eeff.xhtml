@@ -18,7 +18,7 @@
 			 		<p:selectOneMenu label="#{msg.label_tipo_cuadro}" id="soc01" 
 									required="true"                               
 	                                unselectedLabel="#{msg.general_control_seleccione}"
-	                                binding="#{eeff.tipoCuadroSelect}" converter="tipoCuadroConverter">
+	                                binding="#{eeff.tipoCuadroSelect}" converter="tipoCuadroConverter" >
 	                    <f:selectItem itemLabel="#{msg.label_seleccionar}"/>            
 	                	<f:selectItems value="#{eeff.componenteBackingBean.tipoCuadroItems}" id="si1"/>
 	                	<p:ajax listener="#{eeff.tipoCuadroChangeListener}" event="change" />
