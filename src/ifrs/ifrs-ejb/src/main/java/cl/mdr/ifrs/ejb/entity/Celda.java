@@ -313,7 +313,10 @@ public class Celda implements Serializable {
         StringBuffer buffer = new StringBuffer();
         buffer.append(getClass().getName()+"@"+Integer.toHexString(hashCode()));
         buffer.append('[');
-        buffer.append("columna=");
+        buffer.append("idGrilla=");
+        buffer.append(getIdGrilla());
+        buffer.append(',');
+        buffer.append("idColumna=");
         buffer.append(getColumna().getIdColumna());
         buffer.append(',');
         buffer.append("idFila=");

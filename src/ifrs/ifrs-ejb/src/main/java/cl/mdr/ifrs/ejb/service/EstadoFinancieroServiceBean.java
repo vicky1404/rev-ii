@@ -10,6 +10,7 @@ import static org.hamcrest.Matchers.equalTo;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -243,6 +244,16 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
     
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public void persistRelaccionEeff(Map<Celda, List[]> relacionMap) throws Exception{
+    	
+    	Iterator it = relacionMap.entrySet().iterator();
+		
+    	while (it.hasNext()) {    		
+    		Map.Entry e = (Map.Entry)it.next();
+    		this.deleteRelacionEeff((Celda) e.getKey());
+    		this.deleteRelacionDetalleEeff((Celda) e.getKey());
+    	}
+    	
+    	
         for(List[] arrayListas : relacionMap.values()){
             if(Util.esListaValida(arrayListas[0])){
                 List<RelacionEeff> relList = arrayListas[0];
@@ -328,6 +339,31 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
         	query.executeUpdate();
     }
     
+    
+    private void deleteRelacionEeff(Celda celda) throws Exception{
+    	StringBuffer sql = new StringBuffer();
+    		sql.append(" DELETE " + Constantes.RELACION_EEFF + " WHERE ID_COLUMNA = ? AND ID_FILA = ? AND ID_GRILLA = ?");
+    		Query query = em.createNativeQuery(sql.toString());
+        	int contador = 0;
+        	query.setParameter(++contador, celda.getIdColumna());
+        	query.setParameter(++contador, celda.getIdFila());
+        	query.setParameter(++contador, celda.getIdGrilla());
+        	query.executeUpdate();
+    }
+    
+    
+    private void deleteRelacionDetalleEeff(Celda celda) throws Exception{
+    	StringBuffer sql = new StringBuffer();
+    		sql.append(" DELETE " + Constantes.RELACION_DETALLE_EEFF + " WHERE ID_COLUMNA = ? AND ID_FILA = ? AND ID_GRILLA = ?");
+    		Query query = em.createNativeQuery(sql.toString());
+    		
+        	int contador = 0;
+        	query.setParameter(++contador, celda.getIdColumna());
+        	query.setParameter(++contador, celda.getIdFila());
+        	query.setParameter(++contador, celda.getIdGrilla());
+        	query.executeUpdate();
+    }
+    
     private void insertRelacionDetalleEeff(RelacionDetalleEeff relDetalleEeff) throws Exception{
     	StringBuffer sql = new StringBuffer();
     	sql.append(" INSERT INTO " + Constantes.RELACION_DETALLE_EEFF )
@@ -368,9 +404,11 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
     
     @SuppressWarnings("unchecked")
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public List<RelacionEeff> getRelacionEeffByGrilla(Long idGrilla){
-        Query query = em.createNamedQuery(RelacionEeff.FIND_BY_GRILLA);
-        query.setParameter("idGrilla", idGrilla);
+	public List<RelacionEeff> getRelacionEeffByGrilla(Grilla idGrilla){
+        //Query query = em.createNamedQuery(RelacionEeff.FIND_BY_GRILLA);
+    	String sqlString = " select distinct * from " + Constantes.RELACION_EEFF + " where id_grilla = " + idGrilla.getIdGrilla() + " order by id_columna, id_fila";
+    	Query query = em.createNativeQuery(sqlString, RelacionEeff.class);
+        //query.setParameter("idGrilla", idGrilla);
         return query.getResultList();
     }
     
@@ -385,7 +423,10 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public void loadEEFFByGrilla(final Grilla grid){
     	
-    	List<RelacionEeff> relacionEeffList = this.getRelacionEeffByGrilla(grid.getIdGrilla());
+    	//List<RelacionEeff> relacionEeffList = this.getRelacionEeffByGrilla(grid.getIdGrilla());
+    	List<RelacionEeff> relacionEeffList = new ArrayList<RelacionEeff>(); 
+    			
+    	relacionEeffList = this.getRelacionEeffByGrilla(grid);
     	
     	List<RelacionDetalleEeff> relacionDetEeffList = this.getRelacionDetalleEeffByCelda(grid.getIdGrilla());
     	
