@@ -108,6 +108,7 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
         	periodoEmpresa = getFacadeService().getPeriodoService().getMaxPeriodoEmpresaByEmpresa(getFiltroBackingBean().getEmpresa().getIdRut());
             eeffs = getFacadeService().getEstadoFinancieroService().getEeffVigenteByPeriodo(periodoEmpresa.getIdPeriodo(), periodoEmpresa.getIdRut());
             relacionMap = new LinkedHashMap<Celda, List[]>();
+            getFiltroBackingBean().setCatalogo(null);
         }catch(Exception e){
             logger.error("Error en metodo cargarPeriodo", e);
             addErrorMessage("Error al cargar página");
@@ -232,12 +233,16 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
     }
     
     public void limpiarCatalogolistener(ActionEvent event){
-      
-       
-        getBusquedaInputText().setValue(null);
-        getTipoCuadroSelect().setValue(null);
+    	
+        getBusquedaInputText().setItemValue(null);
+        getBusquedaInputText().setItemLabel(null);
+        getFiltroBackingBean().setCatalogo(null);
+        getBusquedaInputText().setValue(null);        
         getBusquedaInputText().setReadonly(Boolean.FALSE);
-        getTipoCuadroSelect().setReadonly(Boolean.FALSE);
+        getTipoCuadroSelect().setReadonly(Boolean.FALSE);   
+        getTipoCuadroSelect().setValue(null);
+        getTipoCuadroSelect().clearInitialState();
+        getComponenteBackingBean().setTipoCuadroList(null);
         this.setRenderTreeTabla(Boolean.FALSE);
         
         if (this.getGrillaVO() != null){
