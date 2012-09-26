@@ -2,6 +2,7 @@ package cl.mdr.ifrs.ejb.service;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -20,8 +21,10 @@ import javax.persistence.Query;
 
 import org.apache.log4j.Logger;
 
+import cl.mdr.ifrs.ejb.common.Constantes;
 import cl.mdr.ifrs.ejb.common.TipoEstructuraEnum;
 import cl.mdr.ifrs.ejb.cross.SortHelper;
+import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.AgrupacionColumna;
 import cl.mdr.ifrs.ejb.entity.Celda;
 import cl.mdr.ifrs.ejb.entity.Columna;
@@ -318,12 +321,37 @@ public class EstructuraServiceBean implements EstructuraServiceLocal {
                     grillaPaso.setTitulo(grilla.getTitulo());
                     grillaPaso.setColumnaList(grilla.getColumnaList());
                 
-                    int returnDelete =  em
-                                        .createQuery("delete from Celda c where c.idGrilla = :idGrilla")
-                                        .setParameter("idGrilla", grilla.getIdGrilla())
-                                        .executeUpdate();
+                    /*int returnDelete =  */
+                    em.createQuery("delete from Celda c where c.idGrilla = :idGrilla").setParameter("idGrilla", grilla.getIdGrilla()).executeUpdate();
                 
-                
+                    for(Columna columna : grillaPaso.getColumnaList()){
+                        columna.setGrilla(grillaPaso);
+                        columna.setIdGrilla(grillaPaso.getEstructura().getIdEstructura());
+                        for(Celda celda : columna.getCeldaList()){
+                            celda.setIdColumna(columna.getIdColumna());
+                            celda.setIdGrilla(grillaPaso.getIdGrilla());
+                            celda.setColumna(columna);
+                            em.createNativeQuery(" Insert into " + Constantes.CELDA + " (ID_COLUMNA,ID_FILA,ID_GRILLA,ID_TIPO_CELDA,ID_TIPO_DATO,VALOR," +
+                            															" CHILD_HORIZONTAL,PARENT_HORIZONTAL,CHILD_VERTICAL,PARENT_VERTICAL,FORMULA)" +
+                            															" values (?,?,?,?,?,?,?,?,?,?,?) " , Celda.class)
+                            .setParameter(1, celda.getIdColumna())
+                            .setParameter(2, celda.getIdFila())
+                            .setParameter(3, celda.getIdGrilla())
+                            .setParameter(4, celda.getTipoCelda().getIdTipoCelda()==null?"":celda.getTipoCelda().getIdTipoCelda())
+                            .setParameter(5, celda.getTipoDato().getIdTipoDato()==null?"":celda.getTipoDato().getIdTipoDato())
+                            .setParameter(6, celda.getValor())
+                            .setParameter(7, celda.getChildHorizontal()==null?"":celda.getChildHorizontal())
+                            .setParameter(8, celda.getParentHorizontal()==null?"":celda.getParentHorizontal())
+                            .setParameter(9, celda.getChildVertical()==null?"":celda.getChildVertical())
+                            .setParameter(10, celda.getParentVertical()==null?"":celda.getParentVertical())
+                            .setParameter(11, celda.getFormula())
+                            .executeUpdate();
+                        }
+                    }
+                    
+                    
+                    /*
+                    
                         if(returnDelete > 0){
                             for(Columna columna : grillaPaso.getColumnaList()){
                                 columna.setGrilla(grillaPaso);
@@ -332,7 +360,21 @@ public class EstructuraServiceBean implements EstructuraServiceLocal {
                                     celda.setIdColumna(columna.getIdColumna());
                                     celda.setIdGrilla(grillaPaso.getIdGrilla());
                                     celda.setColumna(columna);
-                                    em.persist(celda);
+                                    em.createNativeQuery(" Insert into " + Constantes.CELDA + " (ID_COLUMNA,ID_FILA,ID_GRILLA,ID_TIPO_CELDA,ID_TIPO_DATO,VALOR," +
+                                    															" CHILD_HORIZONTAL,PARENT_HORIZONTAL,CHILD_VERTICAL,PARENT_VERTICAL,FORMULA)" +
+                                    															" values (?,?,?,?,?,?,?,?,?,?,?) " )
+                                    .setParameter(1, celda.getIdColumna())
+                                    .setParameter(2, celda.getIdFila())
+                                    .setParameter(3, celda.getIdGrilla())
+                                    .setParameter(4, celda.getTipoCelda().getIdTipoCelda())
+                                    .setParameter(5, celda.getTipoDato().getIdTipoDato())
+                                    .setParameter(6, celda.getValor())
+                                    .setParameter(7, celda.getChildHorizontal())
+                                    .setParameter(8, celda.getParentHorizontal())
+                                    .setParameter(9, celda.getChildVertical())
+                                    .setParameter(10, celda.getParentVertical())
+                                    .setParameter(11, celda.getFormula())
+                                    .executeUpdate();
                                 }
                             }
                         }else{
@@ -355,7 +397,7 @@ public class EstructuraServiceBean implements EstructuraServiceLocal {
                                         agrupacion = em.merge(agrupacion);    
                                     }
                             }
-                        }
+                        }*/
             //}
         
                     return grillaList;        
