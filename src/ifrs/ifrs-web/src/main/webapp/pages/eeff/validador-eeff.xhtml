@@ -33,7 +33,7 @@
 									itemLabel="#{cat.nombre}"													 
 									id="it1" dropdown="true" required="true"/>
 									
-			 		<p:commandButton value="Buscar" icon="ui-icon-search" id="cb1"  action="#{eeff.buscarCatalogo}" update="@form"/>
+			 		<p:commandButton value="Buscar" icon="ui-icon-search" id="cb1"  actionListener="#{eeff.buscarCatalogo}" update="@form"/>
 	            	<p:commandButton value="Limpiar" icon="ui-icon-cancel" id="cb02" actionListener="#{eeff.limpiarCatalogolistener}" update="@form" immediate="true"/>
 	            	
 		 		</h:panelGrid>
