@@ -55,10 +55,6 @@
 		 	
 		 	<p:ajax event="rowEdit" listener="#{tipoCuadro.editar}" />  
 		 	
-		 	<p:column headerText="#{msg.tabla_cabecera_id}" id="id" >
-		 		<h:outputText value="#{row.idTipoCuadro}" />
-		 	</p:column>
-		 	
 		 	<p:column headerText="#{msg.tabla_cabecera_nombre}" id="cNombre" >
 		 		<p:cellEditor id="ceNombre">
 		 			<f:facet name="output">
