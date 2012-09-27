@@ -31,6 +31,11 @@ import com.google.gson.annotations.Expose;
 			@NamedQuery(name = Empresa.EMPRESA_FIND_DIST_BY_ID,  query = " select o " +
 					  											  		 " from Empresa o" +
 					  											  		 " where o.idRut not in(:rut)"),
+			@NamedQuery(name = Empresa.EMPRESA_FIND_BY_FILTRO,  query = " select o " +
+																  		 " from Empresa o" +
+																  		 " where (o.idRut like :idRut or :idRut is null) "+
+																  		"  and (upper(o.nombre) like :nombre or :nombre is null) "+
+																  		"  and (upper(o.razonSocial) like :razonSocial or :razonSocial is null) ")
 })
 @Table(name=Constantes.EMPRESA)
 public class Empresa implements Serializable {
@@ -40,6 +45,7 @@ public class Empresa implements Serializable {
 	public static final String EMPRESA_FIND_ALL = "Empresa.findAll";
 	public static final String EMPRESA_FIND_BY_ID = "Empresa.findById";
 	public static final String EMPRESA_FIND_DIST_BY_ID = "Empresa.findDistId";
+	public static final String EMPRESA_FIND_BY_FILTRO = "Empresa.findEmpresaByFiltro";
 	
 	private static final long serialVersionUID = 2904448285907525542L;
 
@@ -87,6 +93,10 @@ public class Empresa implements Serializable {
 	}
 
 	public Long getIdRut() {
+		
+		if (idRut!=null && idRut.equals(0L)){
+				idRut = null;
+		}
 		return idRut;
 	}
 
