@@ -43,7 +43,7 @@
       		</p:toolbarGroup>	
    		</p:toolbar>
     	
-    	<p:dataTable value="#{cuadroBackingBean.catalogoList}" var="row" id="tabla" editable="true" emptyMessage="#{msg.mensaje_tabla_sin_registros}" rowsPerPageTemplate="10,20,30,40,50,60,100" paginator="true" rows="10" selectionMode="single" rowKey="#{row.idCatalogo}" selection="#{cuadroBackingBean.selectedCuadro}">
+    	<p:dataTable value="#{cuadroBackingBean.catalogoList}" var="row" id="tabla"  editable="true" emptyMessage="#{msg.mensaje_tabla_sin_registros}" rowsPerPageTemplate="10,20,30,40,50,60,100" paginator="true" rows="10" selectionMode="single" rowKey="#{row.idCatalogo}" selection="#{cuadroBackingBean.selectedCuadro}">
     	
     		<p:ajax event="rowEdit" listener="#{cuadroBackingBean.editar}" /> 
     		 
