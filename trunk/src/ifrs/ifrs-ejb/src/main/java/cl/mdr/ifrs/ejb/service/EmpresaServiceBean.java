@@ -2,6 +2,7 @@ package cl.mdr.ifrs.ejb.service;
 
 import static cl.mdr.ifrs.ejb.cross.Constantes.PERSISTENCE_UNIT_NAME;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -50,6 +51,18 @@ public class EmpresaServiceBean implements EmpresaServiceLocal {
         return empresas;
     }
 	
+	@SuppressWarnings("unchecked")
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	public List<Empresa> findEmpresaByFiltro(Empresa empresa) throws Exception {
+			return em.createNamedQuery(Empresa.EMPRESA_FIND_BY_FILTRO)
+				.setParameter("idRut", empresa.getIdRut())
+				.setParameter("nombre", empresa.getNombre() != null ? MessageFormat.format("%{0}%", empresa.getNombre().toUpperCase()) : null)
+				.setParameter("razonSocial", empresa.getRazonSocial() != null ? MessageFormat.format("%{0}%", empresa.getRazonSocial().toUpperCase()) : null).getResultList();
+	} 
 	
+	public void deleteEmpresa(Empresa empresa) throws Exception{
+			empresa = em.find(Empresa.class, empresa.getIdRut());	
+			em.remove(empresa);
+	}
 
 }

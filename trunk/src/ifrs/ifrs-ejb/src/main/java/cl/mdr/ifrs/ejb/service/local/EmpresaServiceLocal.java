@@ -16,4 +16,8 @@ public interface EmpresaServiceLocal {
 	Empresa mergeEmpresa(Empresa empresa) throws Exception;
 	
 	List<Empresa> findDistEmpresa(List<Long> empresaList) throws Exception;
+	
+	List<Empresa> findEmpresaByFiltro(Empresa empresa) throws Exception;
+	
+	void deleteEmpresa(Empresa empresa) throws Exception;
 }
