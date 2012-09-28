@@ -1,8 +1,14 @@
 package cl.mdr.ifrs.ejb.service;
 
 
+import static cl.mdr.ifrs.ejb.cross.FormulaHelper.H_PREFIX;
+import static cl.mdr.ifrs.ejb.cross.FormulaHelper.SIGNO_RESTA;
+import static cl.mdr.ifrs.ejb.cross.FormulaHelper.SIGNO_SUMA;
+import static cl.mdr.ifrs.ejb.cross.FormulaHelper.V_PREFIX;
+import static cl.mdr.ifrs.ejb.cross.FormulaHelper.convertCellToMap;
+import static cl.mdr.ifrs.ejb.cross.FormulaHelper.convertCellToMapList;
+
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -33,12 +39,7 @@ import cl.mdr.ifrs.exceptions.FormulaException;
  */
 @Stateless
 public class FormulaServiceBean implements FormulaServiceLocal{
-    
-    private final String hPrefix = "h-";
-    private final String vPrefix = "v-";
-    private final char subtract = '-';
-    private final char add = '+';
-    
+
     @EJB
     FacadeServiceLocal facadeService;
     
@@ -68,7 +69,7 @@ public class FormulaServiceBean implements FormulaServiceLocal{
                     continue;
                 
                 if(cell.getParentHorizontal()!=null){
-                    key = hPrefix+cell.getParentHorizontal();
+                    key = H_PREFIX+cell.getParentHorizontal();
                     if(resultMap.containsKey(key)){
                         setNumericValueToCell(resultMap.get(key),cell);
                     }else{
@@ -83,7 +84,7 @@ public class FormulaServiceBean implements FormulaServiceLocal{
                 }
                 
                 if(cell.getParentVertical()!=null){
-                        key = vPrefix+cell.getParentVertical();
+                        key = V_PREFIX+cell.getParentVertical();
                         if(resultMap.containsKey(key)){
                             setNumericValueToCell(resultMap.get(key),cell);
                         }else{
@@ -147,8 +148,8 @@ public class FormulaServiceBean implements FormulaServiceLocal{
             String cellKey = cellKeys.nextToken();
             char cellOperator = cellKey.charAt(0);
             
-            if(cellOperator != add && cellOperator != subtract){
-                cellOperator = add;
+            if(cellOperator != SIGNO_SUMA && cellOperator != SIGNO_RESTA){
+                cellOperator = SIGNO_SUMA;
             }else{
                 cellKey = cellKey.substring(1);
             }
@@ -178,52 +179,20 @@ public class FormulaServiceBean implements FormulaServiceLocal{
         return suma;
     }
     
-    private Map<String,List<Celda>> convertCellToMapList(List<Columna> columns){
-        
-        Map<String,List<Celda>> cellMap = new LinkedHashMap<String,List<Celda>>();
-        String key;
-        for(Columna column : columns){
-            for(Celda cell : column.getCeldaList()){
-                if(cell.getChildHorizontal()!=null){
-                    key = hPrefix+cell.getChildHorizontal();
-                    if(cellMap.containsKey(key)){
-                        cellMap.get(key).add(cell);
-                    }else{
-                        List<Celda> cells = new ArrayList<Celda>();
-                        cells.add(cell);
-                        cellMap.put(key, cells);
-                    }
-                }
-                if(cell.getChildVertical()!=null){
-                    key = vPrefix+cell.getChildVertical();
-                    if(cellMap.containsKey(key)){
-                        cellMap.get(key).add(cell);
-                    }else{
-                        List<Celda> cells = new ArrayList<Celda>();
-                        cells.add(cell);
-                        cellMap.put(key, cells);
-                    }
-                }
-            }
-        }
-        
-        return cellMap;
-    }
-    
     private BigDecimal calculateMathematicalHorizontalFormula(final Celda cell,
                                                               final Map<String,List<Celda>> cellMap, 
                                                               final Map<String, BigDecimal> resultMap) throws FormulaException{
         
         String key;
         BigDecimal suma = new BigDecimal("0");
-        key = hPrefix+cell.getParentHorizontal();
+        key = H_PREFIX+cell.getParentHorizontal();
         List<Celda> cells = cellMap.get(key);
         if(cells!=null){
             for(Celda cellTemp : cells){
                 
                 if(cellTemp.getParentHorizontal()!=null){
                 
-                    String keyTemp = hPrefix+cellTemp.getParentHorizontal();
+                    String keyTemp = H_PREFIX+cellTemp.getParentHorizontal();
                     
                     if(!resultMap.containsKey(keyTemp)){
                         BigDecimal sumaTemp = new BigDecimal("0");
@@ -236,7 +205,7 @@ public class FormulaServiceBean implements FormulaServiceLocal{
                 
                 }else{
                     if(isNumeric(cellTemp))
-                        suma = applyOperator(add, suma, new BigDecimal(cellTemp.getValor()));
+                        suma = applyOperator(SIGNO_SUMA, suma, new BigDecimal(cellTemp.getValor()));
                 }
                 
             }
@@ -251,13 +220,13 @@ public class FormulaServiceBean implements FormulaServiceLocal{
         
         String key;
         BigDecimal suma = new BigDecimal("0");
-        key = vPrefix+cell.getParentVertical();
+        key = V_PREFIX+cell.getParentVertical();
         List<Celda> cells = cellMap.get(key);
         if(cells!=null){
             for(Celda cellTemp : cells ){
                 if(cellTemp.getParentVertical()!=null){
                     
-                    String keyTemp = vPrefix+cellTemp.getParentVertical();
+                    String keyTemp = V_PREFIX+cellTemp.getParentVertical();
                     
                     if(!resultMap.containsKey(keyTemp)){
                         BigDecimal sumaTemp = new BigDecimal("0");
@@ -270,7 +239,7 @@ public class FormulaServiceBean implements FormulaServiceLocal{
                     
                 }else{
                     if(isNumeric(cellTemp))
-                        suma = applyOperator(add, suma, new BigDecimal(cellTemp.getValor()));
+                        suma = applyOperator(SIGNO_SUMA, suma, new BigDecimal(cellTemp.getValor()));
                 }
             }
         }
@@ -280,7 +249,7 @@ public class FormulaServiceBean implements FormulaServiceLocal{
         
     private BigDecimal applyOperator(char operator, BigDecimal value, BigDecimal result){
         
-        if(operator == subtract)
+        if(operator == SIGNO_RESTA)
             value = value.subtract(result);
         else
             value = value.add(result);
@@ -288,28 +257,14 @@ public class FormulaServiceBean implements FormulaServiceLocal{
         return value;
     }
     
-    private boolean validateTokens(String cellKey,String invalidFormula){
+    /*private boolean validateTokens(String cellKey,String invalidFormula){
         StringTokenizer cellKeys = new StringTokenizer(invalidFormula, "+");
         while(cellKeys.hasMoreTokens()){
             if(cellKeys.nextToken().equals(cellKey))
                 return false;
         }
         return true;
-    }
-    
-    private Map<String, Celda> convertCellToMap(final List<Columna> columns){
-        
-        Map<String, Celda> cellMap = new HashMap<String, Celda>();
-        
-        for(Columna column : columns){
-            for(Celda cell : column.getCeldaList()){
-                cellMap.put(Util.formatCellKey(cell), cell);
-            }
-        }
-        
-        return cellMap;
-    }
-                
+    }*/
     
     
     private void setNumericValueToCell(BigDecimal sum, Celda cell){
