@@ -20,4 +20,6 @@ public interface EmpresaServiceLocal {
 	List<Empresa> findEmpresaByFiltro(Empresa empresa) throws Exception;
 	
 	void deleteEmpresa(Empresa empresa) throws Exception;
+	
+	List<Empresa> findInEmpresa(List<Long> empresaList) throws Exception;
 }

@@ -52,6 +52,14 @@ public class EmpresaServiceBean implements EmpresaServiceLocal {
     }
 	
 	@SuppressWarnings("unchecked")
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public List<Empresa> findInEmpresa(List<Long> empresaList) throws Exception{ 
+		List<Empresa> empresas = em.createNamedQuery(Empresa.EMPRESA_FIND_IN_BY_ID).setParameter("rut", empresaList).getResultList();
+        return empresas;
+    }
+	
+	
+	@SuppressWarnings("unchecked")
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public List<Empresa> findEmpresaByFiltro(Empresa empresa) throws Exception {
 			return em.createNamedQuery(Empresa.EMPRESA_FIND_BY_FILTRO)
