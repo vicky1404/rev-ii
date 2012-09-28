@@ -1,5 +1,10 @@
 package cl.mdr.ifrs.cross.mb;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.security.Principal;
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -17,8 +22,11 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.primefaces.context.RequestContext;
 
+
+import cl.mdr.ifrs.ejb.cross.Constantes;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Empresa;
 import cl.mdr.ifrs.ejb.entity.Grilla;
@@ -39,12 +47,7 @@ public abstract class AbstractBackingBean {
 	@ManagedProperty(value="#{filtroBackingBean}")
     private FiltroBackingBean filtroBackingBean;
 
-	private Locale localeCL = new Locale("es", "CL");
-	
-	/*Variables que validan las licencias*/
-	private final int VERSION_SOFT = 2;
-	private final String EMP_SOFT = "5588554;15505123;";
-	private final String EMP_SOFT_DV = "1;K;";
+	private Locale localeCL = new Locale("es", "CL");	
 	
 	public FacadeServiceLocal getFacadeService() {
 		return facadeService;
@@ -253,29 +256,183 @@ public abstract class AbstractBackingBean {
 	
 	protected boolean isValidSoft() throws Exception{
 		
-		List<Empresa> empresaList = this.getFacadeService().getEmpresaService().findDistEmpresa(getEmpresaRegList());
-		if(Util.esListaValida(empresaList)){
-			int lic = empresaList.size();
-			StringTokenizer strRut = new StringTokenizer(EMP_SOFT, ";");
-			StringTokenizer strDv = new StringTokenizer(EMP_SOFT_DV, ";");
-			addFatalMessage(new StringBuilder("Cantidad de Empresas Registradas en Base de Datos: ").append(lic).toString());
-			addFatalMessage(new StringBuilder("Usted tiene disponible ").append(VERSION_SOFT).append(" Licencias ").append("para las siguientes Empresas:").toString());
-			for(int i=0; i<VERSION_SOFT; i++){
-				addFatalMessage(new StringBuilder(strRut.nextToken()).append("-").append(strDv.nextElement()).toString());
-			}
+		List<Empresa> empresaList = null;
+		
+		File archivo = new File(this.getlicFile());
+				
+		if (!archivo.exists()){
 			return false;
+		}	
+		
+		if (this.licType().equalsIgnoreCase(Constantes.TYPE_INST_CL)){
+			empresaList = this.getFacadeService().getEmpresaService().findAll();
+			if(empresaList != null){
+				
+				if (empresaList.size() > getEmpresaRegList().size()){
+					return false;	
+				}
+				
+				for (Long rut : getEmpresaRegList()){
+					boolean encontrado = false;
+					for (Empresa empresa : empresaList){
+						if (empresa.getIdRut().intValue() == rut.intValue()){
+							encontrado = true;
+							break;
+						}
+					}
+					
+					if (!encontrado){
+						return false;
+					}
+				}
+				
+			}
+		} else if (this.licType().equalsIgnoreCase(Constantes.TYPE_INST_OP)){
+			empresaList = this.getFacadeService().getEmpresaService().findAll();
+			if (empresaList != null && empresaList.size() > 0 && empresaList.size() != this.numRuts().intValue()){
+				return false;	
+			}
 		}
+		else if (this.licType().equalsIgnoreCase(Constantes.TYPE_INST_FREE)){
+			return true;
+		}
+		else {
+				return false;
+		}
+		
 		
 		return true;
 	}
 	
 	private List<Long> getEmpresaRegList(){
-		StringTokenizer strRut = new StringTokenizer(EMP_SOFT, ";");
+		StringTokenizer strRut = new StringTokenizer(this.licRuts(), ";");
 		List<Long> empresaRegList = new ArrayList<Long>();
 		while(strRut.hasMoreElements()){
 			empresaRegList.add(Util.getLong((String)strRut.nextElement(),0L));
 		}
 		return empresaRegList;
 	}
+	
+	public String licType(){
+		
+	 String type="";
+	 String key="";
+	 
+	 try{
+		  FileInputStream fstream = new FileInputStream(this.getlicFile());
+		  DataInputStream in = new DataInputStream(fstream);
+		  BufferedReader br = new BufferedReader(new InputStreamReader(in));
+		  String strLine;
+		  
+		  	while ((strLine = br.readLine()) != null)   {
+		  			strLine = decrypt(strLine);
+		  		    key = strLine.substring(0, strLine.indexOf("="));
+		  		    
+		  		    if (key.equalsIgnoreCase(Constantes.TYPE_INST)){
+		  		    	type = strLine.substring(strLine.indexOf("=")+1, strLine.length());	
+		  		    	break;
+		  		    }
+		  			
+		  	}
+		  	
+		  	in.close();
+		  	
+	 }catch (Exception e){
+		 System.err.println("Error: " + e.getMessage());
+		 e.printStackTrace();
+	 }
+	 
+	 return type;
+	}
+	
+	
+	public String licRuts(){
+		
+		 String type="";
+		 String key="";
+		 
+		 try{
+			  FileInputStream fstream = new FileInputStream(this.getlicFile());
+			  DataInputStream in = new DataInputStream(fstream);
+			  BufferedReader br = new BufferedReader(new InputStreamReader(in));
+			  String strLine;
+			  
+			  	while ((strLine = br.readLine()) != null)   {
+			  			strLine = decrypt(strLine);
+			  		    key = strLine.substring(0, strLine.indexOf("="));
+			  		    
+			  		    if (key.equalsIgnoreCase(Constantes.KEYS)){
+			  		    	type = strLine.substring(strLine.indexOf("=")+1, strLine.length());	
+			  		    	break;
+			  		    }
+			  			
+			  	}
+			  	
+			  	in.close();
+			  	
+		 }catch (Exception e){
+			 System.err.println("Error: " + e.getMessage());
+			 e.printStackTrace();
+		 }
+		 
+		 return type;
+		}
+	
+	
+	public Integer numRuts(){
+		
+		 String type="";
+		 String key="";
+		 
+		 try{
+			  FileInputStream fstream = new FileInputStream(this.getlicFile());
+			  DataInputStream in = new DataInputStream(fstream);
+			  BufferedReader br = new BufferedReader(new InputStreamReader(in));
+			  String strLine;
+			  
+			  	while ((strLine = br.readLine()) != null)   {
+			  			strLine = decrypt(strLine);
+			  		    key = strLine.substring(0, strLine.indexOf("="));
+			  		    
+			  		    if (key.equalsIgnoreCase(Constantes.NUM)){
+			  		    	type = strLine.substring(strLine.indexOf("=")+1, strLine.length());	
+			  		    	break;
+			  		    }
+			  			
+			  	}
+			  	
+			  	in.close();
+			  	
+		 }catch (Exception e){
+			 System.err.println("Error: " + e.getMessage());
+			 e.printStackTrace();
+		 }
+		 
+		 if (type == null){
+			 type = "0";
+		 }
+		 
+		 return Integer.parseInt(type);
+		}
+	
+	private String getlicFile(){
+		
+		return getExternalContext().getRealPath("\\") .concat( "WEB-INF\\" )  .concat( Constantes.LIC_FILE_NAME);
+		
+	}
+	
+	public String decrypt(String cadena) {
+		StandardPBEStringEncryptor s = new StandardPBEStringEncryptor();
+		s.setPassword("uniquekey");
+		String devuelve = "";
+		try {
+			
+			devuelve = s.decrypt(cadena);
+			
+		} catch (Exception e) {
+			
+		}
+		return devuelve;
+	} 
 
 }

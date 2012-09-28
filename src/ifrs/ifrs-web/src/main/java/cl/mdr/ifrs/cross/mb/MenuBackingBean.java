@@ -123,28 +123,37 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 	
 	public void buildMenuEmpresa(){
 		init();
-		if (this.getEmpresaList().size() == 1){
-			for (Empresa empresa : this.getEmpresaList()){
-				try{					
-					this.setEmpresa(empresa);
-					this.getFiltroBackingBean().setEmpresa(empresa);
-					if(root.getChildCount() > 0){
-						root.getChildren().clear();
+		try
+		{
+					valid = isValidSoft();
+					if (valid){
+						if (this.getEmpresaList().size() == 1){
+							for (Empresa empresa : this.getEmpresaList()){
+								try{					
+									this.setEmpresa(empresa);
+									this.getFiltroBackingBean().setEmpresa(empresa);
+									if(root.getChildCount() > 0){
+										root.getChildren().clear();
+									}
+									this.buildCuadroTreeMenu(this.getRoot());
+									this.buildAccordionPanelMenu();
+									this.buildCatalogoMap();
+									this.setRenderSelectorEmpresa(Boolean.FALSE);														
+									super.getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(HOME_VIEW_ID));
+								}catch(Exception e){
+									log.error(e);
+									super.addFatalMessage("Se ha producido un error al desplegar el Menú asociado al Usuario");
+								}				
+							}
+						}else{			
+							this.getFiltroBackingBean().init();
+							init();
+							this.setRenderSelectorEmpresa(Boolean.TRUE);
+						}
 					}
-					this.buildCuadroTreeMenu(this.getRoot());
-					this.buildAccordionPanelMenu();
-					this.buildCatalogoMap();
-					this.setRenderSelectorEmpresa(Boolean.FALSE);														
-					super.getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(HOME_VIEW_ID));
-				}catch(Exception e){
-					log.error(e);
-					super.addFatalMessage("Se ha producido un error al desplegar el Menú asociado al Usuario");
-				}				
-			}
-		}else{			
-			this.getFiltroBackingBean().init();
-			init();
-			this.setRenderSelectorEmpresa(Boolean.TRUE);
+					
+		} catch (Exception e){
+			
 		}
 	}
 		
