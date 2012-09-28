@@ -409,21 +409,24 @@ public class Util{
     }
     
     public static String formatCellKey(final Celda cell){
-        return  "["
-                .concat(cell.getIdColumna().toString())
-                .concat(",")
-                .concat(cell.getIdFila().toString())
-                .concat("]");
+        
+    	return  new StringBuilder()
+    			.append("[")
+    			.append(cell.getIdColumna())
+    			.append(",")
+    			.append(cell.getIdFila())
+    			.append("]").toString();
     }
     
     public static String formatCeldaGrillaKey(final Celda cell){
-        return  "["
-                .concat(cell.getIdGrilla().toString())
-                .concat(",")
-                .concat(cell.getIdColumna().toString())
-                .concat(",")
-                .concat(cell.getIdFila().toString())
-                .concat("]");
+        return  new StringBuilder()
+        		.append("[")
+        		.append(cell.getIdGrilla())
+        		.append(",")
+        		.append(cell.getIdColumna())
+        		.append(",")
+        		.append(cell.getIdFila())
+        		.append("]").toString();
     }
     
     public static boolean isTotalorSubTotalNumeric(Celda cell){
