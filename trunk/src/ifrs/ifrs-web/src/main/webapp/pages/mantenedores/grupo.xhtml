@@ -122,7 +122,7 @@
 				<h:panelGrid columns="3">
 					<p:outputLabel value="ID de Grupo" for="it11" />
 					<p:inputText id="it11" required="true"
-						validatorMessage="El identificador del Grupo debe comenzar con el prefijo 'GRP_' seguido de letras Mayúsculas."
+						validatorMessage="El identificador del Grupo debe comenzar con el prefijo 'GRP_' seguido de letras Mayúsculas. El tamaño máximo de este campo puede ser hasta 32 caracteres"
 						value="#{grupoBackingBean.nuevoGrupo.idGrupoAcceso}">
 						<f:validateLength minimum="1" maximum="32"></f:validateLength>
 						<f:validateRegex pattern="\bGRP_\S*[A-Z]\b"></f:validateRegex>
