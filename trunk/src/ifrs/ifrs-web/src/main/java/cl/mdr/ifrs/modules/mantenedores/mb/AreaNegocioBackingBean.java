@@ -87,7 +87,7 @@ public class AreaNegocioBackingBean extends AbstractBackingBean implements Seria
 			
 				if (vigente != null){
 					for (AreaNegocio areaNegocio : areaNegocioList){
-							if (areaNegocio.getVigente().equals(vigente)){
+							if (areaNegocio.getVigente() != null && areaNegocio.getVigente().equals(vigente)){
 								areaNegocioListFinal.add(areaNegocio);
 							}
 					}
