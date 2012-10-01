@@ -22,11 +22,11 @@ public class Constantes {
     public static final String PREFIX_CHILD = "CH";
     public static final String PREFIX_PARENT= "PA";
     public static final String PREFIX_CHILD_PARENT = "CP";
-    public static final String LIC_FILE_NAME="licence-nr.exf";
-    public static final String TYPE_INST="tipo_instalacion";
-    public static final String KEYS="ruts";    
-    public static final String NUM="numero_ruts";
-    public static final String TYPE_INST_CL="cerrada";
-    public static final String TYPE_INST_OP="abierta";
-    public static final String TYPE_INST_FREE="libre";
+    public static final String LIC_FILE_NAME="lic-nr.exf";
+    public static final String TYPE_INST="tip_inst";
+    public static final String KEYS="keys";    
+    public static final String NUM="nkeys";
+    public static final String TYPE_INST_CL="001";
+    public static final String TYPE_INST_OP="002";
+    public static final String TYPE_INST_FR="000";
 }
