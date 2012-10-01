@@ -134,7 +134,6 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
 		this.celdasTotalMap = null;
 		this.setBarraFormula(null);
         this.setCeldaTarget(null);
-        this.getFormulaMap().clear();
         this.setCountFormulasSinGrabar(0);
         this.setRenderTablaFormula(Boolean.TRUE);
         this.setRenderBarraFormula(Boolean.FALSE);
@@ -466,18 +465,32 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
 						
 						
 						if(Util.esListaValida(celdaParaCeckList)){
+							
+							Celda primeraCelda = celdaList.get(0);
+							
+							if(size==1){
+								if(celdaCheck.getIdFila().longValue() < primeraCelda.getIdFila().longValue()){
+									addWarnMessage("La fila debe ser mayor a la fila seleccionada");
+									return;
+								}
+								
+								if(celdaCheck.getIdFila().equals(primeraCelda.getIdFila())){
+									primeraCelda.setSelectedByFormula(Boolean.FALSE);
+									return;
+								}
+							}
 						
 							for(Celda celda : celdaParaCeckList){
 								
 								if(Util.isCellNumeric(celda) && 
-								   celda.getIdFila().longValue() >= celdaList.get(0).getIdFila().longValue() &&
+								   celda.getIdFila().longValue() >= primeraCelda.getIdFila().longValue() &&
 								   celda.getIdFila().longValue() <= celdaCheck.getIdFila().longValue() &&
 								   !celda.getIdFila().equals(this.getCeldaTarget().getIdFila())){
 									
 									celda.setSelectedByFormula(Boolean.TRUE);
 									celda.setChildVertical(this.getCeldaTarget().getParentVertical());
 									
-									if(celda.getIdFila().longValue() != celdaList.get(0).getIdFila().longValue())
+									if(celda.getIdFila().longValue() != primeraCelda.getIdFila().longValue())
 										celdaList.add(celda);
 									
 									
@@ -493,25 +506,43 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
 					}else if(res == 2){
 						
 						final List<Celda> celdaParaCeckList =  select(celdasGrillaList, having
-									(on(Celda.class).getIdFila(), equalTo(this.getCeldaTarget().getIdFila())));
+								(on(Celda.class).getIdFila(), equalTo(this.getCeldaTarget().getIdFila())));
 						
-						for(Celda celda : celdaParaCeckList){
-							if(Util.isCellNumeric(celda) &&
-							   celda.getIdColumna().longValue() >= celdaList.get(0).getIdColumna().longValue() &&
-							   celda.getIdColumna().longValue() <= celdaCheck.getIdColumna().longValue() &&
-							   !celda.getIdColumna().equals(this.getCeldaTarget().getIdColumna())){
-								   
-								celda.setSelectedByFormula(Boolean.TRUE);
-								celda.setChildHorizontal(this.getCeldaTarget().getParentHorizontal());
+						if(Util.esListaValida(celdaParaCeckList)){
+							
+							
+							Celda primeraCelda = celdaList.get(0);
+							
+							if(size==1){
+								if(celdaCheck.getIdColumna().longValue() < primeraCelda.getIdColumna().longValue()){
+									addWarnMessage("La fila debe ser mayor a la columna seleccionada");
+									return;
+								}
 								
-								if(celda.getIdColumna().longValue() != celdaList.get(0).getIdColumna().longValue())
-									celdaList.add(celda);
-								
-							}else{
-								
-								celda.setChildHorizontal(null);
-								celda.setSelectedByFormula(Boolean.FALSE);
-								
+								if(celdaCheck.getIdColumna().equals(primeraCelda.getIdColumna())){
+									primeraCelda.setSelectedByFormula(Boolean.FALSE);
+									return;
+								}
+							}
+							
+							for(Celda celda : celdaParaCeckList){
+								if(Util.isCellNumeric(celda) &&
+								   celda.getIdColumna().longValue() >= celdaList.get(0).getIdColumna().longValue() &&
+								   celda.getIdColumna().longValue() <= celdaCheck.getIdColumna().longValue() &&
+								   !celda.getIdColumna().equals(this.getCeldaTarget().getIdColumna())){
+									   
+									celda.setSelectedByFormula(Boolean.TRUE);
+									celda.setChildHorizontal(this.getCeldaTarget().getParentHorizontal());
+									
+									if(celda.getIdColumna().longValue() != celdaList.get(0).getIdColumna().longValue())
+										celdaList.add(celda);
+									
+								}else{
+									
+									celda.setChildHorizontal(null);
+									celda.setSelectedByFormula(Boolean.FALSE);
+									
+								}
 							}
 						}
 						
