@@ -293,7 +293,7 @@ public abstract class AbstractBackingBean {
 				return false;	
 			}
 		}
-		else if (this.licType().equalsIgnoreCase(Constantes.TYPE_INST_FREE)){
+		else if (this.licType().equalsIgnoreCase(Constantes.TYPE_INST_FR)){
 			return true;
 		}
 		else {
