@@ -1,6 +1,7 @@
 package cl.mdr.ifrs.modules.mantenedores.mb;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -80,7 +81,19 @@ public class AreaNegocioBackingBean extends AbstractBackingBean implements Seria
 		try{
 			if(this.getVigente() == TODOS)
 				vigente = null;
-			this.setAreaNegocioList(super.getFacadeService().getAreaNegocioService().findAllByEmpresa(super.getFiltroBackingBean().getEmpresa(), this.getVigente()));
+			
+			List<AreaNegocio> areaNegocioListFinal = new ArrayList<AreaNegocio>();
+			List<AreaNegocio> areaNegocioList = super.getFacadeService().getAreaNegocioService().findAllByEmpresa(super.getFiltroBackingBean().getEmpresa(), this.getVigente());
+			
+				if (vigente != null){
+					for (AreaNegocio areaNegocio : areaNegocioList){
+							if (areaNegocio.getVigente().equals(vigente)){
+								areaNegocioListFinal.add(areaNegocio);
+							}
+					}
+				}
+			
+			this.setAreaNegocioList(areaNegocioListFinal);
 		} catch (Exception e) {
 			this.setRenderAreaNegocio(Boolean.FALSE);
 			super.addErrorMessage("Se ha producido un error al buscar las Areas de Negocio.");
