@@ -27,7 +27,7 @@ import cl.mdr.ifrs.ejb.common.Constantes;
 																		 " where o.empresa.idRut is null "),
 
 				@NamedQuery(name = AreaNegocio.FIND_ALL_BY_EMPRESA, query = " select o from AreaNegocio o " +
-																			" where o.empresa.idRut =:rutEmpresa and " +
+																			" where o.empresa.idRut =:rutEmpresa  and " +
 																			" (o.vigente = :vigente or :vigente is null) " +
 																			" order by o.nombre asc")
 				})
