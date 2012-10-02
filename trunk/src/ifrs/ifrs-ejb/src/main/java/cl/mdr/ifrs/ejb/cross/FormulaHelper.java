@@ -14,6 +14,7 @@ import java.util.Map;
 
 import cl.mdr.ifrs.ejb.entity.Celda;
 import cl.mdr.ifrs.ejb.entity.Columna;
+import cl.mdr.ifrs.vo.GrillaVO;
 
 public class FormulaHelper {
 	
@@ -21,6 +22,8 @@ public class FormulaHelper {
 	public static final String CORCHETE_DERECHO = "]";
 	public static final char SIGNO_SUMA = '+';
 	public static final char SIGNO_RESTA = '-';
+	public static final Integer SUMAR = 1;
+	public static final Integer RESTAR = 2;
 	public static final String COMA = ",";
 	public static final String PUNTO_COMA = ";";
 	public static final String DOS_PUNTOS = ":"; 
@@ -29,7 +32,7 @@ public class FormulaHelper {
 	
 	
 	
-	public static void marcarCeldasByCeldaTarget(final Celda celdaTarget,final List<Celda> celdaGrillaList, final Map<Celda, List<Celda>> celdasTotalMap){
+	public static void marcarCeldasDinamicasByCeldaTarget(final Celda celdaTarget,final List<Celda> celdaGrillaList, final Map<Celda, List<Celda>> celdasTotalMap){
 		
 		
 		if(celdaTarget==null || celdaGrillaList==null)
@@ -82,7 +85,7 @@ public class FormulaHelper {
 	}
 	
 	
-	public static void descargarCeldas(final List<Celda> celdaGrillaList){
+	public static void desmacarCeldas(final List<Celda> celdaGrillaList){
 		for(Celda celda : celdaGrillaList){
 			celda.setSelectedByFormula(Boolean.FALSE);
 		}
@@ -258,6 +261,35 @@ public class FormulaHelper {
         
         return cellMap;
     }
-
+	
+    public static Map<String, Celda> buildCeldaMap(final GrillaVO grillaVO){
+    	
+    	Map<String, Celda> celdaMap = new HashMap<String, Celda>();
+    	
+        for (Map<Long, Celda> row : grillaVO.getRows()) {
+            for (Map.Entry<Long, Celda> entry : row.entrySet()) {                                
+            	celdaMap.put(Util.formatCellKey(entry.getValue()), entry.getValue());
+            }
+        }
+        
+        return celdaMap;
+    }
+    
+    /**
+     * Convierte un Map de celda a List
+     * @return
+     */
+    public static List<Celda> celdaMapToList(final GrillaVO grillaVO){
+        
+    	List<Celda> celdaList = new ArrayList<Celda>();
+        
+        for (Map<Long, Celda> row : grillaVO.getRows()) {
+            for (Map.Entry<Long, Celda> entry : row.entrySet()) {                                
+                celdaList.add(entry.getValue());
+            }
+        }
+        
+        return celdaList;
+    }
     
 }

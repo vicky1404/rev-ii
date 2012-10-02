@@ -1,6 +1,7 @@
 package cl.mdr.ifrs.ejb.service.local;
 
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -30,7 +31,7 @@ public interface CeldaServiceLocal {
     
     void persistCeldaList(List<Celda> celdaList) throws Exception;
     
-    void persistFormulaEstaticaList(Grilla grilla, List<Celda> celdaList) throws Exception;
+    void persistFormulaEstaticaList(Grilla grilla, Collection<Celda> celdaList) throws Exception;
     
     void persistFormulaDinamicaMap(Grilla grilla, Map<Celda, List<Celda>> formulaDinamicaMap) throws Exception;
     
