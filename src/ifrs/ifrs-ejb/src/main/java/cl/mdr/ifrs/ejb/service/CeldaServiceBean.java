@@ -3,6 +3,7 @@ package cl.mdr.ifrs.ejb.service;
 
 import static cl.mdr.ifrs.ejb.cross.Constantes.PERSISTENCE_UNIT_NAME;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -117,7 +118,7 @@ public class CeldaServiceBean implements CeldaServiceLocal{
     }
     
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void persistFormulaEstaticaList(final Grilla grilla, final List<Celda> celdaList) throws Exception{
+    public void persistFormulaEstaticaList(final Grilla grilla, final Collection<Celda> celdaList) throws Exception{
         //actualiza o guarda tipo de grilla
         em.merge(grilla);
         //actualiza o guerda formulas en el listado de celdas correspondiente

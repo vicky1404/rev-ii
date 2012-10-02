@@ -19,6 +19,7 @@ import cl.mdr.ifrs.cross.util.UtilBean;
 import cl.mdr.ifrs.cross.vo.TipoFormulaVO;
 import cl.mdr.ifrs.ejb.common.TipoImpresionEnum;
 import cl.mdr.ifrs.ejb.common.VigenciaEnum;
+import cl.mdr.ifrs.ejb.cross.FormulaHelper;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.AreaNegocio;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
@@ -418,5 +419,16 @@ public class ComponenteBackingBean implements Serializable {
 		}
 		return menuBackingBean;
 	}
+	
+	
+	public List<SelectItem> getTipoOperacionItems(){        
+        
+		List<SelectItem> operacionItems = new ArrayList<SelectItem>();
+        
+        operacionItems.add(new SelectItem(FormulaHelper.SUMAR, String.valueOf(FormulaHelper.SIGNO_SUMA)));
+        operacionItems.add(new SelectItem(FormulaHelper.RESTAR, String.valueOf(FormulaHelper.SIGNO_RESTA)));
+        
+        return operacionItems;
+    }
 	
 }
