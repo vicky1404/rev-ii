@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+    <af:group id="gD_1">
+        <!--af:resource source="/js/tiny_mce/tiny_mce.js" type="javascript"/>
+        <af:resource source="/js/tiny_mce/init-editor.js" type="javascript"/>
+        <af:resource type="javascript">
+            loadEditor();
+        </af:resource-->
+       
+        
+        <af:spacer height="5" id="sp3"/>
+        <af:spacer height="15" id="spacer_html_1"/>
+        <af:outputText value="ID Html: [#{item.htmlVo.html.idHtml}]" id="ott_#{item.idEstructura}" styleClass="x15w"
+                       rendered="#{cuadroBackingBean.filtro.debug}"/>
+        <af:outputFormatted value="#{item.htmlVo.html.titulo}" id="ot1" styleClass="AFStretchWidth x15w"/>
+        <af:spacer height="15" id="spacer_html_2"/>
+        <!--af:richTextEditor label=" " id="rte_#{item.idEstructura}" value="#{item.htmlVo.html.contenidoStr}"
+                           simple="true" styleClass="AFStretchWidth" contentStyle="width: 99%;" rows="20"
+                           editMode="wysiwyg" validator="#{cuadroBackingBean.validateHtml}" converter="htmlConverter"
+                           immediate="true"></af:richTextEditor-->
+        <af:inputText label=" " id="rte_#{item.idEstructura}" simple="true" styleClass="AFStretchWidth" 
+                      contentStyle="width: 100%;" rows="25" value="#{item.htmlVo.html.contenidoStr}"
+                      validator="#{cuadroBackingBean.validateHtml}">
+        </af:inputText>
+    </af:group>    
+</ui:composition>

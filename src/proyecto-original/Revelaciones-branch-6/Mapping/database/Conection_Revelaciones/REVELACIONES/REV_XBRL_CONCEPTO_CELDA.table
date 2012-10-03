@@ -1,0 +1,930 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<table xmlns="http://xmlns.oracle.com/jdeveloper/1112/offlinedb">
+  <ID class="oracle.javatools.db.IdentifierBasedID">
+    <identifier class="java.lang.String">9dbd22ca-8fcf-43dc-a2f2-d48f469ef811</identifier>
+  </ID>
+  <name>REV_XBRL_CONCEPTO_CELDA</name>
+  <columns>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">c0583a04-75b1-4baa-a85c-2d7ba04d0879</identifier>
+      </ID>
+      <name>ID_CONCEPTO_XBRL</name>
+      <dataTypeUsage>
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">4ac0f53f-1597-4144-b3eb-c748b21bd3fa</identifier>
+        </ID>
+        <attributeValues>
+          <entry>
+            <key>size</key>
+            <value class="java.lang.Long">1024</value>
+          </entry>
+          <entry>
+            <key>unit</key>
+            <value class="java.lang.String">CHAR</value>
+          </entry>
+        </attributeValues>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.Oracle9i</providerClass>
+          <typeName>VARCHAR2</typeName>
+        </dataTypeID>
+        <properties>
+          <entry>
+            <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+            <value class="oracle.javatools.db.ReferenceID">
+              <parent class="oracle.javatools.db.ReferenceID">
+                <name>ID_CONCEPTO_XBRL</name>
+                <parent class="oracle.javatools.db.ReferenceID">
+                  <name>REV_XBRL_CONCEPTO_CELDA</name>
+                  <identifier class="java.math.BigDecimal">136574</identifier>
+                  <schemaName>REVELACIONES</schemaName>
+                  <type>TABLE</type>
+                </parent>
+                <type>COLUMN</type>
+              </parent>
+              <type>DataTypeUsage</type>
+            </value>
+          </entry>
+        </properties>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>ID_CONCEPTO_XBRL</name>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>REV_XBRL_CONCEPTO_CELDA</name>
+              <identifier class="java.math.BigDecimal">136574</identifier>
+              <schemaName>REVELACIONES</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <type>COLUMN</type>
+          </value>
+        </entry>
+      </properties>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">781ca4a2-40ba-441c-823f-47e15773ba7c</identifier>
+      </ID>
+      <name>ID_COLUMNA</name>
+      <dataTypeUsage>
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">73ced518-ce36-48cc-97c9-cdc490b5ef91</identifier>
+        </ID>
+        <attributeValues>
+          <entry>
+            <key>precision</key>
+            <value class="java.lang.String">8</value>
+          </entry>
+          <entry>
+            <key>scale</key>
+            <value class="java.lang.Long">0</value>
+          </entry>
+        </attributeValues>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+          <typeName>NUMBER</typeName>
+        </dataTypeID>
+        <properties>
+          <entry>
+            <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+            <value class="oracle.javatools.db.ReferenceID">
+              <parent class="oracle.javatools.db.ReferenceID">
+                <name>ID_COLUMNA</name>
+                <parent class="oracle.javatools.db.ReferenceID">
+                  <name>REV_XBRL_CONCEPTO_CELDA</name>
+                  <identifier class="java.math.BigDecimal">136574</identifier>
+                  <schemaName>REVELACIONES</schemaName>
+                  <type>TABLE</type>
+                </parent>
+                <type>COLUMN</type>
+              </parent>
+              <type>DataTypeUsage</type>
+            </value>
+          </entry>
+        </properties>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>ID_COLUMNA</name>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>REV_XBRL_CONCEPTO_CELDA</name>
+              <identifier class="java.math.BigDecimal">136574</identifier>
+              <schemaName>REVELACIONES</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <type>COLUMN</type>
+          </value>
+        </entry>
+      </properties>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">8992c2d7-6474-4747-8a19-ec0fec1bc2f7</identifier>
+      </ID>
+      <name>ID_GRILLA</name>
+      <dataTypeUsage>
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">d7a13892-4b5f-4472-afd3-d69fb2ee8f37</identifier>
+        </ID>
+        <attributeValues>
+          <entry>
+            <key>precision</key>
+            <value class="java.lang.String">8</value>
+          </entry>
+          <entry>
+            <key>scale</key>
+            <value class="java.lang.Long">0</value>
+          </entry>
+        </attributeValues>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+          <typeName>NUMBER</typeName>
+        </dataTypeID>
+        <properties>
+          <entry>
+            <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+            <value class="oracle.javatools.db.ReferenceID">
+              <parent class="oracle.javatools.db.ReferenceID">
+                <name>ID_GRILLA</name>
+                <parent class="oracle.javatools.db.ReferenceID">
+                  <name>REV_XBRL_CONCEPTO_CELDA</name>
+                  <identifier class="java.math.BigDecimal">136574</identifier>
+                  <schemaName>REVELACIONES</schemaName>
+                  <type>TABLE</type>
+                </parent>
+                <type>COLUMN</type>
+              </parent>
+              <type>DataTypeUsage</type>
+            </value>
+          </entry>
+        </properties>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>ID_GRILLA</name>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>REV_XBRL_CONCEPTO_CELDA</name>
+              <identifier class="java.math.BigDecimal">136574</identifier>
+              <schemaName>REVELACIONES</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <type>COLUMN</type>
+          </value>
+        </entry>
+      </properties>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">134bc158-9ae4-43f3-950c-86e71153175e</identifier>
+      </ID>
+      <name>ID_FILA</name>
+      <dataTypeUsage>
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">a63a5341-bfd4-47f6-b38c-afb73dab3a63</identifier>
+        </ID>
+        <attributeValues>
+          <entry>
+            <key>precision</key>
+            <value class="java.lang.String">4</value>
+          </entry>
+          <entry>
+            <key>scale</key>
+            <value class="java.lang.Long">0</value>
+          </entry>
+        </attributeValues>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+          <typeName>NUMBER</typeName>
+        </dataTypeID>
+        <properties>
+          <entry>
+            <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+            <value class="oracle.javatools.db.ReferenceID">
+              <parent class="oracle.javatools.db.ReferenceID">
+                <name>ID_FILA</name>
+                <parent class="oracle.javatools.db.ReferenceID">
+                  <name>REV_XBRL_CONCEPTO_CELDA</name>
+                  <identifier class="java.math.BigDecimal">136574</identifier>
+                  <schemaName>REVELACIONES</schemaName>
+                  <type>TABLE</type>
+                </parent>
+                <type>COLUMN</type>
+              </parent>
+              <type>DataTypeUsage</type>
+            </value>
+          </entry>
+        </properties>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>ID_FILA</name>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>REV_XBRL_CONCEPTO_CELDA</name>
+              <identifier class="java.math.BigDecimal">136574</identifier>
+              <schemaName>REVELACIONES</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <type>COLUMN</type>
+          </value>
+        </entry>
+      </properties>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">2d37c97d-81fe-4fbb-9edb-5fe80c156656</identifier>
+      </ID>
+      <name>ID_TAXONOMIA</name>
+      <dataTypeUsage>
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">0e1c6b9e-5a57-4efb-85ea-cf7ad06018e2</identifier>
+        </ID>
+        <attributeValues>
+          <entry>
+            <key>precision</key>
+            <value class="java.lang.String">8</value>
+          </entry>
+          <entry>
+            <key>scale</key>
+            <value class="java.lang.Long">0</value>
+          </entry>
+        </attributeValues>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+          <typeName>NUMBER</typeName>
+        </dataTypeID>
+        <properties>
+          <entry>
+            <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+            <value class="oracle.javatools.db.ReferenceID">
+              <parent class="oracle.javatools.db.ReferenceID">
+                <name>ID_TAXONOMIA</name>
+                <parent class="oracle.javatools.db.ReferenceID">
+                  <name>REV_XBRL_CONCEPTO_CELDA</name>
+                  <identifier class="java.math.BigDecimal">136574</identifier>
+                  <schemaName>REVELACIONES</schemaName>
+                  <type>TABLE</type>
+                </parent>
+                <type>COLUMN</type>
+              </parent>
+              <type>DataTypeUsage</type>
+            </value>
+          </entry>
+        </properties>
+      </dataTypeUsage>
+      <notNull>false</notNull>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>ID_TAXONOMIA</name>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>REV_XBRL_CONCEPTO_CELDA</name>
+              <identifier class="java.math.BigDecimal">136574</identifier>
+              <schemaName>REVELACIONES</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <type>COLUMN</type>
+          </value>
+        </entry>
+      </properties>
+    </column>
+  </columns>
+  <constraints>
+    <constraint class="oracle.javatools.db.FKConstraint">
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">bd1c0b1f-6269-4d60-8f23-6ce278c394a4</identifier>
+      </ID>
+      <name>FK_REV_XBRL_REFERENCE_REV_CELD</name>
+      <columnIDs>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>ID_COLUMNA</name>
+          <identifier class="java.lang.String">781ca4a2-40ba-441c-823f-47e15773ba7c</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>REV_XBRL_CONCEPTO_CELDA</name>
+            <identifier class="java.lang.String">9dbd22ca-8fcf-43dc-a2f2-d48f469ef811</identifier>
+            <schemaName>REVELACIONES</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <schemaName>REVELACIONES</schemaName>
+          <type>COLUMN</type>
+        </columnID>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>ID_GRILLA</name>
+          <identifier class="java.lang.String">8992c2d7-6474-4747-8a19-ec0fec1bc2f7</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>REV_XBRL_CONCEPTO_CELDA</name>
+            <identifier class="java.lang.String">9dbd22ca-8fcf-43dc-a2f2-d48f469ef811</identifier>
+            <schemaName>REVELACIONES</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <schemaName>REVELACIONES</schemaName>
+          <type>COLUMN</type>
+        </columnID>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>ID_FILA</name>
+          <identifier class="java.lang.String">134bc158-9ae4-43f3-950c-86e71153175e</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>REV_XBRL_CONCEPTO_CELDA</name>
+            <identifier class="java.lang.String">9dbd22ca-8fcf-43dc-a2f2-d48f469ef811</identifier>
+            <schemaName>REVELACIONES</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <schemaName>REVELACIONES</schemaName>
+          <type>COLUMN</type>
+        </columnID>
+      </columnIDs>
+      <deleteMode>0</deleteMode>
+      <enabled>true</enabled>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>FK_REV_XBRL_REFERENCE_REV_CELD</name>
+            <childObjectNames>
+              <childObjectName>ID_COLUMNA</childObjectName>
+              <childObjectName>ID_GRILLA</childObjectName>
+              <childObjectName>ID_FILA</childObjectName>
+            </childObjectNames>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>REV_XBRL_CONCEPTO_CELDA</name>
+              <identifier class="java.math.BigDecimal">136574</identifier>
+              <schemaName>REVELACIONES</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <subType>FKConstraint</subType>
+            <type>CONSTRAINT</type>
+          </value>
+        </entry>
+      </properties>
+      <referenceID class="oracle.javatools.db.IdentifierBasedID">
+        <name>PK_NEW_REV_CELDA_NOTA</name>
+        <identifier class="java.lang.String">53339e0c-9e41-42e3-a2d0-44d2c4fa2647</identifier>
+        <parent class="oracle.javatools.db.IdentifierBasedID">
+          <name>REV_CELDA</name>
+          <identifier class="java.lang.String">889ae1e0-0e97-42d6-902f-c508b9c82d00</identifier>
+          <schemaName>REVELACIONES</schemaName>
+          <type>TABLE</type>
+        </parent>
+        <schemaName>REVELACIONES</schemaName>
+        <type>CONSTRAINT</type>
+      </referenceID>
+    </constraint>
+    <constraint class="oracle.javatools.db.FKConstraint">
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">13937b88-36a5-4298-8342-219749798cfa</identifier>
+      </ID>
+      <name>FK_REV_XBRL_REFERENCE_REV_XBRL</name>
+      <columnIDs>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>ID_TAXONOMIA</name>
+          <identifier class="java.lang.String">2d37c97d-81fe-4fbb-9edb-5fe80c156656</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>REV_XBRL_CONCEPTO_CELDA</name>
+            <identifier class="java.lang.String">9dbd22ca-8fcf-43dc-a2f2-d48f469ef811</identifier>
+            <schemaName>REVELACIONES</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <schemaName>REVELACIONES</schemaName>
+          <type>COLUMN</type>
+        </columnID>
+      </columnIDs>
+      <deleteMode>0</deleteMode>
+      <enabled>true</enabled>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>FK_REV_XBRL_REFERENCE_REV_XBRL</name>
+            <childObjectNames>
+              <childObjectName>ID_TAXONOMIA</childObjectName>
+            </childObjectNames>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>REV_XBRL_CONCEPTO_CELDA</name>
+              <identifier class="java.math.BigDecimal">136574</identifier>
+              <schemaName>REVELACIONES</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <subType>FKConstraint</subType>
+            <type>CONSTRAINT</type>
+          </value>
+        </entry>
+      </properties>
+      <referenceID class="oracle.javatools.db.IdentifierBasedID">
+        <name>PK_REV_XBRL_TAXONOMIA</name>
+        <identifier class="java.lang.String">a7a5d065-fc0b-48a2-9333-2d2b3b63f7a1</identifier>
+        <parent class="oracle.javatools.db.IdentifierBasedID">
+          <name>REV_XBRL_TAXONOMIA</name>
+          <identifier class="java.lang.String">42e850a4-71e5-42cb-ae96-f66b37571dd8</identifier>
+          <schemaName>REVELACIONES</schemaName>
+          <type>TABLE</type>
+        </parent>
+        <schemaName>REVELACIONES</schemaName>
+        <type>CONSTRAINT</type>
+      </referenceID>
+    </constraint>
+    <constraint class="oracle.javatools.db.PKConstraint">
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">53e55a53-fbd4-495d-8538-a6a3f7edcecf</identifier>
+      </ID>
+      <name>PK_REV_XBRL_CONCEPTO_CELDA</name>
+      <columnIDs>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>ID_CONCEPTO_XBRL</name>
+          <identifier class="java.lang.String">c0583a04-75b1-4baa-a85c-2d7ba04d0879</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>REV_XBRL_CONCEPTO_CELDA</name>
+            <identifier class="java.lang.String">9dbd22ca-8fcf-43dc-a2f2-d48f469ef811</identifier>
+            <schemaName>REVELACIONES</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <schemaName>REVELACIONES</schemaName>
+          <type>COLUMN</type>
+        </columnID>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>ID_COLUMNA</name>
+          <identifier class="java.lang.String">781ca4a2-40ba-441c-823f-47e15773ba7c</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>REV_XBRL_CONCEPTO_CELDA</name>
+            <identifier class="java.lang.String">9dbd22ca-8fcf-43dc-a2f2-d48f469ef811</identifier>
+            <schemaName>REVELACIONES</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <schemaName>REVELACIONES</schemaName>
+          <type>COLUMN</type>
+        </columnID>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>ID_GRILLA</name>
+          <identifier class="java.lang.String">8992c2d7-6474-4747-8a19-ec0fec1bc2f7</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>REV_XBRL_CONCEPTO_CELDA</name>
+            <identifier class="java.lang.String">9dbd22ca-8fcf-43dc-a2f2-d48f469ef811</identifier>
+            <schemaName>REVELACIONES</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <schemaName>REVELACIONES</schemaName>
+          <type>COLUMN</type>
+        </columnID>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>ID_FILA</name>
+          <identifier class="java.lang.String">134bc158-9ae4-43f3-950c-86e71153175e</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>REV_XBRL_CONCEPTO_CELDA</name>
+            <identifier class="java.lang.String">9dbd22ca-8fcf-43dc-a2f2-d48f469ef811</identifier>
+            <schemaName>REVELACIONES</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <schemaName>REVELACIONES</schemaName>
+          <type>COLUMN</type>
+        </columnID>
+      </columnIDs>
+      <enabled>true</enabled>
+      <indexID class="oracle.javatools.db.IdentifierBasedID">
+        <name>PK_REV_XBRL_CONCEPTO_CELDA</name>
+        <identifier class="java.lang.String">a6fc4236-649c-4e9e-9042-565787966b22</identifier>
+        <parent class="oracle.javatools.db.IdentifierBasedID">
+          <name>REV_XBRL_CONCEPTO_CELDA</name>
+          <identifier class="java.lang.String">9dbd22ca-8fcf-43dc-a2f2-d48f469ef811</identifier>
+          <schemaName>REVELACIONES</schemaName>
+          <type>TABLE</type>
+        </parent>
+        <schemaName>REVELACIONES</schemaName>
+        <type>INDEX</type>
+      </indexID>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>PK_REV_XBRL_CONCEPTO_CELDA</name>
+            <childObjectNames>
+              <childObjectName>ID_CONCEPTO_XBRL</childObjectName>
+              <childObjectName>ID_COLUMNA</childObjectName>
+              <childObjectName>ID_GRILLA</childObjectName>
+              <childObjectName>ID_FILA</childObjectName>
+            </childObjectNames>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>REV_XBRL_CONCEPTO_CELDA</name>
+              <identifier class="java.math.BigDecimal">136574</identifier>
+              <schemaName>REVELACIONES</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <subType>PKConstraint</subType>
+            <type>CONSTRAINT</type>
+          </value>
+        </entry>
+      </properties>
+    </constraint>
+  </constraints>
+  <indexes>
+    <indexe>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">a6fc4236-649c-4e9e-9042-565787966b22</identifier>
+      </ID>
+      <name>PK_REV_XBRL_CONCEPTO_CELDA</name>
+      <columnExpressions>
+        <columnExpression>
+          <ID class="oracle.javatools.db.IdentifierBasedID">
+            <identifier class="java.lang.String">993d7202-2660-491e-be38-d093edcbffaf</identifier>
+          </ID>
+          <expression class="oracle.javatools.db.sql.ColumnUsage">
+            <ID class="oracle.javatools.db.IdentifierBasedID">
+              <identifier class="java.lang.String">08148b09-701d-425a-9e3a-60a636077bc2</identifier>
+            </ID>
+            <objectID class="oracle.javatools.db.IdentifierBasedID">
+              <name>ID_CONCEPTO_XBRL</name>
+              <identifier class="java.lang.String">c0583a04-75b1-4baa-a85c-2d7ba04d0879</identifier>
+              <parent class="oracle.javatools.db.IdentifierBasedID">
+                <name>REV_XBRL_CONCEPTO_CELDA</name>
+                <identifier class="java.lang.String">9dbd22ca-8fcf-43dc-a2f2-d48f469ef811</identifier>
+                <schemaName>REVELACIONES</schemaName>
+                <type>TABLE</type>
+              </parent>
+              <schemaName>REVELACIONES</schemaName>
+              <type>COLUMN</type>
+            </objectID>
+            <outerJoin>false</outerJoin>
+            <properties>
+              <entry>
+                <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+                <value class="oracle.javatools.db.ReferenceID">
+                  <parent class="oracle.javatools.db.ReferenceID">
+                    <parent class="oracle.javatools.db.ReferenceID">
+                      <name>PK_REV_XBRL_CONCEPTO_CELDA</name>
+                      <identifier class="java.math.BigDecimal">136575</identifier>
+                      <parent class="oracle.javatools.db.ReferenceID">
+                        <name>REV_XBRL_CONCEPTO_CELDA</name>
+                        <identifier class="java.math.BigDecimal">136574</identifier>
+                        <schemaName>REVELACIONES</schemaName>
+                        <type>TABLE</type>
+                      </parent>
+                      <schemaName>REVELACIONES</schemaName>
+                      <type>INDEX</type>
+                    </parent>
+                    <type>IndexObject</type>
+                  </parent>
+                  <type>SQLFragment</type>
+                </value>
+              </entry>
+            </properties>
+            <qualified>true</qualified>
+          </expression>
+          <order>ASC</order>
+          <properties>
+            <entry>
+              <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+              <value class="oracle.javatools.db.ReferenceID">
+                <parent class="oracle.javatools.db.ReferenceID">
+                  <name>PK_REV_XBRL_CONCEPTO_CELDA</name>
+                  <identifier class="java.math.BigDecimal">136575</identifier>
+                  <parent class="oracle.javatools.db.ReferenceID">
+                    <name>REV_XBRL_CONCEPTO_CELDA</name>
+                    <identifier class="java.math.BigDecimal">136574</identifier>
+                    <schemaName>REVELACIONES</schemaName>
+                    <type>TABLE</type>
+                  </parent>
+                  <schemaName>REVELACIONES</schemaName>
+                  <type>INDEX</type>
+                </parent>
+                <type>IndexObject</type>
+              </value>
+            </entry>
+          </properties>
+        </columnExpression>
+        <columnExpression>
+          <ID class="oracle.javatools.db.IdentifierBasedID">
+            <identifier class="java.lang.String">f6eae436-a68d-44f8-960f-f6b6574e4abe</identifier>
+          </ID>
+          <expression class="oracle.javatools.db.sql.ColumnUsage">
+            <ID class="oracle.javatools.db.IdentifierBasedID">
+              <identifier class="java.lang.String">ecbcbfc9-18c9-4fd0-8505-5cd1b9c94999</identifier>
+            </ID>
+            <objectID class="oracle.javatools.db.IdentifierBasedID">
+              <name>ID_COLUMNA</name>
+              <identifier class="java.lang.String">781ca4a2-40ba-441c-823f-47e15773ba7c</identifier>
+              <parent class="oracle.javatools.db.IdentifierBasedID">
+                <name>REV_XBRL_CONCEPTO_CELDA</name>
+                <identifier class="java.lang.String">9dbd22ca-8fcf-43dc-a2f2-d48f469ef811</identifier>
+                <schemaName>REVELACIONES</schemaName>
+                <type>TABLE</type>
+              </parent>
+              <schemaName>REVELACIONES</schemaName>
+              <type>COLUMN</type>
+            </objectID>
+            <outerJoin>false</outerJoin>
+            <properties>
+              <entry>
+                <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+                <value class="oracle.javatools.db.ReferenceID">
+                  <parent class="oracle.javatools.db.ReferenceID">
+                    <parent class="oracle.javatools.db.ReferenceID">
+                      <name>PK_REV_XBRL_CONCEPTO_CELDA</name>
+                      <identifier class="java.math.BigDecimal">136575</identifier>
+                      <parent class="oracle.javatools.db.ReferenceID">
+                        <name>REV_XBRL_CONCEPTO_CELDA</name>
+                        <identifier class="java.math.BigDecimal">136574</identifier>
+                        <schemaName>REVELACIONES</schemaName>
+                        <type>TABLE</type>
+                      </parent>
+                      <schemaName>REVELACIONES</schemaName>
+                      <type>INDEX</type>
+                    </parent>
+                    <type>IndexObject</type>
+                  </parent>
+                  <type>SQLFragment</type>
+                </value>
+              </entry>
+            </properties>
+            <qualified>true</qualified>
+          </expression>
+          <order>ASC</order>
+          <properties>
+            <entry>
+              <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+              <value class="oracle.javatools.db.ReferenceID">
+                <parent class="oracle.javatools.db.ReferenceID">
+                  <name>PK_REV_XBRL_CONCEPTO_CELDA</name>
+                  <identifier class="java.math.BigDecimal">136575</identifier>
+                  <parent class="oracle.javatools.db.ReferenceID">
+                    <name>REV_XBRL_CONCEPTO_CELDA</name>
+                    <identifier class="java.math.BigDecimal">136574</identifier>
+                    <schemaName>REVELACIONES</schemaName>
+                    <type>TABLE</type>
+                  </parent>
+                  <schemaName>REVELACIONES</schemaName>
+                  <type>INDEX</type>
+                </parent>
+                <type>IndexObject</type>
+              </value>
+            </entry>
+          </properties>
+        </columnExpression>
+        <columnExpression>
+          <ID class="oracle.javatools.db.IdentifierBasedID">
+            <identifier class="java.lang.String">16addfec-f395-4604-a3fd-99aeeb91c765</identifier>
+          </ID>
+          <expression class="oracle.javatools.db.sql.ColumnUsage">
+            <ID class="oracle.javatools.db.IdentifierBasedID">
+              <identifier class="java.lang.String">9c7bc472-ecd5-4393-acd8-88fd7c5e1ffa</identifier>
+            </ID>
+            <objectID class="oracle.javatools.db.IdentifierBasedID">
+              <name>ID_GRILLA</name>
+              <identifier class="java.lang.String">8992c2d7-6474-4747-8a19-ec0fec1bc2f7</identifier>
+              <parent class="oracle.javatools.db.IdentifierBasedID">
+                <name>REV_XBRL_CONCEPTO_CELDA</name>
+                <identifier class="java.lang.String">9dbd22ca-8fcf-43dc-a2f2-d48f469ef811</identifier>
+                <schemaName>REVELACIONES</schemaName>
+                <type>TABLE</type>
+              </parent>
+              <schemaName>REVELACIONES</schemaName>
+              <type>COLUMN</type>
+            </objectID>
+            <outerJoin>false</outerJoin>
+            <properties>
+              <entry>
+                <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+                <value class="oracle.javatools.db.ReferenceID">
+                  <parent class="oracle.javatools.db.ReferenceID">
+                    <parent class="oracle.javatools.db.ReferenceID">
+                      <name>PK_REV_XBRL_CONCEPTO_CELDA</name>
+                      <identifier class="java.math.BigDecimal">136575</identifier>
+                      <parent class="oracle.javatools.db.ReferenceID">
+                        <name>REV_XBRL_CONCEPTO_CELDA</name>
+                        <identifier class="java.math.BigDecimal">136574</identifier>
+                        <schemaName>REVELACIONES</schemaName>
+                        <type>TABLE</type>
+                      </parent>
+                      <schemaName>REVELACIONES</schemaName>
+                      <type>INDEX</type>
+                    </parent>
+                    <type>IndexObject</type>
+                  </parent>
+                  <type>SQLFragment</type>
+                </value>
+              </entry>
+            </properties>
+            <qualified>true</qualified>
+          </expression>
+          <order>ASC</order>
+          <properties>
+            <entry>
+              <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+              <value class="oracle.javatools.db.ReferenceID">
+                <parent class="oracle.javatools.db.ReferenceID">
+                  <name>PK_REV_XBRL_CONCEPTO_CELDA</name>
+                  <identifier class="java.math.BigDecimal">136575</identifier>
+                  <parent class="oracle.javatools.db.ReferenceID">
+                    <name>REV_XBRL_CONCEPTO_CELDA</name>
+                    <identifier class="java.math.BigDecimal">136574</identifier>
+                    <schemaName>REVELACIONES</schemaName>
+                    <type>TABLE</type>
+                  </parent>
+                  <schemaName>REVELACIONES</schemaName>
+                  <type>INDEX</type>
+                </parent>
+                <type>IndexObject</type>
+              </value>
+            </entry>
+          </properties>
+        </columnExpression>
+        <columnExpression>
+          <ID class="oracle.javatools.db.IdentifierBasedID">
+            <identifier class="java.lang.String">e9a519d8-afec-48c6-b2c9-290f6ad1b11d</identifier>
+          </ID>
+          <expression class="oracle.javatools.db.sql.ColumnUsage">
+            <ID class="oracle.javatools.db.IdentifierBasedID">
+              <identifier class="java.lang.String">50ea019f-9b14-40f4-8e9f-782de88e140d</identifier>
+            </ID>
+            <objectID class="oracle.javatools.db.IdentifierBasedID">
+              <name>ID_FILA</name>
+              <identifier class="java.lang.String">134bc158-9ae4-43f3-950c-86e71153175e</identifier>
+              <parent class="oracle.javatools.db.IdentifierBasedID">
+                <name>REV_XBRL_CONCEPTO_CELDA</name>
+                <identifier class="java.lang.String">9dbd22ca-8fcf-43dc-a2f2-d48f469ef811</identifier>
+                <schemaName>REVELACIONES</schemaName>
+                <type>TABLE</type>
+              </parent>
+              <schemaName>REVELACIONES</schemaName>
+              <type>COLUMN</type>
+            </objectID>
+            <outerJoin>false</outerJoin>
+            <properties>
+              <entry>
+                <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+                <value class="oracle.javatools.db.ReferenceID">
+                  <parent class="oracle.javatools.db.ReferenceID">
+                    <parent class="oracle.javatools.db.ReferenceID">
+                      <name>PK_REV_XBRL_CONCEPTO_CELDA</name>
+                      <identifier class="java.math.BigDecimal">136575</identifier>
+                      <parent class="oracle.javatools.db.ReferenceID">
+                        <name>REV_XBRL_CONCEPTO_CELDA</name>
+                        <identifier class="java.math.BigDecimal">136574</identifier>
+                        <schemaName>REVELACIONES</schemaName>
+                        <type>TABLE</type>
+                      </parent>
+                      <schemaName>REVELACIONES</schemaName>
+                      <type>INDEX</type>
+                    </parent>
+                    <type>IndexObject</type>
+                  </parent>
+                  <type>SQLFragment</type>
+                </value>
+              </entry>
+            </properties>
+            <qualified>true</qualified>
+          </expression>
+          <order>ASC</order>
+          <properties>
+            <entry>
+              <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+              <value class="oracle.javatools.db.ReferenceID">
+                <parent class="oracle.javatools.db.ReferenceID">
+                  <name>PK_REV_XBRL_CONCEPTO_CELDA</name>
+                  <identifier class="java.math.BigDecimal">136575</identifier>
+                  <parent class="oracle.javatools.db.ReferenceID">
+                    <name>REV_XBRL_CONCEPTO_CELDA</name>
+                    <identifier class="java.math.BigDecimal">136574</identifier>
+                    <schemaName>REVELACIONES</schemaName>
+                    <type>TABLE</type>
+                  </parent>
+                  <schemaName>REVELACIONES</schemaName>
+                  <type>INDEX</type>
+                </parent>
+                <type>IndexObject</type>
+              </value>
+            </entry>
+          </properties>
+        </columnExpression>
+      </columnExpressions>
+      <indexType>UNIQUE</indexType>
+      <parallelDegree>1</parallelDegree>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>PK_REV_XBRL_CONCEPTO_CELDA</name>
+            <identifier class="java.math.BigDecimal">136575</identifier>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>REV_XBRL_CONCEPTO_CELDA</name>
+              <identifier class="java.math.BigDecimal">136574</identifier>
+              <schemaName>REVELACIONES</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <schemaName>REVELACIONES</schemaName>
+            <type>INDEX</type>
+          </value>
+        </entry>
+        <entry>
+          <key>OracleStorageProperties</key>
+          <value class="oracle.javatools.db.ora.OracleStorageProperties">
+            <ID class="oracle.javatools.db.IdentifierBasedID">
+              <identifier class="java.lang.String">4ad6849f-85ae-413c-b34c-e5f7204864a2</identifier>
+            </ID>
+            <bufferMode>DEFAULT</bufferMode>
+            <initialExtent>65536</initialExtent>
+            <initrans>2</initrans>
+            <logging>true</logging>
+            <maxExtent>2147483645</maxExtent>
+            <minExtent>1</minExtent>
+            <nextExtent>1048576</nextExtent>
+            <percentFree>10</percentFree>
+            <properties>
+              <entry>
+                <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+                <value class="oracle.javatools.db.ReferenceID">
+                  <parent class="oracle.javatools.db.ReferenceID">
+                    <name>PK_REV_XBRL_CONCEPTO_CELDA</name>
+                    <identifier class="java.math.BigDecimal">136575</identifier>
+                    <parent class="oracle.javatools.db.ReferenceID">
+                      <name>REV_XBRL_CONCEPTO_CELDA</name>
+                      <identifier class="java.math.BigDecimal">136574</identifier>
+                      <schemaName>REVELACIONES</schemaName>
+                      <type>TABLE</type>
+                    </parent>
+                    <schemaName>REVELACIONES</schemaName>
+                    <type>INDEX</type>
+                  </parent>
+                  <type>OracleStorageProperties</type>
+                </value>
+              </entry>
+            </properties>
+            <tablespaceID class="oracle.javatools.db.ReferenceID">
+              <name>USERS</name>
+              <type>TABLESPACE</type>
+            </tablespaceID>
+          </value>
+        </entry>
+      </properties>
+      <schema>
+        <name>REVELACIONES</name>
+      </schema>
+      <systemGenerated>true</systemGenerated>
+    </indexe>
+  </indexes>
+  <properties>
+    <entry>
+      <key>OfflineDBConstants.IMPORT_SOURCE_CONNECTION</key>
+      <value class="java.lang.String">Conection_Revelaciones</value>
+    </entry>
+    <entry>
+      <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+      <value class="oracle.javatools.db.ReferenceID">
+        <name>REV_XBRL_CONCEPTO_CELDA</name>
+        <identifier class="java.math.BigDecimal">136574</identifier>
+        <schemaName>REVELACIONES</schemaName>
+        <type>TABLE</type>
+      </value>
+    </entry>
+    <entry>
+      <key>OracleStorageProperties</key>
+      <value class="oracle.javatools.db.ora.OracleStorageProperties">
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">ac97f33f-ff7a-4c0b-8eea-0673fc8a60b2</identifier>
+        </ID>
+        <bufferMode>DEFAULT</bufferMode>
+        <initialExtent>65536</initialExtent>
+        <initrans>1</initrans>
+        <logging>true</logging>
+        <maxExtent>2147483645</maxExtent>
+        <minExtent>1</minExtent>
+        <nextExtent>1048576</nextExtent>
+        <percentFree>10</percentFree>
+        <properties>
+          <entry>
+            <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+            <value class="oracle.javatools.db.ReferenceID">
+              <parent class="oracle.javatools.db.ReferenceID">
+                <name>REV_XBRL_CONCEPTO_CELDA</name>
+                <identifier class="java.math.BigDecimal">136574</identifier>
+                <schemaName>REVELACIONES</schemaName>
+                <type>TABLE</type>
+              </parent>
+              <type>OracleStorageProperties</type>
+            </value>
+          </entry>
+        </properties>
+        <tablespaceID class="oracle.javatools.db.ReferenceID">
+          <name>USERS</name>
+          <type>TABLESPACE</type>
+        </tablespaceID>
+      </value>
+    </entry>
+    <entry>
+      <key>TableType</key>
+      <value class="oracle.javatools.db.Table$TableType">NORMAL</value>
+    </entry>
+  </properties>
+  <schema>
+    <name>REVELACIONES</name>
+  </schema>
+</table>

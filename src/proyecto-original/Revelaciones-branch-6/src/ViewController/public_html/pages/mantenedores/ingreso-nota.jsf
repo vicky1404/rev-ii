@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+    <af:document title="ingreso-notas.jsf" id="d1">
+        <af:form id="f1">
+            <af:panelBox id="pb1" text="#{msg.generador_titulo_mantenedor_cuadros}:" styleClass="AFStretchWidth">
+                <af:panelFormLayout id="pfl1" rows="3" labelWidth="80" labelAlignment="start">
+                    <af:selectOneChoice label="#{msg.etiqueta_tipo_cuadro}:" id="cmb_tc"
+                                        value="#{mantenedorBackingBean.tipoCuadro}"
+                                        unselectedLabel="#{msg.general_control_seleccione}" required="false"
+                                        requiredMessageDetail="#{msg.general_control_seleccione} #{msg.etiqueta_tipo_cuadro}">
+                        <f:selectItems value="#{mantenedorBackingBean.componenteBackingBean.tipoCuadroItems}" id="tipos_c"/>
+                    </af:selectOneChoice>
+                    <f:facet name="footer">
+                        <af:commandButton text="#{msg.general_control_buscar}" id="cb1"
+                                          action="#{mantenedorBackingBean.buscarCatalogoAction}" blocking="true"
+                                          partialSubmit="false"/>
+                    </f:facet>
+                </af:panelFormLayout>
+                <af:spacer width="10" height="10" id="s1"/>
+            </af:panelBox>
+            <af:panelCollection id="pc1" styleClass="AFStretchWidth"
+                                rendered="#{mantenedorBackingBean.renderTablaCatalogo}">
+                <f:facet name="toolbar">
+                    <af:toolbar id="tb1">
+                        <af:commandToolbarButton action="#{mantenedorBackingBean.guardarCatalogo}"
+                                                 text="#{msg.general_control_guardar}" id="cb1Guardar"
+                                                 partialSubmit="false" icon="/images/icon/save2.png"></af:commandToolbarButton>
+                        <af:commandToolbarButton text="#{msg.general_control_agregarFila}" id="cb1Agregar"
+                                                 partialSubmit="true" immediate="false"
+                                                 actionListener="#{mantenedorBackingBean.agregarFilaCatalogoNota}"
+                                                 icon="/images/icon/add2.png"></af:commandToolbarButton>
+                        <!--af:commandToolbarButton text="#{msg.general_control_eliminar}" id="cb1Eliminar"
+                                                 partialSubmit="true" immediate="true"
+                                                 actionListener="#{mantenedorBackingBean.eliminarFilaCatalogoNota}"
+                                                 icon="/images/icon/edit-delete.png"></af:commandToolbarButton-->
+                    </af:toolbar>
+                </f:facet>
+                <af:table value="#{mantenedorBackingBean.catalogoList}" var="row" rowBandingInterval="1" id="t1"
+                          partialTriggers="::cb1Agregar" rowSelection="single"
+                          binding="#{mantenedorBackingBean.tablaCatalogo}"                          
+                          emptyText="#{msg.general_mensaje_busqueda_sin_registros}"
+                          inlineStyle="width:inherit; height:auto;" autoHeightRows="25" columnStretching="column:c4"
+                          fetchSize="500" editingMode="clickToEdit">
+                    <af:column sortable="false" width="40" headerText="Cuadro" align="start" id="c2">
+                        <af:inputText value="#{row.codigoCuadro}" id="it1" required="true"/>
+                    </af:column>
+                    <af:column sortable="false" width="60" headerText="Sub Cuadro" align="start" id="c3">
+                        <af:inputText value="#{row.codigoSubcuadro}" id="it2" required="true"/>
+                    </af:column>
+                    <af:column sortable="false" width="160" headerText="Nombre Cuadro" align="start" id="c4">
+                        <af:inputText value="#{row.nombre}" id="it3" required="true"/>
+                    </af:column>
+                    <af:column sortable="false" width="40" headerText="Orden" align="start" id="c5">
+                        <af:inputText value="#{row.orden}" id="it4" required="true"/>
+                    </af:column>
+                    <af:column sortable="false" width="350" headerText="Título Cuadro" align="start" id="c6">
+                        <af:inputText value="#{row.titulo}" id="it5" required="true"/>
+                    </af:column>
+                    <af:column sortable="false" headerText="Tipo de Impresión" align="start" id="c1" width="110">
+                        <af:selectOneChoice label="Tipo de Impresión:" id="cmb_tc5" value="#{row.impresionHorizontal}"
+                                            unselectedLabel="#{msg.general_control_seleccione}" required="false"
+                                            requiredMessageDetail="#{msg.general_control_seleccione} la orientación de impresión">
+                            <f:selectItems value="#{mantenedorBackingBean.componenteBackingBean.tipoImpresionItems}" id="tipos_c5"/>
+                        </af:selectOneChoice>
+                    </af:column>
+                    <af:column sortable="false" width="100" headerText="Tipo Cuadro" align="start" id="c9">
+                        <af:selectOneChoice label="#{msg.etiqueta_tipo_cuadro}:" id="cmb_tc2" value="#{row.tipoCuadro}"
+                                            unselectedLabel="#{msg.general_control_seleccione}" required="true"
+                                            requiredMessageDetail="#{msg.general_control_seleccione} #{msg.etiqueta_tipo_cuadro}">
+                            <f:selectItems value="#{mantenedorBackingBean.componenteBackingBean.tipoCuadroItems}" id="tipos_c2"/>
+                        </af:selectOneChoice>
+                    </af:column>
+                    <af:column sortable="false" width="50" headerText="Vigencia" align="start" id="c7">
+                        <af:selectOneChoice label=" " id="soc1Periodo" value="#{row.vigencia}" showRequired="true"
+                                            requiredMessageDetail="Seleccione Vigencia" required="true"
+                                            clientComponent="true">
+                            <f:selectItems value="#{mantenedorBackingBean.componenteBackingBean.vigencias}" id="vigenciaNota"/>
+                        </af:selectOneChoice>
+                    </af:column>
+                    <af:column sortable="false" width="90" headerText="Validar con EEFF" align="start" id="c8">
+                        <af:selectOneChoice label=" " id="soc1" value="#{row.validarEeff}" showRequired="true"
+                                            requiredMessageDetail="Seleccione si se valida contra eeff" required="true"
+                                            clientComponent="true">
+                            <f:selectItems value="#{mantenedorBackingBean.componenteBackingBean.vigencias}" id="si1"/>
+                        </af:selectOneChoice>
+                    </af:column>
+                </af:table>
+            </af:panelCollection>
+        </af:form>
+    </af:document>
+</f:view>

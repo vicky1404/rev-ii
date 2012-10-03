@@ -1,0 +1,926 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<table xmlns="http://xmlns.oracle.com/jdeveloper/1112/offlinedb">
+  <ID class="oracle.javatools.db.IdentifierBasedID">
+    <identifier class="java.lang.String">1d8dc7c0-3473-48a0-b3de-bcabd4ab7962</identifier>
+  </ID>
+  <name>REV_HISTORIAL_REPORTE</name>
+  <columns>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">37ba641c-c247-4aae-beac-22870b4749af</identifier>
+      </ID>
+      <name>ID_HISTORIAL_REPORTE</name>
+      <dataTypeUsage>
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">9d4bacd4-b747-49f9-b079-20c1bdcce424</identifier>
+        </ID>
+        <attributeValues>
+          <entry>
+            <key>precision</key>
+            <value class="java.lang.String">10</value>
+          </entry>
+          <entry>
+            <key>scale</key>
+            <value class="java.lang.Long">0</value>
+          </entry>
+        </attributeValues>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+          <typeName>NUMBER</typeName>
+        </dataTypeID>
+        <properties>
+          <entry>
+            <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+            <value class="oracle.javatools.db.ReferenceID">
+              <parent class="oracle.javatools.db.ReferenceID">
+                <name>ID_HISTORIAL_REPORTE</name>
+                <parent class="oracle.javatools.db.ReferenceID">
+                  <name>REV_HISTORIAL_REPORTE</name>
+                  <identifier class="java.math.BigDecimal">128066</identifier>
+                  <schemaName>REVELACIONES</schemaName>
+                  <type>TABLE</type>
+                </parent>
+                <type>COLUMN</type>
+              </parent>
+              <type>DataTypeUsage</type>
+            </value>
+          </entry>
+        </properties>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>ID_HISTORIAL_REPORTE</name>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>REV_HISTORIAL_REPORTE</name>
+              <identifier class="java.math.BigDecimal">128066</identifier>
+              <schemaName>REVELACIONES</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <type>COLUMN</type>
+          </value>
+        </entry>
+      </properties>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">201219c9-890c-418a-9851-07e8f85bd246</identifier>
+      </ID>
+      <name>COMENTARIO</name>
+      <dataTypeUsage>
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">673d58fc-e8d6-490e-b4ae-282a2381e960</identifier>
+        </ID>
+        <attributeValues>
+          <entry>
+            <key>size</key>
+            <value class="java.lang.Long">1024</value>
+          </entry>
+          <entry>
+            <key>unit</key>
+            <value class="java.lang.String">CHAR</value>
+          </entry>
+        </attributeValues>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.Oracle9i</providerClass>
+          <typeName>VARCHAR2</typeName>
+        </dataTypeID>
+        <properties>
+          <entry>
+            <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+            <value class="oracle.javatools.db.ReferenceID">
+              <parent class="oracle.javatools.db.ReferenceID">
+                <name>COMENTARIO</name>
+                <parent class="oracle.javatools.db.ReferenceID">
+                  <name>REV_HISTORIAL_REPORTE</name>
+                  <identifier class="java.math.BigDecimal">128066</identifier>
+                  <schemaName>REVELACIONES</schemaName>
+                  <type>TABLE</type>
+                </parent>
+                <type>COLUMN</type>
+              </parent>
+              <type>DataTypeUsage</type>
+            </value>
+          </entry>
+        </properties>
+      </dataTypeUsage>
+      <notNull>false</notNull>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>COMENTARIO</name>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>REV_HISTORIAL_REPORTE</name>
+              <identifier class="java.math.BigDecimal">128066</identifier>
+              <schemaName>REVELACIONES</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <type>COLUMN</type>
+          </value>
+        </entry>
+      </properties>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">aa327ba6-c428-4318-a15f-075bce0222c2</identifier>
+      </ID>
+      <name>USUARIO_OID</name>
+      <dataTypeUsage>
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">9682b1ad-5583-4392-a3ae-a0d921ef4373</identifier>
+        </ID>
+        <attributeValues>
+          <entry>
+            <key>size</key>
+            <value class="java.lang.Long">256</value>
+          </entry>
+          <entry>
+            <key>unit</key>
+            <value class="java.lang.String">CHAR</value>
+          </entry>
+        </attributeValues>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.Oracle9i</providerClass>
+          <typeName>VARCHAR2</typeName>
+        </dataTypeID>
+        <properties>
+          <entry>
+            <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+            <value class="oracle.javatools.db.ReferenceID">
+              <parent class="oracle.javatools.db.ReferenceID">
+                <name>USUARIO_OID</name>
+                <parent class="oracle.javatools.db.ReferenceID">
+                  <name>REV_HISTORIAL_REPORTE</name>
+                  <identifier class="java.math.BigDecimal">128066</identifier>
+                  <schemaName>REVELACIONES</schemaName>
+                  <type>TABLE</type>
+                </parent>
+                <type>COLUMN</type>
+              </parent>
+              <type>DataTypeUsage</type>
+            </value>
+          </entry>
+        </properties>
+      </dataTypeUsage>
+      <notNull>false</notNull>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>USUARIO_OID</name>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>REV_HISTORIAL_REPORTE</name>
+              <identifier class="java.math.BigDecimal">128066</identifier>
+              <schemaName>REVELACIONES</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <type>COLUMN</type>
+          </value>
+        </entry>
+      </properties>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">09bc7784-290f-4151-bed2-6e3b57e70961</identifier>
+      </ID>
+      <name>IP_USUARIO</name>
+      <dataTypeUsage>
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">5225ffa3-ac23-4a64-b336-6f879a205ec6</identifier>
+        </ID>
+        <attributeValues>
+          <entry>
+            <key>size</key>
+            <value class="java.lang.Long">256</value>
+          </entry>
+          <entry>
+            <key>unit</key>
+            <value class="java.lang.String">CHAR</value>
+          </entry>
+        </attributeValues>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.Oracle9i</providerClass>
+          <typeName>VARCHAR2</typeName>
+        </dataTypeID>
+        <properties>
+          <entry>
+            <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+            <value class="oracle.javatools.db.ReferenceID">
+              <parent class="oracle.javatools.db.ReferenceID">
+                <name>IP_USUARIO</name>
+                <parent class="oracle.javatools.db.ReferenceID">
+                  <name>REV_HISTORIAL_REPORTE</name>
+                  <identifier class="java.math.BigDecimal">128066</identifier>
+                  <schemaName>REVELACIONES</schemaName>
+                  <type>TABLE</type>
+                </parent>
+                <type>COLUMN</type>
+              </parent>
+              <type>DataTypeUsage</type>
+            </value>
+          </entry>
+        </properties>
+      </dataTypeUsage>
+      <notNull>false</notNull>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>IP_USUARIO</name>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>REV_HISTORIAL_REPORTE</name>
+              <identifier class="java.math.BigDecimal">128066</identifier>
+              <schemaName>REVELACIONES</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <type>COLUMN</type>
+          </value>
+        </entry>
+      </properties>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">20a095e8-caf2-4f8b-b5d6-8cc18df09372</identifier>
+      </ID>
+      <name>CHECK_SUM_EXPORTACION</name>
+      <dataTypeUsage>
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">9bfebce4-6a10-4ede-9de2-ea02efb3204f</identifier>
+        </ID>
+        <attributeValues>
+          <entry>
+            <key>size</key>
+            <value class="java.lang.Long">512</value>
+          </entry>
+          <entry>
+            <key>unit</key>
+            <value class="java.lang.String">CHAR</value>
+          </entry>
+        </attributeValues>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.Oracle9i</providerClass>
+          <typeName>VARCHAR2</typeName>
+        </dataTypeID>
+        <properties>
+          <entry>
+            <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+            <value class="oracle.javatools.db.ReferenceID">
+              <parent class="oracle.javatools.db.ReferenceID">
+                <name>CHECK_SUM_EXPORTACION</name>
+                <parent class="oracle.javatools.db.ReferenceID">
+                  <name>REV_HISTORIAL_REPORTE</name>
+                  <identifier class="java.math.BigDecimal">128066</identifier>
+                  <schemaName>REVELACIONES</schemaName>
+                  <type>TABLE</type>
+                </parent>
+                <type>COLUMN</type>
+              </parent>
+              <type>DataTypeUsage</type>
+            </value>
+          </entry>
+        </properties>
+      </dataTypeUsage>
+      <notNull>false</notNull>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>CHECK_SUM_EXPORTACION</name>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>REV_HISTORIAL_REPORTE</name>
+              <identifier class="java.math.BigDecimal">128066</identifier>
+              <schemaName>REVELACIONES</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <type>COLUMN</type>
+          </value>
+        </entry>
+      </properties>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">71ca9a00-f758-40c3-b61d-d56df42e5d33</identifier>
+      </ID>
+      <name>FECHA_EXPORTACION</name>
+      <dataTypeUsage>
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">c5b00808-0b30-4d71-8f18-b7796f10be03</identifier>
+        </ID>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+          <typeName>DATE</typeName>
+        </dataTypeID>
+        <properties>
+          <entry>
+            <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+            <value class="oracle.javatools.db.ReferenceID">
+              <parent class="oracle.javatools.db.ReferenceID">
+                <name>FECHA_EXPORTACION</name>
+                <parent class="oracle.javatools.db.ReferenceID">
+                  <name>REV_HISTORIAL_REPORTE</name>
+                  <identifier class="java.math.BigDecimal">128066</identifier>
+                  <schemaName>REVELACIONES</schemaName>
+                  <type>TABLE</type>
+                </parent>
+                <type>COLUMN</type>
+              </parent>
+              <type>DataTypeUsage</type>
+            </value>
+          </entry>
+        </properties>
+      </dataTypeUsage>
+      <notNull>false</notNull>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>FECHA_EXPORTACION</name>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>REV_HISTORIAL_REPORTE</name>
+              <identifier class="java.math.BigDecimal">128066</identifier>
+              <schemaName>REVELACIONES</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <type>COLUMN</type>
+          </value>
+        </entry>
+      </properties>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">7b484abb-3009-466d-b841-63232d3ec605</identifier>
+      </ID>
+      <name>DOCUMENTO</name>
+      <dataTypeUsage>
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">7bec081e-3fe5-438f-b063-90486ea70d2f</identifier>
+        </ID>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.Oracle8</providerClass>
+          <typeName>BLOB</typeName>
+        </dataTypeID>
+        <properties>
+          <entry>
+            <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+            <value class="oracle.javatools.db.ReferenceID">
+              <parent class="oracle.javatools.db.ReferenceID">
+                <name>DOCUMENTO</name>
+                <parent class="oracle.javatools.db.ReferenceID">
+                  <name>REV_HISTORIAL_REPORTE</name>
+                  <identifier class="java.math.BigDecimal">128066</identifier>
+                  <schemaName>REVELACIONES</schemaName>
+                  <type>TABLE</type>
+                </parent>
+                <type>COLUMN</type>
+              </parent>
+              <type>DataTypeUsage</type>
+            </value>
+          </entry>
+        </properties>
+      </dataTypeUsage>
+      <notNull>false</notNull>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>DOCUMENTO</name>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>REV_HISTORIAL_REPORTE</name>
+              <identifier class="java.math.BigDecimal">128066</identifier>
+              <schemaName>REVELACIONES</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <type>COLUMN</type>
+          </value>
+        </entry>
+        <entry>
+          <key>OracleColumnProperties</key>
+          <value class="oracle.javatools.db.ora.OracleColumnProperties">
+            <ID class="oracle.javatools.db.IdentifierBasedID">
+              <identifier class="java.lang.String">8b074c0a-942e-4f05-8024-97616bc56456</identifier>
+            </ID>
+            <LOBProperties>
+              <ID class="oracle.javatools.db.IdentifierBasedID">
+                <identifier class="java.lang.String">15d1ee5e-91f7-4c84-a2ff-68d90b19533b</identifier>
+              </ID>
+              <name></name>
+              <LOBSegName>SYS_LOB0000128066C00007$$</LOBSegName>
+              <cache>NOCACHE</cache>
+              <chunk>8192</chunk>
+              <properties>
+                <entry>
+                  <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+                  <value class="oracle.javatools.db.ReferenceID">
+                    <parent class="oracle.javatools.db.ReferenceID">
+                      <parent class="oracle.javatools.db.ReferenceID">
+                        <name>DOCUMENTO</name>
+                        <parent class="oracle.javatools.db.ReferenceID">
+                          <name>REV_HISTORIAL_REPORTE</name>
+                          <identifier class="java.math.BigDecimal">128066</identifier>
+                          <schemaName>REVELACIONES</schemaName>
+                          <type>TABLE</type>
+                        </parent>
+                        <type>COLUMN</type>
+                      </parent>
+                      <type>OracleColumnProperties</type>
+                    </parent>
+                    <type>LOB DESCRIPTOR</type>
+                  </value>
+                </entry>
+              </properties>
+              <retention>true</retention>
+              <storage>
+                <ID class="oracle.javatools.db.IdentifierBasedID">
+                  <identifier class="java.lang.String">211b2c61-2a2b-4404-8e25-593fbc4d9cd1</identifier>
+                </ID>
+                <bufferMode>DEFAULT</bufferMode>
+                <initialExtent>65536</initialExtent>
+                <logging>true</logging>
+                <maxExtent>2147483645</maxExtent>
+                <minExtent>1</minExtent>
+                <nextExtent>1048576</nextExtent>
+                <properties>
+                  <entry>
+                    <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+                    <value class="oracle.javatools.db.ReferenceID">
+                      <parent class="oracle.javatools.db.ReferenceID">
+                        <parent class="oracle.javatools.db.ReferenceID">
+                          <parent class="oracle.javatools.db.ReferenceID">
+                            <name>DOCUMENTO</name>
+                            <parent class="oracle.javatools.db.ReferenceID">
+                              <name>REV_HISTORIAL_REPORTE</name>
+                              <identifier class="java.math.BigDecimal">128066</identifier>
+                              <schemaName>REVELACIONES</schemaName>
+                              <type>TABLE</type>
+                            </parent>
+                            <type>COLUMN</type>
+                          </parent>
+                          <type>OracleColumnProperties</type>
+                        </parent>
+                        <type>LOB DESCRIPTOR</type>
+                      </parent>
+                      <type>OracleStorageProperties</type>
+                    </value>
+                  </entry>
+                </properties>
+                <tablespaceID class="oracle.javatools.db.ReferenceID">
+                  <name>USERS</name>
+                  <type>TABLESPACE</type>
+                </tablespaceID>
+              </storage>
+              <storageEnabledInRow>true</storageEnabledInRow>
+            </LOBProperties>
+            <properties>
+              <entry>
+                <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+                <value class="oracle.javatools.db.ReferenceID">
+                  <parent class="oracle.javatools.db.ReferenceID">
+                    <name>DOCUMENTO</name>
+                    <parent class="oracle.javatools.db.ReferenceID">
+                      <name>REV_HISTORIAL_REPORTE</name>
+                      <identifier class="java.math.BigDecimal">128066</identifier>
+                      <schemaName>REVELACIONES</schemaName>
+                      <type>TABLE</type>
+                    </parent>
+                    <type>COLUMN</type>
+                  </parent>
+                  <type>OracleColumnProperties</type>
+                </value>
+              </entry>
+            </properties>
+          </value>
+        </entry>
+      </properties>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">7c31195b-b3c2-4d83-bb49-dd9c7c927773</identifier>
+      </ID>
+      <name>NOMBRE_ARCHIVO</name>
+      <dataTypeUsage>
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">56e98e4b-c56e-4fb4-ac59-63c532da9887</identifier>
+        </ID>
+        <attributeValues>
+          <entry>
+            <key>size</key>
+            <value class="java.lang.Long">512</value>
+          </entry>
+          <entry>
+            <key>unit</key>
+            <value class="java.lang.String">CHAR</value>
+          </entry>
+        </attributeValues>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.Oracle9i</providerClass>
+          <typeName>VARCHAR2</typeName>
+        </dataTypeID>
+        <properties>
+          <entry>
+            <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+            <value class="oracle.javatools.db.ReferenceID">
+              <parent class="oracle.javatools.db.ReferenceID">
+                <name>NOMBRE_ARCHIVO</name>
+                <parent class="oracle.javatools.db.ReferenceID">
+                  <name>REV_HISTORIAL_REPORTE</name>
+                  <identifier class="java.math.BigDecimal">128066</identifier>
+                  <schemaName>REVELACIONES</schemaName>
+                  <type>TABLE</type>
+                </parent>
+                <type>COLUMN</type>
+              </parent>
+              <type>DataTypeUsage</type>
+            </value>
+          </entry>
+        </properties>
+      </dataTypeUsage>
+      <notNull>false</notNull>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>NOMBRE_ARCHIVO</name>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>REV_HISTORIAL_REPORTE</name>
+              <identifier class="java.math.BigDecimal">128066</identifier>
+              <schemaName>REVELACIONES</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <type>COLUMN</type>
+          </value>
+        </entry>
+      </properties>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">f2edc658-91bf-43cd-b798-c6497aafb481</identifier>
+      </ID>
+      <name>ID_PERIODO</name>
+      <dataTypeUsage>
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">c8ec245c-1531-4a69-81f5-fd4f4c8040cf</identifier>
+        </ID>
+        <attributeValues>
+          <entry>
+            <key>precision</key>
+            <value class="java.lang.String">4</value>
+          </entry>
+          <entry>
+            <key>scale</key>
+            <value class="java.lang.Long">0</value>
+          </entry>
+        </attributeValues>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+          <typeName>NUMBER</typeName>
+        </dataTypeID>
+        <properties>
+          <entry>
+            <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+            <value class="oracle.javatools.db.ReferenceID">
+              <parent class="oracle.javatools.db.ReferenceID">
+                <name>ID_PERIODO</name>
+                <parent class="oracle.javatools.db.ReferenceID">
+                  <name>REV_HISTORIAL_REPORTE</name>
+                  <identifier class="java.math.BigDecimal">128066</identifier>
+                  <schemaName>REVELACIONES</schemaName>
+                  <type>TABLE</type>
+                </parent>
+                <type>COLUMN</type>
+              </parent>
+              <type>DataTypeUsage</type>
+            </value>
+          </entry>
+        </properties>
+      </dataTypeUsage>
+      <notNull>false</notNull>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>ID_PERIODO</name>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>REV_HISTORIAL_REPORTE</name>
+              <identifier class="java.math.BigDecimal">128066</identifier>
+              <schemaName>REVELACIONES</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <type>COLUMN</type>
+          </value>
+        </entry>
+      </properties>
+    </column>
+  </columns>
+  <constraints>
+    <constraint class="oracle.javatools.db.FKConstraint">
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">78ccd7bb-75a1-44aa-9951-8d76d10d948f</identifier>
+      </ID>
+      <name>FK_REV_HIST_REFERENCE_REV_PERI</name>
+      <columnIDs>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>ID_PERIODO</name>
+          <identifier class="java.lang.String">f2edc658-91bf-43cd-b798-c6497aafb481</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>REV_HISTORIAL_REPORTE</name>
+            <identifier class="java.lang.String">1d8dc7c0-3473-48a0-b3de-bcabd4ab7962</identifier>
+            <schemaName>REVELACIONES</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <schemaName>REVELACIONES</schemaName>
+          <type>COLUMN</type>
+        </columnID>
+      </columnIDs>
+      <deleteMode>0</deleteMode>
+      <enabled>true</enabled>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>FK_REV_HIST_REFERENCE_REV_PERI</name>
+            <childObjectNames>
+              <childObjectName>ID_PERIODO</childObjectName>
+            </childObjectNames>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>REV_HISTORIAL_REPORTE</name>
+              <identifier class="java.math.BigDecimal">128066</identifier>
+              <schemaName>REVELACIONES</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <subType>FKConstraint</subType>
+            <type>CONSTRAINT</type>
+          </value>
+        </entry>
+      </properties>
+      <referenceID class="oracle.javatools.db.IdentifierBasedID">
+        <name>PK_NEW_REV_PERIODO</name>
+        <identifier class="java.lang.String">747a22b0-7cdd-499d-9b40-c4d0ada3bfa2</identifier>
+        <parent class="oracle.javatools.db.IdentifierBasedID">
+          <name>REV_PERIODO</name>
+          <identifier class="java.lang.String">9ec84b71-3e1a-4bd9-8a0d-aa154ea3b4be</identifier>
+          <schemaName>REVELACIONES</schemaName>
+          <type>TABLE</type>
+        </parent>
+        <schemaName>REVELACIONES</schemaName>
+        <type>CONSTRAINT</type>
+      </referenceID>
+    </constraint>
+    <constraint class="oracle.javatools.db.PKConstraint">
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">c269f127-d4ca-41e6-ad9e-098ef186b8c7</identifier>
+      </ID>
+      <name>PK_REV_HISTORIAL_REPORTE</name>
+      <columnIDs>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>ID_HISTORIAL_REPORTE</name>
+          <identifier class="java.lang.String">37ba641c-c247-4aae-beac-22870b4749af</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>REV_HISTORIAL_REPORTE</name>
+            <identifier class="java.lang.String">1d8dc7c0-3473-48a0-b3de-bcabd4ab7962</identifier>
+            <schemaName>REVELACIONES</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <schemaName>REVELACIONES</schemaName>
+          <type>COLUMN</type>
+        </columnID>
+      </columnIDs>
+      <enabled>true</enabled>
+      <indexID class="oracle.javatools.db.IdentifierBasedID">
+        <name>PK_REV_HISTORIAL_REPORTE</name>
+        <identifier class="java.lang.String">bb6dabd8-4141-4278-846f-e76fcc35e165</identifier>
+        <parent class="oracle.javatools.db.IdentifierBasedID">
+          <name>REV_HISTORIAL_REPORTE</name>
+          <identifier class="java.lang.String">1d8dc7c0-3473-48a0-b3de-bcabd4ab7962</identifier>
+          <schemaName>REVELACIONES</schemaName>
+          <type>TABLE</type>
+        </parent>
+        <schemaName>REVELACIONES</schemaName>
+        <type>INDEX</type>
+      </indexID>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>PK_REV_HISTORIAL_REPORTE</name>
+            <childObjectNames>
+              <childObjectName>ID_HISTORIAL_REPORTE</childObjectName>
+            </childObjectNames>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>REV_HISTORIAL_REPORTE</name>
+              <identifier class="java.math.BigDecimal">128066</identifier>
+              <schemaName>REVELACIONES</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <subType>PKConstraint</subType>
+            <type>CONSTRAINT</type>
+          </value>
+        </entry>
+      </properties>
+    </constraint>
+  </constraints>
+  <indexes>
+    <indexe>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">bb6dabd8-4141-4278-846f-e76fcc35e165</identifier>
+      </ID>
+      <name>PK_REV_HISTORIAL_REPORTE</name>
+      <columnExpressions>
+        <columnExpression>
+          <ID class="oracle.javatools.db.IdentifierBasedID">
+            <identifier class="java.lang.String">fd6a8250-4040-41d6-a11e-d7020deba3cb</identifier>
+          </ID>
+          <expression class="oracle.javatools.db.sql.ColumnUsage">
+            <ID class="oracle.javatools.db.IdentifierBasedID">
+              <identifier class="java.lang.String">e4b55914-ebb0-400c-93f5-555d23177bf5</identifier>
+            </ID>
+            <objectID class="oracle.javatools.db.IdentifierBasedID">
+              <name>ID_HISTORIAL_REPORTE</name>
+              <identifier class="java.lang.String">37ba641c-c247-4aae-beac-22870b4749af</identifier>
+              <parent class="oracle.javatools.db.IdentifierBasedID">
+                <name>REV_HISTORIAL_REPORTE</name>
+                <identifier class="java.lang.String">1d8dc7c0-3473-48a0-b3de-bcabd4ab7962</identifier>
+                <schemaName>REVELACIONES</schemaName>
+                <type>TABLE</type>
+              </parent>
+              <schemaName>REVELACIONES</schemaName>
+              <type>COLUMN</type>
+            </objectID>
+            <outerJoin>false</outerJoin>
+            <properties>
+              <entry>
+                <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+                <value class="oracle.javatools.db.ReferenceID">
+                  <parent class="oracle.javatools.db.ReferenceID">
+                    <parent class="oracle.javatools.db.ReferenceID">
+                      <name>PK_REV_HISTORIAL_REPORTE</name>
+                      <identifier class="java.math.BigDecimal">128069</identifier>
+                      <parent class="oracle.javatools.db.ReferenceID">
+                        <name>REV_HISTORIAL_REPORTE</name>
+                        <identifier class="java.math.BigDecimal">128066</identifier>
+                        <schemaName>REVELACIONES</schemaName>
+                        <type>TABLE</type>
+                      </parent>
+                      <schemaName>REVELACIONES</schemaName>
+                      <type>INDEX</type>
+                    </parent>
+                    <type>IndexObject</type>
+                  </parent>
+                  <type>SQLFragment</type>
+                </value>
+              </entry>
+            </properties>
+            <qualified>true</qualified>
+          </expression>
+          <order>ASC</order>
+          <properties>
+            <entry>
+              <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+              <value class="oracle.javatools.db.ReferenceID">
+                <parent class="oracle.javatools.db.ReferenceID">
+                  <name>PK_REV_HISTORIAL_REPORTE</name>
+                  <identifier class="java.math.BigDecimal">128069</identifier>
+                  <parent class="oracle.javatools.db.ReferenceID">
+                    <name>REV_HISTORIAL_REPORTE</name>
+                    <identifier class="java.math.BigDecimal">128066</identifier>
+                    <schemaName>REVELACIONES</schemaName>
+                    <type>TABLE</type>
+                  </parent>
+                  <schemaName>REVELACIONES</schemaName>
+                  <type>INDEX</type>
+                </parent>
+                <type>IndexObject</type>
+              </value>
+            </entry>
+          </properties>
+        </columnExpression>
+      </columnExpressions>
+      <indexType>UNIQUE</indexType>
+      <parallelDegree>1</parallelDegree>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>PK_REV_HISTORIAL_REPORTE</name>
+            <identifier class="java.math.BigDecimal">128069</identifier>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>REV_HISTORIAL_REPORTE</name>
+              <identifier class="java.math.BigDecimal">128066</identifier>
+              <schemaName>REVELACIONES</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <schemaName>REVELACIONES</schemaName>
+            <type>INDEX</type>
+          </value>
+        </entry>
+        <entry>
+          <key>OracleStorageProperties</key>
+          <value class="oracle.javatools.db.ora.OracleStorageProperties">
+            <ID class="oracle.javatools.db.IdentifierBasedID">
+              <identifier class="java.lang.String">db098934-4a40-4fed-80b5-871f9b319ee4</identifier>
+            </ID>
+            <bufferMode>DEFAULT</bufferMode>
+            <initialExtent>65536</initialExtent>
+            <initrans>2</initrans>
+            <logging>true</logging>
+            <maxExtent>2147483645</maxExtent>
+            <minExtent>1</minExtent>
+            <nextExtent>1048576</nextExtent>
+            <percentFree>10</percentFree>
+            <properties>
+              <entry>
+                <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+                <value class="oracle.javatools.db.ReferenceID">
+                  <parent class="oracle.javatools.db.ReferenceID">
+                    <name>PK_REV_HISTORIAL_REPORTE</name>
+                    <identifier class="java.math.BigDecimal">128069</identifier>
+                    <parent class="oracle.javatools.db.ReferenceID">
+                      <name>REV_HISTORIAL_REPORTE</name>
+                      <identifier class="java.math.BigDecimal">128066</identifier>
+                      <schemaName>REVELACIONES</schemaName>
+                      <type>TABLE</type>
+                    </parent>
+                    <schemaName>REVELACIONES</schemaName>
+                    <type>INDEX</type>
+                  </parent>
+                  <type>OracleStorageProperties</type>
+                </value>
+              </entry>
+            </properties>
+            <tablespaceID class="oracle.javatools.db.ReferenceID">
+              <name>USERS</name>
+              <type>TABLESPACE</type>
+            </tablespaceID>
+          </value>
+        </entry>
+      </properties>
+      <schema>
+        <name>REVELACIONES</name>
+      </schema>
+      <systemGenerated>true</systemGenerated>
+    </indexe>
+  </indexes>
+  <properties>
+    <entry>
+      <key>Comment</key>
+      <value class="java.lang.String">TABLA QUE ALMACENA UN HIISTORIAL CON LA GENERACION DEL REPORTE FINAL FECU EN FORMATO MS WORD,
+ALMACENANDO EL CHECKSUM MD5 DEL ARCHIVO GENERADO PARA ASI COMPARAR SI EXISTIERON MIDIFICACIONES EN EL DOCUMENTO.</value>
+    </entry>
+    <entry>
+      <key>OfflineDBConstants.IMPORT_SOURCE_CONNECTION</key>
+      <value class="java.lang.String">Conection_Revelaciones</value>
+    </entry>
+    <entry>
+      <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+      <value class="oracle.javatools.db.ReferenceID">
+        <name>REV_HISTORIAL_REPORTE</name>
+        <identifier class="java.math.BigDecimal">128066</identifier>
+        <schemaName>REVELACIONES</schemaName>
+        <type>TABLE</type>
+      </value>
+    </entry>
+    <entry>
+      <key>OracleStorageProperties</key>
+      <value class="oracle.javatools.db.ora.OracleStorageProperties">
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">da2cefe5-108b-4c2e-a71e-84666391de69</identifier>
+        </ID>
+        <bufferMode>DEFAULT</bufferMode>
+        <initialExtent>65536</initialExtent>
+        <initrans>1</initrans>
+        <logging>true</logging>
+        <maxExtent>2147483645</maxExtent>
+        <minExtent>1</minExtent>
+        <nextExtent>1048576</nextExtent>
+        <percentFree>10</percentFree>
+        <properties>
+          <entry>
+            <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+            <value class="oracle.javatools.db.ReferenceID">
+              <parent class="oracle.javatools.db.ReferenceID">
+                <name>REV_HISTORIAL_REPORTE</name>
+                <identifier class="java.math.BigDecimal">128066</identifier>
+                <schemaName>REVELACIONES</schemaName>
+                <type>TABLE</type>
+              </parent>
+              <type>OracleStorageProperties</type>
+            </value>
+          </entry>
+        </properties>
+        <tablespaceID class="oracle.javatools.db.ReferenceID">
+          <name>USERS</name>
+          <type>TABLESPACE</type>
+        </tablespaceID>
+      </value>
+    </entry>
+    <entry>
+      <key>TableType</key>
+      <value class="oracle.javatools.db.Table$TableType">NORMAL</value>
+    </entry>
+  </properties>
+  <schema>
+    <name>REVELACIONES</name>
+  </schema>
+</table>

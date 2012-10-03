@@ -1,0 +1,842 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<table xmlns="http://xmlns.oracle.com/jdeveloper/1112/offlinedb">
+  <ID class="oracle.javatools.db.IdentifierBasedID">
+    <identifier class="java.lang.String">b01dcac9-be60-4db0-81bd-71c597317234</identifier>
+  </ID>
+  <name>REV_AGRUPACION_COLUMNA</name>
+  <columns>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">ec9142b4-e8b2-47fa-aa20-3e3cfec63409</identifier>
+      </ID>
+      <name>ID_NIVEL</name>
+      <dataTypeUsage>
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">ca9e5068-89c2-4624-b212-519de659fe6c</identifier>
+        </ID>
+        <attributeValues>
+          <entry>
+            <key>precision</key>
+            <value class="java.lang.String">8</value>
+          </entry>
+          <entry>
+            <key>scale</key>
+            <value class="java.lang.Long">0</value>
+          </entry>
+        </attributeValues>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+          <typeName>NUMBER</typeName>
+        </dataTypeID>
+        <properties>
+          <entry>
+            <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+            <value class="oracle.javatools.db.ReferenceID">
+              <parent class="oracle.javatools.db.ReferenceID">
+                <name>ID_NIVEL</name>
+                <parent class="oracle.javatools.db.ReferenceID">
+                  <name>REV_AGRUPACION_COLUMNA</name>
+                  <identifier class="java.math.BigDecimal">120489</identifier>
+                  <schemaName>REVELACIONES</schemaName>
+                  <type>TABLE</type>
+                </parent>
+                <type>COLUMN</type>
+              </parent>
+              <type>DataTypeUsage</type>
+            </value>
+          </entry>
+        </properties>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>ID_NIVEL</name>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>REV_AGRUPACION_COLUMNA</name>
+              <identifier class="java.math.BigDecimal">120489</identifier>
+              <schemaName>REVELACIONES</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <type>COLUMN</type>
+          </value>
+        </entry>
+      </properties>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">d8e13a38-4e37-4ca6-bc54-4a8cb36ab71b</identifier>
+      </ID>
+      <name>ID_COLUMNA</name>
+      <dataTypeUsage>
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">ae6d5acc-bef7-4555-b15d-3c7e9fd91999</identifier>
+        </ID>
+        <attributeValues>
+          <entry>
+            <key>precision</key>
+            <value class="java.lang.String">8</value>
+          </entry>
+          <entry>
+            <key>scale</key>
+            <value class="java.lang.Long">0</value>
+          </entry>
+        </attributeValues>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+          <typeName>NUMBER</typeName>
+        </dataTypeID>
+        <properties>
+          <entry>
+            <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+            <value class="oracle.javatools.db.ReferenceID">
+              <parent class="oracle.javatools.db.ReferenceID">
+                <name>ID_COLUMNA</name>
+                <parent class="oracle.javatools.db.ReferenceID">
+                  <name>REV_AGRUPACION_COLUMNA</name>
+                  <identifier class="java.math.BigDecimal">120489</identifier>
+                  <schemaName>REVELACIONES</schemaName>
+                  <type>TABLE</type>
+                </parent>
+                <type>COLUMN</type>
+              </parent>
+              <type>DataTypeUsage</type>
+            </value>
+          </entry>
+        </properties>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>ID_COLUMNA</name>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>REV_AGRUPACION_COLUMNA</name>
+              <identifier class="java.math.BigDecimal">120489</identifier>
+              <schemaName>REVELACIONES</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <type>COLUMN</type>
+          </value>
+        </entry>
+      </properties>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">466c6219-1c85-4253-9894-a272971e2b7a</identifier>
+      </ID>
+      <name>ID_GRILLA</name>
+      <dataTypeUsage>
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">0313733d-29a4-415e-b1b6-04531e0edfc5</identifier>
+        </ID>
+        <attributeValues>
+          <entry>
+            <key>precision</key>
+            <value class="java.lang.String">8</value>
+          </entry>
+          <entry>
+            <key>scale</key>
+            <value class="java.lang.Long">0</value>
+          </entry>
+        </attributeValues>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+          <typeName>NUMBER</typeName>
+        </dataTypeID>
+        <properties>
+          <entry>
+            <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+            <value class="oracle.javatools.db.ReferenceID">
+              <parent class="oracle.javatools.db.ReferenceID">
+                <name>ID_GRILLA</name>
+                <parent class="oracle.javatools.db.ReferenceID">
+                  <name>REV_AGRUPACION_COLUMNA</name>
+                  <identifier class="java.math.BigDecimal">120489</identifier>
+                  <schemaName>REVELACIONES</schemaName>
+                  <type>TABLE</type>
+                </parent>
+                <type>COLUMN</type>
+              </parent>
+              <type>DataTypeUsage</type>
+            </value>
+          </entry>
+        </properties>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>ID_GRILLA</name>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>REV_AGRUPACION_COLUMNA</name>
+              <identifier class="java.math.BigDecimal">120489</identifier>
+              <schemaName>REVELACIONES</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <type>COLUMN</type>
+          </value>
+        </entry>
+      </properties>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">901e0d87-d5f6-47d5-bf17-f38ac7c53449</identifier>
+      </ID>
+      <name>TITULO</name>
+      <dataTypeUsage>
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">75014b1a-2e3b-462c-b012-5ad97097c791</identifier>
+        </ID>
+        <attributeValues>
+          <entry>
+            <key>size</key>
+            <value class="java.lang.Long">256</value>
+          </entry>
+          <entry>
+            <key>unit</key>
+            <value class="java.lang.String">CHAR</value>
+          </entry>
+        </attributeValues>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.Oracle9i</providerClass>
+          <typeName>VARCHAR2</typeName>
+        </dataTypeID>
+        <properties>
+          <entry>
+            <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+            <value class="oracle.javatools.db.ReferenceID">
+              <parent class="oracle.javatools.db.ReferenceID">
+                <name>TITULO</name>
+                <parent class="oracle.javatools.db.ReferenceID">
+                  <name>REV_AGRUPACION_COLUMNA</name>
+                  <identifier class="java.math.BigDecimal">120489</identifier>
+                  <schemaName>REVELACIONES</schemaName>
+                  <type>TABLE</type>
+                </parent>
+                <type>COLUMN</type>
+              </parent>
+              <type>DataTypeUsage</type>
+            </value>
+          </entry>
+        </properties>
+      </dataTypeUsage>
+      <notNull>false</notNull>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>TITULO</name>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>REV_AGRUPACION_COLUMNA</name>
+              <identifier class="java.math.BigDecimal">120489</identifier>
+              <schemaName>REVELACIONES</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <type>COLUMN</type>
+          </value>
+        </entry>
+      </properties>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">d137e23f-5fa9-4010-8959-8231af08cf0c</identifier>
+      </ID>
+      <name>ANCHO</name>
+      <dataTypeUsage>
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">99dea353-e9ac-4c49-a1c7-2047c9782b03</identifier>
+        </ID>
+        <attributeValues>
+          <entry>
+            <key>precision</key>
+            <value class="java.lang.String">4</value>
+          </entry>
+          <entry>
+            <key>scale</key>
+            <value class="java.lang.Long">0</value>
+          </entry>
+        </attributeValues>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+          <typeName>NUMBER</typeName>
+        </dataTypeID>
+        <properties>
+          <entry>
+            <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+            <value class="oracle.javatools.db.ReferenceID">
+              <parent class="oracle.javatools.db.ReferenceID">
+                <name>ANCHO</name>
+                <parent class="oracle.javatools.db.ReferenceID">
+                  <name>REV_AGRUPACION_COLUMNA</name>
+                  <identifier class="java.math.BigDecimal">120489</identifier>
+                  <schemaName>REVELACIONES</schemaName>
+                  <type>TABLE</type>
+                </parent>
+                <type>COLUMN</type>
+              </parent>
+              <type>DataTypeUsage</type>
+            </value>
+          </entry>
+        </properties>
+      </dataTypeUsage>
+      <notNull>false</notNull>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>ANCHO</name>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>REV_AGRUPACION_COLUMNA</name>
+              <identifier class="java.math.BigDecimal">120489</identifier>
+              <schemaName>REVELACIONES</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <type>COLUMN</type>
+          </value>
+        </entry>
+      </properties>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">27e23a3b-de8d-4826-b238-e2a4ea84cf96</identifier>
+      </ID>
+      <name>GRUPO</name>
+      <dataTypeUsage>
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">7896faa6-41f6-4fb7-8861-f5e7cce8db58</identifier>
+        </ID>
+        <attributeValues>
+          <entry>
+            <key>precision</key>
+            <value class="java.lang.String">4</value>
+          </entry>
+          <entry>
+            <key>scale</key>
+            <value class="java.lang.Long">0</value>
+          </entry>
+        </attributeValues>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+          <typeName>NUMBER</typeName>
+        </dataTypeID>
+        <properties>
+          <entry>
+            <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+            <value class="oracle.javatools.db.ReferenceID">
+              <parent class="oracle.javatools.db.ReferenceID">
+                <name>GRUPO</name>
+                <parent class="oracle.javatools.db.ReferenceID">
+                  <name>REV_AGRUPACION_COLUMNA</name>
+                  <identifier class="java.math.BigDecimal">120489</identifier>
+                  <schemaName>REVELACIONES</schemaName>
+                  <type>TABLE</type>
+                </parent>
+                <type>COLUMN</type>
+              </parent>
+              <type>DataTypeUsage</type>
+            </value>
+          </entry>
+        </properties>
+      </dataTypeUsage>
+      <notNull>false</notNull>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>GRUPO</name>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>REV_AGRUPACION_COLUMNA</name>
+              <identifier class="java.math.BigDecimal">120489</identifier>
+              <schemaName>REVELACIONES</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <type>COLUMN</type>
+          </value>
+        </entry>
+      </properties>
+    </column>
+  </columns>
+  <constraints>
+    <constraint class="oracle.javatools.db.FKConstraint">
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">e0c27072-b625-40ed-8de6-19749283a765</identifier>
+      </ID>
+      <name>FK_REV_AGRU_REF_REV_COLU</name>
+      <columnIDs>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>ID_COLUMNA</name>
+          <identifier class="java.lang.String">d8e13a38-4e37-4ca6-bc54-4a8cb36ab71b</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>REV_AGRUPACION_COLUMNA</name>
+            <identifier class="java.lang.String">b01dcac9-be60-4db0-81bd-71c597317234</identifier>
+            <schemaName>REVELACIONES</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <schemaName>REVELACIONES</schemaName>
+          <type>COLUMN</type>
+        </columnID>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>ID_GRILLA</name>
+          <identifier class="java.lang.String">466c6219-1c85-4253-9894-a272971e2b7a</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>REV_AGRUPACION_COLUMNA</name>
+            <identifier class="java.lang.String">b01dcac9-be60-4db0-81bd-71c597317234</identifier>
+            <schemaName>REVELACIONES</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <schemaName>REVELACIONES</schemaName>
+          <type>COLUMN</type>
+        </columnID>
+      </columnIDs>
+      <deleteMode>0</deleteMode>
+      <enabled>true</enabled>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>FK_REV_AGRU_REF_REV_COLU</name>
+            <childObjectNames>
+              <childObjectName>ID_COLUMNA</childObjectName>
+              <childObjectName>ID_GRILLA</childObjectName>
+            </childObjectNames>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>REV_AGRUPACION_COLUMNA</name>
+              <identifier class="java.math.BigDecimal">120489</identifier>
+              <schemaName>REVELACIONES</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <subType>FKConstraint</subType>
+            <type>CONSTRAINT</type>
+          </value>
+        </entry>
+      </properties>
+      <referenceID class="oracle.javatools.db.IdentifierBasedID">
+        <name>PK_NEW_REV_COLUMNA_NOTA</name>
+        <identifier class="java.lang.String">895e36de-d904-4fc8-a656-97f0155ba8c6</identifier>
+        <parent class="oracle.javatools.db.IdentifierBasedID">
+          <name>REV_COLUMNA</name>
+          <identifier class="java.lang.String">22fd7028-2688-41d8-9990-b575c14d43b0</identifier>
+          <schemaName>REVELACIONES</schemaName>
+          <type>TABLE</type>
+        </parent>
+        <schemaName>REVELACIONES</schemaName>
+        <type>CONSTRAINT</type>
+      </referenceID>
+    </constraint>
+    <constraint class="oracle.javatools.db.PKConstraint">
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">00d4ffaf-68d8-40e2-b3ad-435915a8e5ca</identifier>
+      </ID>
+      <name>REV_AGRUPACION_COLUMNA_PK</name>
+      <columnIDs>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>ID_GRILLA</name>
+          <identifier class="java.lang.String">466c6219-1c85-4253-9894-a272971e2b7a</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>REV_AGRUPACION_COLUMNA</name>
+            <identifier class="java.lang.String">b01dcac9-be60-4db0-81bd-71c597317234</identifier>
+            <schemaName>REVELACIONES</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <schemaName>REVELACIONES</schemaName>
+          <type>COLUMN</type>
+        </columnID>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>ID_COLUMNA</name>
+          <identifier class="java.lang.String">d8e13a38-4e37-4ca6-bc54-4a8cb36ab71b</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>REV_AGRUPACION_COLUMNA</name>
+            <identifier class="java.lang.String">b01dcac9-be60-4db0-81bd-71c597317234</identifier>
+            <schemaName>REVELACIONES</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <schemaName>REVELACIONES</schemaName>
+          <type>COLUMN</type>
+        </columnID>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>ID_NIVEL</name>
+          <identifier class="java.lang.String">ec9142b4-e8b2-47fa-aa20-3e3cfec63409</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>REV_AGRUPACION_COLUMNA</name>
+            <identifier class="java.lang.String">b01dcac9-be60-4db0-81bd-71c597317234</identifier>
+            <schemaName>REVELACIONES</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <schemaName>REVELACIONES</schemaName>
+          <type>COLUMN</type>
+        </columnID>
+      </columnIDs>
+      <enabled>true</enabled>
+      <indexID class="oracle.javatools.db.IdentifierBasedID">
+        <name>REV_AGRUPACION_COLUMNA_PK</name>
+        <identifier class="java.lang.String">83b7c679-bcd4-425e-89ff-a03c1eddbc6c</identifier>
+        <parent class="oracle.javatools.db.IdentifierBasedID">
+          <name>REV_AGRUPACION_COLUMNA</name>
+          <identifier class="java.lang.String">b01dcac9-be60-4db0-81bd-71c597317234</identifier>
+          <schemaName>REVELACIONES</schemaName>
+          <type>TABLE</type>
+        </parent>
+        <schemaName>REVELACIONES</schemaName>
+        <type>INDEX</type>
+      </indexID>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>REV_AGRUPACION_COLUMNA_PK</name>
+            <childObjectNames>
+              <childObjectName>ID_GRILLA</childObjectName>
+              <childObjectName>ID_COLUMNA</childObjectName>
+              <childObjectName>ID_NIVEL</childObjectName>
+            </childObjectNames>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>REV_AGRUPACION_COLUMNA</name>
+              <identifier class="java.math.BigDecimal">120489</identifier>
+              <schemaName>REVELACIONES</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <subType>PKConstraint</subType>
+            <type>CONSTRAINT</type>
+          </value>
+        </entry>
+      </properties>
+    </constraint>
+  </constraints>
+  <indexes>
+    <indexe>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">83b7c679-bcd4-425e-89ff-a03c1eddbc6c</identifier>
+      </ID>
+      <name>REV_AGRUPACION_COLUMNA_PK</name>
+      <columnExpressions>
+        <columnExpression>
+          <ID class="oracle.javatools.db.IdentifierBasedID">
+            <identifier class="java.lang.String">8b34a131-64b3-428e-a950-363d8e19b98b</identifier>
+          </ID>
+          <expression class="oracle.javatools.db.sql.ColumnUsage">
+            <ID class="oracle.javatools.db.IdentifierBasedID">
+              <identifier class="java.lang.String">f86cfab0-110c-4866-a504-c3cc63d200eb</identifier>
+            </ID>
+            <objectID class="oracle.javatools.db.IdentifierBasedID">
+              <name>ID_GRILLA</name>
+              <identifier class="java.lang.String">466c6219-1c85-4253-9894-a272971e2b7a</identifier>
+              <parent class="oracle.javatools.db.IdentifierBasedID">
+                <name>REV_AGRUPACION_COLUMNA</name>
+                <identifier class="java.lang.String">b01dcac9-be60-4db0-81bd-71c597317234</identifier>
+                <schemaName>REVELACIONES</schemaName>
+                <type>TABLE</type>
+              </parent>
+              <schemaName>REVELACIONES</schemaName>
+              <type>COLUMN</type>
+            </objectID>
+            <outerJoin>false</outerJoin>
+            <properties>
+              <entry>
+                <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+                <value class="oracle.javatools.db.ReferenceID">
+                  <parent class="oracle.javatools.db.ReferenceID">
+                    <parent class="oracle.javatools.db.ReferenceID">
+                      <name>REV_AGRUPACION_COLUMNA_PK</name>
+                      <identifier class="java.math.BigDecimal">140120</identifier>
+                      <parent class="oracle.javatools.db.ReferenceID">
+                        <name>REV_AGRUPACION_COLUMNA</name>
+                        <identifier class="java.math.BigDecimal">120489</identifier>
+                        <schemaName>REVELACIONES</schemaName>
+                        <type>TABLE</type>
+                      </parent>
+                      <schemaName>REVELACIONES</schemaName>
+                      <type>INDEX</type>
+                    </parent>
+                    <type>IndexObject</type>
+                  </parent>
+                  <type>SQLFragment</type>
+                </value>
+              </entry>
+            </properties>
+            <qualified>true</qualified>
+          </expression>
+          <order>ASC</order>
+          <properties>
+            <entry>
+              <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+              <value class="oracle.javatools.db.ReferenceID">
+                <parent class="oracle.javatools.db.ReferenceID">
+                  <name>REV_AGRUPACION_COLUMNA_PK</name>
+                  <identifier class="java.math.BigDecimal">140120</identifier>
+                  <parent class="oracle.javatools.db.ReferenceID">
+                    <name>REV_AGRUPACION_COLUMNA</name>
+                    <identifier class="java.math.BigDecimal">120489</identifier>
+                    <schemaName>REVELACIONES</schemaName>
+                    <type>TABLE</type>
+                  </parent>
+                  <schemaName>REVELACIONES</schemaName>
+                  <type>INDEX</type>
+                </parent>
+                <type>IndexObject</type>
+              </value>
+            </entry>
+          </properties>
+        </columnExpression>
+        <columnExpression>
+          <ID class="oracle.javatools.db.IdentifierBasedID">
+            <identifier class="java.lang.String">62250fd0-cc26-4759-84e4-b771cca417fd</identifier>
+          </ID>
+          <expression class="oracle.javatools.db.sql.ColumnUsage">
+            <ID class="oracle.javatools.db.IdentifierBasedID">
+              <identifier class="java.lang.String">db33c773-84dd-4498-ba6f-085fe33cd4b9</identifier>
+            </ID>
+            <objectID class="oracle.javatools.db.IdentifierBasedID">
+              <name>ID_COLUMNA</name>
+              <identifier class="java.lang.String">d8e13a38-4e37-4ca6-bc54-4a8cb36ab71b</identifier>
+              <parent class="oracle.javatools.db.IdentifierBasedID">
+                <name>REV_AGRUPACION_COLUMNA</name>
+                <identifier class="java.lang.String">b01dcac9-be60-4db0-81bd-71c597317234</identifier>
+                <schemaName>REVELACIONES</schemaName>
+                <type>TABLE</type>
+              </parent>
+              <schemaName>REVELACIONES</schemaName>
+              <type>COLUMN</type>
+            </objectID>
+            <outerJoin>false</outerJoin>
+            <properties>
+              <entry>
+                <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+                <value class="oracle.javatools.db.ReferenceID">
+                  <parent class="oracle.javatools.db.ReferenceID">
+                    <parent class="oracle.javatools.db.ReferenceID">
+                      <name>REV_AGRUPACION_COLUMNA_PK</name>
+                      <identifier class="java.math.BigDecimal">140120</identifier>
+                      <parent class="oracle.javatools.db.ReferenceID">
+                        <name>REV_AGRUPACION_COLUMNA</name>
+                        <identifier class="java.math.BigDecimal">120489</identifier>
+                        <schemaName>REVELACIONES</schemaName>
+                        <type>TABLE</type>
+                      </parent>
+                      <schemaName>REVELACIONES</schemaName>
+                      <type>INDEX</type>
+                    </parent>
+                    <type>IndexObject</type>
+                  </parent>
+                  <type>SQLFragment</type>
+                </value>
+              </entry>
+            </properties>
+            <qualified>true</qualified>
+          </expression>
+          <order>ASC</order>
+          <properties>
+            <entry>
+              <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+              <value class="oracle.javatools.db.ReferenceID">
+                <parent class="oracle.javatools.db.ReferenceID">
+                  <name>REV_AGRUPACION_COLUMNA_PK</name>
+                  <identifier class="java.math.BigDecimal">140120</identifier>
+                  <parent class="oracle.javatools.db.ReferenceID">
+                    <name>REV_AGRUPACION_COLUMNA</name>
+                    <identifier class="java.math.BigDecimal">120489</identifier>
+                    <schemaName>REVELACIONES</schemaName>
+                    <type>TABLE</type>
+                  </parent>
+                  <schemaName>REVELACIONES</schemaName>
+                  <type>INDEX</type>
+                </parent>
+                <type>IndexObject</type>
+              </value>
+            </entry>
+          </properties>
+        </columnExpression>
+        <columnExpression>
+          <ID class="oracle.javatools.db.IdentifierBasedID">
+            <identifier class="java.lang.String">3831080c-e53a-4e90-8d68-d69acff17eb9</identifier>
+          </ID>
+          <expression class="oracle.javatools.db.sql.ColumnUsage">
+            <ID class="oracle.javatools.db.IdentifierBasedID">
+              <identifier class="java.lang.String">76a0ea6f-3f37-400f-bfd9-71d559512e04</identifier>
+            </ID>
+            <objectID class="oracle.javatools.db.IdentifierBasedID">
+              <name>ID_NIVEL</name>
+              <identifier class="java.lang.String">ec9142b4-e8b2-47fa-aa20-3e3cfec63409</identifier>
+              <parent class="oracle.javatools.db.IdentifierBasedID">
+                <name>REV_AGRUPACION_COLUMNA</name>
+                <identifier class="java.lang.String">b01dcac9-be60-4db0-81bd-71c597317234</identifier>
+                <schemaName>REVELACIONES</schemaName>
+                <type>TABLE</type>
+              </parent>
+              <schemaName>REVELACIONES</schemaName>
+              <type>COLUMN</type>
+            </objectID>
+            <outerJoin>false</outerJoin>
+            <properties>
+              <entry>
+                <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+                <value class="oracle.javatools.db.ReferenceID">
+                  <parent class="oracle.javatools.db.ReferenceID">
+                    <parent class="oracle.javatools.db.ReferenceID">
+                      <name>REV_AGRUPACION_COLUMNA_PK</name>
+                      <identifier class="java.math.BigDecimal">140120</identifier>
+                      <parent class="oracle.javatools.db.ReferenceID">
+                        <name>REV_AGRUPACION_COLUMNA</name>
+                        <identifier class="java.math.BigDecimal">120489</identifier>
+                        <schemaName>REVELACIONES</schemaName>
+                        <type>TABLE</type>
+                      </parent>
+                      <schemaName>REVELACIONES</schemaName>
+                      <type>INDEX</type>
+                    </parent>
+                    <type>IndexObject</type>
+                  </parent>
+                  <type>SQLFragment</type>
+                </value>
+              </entry>
+            </properties>
+            <qualified>true</qualified>
+          </expression>
+          <order>ASC</order>
+          <properties>
+            <entry>
+              <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+              <value class="oracle.javatools.db.ReferenceID">
+                <parent class="oracle.javatools.db.ReferenceID">
+                  <name>REV_AGRUPACION_COLUMNA_PK</name>
+                  <identifier class="java.math.BigDecimal">140120</identifier>
+                  <parent class="oracle.javatools.db.ReferenceID">
+                    <name>REV_AGRUPACION_COLUMNA</name>
+                    <identifier class="java.math.BigDecimal">120489</identifier>
+                    <schemaName>REVELACIONES</schemaName>
+                    <type>TABLE</type>
+                  </parent>
+                  <schemaName>REVELACIONES</schemaName>
+                  <type>INDEX</type>
+                </parent>
+                <type>IndexObject</type>
+              </value>
+            </entry>
+          </properties>
+        </columnExpression>
+      </columnExpressions>
+      <indexType>UNIQUE</indexType>
+      <parallelDegree>1</parallelDegree>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>REV_AGRUPACION_COLUMNA_PK</name>
+            <identifier class="java.math.BigDecimal">140120</identifier>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>REV_AGRUPACION_COLUMNA</name>
+              <identifier class="java.math.BigDecimal">120489</identifier>
+              <schemaName>REVELACIONES</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <schemaName>REVELACIONES</schemaName>
+            <type>INDEX</type>
+          </value>
+        </entry>
+        <entry>
+          <key>OracleStorageProperties</key>
+          <value class="oracle.javatools.db.ora.OracleStorageProperties">
+            <ID class="oracle.javatools.db.IdentifierBasedID">
+              <identifier class="java.lang.String">ede3dad4-37f8-48be-92ce-b5124c3bcdd1</identifier>
+            </ID>
+            <bufferMode>DEFAULT</bufferMode>
+            <initialExtent>65536</initialExtent>
+            <initrans>2</initrans>
+            <logging>true</logging>
+            <maxExtent>2147483645</maxExtent>
+            <minExtent>1</minExtent>
+            <nextExtent>1048576</nextExtent>
+            <percentFree>10</percentFree>
+            <properties>
+              <entry>
+                <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+                <value class="oracle.javatools.db.ReferenceID">
+                  <parent class="oracle.javatools.db.ReferenceID">
+                    <name>REV_AGRUPACION_COLUMNA_PK</name>
+                    <identifier class="java.math.BigDecimal">140120</identifier>
+                    <parent class="oracle.javatools.db.ReferenceID">
+                      <name>REV_AGRUPACION_COLUMNA</name>
+                      <identifier class="java.math.BigDecimal">120489</identifier>
+                      <schemaName>REVELACIONES</schemaName>
+                      <type>TABLE</type>
+                    </parent>
+                    <schemaName>REVELACIONES</schemaName>
+                    <type>INDEX</type>
+                  </parent>
+                  <type>OracleStorageProperties</type>
+                </value>
+              </entry>
+            </properties>
+            <tablespaceID class="oracle.javatools.db.ReferenceID">
+              <name>USERS</name>
+              <type>TABLESPACE</type>
+            </tablespaceID>
+          </value>
+        </entry>
+      </properties>
+      <schema>
+        <name>REVELACIONES</name>
+      </schema>
+      <systemGenerated>true</systemGenerated>
+    </indexe>
+  </indexes>
+  <properties>
+    <entry>
+      <key>OfflineDBConstants.IMPORT_SOURCE_CONNECTION</key>
+      <value class="java.lang.String">Conection_Revelaciones</value>
+    </entry>
+    <entry>
+      <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+      <value class="oracle.javatools.db.ReferenceID">
+        <name>REV_AGRUPACION_COLUMNA</name>
+        <identifier class="java.math.BigDecimal">120489</identifier>
+        <schemaName>REVELACIONES</schemaName>
+        <type>TABLE</type>
+      </value>
+    </entry>
+    <entry>
+      <key>OracleStorageProperties</key>
+      <value class="oracle.javatools.db.ora.OracleStorageProperties">
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">f80d1b9b-5d9e-4015-98e6-41e88f441f5d</identifier>
+        </ID>
+        <bufferMode>DEFAULT</bufferMode>
+        <initialExtent>65536</initialExtent>
+        <initrans>1</initrans>
+        <logging>true</logging>
+        <maxExtent>2147483645</maxExtent>
+        <minExtent>1</minExtent>
+        <nextExtent>1048576</nextExtent>
+        <percentFree>10</percentFree>
+        <properties>
+          <entry>
+            <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+            <value class="oracle.javatools.db.ReferenceID">
+              <parent class="oracle.javatools.db.ReferenceID">
+                <name>REV_AGRUPACION_COLUMNA</name>
+                <identifier class="java.math.BigDecimal">120489</identifier>
+                <schemaName>REVELACIONES</schemaName>
+                <type>TABLE</type>
+              </parent>
+              <type>OracleStorageProperties</type>
+            </value>
+          </entry>
+        </properties>
+        <tablespaceID class="oracle.javatools.db.ReferenceID">
+          <name>USERS</name>
+          <type>TABLESPACE</type>
+        </tablespaceID>
+      </value>
+    </entry>
+    <entry>
+      <key>TableType</key>
+      <value class="oracle.javatools.db.Table$TableType">NORMAL</value>
+    </entry>
+  </properties>
+  <schema>
+    <name>REVELACIONES</name>
+  </schema>
+</table>
