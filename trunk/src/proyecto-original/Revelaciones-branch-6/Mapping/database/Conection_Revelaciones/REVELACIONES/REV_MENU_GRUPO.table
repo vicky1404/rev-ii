@@ -1,0 +1,569 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<table xmlns="http://xmlns.oracle.com/jdeveloper/1112/offlinedb">
+  <ID class="oracle.javatools.db.IdentifierBasedID">
+    <identifier class="java.lang.String">1898b9ea-c681-49ac-9a25-b453c770f1b7</identifier>
+  </ID>
+  <name>REV_MENU_GRUPO</name>
+  <columns>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">7aed93d9-2d0e-480a-a3d1-9ba1f45aeb2e</identifier>
+      </ID>
+      <name>ID_MENU</name>
+      <dataTypeUsage>
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">9f317ff7-a8f3-475a-8dc4-b72400564f43</identifier>
+        </ID>
+        <attributeValues>
+          <entry>
+            <key>precision</key>
+            <value class="java.lang.String">3</value>
+          </entry>
+          <entry>
+            <key>scale</key>
+            <value class="java.lang.Long">0</value>
+          </entry>
+        </attributeValues>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+          <typeName>NUMBER</typeName>
+        </dataTypeID>
+        <properties>
+          <entry>
+            <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+            <value class="oracle.javatools.db.ReferenceID">
+              <parent class="oracle.javatools.db.ReferenceID">
+                <name>ID_MENU</name>
+                <parent class="oracle.javatools.db.ReferenceID">
+                  <name>REV_MENU_GRUPO</name>
+                  <identifier class="java.math.BigDecimal">120519</identifier>
+                  <schemaName>REVELACIONES</schemaName>
+                  <type>TABLE</type>
+                </parent>
+                <type>COLUMN</type>
+              </parent>
+              <type>DataTypeUsage</type>
+            </value>
+          </entry>
+        </properties>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>ID_MENU</name>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>REV_MENU_GRUPO</name>
+              <identifier class="java.math.BigDecimal">120519</identifier>
+              <schemaName>REVELACIONES</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <type>COLUMN</type>
+          </value>
+        </entry>
+      </properties>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">6606a054-cd2b-4adc-b934-9c253ceec6be</identifier>
+      </ID>
+      <name>ID_GRUPO_ACCESO</name>
+      <dataTypeUsage>
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">83b137c0-a917-4951-9e15-584586172b8d</identifier>
+        </ID>
+        <attributeValues>
+          <entry>
+            <key>size</key>
+            <value class="java.lang.Long">128</value>
+          </entry>
+          <entry>
+            <key>unit</key>
+            <value class="java.lang.String">CHAR</value>
+          </entry>
+        </attributeValues>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.Oracle9i</providerClass>
+          <typeName>VARCHAR2</typeName>
+        </dataTypeID>
+        <properties>
+          <entry>
+            <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+            <value class="oracle.javatools.db.ReferenceID">
+              <parent class="oracle.javatools.db.ReferenceID">
+                <name>ID_GRUPO_ACCESO</name>
+                <parent class="oracle.javatools.db.ReferenceID">
+                  <name>REV_MENU_GRUPO</name>
+                  <identifier class="java.math.BigDecimal">120519</identifier>
+                  <schemaName>REVELACIONES</schemaName>
+                  <type>TABLE</type>
+                </parent>
+                <type>COLUMN</type>
+              </parent>
+              <type>DataTypeUsage</type>
+            </value>
+          </entry>
+        </properties>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>ID_GRUPO_ACCESO</name>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>REV_MENU_GRUPO</name>
+              <identifier class="java.math.BigDecimal">120519</identifier>
+              <schemaName>REVELACIONES</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <type>COLUMN</type>
+          </value>
+        </entry>
+      </properties>
+    </column>
+  </columns>
+  <constraints>
+    <constraint class="oracle.javatools.db.FKConstraint">
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">31d2c84b-4184-4e67-8b03-7d4dc3609f28</identifier>
+      </ID>
+      <name>FK_NEW_REV_MENU_REF_REV_GRUP</name>
+      <columnIDs>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>ID_GRUPO_ACCESO</name>
+          <identifier class="java.lang.String">6606a054-cd2b-4adc-b934-9c253ceec6be</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>REV_MENU_GRUPO</name>
+            <identifier class="java.lang.String">1898b9ea-c681-49ac-9a25-b453c770f1b7</identifier>
+            <schemaName>REVELACIONES</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <schemaName>REVELACIONES</schemaName>
+          <type>COLUMN</type>
+        </columnID>
+      </columnIDs>
+      <deleteMode>0</deleteMode>
+      <enabled>true</enabled>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>FK_NEW_REV_MENU_REF_REV_GRUP</name>
+            <childObjectNames>
+              <childObjectName>ID_GRUPO_ACCESO</childObjectName>
+            </childObjectNames>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>REV_MENU_GRUPO</name>
+              <identifier class="java.math.BigDecimal">120519</identifier>
+              <schemaName>REVELACIONES</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <subType>FKConstraint</subType>
+            <type>CONSTRAINT</type>
+          </value>
+        </entry>
+      </properties>
+      <referenceID class="oracle.javatools.db.IdentifierBasedID">
+        <name>PK_NEW_REV_GRUPO_ACCESO</name>
+        <identifier class="java.lang.String">88cfa614-a6dc-4ea5-bbff-0653b6247d87</identifier>
+        <parent class="oracle.javatools.db.IdentifierBasedID">
+          <name>REV_GRUPO</name>
+          <identifier class="java.lang.String">eeaf2964-7754-4bd2-8184-785ea9cd4e20</identifier>
+          <schemaName>REVELACIONES</schemaName>
+          <type>TABLE</type>
+        </parent>
+        <schemaName>REVELACIONES</schemaName>
+        <type>CONSTRAINT</type>
+      </referenceID>
+    </constraint>
+    <constraint class="oracle.javatools.db.FKConstraint">
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">151410de-44c6-4f6d-8d1b-448c8e734d9b</identifier>
+      </ID>
+      <name>FK_NEW_REV_MENU_REF_REV_MENU</name>
+      <columnIDs>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>ID_MENU</name>
+          <identifier class="java.lang.String">7aed93d9-2d0e-480a-a3d1-9ba1f45aeb2e</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>REV_MENU_GRUPO</name>
+            <identifier class="java.lang.String">1898b9ea-c681-49ac-9a25-b453c770f1b7</identifier>
+            <schemaName>REVELACIONES</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <schemaName>REVELACIONES</schemaName>
+          <type>COLUMN</type>
+        </columnID>
+      </columnIDs>
+      <deleteMode>0</deleteMode>
+      <enabled>true</enabled>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>FK_NEW_REV_MENU_REF_REV_MENU</name>
+            <childObjectNames>
+              <childObjectName>ID_MENU</childObjectName>
+            </childObjectNames>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>REV_MENU_GRUPO</name>
+              <identifier class="java.math.BigDecimal">120519</identifier>
+              <schemaName>REVELACIONES</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <subType>FKConstraint</subType>
+            <type>CONSTRAINT</type>
+          </value>
+        </entry>
+      </properties>
+      <referenceID class="oracle.javatools.db.IdentifierBasedID">
+        <name>PK_NEW_REV_MENU</name>
+        <identifier class="java.lang.String">2de3e080-7ace-477e-9725-29dff7a60937</identifier>
+        <parent class="oracle.javatools.db.IdentifierBasedID">
+          <name>REV_MENU</name>
+          <identifier class="java.lang.String">a2cd13fb-bf7c-4e2b-bb7d-bad453a7de11</identifier>
+          <schemaName>REVELACIONES</schemaName>
+          <type>TABLE</type>
+        </parent>
+        <schemaName>REVELACIONES</schemaName>
+        <type>CONSTRAINT</type>
+      </referenceID>
+    </constraint>
+    <constraint class="oracle.javatools.db.PKConstraint">
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">ed5747b7-5ca3-421b-8fb6-eeba2be294e9</identifier>
+      </ID>
+      <name>PK_NEW_REV_MENU_GRUPO</name>
+      <columnIDs>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>ID_MENU</name>
+          <identifier class="java.lang.String">7aed93d9-2d0e-480a-a3d1-9ba1f45aeb2e</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>REV_MENU_GRUPO</name>
+            <identifier class="java.lang.String">1898b9ea-c681-49ac-9a25-b453c770f1b7</identifier>
+            <schemaName>REVELACIONES</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <schemaName>REVELACIONES</schemaName>
+          <type>COLUMN</type>
+        </columnID>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>ID_GRUPO_ACCESO</name>
+          <identifier class="java.lang.String">6606a054-cd2b-4adc-b934-9c253ceec6be</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>REV_MENU_GRUPO</name>
+            <identifier class="java.lang.String">1898b9ea-c681-49ac-9a25-b453c770f1b7</identifier>
+            <schemaName>REVELACIONES</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <schemaName>REVELACIONES</schemaName>
+          <type>COLUMN</type>
+        </columnID>
+      </columnIDs>
+      <enabled>true</enabled>
+      <indexID class="oracle.javatools.db.IdentifierBasedID">
+        <name>PK_NEW_REV_MENU_GRUPO</name>
+        <identifier class="java.lang.String">342263e4-1078-4f79-a460-ff1e8736105f</identifier>
+        <parent class="oracle.javatools.db.IdentifierBasedID">
+          <name>REV_MENU_GRUPO</name>
+          <identifier class="java.lang.String">1898b9ea-c681-49ac-9a25-b453c770f1b7</identifier>
+          <schemaName>REVELACIONES</schemaName>
+          <type>TABLE</type>
+        </parent>
+        <schemaName>REVELACIONES</schemaName>
+        <type>INDEX</type>
+      </indexID>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>PK_NEW_REV_MENU_GRUPO</name>
+            <childObjectNames>
+              <childObjectName>ID_MENU</childObjectName>
+              <childObjectName>ID_GRUPO_ACCESO</childObjectName>
+            </childObjectNames>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>REV_MENU_GRUPO</name>
+              <identifier class="java.math.BigDecimal">120519</identifier>
+              <schemaName>REVELACIONES</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <subType>PKConstraint</subType>
+            <type>CONSTRAINT</type>
+          </value>
+        </entry>
+      </properties>
+    </constraint>
+  </constraints>
+  <indexes>
+    <indexe>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">342263e4-1078-4f79-a460-ff1e8736105f</identifier>
+      </ID>
+      <name>PK_NEW_REV_MENU_GRUPO</name>
+      <columnExpressions>
+        <columnExpression>
+          <ID class="oracle.javatools.db.IdentifierBasedID">
+            <identifier class="java.lang.String">5593a0f1-c50d-48c5-b15f-c51b5517ade3</identifier>
+          </ID>
+          <expression class="oracle.javatools.db.sql.ColumnUsage">
+            <ID class="oracle.javatools.db.IdentifierBasedID">
+              <identifier class="java.lang.String">26207239-817f-4acd-a800-221d2f1d316d</identifier>
+            </ID>
+            <objectID class="oracle.javatools.db.IdentifierBasedID">
+              <name>ID_MENU</name>
+              <identifier class="java.lang.String">7aed93d9-2d0e-480a-a3d1-9ba1f45aeb2e</identifier>
+              <parent class="oracle.javatools.db.IdentifierBasedID">
+                <name>REV_MENU_GRUPO</name>
+                <identifier class="java.lang.String">1898b9ea-c681-49ac-9a25-b453c770f1b7</identifier>
+                <schemaName>REVELACIONES</schemaName>
+                <type>TABLE</type>
+              </parent>
+              <schemaName>REVELACIONES</schemaName>
+              <type>COLUMN</type>
+            </objectID>
+            <outerJoin>false</outerJoin>
+            <properties>
+              <entry>
+                <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+                <value class="oracle.javatools.db.ReferenceID">
+                  <parent class="oracle.javatools.db.ReferenceID">
+                    <parent class="oracle.javatools.db.ReferenceID">
+                      <name>PK_NEW_REV_MENU_GRUPO</name>
+                      <identifier class="java.math.BigDecimal">120547</identifier>
+                      <parent class="oracle.javatools.db.ReferenceID">
+                        <name>REV_MENU_GRUPO</name>
+                        <identifier class="java.math.BigDecimal">120519</identifier>
+                        <schemaName>REVELACIONES</schemaName>
+                        <type>TABLE</type>
+                      </parent>
+                      <schemaName>REVELACIONES</schemaName>
+                      <type>INDEX</type>
+                    </parent>
+                    <type>IndexObject</type>
+                  </parent>
+                  <type>SQLFragment</type>
+                </value>
+              </entry>
+            </properties>
+            <qualified>true</qualified>
+          </expression>
+          <order>ASC</order>
+          <properties>
+            <entry>
+              <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+              <value class="oracle.javatools.db.ReferenceID">
+                <parent class="oracle.javatools.db.ReferenceID">
+                  <name>PK_NEW_REV_MENU_GRUPO</name>
+                  <identifier class="java.math.BigDecimal">120547</identifier>
+                  <parent class="oracle.javatools.db.ReferenceID">
+                    <name>REV_MENU_GRUPO</name>
+                    <identifier class="java.math.BigDecimal">120519</identifier>
+                    <schemaName>REVELACIONES</schemaName>
+                    <type>TABLE</type>
+                  </parent>
+                  <schemaName>REVELACIONES</schemaName>
+                  <type>INDEX</type>
+                </parent>
+                <type>IndexObject</type>
+              </value>
+            </entry>
+          </properties>
+        </columnExpression>
+        <columnExpression>
+          <ID class="oracle.javatools.db.IdentifierBasedID">
+            <identifier class="java.lang.String">9e330908-3dfd-4dc6-896b-4ae5ed601fbe</identifier>
+          </ID>
+          <expression class="oracle.javatools.db.sql.ColumnUsage">
+            <ID class="oracle.javatools.db.IdentifierBasedID">
+              <identifier class="java.lang.String">be549c4d-882c-44fd-bf0b-40023b9f68f6</identifier>
+            </ID>
+            <objectID class="oracle.javatools.db.IdentifierBasedID">
+              <name>ID_GRUPO_ACCESO</name>
+              <identifier class="java.lang.String">6606a054-cd2b-4adc-b934-9c253ceec6be</identifier>
+              <parent class="oracle.javatools.db.IdentifierBasedID">
+                <name>REV_MENU_GRUPO</name>
+                <identifier class="java.lang.String">1898b9ea-c681-49ac-9a25-b453c770f1b7</identifier>
+                <schemaName>REVELACIONES</schemaName>
+                <type>TABLE</type>
+              </parent>
+              <schemaName>REVELACIONES</schemaName>
+              <type>COLUMN</type>
+            </objectID>
+            <outerJoin>false</outerJoin>
+            <properties>
+              <entry>
+                <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+                <value class="oracle.javatools.db.ReferenceID">
+                  <parent class="oracle.javatools.db.ReferenceID">
+                    <parent class="oracle.javatools.db.ReferenceID">
+                      <name>PK_NEW_REV_MENU_GRUPO</name>
+                      <identifier class="java.math.BigDecimal">120547</identifier>
+                      <parent class="oracle.javatools.db.ReferenceID">
+                        <name>REV_MENU_GRUPO</name>
+                        <identifier class="java.math.BigDecimal">120519</identifier>
+                        <schemaName>REVELACIONES</schemaName>
+                        <type>TABLE</type>
+                      </parent>
+                      <schemaName>REVELACIONES</schemaName>
+                      <type>INDEX</type>
+                    </parent>
+                    <type>IndexObject</type>
+                  </parent>
+                  <type>SQLFragment</type>
+                </value>
+              </entry>
+            </properties>
+            <qualified>true</qualified>
+          </expression>
+          <order>ASC</order>
+          <properties>
+            <entry>
+              <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+              <value class="oracle.javatools.db.ReferenceID">
+                <parent class="oracle.javatools.db.ReferenceID">
+                  <name>PK_NEW_REV_MENU_GRUPO</name>
+                  <identifier class="java.math.BigDecimal">120547</identifier>
+                  <parent class="oracle.javatools.db.ReferenceID">
+                    <name>REV_MENU_GRUPO</name>
+                    <identifier class="java.math.BigDecimal">120519</identifier>
+                    <schemaName>REVELACIONES</schemaName>
+                    <type>TABLE</type>
+                  </parent>
+                  <schemaName>REVELACIONES</schemaName>
+                  <type>INDEX</type>
+                </parent>
+                <type>IndexObject</type>
+              </value>
+            </entry>
+          </properties>
+        </columnExpression>
+      </columnExpressions>
+      <indexType>UNIQUE</indexType>
+      <parallelDegree>1</parallelDegree>
+      <properties>
+        <entry>
+          <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+          <value class="oracle.javatools.db.ReferenceID">
+            <name>PK_NEW_REV_MENU_GRUPO</name>
+            <identifier class="java.math.BigDecimal">120547</identifier>
+            <parent class="oracle.javatools.db.ReferenceID">
+              <name>REV_MENU_GRUPO</name>
+              <identifier class="java.math.BigDecimal">120519</identifier>
+              <schemaName>REVELACIONES</schemaName>
+              <type>TABLE</type>
+            </parent>
+            <schemaName>REVELACIONES</schemaName>
+            <type>INDEX</type>
+          </value>
+        </entry>
+        <entry>
+          <key>OracleStorageProperties</key>
+          <value class="oracle.javatools.db.ora.OracleStorageProperties">
+            <ID class="oracle.javatools.db.IdentifierBasedID">
+              <identifier class="java.lang.String">c66050ec-ed83-415c-bd22-a9e7baba5803</identifier>
+            </ID>
+            <bufferMode>DEFAULT</bufferMode>
+            <initialExtent>65536</initialExtent>
+            <initrans>2</initrans>
+            <logging>true</logging>
+            <maxExtent>2147483645</maxExtent>
+            <minExtent>1</minExtent>
+            <nextExtent>1048576</nextExtent>
+            <percentFree>10</percentFree>
+            <properties>
+              <entry>
+                <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+                <value class="oracle.javatools.db.ReferenceID">
+                  <parent class="oracle.javatools.db.ReferenceID">
+                    <name>PK_NEW_REV_MENU_GRUPO</name>
+                    <identifier class="java.math.BigDecimal">120547</identifier>
+                    <parent class="oracle.javatools.db.ReferenceID">
+                      <name>REV_MENU_GRUPO</name>
+                      <identifier class="java.math.BigDecimal">120519</identifier>
+                      <schemaName>REVELACIONES</schemaName>
+                      <type>TABLE</type>
+                    </parent>
+                    <schemaName>REVELACIONES</schemaName>
+                    <type>INDEX</type>
+                  </parent>
+                  <type>OracleStorageProperties</type>
+                </value>
+              </entry>
+            </properties>
+            <tablespaceID class="oracle.javatools.db.ReferenceID">
+              <name>USERS</name>
+              <type>TABLESPACE</type>
+            </tablespaceID>
+          </value>
+        </entry>
+      </properties>
+      <schema>
+        <name>REVELACIONES</name>
+      </schema>
+      <systemGenerated>false</systemGenerated>
+    </indexe>
+  </indexes>
+  <properties>
+    <entry>
+      <key>Comment</key>
+      <value class="java.lang.String">TABLA QUE ALMACENA LA ASOCIACION DE MENU CON EL GRUPO QUE POSEE EL ACCESO</value>
+    </entry>
+    <entry>
+      <key>OfflineDBConstants.IMPORT_SOURCE_CONNECTION</key>
+      <value class="java.lang.String">Conection_Revelaciones</value>
+    </entry>
+    <entry>
+      <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+      <value class="oracle.javatools.db.ReferenceID">
+        <name>REV_MENU_GRUPO</name>
+        <identifier class="java.math.BigDecimal">120519</identifier>
+        <schemaName>REVELACIONES</schemaName>
+        <type>TABLE</type>
+      </value>
+    </entry>
+    <entry>
+      <key>OracleStorageProperties</key>
+      <value class="oracle.javatools.db.ora.OracleStorageProperties">
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">b2747306-c9e8-4c53-ab8b-005c79868f00</identifier>
+        </ID>
+        <bufferMode>DEFAULT</bufferMode>
+        <initialExtent>65536</initialExtent>
+        <initrans>1</initrans>
+        <logging>true</logging>
+        <maxExtent>2147483645</maxExtent>
+        <minExtent>1</minExtent>
+        <nextExtent>1048576</nextExtent>
+        <percentFree>10</percentFree>
+        <properties>
+          <entry>
+            <key>OfflineDBConstants.IMPORT_SOURCE_ID</key>
+            <value class="oracle.javatools.db.ReferenceID">
+              <parent class="oracle.javatools.db.ReferenceID">
+                <name>REV_MENU_GRUPO</name>
+                <identifier class="java.math.BigDecimal">120519</identifier>
+                <schemaName>REVELACIONES</schemaName>
+                <type>TABLE</type>
+              </parent>
+              <type>OracleStorageProperties</type>
+            </value>
+          </entry>
+        </properties>
+        <tablespaceID class="oracle.javatools.db.ReferenceID">
+          <name>USERS</name>
+          <type>TABLESPACE</type>
+        </tablespaceID>
+      </value>
+    </entry>
+    <entry>
+      <key>TableType</key>
+      <value class="oracle.javatools.db.Table$TableType">NORMAL</value>
+    </entry>
+  </properties>
+  <schema>
+    <name>REVELACIONES</name>
+  </schema>
+</table>

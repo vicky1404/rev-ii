@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
+<xmi:XMI xmi:version='2.1' xmlns:xmi='http://schema.omg.org/spec/XMI/2.1' xmlns:DI='http://xmlns.omg.org/DI/2.0'>
+  <documentation exporter='Oracle JDeveloper' exporterVersion='11.1.2.1.0'/>
+  <DI:Diagram xmi:id='id373cec2d-6ed5-4b25-9984-7b5ab84accbe' zoom='0.0'>
+    <contained xmi:type='DI:GraphNode' xmi:id='id3a582844-3db4-460e-bece-6d8d618a1c88'>
+      <contained xmi:type='DI:GraphNode' xmi:id='idd46db639-f587-4325-a3cb-07006246dc01'>
+        <semanticModel xmi:type='DI:SimpleSemanticModelBridge' typeInfo='COMPACT'/>
+        <size height='100.0' width='100.0'/>
+      </contained>
+      <contained xmi:type='DI:GraphNode' xmi:id='id54435a94-5014-441a-a5d3-301d15f7f218'>
+        <contained xmi:type='DI:GraphNode' xmi:id='ide786c6c3-ef15-4899-a4fd-8d832f2f8ede'>
+          <property key='FirstVisibleIndex' value='0'/>
+          <semanticModel xmi:type='DI:SimpleSemanticModelBridge' typeInfo='FieldCompartment'/>
+          <size height='1.420276403427124' width='0.0'/>
+        </contained>
+        <contained xmi:type='DI:GraphNode' xmi:id='idecf282f7-a5b2-47ed-94f6-b5d8d756af2b'>
+          <property key='FirstVisibleIndex' value='10'/>
+          <semanticModel xmi:type='DI:SimpleSemanticModelBridge' typeInfo='MethodCompartment'/>
+          <size height='1.420276403427124' width='0.0'/>
+        </contained>
+        <contained xmi:type='DI:GraphNode' xmi:id='id31775848-a9e7-4042-97e4-14929db808ad'>
+          <property key='FirstVisibleIndex' value='0'/>
+          <semanticModel xmi:type='DI:SimpleSemanticModelBridge' typeInfo='InnerCompartment'/>
+          <size height='0.15944713354110718' width='0.0'/>
+        </contained>
+        <semanticModel xmi:type='DI:SimpleSemanticModelBridge' typeInfo='SYMBOLIC'/>
+        <size height='733.460205078125' width='441.9844055175781'/>
+      </contained>
+      <contained xmi:type='DI:GraphNode' xmi:id='idf36f8012-1d05-4a2b-983b-020857fae4ba'>
+        <contained xmi:type='DI:GraphNode' xmi:id='id6b02ae85-6d79-44e1-bf95-e259a8352105'>
+          <contained xmi:type='DI:GraphNode' xmi:id='idedd6fe14-b378-4ef1-92bc-9a4b55ca69f6'>
+            <property key='FirstVisibleIndex' value='0'/>
+            <semanticModel xmi:type='DI:SimpleSemanticModelBridge' typeInfo='FieldCompartment'/>
+            <size height='1.0' width='0.0'/>
+          </contained>
+          <contained xmi:type='DI:GraphNode' xmi:id='id77fc0b03-9a25-4de4-83d8-82374d25c78b'>
+            <property key='FirstVisibleIndex' value='0'/>
+            <semanticModel xmi:type='DI:SimpleSemanticModelBridge' typeInfo='MethodCompartment'/>
+            <size height='1.0' width='0.0'/>
+          </contained>
+          <semanticModel xmi:type='DI:SimpleSemanticModelBridge' typeInfo='Component'/>
+          <size height='80.0' width='33.33333206176758'/>
+        </contained>
+        <contained xmi:type='DI:GraphNode' xmi:id='id2d482a7d-ac35-42b2-93c6-028336416aa1'>
+          <position x='0.0' y='0.0'/>
+          <semanticModel xmi:type='DI:SimpleSemanticModelBridge' typeInfo='BodyCompartment'/>
+        </contained>
+        <semanticModel xmi:type='DI:SimpleSemanticModelBridge' typeInfo='EXPANDED'/>
+        <size height='733.460205078125' width='441.9844055175781'/>
+      </contained>
+      <position x='113.01559448242188' y='-73.460205078125'/>
+      <property key='showAttributes' value='true'/>
+      <property key='showPackage' value='false'/>
+      <property key='showMethodType' value='true'/>
+      <property key='operationShowParameters' value='0'/>
+      <property key='filterAttrViz' value='PUBLIC PROTECTED PACKAGE PRIVATE'/>
+      <property key='showAttributeStatic' value='true'/>
+      <property key='showMethodStatic' value='true'/>
+      <property key='filterMethodViz' value='PUBLIC PROTECTED PACKAGE PRIVATE'/>
+      <property key='fillColor' value='#c6d6ff'/>
+      <property key='showStereotype' value='false'/>
+      <property key='excludeMethodFilter' value=''/>
+      <property key='showInnerClasses' value='true'/>
+      <property key='showAttributeType' value='true'/>
+      <property key='font' value='SansSerif,plain,11'/>
+      <property key='sortAttributesAlpha' value='true'/>
+      <property key='fontColor' value='#0'/>
+      <property key='sortMethodsAlpha' value='true'/>
+      <property key='excludeAttrFilter' value=''/>
+      <property key='showAttributeVisibility' value='true'/>
+      <property key='lineColor' value='#a5a5a5'/>
+      <property key='showOperations' value='true'/>
+      <property key='showMethodVisibility' value='true'/>
+      <semanticModel xmi:type='DI:CoreSemanticModelBridge' element='JAVA:JIDC;;cl.bicevida.revelaciones.mb;;###;;MantenedorFormulaBackingBean' presentation='SYMBOLIC'/>
+      <size height='733.460205078125' width='441.9844055175781'/>
+    </contained>
+    <property key='showNonNavigable' value='false'/>
+    <property key='maxShapeWidth' value='200'/>
+    <property key='gridSize' value='15'/>
+    <property key='antialiasText' value='true'/>
+    <property key='EdgeCrossingType' value='0'/>
+    <property key='maxEntriesInShape' value='10'/>
+    <property key='ContainerLayoutStyle' value='1'/>
+    <property key='snapToGrid' value='true'/>
+    <property key='DiagramLayoutStyle' value='1'/>
+    <property key='ForeignKeyNotation' value='0'/>
+    <property key='logicalModel' value='false'/>
+    <property key='showClassifierOwnedEnds' value='false'/>
+    <property key='PageOrientation' value='1'/>
+    <property key='showGrid' value='true'/>
+    <property key='showNavIconWhenBothEnds' value='false'/>
+    <property key='minLayoutDistance' value='100'/>
+    <property key='PaperOrientation' value='Portrait'/>
+    <property key='PrintAreaX' value='0.0'/>
+    <property key='PrintAreaY' value='0.0'/>
+    <property key='PrintAreaWidth' value='0.0'/>
+    <property key='PrintAreaHeight' value='0.0'/>
+    <property key='PaperWidth' value='612.0'/>
+    <property key='PaperHeight' value='792.0'/>
+    <property key='PaperLeftMargin' value='72.0'/>
+    <property key='PaperTopMargin' value='72.0'/>
+    <property key='PaperRightMargin' value='72.0'/>
+    <property key='PaperBottomMargin' value='72.0'/>
+    <semanticModel xmi:type='DI:SimpleSemanticModelBridge' typeInfo='java_diagram'/>
+  </DI:Diagram>
+</xmi:XMI>

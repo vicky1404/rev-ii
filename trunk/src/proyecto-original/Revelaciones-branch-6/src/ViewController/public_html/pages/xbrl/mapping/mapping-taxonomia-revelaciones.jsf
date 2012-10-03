@@ -1,0 +1,344 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+        xmlns:h="http://java.sun.com/jsf/html" xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+    <af:document title="mapping-taxonomia.jsf" id="d1">
+        <af:resource source="/css/tabla-jsf.css" type="css"/>
+        <af:resource type="javascript">
+          function loaderMessage(evt) {
+              var popup = AdfPage.PAGE.findComponentByAbsoluteId('p1_loading');
+              if (popup != null) {
+                  AdfPage.PAGE.addBusyStateListener(popup, handleBusyState);
+                  evt.preventUserInput();
+              }
+          }
+          //JavaScript call back handler 
+          function handleBusyState(evt) {
+              var popup = AdfPage.PAGE.findComponentByAbsoluteId('p1_loading');
+              if (popup != null) {
+                  if (evt.isBusy()) {
+                      popup.show();
+                  }
+                  else if (popup.isPopupVisible()) {
+                      popup.hide();
+                      AdfPage.PAGE.removeBusyStateListener(popup, handleBusyState);
+                  }
+              }
+          }
+        </af:resource>
+        <af:resource type="css">
+            .ancho_100 {
+                width: 140px;
+            }
+
+            .ancho_250 {
+                width: 250px;
+            }
+        </af:resource>
+        <af:form id="f1">
+            <af:popup id="p1_loading" contentDelivery="immediate" animate="false">
+                <af:dialog id="d2" type="none" title="Cargando..." closeIconVisible="false" inlineStyle="width:220px;"
+                           modal="false">
+                    <af:panelGroupLayout id="pgl1" layout="horizontal">
+                        <af:image shortDesc="Procesando" source="/images/icon/loading5.gif" id="i2"/>
+                        <af:spacer width="30px;" id="s4"/>
+                        <af:outputText value="Cargando..." id="ot11"/>
+                    </af:panelGroupLayout>
+                </af:dialog>
+            </af:popup>
+            <af:panelBox id="pb1" text="Mapeo de Taxonomia y Revelaciones">
+                <h:panelGrid columns="2" id="pg1" columnClasses="ancho_100">
+                    <af:outputLabel value="Taxonomía:" id="ol1" for="sol1"/>
+                    <af:selectOneChoice id="sol1" required="true" unselectedLabel="#{msg.general_control_seleccione}"
+                                        value="#{navegadorTaxonomiaBackingBean.filtro.xbrlTaxonomia}">
+                        <f:selectItems value="#{navegadorTaxonomiaBackingBean.xbrlTaxonomiasSelectItem}" id="si1"/>
+                    </af:selectOneChoice>
+                </h:panelGrid>
+                <h:panelGrid columns="3" id="pg3" columnClasses="ancho_100">
+                    <af:outputLabel value="Tipo y Nombre de Cuadro:" id="ol5" for="cmb_tc"/>
+                    <af:selectOneChoice id="cmb_tc"
+                                        value="#{mapeadorTaxonomiaRevelacionesBackingBean.filtro.tipoCuadro}"
+                                        unselectedLabel="#{msg.general_control_seleccione}" required="true"
+                                        requiredMessageDetail="#{msg.general_control_seleccione} #{msg.etiqueta_tipo_cuadro}"
+                                        autoSubmit="true" contentStyle="width:130px;"
+                                        valueChangeListener="#{mapeadorTaxonomiaRevelacionesBackingBean.onChangeTipoCuadro}">
+                        <f:selectItems value="#{mapeadorTaxonomiaRevelacionesBackingBean.componenteBackingBean.tipoCuadroItems}"
+                                       id="tipos_c"/>
+                        <af:clientListener method="loaderMessage" type="valueChange"/>
+                    </af:selectOneChoice>
+                    <af:selectOneChoice label=" " id="soc1Catalogo"
+                                        value="#{mapeadorTaxonomiaRevelacionesBackingBean.filtro.catalogo}"
+                                        contentStyle="width:130px;" autoSubmit="true"
+                                        unselectedLabel="#{msg.general_control_seleccione}" required="true"
+                                        showRequired="false" partialTriggers="::cmb_tc"
+                                        requiredMessageDetail="#{msg.catalogo_mensaje_seleccione}">
+                        <f:selectItems value="#{mapeadorTaxonomiaRevelacionesBackingBean.catalogoSelectItem}"
+                                       id="catalogo"></f:selectItems>
+                    </af:selectOneChoice>
+                </h:panelGrid>
+                <h:panelGrid columns="3" id="pg2" columnClasses="ancho_100">
+                    <af:spacer id="s3"/>
+                    <af:commandButton text="Buscar"
+                                      action="#{mapeadorTaxonomiaRevelacionesBackingBean.buscarEstructurasAction}"
+                                      id="cb4">
+                        <af:clientListener method="loaderMessage" type="action"/>
+                    </af:commandButton>
+                    <af:commandButton text="Limpiar" action="mapping-taxonomia-revelaciones" id="cb1"
+                                      partialSubmit="false" immediate="true">
+                        <af:clientListener method="loaderMessage" type="action"/>
+                    </af:commandButton>
+                </h:panelGrid>
+                <af:group id="g1">
+                    <af:treeTable value="#{mapeadorTaxonomiaRevelacionesBackingBean.catalogoModel}" var="node"
+                                  rowBandingInterval="0" id="tt1"
+                                  visible="#{mapeadorTaxonomiaRevelacionesBackingBean.renderedCatalogoTree}"
+                                  summary="Tabla para el catalogo de estructuras" columnResizing="enabled" width="100%"
+                                  columnStretching="column:c3Periodo" contentDelivery="immediate" fetchSize="50"
+                                  autoHeightRows="100" disableColumnReordering="true" expandAllEnabled="true"
+                                  binding="#{mapeadorTaxonomiaRevelacionesBackingBean.tablaCatalogoTree}" emptyText=" ">
+                        <f:facet name="nodeStamp">
+                            <af:column headerText="Detalle de Estructuras" align="start" id="c5Periodo"></af:column>
+                        </f:facet>
+                        <af:column id="c2">
+                            <af:column sortable="false" headerText="#{msg.tabla_catalogo_titulo_nota}" align="start"
+                                       id="c3Periodo">
+                                <af:outputText value="#{node.object.version.catalogo.titulo}" id="ot3Periodo"
+                                               rendered="#{node.parent}" inlineStyle="font-weight:bold;"/>
+                                <af:panelGroupLayout landmark="banner" id="pgl6" layout="horizontal">
+                                    <af:image source="/images/icon/OneToManyMapping_16x16.gif" id="img_Maping"
+                                              inlineStyle="padding-left:20px;" shortDesc="Configurar Mapeo XBRL"
+                                              rendered="#{!node.parent and node.object.tipoEstructura.idTipoEstructura == 0}"/>
+                                    <af:commandLink blocking="true" inlineStyle="padding-left:5px;"
+                                                    text="Configurar Mapeo XBRL"
+                                                    rendered="#{!node.parent and node.object.tipoEstructura.idTipoEstructura == 0}"
+                                                    disabled="#{node.object.tipoEstructura.idTipoEstructura != 0 ? true : false}"
+                                                    actionListener="#{mapeadorTaxonomiaRevelacionesBackingBean.buscarTaxonomyAndGrilla}"
+                                                    id="cl1" immediate="false">
+                                        <f:attribute name="estructura" value="#{node.object}"/>
+                                        <f:attribute name="catalogo" value="#{node.object.version.catalogo}"/>
+                                        <af:clientListener method="loaderMessage" type="action"/>
+                                    </af:commandLink>
+                                    <af:commandLink blocking="true" inlineStyle="padding-left:20px;"
+                                                    text="Tipo Texto falta definir"
+                                                    rendered="#{!node.parent and node.object.tipoEstructura.idTipoEstructura != 0}"
+                                                    disabled="#{node.object.tipoEstructura.idTipoEstructura != 0 ? true : false}"
+                                                    id="cl2"></af:commandLink>
+                                </af:panelGroupLayout>
+                            </af:column>
+                            <af:column sortable="false" headerText="#{msg.tabla_catalogo_version}" align="start"
+                                       id="c1">
+                                <af:outputText value="#{node.object.version.version}" id="ot1"
+                                               rendered="#{node.parent}"/>
+                            </af:column>
+                            <af:column sortable="false" headerText="#{msg.tabla_catalogo_nombre_nota}" align="start"
+                                       id="c2Nombre">
+                                <af:outputText value="#{node.object.version.catalogo.nombre}" id="ot2Periodo"
+                                               rendered="#{node.parent}"/>
+                            </af:column>
+                            <af:column sortable="false" headerText="#{msg.tabla_catalogo_estado_nota}" align="start"
+                                       id="c4Periodo">
+                                <af:outputText value="#{node.object.estado.nombre}" id="ot4Periodo"
+                                               rendered="#{node.parent}"/>
+                            </af:column>
+                            <af:column sortable="false" headerText="#{msg.tabla_catalogo_fecha_proceso}" align="start"
+                                       id="c6Periodo">
+                                <af:outputText value="#{node.object.fechaUltimoProceso}" id="ot6Periodo"
+                                               rendered="#{node.parent}"/>
+                            </af:column>
+                            <af:column sortable="false" headerText="Vigente" align="start" id="c7Periodo">
+                                <af:outputText value="#{node.object.version.vigencia eq 1 ? 'SI' : 'NO'}"
+                                               id="ot7Periodo" rendered="#{node.parent}"/>
+                            </af:column>
+                        </af:column>
+                    </af:treeTable>
+                </af:group>
+            </af:panelBox>
+            <af:decorativeBox dimensionsFrom="auto" id="db1" styleClass="AFStretchWidth" inlineStyle="height:auto;"
+                              rendered="#{mapeadorTaxonomiaRevelacionesBackingBean.renderMappingPanel}">
+                <f:facet name="center">
+                    <af:panelGroupLayout id="pgl2" layout="horizontal"
+                                         visible="#{not empty mapeadorTaxonomiaRevelacionesBackingBean.conceptoSelectedForMapping}"
+                                         binding="#{mapeadorTaxonomiaRevelacionesBackingBean.viewMappingPanel}"
+                                         partialTriggers="pc1:t1:cil5 pc1:t1:cil6 tt2:cl3">
+                        <h:panelGrid columns="3" id="pg5" columnClasses="ancho_100, ancho_250">
+                            <af:outputLabel value="Concepto XBRL:" id="ol2"/>
+                            <af:outputText value="#{mapeadorTaxonomiaRevelacionesBackingBean.conceptoSelectedForMapping.label}"
+                                           id="ol3"/>
+                            <af:selectOneListbox id="sml1" size="5" contentStyle="width:60px;">
+                                <f:selectItems value="#{mapeadorTaxonomiaRevelacionesBackingBean.celdasByConcept}"/>
+                            </af:selectOneListbox>
+                        </h:panelGrid>
+                        <af:panelGroupLayout id="pgl5" layout="horizontal" styleClass="AFStretchWidth">
+                            <h:panelGrid columns="1" id="pg6">
+                                <af:inputText label=" "
+                                              value="Usted posee: #{mapeadorTaxonomiaRevelacionesBackingBean.unsavedMappingsCount} Mapeos(s) sin guardar."
+                                              id="it2" readOnly="true" contentStyle="color:red;"
+                                              visible="#{mapeadorTaxonomiaRevelacionesBackingBean.conceptoSelectedForMapping != null}"/>
+                                <af:commandButton actionListener="#{mapeadorTaxonomiaRevelacionesBackingBean.guardarMapeo}"
+                                                  text="Guardar" blocking="true" id="cb2"/>
+                            </h:panelGrid>
+                        </af:panelGroupLayout>
+                    </af:panelGroupLayout>
+                </f:facet>
+            </af:decorativeBox>
+            <af:decorativeBox dimensionsFrom="auto" id="db2" styleClass="AFStretchWidth" inlineStyle="height:auto;"
+                              rendered="#{mapeadorTaxonomiaRevelacionesBackingBean.renderMappingPanel}"
+                              binding="#{mapeadorTaxonomiaRevelacionesBackingBean.mappingRichDecorativeBox}">
+                <f:facet name="center">
+                    <af:panelSplitter orientation="horizontal" id="ps1" firstBorder="skin" secondBorder="skin"
+                                      dimensionsFrom="auto" splitterPosition="300" inlineStyle="height:auto;">
+                        <f:facet name="first">
+                            <af:panelGroupLayout id="pgl4">
+                                <af:selectOneChoice id="soc2" unselectedLabel="#{msg.general_control_seleccione}"
+                                                    label="Informe de Revelación:"
+                                                    valueChangeListener="#{mapeadorTaxonomiaRevelacionesBackingBean.taxonomyParentChangeListener}"
+                                                    autoSubmit="true"
+                                                    value="#{mapeadorTaxonomiaRevelacionesBackingBean.parentTaxonomia}">
+                                    <f:selectItems value="#{mapeadorTaxonomiaRevelacionesBackingBean.taxonomyParentItems}"
+                                                   id="si5"/>
+                                </af:selectOneChoice>
+                                <af:separator id="s1"/>
+                                <af:tree value="#{mapeadorTaxonomiaRevelacionesBackingBean.taxonomyTreeModel}"
+                                         var="node" rowSelection="single" summary=" " id="tt2"
+                                         columnStretching="column:c0" contentDelivery="immediate"
+                                         inlineStyle="height:inherit; width:inherit;" autoHeightRows="24"
+                                         disableColumnReordering="true" styleClass="AFStretchWidth" varStatus="vs"
+                                         columnSelection="none" emptyText=" " partialTriggers="::soc2 cl3 cil9">
+                                    <f:facet name="nodeStamp">
+                                        <af:group id="pt_g1">
+                                            <af:outputText value="#{node.taxonomyParent}" id="ot2"
+                                                           inlineStyle="font-weight:bold;"/>
+                                            <af:image source="/images/icon/OneToManyMapping_16x16.gif" id="i1"
+                                                      inlineStyle="vertical-align:middle;" shortDesc="Mapeado"
+                                                      rendered="#{node.concept.mapeado}"/>
+                                            <af:commandImageLink actionListener="#{mapeadorTaxonomiaRevelacionesBackingBean.eliminarConceptoForMapping}"
+                                                                 inlineStyle="border: 0px solid;"
+                                                                 icon="/images/icon/remove_16x16.png"
+                                                                 shortDesc="Eliminar celdas enlazadas para el concepto: #{node.concept.id}"
+                                                                 rendered="#{node.concept.mapeado}" partialSubmit="true"
+                                                                 id="cil9">
+                                                <f:attribute name="concepto" value="#{node.concept}"/>
+                                            </af:commandImageLink>
+                                            <af:commandLink text="#{node.concept.label}" id="cl3"
+                                                            shortDesc="#{node.concept.id}" partialSubmit="true"
+                                                            actionListener="#{mapeadorTaxonomiaRevelacionesBackingBean.fijarConceptoForMapping}">
+                                                <f:attribute name="concepto" value="#{node.concept}"/>
+                                            </af:commandLink>
+                                        </af:group>
+                                    </f:facet>
+                                </af:tree>
+                            </af:panelGroupLayout>
+                        </f:facet>
+                        <f:facet name="second">
+                            <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+                                <f:facet name="menus"/>
+                                <f:facet name="toolbar"/>
+                                <f:facet name="statusbar"/>
+                                <af:table id="t1" value="#{mapeadorTaxonomiaRevelacionesBackingBean.grillaVO.rows}"
+                                          contentDelivery="immediate" var="row" styleClass="AFStretchWidth"
+                                          fetchSize="50" autoHeightRows="50" disableColumnReordering="true"
+                                          binding="#{mapeadorTaxonomiaRevelacionesBackingBean.grillaTable}"
+                                          partialTriggers="cil5 cil6 :::tt2:cl3">
+                                    <af:forEach items="#{mapeadorTaxonomiaRevelacionesBackingBean.grillaVO.columnas}"
+                                                var="col" varStatus="colStatus">
+                                        <af:column id="c3" headerText="#{col.tituloColumna}" width="#{col.ancho}">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <af:outputText value="[#{row[col.idColumna].idFila} - #{row[col.idColumna].idColumna}]"
+                                                                       id="ot3"
+                                                                       inlineStyle="padding-bottom:10px;font-weight:bold"
+                                                                       rendered="#{cuadroBackingBean.filtro.debug}"/>
+                                                         
+                                                        <af:outputText value="#{row[col.idColumna].valor}" id="ot7"
+                                                                       inlineStyle="#{row[col.idColumna].tipoCelda.idTipoCelda == 4 or row[col.idColumna].tipoCelda.idTipoCelda == 5 ? 'padding-left:10px;font-weight:bold' : 'padding-left:10px'}"
+                                                                       rendered="#{ (row[col.idColumna].tipoCelda.idTipoCelda == 0 or row[col.idColumna].tipoCelda.idTipoCelda == 4 or row[col.idColumna].tipoCelda.idTipoCelda == 5) and (row[col.idColumna].tipoDato.idTipoDato != 2 and row[col.idColumna].tipoDato.idTipoDato != 3) }"></af:outputText>
+                                                         
+                                                        <af:outputText value="#{row[col.idColumna].valor}" id="ot8"
+                                                                       inlineStyle="font-weight:bold; text-align:left;"
+                                                                       rendered="#{row[col.idColumna].tipoCelda.idTipoCelda == 2}"></af:outputText>
+                                                         
+                                                        <af:inputText value="#{row[col.idColumna].valor}" id="it7"
+                                                                      contentStyle="text-align:left;"
+                                                                      rendered="#{row[col.idColumna].tipoCelda.idTipoCelda == 6 and row[col.idColumna].tipoDato.idTipoDato == 0}"
+                                                                      maximumLength="#{msg.constantes_max_caracter_cuadro}">
+                                                            <af:validateLength messageDetailMaximum="#{msg.general_mensaje_validacion_maximo_caracter_cuadro}"
+                                                                               hintMaximum="#{msg.general_mensaje_hint_maximo_caracter_cuadro}"
+                                                                               maximum="#{msg.constantes_max_caracter_cuadro}"/>
+                                                        </af:inputText>
+                                                         
+                                                        <af:inputText value="#{row[col.idColumna].valorLong}" id="it8"
+                                                                      rendered="#{row[col.idColumna].tipoDato.idTipoDato == 2}"
+                                                                      disabled="#{row[col.idColumna].tipoCelda.idTipoCelda == 4 or row[col.idColumna].tipoCelda.idTipoCelda == 5}"
+                                                                      contentStyle="#{ ( row[col.idColumna].tipoCelda.idTipoCelda == 4 or row[col.idColumna].tipoCelda.idTipoCelda == 5 ) ? 'border:none;background-color: white;font-weight:bold;':''} #{row[col.idColumna].valid ? 'color:black' : 'color:red'}"
+                                                                      maximumLength="#{msg.constantes_text_length_long}">
+                                                            <af:convertNumber integerOnly="true" type="number"
+                                                                              maxFractionDigits="0" groupingUsed="true"
+                                                                              maxIntegerDigits="#{msg.constantes_max_lenght_number}"
+                                                                              locale="#{cuadroBackingBean.localeCL}"
+                                                                              pattern="##,###,###,###"
+                                                                              hintPattern="#{msg.general_mensaje_ingrese_numero_entero}"
+                                                                              messageDetailConvertPattern="#{msg.general_mensaje_validacion_numero_entero}"/>
+                                                            <af:validateLongRange maximum="#{msg.constantes_maximum_validate_long_range}"
+                                                                                  hintMaximum="#{msg.constantes_msg_validate_long_range}"/>
+                                                        </af:inputText>
+                                                         
+                                                        <af:inputText value="#{row[col.idColumna].valorBigDecimal}"
+                                                                      id="it9"
+                                                                      rendered="#{row[col.idColumna].tipoDato.idTipoDato == 3}"
+                                                                      maximumLength="#{msg.constantes_text_length_decimal}"
+                                                                      disabled="#{row[col.idColumna].tipoCelda.idTipoCelda == 4 or row[col.idColumna].tipoCelda.idTipoCelda == 5}"
+                                                                      contentStyle="#{row[col.idColumna].tipoCelda.idTipoCelda == 4 or row[col.idColumna].tipoCelda.idTipoCelda == 5 ? 'border:none;background-color: white;font-weight:bold;color:black':''} #{row[col.idColumna].valid ? 'color:black' : 'color:red'}">
+                                                            <af:convertNumber integerOnly="false" type="number"
+                                                                              maxIntegerDigits="#{msg.constantes_max_lenght_number}"
+                                                                              maxFractionDigits="4"
+                                                                              locale="#{cuadroBackingBean.localeCL}"
+                                                                              pattern="##,###,###,###.####"
+                                                                              hintPattern="#{msg.general_mensaje_ingrese_numero_decimal}"
+                                                                              messageDetailConvertPattern="#{msg.general_mensaje_validacion_numero_decimal}"/>
+                                                            <af:validateDoubleRange maximum="#{msg.constantes_maximum_validate_long_range}"
+                                                                                    hintMaximum="#{msg.constantes_msg_validate_decimal_range}"
+                                                                                    messageDetailMaximum=" "/>
+                                                        </af:inputText>
+                                                         
+                                                        <af:inputDate value="#{row[col.idColumna].valorDate}" id="it10"
+                                                                      label=" "
+                                                                      rendered="#{row[col.idColumna].tipoDato.idTipoDato == 1 and row[col.idColumna].tipoCelda.idTipoCelda == 6}">
+                                                            <af:convertDateTime pattern="dd-MM-yyyy" type="date"/>
+                                                        </af:inputDate>
+                                                    </td>
+                                                    <td>
+                                                        <!-- selectores para mapping-->
+                                                        <af:commandImageLink actionListener="#{mapeadorTaxonomiaRevelacionesBackingBean.selectCeldaForMapping}"
+                                                                             inlineStyle="border: 0px solid;"
+                                                                             icon="/images/icon/uncheck_obj_16x16.gif"
+                                                                             shortDesc="Columna: #{col.idColumna} , Fila: #{row[col.idColumna].idFila}. Seleccionar y vincular al mapeo del concepto: #{mapeadorTaxonomiaRevelacionesBackingBean.conceptoSelectedForMapping.label}"
+                                                                             visible="#{row[col.idColumna].esNumero and not row[col.idColumna].selectedByMapping }"
+                                                                             partialSubmit="true" id="cil5">
+                                                            <f:attribute name="celda" value="#{row[col.idColumna]}"/>
+                                                            <f:attribute name="selected" value="#{true}"/>
+                                                        </af:commandImageLink>
+                                                         
+                                                        <af:commandImageLink actionListener="#{mapeadorTaxonomiaRevelacionesBackingBean.selectCeldaForMapping}"
+                                                                             icon="/images/icon/checked_16x16.gif"
+                                                                             inlineStyle="border: 0px solid;"
+                                                                             shortDesc="Columna: #{col.idColumna} , Fila: #{row[col.idColumna].idFila}. Excluir del mapeo del concepto: #{mapeadorTaxonomiaRevelacionesBackingBean.conceptoSelectedForMapping.label}"
+                                                                             visible="#{row[col.idColumna].esNumero and row[col.idColumna].selectedByMapping}"
+                                                                             partialSubmit="true" id="cil6">
+                                                            <f:attribute name="celda" value="#{row[col.idColumna]}"/>
+                                                            <f:attribute name="selected" value="#{false}"/>
+                                                        </af:commandImageLink>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </af:column>
+                                    </af:forEach>
+                                </af:table>
+                            </af:panelCollection>
+                        </f:facet>
+                    </af:panelSplitter>
+                </f:facet>
+            </af:decorativeBox>
+        </af:form>
+    </af:document>
+</f:view>
