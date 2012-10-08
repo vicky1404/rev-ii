@@ -56,7 +56,7 @@
 		<p:toolbar style="font-size: 10px; margin-left: auto; margin-right: auto" >
       		<p:toolbarGroup align="left" >
 				<p:commandButton icon="ui-icon-document" value="#{msg.boton_nuevo}" title="#{msg.boton_nuevo}"  type="button" onclick="ingresoRegistro.show()" />
-				<p:commandButton icon="ui-icon-trash" value="#{msg.boton_eliminar}" title="#{msg.boton_eliminar}" action="#{empresaBackingBean.eliminar}" update="@form" />
+				<p:commandButton icon="ui-icon-trash" value="#{msg.boton_eliminar}" title="#{msg.boton_eliminar}" onclick="confirmEliminar.show()"/>
 				
       		</p:toolbarGroup>
    		</p:toolbar>
@@ -199,6 +199,24 @@
 		  			
         	</h:form>
     	</p:dialog> 
+    	
+    	
+    	<p:dialog header="Confirmar" widgetVar="confirmEliminar" resizable="false">
+			<h:form id="formBorrar">
+				<h:panelGrid columns="1" style="margin-bottom:10px">
+					<h:outputText
+						value="Al realizar esta acción, se eliminará la empresa seleccionada" />
+					<h:outputText value="¿ Está seguro que desea eliminar esta empresa ?" />
+				</h:panelGrid>
+				<h:panelGrid columns="3" style="margin-bottom:10px">
+					<p:commandButton id="sb1" value="#{msg.boton_eliminar}"
+						icon="ui-icon-trash" oncomplete="confirmEliminar.hide();"
+						actionListener="#{empresaBackingBean.eliminar}" update=":form:tabla" />
+					<p:separator />
+					<p:commandButton id="sb2" value="#{msg.boton_cancel}" icon="ui-icon-cancel" oncomplete="confirmEliminar.hide();" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
     	
     	<script type="text/javascript">  
 		    function handleLoginRequest(xhr, status, args) {  
