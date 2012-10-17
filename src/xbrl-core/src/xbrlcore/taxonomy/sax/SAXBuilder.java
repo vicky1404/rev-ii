@@ -223,8 +223,8 @@ public class SAXBuilder {
                     String key = (String)fixedSchemaFilesIterator.next();
                     String value = (String)fixedSchemaFiles.get(key);
                     if (uri.toString().equals(key)) {
-                    	System.out.println("buscando schemaFiles");
-                        parseSchema(new InputSource("file://pc-rreyes/server-taxonomias/schemaFiles/" + value));
+                    	System.out.println("buscando schemaFiles (value: " + value + ")");
+                        parseSchema(new InputSource("file://EQ13797/schemaFiles/" + value));
                     }
                 }
             }
