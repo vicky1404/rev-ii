@@ -12,7 +12,7 @@ DELETE FROM IFRS_MENU;
 
 --menu de configuracion	
 Insert into IFRS_MENU (ID_MENU,NOMBRE,ESTADO,GRUPO,URL_MENU,ES_PADRE, ORDEN) values ('3','Configuración','1','3','#','1',200);
-	Insert into IFRS_MENU (ID_MENU,NOMBRE,ESTADO,GRUPO,URL_MENU,ES_PADRE, ORDEN) values ('31','Configuración y Diseñador de Cuadros','1','3','/pages/disenador/principal.jsf','0',201);
+	Insert into IFRS_MENU (ID_MENU,NOMBRE,ESTADO,GRUPO,URL_MENU,ES_PADRE, ORDEN) values ('31','Configurador y Diseñador de Cuadros','1','3','/pages/disenador/principal.jsf','0',201);
 	Insert into IFRS_MENU (ID_MENU,NOMBRE,ESTADO,GRUPO,URL_MENU,ES_PADRE, ORDEN) values ('32','Configurador de Fórmulas','1','3','/pages/mantenedores/mantenedor-formula.jsf','0',202);
 
 --menu de EE.FF
