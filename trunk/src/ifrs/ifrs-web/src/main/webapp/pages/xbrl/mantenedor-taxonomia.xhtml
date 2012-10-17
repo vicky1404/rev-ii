@@ -48,7 +48,7 @@
 						action="mantenedor-taxonomia?faces-redirect=true" icon="ui-icon-cancel">
 					</p:commandButton>
 					<p:commandButton value="#{msg.general_control_buscar}" id="cb1"
-						update="@form"
+						update="@form"  icon="ui-icon-search"
 						action="#{mantenedorTaxonomiaBackingBean.buscarTaxonimiaAction}" />
 				</h:panelGrid>
 
@@ -70,7 +70,7 @@
 			</p:toolbar>
 
 
-			<p:dataTable value="#{mantenedorTaxonomiaBackingBean.xbrlTaxonomias}"
+			<p:dataTable value="#{mantenedorTaxonomiaBackingBean.xbrlTaxonomias}" resizableColumns="true"
 				var="row" emptyText=" " columnStretching="column:c5" id="t1"
 				inlineStyle="width:inherit; height:auto;">
 				<!--af:column sortable="false" headerText="Id Taxonomia" align="start" id="c1" rowHeader="unstyled">
@@ -78,26 +78,26 @@
                     </af:column-->
 				<p:column sortable="false" headerText="Nombre de la Taxonomía"
 					align="start" id="c2" width="300">
-					<p:inputText value="#{row.nombre}" id="ot1" required="true" />
+					<p:inputText value="#{row.nombre}" id="ot1" required="true" size="55" title="#{row.nombre}"/>
 				</p:column>
 				<p:column sortable="false" headerText="Fecha de la Taxonomía"
 					align="start" id="c1" width="100">
-					<p:calendar value="#{row.fechaTaxonomia}" id="ca1" required="true"
+					<p:calendar value="#{row.fechaTaxonomia}" id="ca1" required="true" size="15"
 						pattern="dd-MM-yyyy" />
 				</p:column>
 				<p:column sortable="false"
 					headerText="Nombre de Archivo Main (Shell)" align="start" id="c3"
 					width="150">
-					<p:inputText value="#{row.nombreArchivo}" id="ot3" required="true" />
+					<p:inputText value="#{row.nombreArchivo}" id="ot3" required="true" size="25" title="#{row.nombreArchivo}"/>
 				</p:column>
 				<p:column sortable="false" headerText="Nombre de Top Taxonomy"
 					align="start" id="c4" width="150">
-					<p:inputText value="#{row.topTaxonomy}" id="ot4" required="true" />
+					<p:inputText value="#{row.topTaxonomy}" id="ot4" required="true" size="25" title="#{row.topTaxonomy}"/>
 				</p:column>
 				<p:column sortable="false"
 					headerText="URI (Path Absoluto hacia la Taxonomía)" align="start"
 					id="c5">
-					<p:inputText value="#{row.uri}" id="ot5" required="true" />
+					<p:inputText value="#{row.uri}" id="ot5" required="true" size="30" title="#{row.uri}"/>
 				</p:column>
 				<p:column sortable="false" headerText="Vigente" align="start"
 					rowHeader="unstyled">
