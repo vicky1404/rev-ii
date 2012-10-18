@@ -1,4 +1,4 @@
-package cl.mdr.exfida.ejb.xbrl.service;
+package cl.mdr.exfida.xbrl.ejb.service;
 
 import static cl.mdr.ifrs.ejb.cross.Constantes.PERSISTENCE_UNIT_NAME;
 import java.io.IOException;
@@ -16,10 +16,11 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import cl.mdr.exfida.xbrl.ejb.entity.XbrlTaxonomia;
+import cl.mdr.exfida.xbrl.ejb.service.local.TaxonomyLoaderServiceLocal;
+
 import xbrlcore.taxonomy.DiscoverableTaxonomySet;
 import xbrlcore.taxonomy.sax.SAXBuilder;
-import cl.mdr.exfida.ejb.xbrl.service.local.TaxonomyLoaderServiceLocal;
-import cl.mdr.ifrs.ejb.entity.XbrlTaxonomia;
 
 @Stateless
 public class TaxonomyLoaderServiceBean implements TaxonomyLoaderServiceLocal {

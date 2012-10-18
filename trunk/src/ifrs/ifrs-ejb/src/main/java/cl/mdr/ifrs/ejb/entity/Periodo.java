@@ -67,7 +67,17 @@ public class Periodo implements Serializable {
 
     public Periodo() {
     }
+    
+    public Periodo(EstadoPeriodo estadoPeriodo, Long idPeriodo, Long periodo) {
+        this.estadoPeriodo = estadoPeriodo;
+        this.idPeriodo = idPeriodo;
+    }
 
+    public Periodo(Periodo periodo) {
+        super();
+        this.idPeriodo = periodo.idPeriodo;
+        this.estadoPeriodo = periodo.estadoPeriodo;
+    }
 
     public Long getIdPeriodo() {
 		return idPeriodo;
