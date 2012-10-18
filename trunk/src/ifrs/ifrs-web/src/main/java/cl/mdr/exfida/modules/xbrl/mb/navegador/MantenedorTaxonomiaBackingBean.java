@@ -1,4 +1,4 @@
-package cl.mdr.exfida.modules.xbrl.navegador.mb;
+package cl.mdr.exfida.modules.xbrl.navegador.mb.navegador;
 
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -1,32 +1,32 @@
 
-package cl.bicevida.xbrl.mb.mapping;
+package cl.mdr.exfida.modules.xbrl.navegador.mb.mapping;
 
 import static ch.lambdaj.Lambda.having;
 import static ch.lambdaj.Lambda.on;
 import static ch.lambdaj.Lambda.select;
 import static ch.lambdaj.Lambda.index;
 
-import cl.bicevida.revelaciones.common.filtros.Filtro;
-import cl.bicevida.revelaciones.common.mb.SoporteBackingBean;
+import cl.mdr.ifrs.cross.mb.FiltroBackingBean;
+import cl.mdr.ifrs.cross.mb.PropertyManager;
 
-import cl.bicevida.revelaciones.common.model.TreeItem;
-import cl.bicevida.revelaciones.common.util.PropertyManager;
-import cl.bicevida.revelaciones.ejb.cross.Util;
-import cl.bicevida.revelaciones.ejb.entity.Catalogo;
-import cl.bicevida.revelaciones.ejb.entity.Celda;
-import cl.bicevida.revelaciones.ejb.entity.EstadoFinanciero;
-import cl.bicevida.revelaciones.ejb.entity.Estructura;
-import cl.bicevida.revelaciones.ejb.entity.Grilla;
-import cl.bicevida.revelaciones.ejb.entity.Periodo;
-import cl.bicevida.revelaciones.ejb.entity.TipoCuadro;
+import cl.mdr.revelaciones.common.model.TreeItem;
+import cl.mdr.ifrs.ejb.cross.Util;
+import cl.mdr.ifrs.ejb.entity.Catalogo;
+import cl.mdr.ifrs.ejb.entity.Celda;
+import cl.mdr.ifrs.ejb.entity.EstadoFinanciero;
+import cl.mdr.ifrs.ejb.entity.Estructura;
+import cl.mdr.ifrs.ejb.entity.Grilla;
+import cl.mdr.ifrs.ejb.entity.Periodo;
+import cl.mdr.ifrs.ejb.entity.TipoCuadro;
 
-import cl.bicevida.revelaciones.ejb.entity.VersionPeriodo;
+import cl.mdr.ifrs.ejb.entity.VersionPeriodo;
 
-import cl.bicevida.revelaciones.mb.MantenedorFormulaBackingBean;
+import cl.mdr.ifrs.mb.MantenedorFormulaBackingBean;
 
-import cl.bicevida.revelaciones.vo.GrillaVO;
+import cl.mdr.ifrs.vo.GrillaVO;
 
-import cl.bicevida.xbrl.model.TaxonomyTreeItem;
+import cl.mdr.exfida.modules.xbrl.model.TaxonomyTreeItem;
+import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
 
 import java.io.Serializable;
 
@@ -75,12 +75,12 @@ import xbrlcore.taxonomy.DiscoverableTaxonomySet;
  * @author rodrigo.reyes@bicevida.cl
 
  */
-public class MapeadorTaxonomiaRevelacionesBackingBean extends SoporteBackingBean implements Serializable {
+public class MapeadorTaxonomiaRevelacionesBackingBean extends AbstractBackingBean implements Serializable {
     private transient final Logger logger = Logger.getLogger(MapeadorTaxonomiaRevelacionesBackingBean.class);
     @SuppressWarnings("compatibility:-7570818953576924844")
     private static final long serialVersionUID = -5712741915754307569L;
     
-    private Filtro filtroPaso;
+    private FiltroBackingBean filtroPaso;
     private Catalogo catalogo;
     private Estructura estructura;
     private Grilla grilla;
@@ -139,7 +139,7 @@ public class MapeadorTaxonomiaRevelacionesBackingBean extends SoporteBackingBean
         celdaMap = new LinkedHashMap<Celda, Celda>();
         celdasByConcept = new ArrayList<SelectItem>();
         unsavedMappingsCount = 0;
-        super.getFiltro().setPeriodo(new Periodo(getComponenteBackingBean().getPeriodoActual()));
+        super.getFiltroPeriodoEmpresa().setPeriodo(new Periodo(getComponenteBackingBean().getPeriodoActual()));
     }
     
     void clearPage(){        
@@ -148,13 +148,13 @@ public class MapeadorTaxonomiaRevelacionesBackingBean extends SoporteBackingBean
     
     public String buscarEstructurasAction(){        
         try {
-            this.setVersionPeriodoList(super.getFacade().getPeriodoService().findPeriodoAllByPeriodoCatalogoVigente(super.getFiltro().getCatalogo(), super.getFiltro().getPeriodo()));
+            this.setVersionPeriodoList(super.getFacadeService().getPeriodoService().findPeriodoAllByPeriodoCatalogoVigente(super.getFiltroBackingBean().getCatalogo(), super.getFiltroPeriodoEmpresa().getPeriodo()));
             this.getCatalogoTreeModel();
-            AdfFacesContext.getCurrentInstance().addPartialTarget(this.getTablaCatalogoTree());
+            //AdfFacesContext.getCurrentInstance().addPartialTarget(this.getTablaCatalogoTree());
             this.setRenderedCatalogoTree(Boolean.TRUE);
         } catch (Exception e) {
             logger.error(e.getCause(), e);
-            agregarErrorMessage("Error al consultar datos para realizar el proceso");
+            addErrorMessage("Error al consultar datos para realizar el proceso");
         }
         
         return null;
@@ -172,34 +172,34 @@ public class MapeadorTaxonomiaRevelacionesBackingBean extends SoporteBackingBean
             //grilla
             this.setCatalogo(catalogo);
             this.setEstructura(estructura);
-            this.setGrilla(this.getFacade().getGrillaService().findGrillaById(estructura.getIdEstructura()));
-            this.setGrillaVO(this.getFacade().getEstructuraService().getGrillaVO(this.getGrilla(), Boolean.FALSE)); 
+            this.setGrilla(this.getFacadeService().getGrillaService().findGrillaById(estructura.getIdEstructura()));
+            this.setGrillaVO(this.getFacadeService().getEstructuraService().getGrillaVO(this.getGrilla(), Boolean.FALSE)); 
             this.buildCeldaMap();
             //taxonomia
-            this.setDiscoverableTaxonomySet(super.getFacade().getTaxonomyLoaderService().loadDiscoverableTaxonomySet(super.getFiltro().getXbrlTaxonomia().getUri()));                        
+            this.setDiscoverableTaxonomySet(super.getFacadeService().getTaxonomyLoaderService().loadDiscoverableTaxonomySet(super.getFiltroBackingBean().getXbrlTaxonomia().getUri()));                        
             //this.buildTaxonomyTreeModel();
             this.buildTaxonomyConcepts();
             
-            this.setMapping( super.getFacade().getTaxonomyMappingRevelacionService().buildMappingByEstructura(estructura, this.getTaxonomyConceptList()) );
+            this.setMapping( super.getFacadeService().getTaxonomyMappingRevelacionService().buildMappingByEstructura(estructura, this.getTaxonomyConceptList()) );
             this.setRenderMappingPanel(Boolean.TRUE);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
-            super.agregarErrorMessage(PropertyManager.getInstance().getMessage("general_mensaje_nota_get_catalogo_error"));
+            super.addErrorMessage(PropertyManager.getInstance().getMessage("general_mensaje_nota_get_catalogo_error"));
         } 
-        AdfFacesContext.getCurrentInstance().addPartialTarget(this.getMappingRichDecorativeBox());        
+        //AdfFacesContext.getCurrentInstance().addPartialTarget(this.getMappingRichDecorativeBox());        
     }
     
     
     public void guardarMapeo(ActionEvent event){
         try {
-            super.getFacade().getTaxonomyMappingRevelacionService().persistMappingTaxonomiaRevelacion(super.getFiltro().getXbrlTaxonomia(), this.getMapping());
-            super.agregarSuccesMessage("Se han guardado los Mapeos correctamente");   
+            super.getFacadeService().getTaxonomyMappingRevelacionService().persistMappingTaxonomiaRevelacion(super.getFiltroBackingBean().getXbrlTaxonomia(), this.getMapping());
+            super.addInfoMessage("Se han guardado los Mapeos correctamente");   
             this.setUnsavedMappingsCount(0);  
-            AdfFacesContext.getCurrentInstance().addPartialTarget(this.getViewMappingPanel()); 
-            AdfFacesContext.getCurrentInstance().addPartialTarget(this.getGrillaTable());
+            //AdfFacesContext.getCurrentInstance().addPartialTarget(this.getViewMappingPanel()); 
+            //AdfFacesContext.getCurrentInstance().addPartialTarget(this.getGrillaTable());
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
-            super.agregarErrorMessage("Error al guardar los datos de Mapeo");
+            super.addErrorMessage("Error al guardar los datos de Mapeo");
         }
     }
     
@@ -214,8 +214,8 @@ public class MapeadorTaxonomiaRevelacionesBackingBean extends SoporteBackingBean
         this.desmarcarCeldasSelecionadasByConcept();
         this.updateCeldaSelectedByConcept(this.getConceptoSelectedForMapping());
         this.updateMappingMap(this.getConceptoSelectedForMapping());
-        AdfFacesContext.getCurrentInstance().addPartialTarget(this.getViewMappingPanel()); 
-        AdfFacesContext.getCurrentInstance().addPartialTarget(this.getGrillaTable());
+        //AdfFacesContext.getCurrentInstance().addPartialTarget(this.getViewMappingPanel()); 
+        //AdfFacesContext.getCurrentInstance().addPartialTarget(this.getGrillaTable());
     }
 
     /**
@@ -225,14 +225,14 @@ public class MapeadorTaxonomiaRevelacionesBackingBean extends SoporteBackingBean
         final Concept concept = (Concept)event.getComponent().getAttributes().get("concepto");
         concept.setMapeado(Boolean.FALSE);
         try {
-            this.getFacade().getTaxonomyMappingRevelacionService().deleteMappingByConceptoAndTaxonomia(super.getFiltro().getXbrlTaxonomia(), concept);
+            this.getFacadeService().getTaxonomyMappingRevelacionService().deleteMappingByConceptoAndTaxonomia(super.getFiltroBackingBean().getXbrlTaxonomia(), concept);
             mapping.remove(concept);
             this.desmarcarCeldasSelecionadasByConcept();            
-            AdfFacesContext.getCurrentInstance().addPartialTarget(this.getViewMappingPanel());
-            AdfFacesContext.getCurrentInstance().addPartialTarget(this.getGrillaTable());
+            //AdfFacesContext.getCurrentInstance().addPartialTarget(this.getViewMappingPanel());
+            //AdfFacesContext.getCurrentInstance().addPartialTarget(this.getGrillaTable());
         } catch (Exception e) {
             logger.error(e.getCause(), e);
-            super.agregarErrorMessage(MessageFormat.format("Se ha producido un error al eliminar el Mapeo para el concepto {0}", concept.getLabel()));
+            super.addErrorMessage(MessageFormat.format("Se ha producido un error al eliminar el Mapeo para el concepto {0}", concept.getLabel()));
         }                        
     }
     
@@ -249,7 +249,7 @@ public class MapeadorTaxonomiaRevelacionesBackingBean extends SoporteBackingBean
     
     public void selectCeldaForMapping(ActionEvent event){
         if(conceptoSelectedForMapping == null){
-            super.agregarWarnMessage("Antes de incluir Celdas en el Mapeo. debe seleccionar un Concepto desde la Taxonomía XBRL.");
+            super.addWarnMessage("Antes de incluir Celdas en el Mapeo. debe seleccionar un Concepto desde la Taxonomï¿½a XBRL.");
             return;
         }
         final Celda celda = (Celda)event.getComponent().getAttributes().get("celda");
@@ -263,8 +263,8 @@ public class MapeadorTaxonomiaRevelacionesBackingBean extends SoporteBackingBean
         }                
         this.setUnsavedMappingsCount(this.getMapping().size());  
         this.updateMappingMap(this.getConceptoSelectedForMapping());
-        AdfFacesContext.getCurrentInstance().addPartialTarget(this.getViewMappingPanel());
-        AdfFacesContext.getCurrentInstance().addPartialTarget(this.getGrillaTable());
+        //AdfFacesContext.getCurrentInstance().addPartialTarget(this.getViewMappingPanel());
+        //AdfFacesContext.getCurrentInstance().addPartialTarget(this.getGrillaTable());
     }
             
     public void updateMappingMap(final Concept key) {                
@@ -290,18 +290,18 @@ public class MapeadorTaxonomiaRevelacionesBackingBean extends SoporteBackingBean
         List<Concept> filteredConcepts = null;
         filteredConcepts = select(this.getTaxonomyConceptAllList() ,having(on(Concept.class).getName(),  Matchers.startsWith(this.getTaxonomyConceptFilter().getId()) ));
         if(filteredConcepts == null || filteredConcepts.size() == 0){
-            super.agregarWarnMessage("No se encontraron resultados para su criterio de búsqueda.");
+            super.addWarnMessage("No se encontraron resultados para su criterio de bï¿½squeda.");
             return; 
         }
         this.setTaxonomyConceptList(filteredConcepts);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(this.getTaxonomyTable()); 
+        //AdfFacesContext.getCurrentInstance().addPartialTarget(this.getTaxonomyTable()); 
     }
     
     
     
     public void cleanFilterTaxonomyTable(ActionEvent event){                
         this.setTaxonomyConceptList(this.getTaxonomyConceptAllList());
-        AdfFacesContext.getCurrentInstance().addPartialTarget(this.getTaxonomyTable()); 
+        //AdfFacesContext.getCurrentInstance().addPartialTarget(this.getTaxonomyTable()); 
     }
     
     private void buildTaxonomyConcepts(){        
@@ -339,7 +339,7 @@ public class MapeadorTaxonomiaRevelacionesBackingBean extends SoporteBackingBean
             nodo.setObject(versionPeriodo);
             catalogoRoot.add(nodo);
             catalogoChildren = new ArrayList<TreeItem>();
-            for(Estructura estructura : super.getFacade().getEstructuraService().getEstructuraByVersion(versionPeriodo.getVersion(), false)){            
+            for(Estructura estructura : super.getFacadeService().getEstructuraService().getEstructuraByVersion(versionPeriodo.getVersion(), false)){            
                 catalogoChildren.add(new TreeItem(estructura));
             }
             nodo.setChildren(catalogoChildren); 
@@ -365,7 +365,7 @@ public class MapeadorTaxonomiaRevelacionesBackingBean extends SoporteBackingBean
      */
     public List<SelectItem> getCatalogoSelectItem() {
         List<SelectItem> lista = new ArrayList<SelectItem>();
-        if(super.getFiltro().getTipoCuadro().getIdTipoCuadro() != null){
+        if(super.getFiltroBackingBean().getTipoCuadro().getIdTipoCuadro() != null){
             this.buildCatalogoByTipo();
             for (Catalogo catalogo : this.getCatalogoList()) {
                 lista.add(new SelectItem(catalogo, catalogo.getNombre()));
@@ -382,7 +382,7 @@ public class MapeadorTaxonomiaRevelacionesBackingBean extends SoporteBackingBean
      * Construye una lista de Catalogo segun el tipo de Cuadro seleccionado
      */
     private void buildCatalogoByTipo(){        
-        final List<Catalogo> catalogoList = select(super.getComponenteBackingBean().getCatalogoList() ,having(on(Catalogo.class).getTipoCuadro().getIdTipoCuadro(), equalTo(super.getFiltro().getTipoCuadro().getIdTipoCuadro())));               
+        final List<Catalogo> catalogoList = select(super.getComponenteBackingBean().getCatalogoList() ,having(on(Catalogo.class).getTipoCuadro().getIdTipoCuadro(), equalTo(super.getFiltroBackingBean().getTipoCuadro().getIdTipoCuadro())));               
         this.setCatalogoList(catalogoList);
     }
     
@@ -400,10 +400,10 @@ public class MapeadorTaxonomiaRevelacionesBackingBean extends SoporteBackingBean
     
     /**
      * Metodo que construye una estructura de navegacion tipo Arbol
-     * con una DTS obtenida desde los archivos .xsd de la Taxonomía.
+     * con una DTS obtenida desde los archivos .xsd de la Taxonomï¿½a.
      */
     public void buildTaxonomyTreeModel() throws Exception { 
-        logger.info("Obteniendo Taxonomía desde file Server:"+super.getFiltro().getXbrlTaxonomia().getUri());
+        logger.info("Obteniendo Taxonomï¿½a desde file Server:"+super.getFiltroBackingBean().getXbrlTaxonomia().getUri());
         taxonomyRoot = new ArrayList<TaxonomyTreeItem>();
         ArrayList<TaxonomyTreeItem> conceptChildren = null;
         final DiscoverableTaxonomySet discoverableTaxonomySet = this.getDiscoverableTaxonomySet();
@@ -429,7 +429,7 @@ public class MapeadorTaxonomiaRevelacionesBackingBean extends SoporteBackingBean
     
     /**
      * Metodo que construye una estructura de navegacion tipo Arbol
-     * con una DTS obtenida desde los archivos .xsd de la Taxonomía.
+     * con una DTS obtenida desde los archivos .xsd de la Taxonomï¿½a.
      */
     public void buildTaxonomyTreeModel(String key) throws Exception {         
         taxonomyRoot = new ArrayList<TaxonomyTreeItem>();
@@ -491,7 +491,7 @@ public class MapeadorTaxonomiaRevelacionesBackingBean extends SoporteBackingBean
                 this.buildTaxonomyTreeModel(this.getParentTaxonomia());                   
             }
         } catch (Exception e) {
-            super.agregarErrorMessage("Se ha producido un error al consultar los conceptos de XBRL.");
+            super.addErrorMessage("Se ha producido un error al consultar los conceptos de XBRL.");
             logger.error(e);
             e.printStackTrace();
         }
@@ -554,11 +554,11 @@ public class MapeadorTaxonomiaRevelacionesBackingBean extends SoporteBackingBean
         return renderMappingPanel;
     }
 
-    public void setFiltroPaso(Filtro filtroPaso) {
+    public void setFiltroPaso(FiltroBackingBean filtroPaso) {
         this.filtroPaso = filtroPaso;
     }
 
-    public Filtro getFiltroPaso() {
+    public FiltroBackingBean getFiltroPaso() {
         return filtroPaso;
     }
 

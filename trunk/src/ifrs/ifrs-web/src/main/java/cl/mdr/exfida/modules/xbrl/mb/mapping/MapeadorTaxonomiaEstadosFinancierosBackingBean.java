@@ -1,18 +1,19 @@
-package cl.bicevida.xbrl.mb.mapping;
+package cl.mdr.exfida.modules.xbrl.navegador.mb.mapping;
 
 
 import static ch.lambdaj.Lambda.having;
 import static ch.lambdaj.Lambda.on;
 import static ch.lambdaj.Lambda.select;
 
-import cl.bicevida.revelaciones.common.mb.SoporteBackingBean;
-import cl.bicevida.revelaciones.common.util.PropertyManager;
-import cl.bicevida.revelaciones.ejb.cross.EeffUtil;
-import cl.bicevida.revelaciones.ejb.cross.Util;
-import cl.bicevida.revelaciones.ejb.entity.DetalleEeff;
-import cl.bicevida.revelaciones.ejb.entity.EstadoFinanciero;
-import cl.bicevida.revelaciones.ejb.entity.Periodo;
+
+
+import cl.mdr.ifrs.ejb.cross.EeffUtil;
+import cl.mdr.ifrs.ejb.cross.Util;
+import cl.mdr.ifrs.ejb.entity.DetalleEeff;
+import cl.mdr.ifrs.ejb.entity.EstadoFinanciero;
+import cl.mdr.ifrs.ejb.entity.Periodo;
 import cl.bicevida.xbrl.model.TaxonomyTreeItem;
+import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
 
 import java.io.Serializable;
 
@@ -51,7 +52,7 @@ import xbrlcore.taxonomy.Concept;
 import xbrlcore.taxonomy.DiscoverableTaxonomySet;
 
 
-public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends SoporteBackingBean implements Serializable {
+public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends AbstractBackingBean implements Serializable {
     private transient final Logger logger = Logger.getLogger(MapeadorTaxonomiaEstadosFinancierosBackingBean.class);
     @SuppressWarnings("compatibility")
     private static final long serialVersionUID = -6638283037052343681L;
@@ -100,13 +101,13 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends SoporteBacki
     @PostConstruct
     void init(){        
         try {
-            this.setPeriodoVigente(super.getFacade().getPeriodoService().findMaxPeriodoObj());
-            this.setEstadoFinancieroList(super.getFacade().getEstadoFinancieroService().getEeffVigenteByPeriodo(this.getPeriodoVigente().getIdPeriodo()));
-            this.setRangoCodigoFecuMap(super.getFacade().getTaxonomyMappingEstadoFinancieroService().getRangoCodigoFecuMap());
+            this.setPeriodoVigente(super.getFacadeService().getPeriodoService().findMaxPeriodoObj());
+            this.setEstadoFinancieroList(super.getFacadeService().getEstadoFinancieroService().getEeffVigenteByPeriodo(this.getPeriodoVigente().getIdPeriodo()));
+            this.setRangoCodigoFecuMap(super.getFacadeService().getTaxonomyMappingEstadoFinancieroService().getRangoCodigoFecuMap());
             mappingEstadoFinanciero = new LinkedHashMap<Concept, Map<EstadoFinanciero, Boolean>>();
             //mappingDetalleEstadoFinanciero = new LinkedHashMap<Concept, Map<DetalleEeff, Boolean>>();            
         } catch (Exception e) {
-            super.agregarErrorMessage("Se ha producido un error al inicializar los datos de la aplicación");
+            super.addErrorMessage("Se ha producido un error al inicializar los datos de la aplicaciï¿½n");
             logger.error(e);
         }
         
@@ -115,10 +116,10 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends SoporteBacki
     public void buscarTaxonomia(ActionEvent event){        
         try {            
             //taxonomia
-            this.setDiscoverableTaxonomySet(super.getFacade().getTaxonomyLoaderService().loadDiscoverableTaxonomySet(super.getFiltro().getXbrlTaxonomia().getUri()));                        
+            this.setDiscoverableTaxonomySet(super.getFacadeService().getTaxonomyLoaderService().loadDiscoverableTaxonomySet(super.getFiltro().getXbrlTaxonomia().getUri()));                        
             //this.buildTaxonomyTreeModel();
             this.buildTaxonomyConcepts();
-            this.setMappingEstadoFinanciero(super.getFacade().getTaxonomyMappingEstadoFinancieroService().buildMappingEstadoFinanciero(super.getFiltro().getXbrlTaxonomia(), this.getTaxonomyConceptList(), this.getEstadoFinancieroList()));
+            this.setMappingEstadoFinanciero(super.getFacadeService().getTaxonomyMappingEstadoFinancieroService().buildMappingEstadoFinanciero(super.getFiltro().getXbrlTaxonomia(), this.getTaxonomyConceptList(), this.getEstadoFinancieroList()));
             this.setRenderMappingPanel(Boolean.TRUE);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
@@ -148,7 +149,7 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends SoporteBacki
         final Concept concept = (Concept)event.getComponent().getAttributes().get("concepto");
         concept.setMapeado(Boolean.FALSE);
         try {
-            this.getFacade().getTaxonomyMappingEstadoFinancieroService().deleteMappingByConceptoAndTaxonomia(super.getFiltro().getXbrlTaxonomia(), concept);
+            this.getFacadeService().getTaxonomyMappingEstadoFinancieroService().deleteMappingByConceptoAndTaxonomia(super.getFiltro().getXbrlTaxonomia(), concept);
             mappingEstadoFinanciero.remove(concept);
             this.desmarcarCodigosFecu();  
             this.setCodigosFecuByConcept(null);
@@ -164,12 +165,12 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends SoporteBacki
     
     public void guardarMapeo(ActionEvent event){
         try {
-            super.getFacade().getTaxonomyMappingEstadoFinancieroService().persistMappingTaxonomiaEstadoFinanciero(super.getFiltro().getXbrlTaxonomia(), this.getMappingEstadoFinanciero());
-            super.agregarSuccesMessage("Se han guardado los Mapeos correctamente");    
+            super.getFacadeService().getTaxonomyMappingEstadoFinancieroService().persistMappingTaxonomiaEstadoFinanciero(super.getFiltro().getXbrlTaxonomia(), this.getMappingEstadoFinanciero());
+            super.addInfoMessage("Se han guardado los Mapeos correctamente");    
             this.setUnsavedMappingsCount(0);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
-            super.agregarErrorMessage("Error al guardar los datos de Mapeo");
+            super.addErrorMessage("Error al guardar los datos de Mapeo");
         }
     }
     
@@ -184,7 +185,7 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends SoporteBacki
     
     public void selectCodigoFecuForMapping(ActionEvent event){        
         if(conceptoSelectedForMapping == null){
-            super.agregarWarnMessage("Antes de incluir un Código FECU en el Mapeo. debe seleccionar un Concepto desde la Taxonomía XBRL.");
+            super.addWarnMessage("Antes de incluir un Cï¿½digo FECU en el Mapeo. debe seleccionar un Concepto desde la Taxonomï¿½a XBRL.");
             return;
         }
         final EstadoFinanciero estadoFinanciero = (EstadoFinanciero)event.getComponent().getAttributes().get("estadoFinanciero");
@@ -205,7 +206,7 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends SoporteBacki
     @Deprecated
     public void selectCuentaContableForMapping(ActionEvent event){        
         if(conceptoSelectedForMapping == null){
-            super.agregarWarnMessage("Antes de incluir una Cuenta Contable en el Mapeo. debe seleccionar un Concepto desde la Taxonomía XBRL.");
+            super.addWarnMessage("Antes de incluir una Cuenta Contable en el Mapeo. debe seleccionar un Concepto desde la Taxonomï¿½a XBRL.");
             return;
         }
         final DetalleEeff detalleEstadoFinanciero = (DetalleEeff)event.getComponent().getAttributes().get("detalleEstadoFinanciero");
@@ -247,7 +248,7 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends SoporteBacki
                 if(entry.getValue()){
                     EstadoFinanciero estadoFinanciero = entry.getKey();
                     estadoFinanciero.setSelectedForMapping(Boolean.TRUE);                    
-                    codigosFecuByConcept.add(new SelectItem( estadoFinanciero, MessageFormat.format("[{0}]", estadoFinanciero.getFecuFormat()), MessageFormat.format("Código FECU: {0} - {1}", estadoFinanciero.getFecuFormat(), estadoFinanciero.getCodigoFecu().getDescripcion()) ));
+                    codigosFecuByConcept.add(new SelectItem( estadoFinanciero, MessageFormat.format("[{0}]", estadoFinanciero.getFecuFormat()), MessageFormat.format("Cï¿½digo FECU: {0} - {1}", estadoFinanciero.getFecuFormat(), estadoFinanciero.getCodigoFecu().getDescripcion()) ));
                 }
             }
         }
@@ -267,7 +268,7 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends SoporteBacki
     
     /**
      * Metodo que construye una estructura de navegacion tipo Arbol
-     * con una DTS obtenida desde los archivos .xsd de la Taxonomía.
+     * con una DTS obtenida desde los archivos .xsd de la Taxonomï¿½a.
      */
     public void buildTaxonomyTreeModel() throws Exception {         
         taxonomyRoot = new ArrayList<TaxonomyTreeItem>();
@@ -296,7 +297,7 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends SoporteBacki
     
     /**
      * Metodo que construye una estructura de navegacion tipo Arbol
-     * con una DTS obtenida desde los archivos .xsd de la Taxonomía.
+     * con una DTS obtenida desde los archivos .xsd de la Taxonomï¿½a.
      */
     public void buildTaxonomyTreeModel(String key) throws Exception {         
         taxonomyRoot = new ArrayList<TaxonomyTreeItem>();

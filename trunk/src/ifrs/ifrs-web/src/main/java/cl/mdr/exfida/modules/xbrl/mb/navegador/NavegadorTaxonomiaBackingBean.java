@@ -1,4 +1,4 @@
-package cl.mdr.exfida.modules.xbrl.navegador.mb;
+package cl.mdr.exfida.modules.xbrl.navegador.mb.navegador;
 
 import static ch.lambdaj.Lambda.extract;
 import static ch.lambdaj.Lambda.having;
