@@ -434,5 +434,13 @@ public abstract class AbstractBackingBean {
 		}
 		return devuelve;
 	} 
+	
+	public String formatTaxonomyParentName(String name){
+        name = name.replaceAll("http://www.svs.cl/cl/fr/cs/role/", "");
+        if(name.contains("nota")){
+            name = Util.capitalizar(name.replaceAll("_role", ""));
+        }
+        return name;
+    }
 
 }

@@ -1,4 +1,4 @@
-package cl.mdr.exfida.modules.xbrl.navegador.mb.navegador;
+package cl.mdr.exfida.modules.xbrl.mb.navegador;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,10 +13,11 @@ import javax.faces.event.ActionEvent;
 import org.apache.log4j.Logger;
 import org.primefaces.component.calendar.Calendar;
 
+import cl.mdr.exfida.xbrl.ejb.entity.XbrlTaxonomia;
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
 import cl.mdr.ifrs.ejb.common.VigenciaEnum;
 import cl.mdr.ifrs.ejb.cross.Util;
-import cl.mdr.ifrs.ejb.entity.XbrlTaxonomia;
+
 
 @ManagedBean
 @ViewScoped

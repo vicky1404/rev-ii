@@ -1,4 +1,4 @@
-package cl.mdr.exfida.modules.xbrl.navegador.mb.mapping;
+package cl.mdr.exfida.modules.xbrl.mb.mapping;
 
 
 import static ch.lambdaj.Lambda.having;
@@ -12,8 +12,9 @@ import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.DetalleEeff;
 import cl.mdr.ifrs.ejb.entity.EstadoFinanciero;
 import cl.mdr.ifrs.ejb.entity.Periodo;
-import cl.bicevida.xbrl.model.TaxonomyTreeItem;
+import cl.mdr.exfida.modules.xbrl.model.TaxonomyTreeItem;
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
+import cl.mdr.ifrs.cross.mb.PropertyManager;
 
 import java.io.Serializable;
 
@@ -26,18 +27,22 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
+/*
 import oracle.adf.view.rich.component.rich.data.RichTree;
 import oracle.adf.view.rich.component.rich.layout.RichDecorativeBox;
 import oracle.adf.view.rich.component.rich.layout.RichPanelGroupLayout;
-import oracle.adf.view.rich.context.AdfFacesContext;
+*/
+//import oracle.adf.view.rich.context.AdfFacesContext;
 
 import org.apache.log4j.Logger;
-import org.apache.myfaces.trinidad.model.ChildPropertyTreeModel;
-import org.apache.myfaces.trinidad.model.TreeModel;
+//import org.apache.myfaces.trinidad.model.ChildPropertyTreeModel;
+//import org.apache.myfaces.trinidad.model.TreeModel;
 
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
@@ -51,10 +56,11 @@ import xbrlcore.linkbase.PresentationLinkbaseElement;
 import xbrlcore.taxonomy.Concept;
 import xbrlcore.taxonomy.DiscoverableTaxonomySet;
 
-
+@ManagedBean(name="mapeadorTaxonomiaEstadosFinancierosBackingBean")
+@ViewScoped
 public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends AbstractBackingBean implements Serializable {
     private transient final Logger logger = Logger.getLogger(MapeadorTaxonomiaEstadosFinancierosBackingBean.class);
-    @SuppressWarnings("compatibility")
+   
     private static final long serialVersionUID = -6638283037052343681L;
     
     //atributos generales
@@ -73,14 +79,16 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends AbstractBack
     //tree taxonomia
     private String parentTaxonomia;
     private transient ArrayList<TaxonomyTreeItem> taxonomyRoot;
-    private transient TreeModel taxonomyModel = null;
+    //private transient TreeModel taxonomyModel = null;
     private transient Object taxonomyInstance = null;   
     
     
     //bind de componentes    
+    /*
     private transient RichDecorativeBox mappingRichDecorativeBox;   
     private transient RichPanelGroupLayout viewMappingPanel;
     private transient RichTree conceptoXbrlTree;
+    */
     
     //mapping    
     private Concept conceptoSelectedForMapping;
@@ -102,12 +110,13 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends AbstractBack
     void init(){        
         try {
             this.setPeriodoVigente(super.getFacadeService().getPeriodoService().findMaxPeriodoObj());
-            this.setEstadoFinancieroList(super.getFacadeService().getEstadoFinancieroService().getEeffVigenteByPeriodo(this.getPeriodoVigente().getIdPeriodo()));
+            //this.setEstadoFinancieroList(super.getFacadeService().getEstadoFinancieroService().getEeffVigenteByPeriodo(this.getPeriodoVigente().getIdPeriodo(), this.getFiltroPeriodoEmpresa().getIdRut())); //TODO Descomentar y linea de abajo que tiene el rut en duro.
+            this.setEstadoFinancieroList(super.getFacadeService().getEstadoFinancieroService().getEeffVigenteByPeriodo(this.getPeriodoVigente().getIdPeriodo(), 15505123L));
             this.setRangoCodigoFecuMap(super.getFacadeService().getTaxonomyMappingEstadoFinancieroService().getRangoCodigoFecuMap());
             mappingEstadoFinanciero = new LinkedHashMap<Concept, Map<EstadoFinanciero, Boolean>>();
             //mappingDetalleEstadoFinanciero = new LinkedHashMap<Concept, Map<DetalleEeff, Boolean>>();            
-        } catch (Exception e) {
-            super.addErrorMessage("Se ha producido un error al inicializar los datos de la aplicaci�n");
+        } catch (Exception e) {        	
+            super.addErrorMessage("Se ha producido un error al inicializar los datos de la aplicación");
             logger.error(e);
         }
         
@@ -116,16 +125,16 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends AbstractBack
     public void buscarTaxonomia(ActionEvent event){        
         try {            
             //taxonomia
-            this.setDiscoverableTaxonomySet(super.getFacadeService().getTaxonomyLoaderService().loadDiscoverableTaxonomySet(super.getFiltro().getXbrlTaxonomia().getUri()));                        
+            this.setDiscoverableTaxonomySet(super.getFacadeService().getTaxonomyLoaderService().loadDiscoverableTaxonomySet(super.getFiltroBackingBean().getXbrlTaxonomia().getUri()));                        
             //this.buildTaxonomyTreeModel();
             this.buildTaxonomyConcepts();
-            this.setMappingEstadoFinanciero(super.getFacadeService().getTaxonomyMappingEstadoFinancieroService().buildMappingEstadoFinanciero(super.getFiltro().getXbrlTaxonomia(), this.getTaxonomyConceptList(), this.getEstadoFinancieroList()));
+            this.setMappingEstadoFinanciero(super.getFacadeService().getTaxonomyMappingEstadoFinancieroService().buildMappingEstadoFinanciero(super.getFiltroBackingBean().getXbrlTaxonomia(), this.getTaxonomyConceptList(), this.getEstadoFinancieroList()));
             this.setRenderMappingPanel(Boolean.TRUE);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
-            super.agregarErrorMessage(PropertyManager.getInstance().getMessage("general_mensaje_nota_get_catalogo_error"));
+            super.addErrorMessage(PropertyManager.getInstance().getMessage("general_mensaje_nota_get_catalogo_error"));
         } 
-        AdfFacesContext.getCurrentInstance().addPartialTarget(this.getMappingRichDecorativeBox());        
+        //AdfFacesContext.getCurrentInstance().addPartialTarget(this.getMappingRichDecorativeBox());        
     }
     
     public void fijarConceptoForMapping(ActionEvent event){        
@@ -141,23 +150,23 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends AbstractBack
         this.desmarcarCodigosFecu();
         //this.desmarcarCuentasContables();
         this.updateMappingDisplay(this.getConceptoSelectedForMapping());
-        AdfFacesContext.getCurrentInstance().addPartialTarget(this.getViewMappingPanel());
-        AdfFacesContext.getCurrentInstance().addPartialTarget(this.getMappingRichDecorativeBox());      
+        //AdfFacesContext.getCurrentInstance().addPartialTarget(this.getViewMappingPanel());
+        //AdfFacesContext.getCurrentInstance().addPartialTarget(this.getMappingRichDecorativeBox());      
     }
     
     public void eliminarConceptoForMapping(ActionEvent event){
         final Concept concept = (Concept)event.getComponent().getAttributes().get("concepto");
         concept.setMapeado(Boolean.FALSE);
         try {
-            this.getFacadeService().getTaxonomyMappingEstadoFinancieroService().deleteMappingByConceptoAndTaxonomia(super.getFiltro().getXbrlTaxonomia(), concept);
+            this.getFacadeService().getTaxonomyMappingEstadoFinancieroService().deleteMappingByConceptoAndTaxonomia(super.getFiltroBackingBean().getXbrlTaxonomia(), concept);
             mappingEstadoFinanciero.remove(concept);
             this.desmarcarCodigosFecu();  
             this.setCodigosFecuByConcept(null);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(this.getViewMappingPanel());
-            AdfFacesContext.getCurrentInstance().addPartialTarget(this.getMappingRichDecorativeBox());  
+            //AdfFacesContext.getCurrentInstance().addPartialTarget(this.getViewMappingPanel());
+            //AdfFacesContext.getCurrentInstance().addPartialTarget(this.getMappingRichDecorativeBox());  
         } catch (Exception e) {
             logger.error(e.getCause(), e);
-            super.agregarErrorMessage(MessageFormat.format("Se ha producido un error al eliminar el Mapeo para el concepto {0}", concept.getLabel()));
+            super.addErrorMessage(MessageFormat.format("Se ha producido un error al eliminar el Mapeo para el concepto {0}", concept.getLabel()));
         }
             
             
@@ -165,7 +174,7 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends AbstractBack
     
     public void guardarMapeo(ActionEvent event){
         try {
-            super.getFacadeService().getTaxonomyMappingEstadoFinancieroService().persistMappingTaxonomiaEstadoFinanciero(super.getFiltro().getXbrlTaxonomia(), this.getMappingEstadoFinanciero());
+            super.getFacadeService().getTaxonomyMappingEstadoFinancieroService().persistMappingTaxonomiaEstadoFinanciero(super.getFiltroBackingBean().getXbrlTaxonomia(), this.getMappingEstadoFinanciero());
             super.addInfoMessage("Se han guardado los Mapeos correctamente");    
             this.setUnsavedMappingsCount(0);
         } catch (Exception e) {
@@ -179,8 +188,8 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends AbstractBack
         this.getMappingEstadoFinanciero().clear();
         this.setConceptoSelectedForMapping(null);
         this.setCodigosFecuByConcept(null);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(this.getViewMappingPanel());
-        AdfFacesContext.getCurrentInstance().addPartialTarget(this.getMappingRichDecorativeBox());
+        //AdfFacesContext.getCurrentInstance().addPartialTarget(this.getViewMappingPanel());
+        //AdfFacesContext.getCurrentInstance().addPartialTarget(this.getMappingRichDecorativeBox());
     }
     
     public void selectCodigoFecuForMapping(ActionEvent event){        
@@ -199,8 +208,8 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends AbstractBack
         }                
         //this.setUnsavedMappingsCount(this.getMappingEstadoFinanciero().size() + this.getMappingDetalleEstadoFinanciero().size()); 
         this.updateMappingDisplay(this.getConceptoSelectedForMapping());
-        AdfFacesContext.getCurrentInstance().addPartialTarget(this.getViewMappingPanel());
-        AdfFacesContext.getCurrentInstance().addPartialTarget(this.getMappingRichDecorativeBox());
+        //AdfFacesContext.getCurrentInstance().addPartialTarget(this.getViewMappingPanel());
+        //AdfFacesContext.getCurrentInstance().addPartialTarget(this.getMappingRichDecorativeBox());
     }
     
     @Deprecated
@@ -220,8 +229,8 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends AbstractBack
         }                
         this.setUnsavedMappingsCount(this.getMappingEstadoFinanciero().size() + this.getMappingDetalleEstadoFinanciero().size());  
         this.updateMappingDisplay(this.getConceptoSelectedForMapping());
-        AdfFacesContext.getCurrentInstance().addPartialTarget(this.getViewMappingPanel());
-        AdfFacesContext.getCurrentInstance().addPartialTarget(this.getMappingRichDecorativeBox());
+        //AdfFacesContext.getCurrentInstance().addPartialTarget(this.getViewMappingPanel());
+        //AdfFacesContext.getCurrentInstance().addPartialTarget(this.getMappingRichDecorativeBox());
     }
 
     /**
@@ -346,19 +355,21 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends AbstractBack
     /**
      * @return
      */
+    /*
     public TreeModel getTaxonomyTreeModel() {                
         if (taxonomyModel == null){                
             taxonomyModel = new ChildPropertyTreeModel(taxonomyInstance, "children"); 
         }
         return taxonomyModel;
     }
+    */
 
     /**
      * @param instance
      */
     public void setListTaxonomyInstance(List instance) {
         this.taxonomyInstance = instance;
-        taxonomyModel = null;
+        //taxonomyModel = null;
     }
     
     public List<SelectItem> getFecuItems() {
@@ -371,7 +382,7 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends AbstractBack
     
     public void codigoFecuChangeListener(ValueChangeEvent valueChangeEvent) {
         if(valueChangeEvent.getNewValue() != null){
-            this.setDetalleEstadoFinancieroList(super.getFacade().getEstadoFinancieroService().getDetalleEeffByEeff((EstadoFinanciero)valueChangeEvent.getNewValue()));            
+            this.setDetalleEstadoFinancieroList(super.getFacadeService().getEstadoFinancieroService().getDetalleEeffByEeff((EstadoFinanciero)valueChangeEvent.getNewValue()));            
         }else{
             this.setDetalleEstadoFinancieroList(null);
         }
@@ -379,10 +390,12 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends AbstractBack
     
     public List<SelectItem> getTaxonomyParentItems(){
         List<SelectItem> items = new ArrayList<SelectItem>();
-        for(Map.Entry<String, List<PresentationLinkbaseElement>> entry : discoverableTaxonomySet.getPresentationLinkbase().getLinkRoleToElementList().entrySet()) {
-            if(entry.getKey().contains("eeff"))
-            items.add(new SelectItem( entry.getKey(), super.formatTaxonomyParentName(entry.getKey())));
-        }        
+        if (discoverableTaxonomySet != null){
+	        for(Map.Entry<String, List<PresentationLinkbaseElement>> entry : discoverableTaxonomySet.getPresentationLinkbase().getLinkRoleToElementList().entrySet()) {
+	            if(entry.getKey().contains("eeff"))
+	            items.add(new SelectItem( entry.getKey(), super.formatTaxonomyParentName(entry.getKey())));
+	        }        
+        }
         return items;
     }
     
@@ -401,7 +414,7 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends AbstractBack
                                                      .and(having(on(EstadoFinanciero.class).getIdFecu(), lessThanOrEqualTo(rango[1])))));
             }
         } catch (Exception e) {
-            super.agregarErrorMessage("Se ha producido un error al consultar los conceptos de XBRL.");
+            super.addErrorMessage("Se ha producido un error al consultar los conceptos de XBRL.");
             logger.error(e);
             e.printStackTrace();
         }
@@ -438,6 +451,7 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends AbstractBack
         return taxonomyRoot;
     }
 
+    /*
     public void setTaxonomyModel(TreeModel taxonomyModel) {
         this.taxonomyModel = taxonomyModel;
     }
@@ -445,7 +459,8 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends AbstractBack
     public TreeModel getTaxonomyModel() {
         return taxonomyModel;
     }
-
+	*/
+    
     public void setTaxonomyInstance(Object taxonomyInstance) {
         this.taxonomyInstance = taxonomyInstance;
     }
@@ -462,6 +477,7 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends AbstractBack
         return renderMappingPanel;
     }
 
+    /*
     public void setMappingRichDecorativeBox(RichDecorativeBox mappingRichDecorativeBox) {
         this.mappingRichDecorativeBox = mappingRichDecorativeBox;
     }
@@ -469,6 +485,7 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends AbstractBack
     public RichDecorativeBox getMappingRichDecorativeBox() {
         return mappingRichDecorativeBox;
     }
+    */
 
     public void setEstadoFinancieroList(List<EstadoFinanciero> estadoFinancieroList) {
         this.estadoFinancieroList = estadoFinancieroList;
@@ -550,6 +567,7 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends AbstractBack
         return cuentasContablesByConcept;
     }
 
+    /*
     public void setViewMappingPanel(RichPanelGroupLayout viewMappingPanel) {
         this.viewMappingPanel = viewMappingPanel;
     }
@@ -557,6 +575,7 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends AbstractBack
     public RichPanelGroupLayout getViewMappingPanel() {
         return viewMappingPanel;
     }
+    */
 
     public void setParentTaxonomia(String parentTaxonomia) {
         this.parentTaxonomia = parentTaxonomia;
@@ -582,6 +601,7 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends AbstractBack
         return estadoFinancieroFilteredList;
     }
 
+    /*
     public void setConceptoXbrlTree(RichTree conceptoXbrlTree) {
         this.conceptoXbrlTree = conceptoXbrlTree;
     }
@@ -589,4 +609,5 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends AbstractBack
     public RichTree getConceptoXbrlTree() {
         return conceptoXbrlTree;
     }
+    */
 }
