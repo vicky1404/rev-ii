@@ -6,18 +6,20 @@ package cl.mdr.ifrs.cross.mb;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import cl.mdr.ifrs.ejb.cross.Util;
+
+import cl.mdr.exfida.xbrl.ejb.entity.XbrlTaxonomia;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
 import cl.mdr.ifrs.ejb.entity.Empresa;
-import cl.mdr.ifrs.ejb.entity.Periodo;
+
 import cl.mdr.ifrs.ejb.entity.PeriodoEmpresa;
 import cl.mdr.ifrs.ejb.entity.TipoCuadro;
 import cl.mdr.ifrs.ejb.entity.Version;
-import cl.mdr.ifrs.ejb.service.local.PeriodoServiceLocal;
+
+
 
 @ManagedBean(name="filtroBackingBean")
 @SessionScoped
@@ -32,6 +34,7 @@ public class FiltroBackingBean implements Serializable{
     private Version version;
     private TipoCuadro tipoCuadro;
     private Long tipoFormula;
+    private XbrlTaxonomia xbrlTaxonomia;
     /*Mes y año que se selecciona en los filtros*/
     private String mes;
     private String anio;
@@ -49,7 +52,15 @@ public class FiltroBackingBean implements Serializable{
         tipoFormula = null;
     }
           
-    public FiltroBackingBean() {
+    public XbrlTaxonomia getXbrlTaxonomia() {
+		return xbrlTaxonomia;
+	}
+
+	public void setXbrlTaxonomia(XbrlTaxonomia xbrlTaxonomia) {
+		this.xbrlTaxonomia = xbrlTaxonomia;
+	}
+
+	public FiltroBackingBean() {
     }
 
 

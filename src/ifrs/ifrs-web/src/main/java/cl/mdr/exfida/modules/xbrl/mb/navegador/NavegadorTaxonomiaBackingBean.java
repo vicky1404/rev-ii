@@ -1,4 +1,4 @@
-package cl.mdr.exfida.modules.xbrl.navegador.mb.navegador;
+package cl.mdr.exfida.modules.xbrl.mb.navegador;
 
 import static ch.lambdaj.Lambda.extract;
 import static ch.lambdaj.Lambda.having;
@@ -29,9 +29,10 @@ import org.xml.sax.SAXException;
 
 import xbrlcore.taxonomy.Concept;
 import xbrlcore.taxonomy.DiscoverableTaxonomySet;
+import cl.mdr.exfida.xbrl.ejb.entity.XbrlTaxonomia;
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
 import cl.mdr.ifrs.ejb.common.VigenciaEnum;
-import cl.mdr.ifrs.ejb.entity.XbrlTaxonomia;
+
 
 /**
  * @author Rodrigo Reyes C.

@@ -7,7 +7,7 @@ import javax.faces.convert.FacesConverter;
 
 import org.apache.log4j.Logger;
 
-import cl.mdr.ifrs.ejb.entity.XbrlTaxonomia;
+import cl.mdr.exfida.xbrl.ejb.entity.XbrlTaxonomia;
 
 import com.google.common.base.Strings;
 import com.google.gson.Gson;
@@ -22,7 +22,8 @@ public class XbrlTaxonomiaConverter implements Converter {
 		XbrlTaxonomia taxonomia = null;
 				
 		if(!Strings.isNullOrEmpty(string)){
-			final Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+			//final Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+			final Gson gson = new GsonBuilder().create();
 			try {
 				taxonomia = gson.fromJson(string, XbrlTaxonomia.class);
 			} catch (final Exception e) {
@@ -37,7 +38,7 @@ public class XbrlTaxonomiaConverter implements Converter {
 		String json = "";
 		
 		if(object instanceof XbrlTaxonomia){
-			final Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+			final Gson gson = new GsonBuilder().create();
 
 			json = gson.toJson(object, XbrlTaxonomia.class);
 		}

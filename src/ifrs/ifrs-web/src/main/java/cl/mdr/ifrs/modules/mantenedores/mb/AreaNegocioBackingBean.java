@@ -84,11 +84,11 @@ public class AreaNegocioBackingBean extends AbstractBackingBean implements Seria
 			
 			List<AreaNegocio> areaNegocioListFinal = new ArrayList<AreaNegocio>();
 			List<AreaNegocio> areaNegocioList = super.getFacadeService().getAreaNegocioService().findAllByEmpresa(super.getFiltroBackingBean().getEmpresa(), this.getVigente());
-			
+			areaNegocioListFinal = areaNegocioList;
 				if (vigente != null){
 					for (AreaNegocio areaNegocio : areaNegocioList){
-							if (areaNegocio.getVigente() != null && areaNegocio.getVigente().equals(vigente)){
-								areaNegocioListFinal.add(areaNegocio);
+							if (areaNegocio.getVigente() != null && !areaNegocio.getVigente().equals(vigente)){
+								areaNegocioListFinal.remove(areaNegocio);
 							}
 					}
 				}
