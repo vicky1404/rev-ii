@@ -1,4 +1,4 @@
-package cl.mdr.exfida.ejb.xbrl.service.local;
+package cl.mdr.exfida.xbrl.ejb.service.local;
 
 import java.io.IOException;
 import java.util.Date;
@@ -10,7 +10,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
 import xbrlcore.taxonomy.DiscoverableTaxonomySet;
-import cl.mdr.ifrs.ejb.entity.XbrlTaxonomia;
+import cl.mdr.exfida.xbrl.ejb.entity.XbrlTaxonomia;
 
 @Local
 public interface TaxonomyLoaderServiceLocal {

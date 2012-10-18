@@ -3,12 +3,14 @@ package cl.mdr.ifrs.ejb.facade.local;
 
 import javax.ejb.Local;
 
-import cl.mdr.exfida.ejb.xbrl.service.local.TaxonomyLoaderServiceLocal;
+
+import cl.mdr.exfida.xbrl.ejb.service.local.TaxonomyLoaderServiceLocal;
+import cl.mdr.exfida.xbrl.ejb.service.local.TaxonomyMappingEstadoFinancieroServiceLocal;
+import cl.mdr.exfida.xbrl.ejb.service.local.TaxonomyMappingRevelacionServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.CargadorEeffServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.CargadorEstructuraServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.CatalogoServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.CeldaServiceLocal;
-//import cl.mdr.ifrs.ejb.service.local.EmpresaServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.AreaNegocioServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.EmpresaServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.EstadoFinancieroServiceLocal;
@@ -129,5 +131,18 @@ public interface FacadeServiceLocal{
      * @return Interfaz local de ParametroServiceBean
      */
     ParametroServiceLocal getParametroService();
+    
+    /**
+     * 
+     * @return Interfaz local de TaxonomyMappingRevelacionServiceBean
+     */
+    TaxonomyMappingRevelacionServiceLocal getTaxonomyMappingRevelacionService();
+    
+    /**
+     * 
+     * @return Interfaz local de TaxonomyMappingEstadoFinancieroServiceBean
+     */
+    TaxonomyMappingEstadoFinancieroServiceLocal getTaxonomyMappingEstadoFinancieroService();
+
     
 }

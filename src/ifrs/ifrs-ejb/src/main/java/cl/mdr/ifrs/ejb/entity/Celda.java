@@ -21,11 +21,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
-
-
 import com.google.gson.annotations.Expose;
 
 import cl.mdr.ifrs.ejb.common.Constantes;
@@ -145,7 +140,9 @@ public class Celda implements Serializable {
     @Transient
     private boolean valid = true;
     
-   
+    @Transient
+    private boolean selectedByMapping;
+    
 	public Celda() {
     }
 
@@ -432,5 +429,14 @@ public class Celda implements Serializable {
 	public void setValid(boolean valid) {
 		this.valid = valid;
 	}
+	
+	public boolean isSelectedByMapping() {
+		return selectedByMapping;
+	}
+
+	public void setSelectedByMapping(boolean selectedByMapping) {
+		this.selectedByMapping = selectedByMapping;
+	}
+
 
 }
