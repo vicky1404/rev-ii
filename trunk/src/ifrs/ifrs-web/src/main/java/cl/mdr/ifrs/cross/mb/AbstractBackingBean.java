@@ -417,7 +417,7 @@ public abstract class AbstractBackingBean {
 	
 	private String getlicFile(){
 		
-		return getExternalContext().getRealPath("\\") .concat( "WEB-INF\\" )  .concat( Constantes.LIC_FILE_NAME);
+		return getExternalContext().getRealPath(File.separator) .concat( "WEB-INF" ).concat(File.separator)  .concat( Constantes.LIC_FILE_NAME);
 		
 	}
 	
