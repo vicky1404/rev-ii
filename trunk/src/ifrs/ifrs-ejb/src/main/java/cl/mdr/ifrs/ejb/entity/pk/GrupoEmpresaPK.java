@@ -9,6 +9,9 @@ public class GrupoEmpresaPK implements Serializable {
 	
 	public String idGrupoAcceso;      
     public Long idRut;
+    
+    public GrupoEmpresaPK() {
+	}
 	
     public GrupoEmpresaPK(String idGrupoAcceso, Long idRut) {
 		super();
