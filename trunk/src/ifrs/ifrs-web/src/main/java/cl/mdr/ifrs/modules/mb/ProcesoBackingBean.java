@@ -75,7 +75,7 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
 			versionList = getFacadeService().getVersionService().findVersionByCatalogoPeriodo(getFiltroBackingBean().getCatalogo().getIdCatalogo(),getFiltroBackingBean().getPeriodoEmpresa());
 			versionSeleccionada = getFacadeService().getVersionService().findUltimaVersionVigente(getFiltroBackingBean().getPeriodoEmpresa().getIdPeriodo(), 
 																								  getFiltroBackingBean().getPeriodoEmpresa().getIdRut(), 
-																								  getNombreUsuario(), getFiltroBackingBean().getCatalogo().getIdCatalogo());
+																								  getFiltroBackingBean().getCatalogo().getIdCatalogo());
 			if(versionSeleccionada==null){
 				addNotFoundMessage();
 				return;
@@ -303,8 +303,6 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
 	
 	//TODO cambiar metodo de posicion
     public void setListGrilla(List<Estructura> estructuraList) throws Exception {
-    	
-    	System.out.println("entro a metodo list grilla");
         
         for(Estructura estructuras : estructuraList){
 
