@@ -169,8 +169,9 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
                 getFiltroBackingBean().setCatalogo(catalogo);
                 this.setCatalogo(catalogo);
                 try{
-                    versionVigente = getFacadeService().getVersionService().findUltimaVersionVigente(periodoEmpresa.getIdPeriodo(), periodoEmpresa.getIdRut(), getNombreUsuario(),catalogo.getIdCatalogo());
+                    versionVigente = getFacadeService().getVersionService().findUltimaVersionVigente(periodoEmpresa.getIdPeriodo(), periodoEmpresa.getIdRut(), catalogo.getIdCatalogo());
                     estructuras = getFacadeService().getEstructuraService().findEstructuraByVersion(versionVigente);
+                    versionVigente.setEstructuraList(estructuras);
                 }catch(Exception e){
                     addErrorMessage(PropertyManager.getInstance().getMessage("general_error_al_buscar_versiones"));
                     logger.error(PropertyManager.getInstance().getMessage("general_error_al_buscar_versiones"),e);
@@ -298,7 +299,8 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
         	final Estructura estructura = (Estructura)event.getComponent().getAttributes().get("estructura");
         	final Catalogo catalogo = (Catalogo)event.getComponent().getAttributes().get("catalogo");
         	
-            Grilla grilla = this.getFacadeService().getGrillaService().findGrillaById(estructura.getIdEstructura());
+            //Grilla grilla = this.getFacadeService().getGrillaService().findGrillaById(estructura.getIdEstructura()); RDV
+        	Grilla grilla = estructura.getGrilla();
             this.getFacadeService().getEstadoFinancieroService().loadEEFFByGrilla(grilla);
             grillaVO = this.getFacadeService().getEstructuraService().getGrillaVO(grilla, Boolean.FALSE);
             grillaVO.setGrilla(grilla);
