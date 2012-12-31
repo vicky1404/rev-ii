@@ -80,7 +80,7 @@ public class RelacionEeff implements Serializable {
     private BigDecimal montoTotal;
     
     @Expose
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumns( { @JoinColumn(name = "ID_COLUMNA", referencedColumnName = "ID_COLUMNA"),
                     @JoinColumn(name = "ID_GRILLA", referencedColumnName = "ID_GRILLA"),
                     @JoinColumn(name = "ID_FILA", referencedColumnName = "ID_FILA") })

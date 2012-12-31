@@ -55,7 +55,7 @@ import cl.mdr.ifrs.ejb.common.Constantes;
                  			 		 " and v.catalogo.vigencia = 1 group by v.catalogo.idCatalogo) " +
                  			 		 " order by o.catalogo.orden"),
                  
-                 @NamedQuery(name = Version.FIND_ULTIMA_VERSION_VIGENTE, 
+                  /*RDV@NamedQuery(name = Version.FIND_ULTIMA_VERSION_VIGENTE, 
                  			 query = " select ve " +
                  			 		 " from Version ve, UsuarioGrupo ug, CatalogoGrupo cg join fetch ve.estructuraList" +
                  			 		 " where ve.catalogo.idCatalogo = :idCatalogo " +
@@ -64,8 +64,16 @@ import cl.mdr.ifrs.ejb.common.Constantes;
                  			 		 " and ug.nombreUsuario = :usuario " +
                  			 		 " and cg.idGrupoAcceso = ug.idGrupo " +
                  			 		 " and ve.periodoEmpresa.idPeriodo = :idPeriodo " +
-                 			 		 " and ve.periodoEmpresa.idRut = :idRut "),                 
-                 
+                 			 		 " and ve.periodoEmpresa.idRut = :idRut "),*/              
+		 		@NamedQuery(name = Version.FIND_ULTIMA_VERSION_VIGENTE, 
+	            			 query = " select ve " +
+	            			 		 " from Version ve " +
+	            			 		 " where " +
+	            			 		 " ve.catalogo.idCatalogo = :idCatalogo " +
+	            			 		 " and ve.vigencia = 1 " +
+	            			 		 " and ve.periodoEmpresa.idPeriodo = :idPeriodo " +
+	            			 		 " and ve.periodoEmpresa.idRut = :idRut "),
+                        			 		 
                  @NamedQuery(name = Version.VERSION_FIND_BY_FILTRO,
                             query = " select distinct v " +
                             		" from Version v, CatalogoGrupo cg, UsuarioGrupo ug, GrupoEmpresa ge join fetch v.estructuraList where " +

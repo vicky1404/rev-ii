@@ -12,43 +12,72 @@ public class RelacionEeffPK implements Serializable {
 	 */
 	private static final long serialVersionUID = -6506132959434868875L;
 	private Long idFecu;
-    private Long idPeriodo;
+	private Long idPeriodo;
+	private Long idRut;
+	private Long idGrilla;
+	private Long idColumna;
+	private Long idFila;
 
     public RelacionEeffPK() {
     }
 
-    public RelacionEeffPK(Long idFecu, Long idPeriodo) {
-        this.idFecu = idFecu;
-        this.idPeriodo = idPeriodo;
-    }
 
-    public boolean equals(Object other) {
-        if (other instanceof RelacionEeffPK) {
-            final RelacionEeffPK otherRelacionEeff1PK = (RelacionEeffPK)other;
-            final boolean areEqual =
-                (otherRelacionEeff1PK.idFecu.equals(idFecu) && otherRelacionEeff1PK.idPeriodo.equals(idPeriodo));
-            return areEqual;
-        }
-        return false;
-    }
+	public RelacionEeffPK(Long idFecu, Long idPeriodo, Long idRut, Long idGrilla, Long idColumna, Long idFila) {
+		this.idFecu = idFecu;
+		this.idPeriodo = idPeriodo;
+		this.idRut = idRut;
+		this.idGrilla = idGrilla;
+		this.idColumna = idColumna;
+		this.idFila = idFila;
+	}
 
-    public int hashCode() {
-        return super.hashCode();
-    }
+	public Long getIdFecu() {
+		return idFecu;
+	}
 
-    public Long getIdFecu() {
-        return idFecu;
-    }
+	public void setIdFecu(Long idFecu) {
+		this.idFecu = idFecu;
+	}
 
-    public void setIdFecu(Long idFecu) {
-        this.idFecu = idFecu;
-    }
+	public Long getIdPeriodo() {
+		return idPeriodo;
+	}
 
-    public Long getIdPeriodo() {
-        return idPeriodo;
-    }
+	public void setIdPeriodo(Long idPeriodo) {
+		this.idPeriodo = idPeriodo;
+	}
 
-    public void setIdPeriodo(Long idPeriodo) {
-        this.idPeriodo = idPeriodo;
-    }
+	public Long getIdRut() {
+		return idRut;
+	}
+
+	public void setIdRut(Long idRut) {
+		this.idRut = idRut;
+	}
+
+	public Long getIdGrilla() {
+		return idGrilla;
+	}
+
+	public void setIdGrilla(Long idGrilla) {
+		this.idGrilla = idGrilla;
+	}
+
+	public Long getIdColumna() {
+		return idColumna;
+	}
+
+	public void setIdColumna(Long idColumna) {
+		this.idColumna = idColumna;
+	}
+
+	public Long getIdFila() {
+		return idFila;
+	}
+
+	public void setIdFila(Long idFila) {
+		this.idFila = idFila;
+	}
+
+  
 }
