@@ -36,6 +36,9 @@ public class TipoCelda implements Serializable {
     private String nombre;
     @OneToMany(mappedBy = "tipoCelda")
     private List<Celda> celdaList;
+    @OneToMany(mappedBy = "tipoCelda")
+    private List<SubCelda> subCeldaList;
+
 
     public TipoCelda() {
     }
@@ -116,5 +119,13 @@ public class TipoCelda implements Serializable {
         buffer.append(getNombre());
         buffer.append(']');
         return buffer.toString();
+    }
+
+    public void setSubCeldaList(List<SubCelda> subCeldaList) {
+        this.subCeldaList = subCeldaList;
+    }
+
+    public List<SubCelda> getSubCeldaList() {
+        return subCeldaList;
     }
 }

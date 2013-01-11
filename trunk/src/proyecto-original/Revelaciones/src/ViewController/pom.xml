@@ -44,6 +44,13 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
+      <groupId>AppRevelaciones</groupId>
+      <artifactId>XbrlCore</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <type>jar</type>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
       <groupId>oracle.jdeveloper.library</groupId>
       <artifactId>JSP-Runtime</artifactId>
       <version>11.1.2.1.0</version>

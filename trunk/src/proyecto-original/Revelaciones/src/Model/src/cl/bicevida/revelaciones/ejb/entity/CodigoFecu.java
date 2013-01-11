@@ -1,8 +1,6 @@
 package cl.bicevida.revelaciones.ejb.entity;
 
 
-import cl.bicevida.revelaciones.ejb.common.Constantes;
-
 import java.io.Serializable;
 
 import java.util.List;
@@ -14,10 +12,11 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 @Entity
-@NamedQueries( { @NamedQuery(name = CodigoFecu.FIND_ALL, query = "select o from CodigoFecu o"),
+@NamedQueries( { @NamedQuery(name = CodigoFecu.FIND_ALL, query = "select o from CodigoFecu o order by o.idFecu"),
                  @NamedQuery(name = CodigoFecu.FIND_VIGENTE, query = "select o from CodigoFecu o where o.vigencia = 1 order by o.idFecu")})
 @Table(name = "REV_CODIGO_FECU")
 
@@ -35,7 +34,7 @@ public class CodigoFecu implements Serializable {
         
     private String descripcion;
         
-    private Short vigencia;
+    private Long vigencia;
     
     @OneToMany(mappedBy = "codigoFecu")
     private List<EstadoFinanciero> eeffList;
@@ -43,13 +42,20 @@ public class CodigoFecu implements Serializable {
     @OneToMany(mappedBy = "codigoFecu")
     private List<RelacionEeff> relacionEeffList;
     
+    @Transient
+    private boolean editarId = false;
+    
     public CodigoFecu(){
     }
 
-    public CodigoFecu(Long idFecu, String descripcion, Short vigente) {
+    public CodigoFecu(Long idFecu, String descripcion, Long vigente) {
         this.idFecu = idFecu;
         this.descripcion = descripcion;
         this.vigencia = vigente;
+    }
+    
+    public CodigoFecu(boolean editarId) {
+        this.editarId = editarId;
     }
 
     public void setIdFecu(Long idFecu) {
@@ -68,11 +74,11 @@ public class CodigoFecu implements Serializable {
         return descripcion;
     }
 
-    public void setVigencia(Short vigente) {
+    public void setVigencia(Long vigente) {
         this.vigencia = vigente;
     }
 
-    public Short getVigencia() {
+    public Long getVigencia() {
         return vigencia;
     }
 
@@ -113,5 +119,13 @@ public class CodigoFecu implements Serializable {
         int result = 1;
         result = PRIME * result + ((idFecu == null) ? 0 : idFecu.hashCode());
         return result;
+    }
+
+    public void setEditarId(boolean editarId) {
+        this.editarId = editarId;
+    }
+
+    public boolean isEditarId() {
+        return editarId;
     }
 }

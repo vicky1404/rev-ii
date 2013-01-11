@@ -26,7 +26,9 @@ public interface PeriodoServiceLocal {
     
     Periodo findPeriodoByPeriodo(Long periodo);
     
-    List<VersionPeriodo> findPeriodoAllByPeriodoCatalogo(Catalogo catalogo,Periodo periodo);
+    List<VersionPeriodo> findPeriodoAllByPeriodoCatalogo(Catalogo catalogo, Periodo periodo);
+    
+    List<VersionPeriodo> findPeriodoAllByPeriodoCatalogoVigente(Catalogo catalogo, Periodo periodo);
     
     /**
      * retorna un set de datos por filtros opcionales para listar catalogo según:
@@ -100,4 +102,11 @@ public interface PeriodoServiceLocal {
      * @return
      */
     VersionPeriodo findVersionPeriodoById(Long idPeriodo, Long idVersion);
+
+    /**
+     * @param idVersion
+     * @return
+     * @throws Exception
+     */
+    List<VersionPeriodo> findVersionPeriodoByIdVersion(Long idVersion) throws Exception;
 }

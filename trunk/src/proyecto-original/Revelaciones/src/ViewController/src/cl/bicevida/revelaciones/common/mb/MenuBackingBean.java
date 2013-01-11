@@ -4,12 +4,17 @@ package cl.bicevida.revelaciones.common.mb;
 import cl.bicevida.revelaciones.common.model.MenuModel;
 import cl.bicevida.revelaciones.common.model.TreeItem;
 import cl.bicevida.revelaciones.common.util.PropertyManager;
+import cl.bicevida.revelaciones.ejb.common.TipoEstructuraEnum;
 import cl.bicevida.revelaciones.ejb.common.VigenciaEnum;
 import cl.bicevida.revelaciones.ejb.entity.Catalogo;
+import cl.bicevida.revelaciones.ejb.entity.Estructura;
+import cl.bicevida.revelaciones.ejb.entity.Grilla;
 import cl.bicevida.revelaciones.ejb.entity.Grupo;
 import cl.bicevida.revelaciones.ejb.entity.Menu;
 import cl.bicevida.revelaciones.ejb.entity.MenuGrupo;
+import cl.bicevida.revelaciones.ejb.entity.SubGrilla;
 import cl.bicevida.revelaciones.ejb.entity.TipoCuadro;
+import cl.bicevida.revelaciones.ejb.entity.Version;
 
 import java.io.Serializable;
 
@@ -39,6 +44,7 @@ public class MenuBackingBean extends SoporteBackingBean implements Serializable{
     private transient ArrayList<TreeItem> catalogoRoot;
     private transient TreeModel catalogoModel = null;
     private transient Object catalogoInstance = null;
+    private List<Catalogo> catalogoSubCuadrosList;
     
     /**
      * Construye la structure List<MenuModel> para despliegue
@@ -121,27 +127,83 @@ public class MenuBackingBean extends SoporteBackingBean implements Serializable{
      * para menu de catalogo por tipo de cuadro
      */
     public void getCatalogoTreeModel() throws Exception {        
+        
         catalogoRoot = new ArrayList<TreeItem>();
         ArrayList<TreeItem> catalogoChildren = null;
-        TreeItem nodo = null;   
+        ArrayList<TreeItem> catalogoSubCuadro = null;
+        TreeItem nodo = null;
+        boolean contieneSubCuadro = Boolean.FALSE;
         boolean bloqueado = super.isSistemaBloqueado();
+        
         for(TipoCuadro tipoCuadro : this.getTiposCuadroFromCatalogo(this.getCatalogoList())){
-            nodo = new TreeItem();
+            nodo = new TreeItem();  
             nodo.setParent(Boolean.TRUE);
             nodo.setObject(tipoCuadro);
+            
             catalogoRoot.add(nodo);
             catalogoChildren = new ArrayList<TreeItem>();
+            
             for(Catalogo catalogo : this.getCatalogoList()){
-                if(catalogo.getTipoCuadro().equals(tipoCuadro)){                    
-                    catalogoChildren.add(new TreeItem(catalogo, bloqueado));
+                if(catalogo.getTipoCuadro().equals(tipoCuadro)){
+                    List<Version> versionConSubCuadro = this.contieneSubCuadro(catalogo);                    
+                    
+                    if (versionConSubCuadro != null && versionConSubCuadro.size() > 0){
+                            contieneSubCuadro = Boolean.TRUE;
+                    } else {
+                            contieneSubCuadro = Boolean.FALSE;
+                        }
+                    
+                    TreeItem children1 = new TreeItem(catalogo, bloqueado, contieneSubCuadro, catalogo.getNombre(), catalogo.getTitulo());
+                    catalogoSubCuadro = new ArrayList<TreeItem>();
+                    for (Version version : versionConSubCuadro){
+                        for (Estructura estructura : version.getEstructuraList()){
+                            for (Grilla grilla : estructura.getGrillaList()){
+                                for (SubGrilla subGrilla : grilla.getSubGrillaList()){
+                                    if (super.existeGrupoEnLista(subGrilla.getGrupo() , super.getGruposByUsuario())){
+                                        
+                                            String nombreGrupo = null;
+                                            if (subGrilla.getGrupo() != null ){
+                                                    nombreGrupo = subGrilla.getGrupo().getNombre();
+                                                }
+                                                   
+                                            catalogoSubCuadro.add(new TreeItem(subGrilla, bloqueado, version.getCatalogo().getNombre(), version.getCatalogo().getTitulo(), nombreGrupo));
+                                            children1.setContieneSubCuadros(Boolean.TRUE);
+                                        }
+                                    }
+                                    if (estructura.getTipoEstructura().getIdTipoEstructura().equals(TipoEstructuraEnum.GRILLA.getKey()))
+                                    break;
+                                }
+                                if (estructura.getTipoEstructura().getIdTipoEstructura().equals(TipoEstructuraEnum.GRILLA.getKey()))
+                                break;
+                            }
+                            break;
+                    } 
+                    if (catalogoSubCuadro.size() > 0){
+                        children1.setChildren(catalogoSubCuadro);
+                    }
+                    catalogoChildren.add(children1);
                 }
             }
+            
             nodo.setChildren(catalogoChildren); 
-        }                
+        }      
+            
         this.setListInstance(catalogoRoot);
     }
     
-    
+   
+    private List<Version> contieneSubCuadro(Catalogo catalogo){
+         
+         List<Version> versionConSubGrilla =new ArrayList<Version>();
+         
+        for (Version version : catalogo.getVersionList()){
+            if (version.getVigencia().equals(1L) && version.isDesagregado()){
+                versionConSubGrilla.add(version);
+            } 
+         }
+            
+       return versionConSubGrilla;
+   } 
     
     private List<TipoCuadro> getTiposCuadroFromCatalogo(final List<Catalogo> catalogoList){
         Set<TipoCuadro> tipoCuadroSet = new LinkedHashSet<TipoCuadro>();
@@ -189,5 +251,13 @@ public class MenuBackingBean extends SoporteBackingBean implements Serializable{
     public void setListInstance(List instance) {
         this.catalogoInstance = instance;
         catalogoModel = null;
+    }
+
+    public void setCatalogoSubCuadrosList(List<Catalogo> catalogoSubCuadrosList) {
+        this.catalogoSubCuadrosList = catalogoSubCuadrosList;
+    }
+
+    public List<Catalogo> getCatalogoSubCuadrosList() {
+        return catalogoSubCuadrosList;
     }
 }

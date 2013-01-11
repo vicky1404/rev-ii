@@ -3,22 +3,27 @@ package cl.bicevida.revelaciones.ejb.service;
 
 import cl.bicevida.revelaciones.ejb.common.EstadoCuadroEnum;
 import static cl.bicevida.revelaciones.ejb.cross.Constantes.PERSISTENCE_UNIT_NAME;
+import cl.bicevida.revelaciones.ejb.cross.Util;
 import cl.bicevida.revelaciones.ejb.entity.AgrupacionColumna;
 import cl.bicevida.revelaciones.ejb.entity.Catalogo;
 import cl.bicevida.revelaciones.ejb.entity.Celda;
 import cl.bicevida.revelaciones.ejb.entity.Columna;
 import cl.bicevida.revelaciones.ejb.entity.EstadoCuadro;
+import cl.bicevida.revelaciones.ejb.entity.EstadoFinanciero;
 import cl.bicevida.revelaciones.ejb.entity.Estructura;
 import cl.bicevida.revelaciones.ejb.entity.Grilla;
 import cl.bicevida.revelaciones.ejb.entity.HistorialVersionPeriodo;
 import cl.bicevida.revelaciones.ejb.entity.Html;
 import cl.bicevida.revelaciones.ejb.entity.Periodo;
+import cl.bicevida.revelaciones.ejb.entity.RelacionDetalleEeff;
+import cl.bicevida.revelaciones.ejb.entity.RelacionEeff;
 import cl.bicevida.revelaciones.ejb.entity.Texto;
 import cl.bicevida.revelaciones.ejb.entity.TipoCuadro;
 import cl.bicevida.revelaciones.ejb.entity.TipoEstructura;
 import cl.bicevida.revelaciones.ejb.entity.Version;
 import cl.bicevida.revelaciones.ejb.entity.VersionPeriodo;
 import cl.bicevida.revelaciones.ejb.service.local.CeldaServiceLocal;
+import cl.bicevida.revelaciones.ejb.service.local.EstadoFinancieroServiceLocal;
 import cl.bicevida.revelaciones.ejb.service.local.EstructuraServiceLocal;
 import cl.bicevida.revelaciones.ejb.service.local.GrillaServiceLocal;
 import cl.bicevida.revelaciones.ejb.service.local.PeriodoServiceLocal;
@@ -68,6 +73,9 @@ public class VersionServiceBean implements VersionServiceLocal{
     
     @EJB
     private PeriodoServiceLocal periodoService;
+    
+    @EJB
+    private EstadoFinancieroServiceLocal eeffSerivce;
 
     
     public VersionServiceBean() {
@@ -270,15 +278,24 @@ public class VersionServiceBean implements VersionServiceLocal{
             
             if(grillaModelMap.containsKey(estructura.getOrden())){
                 GrillaModelVO grillaModel = grillaModelMap.get(estructura.getOrden());
-                if(estructura.getTipoEstructura().getIdTipoEstructura() == TipoEstructura.ESTRUCTURA_TIPO_GRILLA){                    
+                if(estructura.getTipoEstructura().getIdTipoEstructura() == TipoEstructura.ESTRUCTURA_TIPO_GRILLA){
+                    
+                    eeffSerivce.deleteAllRelacionByGrillaPeriodo(versionPeriodo.getIdPeriodo(), estructura.getIdEstructura());
+                    
                     List<Grilla>  grillaList = new ArrayList<Grilla>();
                     Grilla grilla = new Grilla();
                     grilla.setIdGrilla(estructura.getIdEstructura());
                     grilla.setEstructura1(estructura);
                     grilla.setTitulo(grillaModel.getTituloGrilla());
+                    
                     //System.out.println("Borrando Grilla -> " + grilla.getIdGrilla());
                     int returnDelete = em.createQuery("delete from Celda c where c.idGrilla = :idGrilla").setParameter("idGrilla", grilla.getIdGrilla()).executeUpdate();
                     if(returnDelete > 0){
+                    
+                        em.createQuery("update Grilla g set g.titulo = :titulo where g.idGrilla = :idGrilla")
+                        .setParameter("titulo", grilla.getTitulo())
+                        .setParameter("idGrilla", grilla.getIdGrilla()).executeUpdate();
+                            
                         for(Columna columna : grillaModel.getColumnas()){
                             columna.setGrilla(grilla);
                             //System.out.println("Insertando celda");
@@ -288,6 +305,20 @@ public class VersionServiceBean implements VersionServiceLocal{
                                 celda.setIdGrilla(estructura.getIdEstructura());
                                 celda.setColumna(columna);
                                 //System.out.println("A idGrilla -> " + celda.getIdGrilla()  + " idColumna -> " + celda.getIdColumna() + " idFila -> " + celda.getIdFila());
+                                if(Util.esListaValida(celda.getRelacionEeffList())){
+                                    for(RelacionEeff relEeff : celda.getRelacionEeffList()){
+                                        relEeff.setIdGrilla(celda.getIdGrilla());
+                                        relEeff.setIdColumna(celda.getIdColumna());
+                                        relEeff.setIdFila(celda.getIdFila());
+                                    }
+                                }
+                                if(Util.esListaValida(celda.getRelacionDetalleEeffList())){
+                                    for(RelacionDetalleEeff relDetEeff : celda.getRelacionDetalleEeffList()){
+                                        relDetEeff.setIdGrilla(celda.getIdGrilla());
+                                        relDetEeff.setIdColumna(celda.getIdColumna());
+                                        relDetEeff.setIdFila(celda.getIdFila());
+                                    }
+                                }
                                 em.persist(celda);
                             }
                         }
@@ -359,13 +390,13 @@ public class VersionServiceBean implements VersionServiceLocal{
     }
     
     public Version findVersionVigente(Catalogo catalogo){
-        Query query = em.createNamedQuery(Version.VERSION_FIND_NO_VIGENTE);
+        Query query = em.createNamedQuery(Version.VERSION_FIND_VIGENTE);
         query.setParameter("catalogo", catalogo);
         return (Version)query.getSingleResult();
     }
     
     public List<Version> findVersionNoVigente(Catalogo catalogo){
-        Query query = em.createNamedQuery(Version.VERSION_FIND_VIGENTE);
+        Query query = em.createNamedQuery(Version.VERSION_FIND_NO_VIGENTE);
         query.setParameter("catalogo",catalogo);
         return query.getResultList();
     }
@@ -399,6 +430,14 @@ public class VersionServiceBean implements VersionServiceLocal{
         query.setParameter("idCatalogo", idCatalogo);
         return (Version)query.getSingleResult();
     }
+    
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public Version findVersionByIdEstructura(Long idEstructura)throws Exception{
+        Query query = em.createNamedQuery(Version.VERSION_FIND_BY_ID_ESTRUCTURA);
+        query.setParameter("idEstructura", idEstructura);
+        return (Version)query.getSingleResult();
+    }
+    
     
     
     

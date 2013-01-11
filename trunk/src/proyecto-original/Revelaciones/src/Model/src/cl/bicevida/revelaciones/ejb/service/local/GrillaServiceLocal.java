@@ -1,7 +1,10 @@
 package cl.bicevida.revelaciones.ejb.service.local;
 
 
+import cl.bicevida.revelaciones.ejb.entity.Estructura;
 import cl.bicevida.revelaciones.ejb.entity.Grilla;
+import cl.bicevida.revelaciones.ejb.entity.SubGrilla;
+import cl.bicevida.revelaciones.ejb.entity.Version;
 
 import java.util.List;
 
@@ -12,6 +15,8 @@ import javax.ejb.Local;
 public interface GrillaServiceLocal {
     
     Object mergeEntity(Grilla entity);
+    
+    public Object mergeSubGrilla(SubGrilla entity);
     
     Object persistEntity(Grilla entity);
     
@@ -27,8 +32,16 @@ public interface GrillaServiceLocal {
      */
     void persistCell(Grilla grid) throws Exception;
     
-    void desagregarGrilla(final Grilla grilla)throws Exception;
+    void desagregarGrilla(final List<Version> versionList)throws Exception;
     
-    void consolidarGrilla(final Grilla grilla)throws Exception;
+    void consolidarGrilla(final List<Estructura> estructuraList)throws Exception;
+    
+    Long getMaxIdSubGrilla() throws Exception;
+    
+    Long getMaxIdSubColumna() throws Exception;
+    
+    void eliminarSubGrilla(SubGrilla subGrilla) throws Exception;
+    
+    void eliminarSubGrillas(List<SubGrilla> subGrillaList) throws Exception;
 
 }

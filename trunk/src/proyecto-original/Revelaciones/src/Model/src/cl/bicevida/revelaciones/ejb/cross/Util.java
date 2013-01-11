@@ -7,6 +7,7 @@ import cl.bicevida.revelaciones.ejb.entity.Celda;
 import cl.bicevida.revelaciones.ejb.entity.Columna;
 import cl.bicevida.revelaciones.ejb.entity.Grilla;
 import cl.bicevida.revelaciones.ejb.entity.Html;
+import cl.bicevida.revelaciones.ejb.entity.SubCelda;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -19,12 +20,14 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.text.WordUtils;
@@ -202,6 +205,14 @@ public class Util{
         }      
     }
     
+    public static String getString(final String arg1, String arg2){
+        try {
+            return arg1.toString();
+        }catch(Exception e){
+            return arg2; 
+        }      
+    }
+    
     public static String getString(final Date arg1){        
         SimpleDateFormat format = new SimpleDateFormat(DATE_PATTERN_DD_MM_YYYY);
         try {
@@ -292,6 +303,17 @@ public class Util{
             return true;
     }
     
+    /**
+     * @param lista
+     * @return
+     */
+    public static boolean esListaValida(Collection lista){
+        if(lista==null || lista.size()==0)
+            return false;
+        else
+            return true;
+    }
+    
     public static String htmlBytesToString(byte[] html){
         if(html != null){
             ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(html);
@@ -368,15 +390,24 @@ public class Util{
         return retorno;
     }
     
-    public static boolean validarRut(int rut, char dv)
-    {
+    public static boolean validarRut(int rut, char dv) {
         int m = 0, s = 1;
-        for (; rut != 0; rut /= 10)
-        {
+        for (; rut != 0; rut /= 10) {
             s = (s + rut % 10 * (9 - m++ % 6)) % 11;
         }
-        return dv == (char) (s != 0 ? s + 47 : 75);
+        return dv == (char)(s != 0 ? s + 47 : 75);
     }
+    
+    public static boolean validaRutRegExp(String rut) {
+        Pattern patron = Pattern.compile("^\\d{7,8}[-][0-9kK]{1}");
+        Matcher encaja = patron.matcher(rut);
+        if (encaja.matches()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     
     public static int countToken(String valor, String token){
         
@@ -414,12 +445,59 @@ public class Util{
                 .concat("]");
     }
     
+    public static String formatSubCellKey(final SubCelda subCell){
+        return  "["
+                .concat(subCell.getIdSubColumna().toString())
+                .concat(",")
+                .concat(subCell.getIdSubFila().toString())
+                .concat("]");
+    }
+    
+    public static String formatCeldaGrillaKey(final Celda cell){
+        return  "["
+                .concat(cell.getIdGrilla().toString())
+                .concat(",")
+                .concat(cell.getIdColumna().toString())
+                .concat(",")
+                .concat(cell.getIdFila().toString())
+                .concat("]");
+    }
+    
     public static boolean isTotalorSubTotalNumeric(Celda cell){
         
         if( (cell.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.SUBTOTAL.getKey()) ||
              cell.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.TOTAL.getKey()) ) &&
             
             (cell.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.ENTERO.getKey()) ||
+             cell.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.DECIMAL.getKey())) ){
+            
+            return true;
+        }
+        
+        return false;
+        
+    }
+    
+    
+    public static boolean isTotalorSubTotalNumeric(SubCelda subCell){
+        
+        if( (subCell.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.SUBTOTAL.getKey()) ||
+             subCell.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.TOTAL.getKey()) ) &&
+            
+            (subCell.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.ENTERO.getKey()) ||
+             subCell.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.DECIMAL.getKey())) ){
+            
+            return true;
+        }
+        
+        return false;
+        
+    }
+    
+    
+    public static boolean isCellNumeric(Celda cell){
+        
+        if( (cell.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.ENTERO.getKey()) ||
              cell.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.DECIMAL.getKey())) ){
             
             return true;

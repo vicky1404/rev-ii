@@ -1,5 +1,6 @@
 package cl.bicevida.revelaciones.ejb.entity;
 
+import cl.bicevida.revelaciones.ejb.cross.EeffUtil;
 import cl.bicevida.revelaciones.ejb.entity.pk.RelacionDetalleEeffPK;
 
 import java.io.Serializable;
@@ -17,27 +18,35 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 @Entity
 @NamedQueries( { @NamedQuery(name = RelacionDetalleEeff.FIND_ALL, query = "select o from RelacionDetalleEeff o"),
                  @NamedQuery(name = RelacionDetalleEeff.FIND_BY_PERIODO, query = "select o from RelacionDetalleEeff o where o.periodo.idPeriodo = :idPeriodo order by o.idCuenta"),
                  @NamedQuery(name = RelacionDetalleEeff.FIND_BY_PERIODO_FECU_CUENTA, query = "select o from RelacionDetalleEeff o where o.periodo.idPeriodo = :idPeriodo and o.idFecu = :idFecu and o.idCuenta = :idCuenta"),
-                 @NamedQuery(name = RelacionDetalleEeff.DELETE_BY_CELDA, query = "delete from RelacionDetalleEeff o where o.celda5 = :celda") })
+                 @NamedQuery(name = RelacionDetalleEeff.DELETE_BY_CELDA, query = "delete from RelacionDetalleEeff o where o.celda5 = :celda"),
+                 @NamedQuery(name = RelacionDetalleEeff.DELETE_BY_GRILLA_PERIODO, query = "delete from RelacionDetalleEeff o where o.idGrilla = :idGrilla and o.idPeriodo = :idPeriodo"),
+                 @NamedQuery(name = RelacionDetalleEeff.DELETE_BY_FECU_CUENTA_PERIODO, query = "delete from RelacionDetalleEeff o where o.idFecu = :idFecu and o.idCuenta = :idCuenta and o.idPeriodo = :idPeriodo"),
+                 @NamedQuery(name = RelacionDetalleEeff.UPDATE_MONTO_BY_FECU_CUENTA_PERIODO, query = "update RelacionDetalleEeff o set o.montoMilesValidarMapeo = :montoTotal where o.idFecu = :idFecu and o.idCuenta = :idCuenta and o.idPeriodo = :idPeriodo ")})
 @Table(name = "REV_RELACION_DETALLE_EEFF")
 @IdClass(RelacionDetalleEeffPK.class)
 public class RelacionDetalleEeff implements Serializable {
     
-    @SuppressWarnings("compatibility:7150370316002379901")
-    private static final long serialVersionUID = -2121624962103986848L;
     
     public static final String FIND_ALL = "RelacionDetalleEeff.findAll";
     public static final String FIND_BY_PERIODO_FECU_CUENTA = "RelacionDetalleEeff.findByPeriodoFecuCuenta";
     public static final String FIND_BY_PERIODO = "RelacionDetalleEeff.findByPeriodo";
     public static final String DELETE_BY_CELDA = "RelacionDetalleEeff.deleteByCelda";
+    public static final String DELETE_BY_GRILLA_PERIODO = "RelacionDetalleEeff.deleteByGrillaPeriodo";
+    public static final String DELETE_BY_FECU_CUENTA_PERIODO = "RelacionDetalleEeff.deleteByCuentaFecuPeriodo";
+    public static final String UPDATE_MONTO_BY_FECU_CUENTA_PERIODO = "RelacionDetalleEeff.updateMontoByFecuCuentaPeriodo";
     
+    @SuppressWarnings("compatibility:-4464908447263165812")
+    private static final long serialVersionUID = 8260228090213209786L;
+
     @Id
-    @Column(name = "ID_CUENTA", nullable = false)
+    @Column(name = "ID_CUENTA", nullable = false, insertable = false, updatable = false)
     private Long idCuenta;
     
     @Id
@@ -60,14 +69,11 @@ public class RelacionDetalleEeff implements Serializable {
     @Column(name = "ID_FILA", nullable = false, insertable = false, updatable = false)
     private Long idFila;
     
-    @Column(name = "DESCRIPCION_CUENTA", length = 256)
-    private String descripcionCuenta;
-    
     @Column(name = "MONTO_EBS", length = 256)
     private BigDecimal montoEbs;
         
     @Column(name = "MONTO_MILES")
-    private BigDecimal montoMiles;
+    private BigDecimal montoMilesValidarMapeo;
     
     @Column(name = "MONTO_PESOS")
     private BigDecimal montoPesos;
@@ -75,26 +81,28 @@ public class RelacionDetalleEeff implements Serializable {
     @Column(name = "MONTO_RECLASIFICACION")
     private BigDecimal montoReclasificacion;
     
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ID_CUENTA")
+    private CuentaContable cuentaContable;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumns( { @JoinColumn(name = "ID_COLUMNA", referencedColumnName = "ID_COLUMNA"),
                     @JoinColumn(name = "ID_GRILLA", referencedColumnName = "ID_GRILLA"),
                     @JoinColumn(name = "ID_FILA", referencedColumnName = "ID_FILA") })
     private Celda celda5;
     
+    
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_PERIODO")
     private Periodo periodo;
     
+    @Column(name = "MONTO_PESOS_MIL")
+    private BigDecimal montoXBRL;
+    
+    @Transient
+    private BigDecimal montoMilesValidarMapeoNuevo;
 
     public RelacionDetalleEeff() {
-    }
-
-    public String getDescripcionCuenta() {
-        return descripcionCuenta;
-    }
-
-    public void setDescripcionCuenta(String descripcionCuenta) {
-        this.descripcionCuenta = descripcionCuenta;
     }
 
     public BigDecimal getMontoEbs() {
@@ -115,13 +123,6 @@ public class RelacionDetalleEeff implements Serializable {
     }
 
 
-    public BigDecimal getMontoMiles() {
-        return montoMiles;
-    }
-
-    public void setMontoMiles(BigDecimal montoMiles) {
-        this.montoMiles = montoMiles;
-    }
 
     public BigDecimal getMontoPesos() {
         return montoPesos;
@@ -196,17 +197,58 @@ public class RelacionDetalleEeff implements Serializable {
         return periodo;
     }
     
+    public String getFecuFormat(){
+        if(idFecu!=null)
+            return EeffUtil.formatFecu(idFecu);
+        else
+            return "";
+    }
+    
+    public void setCuentaContable(CuentaContable cuentaContable) {
+        this.cuentaContable = cuentaContable;
+    }
+
+    public CuentaContable getCuentaContable() {
+        return cuentaContable;
+    }
+
+    public void setMontoMilesValidarMapeo(BigDecimal montoMilesValidarMapeo) {
+        this.montoMilesValidarMapeo = montoMilesValidarMapeo;
+    }
+
+    public BigDecimal getMontoMilesValidarMapeo() {
+        return montoMilesValidarMapeo;
+    }
+
+    public void setMontoXBRL(BigDecimal montoXBRL) {
+        this.montoXBRL = montoXBRL;
+    }
+
+    public BigDecimal getMontoXBRL() {
+        return montoXBRL;
+    }
+
+    public void setMontoMilesValidarMapeoNuevo(BigDecimal montoMilesValidarMapeoNuevo) {
+        this.montoMilesValidarMapeoNuevo = montoMilesValidarMapeoNuevo;
+    }
+
+    public BigDecimal getMontoMilesValidarMapeoNuevo() {
+        return montoMilesValidarMapeoNuevo;
+    }
+    
+    
     public void copyDetalleEeff(final DetalleEeff detalleEeff, final Celda celda,final Periodo periodo){
         
         this.idCuenta = detalleEeff.getIdCuenta();
         this.idFecu = detalleEeff.getIdFecu();
         this.idPeriodo = periodo.getIdPeriodo();
         this.periodo = periodo;
-        this.descripcionCuenta = detalleEeff.getDescripcionCuenta();
+        this.cuentaContable = detalleEeff.getCuentaContable();
         this.montoEbs = detalleEeff.getMontoEbs();
-        this.montoMiles = detalleEeff.getMontoMiles();
+        this.montoMilesValidarMapeo = detalleEeff.getMontoMilesValidarMapeo();
         this.montoPesos = detalleEeff.getMontoPesos();
         this.montoReclasificacion = detalleEeff.getMontoReclasificacion();
+        this.montoXBRL = detalleEeff.getMontoXBRL();
         this.idGrilla = celda.getIdGrilla();
         this.idColumna = celda.getIdColumna();
         this.idFila = celda.getIdFila();

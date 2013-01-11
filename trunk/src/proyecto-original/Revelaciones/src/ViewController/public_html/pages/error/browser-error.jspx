@@ -62,7 +62,7 @@
                     <a href="http://www.mozilla.org/es-CL/firefox/new/" target="_blank">Descargar</a>
                 </li>
                  
-                <li>Internet Explorer 8</li>
+                <!--li>Internet Explorer 8</li-->
             </ul>
         </body>
     </html>

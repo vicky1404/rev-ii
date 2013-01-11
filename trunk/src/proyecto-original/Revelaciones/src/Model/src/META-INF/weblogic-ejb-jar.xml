@@ -7,5 +7,5 @@
         <transaction-descriptor>
             <trans-timeout-seconds>1800</trans-timeout-seconds>
         </transaction-descriptor>
-    </weblogic-enterprise-bean>
+    </weblogic-enterprise-bean>    
 </weblogic-ejb-jar> 

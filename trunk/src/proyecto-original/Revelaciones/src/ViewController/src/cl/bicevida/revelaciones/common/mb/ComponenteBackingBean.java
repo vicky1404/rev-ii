@@ -324,5 +324,8 @@ public class ComponenteBackingBean implements Serializable {
         this.periodoCatalogoList = periodoCatalogoList;
     }
 
-    
+
+    public void setPeriodoActual(Periodo periodoActual) {
+        this.periodoActual = periodoActual;
+    }
 }

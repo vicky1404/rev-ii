@@ -7,6 +7,7 @@ import cl.bicevida.revelaciones.ejb.entity.Grupo;
 import cl.bicevida.revelaciones.ejb.entity.Menu;
 import cl.bicevida.revelaciones.ejb.entity.MenuGrupo;
 import cl.bicevida.revelaciones.ejb.entity.UsuarioGrupo;
+import cl.bicevida.revelaciones.ejb.entity.VersionEeff;
 import cl.bicevida.revelaciones.ejb.service.local.SeguridadServiceLocal;
 
 import java.util.List;
@@ -17,6 +18,8 @@ import javax.ejb.TransactionAttributeType;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import javax.persistence.Query;
 
 import org.eclipse.persistence.config.HintValues;
 import org.eclipse.persistence.config.QueryHints;
@@ -96,6 +99,14 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
         for(Grupo grupo : grupoList) {
             em.merge(grupo);
         }
+    }
+    
+    /*Retorna los usuario que estan asociados a un catalogo*/
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public List<UsuarioGrupo> getUsuarioGrupoByCatalogo(Long idCatalogo) throws Exception {        
+        Query query = em.createNamedQuery(UsuarioGrupo.FIND_BY_ID_CATALOGO);
+        query.setParameter("idCatalogo", idCatalogo);
+        return query.getResultList();
     }
     
         

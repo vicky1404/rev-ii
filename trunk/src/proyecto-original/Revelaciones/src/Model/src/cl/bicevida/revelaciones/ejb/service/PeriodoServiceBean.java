@@ -84,6 +84,15 @@ public class PeriodoServiceBean implements PeriodoServiceLocal{
         query.setHint(QueryHints.REFRESH, HintValues.TRUE);
         return query.getResultList();
     }
+    
+
+    public List<VersionPeriodo> findPeriodoAllByPeriodoCatalogoVigente(Catalogo catalogo,Periodo periodo){
+        Query query = em.createNamedQuery(VersionPeriodo.VERSION_PERIODO_FIND_ALL_BY_PERIODO_NOTA_VIGENTE);
+        query.setParameter("catalogo", catalogo);
+        query.setParameter("periodo", periodo); 
+        query.setHint(QueryHints.REFRESH, HintValues.TRUE);
+        return query.getResultList();
+    }
 
 
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
@@ -172,6 +181,13 @@ public class PeriodoServiceBean implements PeriodoServiceLocal{
             .setParameter("idPeriodo", idPeriodo)
             .setParameter("idVersion", idVersion)
             .getSingleResult();
+    }
+    
+    
+    public List<VersionPeriodo> findVersionPeriodoByIdVersion(Long idVersion) throws Exception{
+        Query query = em.createNamedQuery(VersionPeriodo.VERSION_PERIODO_FIND_BY_ID_VERSION);
+        query.setParameter("idVersion", idVersion);
+        return query.getResultList();
     }
    
 }

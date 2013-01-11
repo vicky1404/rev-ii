@@ -311,14 +311,16 @@ public class CargadorEstructuraServiceBean implements CargadorEstructuraServiceL
                 if(cell==null){
                     detailErrors.add("Columa->" + columns.get(posColumn).getTituloColumna() + " Fila->" + posfila);
                 }else{
+                    
+                    Celda celda = Celda.clone(cellData);
+                    
                     String value = "";
                     try{
                         if(cell.getCellType() == XSSFCell.CELL_TYPE_STRING){
                             value = cell.getStringCellValue();  
                         }else if(cell.getCellType() == XSSFCell.CELL_TYPE_NUMERIC){
                             if(DateUtil.isCellDateFormatted(cell)){
-                                SimpleDateFormat formato = new SimpleDateFormat("yyyyMMdd");
-                                value = formato.format(cell.getDateCellValue());
+                                value = Util.getString(cell.getDateCellValue());
                             }else{
                                 if(cellData.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.ENTERO.getKey()))
                                     value = ""+ Math.round(Double.valueOf(cell.getNumericCellValue()));
@@ -330,7 +332,6 @@ public class CargadorEstructuraServiceBean implements CargadorEstructuraServiceL
                         detailErrors.add("Columa->" + columns.get(posColumn).getTituloColumna() + " Fila->" + posfila);
                     }
                     //System.out.println("value ->"+value);
-                    Celda celda = Celda.clone(cellData);
                     celda.setValor(value);
                     cellAdd.add(celda);
                 }

@@ -31,6 +31,7 @@ import java.util.List;
 
 import javax.ejb.EJBException;
 
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 
@@ -44,6 +45,8 @@ import oracle.adf.view.rich.context.AdfFacesContext;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
+import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
+import org.apache.myfaces.trinidad.util.Service;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
@@ -55,6 +58,8 @@ public class ReporteBackingBean extends SoporteBackingBean implements Serializab
     @SuppressWarnings("compatibility:7208346911976114320")
     private static final long serialVersionUID = -2280200512986803632L;
     private static final String IMAGEN_HEADER_REPORTE = "logo-bice.jpg";
+    private static final String POPUP_DOWNLOAD_WORD = "p_down_word";
+    private static final String POPUP_DOWNLOAD_EXCEL = "p_down_excel";
     private List<Version> versiones;
     //private List<CommonGridModel<VersionPeriodo>> catalogoReportes;
     private List<CommonGridModel<Version>> catalogoReportes;
@@ -62,7 +67,8 @@ public class ReporteBackingBean extends SoporteBackingBean implements Serializab
     private boolean renderCatalogoReportes = Boolean.FALSE;
     private transient RichTable tablaCatalogo;
     private boolean renderBotonExportarWord;
-
+    
+    private List<Version> versionDownloadList;
 
     /**
      * accion encargada de buscar catalogo para generacion de los reportes.
@@ -124,13 +130,33 @@ public class ReporteBackingBean extends SoporteBackingBean implements Serializab
         if(!catalogoList.isEmpty()){
             this.getFacade().getCatalogoService().persistEntity(catalogoList);        
         }
-        sort(versiones, on(Version.class).getCatalogo().getOrden());  
+        sort(versiones, on(Version.class).getCatalogo().getOrden()); 
+        
         return versiones;
     }
     
-    public void generarExcel(ActionEvent event){
-        List<ReportePrincipalVO> reportes;
+    public void generarExcelForPrint(ActionEvent actionEvent){        
         try {
+            Version version = (Version)actionEvent.getComponent().getAttributes().get("version");
+            List<Version> versionList = new ArrayList<Version>();
+            versionList.add(version);
+            for(Version v : versionList){
+                List<Estructura> estructuras = getFacade().getEstructuraService().getEstructuraByVersion(v, Boolean.FALSE);
+                version.setEstructuraList(estructuras);
+            }            
+            List<ReportePrincipalVO> reportes = getReporteUtilBackingBean().getGenerarListReporteVO(versionList);                            
+            XSSFWorkbook wb = super.getFacade().getServiceReporte().createXLSX(reportes);        
+            this.getReporteUtilBackingBean().setOuputStreamWorkBook(wb);
+            super.getFacesContext().responseComplete();
+        } catch (Exception e) {
+            logger.error(e.getCause(), e);
+            agregarErrorMessage("Se ha producido un error al exportar a formato MS Excel");
+        }          
+    }
+      
+    public String generarExcel(){        
+        try {
+            this.setVersionDownloadList(null);
             List<Version> versionList = this.getVersionesSelected();                
             for(Version version : versionList){
                 List<Estructura> estructuras = getFacade().getEstructuraService().getEstructuraByVersion(version, Boolean.FALSE);
@@ -138,18 +164,80 @@ public class ReporteBackingBean extends SoporteBackingBean implements Serializab
             }
             if(versionList.isEmpty() || versionList == null){
                 agregarWarnMessage("Seleccione al menos un elemento del Catálogo para exportar a MS Excel");
-                return;
+                return null;
             }
-            reportes = getReporteUtilBackingBean().getGenerarListReporteVO(versionList);
-            XSSFWorkbook wb = super.getFacade().getServiceReporte().createXLSX(reportes);
-            //List<JasperPrint> jasperPrints = getReporteUtilBackingBean().getListJasperPrint(reportes);
-            this.getReporteUtilBackingBean().setOuputStreamWorkBook(wb);
+            this.setVersionDownloadList(versionList);                                     
+            this.displayPopup(POPUP_DOWNLOAD_EXCEL);
         } catch (Exception e) {
             logger.error(e.getCause(), e);
             agregarErrorMessage("Se ha producido un error al exportar a formato MS Excel");
-        }        
+        }     
+        return null;
     }
-
+    
+    public String generarDocx(){            
+        try{
+            this.setVersionDownloadList(null);
+            List<Version> versionList = this.getVersionesSelected();
+            for(Version version : versionList){
+                List<Estructura> estructuras = getFacade().getEstructuraService().getEstructuraByVersion(version, Boolean.FALSE);
+                version.setEstructuraList(estructuras);
+            }
+            if(versionList.isEmpty() || versionList == null){
+                agregarWarnMessage("Seleccione al menos un elemento del Catálogo para exportar a MS Word");
+                return null;
+            }
+            this.setVersionDownloadList(versionList);                                     
+            this.displayPopup(POPUP_DOWNLOAD_WORD);              
+        } catch (Exception e) {
+            logger.error(e.getCause(), e);
+            agregarErrorMessage("Se ha producido un error al exportar a formato MS Word "+e);
+        }  
+        return null;
+    }
+    
+    public void downloadExcel(ActionEvent event){
+        logger.info("descargando archivo Excel");
+        try{
+            List<ReportePrincipalVO> reportes = getReporteUtilBackingBean().getGenerarListReporteVO(this.getVersionDownloadList());                            
+            XSSFWorkbook wb = super.getFacade().getServiceReporte().createXLSX(reportes);        
+            this.getReporteUtilBackingBean().setOuputStreamWorkBook(wb);
+            super.getFacesContext().responseComplete();            
+        } catch (Exception e) {
+            logger.error(e.getCause(), e);
+            agregarErrorMessage("Se ha producido un error al exportar a formato MS Excel");
+        }     
+    }
+    
+    public void downloadWord(ActionEvent event){
+        logger.info("descargando archivo Word");
+        try{
+            List<ReportePrincipalVO> reportes = getReporteUtilBackingBean().getGenerarListReporteVO(this.getVersionDownloadList());
+            final String nombreArchivo = SoporteReporte.getNombreReporteDocx(new Date());                        
+            WordprocessingMLPackage wordMLPackage = super.getFacade().getReporteDocxService().createDOCX(reportes, this.getLogoReporte(), super.getNombreUsuario(), super.getIpUsuario(), nombreArchivo, super.getFiltro().getPeriodo());              
+            this.getReporteUtilBackingBean().setOutPutStreamDocx(wordMLPackage, nombreArchivo);
+            super.getFacesContext().responseComplete();            
+        } catch (Exception e) {
+            logger.error(e.getCause(), e);
+            agregarErrorMessage("Se ha producido un error al exportar a formato MS Word "+e);
+        }  
+    }
+    
+    private void displayPopup(String popupId){
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExtendedRenderKitService extRenderKitSrvc =
+        Service.getRenderKitService(context, ExtendedRenderKitService.class);
+        extRenderKitSrvc.addScript(context, "AdfPage.PAGE.findComponent('" + popupId + "').show();");
+    }
+    
+    private void closePopup(String popupId){
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExtendedRenderKitService extRenderKitSrvc =
+        Service.getRenderKitService(context, ExtendedRenderKitService.class);
+        extRenderKitSrvc.addScript(context, "AdfPage.PAGE.findComponent('" + popupId + "').hide();");
+    }
+    
+    @Deprecated
     public void generarPdf(ActionEvent event){
         List<ReportePrincipalVO> reportes;        
         try {
@@ -163,28 +251,6 @@ public class ReporteBackingBean extends SoporteBackingBean implements Serializab
             logger.error(e.getCause(), e);
             agregarErrorMessage("Se ha producido un error al exportar a formato PDF");
         }
-    }
-    
-    public void generarDocx(ActionEvent event){
-        List<ReportePrincipalVO> reportes;         
-        try{
-            List<Version> versionList = this.getVersionesSelected();
-            for(Version version : versionList){
-                List<Estructura> estructuras = getFacade().getEstructuraService().getEstructuraByVersion(version, Boolean.FALSE);
-                version.setEstructuraList(estructuras);
-            }
-            if(versionList.isEmpty() || versionList == null){
-                agregarWarnMessage("Seleccione al menos un elemento del Catálogo para exportar a MS Word");
-                return;
-            }
-            reportes = getReporteUtilBackingBean().getGenerarListReporteVO(versionList);
-            final String nombreArchivo = SoporteReporte.getNombreReporteDocx(new Date());
-            WordprocessingMLPackage wordMLPackage = super.getFacade().getReporteDocxService().createDOCX(reportes, this.getLogoReporte(), super.getNombreUsuario(), super.getIpUsuario(), nombreArchivo, super.getFiltro().getPeriodo());              
-            this.getReporteUtilBackingBean().setOutPutStreamDocx(wordMLPackage, nombreArchivo);
-        } catch (Exception e) {
-            logger.error(e.getCause(), e);
-            agregarErrorMessage("Se ha producido un error al exportar a formato MS Word "+e);
-        }        
     }
     
     @Deprecated
@@ -296,6 +362,14 @@ public class ReporteBackingBean extends SoporteBackingBean implements Serializab
             logger.error(e.getMessage(), e);
         }
         return renderBotonExportarWord;
+    }
+
+    public void setVersionDownloadList(List<Version> versionDownloadList) {
+        this.versionDownloadList = versionDownloadList;
+    }
+
+    public List<Version> getVersionDownloadList() {
+        return versionDownloadList;
     }
 }
 

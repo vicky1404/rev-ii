@@ -53,6 +53,13 @@
             </hash>
             <value n="recognizerId" v="oracle.jdeveloper.library"/>
          </hash>
+         <hash>
+            <hash n="dependable">
+               <url n="sourceOwnerURL" path="../../AppRevelaciones-branch-5.jws"/>
+               <url n="sourceURL" path="../XbrlCore/XbrlCore.jpr"/>
+            </hash>
+            <value n="recognizerId" v="oracle.jdeveloper.library"/>
+         </hash>
       </list>
    </hash>
    <hash n="oracle.ide.model.TechnologyScopeConfiguration">
@@ -180,6 +187,17 @@
    <hash n="oracle.jdeveloper.model.J2eeSettings">
       <value n="j2eeWebAppName" v="appRevelaciones-ViewController-webapp"/>
       <value n="j2eeWebContextRoot" v="revelaciones"/>
+   </hash>
+   <hash n="oracle.jdeveloper.runner.RunConfigurations">
+      <hash n="runConfigurationDefinitions">
+         <hash n="default">
+            <value n="custom" v="false"/>
+            <value n="name" v="default"/>
+         </hash>
+      </hash>
+      <list n="runConfigurationList">
+         <string v="default"/>
+      </list>
    </hash>
    <hash n="oracle.jdevimpl.config.JProjectLibraries">
       <list n="exportedReferences">

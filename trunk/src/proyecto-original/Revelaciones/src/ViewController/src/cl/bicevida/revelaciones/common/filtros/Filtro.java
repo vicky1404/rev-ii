@@ -3,13 +3,16 @@ package cl.bicevida.revelaciones.common.filtros;
 
 import cl.bicevida.revelaciones.ejb.entity.Catalogo;
 import cl.bicevida.revelaciones.ejb.entity.Periodo;
+import cl.bicevida.revelaciones.ejb.entity.SubGrilla;
 import cl.bicevida.revelaciones.ejb.entity.TipoCuadro;
 import cl.bicevida.revelaciones.ejb.entity.Version;
+import cl.bicevida.xbrl.ejb.entity.XbrlTaxonomia;
 
 import java.io.Serializable;
 
-public class Filtro implements Serializable{
-    
+public class Filtro implements Serializable{    
+    private static final long serialVersionUID = -4650358026552627844L;
+
     public static final String FILTRO_BEAN_NAME = "filtro";
     
     private Periodo periodo;
@@ -17,6 +20,8 @@ public class Filtro implements Serializable{
     private Version version;
     private TipoCuadro tipoCuadro;
     private Long tipoFormula;
+    private XbrlTaxonomia xbrlTaxonomia;
+    private SubGrilla subGrilla;
     
     //parametro global de debug visual de la aplicacion
     private boolean debug;
@@ -83,5 +88,24 @@ public class Filtro implements Serializable{
 
     public Long getTipoFormula() {
         return tipoFormula;
+    }
+
+    public void setXbrlTaxonomia(XbrlTaxonomia xbrlTaxonomia) {
+        this.xbrlTaxonomia = xbrlTaxonomia;
+    }
+
+    public XbrlTaxonomia getXbrlTaxonomia() {
+        if(xbrlTaxonomia == null){
+            xbrlTaxonomia = new XbrlTaxonomia();
+        }
+        return xbrlTaxonomia;
+    }
+
+    public void setSubGrilla(SubGrilla subGrilla) {
+        this.subGrilla = subGrilla;
+    }
+
+    public SubGrilla getSubGrilla() {
+        return subGrilla;
     }
 }

@@ -74,5 +74,12 @@ public interface SeguridadServiceLocal {
      * @throws Exception
      */
     void mergeGrupoList(List<Grupo> grupoList) throws Exception;
+
+    /**
+     * @param catalogo
+     * @return
+     * @throws Exception
+     */
+    List<UsuarioGrupo> getUsuarioGrupoByCatalogo(Long catalogo) throws Exception;
         
 }

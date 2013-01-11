@@ -97,6 +97,7 @@ public class AbrirPeriodoBackingBean extends SoporteBackingBean implements Seria
                         error = this.getFacade().getPeriodoService().abrirPeriodo(this.getNombreUsuario());                        
                         if (error == 0){
                             super.agregarSuccesMessage(PropertyManager.getInstance().getMessage("general_mensaje_periodo_abierto"));
+                            super.getComponenteBackingBean().setPeriodoActual(null);
                             return null;
                         }else if (error == ERROR_CERRAR_PERIODO){
                             super.agregarErrorMessage(PropertyManager.getInstance().getMessage("general_mensaje_error_debe_cerrar_periodo"));
@@ -118,9 +119,10 @@ public class AbrirPeriodoBackingBean extends SoporteBackingBean implements Seria
         return null;
     }
     
+    
     private Long getPeriodoCerradoActual() throws Exception {
             return this.getFacade().getPeriodoService().findMaxPeriodoCerrado();
-        }
+    }
     
     private Long getUltimoPeriodo() throws Exception {
             return this.getFacade().getPeriodoService().findMaxPeriodo();
@@ -175,7 +177,7 @@ public class AbrirPeriodoBackingBean extends SoporteBackingBean implements Seria
     
     private List<Version> getListaVersionesVigentes(){
             return this.getFacade().getVersionService().findAllVersionVigente(); //Lista de versiones vigentes
-        }
+    }
     
     private boolean cuadrosCerrados(Long periodo, List<Version> versionesVigentesList){
         boolean abrir = true;

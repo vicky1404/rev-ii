@@ -3,6 +3,7 @@ package cl.bicevida.revelaciones.ejb.entity;
 
 import java.io.Serializable;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -18,6 +19,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 @Entity
@@ -49,12 +52,15 @@ public class VersionEeff implements Serializable {
     
     @Column(nullable = false)
     private Long vigencia;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "FECHA")
+    private Date fecha;
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_ESTADO_EEFF")
     private TipoEstadoEeff tipoEstadoEeff;
     
-    @OneToMany(mappedBy = "versionEeff", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "versionEeff", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<EstadoFinanciero> estadoFinancieroList;
     
     @ManyToOne(fetch = FetchType.EAGER)
@@ -129,5 +135,11 @@ public class VersionEeff implements Serializable {
 
     public List<EstadoFinanciero> getEstadoFinancieroList() {
         return estadoFinancieroList;
+    }
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+    public Date getFecha() {
+        return fecha;
     }
 }

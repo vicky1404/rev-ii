@@ -94,4 +94,12 @@ public interface VersionServiceLocal {
      * @return
      */
     Version findUltimaVersionVigente(final Long idPeriodo, final String usuario, final Long idCatalogo);
+
+
+    /**
+     * @param idEstructura
+     * @return
+     * @throws Exception
+     */
+    Version findVersionByIdEstructura(Long idEstructura)throws Exception;
 }

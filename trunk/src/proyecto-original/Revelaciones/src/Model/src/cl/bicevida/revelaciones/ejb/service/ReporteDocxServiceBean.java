@@ -1,6 +1,9 @@
 package cl.bicevida.revelaciones.ejb.service;
 
 
+import static ch.lambdaj.Lambda.index;
+import static ch.lambdaj.Lambda.on;
+
 import cl.bicevida.revelaciones.ejb.common.TipoCeldaEnum;
 import cl.bicevida.revelaciones.ejb.common.TipoDatoEnum;
 import cl.bicevida.revelaciones.ejb.common.TipoImpresionEnum;
@@ -11,6 +14,7 @@ import cl.bicevida.revelaciones.ejb.cross.Util;
 import cl.bicevida.revelaciones.ejb.entity.AgrupacionColumna;
 import cl.bicevida.revelaciones.ejb.entity.Celda;
 import cl.bicevida.revelaciones.ejb.entity.Columna;
+import cl.bicevida.revelaciones.ejb.entity.DatoCaratulaFecu;
 import cl.bicevida.revelaciones.ejb.entity.Estructura;
 import cl.bicevida.revelaciones.ejb.entity.Grilla;
 import cl.bicevida.revelaciones.ejb.entity.HistorialReporte;
@@ -18,6 +22,7 @@ import cl.bicevida.revelaciones.ejb.entity.Html;
 import cl.bicevida.revelaciones.ejb.entity.Periodo;
 import cl.bicevida.revelaciones.ejb.entity.Texto;
 import cl.bicevida.revelaciones.ejb.facade.local.FacadeServiceLocal;
+import cl.bicevida.revelaciones.ejb.reporte.util.CaratulaFecuHelper;
 import cl.bicevida.revelaciones.ejb.reporte.util.SoporteReporte;
 import cl.bicevida.revelaciones.ejb.reporte.vo.ReportePrincipalVO;
 import cl.bicevida.revelaciones.ejb.service.local.ReporteDocxServiceLocal;
@@ -30,20 +35,21 @@ import java.io.InputStream;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.PostConstruct;
 
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
-import javax.xml.bind.JAXBException;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -123,41 +129,82 @@ public class ReporteDocxServiceBean implements ReporteDocxServiceLocal {
     
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public WordprocessingMLPackage createDOCX(final List<ReportePrincipalVO> reportes, final byte[] headerImage, final String usuarioOid, final String ipUsuario, final String nombreArchivo, final Periodo periodo) throws Exception {  
-        PageDimensions pageDimensions;            
+        PageDimensions pageDimensions; 
+        Map<String, DatoCaratulaFecu> datoCaratulaFecuMap = null;
         this.setHeaderImage(headerImage);
         int totalReportes = reportes.size();
         int countReportes = 0;
-        WordprocessingMLPackage wordMLPackage = WordprocessingMLPackage.createPackage(PageSizePaper.LEGAL, false);
-        
+        WordprocessingMLPackage wordMLPackage = WordprocessingMLPackage.createPackage(PageSizePaper.LEGAL, false);        
         Relationship relationshipHeader = createHeaderPart(wordMLPackage);
-        Relationship relationshipFooter = createFooterPart(wordMLPackage);
-        
+        Relationship relationshipFooter = createFooterPart(wordMLPackage);                    
         //create the header of the document.
-        this.createHeaderReference(wordMLPackage, relationshipHeader);
+        //this.createHeaderReference(wordMLPackage, relationshipHeader);
         //create the footer of the document.
-        this.createFooterReference(wordMLPackage, relationshipFooter);
+        //this.createFooterReference(wordMLPackage, relationshipFooter);                
+        this.createHeaderAndFooterReference(wordMLPackage, relationshipHeader, relationshipFooter);
+        
+        try {
+            datoCaratulaFecuMap = facadeService.getCaratulaFecuService().getDatoCaratulaFecuMap(periodo);
+        } catch (EJBException e) {
+            logger.info("no existen datos de portada para el período, se exportan datos de revelaciones sin agregar caratula fecu");
+        }
+        if(datoCaratulaFecuMap != null){
+            //caratula del reporte
+            pageDimensions = new PageDimensions();         
+            pageDimensions.setMargins(MarginsWellKnown.NARROW);
+            pageDimensions.setPgSize(PageSizePaper.LEGAL, Boolean.FALSE);
+            
+            SectPr pageSection1 = Context.getWmlObjectFactory().createSectPr();   
+            pageSection1.setPgSz(pageDimensions.getPgSz()); 
+            pageSection1.setPgMar(pageDimensions.getPgMar());
+                                            
+            P p1 = Context.getWmlObjectFactory().createP();
+            PPr ppr1 = Context.getWmlObjectFactory().createPPr();
+            p1.setPPr(ppr1);
+            R run1 =  Context.getWmlObjectFactory().createR(); 
+            
+            CaratulaFecuHelper.createPortada(wordMLPackage, run1, datoCaratulaFecuMap);
+            
+            p1.getContent().add(run1);
+            wordMLPackage.getMainDocumentPart().addObject(p1); 
+            
+            //setea la orientación respectiva de la pagina
+            P paragraph1 = Context.getWmlObjectFactory().createP();
+            PPr paragraphProperties1 = Context.getWmlObjectFactory().createPPr();
+            paragraph1.setPPr(paragraphProperties1);
+            paragraphProperties1.setSectPr(pageSection1);  
+            wordMLPackage.getMainDocumentPart().addObject(paragraph1);
+            // fin caratula del reporte
+        }
+        
+        
                 
         for(ReportePrincipalVO reporte : reportes) { 
             countReportes++;
-            
+                                    
             //page and orientation dimensions
             pageDimensions = new PageDimensions();         
             pageDimensions.setMargins(MarginsWellKnown.NARROW);
             pageDimensions.setPgSize(PageSizePaper.LEGAL,
                                      Util.getLong(reporte.getPropiedades().getCatalogo().getImpresionHorizontal(), new Long(0)).equals(TipoImpresionEnum.LANDSCAPE.getKey()) ?
                                      Boolean.TRUE : Boolean.FALSE);
+            
 
-
+            
+            
             //section definition
             SectPr pageSection = Context.getWmlObjectFactory().createSectPr();   
             pageSection.setPgSz(pageDimensions.getPgSz()); 
             pageSection.setPgMar(pageDimensions.getPgMar());
             
+            
+            
             P p = Context.getWmlObjectFactory().createP();
             PPr ppr = Context.getWmlObjectFactory().createPPr();
             p.setPPr(ppr);
-            R run =  Context.getWmlObjectFactory().createR();            
-                                            
+            R run =  Context.getWmlObjectFactory().createR();   
+            
+                                                
             //titulo del cuadro
             if (reporte.getPropiedades().getTituloPrincipal() != null) {
                 this.createTituloUno(run, reporte.getPropiedades().getTituloPrincipal());
@@ -179,9 +226,10 @@ public class ReporteDocxServiceBean implements ReporteDocxServiceLocal {
                 if (Util.esListaValida(estructura.getTextoList())) {
                     for(Texto texto : estructura.getTextoList()){
                         if(texto.isNegrita()){
-                            this.createBoldText(run, texto.getTexto());                            
+                            this.createBoldText(run, texto.getTexto() == null ? "" : texto.getTexto());                            
                         }else{
-                            run.getContent().add(XmlUtils.unmarshalString(ParagraphPiece.with(texto.getTexto()).withStyle().fontSize(TEXTO_FONT_SIZE).create().getContent()));
+                            this.createNormalText(run, texto.getTexto() == null ? "" : texto.getTexto());
+                            //run.getContent().add(XmlUtils.unmarshalString(ParagraphPiece.with(texto.getTexto()).withStyle().fontSize(TEXTO_FONT_SIZE).create().getContent()));
                         }
                         this.createBreakLine(run);
                     }
@@ -198,10 +246,12 @@ public class ReporteDocxServiceBean implements ReporteDocxServiceLocal {
                     }
                 }
             }                    
+            
+            /*
             if(countReportes != totalReportes){
                 //agrega un salto de pagina al cambiar de nota o cuadro    
                 //run.getContent().add(XmlUtils.unmarshalString(PageBreak.create().getContent())); 
-            } 
+            }*/ 
             
             p.getContent().add(run);
             wordMLPackage.getMainDocumentPart().addObject(p); 
@@ -212,6 +262,7 @@ public class ReporteDocxServiceBean implements ReporteDocxServiceLocal {
             paragraph.setPPr(paragraphProperties);
             paragraphProperties.setSectPr(pageSection);  
             wordMLPackage.getMainDocumentPart().addObject(paragraph);
+           
                         
         }
         this.setDocumentFont(wordMLPackage);
@@ -236,7 +287,7 @@ public class ReporteDocxServiceBean implements ReporteDocxServiceLocal {
         em.persist(historialReporte);     
         return wordMLPackage;                
     }
-    
+        
     private void setDocumentFont(WordprocessingMLPackage wordMLPackage) {
         Styles styles = wordMLPackage.getMainDocumentPart().getStyleDefinitionsPart().getJaxbElement();
         ObjectFactory factory = Context.getWmlObjectFactory();
@@ -415,6 +466,18 @@ public class ReporteDocxServiceBean implements ReporteDocxServiceLocal {
         run.getContent().add(XmlUtils.unmarshalString(tag));
     }
     
+    /**
+     * generate a paragraph of text 
+     * @param wordMLPackage
+     * @param text
+     * @throws Exception
+     */
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    private void createNormalText(R run, String text) throws Exception {        
+        String tag = "<w:p xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" ><w:r><w:rPr><w:rFonts w:ascii=\"Arial\" w:hAnsi=\"Arial\" w:cs=\"Arial\"/></w:rPr><w:t>"+text+"</w:t></w:r></w:p>";            
+        run.getContent().add(XmlUtils.unmarshalString(tag));
+    }
+    
     private void createTituloUno(R run, String text) throws Exception{
         StringBuffer tag = new StringBuffer();
         tag.append("<w:p xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" w:rsidR=\"0021554A\" w:rsidRPr=\"00D664FF\" w:rsidRDefault=\"006A2794\">\n");
@@ -509,7 +572,19 @@ public class ReporteDocxServiceBean implements ReporteDocxServiceLocal {
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     private Hdr getHdr(WordprocessingMLPackage wordMLPackage, Part sourcePart) throws Exception {
         Hdr hdr = this.getObjectFactory().createHdr();
-        hdr.getEGBlockLevelElts().add(this.newImage(wordMLPackage, sourcePart, this.getBytesFormImage(), "filename", "alttext", 1, 2));
+        //hdr.getEGBlockLevelElts().add(this.newImage(wordMLPackage, sourcePart, this.getBytesFormImage(), "filename", "alttext", 1, 2));
+        hdr.getContent().add(this.newImage(wordMLPackage, sourcePart, this.getBytesFormImage(), "filename", "alttext", 1, 2));
+        /*    StringBuffer strHeader = new StringBuffer();
+            strHeader.append("<w:p xmlns:wpc=\"http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas\" xmlns:mc=\"http://schemas.openxmlformats.org/markup-compatibility/2006\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:wp14=\"http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:w14=\"http://schemas.microsoft.com/office/word/2010/wordml\" xmlns:wpg=\"http://schemas.microsoft.com/office/word/2010/wordprocessingGroup\" xmlns:wpi=\"http://schemas.microsoft.com/office/word/2010/wordprocessingInk\" xmlns:wne=\"http://schemas.microsoft.com/office/word/2006/wordml\" xmlns:wps=\"http://schemas.microsoft.com/office/word/2010/wordprocessingShape\" w:rsidR=\"00713B54\" w:rsidRDefault=\"00713B54\">")
+                    .append("<w:pPr><w:pStyle w:val=\"Header\"/><w:jc w:val=\"right\"/><w:rPr><w:noProof/><w:sz w:val=\"20\"/></w:rPr></w:pPr>")
+                    .append("<w:r><w:rPr><w:noProof/></w:rPr><w:t xml:space=\"preserve\">Página </w:t></w:r><w:r><w:rPr><w:noProof/><w:sz w:val=\"32\"/><w:szCs w:val=\"40\"/></w:rPr><w:fldChar w:fldCharType=\"begin\"/></w:r>")
+                    .append("<w:r><w:rPr><w:noProof/><w:sz w:val=\"32\"/><w:szCs w:val=\"40\"/></w:rPr><w:instrText xml:space=\"preserve\"> PAGE  \\* Arabic  \\* MERGEFORMAT </w:instrText></w:r>")
+                    .append("<w:r><w:rPr><w:noProof/><w:sz w:val=\"32\"/><w:szCs w:val=\"40\"/></w:rPr><w:fldChar w:fldCharType=\"separate\"/></w:r>")
+                    .append("<w:r><w:rPr><w:noProof/><w:sz w:val=\"32\"/><w:szCs w:val=\"40\"/></w:rPr><w:t>1</w:t>")
+                    .append("</w:r><w:r><w:rPr><w:noProof/><w:sz w:val=\"32\"/><w:szCs w:val=\"40\"/></w:rPr><w:fldChar w:fldCharType=\"end\"/></w:r></w:p>");
+        
+        hdr.getContent().add(XmlUtils.unmarshalString(strHeader.toString()));
+        */
         return hdr;
     }
     
@@ -519,22 +594,39 @@ public class ReporteDocxServiceBean implements ReporteDocxServiceLocal {
         SectPr sectPr = this.getObjectFactory().createSectPr();
         FooterReference footerReference = this.getObjectFactory().createFooterReference();
         footerReference.setId(relationship.getId());
-        footerReference.setType(HdrFtrRef.DEFAULT);
+        footerReference.setType(HdrFtrRef.DEFAULT);        
         sectPr.getEGHdrFtrReferences().add(footerReference); // add header or
         // footer references
         wordprocessingMLPackage.getMainDocumentPart().addObject(sectPr);             
     }
     
     public Relationship createFooterPart(WordprocessingMLPackage wordMLPackage) throws Exception {
-        FooterPart footerPart = new FooterPart();        
+        FooterPart footerPart = new FooterPart();                
         footerPart.setPackage(wordMLPackage);
-        footerPart.setJaxbElement(this.getFtr(wordMLPackage, footerPart));
+        footerPart.setJaxbElement(this.getFtr(wordMLPackage, footerPart));        
         return wordMLPackage.getMainDocumentPart().addTargetPart(footerPart);
     }
     
     public Ftr getFtr(WordprocessingMLPackage wordMLPackage, Part sourcePart) throws Exception {
-        Ftr ftr = this.getObjectFactory().createFtr();
-        ftr.getEGBlockLevelElts().add(this.newImage(wordMLPackage, sourcePart, this.getBytesFormImage(), "filename", "alttext", 1, 2));
+        Ftr ftr = this.getObjectFactory().createFtr();        
+        /***
+         se pide eliminar el numero de pagina desde el documento
+         a solitidud de usuario.
+         StringBuffer strHeader = new StringBuffer();
+                    strHeader.append("<w:p xmlns:wpc=\"http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas\" xmlns:mc=\"http://schemas.openxmlformats.org/markup-compatibility/2006\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:wp14=\"http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:w14=\"http://schemas.microsoft.com/office/word/2010/wordml\" xmlns:wpg=\"http://schemas.microsoft.com/office/word/2010/wordprocessingGroup\" xmlns:wpi=\"http://schemas.microsoft.com/office/word/2010/wordprocessingInk\" xmlns:wne=\"http://schemas.microsoft.com/office/word/2006/wordml\" xmlns:wps=\"http://schemas.microsoft.com/office/word/2010/wordprocessingShape\" w:rsidR=\"00713B54\" w:rsidRDefault=\"00713B54\">")
+                            .append("<w:pPr><w:pStyle w:val=\"Footer\"/><w:jc w:val=\"right\"/><w:rPr><w:noProof/><w:sz w:val=\"20\"/></w:rPr></w:pPr>")
+                            .append("<w:r><w:rPr><w:noProof/></w:rPr><w:t xml:space=\"preserve\">Página </w:t></w:r><w:r><w:rPr><w:noProof/><w:sz w:val=\"32\"/><w:szCs w:val=\"40\"/></w:rPr><w:fldChar w:fldCharType=\"begin\"/></w:r>")
+                            .append("<w:r><w:rPr><w:noProof/><w:sz w:val=\"20\"/><w:szCs w:val=\"40\"/></w:rPr><w:instrText xml:space=\"preserve\"> PAGE  \\* Arabic  \\* MERGEFORMAT </w:instrText></w:r>")
+                            .append("<w:r><w:rPr><w:noProof/><w:sz w:val=\"20\"/><w:szCs w:val=\"40\"/></w:rPr><w:fldChar w:fldCharType=\"separate\"/></w:r>")
+                            .append("<w:r><w:rPr><w:noProof/><w:sz w:val=\"20\"/><w:szCs w:val=\"40\"/></w:rPr><w:t>1</w:t>")
+                            .append("</w:r><w:r><w:rPr><w:noProof/><w:sz w:val=\"20\"/><w:szCs w:val=\"40\"/></w:rPr><w:fldChar w:fldCharType=\"end\"/></w:r></w:p>");
+
+                ftr.getContent().add(XmlUtils.unmarshalString(strHeader.toString()));
+        ***/
+        
+            StringBuffer strHeader = new StringBuffer();
+            strHeader.append("<w:p xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" ><w:r><w:rPr><w:rFonts w:ascii=\"Arial\" w:hAnsi=\"Arial\" w:cs=\"Arial\"/><w:b /></w:rPr><w:t></w:t></w:r></w:p>");
+            ftr.getContent().add(XmlUtils.unmarshalString(strHeader.toString()));
         return ftr;
     }
     
@@ -617,4 +709,24 @@ public class ReporteDocxServiceBean implements ReporteDocxServiceLocal {
     public byte[] getHeaderImage() {
         return headerImage;
     }
+    
+    
+    public void createHeaderAndFooterReference(WordprocessingMLPackage wordprocessingMLPackage, Relationship headerRelationship, Relationship footerRelationship) throws Exception {
+
+          SectPr sectPr = this.getObjectFactory().createSectPr();
+
+          HeaderReference headerReference = objectFactory.createHeaderReference();
+          headerReference.setId(headerRelationship.getId());
+          headerReference.setType(HdrFtrRef.DEFAULT);
+          sectPr.getEGHdrFtrReferences().add(headerReference);// add header or
+          // footer references
+
+          FooterReference footerReference = objectFactory.createFooterReference();
+          footerReference.setId(footerRelationship.getId());
+          footerReference.setType(HdrFtrRef.DEFAULT);          
+          sectPr.getEGHdrFtrReferences().add(footerReference);// add header or
+          // footer references
+
+          wordprocessingMLPackage.getMainDocumentPart().addObject(sectPr);
+       }
 }

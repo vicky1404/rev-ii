@@ -4,6 +4,7 @@ package cl.bicevida.revelaciones.ejb.service;
 import cl.bicevida.revelaciones.ejb.common.TipoEstructuraEnum;
 import static cl.bicevida.revelaciones.ejb.cross.Constantes.PERSISTENCE_UNIT_NAME;
 import cl.bicevida.revelaciones.ejb.cross.SortHelper;
+import cl.bicevida.revelaciones.ejb.cross.Util;
 import cl.bicevida.revelaciones.ejb.entity.AgrupacionColumna;
 import cl.bicevida.revelaciones.ejb.entity.Celda;
 import cl.bicevida.revelaciones.ejb.entity.Columna;
@@ -11,6 +12,12 @@ import cl.bicevida.revelaciones.ejb.entity.Estructura;
 import cl.bicevida.revelaciones.ejb.entity.Grilla;
 import cl.bicevida.revelaciones.ejb.entity.HistorialVersionPeriodo;
 import cl.bicevida.revelaciones.ejb.entity.Html;
+import cl.bicevida.revelaciones.ejb.entity.RelacionDetalleEeff;
+import cl.bicevida.revelaciones.ejb.entity.RelacionEeff;
+import cl.bicevida.revelaciones.ejb.entity.SubAgrupacionColumna;
+import cl.bicevida.revelaciones.ejb.entity.SubCelda;
+import cl.bicevida.revelaciones.ejb.entity.SubColumna;
+import cl.bicevida.revelaciones.ejb.entity.SubGrilla;
 import cl.bicevida.revelaciones.ejb.entity.Texto;
 import cl.bicevida.revelaciones.ejb.entity.Version;
 import cl.bicevida.revelaciones.ejb.entity.VersionPeriodo;
@@ -173,6 +180,26 @@ public class EstructuraServiceBean implements EstructuraServiceLocal {
         return estructuraList;
     }
     
+    
+        public List<Estructura> getSubGrillaByVersion(Version version, boolean applyFormula, SubGrilla subGrilla) throws FormulaException, Exception{
+       
+        List<Estructura> estructuraList = this.findEstructuraByVersion(version);        
+        List<Estructura> estructuraListAux = new ArrayList<Estructura>();
+			for(Estructura estructura : estructuraList){
+				
+							for (Grilla grilla : estructura.getGrillaList()) {
+								for (SubGrilla sub  : grilla.getSubGrillaList()){
+									if (subGrilla.getAgrupador().intValue() == sub.getAgrupador().intValue()){
+											estructura.setGrillaVO(this.getGrillaSubGrillaVO(sub,applyFormula));
+											estructuraListAux.add(estructura);
+										}
+									}
+				}
+			}
+        
+        return estructuraListAux;
+	   }
+    
     public List<Estructura> getEstructuraByVersionTipo(Version version, Long idTipoEstructura) throws Exception{
        
         List<Estructura> estructuraList = this.findEstructuraByVersionTipo(version,idTipoEstructura);        
@@ -256,6 +283,53 @@ public class EstructuraServiceBean implements EstructuraServiceLocal {
         return grillaNotaVO;
     }
     
+    
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public GrillaVO getGrillaSubGrillaVO(SubGrilla subGrilla, boolean applyFormula) throws FormulaException, Exception{
+    
+        if(applyFormula){
+            if (subGrilla.getTipoFormula() == null || subGrilla.getTipoFormula().equals(Grilla.TIPO_GRILLA_ESTATICA)){
+                facadeService.getFormulaService().processStaticFormulaBySubGrilla(subGrilla);
+            } else {
+                facadeService.getFormulaService().processDynamicFomulaSubGrilla(subGrilla);
+            }
+        }
+
+        GrillaVO grillaNotaVO = new GrillaVO();
+        List<SubColumna> subColumnaList = subGrilla.getSubColumnaList();
+        List<Map<Long,SubCelda>> rows = new ArrayList<Map<Long,SubCelda>>();
+        Map<Long,SubCelda> celdaMap = new LinkedHashMap<Long,SubCelda>();
+        
+        boolean listaVacia = true;
+        
+        SortHelper.sortSubColumnasByOrden(subColumnaList);
+
+        for(SubColumna columnaNota : subColumnaList){
+            
+            if(columnaNota.getSubCeldaList()==null)
+                continue;
+            
+            int j=0;
+            for(SubCelda subCelda : columnaNota.getSubCeldaList()){
+                if(listaVacia){
+                    celdaMap = new LinkedHashMap<Long,SubCelda>();
+                    celdaMap.put(new Long(columnaNota.getIdSubColumna()), subCelda);
+                    rows.add(celdaMap);
+                }else{                    
+                    if(rows.size()>j)
+                        rows.get(j).put(new Long(columnaNota.getIdSubColumna()), subCelda);                    
+                }
+                j++;
+            }
+            listaVacia = false;
+        }
+        
+        grillaNotaVO.setSubColumnas(subColumnaList); 
+        grillaNotaVO.setSubGrilla(subGrilla);
+        grillaNotaVO.setSubRows(rows);
+        return grillaNotaVO;
+    }
+    
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public Set<Long> getTotalFilasFromGrilla(List<Celda> celdas) throws Exception{
         final Set<Long> filas = new LinkedHashSet<Long>();         
@@ -287,6 +361,16 @@ public class EstructuraServiceBean implements EstructuraServiceLocal {
     }
     
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)    
+    public List<SubAgrupacionColumna> findSubAgrupacionColumnaBySubGrilla(SubGrilla subGrilla) throws Exception {
+        
+            Query query = em.createNamedQuery(SubAgrupacionColumna.FIND_BY_SUB_GRILLA);
+            query.setParameter("idGrilla", subGrilla.getIdGrilla());
+            query.setParameter("idSubGrilla", subGrilla.getIdSubGrilla());            
+            return query.getResultList();   
+    }
+    
+    
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)    
     public AgrupacionColumna findAgrupacionColumnaById(AgrupacionColumna agrupacion) throws Exception {
         Query query = em.createNamedQuery(AgrupacionColumna.FIND_BY_ID);
         query.setParameter("idColumna", agrupacion.getIdColumna());
@@ -313,6 +397,28 @@ public class EstructuraServiceBean implements EstructuraServiceLocal {
         em.merge(historialVersionPeriodo);
     }
     
+    
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void persistEstructuraSubGrilla(List<Estructura> estructuras, VersionPeriodo versionPeriodo, HistorialVersionPeriodo historialVersionPeriodo, SubGrilla subGrilla) throws Exception {
+        
+        List<SubGrilla> subGrillaList = new ArrayList<SubGrilla>();
+        
+        for (Estructura estructura : estructuras){
+            for (Grilla grilla : estructura.getGrillaList()){
+                for (SubGrilla sub : grilla.getSubGrillaList())
+                    if (subGrilla.getAgrupador().intValue() == sub.getAgrupador().intValue()){
+                            subGrillaList.add(sub);
+                        }
+                }
+        }        
+        
+        guardarSubGrillas(subGrillaList); 
+        
+        //em.merge(versionPeriodo);
+        //em.merge(historialVersionPeriodo);
+    }
+
+    
     /**
      * Distingue si las grillas tienen formulas estaticas o dinamicas.
      * @author Manuel Gutierrez C.
@@ -332,62 +438,157 @@ public class EstructuraServiceBean implements EstructuraServiceLocal {
         
     }
     
+    /**
+     * Distingue si las SubGrillas tienen formulas estaticas o dinamicas.
+     * @author Manuel Gutierrez C.
+     * @since 14/08/2012
+     * @param subGrillaList
+     * @throws Exception
+     */
+    public void guardarSubGrillas(List<SubGrilla> subGrillaList) throws Exception {
+        
+        for (SubGrilla subGrilla : subGrillaList){
+            if (subGrilla.getTipoFormula() != null && subGrilla.getTipoFormula().equals(Grilla.TIPO_GRILLA_DINAMICA)){
+                persistGrillaList(subGrilla);
+            } else {
+                facadeService.getGrillaService().mergeSubGrilla(subGrilla);
+            }
+        }
+        
+    }
+    
     
     public List<Grilla> persistGrillaList(Grilla grilla){
 
-            List<Grilla>  grillaList = new ArrayList<Grilla>();
-            Grilla grillaPaso = null;
+        List<Grilla>  grillaList = new ArrayList<Grilla>();
+        List<RelacionEeff> relEeffList = new ArrayList<RelacionEeff>();
+        List<RelacionDetalleEeff> relDetEeffList = new ArrayList<RelacionDetalleEeff>();
         
-            //for (Grilla grilla : grillas){
+        for(Columna columna : grilla.getColumnaList()){
+            for(Celda celda : columna.getCeldaList()){
+                if(Util.esListaValida(celda.getRelacionEeffList())){
+                    for(RelacionEeff rel : celda.getRelacionEeffList()){
+                        relEeffList.add(rel);
+                    }
+                }
+                if(Util.esListaValida(celda.getRelacionDetalleEeffList())){
+                    for(RelacionDetalleEeff rel : celda.getRelacionDetalleEeffList()){
+                        relDetEeffList.add(rel);
+                    }
+                }
+            }
+        }
+        Long idPeriodo;
+        try{
+            idPeriodo = grilla.getEstructura1().getVersion().getVersionPeriodoList().get(0).getIdPeriodo();
+            facadeService.getEstadoFinancieroService().deleteAllRelacionByGrillaPeriodo(idPeriodo, grilla.getEstructura1().getIdEstructura());
+            //TODO eliminar relaciones xbrl
+        }catch(Exception e){
+            idPeriodo = null;
+        }
+        
+        int returnDelete =  em
+                            .createQuery("delete from Celda c where c.idGrilla = :idGrilla")
+                            .setParameter("idGrilla", grilla.getIdGrilla())
+                            .executeUpdate();
+        
+            if(returnDelete > 0){
+                for(Columna columna : grilla.getColumnaList()){
+                    columna.setGrilla(grilla);
+                    columna.setIdGrilla(grilla.getEstructura1().getIdEstructura());
+                    for(Celda celda : columna.getCeldaList()){
+                        celda.setIdColumna(columna.getIdColumna());
+                        celda.setIdGrilla(grilla.getIdGrilla());
+                        celda.setColumna(columna);
+                        em.persist(celda);
+                    }
+                }
                 
-                    grillaPaso = new Grilla();
-                    grillaPaso.setIdGrilla(grilla.getEstructura1().getIdEstructura());
-                    grillaPaso.setEstructura1(grilla.getEstructura1());
-                    grillaPaso.setTitulo(grilla.getTitulo());
-                    grillaPaso.setColumnaList(grilla.getColumnaList());
+                for(RelacionEeff rel : relEeffList){
+                    em.persist(rel);
+                }
+                for(RelacionDetalleEeff rel : relDetEeffList){
+                    em.persist(rel);
+                }
+            }else{
+                for(Columna columna : grilla.getColumnaList()){
+                    columna.setGrilla(grilla);
+                    columna.setIdGrilla(grilla.getIdGrilla());
+                    for(Celda celda : columna.getCeldaList()){
+                        celda.setIdColumna(columna.getIdColumna());
+                        celda.setIdGrilla(grilla.getIdGrilla());
+                        //celda.setGrupo(celda.getIdFila());
+                        celda.setColumna(columna);                                
+                    }
+                }
                 
-                    int returnDelete =  em
-                                        .createQuery("delete from Celda c where c.idGrilla = :idGrilla")
-                                        .setParameter("idGrilla", grilla.getIdGrilla())
+                em.merge(grilla);
+                grillaList.add(grilla);
+                
+                for (Columna columna : grilla.getColumnaList()){
+                    for (AgrupacionColumna agrupacion : columna.getAgrupacionColumnaList()){
+                            agrupacion = em.merge(agrupacion);    
+                        }
+                }
+            }
+            
+        return grillaList;
+    }
+    
+    
+    public List<SubGrilla> persistGrillaList(SubGrilla subGrilla){
+
+            List<SubGrilla>  subGrillaList = new ArrayList<SubGrilla>();
+            SubGrilla subGrillaPaso = null;
+                
+                    subGrillaPaso = new SubGrilla();
+                    subGrillaPaso.setIdGrilla(subGrilla.getIdGrilla());
+                    subGrillaPaso.setGrilla(subGrilla.getGrilla());
+                    subGrillaPaso.setIdSubGrilla(subGrilla.getIdSubGrilla());
+                    subGrillaPaso.setTitulo(subGrilla.getTitulo());
+                    subGrillaPaso.setSubColumnaList(subGrilla.getSubColumnaList());
+                    
+                    int returnDelete =  em.createQuery("delete from SubCelda c where c.idGrilla = :idGrilla and c.idSubGrilla = :idSubGrilla")
+                                        .setParameter("idGrilla", subGrilla.getIdGrilla())
+                                        .setParameter("idSubGrilla", subGrilla.getIdSubGrilla())
                                         .executeUpdate();
                 
-                
                         if(returnDelete > 0){
-                            for(Columna columna : grillaPaso.getColumnaList()){
-                                columna.setGrilla(grillaPaso);
-                                columna.setIdGrilla(grillaPaso.getEstructura1().getIdEstructura());
-                                for(Celda celda : columna.getCeldaList()){
-                                    celda.setIdColumna(columna.getIdColumna());
-                                    celda.setIdGrilla(grillaPaso.getIdGrilla());
-                                    celda.setColumna(columna);
-                                    em.persist(celda);
+                            for(SubColumna subColumna : subGrillaPaso.getSubColumnaList()){
+                                subColumna.setSubGrilla(subGrillaPaso);
+                                subColumna.setIdGrilla(subGrillaPaso.getIdGrilla());
+                                subColumna.setIdSubGrilla(subGrillaPaso.getIdSubGrilla());                               
+                                for(SubCelda subCelda : subColumna.getSubCeldaList()){
+                                    subCelda.setIdSubColumna(subColumna.getIdSubColumna());
+                                    subCelda.setIdGrilla(subGrillaPaso.getIdGrilla());
+                                    subCelda.setIdSubGrilla(subGrillaPaso.getIdSubGrilla());                                    
+                                    subCelda.setSubColumna(subColumna);
+                                    em.persist(subCelda);
                                 }
                             }
                         }else{
-                            for(Columna columna : grillaPaso.getColumnaList()){
-                                columna.setGrilla(grillaPaso);
-                                columna.setIdGrilla(grillaPaso.getIdGrilla());
-                                for(Celda celda : columna.getCeldaList()){
-                                    celda.setIdColumna(columna.getIdColumna());
-                                    celda.setIdGrilla(grillaPaso.getIdGrilla());
-                                    //celda.setGrupo(celda.getIdFila());
-                                    celda.setColumna(columna);                                
+                            for(SubColumna subColumna : subGrillaPaso.getSubColumnaList()){
+                                subColumna.setSubGrilla(subGrillaPaso);
+                                subColumna.setIdGrilla(subGrillaPaso.getIdGrilla());
+                                subColumna.setIdSubGrilla(subGrillaPaso.getIdSubGrilla());
+                                for(SubCelda subCelda : subColumna.getSubCeldaList()){
+                                    subCelda.setIdSubColumna(subColumna.getIdSubColumna());
+                                    subCelda.setIdGrilla(subGrillaPaso.getIdGrilla());
+                                    subCelda.setIdSubGrilla(subGrillaPaso.getIdSubGrilla());
+                                    subCelda.setSubColumna(subColumna);                                
                                 }
                             }
+                            subGrillaPaso = em.merge(subGrillaPaso);
+                            subGrillaList.add(subGrillaPaso);
                             
-                            grillaPaso = em.merge(grillaPaso);
-                            grillaList.add(grillaPaso);
-                            
-                            for (Columna columna : grillaPaso.getColumnaList()){
-                                for (AgrupacionColumna agrupacion : columna.getAgrupacionColumnaList()){
-                                        agrupacion = em.merge(agrupacion);    
+                            for (SubColumna subColumna : subGrillaPaso.getSubColumnaList()){
+                                for (SubAgrupacionColumna subAgrupacion : subColumna.getSubAgrupacionColumnaList()){
+                                        subAgrupacion = em.merge(subAgrupacion);    
                                     }
                             }
                         }
-            //}
-        
-                    return grillaList;        
-            
+                
+                    return subGrillaList;
         }
     
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)

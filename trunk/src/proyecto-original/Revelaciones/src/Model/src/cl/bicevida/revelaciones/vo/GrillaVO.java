@@ -4,6 +4,9 @@ package cl.bicevida.revelaciones.vo;
 import cl.bicevida.revelaciones.ejb.entity.Celda;
 import cl.bicevida.revelaciones.ejb.entity.Columna;
 import cl.bicevida.revelaciones.ejb.entity.Grilla;
+import cl.bicevida.revelaciones.ejb.entity.SubCelda;
+import cl.bicevida.revelaciones.ejb.entity.SubColumna;
+import cl.bicevida.revelaciones.ejb.entity.SubGrilla;
 
 import java.io.Serializable;
 
@@ -27,10 +30,20 @@ public class GrillaVO implements Serializable {
     private transient List<Map<String, Object>> gruposResultado;
     private transient List<AgrupacionColumnaModelVO> nivel2List;
     private transient List<AgrupacionColumnaModelVO> nivel1List;
-    private List<Columna> columnas;
+    
+    private transient List<AgrupacionSubColumnaModelVO> nivel2DesagregadoList;
+    private transient List<AgrupacionSubColumnaModelVO> nivel1DesagregadoList;
+
+    
+    private List<Columna> columnas;    
     private transient List<Map<Long,Celda>> rows;
     private transient Long nivel;    
     private transient List<Long> registros;
+    
+    
+    private SubGrilla subGrilla;
+    private List<SubColumna> subColumnas;    
+    private transient List<Map<Long,SubCelda>> subRows;
     
 
     public GrillaVO() {
@@ -128,5 +141,46 @@ public class GrillaVO implements Serializable {
 
     public String getTitulo() {
         return titulo;
+    }
+
+    public void setSubGrilla(SubGrilla subGrilla) {
+        this.subGrilla = subGrilla;
+    }
+
+    public SubGrilla getSubGrilla() {
+        return subGrilla;
+    }
+
+    public void setSubColumnas(List<SubColumna> subColumnas) {
+        this.subColumnas = subColumnas;
+    }
+
+    public List<SubColumna> getSubColumnas() {
+        return subColumnas;
+    }
+
+    public void setSubRows(List<Map<Long, SubCelda>> subRows) {
+        this.subRows = subRows;
+    }
+
+    public List<Map<Long, SubCelda>> getSubRows() {
+        return subRows;
+    }
+
+
+    public void setNivel2DesagregadoList(List<AgrupacionSubColumnaModelVO> nivel2DesagregadoList) {
+        this.nivel2DesagregadoList = nivel2DesagregadoList;
+    }
+
+    public List<AgrupacionSubColumnaModelVO> getNivel2DesagregadoList() {
+        return nivel2DesagregadoList;
+    }
+
+    public void setNivel1DesagregadoList(List<AgrupacionSubColumnaModelVO> nivel1DesagregadoList) {
+        this.nivel1DesagregadoList = nivel1DesagregadoList;
+    }
+
+    public List<AgrupacionSubColumnaModelVO> getNivel1DesagregadoList() {
+        return nivel1DesagregadoList;
     }
 }

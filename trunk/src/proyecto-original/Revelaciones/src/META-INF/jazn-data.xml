@@ -13,6 +13,10 @@
           <name>PATRICIO.MARTINEZ</name>
           <credentials>{903}+UkOtnq5NWpWUWZ7pHao9CE2e032q/HH</credentials>
         </user>
+        <user>
+          <name>RODRIGO.DIAZ</name>
+          <credentials>{903}77xcEMMCfpUa3risHwHZE3ZjNEN0tzo3</credentials>
+        </user>
       </users>
       <roles>
         <role>
@@ -26,6 +30,10 @@
             <member>
               <type>user</type>
               <name>PATRICIO.MARTINEZ</name>
+            </member>
+            <member>
+              <type>user</type>
+              <name>RODRIGO.DIAZ</name>
             </member>
           </members>
         </role>
@@ -42,7 +50,7 @@
             <class>oracle.security.jps.service.policystore.ApplicationRole</class>
             <members>
               <member>
-                <name>USUARIO.PRUEBA</name>
+                <name>RODRIGO.DIAZ</name>
                 <class>oracle.security.jps.internal.core.principals.JpsXmlUserImpl</class>
               </member>
               <member>

@@ -1,13 +1,16 @@
 package cl.bicevida.revelaciones.common.mb;
 
+
+import static ch.lambdaj.Lambda.on;
+import static ch.lambdaj.Lambda.sort;
+
+import cl.bicevida.revelaciones.common.filtros.Filtro;
 import cl.bicevida.revelaciones.common.util.PropertyManager;
 import cl.bicevida.revelaciones.ejb.common.EstadoCuadroEnum;
 import cl.bicevida.revelaciones.ejb.common.VigenciaEnum;
 import cl.bicevida.revelaciones.ejb.cross.Constantes;
 import cl.bicevida.revelaciones.ejb.cross.Util;
-import cl.bicevida.revelaciones.ejb.entity.Catalogo;
 import cl.bicevida.revelaciones.ejb.entity.EstadoCuadro;
-
 import cl.bicevida.revelaciones.ejb.entity.HistorialVersionPeriodo;
 import cl.bicevida.revelaciones.ejb.entity.TipoCuadro;
 import cl.bicevida.revelaciones.ejb.entity.VersionPeriodo;
@@ -15,41 +18,25 @@ import cl.bicevida.revelaciones.ejb.entity.VersionPeriodo;
 import java.io.Serializable;
 
 import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 
 import oracle.adf.view.rich.component.rich.data.RichTable;
 import oracle.adf.view.rich.component.rich.input.RichSelectOneChoice;
-
 import oracle.adf.view.rich.context.AdfFacesContext;
 
 import org.apache.log4j.Logger;
 import org.apache.myfaces.trinidad.event.RowDisclosureEvent;
 import org.apache.myfaces.trinidad.event.SelectionEvent;
-
-import static ch.lambdaj.Lambda.*;
-import ch.lambdaj.function.matcher.AndMatcher;
-import ch.lambdaj.function.matcher.OrMatcher;
-
-import cl.bicevida.revelaciones.common.filtros.Filtro;
-
-import cl.bicevida.revelaciones.ejb.entity.EstadoPeriodo;
-
-import java.text.SimpleDateFormat;
-
-import javax.faces.event.ActionEvent;
-
-import javax.persistence.NoResultException;
-
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import static org.hamcrest.Matchers.*;
 
 public class FlujoAprobacionBackingBean extends SoporteBackingBean implements Serializable {
     private transient Logger logger = Logger.getLogger(FlujoAprobacionBackingBean.class);
@@ -92,7 +79,7 @@ public class FlujoAprobacionBackingBean extends SoporteBackingBean implements Se
     public String guardarAction(){        
         List<HistorialVersionPeriodo> historialVersionPeriodoList = new ArrayList<HistorialVersionPeriodo>();
         HistorialVersionPeriodo historialVersionPeriodo = null;
-        try{            
+        try{
             final List<VersionPeriodo> versionPeriodoValidateInRolList = this.validarCambioEstadoInRol(this.getCatalogoFlujoAprobacion());
             if(!versionPeriodoValidateInRolList.isEmpty()){
                 agregarWarnMessage(PropertyManager.getInstance().getMessage("workflow_mensaje_sin_privilegios_cambiar_estado"));
@@ -126,7 +113,8 @@ public class FlujoAprobacionBackingBean extends SoporteBackingBean implements Se
                     historialVersionPeriodoList.add(historialVersionPeriodo);
                 }        
                 super.getFacade().getPeriodoService().persistFlujoAprobacion(this.getCatalogoFlujoAprobacion(), historialVersionPeriodoList);
-                this.setCatalogoFlujoAprobacion(super.getFacade().getPeriodoService().findPeriodoByFiltro(super.getNombreUsuario(), this.getTipoCuadro(), super.getFiltroPeriodo(), this.getEstadoCuadro(), null));
+                this.setCatalogoFlujoAprobacion(super.getFacade().getPeriodoService().findPeriodoByFiltro(super.getNombreUsuario(), this.getTipoCuadro(), super.getFiltroPeriodo(), this.getEstadoCuadro(), VigenciaEnum.VIGENTE.getKey()));
+                
             }
             agregarSuccesMessage(PropertyManager.getInstance().getMessage("workflow_mensaje_guardar_notas_exito"));
             AdfFacesContext.getCurrentInstance().addPartialTarget(this.getTablaCatalogo());
@@ -193,23 +181,45 @@ public class FlujoAprobacionBackingBean extends SoporteBackingBean implements Se
     
     private boolean validarCambioEstadoFlujo(final List<VersionPeriodo> versionPeriodoListNew, final List<VersionPeriodo> versionPeriodoListActual) throws Exception{
             boolean result = Boolean.TRUE;  
-            sort(versionPeriodoListNew, on(VersionPeriodo.class).getIdPeriodo());
-            sort(versionPeriodoListActual, on(VersionPeriodo.class).getIdPeriodo());            
+            sort(versionPeriodoListNew, on(VersionPeriodo.class).getIdVersion());
+            sort(versionPeriodoListActual, on(VersionPeriodo.class).getIdVersion());            
             final Iterator<VersionPeriodo> it1 = versionPeriodoListNew.iterator();
             final Iterator<VersionPeriodo> it2 = versionPeriodoListActual.iterator();
-            int count = 1;
+            boolean titulo = true;
             while(it1.hasNext() && it2.hasNext()){
                 VersionPeriodo versionPeriodoNew = it1.next();
                 VersionPeriodo versionPeriodoActual = it2.next();
+                
+                if( versionPeriodoNew.getVersion().getCatalogo().getValidarEeff() != null &&
+                    versionPeriodoNew.getVersion().getCatalogo().getValidarEeff().equals(VigenciaEnum.VIGENTE.getKey()) &&
+                    versionPeriodoNew.getVersion().getValidadoEeff() != null &&
+                    versionPeriodoNew.getVersion().getValidadoEeff().equals(VigenciaEnum.NO_VIGENTE.getKey())){
+                    
+                    if(!versionPeriodoNew.getEstado().getIdEstado().equals(EstadoCuadroEnum.INICIADO.getKey()) &&
+                       !versionPeriodoNew.getEstado().getIdEstado().equals(EstadoCuadroEnum.MODIFICADO.getKey())){
+                        
+                        if(titulo){
+                            super.agregarWarnMessage(PropertyManager.getInstance().getMessage("workflow_mensaje_prohibido_cambiar_estado"));
+                            titulo = false;
+                        }
+                        
+                        super.agregarWarnMessage(MessageFormat.format("{0} del estado: {1} hacia el estado {2} , debido a que no está validado",  
+                                                                      versionPeriodoActual.getVersion().getCatalogo().getNombre(), 
+                                                                      Util.capitalizar(versionPeriodoActual.getEstado().getNombre()), 
+                                                                      Util.capitalizar(versionPeriodoNew.getEstado().getNombre())));                        
+                        result = Boolean.FALSE;
+                    }
+                    
+                }
                 if(versionPeriodoActual.getEstado().getIdEstado().equals(EstadoCuadroEnum.CERRADO.getKey())){
                     if(!(versionPeriodoNew.getEstado().getIdEstado().equals(EstadoCuadroEnum.CONTINGENCIA.getKey())) &&
                        !(versionPeriodoNew.getEstado().getIdEstado().equals(EstadoCuadroEnum.CERRADO.getKey()))){
-                        if(count == 1){
+                        if(titulo){
                             super.agregarWarnMessage(PropertyManager.getInstance().getMessage("workflow_mensaje_prohibido_cambiar_estado"));
+                            titulo = false;
                         }
                         super.agregarWarnMessage(MessageFormat.format("{0} del estado: {1} hacia el estado {2}",  versionPeriodoActual.getVersion().getCatalogo().getNombre(), Util.capitalizar(versionPeriodoActual.getEstado().getNombre()), Util.capitalizar(versionPeriodoNew.getEstado().getNombre())));                        
                         result = Boolean.FALSE;
-                        count++;
                     }
                 }
             }

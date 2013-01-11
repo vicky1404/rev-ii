@@ -42,5 +42,5 @@ public interface CeldaServiceLocal {
     
     List<Celda> findCeldaByEeff(Long idPeriodo, Long idFecu);
     
-    List<Celda> findCeldaByEeffDet(Long idPeriodo, Long idCuenta);
+    List<Celda> findCeldaByEeffDet(Long idPeriodo, Long idFecu,  Long idCuenta);
 }

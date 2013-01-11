@@ -1,30 +1,29 @@
 package cl.bicevida.revelaciones.ejb.service;
 
 
-import static ch.lambdaj.Lambda.having;
 import static ch.lambdaj.Lambda.index;
 import static ch.lambdaj.Lambda.on;
-import static ch.lambdaj.Lambda.select;
+import static ch.lambdaj.Lambda.sort;
+import ch.lambdaj.function.compare.ArgumentComparator;
 
 import cl.bicevida.revelaciones.eeff.CargadorEeffVO;
-import cl.bicevida.revelaciones.eeff.DependenciaEeffFactory;
-import cl.bicevida.revelaciones.eeff.DependenciaVO;
-import cl.bicevida.revelaciones.eeff.FilaCeldaVO;
-import cl.bicevida.revelaciones.eeff.RelacionEeffVO;
+import cl.bicevida.revelaciones.ejb.common.MailConfigEnum;
+import cl.bicevida.revelaciones.ejb.common.TipoParametroEnum;
+import cl.bicevida.revelaciones.ejb.cross.Constantes;
 import cl.bicevida.revelaciones.ejb.cross.EeffUtil;
 import cl.bicevida.revelaciones.ejb.cross.Util;
-import cl.bicevida.revelaciones.ejb.entity.Celda;
+import cl.bicevida.revelaciones.ejb.entity.Catalogo;
 import cl.bicevida.revelaciones.ejb.entity.CodigoFecu;
-import cl.bicevida.revelaciones.ejb.entity.Columna;
+import cl.bicevida.revelaciones.ejb.entity.CuentaContable;
 import cl.bicevida.revelaciones.ejb.entity.DetalleEeff;
 import cl.bicevida.revelaciones.ejb.entity.EstadoFinanciero;
+import cl.bicevida.revelaciones.ejb.entity.Parametro;
 import cl.bicevida.revelaciones.ejb.entity.RelacionDetalleEeff;
 import cl.bicevida.revelaciones.ejb.entity.RelacionEeff;
+import cl.bicevida.revelaciones.ejb.entity.UsuarioGrupo;
+import cl.bicevida.revelaciones.ejb.entity.VersionEeff;
+import cl.bicevida.revelaciones.ejb.facade.local.FacadeServiceLocal;
 import cl.bicevida.revelaciones.ejb.service.local.CargadorEeffServiceLocal;
-import cl.bicevida.revelaciones.ejb.service.local.CeldaServiceLocal;
-import cl.bicevida.revelaciones.ejb.service.local.ColumnaServiceLocal;
-import cl.bicevida.revelaciones.ejb.service.local.EstadoFinancieroServiceLocal;
-import cl.bicevida.revelaciones.ejb.service.local.FecuServiceLocal;
 import cl.bicevida.revelaciones.exceptions.EstadoFinancieroException;
 
 import java.io.InputStream;
@@ -32,51 +31,57 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.annotation.Resource;
 
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
+import org.apache.commons.collections.ComparatorUtils;
+import org.apache.log4j.Logger;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import static org.hamcrest.Matchers.equalTo;
-
 
 @Stateless
 public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
+    
+    private final Logger logger = Logger.getLogger(CargadorEeffServiceBean.class);
     
     @Resource
     SessionContext sessionContext;
     @PersistenceContext(unitName = "revelacionesPU")
     private EntityManager em;
-    
+
     @EJB
-    private EstadoFinancieroServiceLocal estadoFinancieroService;
-    @EJB
-    private FecuServiceLocal fecuService;
-    @EJB
-    private ColumnaServiceLocal columnaService;
-    @EJB
-    private CeldaServiceLocal celdaService;
-    
-    private Map<Long, CodigoFecu> fecuMap;
+    private FacadeServiceLocal facadeService;
 
     public CargadorEeffServiceBean() {
     }
     
-    public Map<Long, EstadoFinanciero> leerEeff(final InputStream loadedExcel)throws EstadoFinancieroException, Exception {
+    public CargadorEeffVO leerEeff(final InputStream loadedExcel)throws EstadoFinancieroException, Exception {
+        
         
         XSSFWorkbook workBook = new XSSFWorkbook(loadedExcel);
         
@@ -91,19 +96,25 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
            workBook.getSheetAt(1).getPhysicalNumberOfRows() == 0)
             throw new EstadoFinancieroException("El documento Excel no contiene filas");   
         
-        fecuMap = fecuService.getCodigoFecusVigentes();
+         Map<Long, CodigoFecu> fecuMap = facadeService.getFecuService().getCodigoFecusVigentes();
+         Map<Long, CuentaContable> cuentaMap = facadeService.getFecuService().getCodigoCuentasVigentes();
         
-        leerCabeceraEeff(eeffMap, workBook.getSheetAt(0), fecuMap, errores);
+        CargadorEeffVO cargadorVO = new CargadorEeffVO();
         
-        leerDetalleEeff(eeffMap, workBook.getSheetAt(1), errores);
+        int cabecera = leerCabeceraEeff(eeffMap, workBook.getSheetAt(0), fecuMap, errores);
+        int detalle = leerDetalleEeff(eeffMap, workBook.getSheetAt(1), cuentaMap, errores);
+        
+        cargadorVO.setCatidadEeffProcesado(cabecera);
+        cargadorVO.setCatidadEeffDetProcesado(detalle);
+        cargadorVO.setEeffList(new ArrayList<EstadoFinanciero>(eeffMap.values()));
         
         if(errores.size()>0)
             throw new EstadoFinancieroException(errores);
         
-        return eeffMap;
+        return cargadorVO;
     }
     
-    public void leerCabeceraEeff(Map<Long, EstadoFinanciero> eeffMap, 
+    private int leerCabeceraEeff(Map<Long, EstadoFinanciero> eeffMap, 
                                  XSSFSheet sheet,
                                  Map<Long,CodigoFecu> fecuMap,
                                  List<String> errores){
@@ -111,6 +122,7 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
         XSSFRow row;
         XSSFCell cell;
         
+        int contador = 0;
         int cols = 4;
         int rows = sheet.getPhysicalNumberOfRows();
         
@@ -137,7 +149,7 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
                         idFecu = getCodigoFecu(cell, c+1, r1+1, errores);
                         
                         if(!fecuMap.containsKey(idFecu))
-                            EeffUtil.addErrorFecuNotFound(c+1, r1+1,errores);
+                            EeffUtil.addErrorFecuNotFound(idFecu ,errores);
                         else
                             eeff.setCodigoFecu(fecuMap.get(idFecu));
                         
@@ -156,25 +168,27 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
                     eeff.setIdFecu(idFecu);
                     
                     if(eeffMap.containsKey(idFecu)){
-                        EeffUtil.addErrorFecuDu(1, r1+1,errores);
+                        EeffUtil.addErrorFecuDu(idFecu, errores);
                     }else{
                         eeffMap.put(idFecu, eeff);
+                        contador++;
                     }
                 }
             }
         }
-        
-        
+        return contador;
     }
     
-    public void leerDetalleEeff(Map<Long, EstadoFinanciero> eeffMap, 
-                                XSSFSheet sheet, 
+    public int leerDetalleEeff(Map<Long, EstadoFinanciero> eeffMap, 
+                                XSSFSheet sheet,
+                                Map<Long, CuentaContable> cuentaMap,
                                 List<String> errores){
         
         XSSFRow row;
         XSSFCell cell;
-        Map<Long,Long> cuentaMap = new LinkedHashMap<Long,Long>();
+        Map<Long,Long> cuentaCargadaMap = new LinkedHashMap<Long,Long>();
         
+        int contador = 0;
         int cols = 8;
         int rows = sheet.getPhysicalNumberOfRows();
         
@@ -199,18 +213,20 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
                     
                     break;
                 
-                case 1: //Descripcion fecu
-
-                    break;
-                
-                case 2: //Numero cuenta
+                case 1: //Numero cuenta
                     try{
                         Long idCuenta = ((Double)cell.getNumericCellValue()).longValue();
                         
-                        if(cuentaMap.containsKey(idCuenta))
-                            EeffUtil.addErrorCuantaDu(c+1, r1+1,errores);
+                        if(cuentaMap.containsKey(idCuenta)){
+                            detalleEeff.setCuentaContable(cuentaMap.get(idCuenta));
+                        }else{
+                            EeffUtil.addErrorCuentaNotFound(idCuenta ,errores);
+                        }
+                        
+                        if(cuentaCargadaMap.containsKey(idCuenta))
+                            EeffUtil.addErrorCuentaDu(idCuenta, errores);
                         else
-                            cuentaMap.put(idCuenta, idCuenta);
+                            cuentaCargadaMap.put(idCuenta, idCuenta);
                         
                         detalleEeff.setIdCuenta(idCuenta);
                     }catch(Exception e){
@@ -218,28 +234,28 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
                     }
                     break;
                 
-                case 3:
-                    try{
-                        detalleEeff.setDescripcionCuenta(cell.getStringCellValue());
-                    }catch(Exception e){
-                        detalleEeff.setDescripcionCuenta("");
-                    }
+                case 2:
+                    //descripcion cuenta contable
                     break;
                 
-                case 4:
+                case 3:
                     detalleEeff.setMontoEbs(getValorBigDecimal(cell));
                     break;
                 
-                case 5:
+                case 4:
                     detalleEeff.setMontoReclasificacion(getValorBigDecimal(cell));
                     break;
                 
-                case 6:
+                case 5:
                     detalleEeff.setMontoPesos(getValorBigDecimal(cell));
                     break;
                 
+                case 6:
+                    detalleEeff.setMontoMilesValidarMapeo(getValorBigDecimal(cell));
+                    break;
+                
                 case 7:
-                    detalleEeff.setMontoMiles(getValorBigDecimal(cell));
+                    detalleEeff.setMontoXBRL(getValorBigDecimal(cell));
                     break;
                 
                 }
@@ -247,15 +263,18 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
             
             if(idFecu!=null){
                 if(!eeffMap.containsKey(idFecu)){
-                    EeffUtil.addErrorFecu(1+1, r1+1, errores);
+                    EeffUtil.addErrorFecu(idFecu, errores);
                 }else{
                     EstadoFinanciero eeff = eeffMap.get(idFecu);
                     detalleEeff.setEstadoFinanciero1(eeff);
                     eeff.getDetalleEeffList4().add(detalleEeff);
+                    contador++;
                 }
             }
             
         }
+        
+        return contador;
     }
     
     private Long getCodigoFecu(XSSFCell cell, int col, int row, List<String> errores){        
@@ -266,7 +285,7 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
             idFecu = ((Double)cell.getNumericCellValue()).longValue();
             
         }catch(Exception e){
-            EeffUtil.addErrorFecuNull(col+1, row+1,errores);
+            EeffUtil.addErrorFecuNull(col, row,errores);
         }
         
         return idFecu;
@@ -280,157 +299,629 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
         }
     }
     
-    public void validarEeffConRelacionEeff(Map<Long, EstadoFinanciero> eeffMap, Long idPeriodo,CargadorEeffVO cargadorVO){
+    public void validarNuevoEeff(final List<EstadoFinanciero> eeffListNuevo,final Long idPeriodo,final CargadorEeffVO cargadorVO) throws Exception{
         
+        VersionEeff versionEeff = null;
         
-        List<RelacionEeff> eeffList = estadoFinancieroService.getRelacionEeffByPeriodo(idPeriodo);
-        List<RelacionDetalleEeff> relacionEeffList = estadoFinancieroService.getRelacionDetalleEeffByPeriodo(idPeriodo);
+        try{
+            versionEeff = facadeService.getEstadoFinancieroService().getVersionEeffVigenteFindByPeriodo(idPeriodo);
+        }catch(EJBException e){
+            if(!(e.getCause() instanceof NoResultException)){
+                throw e;
+            }
+        }
         
-        Map<Long,RelacionEeff> relEeffMap = index(eeffList, on(RelacionEeff.class).getIdFecu());
-        Map<Long,RelacionDetalleEeff> relDetalleEeffMap = index(relacionEeffList, on(RelacionDetalleEeff.class).getIdCuenta());
+        /*No hay ninguna version anterior con la cual validar*/
+        if(versionEeff == null)
+            return;
         
-        Iterator<Map.Entry<Long, EstadoFinanciero>> it = eeffMap.entrySet().iterator();
+        /********************** EEFF DE BBDD PARA VALIDACION ******************************************************/
         
-        while(it.hasNext()){
+        /*Lista con los estados financieros vigentes de la bdd*/
+        List<EstadoFinanciero>  eeffList  = facadeService.getEstadoFinancieroService().getEeffByVersion(versionEeff.getIdVersionEeff());
+        List<DetalleEeff> eeffDetList = facadeService.getEstadoFinancieroService().getDetalleEeffByVersion(versionEeff.getIdVersionEeff());
+        
+        Map<Long,EstadoFinanciero> eeffMap = index(eeffList, on(EstadoFinanciero.class).getIdFecu());
+        Map<String,DetalleEeff> detalleEeffMap = EeffUtil.convertListEeffDetToMap(eeffDetList);
+        
+        /*Lista con los mapeos de estados financieros vigentes de la bdd*/
+        List<RelacionEeff> relEeffList = facadeService.getEstadoFinancieroService().getRelacionEeffByPeriodo(idPeriodo);
+        List<RelacionDetalleEeff> relDetEeffList = facadeService.getEstadoFinancieroService().getRelacionDetalleEeffByPeriodo(idPeriodo);
+        
+        Map<Long,List<RelacionEeff>> relEeffMap = EeffUtil.convertListRelEeffToMap(relEeffList);
+        Map<String,List<RelacionDetalleEeff>> relDetalleEeffMap = EeffUtil.convertListRelEeffDetToMap(relDetEeffList);
+        
+        /********************** LISTAS DE RESULTADO DE VALIDACION **************************************************/
+        
+        /*Listas representan a las diferencias de montos entre Eeff y  EEff nuevo*/
+        List<EstadoFinanciero>  eeffDescuadreList  = new ArrayList<EstadoFinanciero>();
+        List<DetalleEeff> eeffDetDescuadreList = new ArrayList<DetalleEeff>();
+        
+        /*Listas representan a las diferencias de montos entre la celda que esta mapeada y nuevo valor de EEff */
+        List<RelacionEeff>  relEeffDescuadreList  = new ArrayList<RelacionEeff>();
+        List<RelacionDetalleEeff> relEeffDetDescuadreList = new ArrayList<RelacionDetalleEeff>();
+        
+        /*Listas representan los FECU y CUENTA que se han eliminado */
+        List<EstadoFinanciero>  eeffBorradoList  = new ArrayList<EstadoFinanciero>();
+        List<DetalleEeff> eeffDetBorradoList = new ArrayList<DetalleEeff>();
+        
+        /*Listas representan los FECU y CUENTA mapeados que se han eliminado */
+        List<RelacionEeff>  relEeffBorradoList  = new ArrayList<RelacionEeff>();
+        List<RelacionDetalleEeff> relEeffDetBorradoList = new ArrayList<RelacionDetalleEeff>();
+        
+
+        /*se itera la nueva eeff cargada*/
+        for(EstadoFinanciero eeff : eeffListNuevo){
             
-            Map.Entry<Long, EstadoFinanciero> entry =  it.next();
-            Long idFecu = entry.getKey();
-            EstadoFinanciero eeffNew = entry.getValue();
+            /*Validando montos FECU y CUENTA EEFF contra monto FECU Y CUENTA de EEFF nuevo*/
+            validarEeffConEeffNuevo(eeff, 
+                                    eeffMap, 
+                                    detalleEeffMap,
+                                    eeffDescuadreList, 
+                                    eeffDetDescuadreList);
             
-            System.out.println("Iterando Fecu : " + idFecu);
+            /*Validando montos MAPEO FECU y CUENTA EEFF contra monto FECU Y CUENTA de EEFF nuevo*/
+            validarRelEeffConEeffNuevo(eeff, 
+                                       relEeffMap, 
+                                       relDetalleEeffMap, 
+                                       relEeffDescuadreList, 
+                                       relEeffDetDescuadreList);
             
-            if(relEeffMap.containsKey(idFecu)){
+        }
+        
+        
+        eeffBorradoList.addAll(eeffMap.values());// = new ArrayList<EstadoFinanciero>(eeffMap.values());
+        eeffDetBorradoList.addAll(detalleEeffMap.values());  // = new ArrayList<DetalleEeff>(detalleEeffMap.values());
+        
+        for(List<RelacionEeff> relBList : relEeffMap.values()){
+            for(RelacionEeff relB : relBList){
+                relEeffBorradoList.add(relB);
+            }
+        }
+        
+        //relEeffBorradoList.addAll(relEeffMap.values()); // = new ArrayList<RelacionEeff>(relEeffMap.values());
+        
+        for(List<RelacionDetalleEeff> relDetBList : relDetalleEeffMap.values()){
+            for(RelacionDetalleEeff relDetB : relDetBList){
+                relEeffDetBorradoList.add(relDetB);
+            }
+        }
+        
+        //relEeffDetBorradoList.addAll(relDetalleEeffMap.values());
+        
+        cargadorVO.setEeffBorradoList(eeffBorradoList);        
+        cargadorVO.setEeffDescuadreList(eeffDescuadreList);
+        
+        cargadorVO.setEeffDetBorradoList(eeffDetBorradoList);
+        cargadorVO.setEeffDetDescuadreList(eeffDetDescuadreList);
+        
+        cargadorVO.setRelEeffBorradoList(relEeffBorradoList);
+        cargadorVO.setRelEeffDetBorradoList(relEeffDetBorradoList);
+        cargadorVO.setRelEeffDescuadreList(relEeffDescuadreList);
+        cargadorVO.setRelEeffDetDescuadreList(relEeffDetDescuadreList);
+        
+        cargarGrillaNoValida(cargadorVO);
+        
+        sortList(cargadorVO);
+        
+        buildMailList(cargadorVO);
+    
+    }
+    
+    /**
+     *Valida el monto de Eeff contra EEff nuevo
+     */
+    private void validarEeffConEeffNuevo(   final EstadoFinanciero eeffNuevo, /*EEFF EXCEL*/
+                                            final Map<Long,EstadoFinanciero> eeffMap, /*EEFF BDD*/ 
+                                            final Map<String,DetalleEeff> detalleEeffMap, /*DET EEFF BDD*/ 
+                                            final List<EstadoFinanciero>  eeffDescuadreList,
+                                            final List<DetalleEeff> eeffDetDescuadreList){
+        
+        Long idFecu = eeffNuevo.getIdFecu();
+        
+        /*Validando mapeo monto de FECU relacion EEFF contra monto FECU de EEFF nuevo*/
+        if(eeffMap.containsKey(idFecu)){
+            
+            EstadoFinanciero eeff = eeffMap.get(idFecu);
+            
+            if(!eeff.getMontoTotal().equals(eeffNuevo.getMontoTotal())){
                 
-                RelacionEeff relEeff = relEeffMap.get(idFecu);
+                eeff.setMontoTotalNuevo(eeffNuevo.getMontoTotal());
+                eeffDescuadreList.add(eeff);
                 
-                if(!relEeff.getMontoTotal().equals(eeffNew.getMontoTotal())){
-                    System.out.println("Descuadre en monto Fecu : " + EeffUtil.formatFecu(idFecu) + 
-                                       " - Monto Nuevo : "  + eeffNew.getMontoTotal() + " - Monto Antiguo " + relEeff.getMontoTotal());
-                }
+                logger.info("Descuadre en monto Fecu : " + EeffUtil.formatFecu(idFecu) + 
+                            " - Monto Nuevo : "  + eeff.getMontoTotalNuevo() + 
+                            " - Monto Antiguo " + eeff.getMontoTotal());
+            }
+            
+            /*Validando mapeo monto de CUENTA  EEFF contra monto CUENTA de EEFF nuevo*/
+            if(Util.esListaValida(eeffNuevo.getDetalleEeffList4())){
                 
-                if(Util.esListaValida(eeffNew.getDetalleEeffList4())){
+                for(DetalleEeff eeffDetNuevo : eeffNuevo.getDetalleEeffList4()){
                     
-                    for(DetalleEeff detEeffNew : eeffNew.getDetalleEeffList4()){
+                    String key = EeffUtil.formatKeyFecuCuenta(eeffDetNuevo.getIdFecu(), eeffDetNuevo.getIdCuenta());
+                    
+                    if(detalleEeffMap.containsKey(key)){
                         
-                        if(relDetalleEeffMap.containsKey(detEeffNew.getIdCuenta())){
+                        DetalleEeff eeffDet = detalleEeffMap.get(key);
+                        
+                        if(!eeffDet.getMontoMilesValidarMapeo().equals(eeffDetNuevo.getMontoMilesValidarMapeo())){
                             
-                            RelacionDetalleEeff relDetEeff = relDetalleEeffMap.get(detEeffNew.getIdCuenta());
+                            eeffDet.setMontoMilesValidarMapeoNuevo(eeffDetNuevo.getMontoMilesValidarMapeo());
+                            eeffDetDescuadreList.add(eeffDet);
                             
-                            if(!relDetEeff.getMontoPesos().equals(detEeffNew.getMontoPesos())){
-                                System.out.println("Descuadre en pesos Cuenta : " + detEeffNew.getIdCuenta() + 
-                                                   " - Monto Nuevo : "  + detEeffNew.getMontoPesos() + " - Monto Antiguo " + relDetEeff.getMontoPesos());
-                            }
+                            logger.info("Descuadre en pesos Cuenta : " + eeffDetNuevo.getIdCuenta() + 
+                                        " - Monto Nuevo : "  + eeffDet.getMontoMilesValidarMapeoNuevo() + 
+                                        " - Monto Antiguo " +  eeffDet.getMontoMilesValidarMapeo());
+                        }
+                        
+                        detalleEeffMap.remove(key);
+                        
+                    }
+                }
+            }
+            eeffMap.remove(idFecu);
+        }    
+    }
+    
+    /**
+     *Valida el monto del mapeo de Eeff (Relacion EEFF) contra EEff nuevo
+     */
+    private void validarRelEeffConEeffNuevo(final EstadoFinanciero eeffNuevo,
+                                            final Map<Long,List<RelacionEeff>> relEeffMap, 
+                                            final Map<String,List<RelacionDetalleEeff>> relDetalleEeffMap,
+                                            final List<RelacionEeff>  relEeffDescuadreList,
+                                            final List<RelacionDetalleEeff> relEeffDetDescuadreList){
+        
+        Long idFecu = eeffNuevo.getIdFecu();
+        
+        /*Validando mapeo monto de FECU relacion EEFF contra monto FECU de EEFF nuevo*/
+        if(relEeffMap.containsKey(idFecu)){
+            
+            List<RelacionEeff> relEeffList = relEeffMap.get(idFecu);
+            
+            for(RelacionEeff relEeff : relEeffList){
+            
+                if(!relEeff.getMontoTotal().equals(eeffNuevo.getMontoTotal())){
+                    
+                    relEeff.setMontoTotalNuevo(eeffNuevo.getMontoTotal());
+                    relEeffDescuadreList.add(relEeff);
+                    
+                    logger.info("Descuadre en Mapeo monto Fecu : " + EeffUtil.formatFecu(idFecu) + 
+                                " - Monto Nuevo : "  + relEeff.getMontoTotalNuevo() + 
+                                " - Monto Antiguo " + relEeff.getMontoTotal());
+                }
+                
+            }
+            
+            /*Validando mapeo monto de CUENTA relacion EEFF contra monto CUENTA de EEFF nuevo*/
+            if(Util.esListaValida(eeffNuevo.getDetalleEeffList4())){
+                
+                for(DetalleEeff eeffDetNuevo : eeffNuevo.getDetalleEeffList4()){
+                    
+                    String key = EeffUtil.formatKeyFecuCuenta(eeffDetNuevo.getIdFecu(), eeffDetNuevo.getIdCuenta());
+                    
+                    if(relDetalleEeffMap.containsKey(key)){
+                        
+                        List<RelacionDetalleEeff> relEeffDetList = relDetalleEeffMap.get(key);
+                        
+                        for(RelacionDetalleEeff relEeffDet : relEeffDetList){
+                        
+                                if(!relEeffDet.getMontoMilesValidarMapeo().equals(eeffDetNuevo.getMontoMilesValidarMapeo())){
+                                    
+                                    relEeffDet.setMontoMilesValidarMapeoNuevo(eeffDetNuevo.getMontoMilesValidarMapeo());
+                                    relEeffDetDescuadreList.add(relEeffDet);
+                                    
+                                    logger.info("Descuadre en Mapeo pesos Cuenta : " + eeffDetNuevo.getIdCuenta() + 
+                                                " - Monto Nuevo : "  + relEeffDet.getMontoMilesValidarMapeoNuevo() + 
+                                                " - Monto Antiguo " +  relEeffDet.getMontoMilesValidarMapeo());
+                                }
                             
-                            relDetalleEeffMap.remove(detEeffNew.getIdCuenta());
-                            
-                        }else{
-                            System.out.println("Cuenta nueva : " + detEeffNew.getIdCuenta());
+                                relDetalleEeffMap.remove(key);
                         }
                     }
                 }
-
-                relEeffMap.remove(idFecu);
-
-            }else{
-                System.out.println("Fecu nueva : " + idFecu);
             }
+            relEeffMap.remove(idFecu);
         }
-        
-        DependenciaEeffFactory df = new DependenciaEeffFactory();
-        
-        if(!relEeffMap.isEmpty()){
-            
-            Iterator<Map.Entry<Long, RelacionEeff>> itRel = relEeffMap.entrySet().iterator();
-            cargadorVO.setEeffBorrarList(new ArrayList<RelacionEeff>());
-            
-            while(itRel.hasNext()){
-                
-                Map.Entry<Long, RelacionEeff> entry =  itRel.next();
-                Long idFecu = entry.getKey();
-                RelacionEeff relEeff = entry.getValue();
-                cargadorVO.getEeffBorrarList().add(relEeff);
-                
-                List<Celda> celdaList = celdaService.findCeldaByEeff(idPeriodo, idFecu);
-                
-                System.out.println("Se perderá la relacion para todas las grillas que estan asociadas al Fecu : " + idFecu);
-                
-                for(Celda celda : celdaList){
-                    df.putCeldas(celda);
-                }
-                
-            }
-        }
-        
-        if(!relDetalleEeffMap.isEmpty()){
-            
-            Iterator<Map.Entry<Long, RelacionDetalleEeff>> itRelDet = relDetalleEeffMap.entrySet().iterator();
-            cargadorVO.setEeffBorrarDetList(new ArrayList<RelacionDetalleEeff>());
-            
-            while(itRelDet.hasNext()){
-                
-                Map.Entry<Long, RelacionDetalleEeff> entry =  itRelDet.next();
-                Long idCuenta = entry.getKey();
-                RelacionDetalleEeff relDetEeff = entry.getValue();
-                cargadorVO.getEeffBorrarDetList().add(relDetEeff);
-                System.out.println("Se perderá la relacion para todas las grillas que estan asociadas a la Cuenta : " + idCuenta);
-                
-                List<Celda> celdaList = celdaService.findCeldaByEeffDet(idPeriodo, idCuenta);
-                
-                for(Celda celda : celdaList){
-                    df.putCeldas(celda);
-                }
-                
-            }
-        }
-        
-        List<RelacionEeffVO> relacionVOList = new ArrayList<RelacionEeffVO>();
-        List<DependenciaVO> dependenciaList = df.getDependenciaVOThisInstance();
-        
-        for(DependenciaVO dep : dependenciaList){
-            
-            List<Columna> columnaList = columnaService.getColumnaByGrilla(dep.getIdGrilla());
-            
-            RelacionEeffVO relacionVO = new RelacionEeffVO();
-            
-            if(Util.esListaValida(columnaList)){
-                relacionVO.setTitulo(columnaList.get(0).getGrilla().getEstructura1().getVersion().getCatalogo().getTitulo());
-            }
-            
-            int anchoTabla = 0;
-            
-            for(Columna columna : columnaList){
-                
-                List<Celda> celdaListTemp = new ArrayList<Celda>();
-                
-                for(FilaCeldaVO filaCeldaVO : dep.getFilaCeldaVO()){
-                    List<Celda> celdaListPaso = select(columna.getCeldaList() ,having(on(Celda.class).getIdFila(), equalTo(filaCeldaVO.getFila())));
-                    
-                    for(Celda cellTemp : filaCeldaVO.getCeldaList()){
-                        for(Celda celda : celdaListPaso){
-                            if(cellTemp.equals(celda)){
-                                celda.setTieneRelEeff(true);
-                                break;
-                            }
-                        }
-                    }
-                    
-                    if(celdaListPaso != null)
-                        celdaListTemp.addAll(celdaListPaso);
-                }
-                
-                columna.setCeldaList(celdaListTemp);
-                
-                anchoTabla += columna.getAncho();
-            }
-            relacionVO.setAnchoTabla(anchoTabla);
-            relacionVO.setColumnaList(columnaList);
-            relacionVO.setCeldaList(Util.builHtmlGrilla(columnaList));
-
-            relacionVOList.add(relacionVO);
-        }
-        
-        cargadorVO.setGrillaRelacionList(relacionVOList);
     }
     
     
+    public void buildMailList(final CargadorEeffVO cargadorVO) throws Exception{
+        
+        StringBuilder mensaje = null;
+        
+        /*idCatalogo, htmlMensaje representa todos los mensajes que contiene un catalogo, se debe perfilar el mensaje por grupoCatalogo*/
+        final Map<Long,List<StringBuilder>> mensajeMap = new HashMap<Long,List<StringBuilder>>();
+        
+        if(Util.esListaValida(cargadorVO.getRelEeffBorradoList())){
+            
+            Map<Long, List<RelacionEeff>> relEeffMap = EeffUtil.convertRelEeffListToMapByGrilla(cargadorVO.getRelEeffBorradoList());
+            
+            for ( Map.Entry<Long, List<RelacionEeff>> relEeffEntry : relEeffMap.entrySet() ){
+                
+                mensaje = new StringBuilder();
+            
+                Catalogo catalogo = relEeffEntry.getValue().get(0).getCelda2().getColumna().getGrilla().getEstructura1().getVersion().getCatalogo();
+                
+                mensaje .append(EeffUtil.getTableTag())
+                        .append("<tr>")
+                        .append(EeffUtil.getTdFontTag())
+                        .append("La revelación : ")
+                        .append(catalogo.getNombre()).append(" - ")
+                        .append("Ha perdido el mapeo, debido a que se han eliminado los siguientes Códigos FECU : ")
+                        .append("</td>")
+                        .append("</tr>")
+                        .append(EeffUtil.getTableCloseTag());
+                
+                mensaje .append(EeffUtil.getTableTag())
+                        .append(EeffUtil.getTbodyRelEeff());
+                
+                int count = 0;
+                for(RelacionEeff relEeff : relEeffEntry.getValue()){
+                    mensaje
+                        .append("<tr bgcolor='"+ ((count%2)!=0 ?"#EFF5FB":"") +"'>")
+                        .append(EeffUtil.getTdFontTag()).append(relEeff.getFecuFormat()).append(EeffUtil.getTdFontCloseTag())
+                        .append(EeffUtil.getTdFontTag()).append(relEeff.getCelda2().getColumna().getTituloColumna()).append(EeffUtil.getTdFontCloseTag())
+                        .append(EeffUtil.getTdFontTag()).append(relEeff.getIdFila()).append(EeffUtil.getTdFontCloseTag())
+                        .append(EeffUtil.getTdFontTag()).append(Util.formatCellKey(relEeff.getCelda2())).append(EeffUtil.getTdFontCloseTag())
+                        .append(EeffUtil.getTdFontTag()).append(relEeff.getCelda2().getValorBigDecimal()).append(EeffUtil.getTdFontCloseTag())
+                        .append("</tr>");
+                count++;
+                }
+                mensaje
+                        .append(EeffUtil.getTableCloseTag())
+                        .append(EeffUtil.getSaltoLineaTag());
+                
+                if(mensajeMap.containsKey(relEeffEntry.getKey())){
+                    mensajeMap.get(relEeffEntry.getKey()).add(mensaje);
+                }else{
+                    List<StringBuilder> mensajeTemp = new ArrayList<StringBuilder>();
+                    mensajeTemp.add(mensaje);
+                    mensajeMap.put(relEeffEntry.getKey(), mensajeTemp);
+                }
+                
+            }
+
+        }
+        
+        if(Util.esListaValida(cargadorVO.getRelEeffDetBorradoList())){
+            
+            Map<Long, List<RelacionDetalleEeff>> relEeffDetMap = EeffUtil.convertRelDetEeffListToMapByGrilla(cargadorVO.getRelEeffDetBorradoList());
+            
+            for ( Map.Entry<Long, List<RelacionDetalleEeff>> relDetEeffEntry : relEeffDetMap.entrySet() ){
+                
+                mensaje = new StringBuilder();
+                
+                Catalogo catalogo = relDetEeffEntry.getValue().get(0).getCelda5().getColumna().getGrilla().getEstructura1().getVersion().getCatalogo();
+                int count = 0;
+                mensaje .append(EeffUtil.getTableTag())
+                        .append("<tr>")
+                        .append(EeffUtil.getTdFontTag())
+                        .append("La revelación : ")
+                        .append(catalogo.getNombre()).append(" - ")
+                        .append("Ha perdido el mapeo, debido a que se han eliminado los siguientes Códigos de Cuenta : ")
+                        .append(EeffUtil.getTdFontCloseTag())
+                        .append("</tr>")
+                        .append(EeffUtil.getTableCloseTag());
+                
+                mensaje .append(EeffUtil.getTableTag())
+                        .append(EeffUtil.getTbodyRelDetEeff());
+                
+                count = 0;
+                for(RelacionDetalleEeff relDetalleEeff : relDetEeffEntry.getValue()){
+                    
+                    mensaje
+                        .append("<tr bgcolor='"+ ((count%2)!=0 ?"#EFF5FB":"") +"'>")
+                        .append(EeffUtil.getTdFontTag()).append(relDetalleEeff.getFecuFormat()).append(EeffUtil.getTdFontCloseTag())
+                        .append(EeffUtil.getTdFontTag()).append(relDetalleEeff.getIdCuenta()).append(EeffUtil.getTdFontCloseTag())
+                        .append(EeffUtil.getTdFontTag()).append(relDetalleEeff.getCelda5().getColumna().getTituloColumna()).append(EeffUtil.getTdFontCloseTag())
+                        .append(EeffUtil.getTdFontTag()).append(relDetalleEeff.getIdFila()).append(EeffUtil.getTdFontCloseTag())
+                        .append(EeffUtil.getTdFontTag()).append(Util.formatCellKey(relDetalleEeff.getCelda5())).append(EeffUtil.getTdFontCloseTag())
+                        .append(EeffUtil.getTdFontTag()).append(relDetalleEeff.getCelda5().getValorBigDecimal()).append(EeffUtil.getTdFontCloseTag())
+                        .append("</tr>");
+                    
+                    count++;
+                }
+            
+                mensaje
+                        .append(EeffUtil.getTableCloseTag())
+                        .append(EeffUtil.getSaltoLineaTag());;
+                    
+                if(mensajeMap.containsKey(relDetEeffEntry.getKey())){
+                    mensajeMap.get(relDetEeffEntry.getKey()).add(mensaje);
+                }else{
+                    List<StringBuilder> mensajeTemp = new ArrayList<StringBuilder>();
+                    mensajeTemp.add(mensaje);
+                    mensajeMap.put(relDetEeffEntry.getKey(), mensajeTemp);
+                }
+            }
+        }
+        
+        if(Util.esListaValida(cargadorVO.getRelEeffDescuadreList())){
+            
+            Map<Long, List<RelacionEeff>> relEeffMap = EeffUtil.convertRelEeffListToMapByGrilla(cargadorVO.getRelEeffDescuadreList());
+            
+            for ( Map.Entry<Long, List<RelacionEeff>> relEeffEntry : relEeffMap.entrySet() ){
+                
+                mensaje = new StringBuilder();
+            
+                Catalogo catalogo = relEeffEntry.getValue().get(0).getCelda2().getColumna().getGrilla().getEstructura1().getVersion().getCatalogo();
+                
+                mensaje .append(EeffUtil.getTableTag())
+                        .append("<tr>")
+                        .append(EeffUtil.getTdFontTag())
+                        .append("La revelación : ")
+                        .append(catalogo.getNombre()).append(" - ")
+                        .append("Se ha perdido la validación, debido a que se han modificado los valores de Códigos FECU :  ")
+                        .append(EeffUtil.getTdFontCloseTag())
+                        .append("</tr>")
+                        .append(EeffUtil.getTableCloseTag());
+                
+                mensaje .append(EeffUtil.getTableTag())
+                        .append(EeffUtil.getTbodyRelEeff());
+                
+                int count = 0;
+                for(RelacionEeff relEeff : relEeffEntry.getValue()){
+                    mensaje
+                        .append("<tr bgcolor='"+ ((count%2)!=0 ?"#EFF5FB":"") +"'>")
+                        .append(EeffUtil.getTdFontTag()).append(relEeff.getFecuFormat()).append(EeffUtil.getTdFontCloseTag())
+                        .append(EeffUtil.getTdFontTag()).append(relEeff.getCelda2().getColumna().getTituloColumna()).append(EeffUtil.getTdFontCloseTag())
+                        .append(EeffUtil.getTdFontTag()).append(relEeff.getIdFila()).append(EeffUtil.getTdFontCloseTag())
+                        .append(EeffUtil.getTdFontTag()).append(Util.formatCellKey(relEeff.getCelda2())).append(EeffUtil.getTdFontCloseTag())
+                        .append(EeffUtil.getTdFontTag()).append(relEeff.getCelda2().getValorBigDecimal()).append(EeffUtil.getTdFontCloseTag())
+                        .append("</tr>");
+                count++;
+                }
+                mensaje
+                        .append(EeffUtil.getTableCloseTag())
+                        .append(EeffUtil.getSaltoLineaTag());
+                
+                if(mensajeMap.containsKey(relEeffEntry.getKey())){
+                    mensajeMap.get(relEeffEntry.getKey()).add(mensaje);
+                }else{
+                    List<StringBuilder> mensajeTemp = new ArrayList<StringBuilder>();
+                    mensajeTemp.add(mensaje);
+                    mensajeMap.put(relEeffEntry.getKey(), mensajeTemp);
+                }
+                
+            }
+
+        }
+        
+        if(Util.esListaValida(cargadorVO.getRelEeffDetDescuadreList())){
+            
+            Map<Long, List<RelacionDetalleEeff>> relEeffDetMap = EeffUtil.convertRelDetEeffListToMapByGrilla(cargadorVO.getRelEeffDetDescuadreList());
+            
+            for ( Map.Entry<Long, List<RelacionDetalleEeff>> relDetEeffEntry : relEeffDetMap.entrySet() ){
+                
+                mensaje = new StringBuilder();
+                
+                Catalogo catalogo = relDetEeffEntry.getValue().get(0).getCelda5().getColumna().getGrilla().getEstructura1().getVersion().getCatalogo();
+                int count = 0;
+                mensaje .append(EeffUtil.getTableTag())
+                        .append("<tr>")
+                        .append(EeffUtil.getTdFontTag())
+                        .append("La revelación : ")
+                        .append(catalogo.getNombre()).append(" - ")
+                        .append("Se ha perdido la validación, debido a que se han modificado los valores de Códigos de Cuenta : ")
+                        .append(EeffUtil.getTdFontCloseTag())
+                        .append("</tr>")
+                        .append(EeffUtil.getTableCloseTag());
+                
+                mensaje .append(EeffUtil.getTableTag())
+                        .append(EeffUtil.getTbodyRelDetEeff());
+                
+                count = 0;
+                for(RelacionDetalleEeff relDetalleEeff : relDetEeffEntry.getValue()){
+                    
+                    mensaje
+                        .append("<tr bgcolor='"+ ((count%2)!=0 ?"#EFF5FB":"") +"'>")
+                        .append(EeffUtil.getTdFontTag()).append(relDetalleEeff.getFecuFormat()).append(EeffUtil.getTdFontCloseTag())
+                        .append(EeffUtil.getTdFontTag()).append(relDetalleEeff.getIdCuenta()).append(EeffUtil.getTdFontCloseTag())
+                        .append(EeffUtil.getTdFontTag()).append(relDetalleEeff.getCelda5().getColumna().getTituloColumna()).append(EeffUtil.getTdFontCloseTag())
+                        .append(EeffUtil.getTdFontTag()).append(relDetalleEeff.getIdFila()).append(EeffUtil.getTdFontCloseTag())
+                        .append(EeffUtil.getTdFontTag()).append(Util.formatCellKey(relDetalleEeff.getCelda5())).append(EeffUtil.getTdFontCloseTag())
+                        .append(EeffUtil.getTdFontTag()).append(relDetalleEeff.getCelda5().getValorBigDecimal()).append(EeffUtil.getTdFontCloseTag())
+                        .append("</tr>");
+                    
+                    count++;
+                }
+            
+                mensaje
+                        .append(EeffUtil.getTableCloseTag())
+                        .append(EeffUtil.getSaltoLineaTag());;
+                    
+                if(mensajeMap.containsKey(relDetEeffEntry.getKey())){
+                    mensajeMap.get(relDetEeffEntry.getKey()).add(mensaje);
+                }else{
+                    List<StringBuilder> mensajeTemp = new ArrayList<StringBuilder>();
+                    mensajeTemp.add(mensaje);
+                    mensajeMap.put(relDetEeffEntry.getKey(), mensajeTemp);
+                }
+            }
+        }
+        
+        logger.info(mensaje);
+        
+        buildUsuarioGrupo(cargadorVO, mensajeMap);
+        
+    }
+    
+    private void buildUsuarioGrupo(final CargadorEeffVO cargadorVO, final Map<Long,List<StringBuilder>> mensajeMap) throws Exception{
+        
+        String dominio;
+        
+        try{
+            dominio = facadeService.getParametroService().getParametrosConfigMapByTipoParametro(TipoParametroEnum.MAIL_CONFIG.getKey()).get(MailConfigEnum.MAIL_DOMINIO.getKey()).getValor();;
+        }catch(Exception e){
+            dominio = null;
+        }
+        
+        Map<String,UsuarioGrupo> usuarioMailMap = new LinkedHashMap<String,UsuarioGrupo>();
+        
+        for ( Map.Entry<Long, List<StringBuilder>> mensajeEntry : mensajeMap.entrySet() ){
+            
+            StringBuilder contenidoMail = new StringBuilder();
+            
+            Catalogo catalogo = facadeService.getCatalogoService().findCatalogoByCatalogo(new Catalogo(mensajeEntry.getKey()));
+            
+            Map<String,UsuarioGrupo> usuarioMap = index(facadeService.getSeguridadService().getUsuarioGrupoByCatalogo(mensajeEntry.getKey()), on(UsuarioGrupo.class).getUsuarioOid());
+            
+            for(StringBuilder str : mensajeEntry.getValue()){
+                contenidoMail.append(str).append("<br>");
+            }
+            
+            for(UsuarioGrupo usuarioTemp : usuarioMap.values()){
+                
+                usuarioTemp.setEmail(EeffUtil.concatUsuarioMail(usuarioTemp.getUsuarioOid(),dominio));
+                
+                if(usuarioMailMap.containsKey(usuarioTemp.getUsuarioOid())){
+                    usuarioMailMap.get(usuarioTemp.getUsuarioOid()).getContenidoMail().append(contenidoMail);
+                    usuarioMailMap.get(usuarioTemp.getUsuarioOid()).getCatalogoAsociadoList().add(catalogo);
+                }else{
+                    usuarioTemp.setContenidoMail(new StringBuilder(contenidoMail));
+                    usuarioTemp.setCatalogoAsociadoList(new ArrayList<Catalogo>());
+                    usuarioTemp.getCatalogoAsociadoList().add(catalogo);
+                    usuarioMailMap.put(usuarioTemp.getUsuarioOid(), usuarioTemp);
+                }
+            }
+        }
+        
+        cargadorVO.setUsuarioGrupoList(new ArrayList<UsuarioGrupo>(usuarioMailMap.values()));
+    }
+    
+    private void sortList(final CargadorEeffVO cargadorVO){
+        
+        final Comparator byIdFecu = new ArgumentComparator(on(EstadoFinanciero.class).getIdFecu());
+        
+        cargadorVO.setEeffBorradoList( sort(cargadorVO.getEeffBorradoList(), on(EstadoFinanciero.class),byIdFecu));
+        cargadorVO.setEeffDescuadreList(sort(cargadorVO.getEeffDescuadreList(), on(EstadoFinanciero.class),byIdFecu));
+        
+        final Comparator byIdCuenta = new ArgumentComparator(on(DetalleEeff.class).getIdCuenta());
+        
+        cargadorVO.setEeffDetBorradoList(sort(cargadorVO.getEeffDetBorradoList(), on(DetalleEeff.class),byIdCuenta));
+        cargadorVO.setEeffDetDescuadreList(sort(cargadorVO.getEeffDetDescuadreList(), on(DetalleEeff.class),byIdCuenta));
+        
+        final Comparator byFeGrilla = new ArgumentComparator(on(RelacionEeff.class).getIdGrilla());
+        final Comparator byFeColumna = new ArgumentComparator(on(RelacionEeff.class).getIdColumna());
+        final Comparator byFeFila = new ArgumentComparator(on(RelacionEeff.class).getIdFila());
+        final Comparator byFeIdFecu = new ArgumentComparator(on(RelacionEeff.class).getIdFecu());
+        
+        final Comparator fecuOrderBy = ComparatorUtils.chainedComparator(new Comparator[] {byFeGrilla, byFeColumna,byFeFila,byFeIdFecu});
+        
+        cargadorVO.setRelEeffBorradoList(sort(cargadorVO.getRelEeffBorradoList(), on(RelacionEeff.class), fecuOrderBy));
+        cargadorVO.setRelEeffDescuadreList(sort(cargadorVO.getRelEeffDescuadreList(), on(RelacionEeff.class), fecuOrderBy));
+        
+        final Comparator byCuGrilla = new ArgumentComparator(on(RelacionDetalleEeff.class).getIdGrilla());
+        final Comparator byCuColumna = new ArgumentComparator(on(RelacionDetalleEeff.class).getIdColumna());
+        final Comparator byCuFila = new ArgumentComparator(on(RelacionDetalleEeff.class).getIdFila());
+        final Comparator byCuIdFecu = new ArgumentComparator(on(RelacionDetalleEeff.class).getIdFecu());
+        final Comparator byCuIdCuenta = new ArgumentComparator(on(RelacionDetalleEeff.class).getIdCuenta());
+        
+        final Comparator cuentaOrderBy = ComparatorUtils.chainedComparator(new Comparator[] {byCuGrilla, byCuColumna,byCuFila,byCuIdFecu,byCuIdCuenta});
+        
+        cargadorVO.setRelEeffDetBorradoList(sort(cargadorVO.getRelEeffDetBorradoList(), on(RelacionDetalleEeff.class), cuentaOrderBy));
+        cargadorVO.setRelEeffDetDescuadreList(sort(cargadorVO.getRelEeffDetDescuadreList(), on(RelacionDetalleEeff.class), cuentaOrderBy));
+        
+    }
+    
+    public void sendMailEeff(List<UsuarioGrupo> usuarioGrupoList) throws Exception{
+        
+        final Map<String, Parametro> mailParams = facadeService.getParametroService().getParametrosConfigMapByTipoParametro(TipoParametroEnum.MAIL_CONFIG.getKey());
+        
+        String dominio,emailUser,emailPass,emailUserFrom,emailHost,emailPort,subject,enviarMail,usuarioTest = null;
+        Boolean autenticar = null;
+        try{
+            dominio = mailParams.get(MailConfigEnum.MAIL_DOMINIO.getKey()).getValor();
+            emailUser =  mailParams.get(MailConfigEnum.CARGADOR_MAIL_FROM.getKey()).getValor();
+            emailPass =  mailParams.get(MailConfigEnum.CARGADOR_MAIL_PASS_FROM.getKey()).getValor();
+            emailUserFrom =  EeffUtil.concatUsuarioMail(emailUser,dominio);
+            emailHost =  mailParams.get(MailConfigEnum.MAIL_HOST.getKey()).getValor();
+            emailPort =  mailParams.get(MailConfigEnum.MAIL_PORT.getKey()).getValor();
+            subject =    mailParams.get(MailConfigEnum.CARGADOR_SUBJECT.getKey()).getValor();
+            enviarMail =     mailParams.get(MailConfigEnum.ENVIAR_EMAIL.getKey()).getValor();
+            usuarioTest =  mailParams.get(MailConfigEnum.MAIL_USUARIO_TEST.getKey()).getValor();
+            autenticar =  new Boolean(mailParams.get(MailConfigEnum.MAIL_AUTENTUCAR.getKey()).getValor());
+        }catch(Exception e){
+            logger.error("Error al leer de bdd parámetros de configuración de mail" , e);
+            dominio = Constantes.MAIL_DOMINIO;
+            emailUser = Constantes.MAIL_USER;
+            emailPass = Constantes.MAIL_PASS;
+            emailUserFrom = EeffUtil.concatUsuarioMail(emailUser,dominio);
+            emailHost = Constantes.MAIL_HOST;
+            emailPort = Constantes.MAIL_PORT;
+            subject = Constantes.MAIL_SUBJECT;
+            enviarMail = Constantes.MAIL_SEND;
+            usuarioTest = Constantes.MAIL_USUARIO_TEST;
+            autenticar =  Constantes.MAIL_AUTENTICAR;
+        }
+         
+        Map<String,UsuarioGrupo> usuarioMap = index(usuarioGrupoList, on(UsuarioGrupo.class).getUsuarioOid());
+        
+        if(enviarMail==null || enviarMail.equalsIgnoreCase("false")){
+            for(UsuarioGrupo usuario : usuarioMap.values()){
+                if(usuarioTest!=null && usuarioTest.equalsIgnoreCase(usuario.getUsuarioOid())){
+                    sendMail(emailHost, emailUserFrom, emailUser, emailPass, emailUserFrom, subject, usuario.getContenidoMail().toString(),"text/html",emailPort,autenticar);
+				}
+            }
+        }else{
+            for(UsuarioGrupo usuario : usuarioMap.values()){
+                sendMail(emailHost, emailUserFrom, emailUser,emailPass, EeffUtil.concatUsuarioMail(usuario.getUsuarioOid(),dominio), subject, usuario.getContenidoMail().toString(),"text/html",emailPort,autenticar);
+            }
+        }
+    }
+    
+    
+    private void sendMail(String host, String emailUserFrom, String emailUser,  String emailPass, String emailTo, String subject, String mensaje, String type, String port, boolean autenticar)throws Exception{
+        
+        Properties properties = System.getProperties();
+        
+        properties.setProperty("mail.smtp.host", host);
+        properties.setProperty("mail.transport.protocol", "smtp");
+        properties.put("mail.smtp.port", port);
+		properties.put("mail.smtp.auth", "false");
+
+        
+
+        try{
+            Session mailSession = Session.getDefaultInstance(properties, null);
+            Transport transport = mailSession.getTransport();
+            MimeMessage message = new MimeMessage(mailSession);
+           message.setFrom(new InternetAddress(emailUserFrom));
+           message.addRecipient(Message.RecipientType.TO, new InternetAddress(emailTo));
+           message.setSubject(subject);
+           message.setContent(mensaje, type);
+            if(autenticar){
+                transport.connect(emailUser, emailPass);
+            }else{
+                transport.connect();
+            }
+            transport.sendMessage(message, message.getRecipients(Message.RecipientType.TO));
+           transport.close();
+        }catch (MessagingException mex) {
+           throw mex;
+        }
+        
+    }
+    
+    private void cargarGrillaNoValida(final CargadorEeffVO cargadorVO){
+        
+        for(RelacionEeff rel : cargadorVO.getRelEeffBorradoList()){
+            cargadorVO.getGrillaNoValida().put(rel.getIdGrilla(), rel.getIdGrilla());
+        }
+        
+        for(RelacionEeff rel : cargadorVO.getRelEeffDescuadreList()){
+            cargadorVO.getGrillaNoValida().put(rel.getIdGrilla(), rel.getIdGrilla());
+        }
+        
+        for(RelacionDetalleEeff relDet : cargadorVO.getRelEeffDetBorradoList()){
+            cargadorVO.getGrillaNoValida().put(relDet.getIdGrilla(), relDet.getIdGrilla());
+        }
+        
+        for(RelacionDetalleEeff relDet : cargadorVO.getRelEeffDetDescuadreList()){
+            cargadorVO.getGrillaNoValida().put(relDet.getIdGrilla(), relDet.getIdGrilla());
+        }
+        
+    }
 }
