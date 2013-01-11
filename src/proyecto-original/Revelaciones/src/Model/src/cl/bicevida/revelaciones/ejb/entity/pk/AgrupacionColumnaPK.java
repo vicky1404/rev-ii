@@ -2,9 +2,6 @@ package cl.bicevida.revelaciones.ejb.entity.pk;
 
 import java.io.Serializable;
 
-import java.lang.Long;
-
-
 public class AgrupacionColumnaPK implements Serializable {
     private Long idColumna;
     private Long idGrilla;

@@ -62,7 +62,7 @@
                   binding="#{generadorVersionBackingBean.versionTable}"
                   emptyText="No hay versiones creadas"
                   contentDelivery="immediate">
-            <af:column sortable="false" headerText="Version" align="center" id="c1" width="120px" inlineStyle="height:22px;">
+            <af:column sortable="false" headerText="Versión" align="center" id="c1" width="120px" inlineStyle="height:22px;">
             <af:switcher defaultFacet="#{(row.vigencia == 1 and row.idVersion != null) ? 'linkVersion' : 'outputVersion'}" id="s3">
                 <f:facet name="outputVersion">
                     <af:outputText value="#{row.version}" id="ot3"/>
@@ -71,7 +71,8 @@
                         <af:group id="g3">
                         <af:outputLabel value="#{row.version}" id="ol1"/>
                         <af:spacer width="10px;" id="s5"/>
-                        <af:commandLink actionListener="#{generadorVersionBackingBean.buscarEstructuraActionListener}" immediate="true"  id="cl3">
+                        <af:outputText value="Desagregado" rendered="#{row.desagregado}" id="ot11" shortDesc="El cuadro esta desagregado no se puede editar"/>
+                        <af:commandLink actionListener="#{generadorVersionBackingBean.buscarEstructuraActionListener}" immediate="true"  id="cl3" rendered="#{!row.desagregado}">
                             <af:image source="/images/icon/editar.png" id="i1" shortDesc="Editar"/>
                         </af:commandLink>
                         <af:spacer width="10px;" id="s6"/>

@@ -56,23 +56,22 @@ public class Catalogo implements Serializable {
     public static final String CATALOGO_FIND_ALL_BY_TIPO = "Catalogo.findAllByTipo";
     public static final String CATALOGO_FIND_BY_NOTA = "Catalogo.findCatalogoByNota";    
     public static final String CATALOGO_FIND_BY_FILTRO = "Catalogo.findCatalogoByFiltro";
-        
     
-    @SuppressWarnings("compatibility:5764985192753623221")
-    private static final long serialVersionUID = 5519999923709341563L;
+    @SuppressWarnings("compatibility:-5659885672498942383")
+    private static final long serialVersionUID = -3765083808763944426L;
 
 
-    @Column(name = "COD_CUADRO", nullable = false)
-    private Long codigoCuadro;
-    
-    @Column(name = "COD_SUBCUADRO", nullable = false)
-    private Long codigoSubcuadro;
-    
     @Id
     @GeneratedValue(generator="ID_GEN_CATALOGO")
     @SequenceGenerator(name="ID_GEN_CATALOGO", sequenceName = "SEQ_CATALOGO" ,allocationSize = 1)
     @Column(name = "ID_CATALOGO", nullable = false)
     private Long idCatalogo;
+    
+    @Column(name = "COD_CUADRO", nullable = false)
+    private Long codigoCuadro;
+    
+    @Column(name = "COD_SUBCUADRO", nullable = false)
+    private Long codigoSubcuadro;
     
     @Column(name = "NOMBRE", nullable = false, length = 256)
     private String nombre;
@@ -88,6 +87,9 @@ public class Catalogo implements Serializable {
     
     @Column(name = "IMPRESION_HORIZONTAL")
     private Long impresionHorizontal;
+    
+    @Column (name = "VALIDAR_EEFF")
+    private Long validarEeff;
     
     @OneToMany(mappedBy = "catalogo")
     private List<Version> versionList;
@@ -218,6 +220,14 @@ public class Catalogo implements Serializable {
         return impresionHorizontal;
     }
     
+    public void setValidarEeff(Long validarEeff) {
+        this.validarEeff = validarEeff;
+    }
+
+    public Long getValidarEeff() {
+        return validarEeff;
+    }
+    
     @Override
     public boolean equals(Object object) {
         if (this == object) {
@@ -240,6 +250,4 @@ public class Catalogo implements Serializable {
         result = PRIME * result + ((idCatalogo == null) ? 0 : idCatalogo.hashCode());
         return result;
     }
-
-    
 }

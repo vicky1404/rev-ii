@@ -19,10 +19,12 @@ import javax.persistence.Table;
 
 
 @Entity
-@NamedQueries( { @NamedQuery(name = EstadoCuadro.FIND_ALL , query = "select o from EstadoCuadro o order by o.nombre") })
+@NamedQueries( { @NamedQuery(name = EstadoCuadro.FIND_ALL , query = "select o from EstadoCuadro o order by o.nombre"),
+                 @NamedQuery(name = EstadoCuadro.FIND_BY_ID, query = "select o from EstadoCuadro o where o.idEstado = :idEstado")})
 @Table(name = Constantes.REV_ESTADO_CUADRO)
 public class EstadoCuadro implements Serializable {
     public static final String FIND_ALL = "Estado.findAll";
+    public static final String FIND_BY_ID = "Estado.findById";
     
     @SuppressWarnings("compatibility:6224906051675648598")
     private static final long serialVersionUID = -1036501892684060831L;

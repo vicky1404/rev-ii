@@ -18,6 +18,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
@@ -37,7 +38,7 @@ import javax.persistence.Transient;
                  @NamedQuery(name = Celda.CELDA_FIND_MAX_GRUPO, query = "select max(o.grupo) from Celda o where o.idGrilla = :idGrilla "),*/
                  @NamedQuery(name = Celda.CELDA_FIND_BY_ID_FILA, query = "select o from Celda o where o.idGrilla = :idGrilla and o.idFila = :idFila order by o.idColumna"),
                  @NamedQuery(name = Celda.FIND_BY_EEFF, query =     "select c from Celda c, RelacionEeff        r where c.idGrilla = r.idGrilla and c.idColumna = r.idColumna and c.idFila = r.idFila and r.periodo.idPeriodo = :idPeriodo and r.idFecu = :idFecu order by c.idColumna , c.idFila"),
-                 @NamedQuery(name = Celda.FIND_BY_EEFF_DET, query = "select c from Celda c, RelacionDetalleEeff r where c.idGrilla = r.idGrilla and c.idColumna = r.idColumna and c.idFila = r.idFila and r.periodo.idPeriodo = :idPeriodo and r.idCuenta = :idCuenta order by c.idColumna , c.idFila")
+                 @NamedQuery(name = Celda.FIND_BY_EEFF_DET, query = "select c from Celda c, RelacionDetalleEeff r where c.idGrilla = r.idGrilla and c.idColumna = r.idColumna and c.idFila = r.idFila and r.periodo.idPeriodo = :idPeriodo and r.idCuenta = :idCuenta and r.idFecu = :idFecu order by c.idColumna , c.idFila")
                  })
 @Table(name = Constantes.REV_CELDA)
 @IdClass(CeldaPK.class)
@@ -98,10 +99,10 @@ public class Celda implements Serializable {
     @Column(name="FORMULA")
     private String formula;
     
-    @OneToMany(mappedBy = "celda2")
+    @OneToMany(mappedBy = "celda2", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<RelacionEeff> relacionEeffList;
     
-    @OneToMany(mappedBy = "celda5")
+    @OneToMany(mappedBy = "celda5", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<RelacionDetalleEeff> relacionDetalleEeffList;
     
     @Transient
@@ -121,6 +122,15 @@ public class Celda implements Serializable {
     
     @Transient
     private boolean tieneRelEeff = false;
+    
+    @Transient
+    private BigDecimal sumaEeff;
+    
+    @Transient
+    private boolean valid = true;
+    
+    @Transient
+    private boolean selectedByMapping;
     
     public Celda() {
     }
@@ -288,25 +298,9 @@ public class Celda implements Serializable {
         celdaNew.setChildVertical(celda.getChildVertical());
         celdaNew.setParentVertical(celda.getParentVertical());
         celdaNew.setFormula(celda.getFormula());
-        //celdaNew.setColumna(celda.getColumna());
+        //celdaNew.setRelacionEeffList(celda.getRelacionEeffList());
+        //celdaNew.setRelacionDetalleEeffList(celda.getRelacionDetalleEeffList());
         return celdaNew;
-    }
-    
-    @Override
-    public String toString() {
-        StringBuffer buffer = new StringBuffer();
-        buffer.append(getClass().getName()+"@"+Integer.toHexString(hashCode()));
-        buffer.append('[');
-        buffer.append("columna=");
-        buffer.append(getColumna().getIdColumna());
-        buffer.append(',');
-        buffer.append("idFila=");
-        buffer.append(getIdFila());
-        buffer.append(',');
-        buffer.append("valor=");
-        buffer.append(getValor());
-        buffer.append(']');
-        return buffer.toString();
     }
 
     @Override
@@ -401,5 +395,46 @@ public class Celda implements Serializable {
 
     public boolean isTieneRelEeff() {
         return tieneRelEeff;
+    }
+
+    public void setSumaEeff(BigDecimal sumaEeff) {
+        this.sumaEeff = sumaEeff;
+    }
+
+    public BigDecimal getSumaEeff() {
+        return sumaEeff;
+    }
+
+    public void setValid(boolean valid) {
+        this.valid = valid;
+    }
+
+    public boolean isValid() {
+        return valid;
+    }
+    
+    public void setSelectedByMapping(boolean selectedByMapping) {
+        this.selectedByMapping = selectedByMapping;
+    }
+
+    public boolean isSelectedByMapping() {
+        return selectedByMapping;
+    }
+    
+    @Override
+    public String toString() {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(getClass().getName()+"@"+Integer.toHexString(hashCode()));
+        buffer.append('[');
+        buffer.append("columna=");
+        buffer.append(getColumna().getIdColumna());
+        buffer.append(',');
+        buffer.append("idFila=");
+        buffer.append(getIdFila());
+        buffer.append(',');
+        buffer.append("valor=");
+        buffer.append(getValor());
+        buffer.append(']');
+        return buffer.toString();
     }
 }

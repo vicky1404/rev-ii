@@ -18,4 +18,14 @@ public class Constantes {
     public static final String PREFIX_CHILD = "CH";
     public static final String PREFIX_PARENT= "PA";
     public static final String PREFIX_CHILD_PARENT = "CP";
+     public static final String MAIL_DOMINIO = "BICEVIDA.CL";
+     public static final String MAIL_USER =  "IFRS";
+     public static final String MAIL_PASS =  "Ifrs.2012";
+     public static final String MAIL_USER_FROM = "ifrs@bicevida.cl";
+     public static final String MAIL_HOST =  "CORREO.BICEVIDA.CL";
+     public static final String MAIL_PORT =  "25";
+     public static final String MAIL_SUBJECT =    "Revelaciones - Carga Estados Financieros";
+     public static final String MAIL_SEND = "false";
+     public static final String MAIL_USUARIO_TEST = "RODRIGO.DIAZV";
+     public static final Boolean MAIL_AUTENTICAR =  Boolean.FALSE;
 }

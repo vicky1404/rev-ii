@@ -4,34 +4,18 @@ package cl.bicevida.revelaciones.mb;
 import cl.bicevida.revelaciones.common.mb.SoporteBackingBean;
 import cl.bicevida.revelaciones.common.util.GeneradorDisenoHelper;
 import cl.bicevida.revelaciones.common.util.PropertyManager;
+import cl.bicevida.revelaciones.eeff.CargadorEeffVO;
 import cl.bicevida.revelaciones.ejb.common.TipoEstadoEeffEnum;
 import cl.bicevida.revelaciones.ejb.cross.EeffUtil;
-import cl.bicevida.revelaciones.ejb.entity.EstadoFinanciero;
+import cl.bicevida.revelaciones.ejb.cross.Util;
 import cl.bicevida.revelaciones.ejb.entity.Periodo;
 import cl.bicevida.revelaciones.ejb.entity.TipoEstadoEeff;
 import cl.bicevida.revelaciones.ejb.entity.VersionEeff;
 import cl.bicevida.revelaciones.exceptions.EstadoFinancieroException;
 
-import cl.bicevida.revelaciones.eeff.CargadorEeffVO;
-
-import cl.bicevida.revelaciones.eeff.RelacionEeffVO;
-
-import cl.bicevida.revelaciones.ejb.cross.Util;
-
-import cl.bicevida.revelaciones.ejb.entity.RelacionDetalleEeff;
-
-import cl.bicevida.revelaciones.ejb.entity.RelacionEeff;
-
-import java.sql.SQLIntegrityConstraintViolationException;
-
-import java.util.ArrayList;
 import java.util.List;
 
-import java.util.Map;
-
 import javax.annotation.PostConstruct;
-
-import javax.ejb.TransactionRolledbackLocalException;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -39,12 +23,8 @@ import javax.faces.event.ActionEvent;
 
 import oracle.adf.view.rich.component.rich.input.RichInputFile;
 
-import oracle.toplink.exceptions.DatabaseException;
-
 import org.apache.log4j.Logger;
 import org.apache.myfaces.trinidad.model.UploadedFile;
-import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
-import org.apache.myfaces.trinidad.util.Service;
 
 
 public class CargadorEeffBackingBean extends SoporteBackingBean {
@@ -61,14 +41,12 @@ public class CargadorEeffBackingBean extends SoporteBackingBean {
     private VersionEeff versionEeff;
     private CargadorEeffVO cargadorVO;
     private boolean renderTableRel = false;
-    private List<RelacionEeff> relEeffList;
-    private List<RelacionDetalleEeff> relDetEeffList;
 
     public CargadorEeffBackingBean() {
     }
     
     @PostConstruct
-    public void cargarPeriodo(){
+    public void cargar(){
         try{
             
             periodo = getFacade().getPeriodoService().findMaxPeriodoObj();
@@ -77,33 +55,47 @@ public class CargadorEeffBackingBean extends SoporteBackingBean {
             
         }catch(Exception e){
             logger.error(e);
-            agregarErrorMessage("Error al buscar los periodos");
+            agregarErrorMessage(PropertyManager.getInstance().getMessage("eeff_error_periodo"));
         }
+    }
+    
+    private void init(){
+        versionEeff = null;
+        renderTableRel = false;
+        cargadorVO = null;
     }
     
     public String procesarArchivo() {
         try {
             
             if(getUploadedFile() == null){
-                agregarErrorMessage("Seleccione o Actualice el archivo que desea cargar");
+                init();
+                agregarErrorMessage(PropertyManager.getInstance().getMessage("eeff_actualizar_archivo"));
                 return null;
             }
             if(getUploadedFile().getInputStream() == null){
-                agregarErrorMessage("Seleccione o Actualice el archivo que desea cargar");
+                init();
+                agregarErrorMessage(PropertyManager.getInstance().getMessage("eeff_actualizar_archivo"));
                 return null;
             }
+            
             versionEeff = new VersionEeff();
+            
             TipoEstadoEeff tipoEstadoEeff = getFacade().getEstadoFinancieroService().getTipoEstadoEeffById(TipoEstadoEeffEnum.INGRESADO.getKey());
-            
-            Map<Long, EstadoFinanciero> eeffMap = getFacade().getCargadorEeffService().leerEeff(getUploadedFile().getInputStream());
-            
-            cargadorVO = EeffUtil.convertToCargadoEeffVO(eeffMap, versionEeff);
-            
-            getFacade().getCargadorEeffService().validarEeffConRelacionEeff(eeffMap, periodo.getIdPeriodo(),cargadorVO);
-            
-            if(Util.esListaValida(cargadorVO.getGrillaRelacionList())){
-                renderTableRel = true;
-            }
+            cargadorVO = getFacade().getCargadorEeffService().leerEeff(getUploadedFile().getInputStream());
+            EeffUtil.setVersionEeffToEeffList(cargadorVO.getEeffList(), versionEeff);
+            getFacade().getCargadorEeffService().validarNuevoEeff(cargadorVO.getEeffList(), periodo.getIdPeriodo(),cargadorVO);
+
+            if(
+                Util.esListaValida(cargadorVO.getEeffDescuadreList())||
+                Util.esListaValida(cargadorVO.getEeffDetDescuadreList()) ||
+                Util.esListaValida(cargadorVO.getEeffBorradoList()) ||
+                Util.esListaValida(cargadorVO.getEeffDetBorradoList()) ||            
+                Util.esListaValida(cargadorVO.getRelEeffDescuadreList()) ||
+                Util.esListaValida(cargadorVO.getRelEeffDetDescuadreList()) ||
+                Util.esListaValida(cargadorVO.getRelEeffBorradoList()) ||
+                Util.esListaValida(cargadorVO.getRelEeffDetBorradoList())
+            ) renderTableRel = true;
             
             versionEeff.setTipoEstadoEeff(tipoEstadoEeff);
             versionEeff.setUsuario(getNombreUsuario());
@@ -113,14 +105,14 @@ public class CargadorEeffBackingBean extends SoporteBackingBean {
             
         } catch (EstadoFinancieroException e) {
             
-            agregarErrorMessage("El archivo presenta los siguiente errores : ");
+            agregarErrorMessage(PropertyManager.getInstance().getMessage("eeff_archivo_error"));
             
             for(String str : e.getDetailErrors())
                 agregarErrorMessage(str);
         
         } catch (Exception e) {
             logger.error("error al procesar archivo excel ",e);
-            agregarErrorMessage("Error al procesar el archivo");
+            agregarErrorMessage(PropertyManager.getInstance().getMessage("eeff_error_procesar_archivo"));
         }
         return null;
     }
@@ -130,20 +122,32 @@ public class CargadorEeffBackingBean extends SoporteBackingBean {
         try{
             
             if(versionEeff!=null && cargadorVO.getEeffList()!=null)
-                getFacade().getEstadoFinancieroService().persisVersionEeff(versionEeff);
+                getFacade().getEstadoFinancieroService().persisVersionEeff(versionEeff, cargadorVO, getNombreUsuario());
+            else{
+                init();
+                agregarErrorMessage(PropertyManager.getInstance().getMessage("eeff_cargar_info_guardar"));
+                return;
+            }
             
             versionEeffList = getFacade().getEstadoFinancieroService().getVersionEeffFindByPeriodo(periodo.getIdPeriodo());
             
-            agregarSuccesMessage("Se ha almacenado correctamente los estados financieros");
-            agregarSuccesMessage("Registros Cabecera :" + cargadorVO.getCatidadEeffProcesado());
-            agregarSuccesMessage("Registros Detalle  :" + cargadorVO.getCatidadEeffDetProcesado());
+            try{
+                getFacade().getCargadorEeffService().sendMailEeff(cargadorVO.getUsuarioGrupoList());
+            }catch(Exception e){
+                agregarWarnMessage("No se ha enviado el corredo, debido a problemas de configuración del servidor de correos");
+                logger.error("Error al enviar mail", e);
+                e.printStackTrace();
+            }
             
-            versionEeff = null;
-            cargadorVO = null;
+            agregarSuccesMessage(PropertyManager.getInstance().getMessage("eeff_mensaje_guardar_ok"));
+            agregarSuccesMessage(PropertyManager.getInstance().getMessage("eeff_codigo_fecu_procesados") + cargadorVO.getCatidadEeffProcesado());
+            agregarSuccesMessage(PropertyManager.getInstance().getMessage("eeff_cuentas_procesadas") + cargadorVO.getCatidadEeffDetProcesado());
+            
+            init();
             
         }catch(Exception e){
             logger.error("error al guardar eeff", e);
-            agregarErrorMessage("Error al guardar información");
+            agregarErrorMessage(PropertyManager.getInstance().getMessage("eeff_error_guardar"));
         }
     }
     
@@ -153,12 +157,10 @@ public class CargadorEeffBackingBean extends SoporteBackingBean {
             setUploadedFile(GeneradorDisenoHelper.archivoEstructuraValidator(facesContext, (UploadedFile)object, (RichInputFile)uIComponent));
         } catch (Exception e) {
             logger.error(e.getCause(), e);
-            agregarErrorMessage(PropertyManager.getInstance().getMessage("Error al procesar archivo"));
+            agregarErrorMessage(PropertyManager.getInstance().getMessage("eeff_error_procesar_archivo"));
         }
     }
     
-    
-
     public void setVersionEeffList(List<VersionEeff> versionEeffList) {
         this.versionEeffList = versionEeffList;
     }
@@ -197,21 +199,5 @@ public class CargadorEeffBackingBean extends SoporteBackingBean {
 
     public boolean isRenderTableRel() {
         return renderTableRel;
-    }
-
-    public void setRelEeffList(List<RelacionEeff> relEeffList) {
-        this.relEeffList = relEeffList;
-    }
-
-    public List<RelacionEeff> getRelEeffList() {
-        return relEeffList;
-    }
-
-    public void setRelDetEeffList(List<RelacionDetalleEeff> relDetEeffList) {
-        this.relDetEeffList = relDetEeffList;
-    }
-
-    public List<RelacionDetalleEeff> getRelDetEeffList() {
-        return relDetEeffList;
     }
 }

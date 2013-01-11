@@ -46,7 +46,7 @@
    <value n="defaultPackage" v="model"/>
    <hash n="ejbModuleContainer">
       <value n="cmpProvider" v="EJB 3.0"/>
-      <value n="dbConnection" v="Rev"/>
+      <value n="dbConnection" v="Revelaciones"/>
       <hash n="ejbDiagramToPuMap">
          <hash n="model">
             <hash n="cl">
@@ -67,7 +67,15 @@
       <url n="weblogicEjbJarNodeURL" path="src/META-INF/weblogic-ejb-jar.xml"/>
    </hash>
    <hash n="oracle.ide.model.DependencyConfiguration">
-      <list n="dependencyList"/>
+      <list n="dependencyList">
+         <hash>
+            <hash n="dependable">
+               <url n="sourceOwnerURL" path="../../AppRevelaciones-branch-5.jws"/>
+               <url n="sourceURL" path="../XbrlCore/XbrlCore.jpr"/>
+            </hash>
+            <value n="recognizerId" v="oracle.jdeveloper.library"/>
+         </hash>
+      </list>
    </hash>
    <hash n="oracle.ide.model.TechnologyScopeConfiguration">
       <list n="technologyScope">
@@ -1135,7 +1143,7 @@
                <value n="development-database" v="REVELACIONES_DESARROLLO"/>
             </hash>
             <hash n="revelacionesPU">
-               <value n="development-database" v="Rev"/>
+               <value n="development-database" v="Revelaciones"/>
             </hash>
          </hash>
       </hash>

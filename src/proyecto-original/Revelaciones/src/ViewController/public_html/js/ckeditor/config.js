@@ -14,7 +14,7 @@ CKEDITOR.editorConfig = function( config )
          config.toolbarCanCollapse = false;
          config.height = '300px';
          config.toolbar_Basic =[
-            ['NewPage', '-', 
+            ['NewPage', '-', 'Print' ,'-',
              'Cut','Copy','Paste','PasteText','PasteFromWord', '-',
              'Bold', 'Italic', 'Underline','Strike','Subscript','Superscript', '-', 
              'NumberedList', 'BulletedList', '-', 

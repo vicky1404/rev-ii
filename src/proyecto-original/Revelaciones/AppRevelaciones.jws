@@ -26,6 +26,7 @@
    <list n="listOfChildren">
       <hash><url n="URL" path="src/Model/Model.jpr"/></hash>
       <hash><url n="URL" path="src/ViewController/ViewController.jpr"/></hash>
+      <hash><url n="URL" path="src/XbrlCore/XbrlCore.jpr"/></hash>
    </list>
    <hash n="oracle.jdeveloper.deploy.dt.DeploymentProfiles">
       <hash n="profileDefinitions"/>

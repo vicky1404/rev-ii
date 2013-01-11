@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
-        xmlns:ui="http://java.sun.com/jsf/facelets">
+        xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html">
     <af:document id="d1" uncommittedDataWarning="off" title="revelaciones">
         <af:resource source="/js/ckeditor/ckeditor.js" type="javascript"/>
         <af:resource source="/js/ckeditor/init_ckeditor.js" type="javascript"/>
@@ -27,7 +27,34 @@
                   }
               }
           }
-        </af:resource>        
+
+          function togglePanelBoxFiltro(evt) {
+              evt.preventUserInput();
+              var panelBox = AdfPage.PAGE.findComponentByAbsoluteId('pnBox1Periodo');
+              panelBox.broadcast(new AdfDisclosureEvent(panelBox, !panelBox.getDisclosed()));
+              var link = AdfPage.PAGE.findComponentByAbsoluteId('linkToggleFiltro');
+              if (link.getText() == 'Seleccionar otro Período') {
+                  link.setText('Ocultar Criterios de Búsqueda');
+                  link.setShortDesc('Ocultar opción para seleccionar otros criterios de búsqueda.');
+              }
+              else {
+                  link.setText('Seleccionar otro Período');
+                  link.setShortDesc('Utilice esta opción para seleccionar otros criterios de búsqueda.');
+              }
+
+          }
+        </af:resource>
+        <af:resource type="css">
+            .xr0 {
+                color: #003D5B;
+                display: inline;
+                font-family: Tahoma, Verdana, Arial, Helvetica, FreeSans, sans-serif;
+                font-size: 12px;
+                font-weight: bold;
+                margin: 0;
+                white-space: nowrap;
+            }
+        </af:resource>
         <af:form id="f1">
     <af:panelBox id="pnBox1Periodo" text="#{msg.general_titulo_busqueda_aplicacion}"  
                                     inlineStyle="height:auto;" disclosed="false" shortDesc="Seleccione criterios de búsqueda para desplegar otra Versión de : #{cuadroBackingBean.filtro.catalogo.titulo}">
@@ -38,7 +65,7 @@
                         <af:selectOneChoice label="#{msg.etiqueta_periodo}" id="soc1Periodo"
                                             value="#{cuadroBackingBean.filtro.periodo.mesPeriodo}" showRequired="true"
                                             unselectedLabel="#{msg.etiqueta_mes_periodo}" required="true"
-                                            clientComponent="true"
+                                            autoSubmit="true"
                                             requiredMessageDetail="#{msg.periodo_mensaje_seleccione_mes}">
                             <f:selectItems value="#{cuadroBackingBean.componenteBackingBean.meses}" id="mesesPeriodo"/>
                         </af:selectOneChoice>
@@ -47,13 +74,14 @@
                         <af:selectOneChoice label=" " id="soc2Periodo" showRequired="true"
                                             unselectedLabel="#{msg.etiqueta_anio_periodo}"
                                             value="#{cuadroBackingBean.filtro.periodo.anioPeriodo}" required="true"
+                                            autoSubmit="true"
                                             requiredMessageDetail="#{msg.periodo_mensaje_seleccione_anio}">
                             <f:selectItems value="#{cuadroBackingBean.componenteBackingBean.anios}" id="aniosPeriodo"/>
                         </af:selectOneChoice>
                     </td>
                     <td>
                         <af:commandButton text="#{msg.general_control_buscar}" id="cbPeriodos"
-                                          action="#{cuadroBackingBean.buscarVersion}" partialSubmit="false" blocking="true">
+                                          action="#{cuadroBackingBean.buscarVersion}" partialSubmit="true" blocking="true">
                             <af:clientListener method="loaderMessage" type="action"/>
                         </af:commandButton>
                     </td>
@@ -121,30 +149,30 @@
                               visible="#{cuadroBackingBean.renderedInformacion and not empty cuadroBackingBean.estructuraList}">
                 <f:facet name="center">
                     <af:group id="g0">
-                        <af:showDetailHeader text="Periodo : #{cuadroBackingBean.versionPeriodoSelected.periodo.periodoFormat} - #{cuadroBackingBean.filtro.catalogo.titulo}" disclosed="true" id="sdh1">
-                            <f:facet name="context">
-                                <!--af:outputText value="-#{cuadroBackingBean.filtro.version.catalogo.titulo}"
-                                               id="ot1"/-->
-                            </f:facet>
-                            <f:facet name="info">
-                                <af:panelGroupLayout id="pg3" layout="vertical">
-                                    <af:outputText value="versión: #{cuadroBackingBean.filtro.version.version}"
-                                                   id="ot2"/>
-                                </af:panelGroupLayout>
-                            </f:facet>
-                            <f:facet name="toolbar"></f:facet>
-                        </af:showDetailHeader>
-                        <table cellspacing="2" cellpadding="3" border="0" align="left" width="99%"
-                               xmlns="http://www.w3.org/1999/xhtml">
-                            <tr>
-                                <td width="100%">
-                                    <af:commandButton text="#{msg.general_control_guardar}" icon="/images/icon/save.png"
-                                                      id="btn1" action="#{cuadroBackingBean.guardar}" partialSubmit="false">
-                                        <af:clientListener method="loaderMessage" type="action"/>
-                                    </af:commandButton>
-                                </td>
-                            </tr>
-                        </table>
+                        <af:outputText styleClass="xdn "
+                                       value="Periodo : #{cuadroBackingBean.versionPeriodoSelected.periodo.periodoFormat} - #{cuadroBackingBean.filtro.catalogo.titulo}"
+                                       id="ot1"/>
+                        <af:spacer id="s5" width="5"/>
+                        <af:goLink text="Seleccionar otro Período" id="linkToggleFiltro"
+                                   shortDesc="Utilice esta opción para seleccionar otros criterios de búsqueda."
+                                   inlineStyle="color: #003D5B; text-decoration:underline;">
+                            <af:clientListener method="togglePanelBoxFiltro" type="click"/>
+                        </af:goLink>
+                        <af:spacer id="s7" width="5"/>
+                        <af:spacer height="10" id="s6"/>
+                        <h:panelGrid columns="2" id="pg1">
+                            <af:commandButton text="#{msg.general_control_guardar}" icon="/images/icon/save.png"
+                                              id="btn1" action="#{cuadroBackingBean.guardar}" partialSubmit="false">
+                                <af:clientListener method="loaderMessage" type="action"/>
+                            </af:commandButton>
+                            <af:commandButton text="#{msg.general_control_validar}" icon="/images/icon/check_ok.png"
+                                              id="btn2" partialSubmit="true"
+                                              rendered="#{cuadroBackingBean.versionPeriodoSelected.version.catalogo.validarEeff eq 1 and
+														  (cuadroBackingBean.versionSelected.validadoEeff == null or
+                                                           cuadroBackingBean.versionSelected.validadoEeff eq 0 )}">
+                                <af:showPopupBehavior popupId="ppValidaConf" triggerType="click"/>
+                            </af:commandButton>
+                        </h:panelGrid>
                         <af:spacer height="30" id="sp1" width="10"/>
                         <af:forEach items="#{cuadroBackingBean.estructuraList}" var="item" varStatus="status">
                             <af:switcher defaultFacet="#{item.tipoEstructura.idTipoEstructura == 0 ? 'grilla':(item.tipoEstructura.idTipoEstructura == 1 ? 'html' : 'texto') }"
@@ -158,8 +186,7 @@
                                         <!--af:outputText value="#{item.grillaVO.grilla.titulo}" id="ottit"
                                                        styleClass="x15w" inlineStyle="display: inline-block; width: 50px; color:#003D5B; font-size:12px;"  escape="false"/-->
                                         <af:outputFormatted value="#{item.grillaVO.grilla.titulo}"
-                                                            styleClass="AFStretchWidth x15w"                                                            
-                                                            id="of1"/>
+                                                            styleClass="AFStretchWidth x15w" id="of1"/>
                                         <af:spacer height="15" id="spacer_tit_2"/>
                                         <af:switcher defaultFacet="#{item.grillaVO.nivel == 2 ? 'nivel2' : (item.grillaVO.nivel == 1 ? 'nivel1' : 'nivel0')}"
                                                      id="s2">
@@ -179,10 +206,24 @@
                                     <ui:include src="/pages/fragments/cuadro-html.jsff"/>
                                 </f:facet>
                             </af:switcher>
-                        </af:forEach>                        
+                        </af:forEach>
+                        <af:popup id="ppValidaConf" contentDelivery="lazy">
+                            <af:dialog inlineStyle="width:300px;" okVisible="false" modal="true"
+                                       title="Validar Estructura" id="d3">
+                                <af:outputText value="¿Desea validar?" id="ot2"/>
+                                <f:facet name="buttonBar">
+                                    <af:commandButton text="Validar"
+                                                      actionListener="#{cuadroBackingBean.validarEstructuraListener}"
+                                                      id="cb5" partialSubmit="false">
+                                        <af:clientListener method="loaderMessage" type="action"/>
+                                    </af:commandButton>
+                                </f:facet>
+                            </af:dialog>
+                        </af:popup>
                     </af:group>
                 </f:facet>
             </af:decorativeBox>
+            
         </af:form>
     </af:document>
 </f:view>

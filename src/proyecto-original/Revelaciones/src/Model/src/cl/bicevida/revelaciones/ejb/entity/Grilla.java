@@ -5,8 +5,6 @@ import cl.bicevida.revelaciones.ejb.common.Constantes;
 
 import java.io.Serializable;
 
-import java.lang.Long;
-
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -21,18 +19,19 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 @Entity
 @NamedQueries( { @NamedQuery(name = Grilla.FIND_ALL, query = "select o from Grilla o"),
                  @NamedQuery(name = Grilla.FIND_GRILLA_BY_ID , query = "select o from Grilla o where o.idGrilla = :idGrilla ")
-                 
                  })
 @Table(name = Constantes.REV_GRILLA)
 public class Grilla implements Serializable {
     
     public static final String FIND_ALL = "Grilla.findAll";
     public static final String FIND_GRILLA_BY_ID = "Grilla.findGrillaById";
+    public static final String FIND_SUB_GRILLA_BY_CATALOGO = "Grilla.finSubGrillaByCatalogo";
     
     public static final Long TIPO_GRILLA_ESTATICA = 2L;
     public static final Long TIPO_GRILLA_DINAMICA = 1L;
@@ -51,10 +50,13 @@ public class Grilla implements Serializable {
     @JoinColumn(name = "ID_GRILLA", insertable = false, updatable = false)
     private Estructura estructura1;
     @Column(name="TIPO_FORMULA")
-    private Long tipoFormula;
-   
+    private Long tipoFormula; 
+    @OneToMany(mappedBy = "grilla", fetch = FetchType.EAGER)
+    private List<SubGrilla> subGrillaList;
     
-
+    @Transient
+    private boolean desagregada;
+    
     public Grilla() {
     }
 
@@ -144,5 +146,28 @@ public class Grilla implements Serializable {
         gridNew.setEstructura1(grid.getEstructura1());
         gridNew.setTipoFormula(grid.getTipoFormula());
         return gridNew;
+    }
+    
+    public void setSubGrillaList(List<SubGrilla> subGrillaList) {
+        this.subGrillaList = subGrillaList;
+    }
+
+    public List<SubGrilla> getSubGrillaList() {
+        return subGrillaList;
+    }
+
+    public void setDesagregada(boolean desagregada) {
+        this.desagregada = desagregada;
+    }
+
+    public boolean isDesagregada() {
+        
+        if (subGrillaList != null && subGrillaList.size() > 0){
+                desagregada = Boolean.TRUE;
+        } else {
+                desagregada = Boolean.FALSE;
+            }
+        
+        return desagregada;
     }
 }

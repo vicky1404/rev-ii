@@ -1,16 +1,25 @@
 package cl.bicevida.revelaciones.mb;
 
 
+import static ch.lambdaj.Lambda.having;
+import static ch.lambdaj.Lambda.on;
+import static ch.lambdaj.Lambda.select;
+
 import cl.bicevida.revelaciones.common.filtros.Filtro;
 import cl.bicevida.revelaciones.common.mb.SoporteBackingBean;
 import cl.bicevida.revelaciones.common.util.GeneradorDisenoHelper;
 import cl.bicevida.revelaciones.common.util.PropertyManager;
 import cl.bicevida.revelaciones.ejb.common.TipoEstructuraEnum;
+import cl.bicevida.revelaciones.ejb.common.VigenciaEnum;
 import cl.bicevida.revelaciones.ejb.cross.Util;
+import cl.bicevida.revelaciones.ejb.entity.Catalogo;
 import cl.bicevida.revelaciones.ejb.entity.Estructura;
 import cl.bicevida.revelaciones.ejb.entity.Grilla;
 import cl.bicevida.revelaciones.ejb.entity.HistorialVersionPeriodo;
 import cl.bicevida.revelaciones.ejb.entity.Periodo;
+import cl.bicevida.revelaciones.ejb.entity.RelacionDetalleEeff;
+import cl.bicevida.revelaciones.ejb.entity.RelacionEeff;
+import cl.bicevida.revelaciones.ejb.entity.TipoEstructura;
 import cl.bicevida.revelaciones.ejb.entity.Version;
 import cl.bicevida.revelaciones.ejb.entity.VersionPeriodo;
 import cl.bicevida.revelaciones.exceptions.FormulaException;
@@ -28,17 +37,15 @@ import javax.annotation.PostConstruct;
 
 import javax.ejb.EJBException;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import javax.persistence.NoResultException;
 
 import oracle.adf.view.rich.component.rich.data.RichTable;
-import oracle.adf.view.rich.component.rich.input.RichInputText;
 
 import org.apache.log4j.Logger;
+
+import static org.hamcrest.Matchers.equalTo;
 
 
 public class CuadroBackingBean extends SoporteBackingBean implements Serializable{
@@ -56,6 +63,8 @@ public class CuadroBackingBean extends SoporteBackingBean implements Serializabl
     private boolean renderedPeriodoList = false;
     private boolean renderedInformacion = false;
     private transient RichTable periodoCatalogoTable;
+    private List<RelacionEeff> relEeffList;
+    private List<RelacionDetalleEeff> relDetEeffList;
     
     public CuadroBackingBean() {
         super();  
@@ -65,6 +74,8 @@ public class CuadroBackingBean extends SoporteBackingBean implements Serializabl
     public void cargarUltimaVersion(){
         try{
             getFiltro().setPeriodo(new Periodo(getComponenteBackingBean().getPeriodoActual()));
+            if(getFiltro().getCatalogo()==null || getFiltro().getCatalogo().getIdCatalogo()==null)
+                return;
             versionSelected = getFacade().getVersionService().findUltimaVersionVigente(getFiltro().getPeriodo().getIdPeriodo(), getNombreUsuario(), getFiltro().getCatalogo().getIdCatalogo());
             getFiltro().setCatalogo(versionSelected.getCatalogo());
             getFiltro().setVersion(versionSelected);
@@ -79,7 +90,7 @@ public class CuadroBackingBean extends SoporteBackingBean implements Serializabl
             agregarErrorMessage(PropertyManager.getInstance().getMessage("general_mensaje_cuadro_formula_loop_error"));  
             agregarErrorMessage(e.getFormula());  
         }catch(Exception e){
-            agregarErrorMessage("Error al cargar información de página");
+            agregarErrorMessage(PropertyManager.getInstance().getMessage("general_error_cargar_pagina"));
             logger.error(e.getMessage());
         }
     }
@@ -115,7 +126,7 @@ public class CuadroBackingBean extends SoporteBackingBean implements Serializabl
                 }
             }catch(Exception e){
                 logger.error(e.getCause(), e);
-                agregarErrorMessage("Error al consultar Versiones para el Período");
+                agregarErrorMessage(PropertyManager.getInstance().getMessage("general_error_cargar_versiones"));
             }
             
         }
@@ -161,11 +172,7 @@ public class CuadroBackingBean extends SoporteBackingBean implements Serializabl
     public String guardar() {
         try{
             if(super.validaModificarCuadro(this.getVersionPeriodoSelected())){
-                System.out.println("Max Long -> " + Long.MAX_VALUE);
-                //super.getFacade().getEstructuraService().persistEstructuraList(estructuraList);
                 
-                //if(!super.validateContent(estructuraList))
-                //    return null;
                 VersionPeriodo versionPeriodo = this.getVersionPeriodoSelected() ;
                 versionPeriodo.setFechaUltimoProceso(new Date());
                 
@@ -180,7 +187,10 @@ public class CuadroBackingBean extends SoporteBackingBean implements Serializabl
                 List<Estructura> estructuraList = super.getFacade().getEstructuraService().getEstructuraByVersion(super.getFiltro().getVersion(), true);
                 setListGrilla(estructuraList);
                 this.setEstructuraList(estructuraList);
-                super.agregarSuccesMessage(PropertyManager.getInstance().getMessage("general_mensaje_nota_guardar_exito"));  
+                if(versionSelected.getValidadoEeff()!=null && versionSelected.getValidadoEeff().equals(VigenciaEnum.VIGENTE.getKey())){
+                    actualizarValidado(VigenciaEnum.NO_VIGENTE.getKey());
+                }
+                super.agregarSuccesMessage(PropertyManager.getInstance().getMessage("general_mensaje_nota_guardar_exito"));
             }            
         } catch(Exception e){
             logger.error(e.getCause(), e);
@@ -234,19 +244,6 @@ public class CuadroBackingBean extends SoporteBackingBean implements Serializabl
         return nombreArchivoExport;
     }
 
-    public void validateHtml(FacesContext facesContext, UIComponent uIComponent, Object object) {
-        final Integer MAX_TEXT_BYTES = Integer.parseInt(PropertyManager.getInstance().getMessage("constantes_max_text_bytes"));
-        String html = (String) object;         
-        if(cl.bicevida.revelaciones.ejb.cross.Util.getBytes(html).length >= MAX_TEXT_BYTES) {
-            FacesMessage message = new FacesMessage();
-            message.setSeverity(FacesMessage.SEVERITY_ERROR);
-            message.setSummary(MessageFormat.format(PropertyManager.getInstance().getMessage("general_mensaje_texto_maximo_permitido"), MAX_TEXT_BYTES));
-            message.setDetail(null);        
-            facesContext.addMessage(null, message);
-            ((RichInputText)uIComponent).setValid(Boolean.FALSE);            
-        }
-    }
-    
     public void addRowListener(ActionEvent event) {
         
         Long idFila = Util.getLong(super.getExternalContext().getRequestParameterMap().get("idFila"), 0L);
@@ -265,7 +262,9 @@ public class CuadroBackingBean extends SoporteBackingBean implements Serializabl
                     agregarWarnMessage("No se puede agregar fila, primero debe ingresar formula dinámica en mantenedor de formulas");
                     return;
                 }
+                
                 GeneradorDisenoHelper.agregarFilaGrillaByFilaSelected(estructura.getGrillaVO().getGrilla(), idFila);
+                
                 try {
                     estructura.setGrillaVO(getFacade().getEstructuraService().getGrillaVO(estructura.getGrillaVO().getGrilla(), true));
                 } catch (Exception e) {
@@ -275,7 +274,7 @@ public class CuadroBackingBean extends SoporteBackingBean implements Serializabl
             }
 
         }
-
+        
         try {
             //Muestra las agrupaciones
             setListGrilla(getEstructuraList());
@@ -327,6 +326,62 @@ public class CuadroBackingBean extends SoporteBackingBean implements Serializabl
         }
     }
     
+    
+    public void validarEstructuraListener(ActionEvent event){        
+        boolean valid = true; 
+        this.guardar();
+        int validaMapping = this.validaMapping(); 
+        int countGrillas = select(this.getEstructuraList() ,having(on(Estructura.class).getTipoEstructura().getIdTipoEstructura(), equalTo(TipoEstructura.ESTRUCTURA_TIPO_GRILLA))).size();
+        if(validaMapping == countGrillas){
+            return;
+        }            
+        for(Estructura estructuras : this.getEstructuraList()){            
+            if(estructuras.getTipoEstructura().getIdTipoEstructura().equals(TipoEstructura.ESTRUCTURA_TIPO_GRILLA)){
+                try {                    
+                    boolean result = getFacade().getFormulaService().processValidatorEEFF(estructuras.getGrillaVO().getGrilla());                    
+                    if(!result)
+                        valid = false;
+                    
+                } catch (Exception e) {
+                    agregarErrorMessage(PropertyManager.getInstance().getMessage("general_error_validar"));
+                    logger.error(e.getMessage(),e);
+                }
+            }
+        }
+        try{            
+            actualizarValidado(valid ? VigenciaEnum.VIGENTE.getKey() : VigenciaEnum.NO_VIGENTE.getKey());
+        } catch (Exception e) {
+            agregarErrorMessage(PropertyManager.getInstance().getMessage("general_error_validar_estado"));
+            logger.error(e.getMessage(), e);
+        }
+        
+        if(valid){
+            agregarSuccesMessage(PropertyManager.getInstance().getMessage("general_mensaje_validado_ok"));
+        }else{
+            agregarWarnMessage(PropertyManager.getInstance().getMessage("general_mensaje_validado_mal"));
+        }
+    }
+    
+    private int validaMapping(){
+        int count = 0;
+        for(Estructura estructura : this.getEstructuraList()){   
+            if(estructura.getTipoEstructura().getIdTipoEstructura().equals(TipoEstructura.ESTRUCTURA_TIPO_GRILLA)){
+                if(!super.getFacade().getEstadoFinancieroService().validaContieneMapping(this.getFiltro().getPeriodo().getIdPeriodo(), estructura.getIdEstructura())){                    
+                        super.agregarWarnMessage(MessageFormat.format("El cuadro {0} de la Revelación {1}, no tiene configurada las asociaciones necesarias para validar contra los Estados Financieros.", 
+                                                                       estructura.getOrden(), estructura.getVersion().getCatalogo().getNombre()));
+                        count++;
+                }
+            }            
+        }
+        return count;
+    }
+    
+    private void actualizarValidado(Long valido){
+        versionSelected.setValidadoEeff(valido);
+        versionPeriodoSelected.setVersion(versionSelected);
+        getFacade().getVersionService().mergeEntity(versionSelected);
+    }
+    
     public void setRenderedPeriodoList(boolean renderedPeriodoNotaList) {
         this.renderedPeriodoList = renderedPeriodoNotaList;
     }
@@ -350,6 +405,21 @@ public class CuadroBackingBean extends SoporteBackingBean implements Serializabl
     public RichTable getPeriodoCatalogoTable() {
         return periodoCatalogoTable;
     }
-    
-    
+
+
+    public void setRelEeffList(List<RelacionEeff> relEeffList) {
+        this.relEeffList = relEeffList;
+    }
+
+    public List<RelacionEeff> getRelEeffList() {
+        return relEeffList;
+    }
+
+    public void setRelDetEeffList(List<RelacionDetalleEeff> relDetEeffList) {
+        this.relDetEeffList = relDetEeffList;
+    }
+
+    public List<RelacionDetalleEeff> getRelDetEeffList() {
+        return relDetEeffList;
+    }
 }

@@ -2,10 +2,9 @@ package cl.bicevida.revelaciones.common.mb;
 
 
 import cl.bicevida.revelaciones.ejb.cross.Constantes;
-import cl.bicevida.revelaciones.ejb.cross.Util;
 import cl.bicevida.revelaciones.ejb.entity.Catalogo;
-
 import cl.bicevida.revelaciones.ejb.entity.Grupo;
+import cl.bicevida.revelaciones.ejb.entity.SubGrilla;
 
 import java.io.Serializable;
 
@@ -14,6 +13,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
 import oracle.adf.view.rich.component.rich.output.RichInlineFrame;
@@ -56,18 +56,33 @@ public class AplicacionBackingBean extends SoporteBackingBean implements Seriali
      * RichInlineFrame central.
      * @return
      */
-    public String navigationHandler() {
+    public String navigationHandler(ActionEvent event) {
         
-        final String urlRedirect = super.getExternalContext().getRequestParameterMap().get("urlRedirect");
-        final String parametro = super.getExternalContext().getRequestParameterMap().get("id_catalogo_param");
-        Long id = 0L;
-        if(parametro!=null)
-            id = Util.getLong(parametro , new Long(0));
+        String urlRedirect = null;
+        String urlMenu = super.getExternalContext().getRequestParameterMap().get("urlMenu");
+        final Object param = event.getComponent().getAttributes().get("id_catalogo_param");
         
-        try{            
-            if(id!=0){            
-                getFiltro().setCatalogo(new Catalogo(id));
+        try{          
+            
+            if (urlMenu == null){
+            
+                if(param != null && param instanceof Catalogo){
+                    
+                        super.getFiltro().setCatalogo((Catalogo) param);
+                        urlRedirect = super.getExternalContext().getRequestParameterMap().get("urlTreeCatalogo");
+                }
+                else if (param != null && param instanceof SubGrilla){
+                    
+                        super.getFiltro().setCatalogo( ((SubGrilla)param).getGrilla().getEstructura1().getVersion().getCatalogo() );
+                        super.getFiltro().setSubGrilla((SubGrilla)param);
+                        urlRedirect = super.getExternalContext().getRequestParameterMap().get("urlTreeCatalogoDesagregado");
+                        
+                }
+                
+            } else {
+                    urlRedirect = urlMenu;
             }
+            
             if(urlRedirect != null){
                 this.getIframeContenidoCentral().setSource(FACES_CONTEXT.concat(urlRedirect));        
             }

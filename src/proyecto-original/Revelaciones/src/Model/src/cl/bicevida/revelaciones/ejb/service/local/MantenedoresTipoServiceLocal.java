@@ -35,4 +35,6 @@ public interface MantenedoresTipoServiceLocal {
     List<TipoCuadro> findAllTipoCuadro();
     
     List<EstadoCuadro> findAllEstadoCuadro();
+    
+    EstadoCuadro findEstadoCuadroById(Long idEstado);
 }

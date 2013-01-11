@@ -1,8 +1,10 @@
 package cl.bicevida.revelaciones.common.model;
 
+
 import java.io.Serializable;
 
 import java.util.List;
+
 
 public class TreeItem implements Serializable {
     @SuppressWarnings("compatibility:5511077314584747336")
@@ -12,6 +14,10 @@ public class TreeItem implements Serializable {
     private transient Object object;
     private List<TreeItem> children;
     private boolean bloqueado;
+    private boolean contieneSubCuadros;
+    private String nombreCuadro;
+    private String tituloCuadro;
+    private String nombreGrupo;
     
     public TreeItem() {
         super();
@@ -33,6 +39,33 @@ public class TreeItem implements Serializable {
       this.object = object;
       this.bloqueado = bloqueado;
     }
+    
+    public TreeItem(Object object, boolean bloqueado, boolean contieneSubCuadros){
+      super();      
+      this.object = object;
+      this.bloqueado = bloqueado;
+      this.contieneSubCuadros = contieneSubCuadros;
+    }
+    
+    public TreeItem(Object object, boolean bloqueado, boolean contieneSubCuadros, String nombreCuadro, String tituloCuadro){
+      super();      
+      this.object = object;
+      this.bloqueado = bloqueado;
+      this.contieneSubCuadros = contieneSubCuadros;
+      this.nombreCuadro = nombreCuadro;
+      this.tituloCuadro = tituloCuadro;
+    }
+    
+    public TreeItem(Object object, boolean bloqueado, String nombreCuadro, String tituloCuadro, String nombreGrupo){
+      super();      
+      this.object = object;
+      this.bloqueado = bloqueado;
+      this.nombreCuadro = nombreCuadro;
+      this.tituloCuadro = tituloCuadro;
+      this.nombreGrupo = nombreGrupo;
+        
+    }
+
     
     public void setChildren(List<TreeItem> children) {
         this.children = children;
@@ -64,5 +97,37 @@ public class TreeItem implements Serializable {
 
     public boolean isBloqueado() {
         return bloqueado;
+    }
+
+    public void setContieneSubCuadros(boolean contieneSubCuadros) {
+        this.contieneSubCuadros = contieneSubCuadros;
+    }
+
+    public boolean isContieneSubCuadros() {
+        return contieneSubCuadros;
+    }
+
+    public void setNombreCuadro(String nombreCuadro) {
+        this.nombreCuadro = nombreCuadro;
+    }
+
+    public String getNombreCuadro() {
+        return nombreCuadro;
+    }
+
+    public void setTituloCuadro(String tituloCuadro) {
+        this.tituloCuadro = tituloCuadro;
+    }
+
+    public String getTituloCuadro() {
+        return tituloCuadro;
+    }
+
+    public void setNombreGrupo(String nombreGrupo) {
+        this.nombreGrupo = nombreGrupo;
+    }
+
+    public String getNombreGrupo() {
+        return nombreGrupo;
     }
 }

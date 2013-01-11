@@ -11,6 +11,8 @@ import cl.bicevida.revelaciones.ejb.entity.Celda;
 import cl.bicevida.revelaciones.ejb.entity.Columna;
 import cl.bicevida.revelaciones.ejb.entity.Estructura;
 import cl.bicevida.revelaciones.ejb.entity.Grilla;
+import cl.bicevida.revelaciones.ejb.entity.RelacionDetalleEeff;
+import cl.bicevida.revelaciones.ejb.entity.RelacionEeff;
 import cl.bicevida.revelaciones.ejb.entity.TipoCelda;
 import cl.bicevida.revelaciones.ejb.entity.TipoDato;
 import cl.bicevida.revelaciones.exceptions.CargaGrillaExcelException;
@@ -126,7 +128,7 @@ public class GeneradorDisenoBackingBean extends SoporteBackingBean{
         setInitialEditarGrillaTable();        
         addChildrenToEditarGrillaTable(grillaModel.getColumnas());
         setTableModel(createTableModel(grillaModel.getColumnas(),grillaModel.getAgrupacionesMap()));
-        procesarColumnas(grillaModel.getColumnas());
+        procesarColumnas(grillaModel.getColumnas(), null, null,null);
         getEditarGrillaTable().setValue(getTableModel(grillaModel).getRows());
         setADFPartialTarget(getEditarGrillaTable());
         setADFPartialTarget(getAgregarFilaChoice());
@@ -291,8 +293,13 @@ public class GeneradorDisenoBackingBean extends SoporteBackingBean{
     
 
     public Object agregarColumnaAction() {
-        
+
         if(getGrillaSelected()==null || !getGrillaModelMap().containsKey(getGrillaSelected()))
+            return null;
+        
+        RichColumn columnSelected = getRichColumnSelected();
+        
+        if(columnSelected!=null && columnSelected.getHeaderText().equals("#"))
             return null;
         
         Columna columnaPaso = (Columna)getAgregarColumnaTable().getRowData();
@@ -305,34 +312,45 @@ public class GeneradorDisenoBackingBean extends SoporteBackingBean{
         
         GrillaModelVO grillaModel = getGrillaModelByEstructuraSelected();
         
-        Long idColumna = Integer.valueOf(grillaModel.getColumnas().size()).longValue() + 1L; 
+        Long idUltimaColumna = Integer.valueOf(grillaModel.getColumnas().size()).longValue() + 1L; 
+        Long idColumnaNueva = null;
         
+        if(columnSelected!=null){
+            Integer posicion = getPosicionColumnaByColumna(columnSelected);
+            if(posicion!=null){
+                idColumnaNueva = posicion.longValue() + 1L;
+            }
+        }
+        
+        /*
         if(grillaModel.getColumnas().size()==0){
             setFilaSelected(1L);
             setInitialEditarGrillaTable();
             widthEditarGrillaTable += 53L;
             ValueExpression value = getFacesContext().getApplication().getExpressionFactory()
-                                    .createValueExpression(getFacesContext().getELContext(), "#{row["+(idColumna)+"].idFila}", Object.class);
-            RichColumn column = GeneradorDisenoHelper.getRichColumn("#", 50L, "center", false, GeneradorDisenoHelper.PREFIX_ID_COLUMN_CHILD+"N"+(idColumna-1L));
+                                    .createValueExpression(getFacesContext().getELContext(), "#{row["+(idUltimaColumna)+"].idFila}", Object.class);
+            RichColumn column = GeneradorDisenoHelper.getRichColumn("#", 50L, "center", false, GeneradorDisenoHelper.PREFIX_ID_COLUMN_CHILD+"N"+(idUltimaColumna-1L));
             column.setRowHeader(true);
             column.getChildren().add(GeneradorDisenoHelper.getRichOutputText(value));
             getEditarGrillaTable().getChildren().add(column);
-        }
-
+        }*/
+        
         Columna columna = new Columna();
         
         columna.setAncho(getColumnaAgregada().getAncho());
         columna.setOrden(getColumnaAgregada().getOrden());
         columna.setTituloColumna(getColumnaAgregada().getTituloColumna());
         
-        columna.setIdColumna(idColumna);
+        columna.setIdColumna(idColumnaNueva==null?idUltimaColumna:idColumnaNueva);
         widthEditarGrillaTable += columna.getAncho() + 4L;
         grillaModel.setWidthEditarGrillaTable(widthEditarGrillaTable);
-        grillaModel.getColumnas().add(columna); 
-        
         
         List<Celda> celdaList = new ArrayList<Celda>();
-        celdaList.add(new Celda(idColumna, 1L));
+        
+        Celda celda = new Celda(idColumnaNueva==null?idUltimaColumna:idColumnaNueva, 1L);
+        celda.setTipoDato(getTipoDatoSelected());
+        celda.setTipoCelda(getTipoCeldaSelected());
+        celdaList.add(celda);
         columna.setCeldaList(celdaList);
 
         if(grillaModel.getFilas().size()==0){
@@ -342,8 +360,34 @@ public class GeneradorDisenoBackingBean extends SoporteBackingBean{
             setFilaSelected(1L);
         }
         
+        if(idColumnaNueva!=null)
+            GeneradorDisenoHelper.reOrdenarIdColumna(grillaModel.getColumnas(), columna);
+        else
+            grillaModel.getColumnas().add(columna); 
+        
         grillaModel.getAgrupacionesMap().clear();
         grillaModel.getNivelesAgregados().clear();
+        
+        
+        //nuevos
+        clearTitulos();
+        setInitialEditarGrillaTable();        
+        addChildrenToEditarGrillaTable(grillaModel.getColumnas());
+        setTableModel(createTableModel(grillaModel.getColumnas(),grillaModel.getAgrupacionesMap()));
+        procesarColumnas(grillaModel.getColumnas(), columna.getIdColumna(), getTipoDatoSelected(), getTipoCeldaSelected());
+        getEditarGrillaTable().setValue(getTableModel(grillaModel).getRows());
+        setADFPartialTarget(getEditarGrillaTable());
+        setADFPartialTarget(getAgregarFilaChoice());
+        setADFPartialTarget(getEditorTable1());
+        setADFPartialTarget(getEditorTable2());
+        setADFPartialTarget(getEditorTable3());  
+        getGrillaModelByEstructuraSelected().setWidthEditarGrillaTable(getWidthEditarGrillaTable());
+        getFilasAgregadas();
+        setCampoEdicionGrillas(createCampoModel(getFilaSelected()));
+        getCampoEdicionGrillas();
+        // fin nuevos
+        
+        /*
         RichColumn column = getRichColumn(columna.getTituloColumna(), columna.getAncho(), 
                                           "center", false, GeneradorDisenoHelper.PREFIX_ID_COLUMN_CHILD+getGrillaSelected()+grillaModel.getColumnas().size());
         columna.setOrden(Integer.valueOf(grillaModel.getColumnas().size()).longValue());
@@ -353,7 +397,7 @@ public class GeneradorDisenoBackingBean extends SoporteBackingBean{
         getEditarGrillaTable().setAllDetailsEnabled(true);
         getEditarGrillaTable().getChildren().add(column);
         getEditarGrillaTable().setWidth(widthEditarGrillaTable + "px;");
-        procesarColumnas(grillaModel.getColumnas());
+        
         setTableModel(createTableModel(grillaModel.getColumnas(),grillaModel.getAgrupacionesMap()));
         getEditarGrillaTable().setValue(getTableModel(grillaModel).getRows());
         setRenderdEditarGrillaTable(true);
@@ -366,7 +410,12 @@ public class GeneradorDisenoBackingBean extends SoporteBackingBean{
         setCampoEdicionGrillas(createCampoModel(getFilaSelected()));
         getCampoEdicionGrillas();
         return null;
+        
+        */
+        
+        return null;
     }
+    
     
     public List<Long> getCantidadFilasEdiciones(){
         
@@ -503,6 +552,18 @@ public class GeneradorDisenoBackingBean extends SoporteBackingBean{
                     Long contador=1L;
                     for(Celda celda : columna.getCeldaList()){
                         celda.setIdFila(contador);
+                        
+                        if(Util.esListaValida(celda.getRelacionEeffList())){
+                            for(RelacionEeff relEeff : celda.getRelacionEeffList()){
+                                relEeff.setIdFila(contador);
+                            }
+                        }
+                        if(Util.esListaValida(celda.getRelacionDetalleEeffList())){
+                            for(RelacionDetalleEeff relDetEeff : celda.getRelacionDetalleEeffList()){
+                                relDetEeff.setIdFila(contador);
+                            }
+                        }
+                        
                         contador++;
                     }
             }
@@ -547,6 +608,16 @@ public class GeneradorDisenoBackingBean extends SoporteBackingBean{
                 List<Celda> celdaPasoList = new ArrayList<Celda>();
                 for(Celda celda : columna.getCeldaList()){
                     celda.setIdFila(contador);
+                    if(Util.esListaValida(celda.getRelacionEeffList())){
+                        for(RelacionEeff relEeff : celda.getRelacionEeffList()){
+                            relEeff.setIdFila(contador);
+                        }
+                    }
+                    if(Util.esListaValida(celda.getRelacionDetalleEeffList())){
+                        for(RelacionDetalleEeff relDetEeff : celda.getRelacionDetalleEeffList()){
+                            relDetEeff.setIdFila(contador);
+                        }
+                    }
                     celdaPasoList.add(celda);
                     if(celda.getIdFila().equals(filaSelected)){
                         contador++;
@@ -834,7 +905,7 @@ public class GeneradorDisenoBackingBean extends SoporteBackingBean{
         return new GrillaModelVO();
     }
     
-    private void procesarColumnas(List<Columna> columnas){
+    private void procesarColumnas(List<Columna> columnas, Long idColumnaNueva, TipoDato tipoDato, TipoCelda tipoCelda){
         
         int numCelda=0;
         
@@ -855,7 +926,15 @@ public class GeneradorDisenoBackingBean extends SoporteBackingBean{
                 Long idCelda = 0L;
                 for(int i=0; i<celdas; i++){
                     idCelda = columna.getCeldaList().size() +1L;
-                    columna.getCeldaList().add(new Celda(columna.getIdColumna(),idCelda));
+                    if(idColumnaNueva==null || !columna.getIdColumna().equals(idColumnaNueva)){
+                        columna.getCeldaList().add(new Celda(columna.getIdColumna(),idCelda));
+                    }else {
+                        Celda celda = new Celda(columna.getIdColumna(),idCelda);
+                        celda.setTipoDato(tipoDato);
+                        celda.setTipoCelda(tipoCelda);
+                        columna.getCeldaList().add(celda);
+                    }
+                    
                 }
             }
         }
@@ -1040,7 +1119,7 @@ public class GeneradorDisenoBackingBean extends SoporteBackingBean{
             this.setInitialEditarGrillaTable();        
             this.addChildrenToEditarGrillaTable(grilla.getColumnaList());
             this.setTableModel(createTableModel(grillaModel.getColumnas(), grillaModel.getAgrupacionesMap()));
-            this.procesarColumnas(grilla.getColumnaList());
+            this.procesarColumnas(grilla.getColumnaList(), null,null,null);
             this.getEditarGrillaTable().setValue(getTableModel(grillaModel).getRows());
             this.setADFPartialTarget(getEditarGrillaTable());
             this.getGrillaModelByEstructuraSelected().setWidthEditarGrillaTable(getWidthEditarGrillaTable());

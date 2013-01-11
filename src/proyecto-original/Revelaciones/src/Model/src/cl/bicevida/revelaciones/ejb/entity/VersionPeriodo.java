@@ -30,7 +30,9 @@ import javax.persistence.Transient;
 @NamedQueries({  @NamedQuery(name = VersionPeriodo.VERSION_PERIODO_FIND_ALL, query = "select o from VersionPeriodo o order by o.fechaCreacion, o.version.version"),
                  @NamedQuery(name = VersionPeriodo.VERSION_PERIODO_FIND_ALL_BY_PERIODO, query = "select o from VersionPeriodo o where o.periodo = :periodo order by o.fechaCreacion, o.version.version"),
                  @NamedQuery(name = VersionPeriodo.VERSION_PERIODO_FIND_ALL_BY_PERIODO_NOTA , query = "select o from VersionPeriodo o where o.periodo = :periodo and o.version.catalogo = :catalogo order by o.version.vigencia desc, o.version.version desc"),
+                 @NamedQuery(name = VersionPeriodo.VERSION_PERIODO_FIND_ALL_BY_PERIODO_NOTA_VIGENTE , query = "select o from VersionPeriodo o where o.periodo = :periodo and o.version.catalogo = :catalogo and o.version.vigencia = 1 order by o.version.version desc"),
                  @NamedQuery(name = VersionPeriodo.VERSION_PERIODO_FIND_BY_ID, query = "select o from VersionPeriodo o where o.idPeriodo = :idPeriodo and o.idVersion = :idVersion"),
+                 @NamedQuery(name = VersionPeriodo.VERSION_PERIODO_FIND_BY_ID_VERSION, query = "select o from VersionPeriodo o where o.idVersion = :idVersion"),
                  @NamedQuery(name = VersionPeriodo.VERSION_PERIODO_FIND_BY_FILTRO,
                             query = " select distinct vp from VersionPeriodo vp , CatalogoGrupo cg, UsuarioGrupo ug where " +
                                     " vp.version.catalogo.idCatalogo = cg.idCatalogo " + 
@@ -53,9 +55,10 @@ public class VersionPeriodo implements Serializable {
     public static final String VERSION_PERIODO_FIND_ALL = "VersionPeriodo.findAll";
     public static final String VERSION_PERIODO_FIND_ALL_BY_PERIODO = "VersionPeriodo.findAllByPeriodo";
     public static final String VERSION_PERIODO_FIND_ALL_BY_PERIODO_NOTA = "VersionPeriodo.findAllByPeriodoNota";
+    public static final String VERSION_PERIODO_FIND_ALL_BY_PERIODO_NOTA_VIGENTE = "VersionPeriodo.findAllByPeriodoNotaVigente";
     public static final String VERSION_PERIODO_FIND_BY_FILTRO = "VersionPeriodo.findByFiltro";
     public static final String VERSION_PERIODO_FIND_BY_ID = "VersionPeriodo.findById";
-    
+    public static final String VERSION_PERIODO_FIND_BY_ID_VERSION = "VersionPeriodo.findByIdVersion";
     
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "FECHA_CREACION", nullable = false)

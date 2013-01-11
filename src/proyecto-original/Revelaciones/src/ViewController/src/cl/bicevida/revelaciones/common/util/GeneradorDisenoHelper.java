@@ -3,12 +3,19 @@ package cl.bicevida.revelaciones.common.util;
 
 import cl.bicevida.revelaciones.ejb.common.TipoCeldaEnum;
 import cl.bicevida.revelaciones.ejb.cross.SortHelper;
+import cl.bicevida.revelaciones.ejb.cross.Util;
 import cl.bicevida.revelaciones.ejb.entity.AgrupacionColumna;
 import cl.bicevida.revelaciones.ejb.entity.Celda;
 import cl.bicevida.revelaciones.ejb.entity.Columna;
 import cl.bicevida.revelaciones.ejb.entity.Estructura;
 import cl.bicevida.revelaciones.ejb.entity.Grilla;
 import cl.bicevida.revelaciones.ejb.entity.Html;
+import cl.bicevida.revelaciones.ejb.entity.RelacionDetalleEeff;
+import cl.bicevida.revelaciones.ejb.entity.RelacionEeff;
+import cl.bicevida.revelaciones.ejb.entity.SubAgrupacionColumna;
+import cl.bicevida.revelaciones.ejb.entity.SubCelda;
+import cl.bicevida.revelaciones.ejb.entity.SubColumna;
+import cl.bicevida.revelaciones.ejb.entity.SubGrilla;
 import cl.bicevida.revelaciones.ejb.entity.Texto;
 import cl.bicevida.revelaciones.ejb.entity.TipoEstructura;
 import cl.bicevida.revelaciones.ejb.entity.Version;
@@ -241,6 +248,45 @@ public class GeneradorDisenoHelper {
                 max = agrupacion.getIdColumna();
             }
             if(contador == agrupaciones.size()){
+                agrupacionesVO.add(new AgrupacionVO(min, max, agrupacionPaso.getGrupo(), agrupacion.getAncho(), agrupacion.getTitulo(),agrupacionPaso.getIdGrilla(),agrupacionPaso.getIdNivel()));
+            }
+            
+            }
+        
+        return agrupacionesVO;
+    }
+    
+    public static List<AgrupacionVO> crearSubAgrupadorVO(List<SubAgrupacionColumna> subAgrupaciones,Long nivel){
+        
+        List<AgrupacionVO> agrupacionesVO = new ArrayList<AgrupacionVO>();
+        
+        if(!cl.bicevida.revelaciones.ejb.cross.Util.esListaValida(subAgrupaciones) || nivel==null)
+            return agrupacionesVO;
+        
+        Long min=100L;
+        Long max=0L;
+        SubAgrupacionColumna agrupacionPaso =null;
+        int contador = 0;
+        for(SubAgrupacionColumna agrupacion : subAgrupaciones){
+            
+            contador++;
+            
+            if(agrupacionPaso !=null && agrupacion.getGrupo()==agrupacionPaso.getGrupo()){
+                if(min>agrupacion.getIdSubColumna()){
+                    min=agrupacion.getIdSubColumna();
+                }
+                if(max<agrupacion.getIdSubColumna()){
+                    max=agrupacion.getIdSubColumna();
+                }
+            }else{
+                if(agrupacionPaso!=null){
+                    agrupacionesVO.add(new AgrupacionVO(min, max, agrupacionPaso.getGrupo(), agrupacionPaso.getAncho(), agrupacionPaso.getTitulo(),agrupacionPaso.getIdGrilla(),agrupacionPaso.getIdNivel()));
+                }
+                agrupacionPaso = agrupacion;
+                min = agrupacion.getIdSubColumna();
+                max = agrupacion.getIdSubColumna();
+            }
+            if(contador == subAgrupaciones.size()){
                 agrupacionesVO.add(new AgrupacionVO(min, max, agrupacionPaso.getGrupo(), agrupacion.getAncho(), agrupacion.getTitulo(),agrupacionPaso.getIdGrilla(),agrupacionPaso.getIdNivel()));
             }
             
@@ -615,7 +661,6 @@ public class GeneradorDisenoHelper {
         
         return true;
     }
-    
     public static void agregarFilaGrillaByFilaSelected(Grilla grilla, Long filaSelected){
         
         Celda celdaNueva;
@@ -637,6 +682,19 @@ public class GeneradorDisenoHelper {
                 List<Celda> celdaPasoList = new ArrayList<Celda>();
                 for(Celda celda : columna.getCeldaList()){
                     celda.setIdFila(contador);
+                    
+                    if(Util.esListaValida(celda.getRelacionEeffList())){
+                        for(RelacionEeff relEeff : celda.getRelacionEeffList()){
+                            relEeff.setIdFila(contador);
+                        }
+                    }
+                    if(Util.esListaValida(celda.getRelacionDetalleEeffList())){
+                        for(RelacionDetalleEeff relDetEeff : celda.getRelacionDetalleEeffList()){
+                            relDetEeff.setIdFila(contador);
+                        }
+                    }
+                    
+                    //TODO REYES agregar iteracion para generar id al agregar una fila a grilla dinamica
                     celdaPasoList.add(celda);
                     if(celda.getIdFila().equals(filaSelected)){
                         contador++;
@@ -662,13 +720,75 @@ public class GeneradorDisenoHelper {
         }
     }
     
+    
+    public static void agregarFilaSubGrillaByFilaSelected(SubGrilla subGrilla, Long filaSelected){
+        
+        SubCelda celdaNueva;
+        
+        Long parentH = getMaxHorizontalParent(subGrilla);
+                
+        for(SubColumna subColumna : subGrilla.getSubColumnaList()){
+            
+            Long contador =1L;
+           
+            
+            if(subColumna.getSubCeldaList()==null){
+                
+                subColumna.setSubCeldaList(new ArrayList<SubCelda>());
+                celdaNueva = new SubCelda(subColumna.getIdSubColumna(),1L);
+                subColumna.getSubCeldaList().add(celdaNueva);
+                
+            }else{
+                List<SubCelda> subCeldaPasoList = new ArrayList<SubCelda>();
+                for(SubCelda subCelda : subColumna.getSubCeldaList()){
+                    subCelda.setIdSubFila(contador);
+                    subCeldaPasoList.add(subCelda);
+                    if(subCelda.getIdSubFila().equals(filaSelected)){
+                        contador++;
+                        celdaNueva = new SubCelda(subColumna.getIdSubColumna(),contador);
+                        celdaNueva.setSubColumna(subColumna);
+                        celdaNueva.setTipoCelda(subCelda.getTipoCelda());
+                        celdaNueva.setIdGrilla(subCelda.getIdGrilla());
+                        celdaNueva.setIdSubGrilla(subCelda.getIdSubGrilla());
+                        celdaNueva.setTipoDato(subCelda.getTipoDato());
+                        celdaNueva.setChildVertical(subCelda.getChildVertical());
+                        if(subCelda.getParentHorizontal() != null){
+                            celdaNueva.setParentHorizontal(parentH);
+                        }
+                        if(subCelda.getChildHorizontal() !=null){
+                            celdaNueva.setChildHorizontal(parentH);
+                        }
+                        subCeldaPasoList.add(celdaNueva);
+                        //List<Celda> celdas = extract(cars, on(Car.class).getOriginalValue());
+                    }
+                    contador++;
+                }
+                subColumna.setSubCeldaList(subCeldaPasoList);                
+            }
+        }
+    }
+    
+    
     public static void eliminarUnaFila(Grilla grilla, Long filaSelected){    
         for(Columna columna : grilla.getColumnaList()){
             if(columna.getCeldaList()!=null && columna.getCeldaList().size() >= filaSelected.intValue()-1){
                 columna.getCeldaList().remove(filaSelected.intValue()-1);        
                 Long contador=1L;
                 for(Celda celda : columna.getCeldaList()){
+                    
                     celda.setIdFila(contador);
+                    
+                    if(Util.esListaValida(celda.getRelacionEeffList())){
+                        for(RelacionEeff relEeff : celda.getRelacionEeffList()){
+                            relEeff.setIdFila(contador);
+                        }
+                    }
+                    if(Util.esListaValida(celda.getRelacionDetalleEeffList())){
+                        for(RelacionDetalleEeff relDetEeff : celda.getRelacionDetalleEeffList()){
+                            relDetEeff.setIdFila(contador);
+                        }
+                    }
+                    
                     contador++;
                 }
             }
@@ -764,5 +884,43 @@ public class GeneradorDisenoHelper {
             }
         }
         return horizontalParent + 1L;
+    }
+    
+    
+    public static Long getMaxHorizontalParent(SubGrilla subGrid){
+        long horizontalParent = 0L;
+        for(SubColumna subColumn : subGrid.getSubColumnaList()){
+            for(SubCelda subCell : subColumn.getSubCeldaList()){
+                if(subCell.getParentHorizontal()!=null){
+                    if(subCell.getParentHorizontal().longValue() > horizontalParent)
+                        horizontalParent = subCell.getParentHorizontal();
+                }
+            }
+        }
+        return horizontalParent + 1L;
+    }
+    
+    public static void reOrdenarIdColumna(final List<Columna> columnaList,final Columna columnaNueva){
+        List<Columna> columnaNuevaList = new ArrayList<Columna>();
+        Long i=1L;
+        for(Columna columna : columnaList){
+            
+            if(columna.getIdColumna().equals(columnaNueva.getIdColumna())){
+                
+                columnaNueva.setIdColumna(i);
+                columnaNueva.setOrden(i);
+                i++;
+                
+                columnaNuevaList.add(columnaNueva);
+                
+            }                
+            columna.setIdColumna(i);
+            columna.setOrden(i);
+            columnaNuevaList.add(columna);
+            i++;
+            
+        }
+        columnaList.clear();
+        columnaList.addAll(columnaNuevaList);
     }
 }

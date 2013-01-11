@@ -54,6 +54,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.DataFormat;
+import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.RichTextString;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -82,143 +83,146 @@ import word.w2004.style.ParagraphStyle;
 
 @Stateless
 public class ReporteServiceBean implements ReporteServiceLocal {
-        
-    @EJB EstructuraServiceLocal estructuraService;
+
+    @EJB
+    EstructuraServiceLocal estructuraService;
 
     public ReporteServiceBean() {
-        
+
     }
-    
+
 
     @Override
-    public XSSFWorkbook createXLSX(List<ReportePrincipalVO> reportes) throws Exception{
+    public XSSFWorkbook createXLSX(List<ReportePrincipalVO> reportes) throws Exception {
 
         XSSFWorkbook wb = new XSSFWorkbook();
         XSSFFont font;
         XSSFCellStyle style = wb.createCellStyle();
-        
         DataFormat format = wb.createDataFormat();
 
         for (ReportePrincipalVO reporte : reportes) {
 
             XSSFSheet sheet =
                 wb.createSheet(reporte.getPropiedades().getNombreHoja() == null ? "" : reporte.getPropiedades().getNombreHoja());
-
+            sheet.setZoom(6, 7);
+            sheet.setFitToPage(true);
             int posRow = 2;
             int grillaMayor = 1;
             int tituloPrincipal = 1;
             //int contadorColumna = 1;
-            
+
             if (reporte.getPropiedades().getTituloPrincipal() != null) {
 
                 style = wb.createCellStyle();
-                
-                
+
 
                 sheet.addMergedRegion(new CellRangeAddress(tituloPrincipal, //first row (0-based)
                             tituloPrincipal, //last row  (0-based)
                             1, //first column (0-based)
-                            grillaMayor + 6) //last column  (0-based)
-                );
+                            grillaMayor + 6)) //last column  (0-based)
+                    ;
                 XSSFRow row = sheet.createRow(1);
                 style.setFont(SoporteReporte.getFontTitle(wb));
                 XSSFCell cell = row.createCell(1);
                 cell.setCellValue(reporte.getPropiedades().getTituloPrincipal());
                 cell.setCellStyle(style);
-                
-                
-                
+
 
             }
 
             for (Estructura estructura : reporte.getVersion().getEstructuraList()) {
-                
+
                 posRow++;
-                
+
                 if (!Util.esListaValida(estructura.getGrillaList()))
                     continue;
 
                 if (!Util.esListaValida(estructura.getGrillaList()))
                     break;
-                
+
                 //text part
                 if (Util.esListaValida(estructura.getTextoList())) {
-                    
+
                 }
-                
+
                 if (Util.esListaValida(estructura.getGrillaList())) {
 
                     for (Grilla grilla : estructura.getGrillaList()) {
-                       
+
                         tituloPrincipal = posRow;
-                        
-                        if(grilla.getTitulo() != null && !StringUtils.isEmpty(grilla.getTitulo())){
-                            
+
+                        if (grilla.getTitulo() != null && !StringUtils.isEmpty(grilla.getTitulo())) {
+
                             posRow++;
-                            
+
                             sheet.addMergedRegion(new CellRangeAddress(posRow, posRow, 1, 7));
                             XSSFRow row2 = sheet.createRow(posRow);
                             style.setFont(SoporteReporte.getFontTitle(wb));
                             XSSFCell cell2 = row2.createCell(1);
                             cell2.setCellValue(grilla.getTitulo());
                             cell2.setCellStyle(style);
-                            
+
                             posRow++;
-                            
+
                         }
 
                         if (grillaMayor < grilla.getColumnaList().size()) {
                             grillaMayor = grilla.getColumnaList().size();
                         }
-                        
-                        List<AgrupacionColumna> agrupacionesNivel2 = estructuraService.findAgrupacionColumnaByGrillaNivel(grilla.getIdGrilla(), 2L);
-                        
-                        if(Util.esListaValida(agrupacionesNivel2)){
-                            List<AgrupacionModelVO> agrupacionesVO = SoporteReporte.createAgrupadorVO(agrupacionesNivel2);
+
+                        List<AgrupacionColumna> agrupacionesNivel2 =
+                            estructuraService.findAgrupacionColumnaByGrillaNivel(grilla.getIdGrilla(), 2L);
+
+                        if (Util.esListaValida(agrupacionesNivel2)) {
+                            List<AgrupacionModelVO> agrupacionesVO =
+                                SoporteReporte.createAgrupadorVO(agrupacionesNivel2);
                             posRow++;
                             XSSFRow row = sheet.createRow(posRow);
-                            for(AgrupacionModelVO agrupacion : agrupacionesVO){
-                                
-                                
+                            for (AgrupacionModelVO agrupacion : agrupacionesVO) {
+
+
                                 int hasta = agrupacion.getHasta().intValue();
-                                
-                                if(grilla.getColumnaList().get(grilla.getColumnaList().size()-1).getTituloColumna().replaceAll(" ", "").equals(SoporteReporte.LINK_NAME)){
-                                    hasta=hasta-1;
+
+                                if (grilla.getColumnaList().get(grilla.getColumnaList().size() -
+                                                                1).getTituloColumna().replaceAll(" ",
+                                                                                                 "").equals(SoporteReporte.LINK_NAME)) {
+                                    hasta = hasta - 1;
                                 }
-                                
+
                                 XSSFCell cell = row.createCell(agrupacion.getDesde().intValue());
                                 style = SoporteReporte.getCellWithBorder(wb);
                                 style.setFillForegroundColor(new XSSFColor(new java.awt.Color(230, 233, 238)));
                                 style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
                                 style.setFont(SoporteReporte.getFontColumnHeader(wb));
-                                
-                                
-                                sheet.addMergedRegion(new CellRangeAddress(posRow,
-                                            posRow,
-                                            agrupacion.getDesde().intValue(),
-                                            hasta)
-                                );
+
+
+                                sheet.addMergedRegion(new CellRangeAddress(posRow, posRow,
+                                                                           agrupacion.getDesde().intValue(), hasta));
                                 cell.setCellValue(agrupacion.getTitulo());
                                 cell.setCellStyle(style);
                             }
                             posRow++;
                         }
-                        
-                        List<AgrupacionColumna> agrupacionesNivel1 = estructuraService.findAgrupacionColumnaByGrillaNivel(grilla.getIdGrilla(), 1L);
-                        
-                        if(Util.esListaValida(agrupacionesNivel1)){
-                            List<AgrupacionModelVO> agrupacionesVO = SoporteReporte.createAgrupadorVO(agrupacionesNivel1);
+
+                        List<AgrupacionColumna> agrupacionesNivel1 =
+                            estructuraService.findAgrupacionColumnaByGrillaNivel(grilla.getIdGrilla(), 1L);
+
+                        if (Util.esListaValida(agrupacionesNivel1)) {
+                            List<AgrupacionModelVO> agrupacionesVO =
+                                SoporteReporte.createAgrupadorVO(agrupacionesNivel1);
                             XSSFRow row = sheet.createRow(posRow);
-                            int c=0;
-                            for(AgrupacionModelVO agrupacion : agrupacionesVO){                                
+                            int c = 0;
+                            for (AgrupacionModelVO agrupacion : agrupacionesVO) {
                                 c++;
                                 int hasta = agrupacion.getHasta().intValue();
-                                if(c==agrupacionesVO.size()){
-                                    if(grilla.getColumnaList().get(grilla.getColumnaList().size()-1).getTituloColumna().replaceAll(" ", "").equals(SoporteReporte.LINK_NAME)){
-                                        hasta=hasta-1;
+                                if (c == agrupacionesVO.size()) {
+                                    if (grilla.getColumnaList().get(grilla.getColumnaList().size() -
+                                                                    1).getTituloColumna().replaceAll(" ",
+                                                                                                     "").equals(SoporteReporte.LINK_NAME)) {
+                                        hasta = hasta - 1;
                                     }
                                 }
-                                    System.out.println("desde "+agrupacion.getDesde().intValue()+" hasta "+hasta);
+                                System.out.println("desde " + agrupacion.getDesde().intValue() + " hasta " + hasta);
                                 XSSFCell cell = row.createCell(agrupacion.getDesde().intValue());
                                 style = SoporteReporte.getCellWithBorder(wb);
                                 style.setFillForegroundColor(new XSSFColor(new java.awt.Color(230, 233, 238)));
@@ -226,20 +230,17 @@ public class ReporteServiceBean implements ReporteServiceLocal {
                                 style.setFont(SoporteReporte.getFontColumnHeader(wb));
                                 cell.setCellValue(agrupacion.getTitulo());
                                 cell.setCellStyle(style);
-                                
-                                sheet.addMergedRegion(new CellRangeAddress(posRow,
-                                            posRow,
-                                            agrupacion.getDesde().intValue(),
-                                            hasta)
-                                );
+
+                                sheet.addMergedRegion(new CellRangeAddress(posRow, posRow,
+                                                                           agrupacion.getDesde().intValue(), hasta));
                             }
                             posRow++;
                         }
-                        
+
                         XSSFRow row = sheet.createRow(posRow);
                         XSSFCell cell = null;
-                        for (Columna columna : grilla.getColumnaList()){
-                            if(columna.getTituloColumna().replaceAll(" ", "").equals(SoporteReporte.LINK_NAME)){
+                        for (Columna columna : grilla.getColumnaList()) {
+                            if (columna.getTituloColumna().replaceAll(" ", "").equals(SoporteReporte.LINK_NAME)) {
                                 continue;
                             }
                             sheet.autoSizeColumn(columna.getIdColumna().intValue());
@@ -252,11 +253,11 @@ public class ReporteServiceBean implements ReporteServiceLocal {
                             cell.setCellStyle(style);
                         }
                         int numRow = grilla.getColumnaList().get(0).getCeldaList().size();
-                        
-                        int i=0;
-                        
-                        for(int j=0; j<numRow; j++){
-                            
+
+                        int i = 0;
+
+                        for (int j = 0; j < numRow; j++) {
+
                             posRow++;
                             row = sheet.createRow(posRow);
                             style = SoporteReporte.getCellWithBorder(wb);
@@ -264,94 +265,97 @@ public class ReporteServiceBean implements ReporteServiceLocal {
                             if ((j % 2) == 0) {
                                 rowColor = new XSSFColor(new java.awt.Color(246, 246, 246));
                                 style.setFillForegroundColor(rowColor);
-                                style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);                                    
+                                style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
                             }
-                            for(Columna columna : grilla.getColumnaList()){
-                                
-                                if(columna.getTituloColumna().replaceAll(" ", "").equals(SoporteReporte.LINK_NAME)){
+                            for (Columna columna : grilla.getColumnaList()) {
+
+                                if (columna.getTituloColumna().replaceAll(" ", "").equals(SoporteReporte.LINK_NAME)) {
                                     continue;
                                 }
-                                
+
                                 Celda celda = columna.getCeldaList().get(i);
                                 //System.out.println("row->" + posRow + " celda->"+columna.getIdColumna().intValue()+" valor->"+ celda.getValor());
                                 cell = row.createCell(columna.getIdColumna().intValue());
-                                
-                                if(StringUtils.isEmpty(celda.getValor()) || (celda.getValor()==null?"0":celda.getValor().trim()).equals("0")){
-                                    if( celda.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.NUMERO.getKey()) || celda.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.TOTAL.getKey()) || celda.getTipoCelda().getIdTipoCelda().equals( TipoCeldaEnum.SUBTOTAL.getKey()) ){                                                                                
-                                        //style2.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);  
+
+                                if (StringUtils.isEmpty(celda.getValor()) ||
+                                    (celda.getValor() == null ? "0" : celda.getValor().trim()).equals("0")) {
+                                    if (celda.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.NUMERO.getKey()) ||
+                                        celda.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.TOTAL.getKey()) ||
+                                        celda.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.SUBTOTAL.getKey())) {
+                                        //style2.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
                                         //cell.setCellType(Cell.CELL_TYPE_NUMERIC);
                                         cell.setCellValue(new Double("0"));
                                         cell.setCellStyle(style);
-                                    }else{                                    
+                                    } else {
                                         cell.setCellType(Cell.CELL_TYPE_STRING);
                                         cell.setCellValue(StringUtils.EMPTY);
                                         cell.setCellStyle(style);
                                     }
-                                }else{                                                                
-                                        if( celda.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.TOTAL.getKey()) || celda.getTipoCelda().getIdTipoCelda().equals( TipoCeldaEnum.SUBTOTAL.getKey()) ){
-                                        if ( celda.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.ENTERO.getKey()) ) {                                    
+                                } else {
+                                    if (celda.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.TOTAL.getKey()) ||
+                                        celda.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.SUBTOTAL.getKey())) {
+                                        if (celda.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.ENTERO.getKey())) {
                                             //style.setDataFormat(format.getFormat("#,###,###,###"));
                                             cell.setCellType(Cell.CELL_TYPE_NUMERIC);
                                             cell.setCellValue(celda.getValorLong());
-                                            if(!celda.getValorLong().equals(0L)){
+                                            if (!celda.getValorLong().equals(0L)) {
                                                 cell.setCellStyle(SoporteReporte.getCellIntegerStyle(wb, rowColor));
                                             }
-                                        }                                    
-                                        else if (celda.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.DECIMAL.getKey()) ) {
+                                        } else if (celda.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.DECIMAL.getKey())) {
                                             //style.setDataFormat(format.getFormat("#,###,###,###.####"));
                                             cell.setCellType(Cell.CELL_TYPE_NUMERIC);
                                             cell.setCellValue(celda.getValorBigDecimal().doubleValue());
-                                            if(celda.getValorBigDecimal().equals(new BigDecimal(0))){
+                                            cell.setCellStyle(style);
+                                            if (!celda.getValorBigDecimal().equals(new BigDecimal(0))) {
                                                 cell.setCellStyle(SoporteReporte.getCellDecimalStyle(wb, rowColor));
                                             }
-                                        }                                                                
+                                        }
                                     }
-                                    
-                                    else if( celda.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.TEXTO.getKey()) || celda.getTipoCelda().getIdTipoCelda().equals( TipoCeldaEnum.TEXTO_EDITABLE.getKey()) ){
-                                        if(celda.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.TEXTO.getKey())){
+
+                                    else if (celda.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.TEXTO.getKey()) ||
+                                             celda.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.TEXTO_EDITABLE.getKey())) {
+                                        if (celda.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.TEXTO.getKey())) {
                                             //style.setFont(SoporteReporte.getFontNormal(wb));
                                             cell.setCellType(Cell.CELL_TYPE_STRING);
                                             cell.setCellValue(celda.getValor());
                                             cell.setCellStyle(style);
-                                        }
-                                        else if(celda.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.FECHA.getKey())){
+                                        } else if (celda.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.FECHA.getKey())) {
                                             //style.setFont(SoporteReporte.getFontNormal(wb));
                                             cell.setCellType(Cell.CELL_TYPE_STRING);
                                             cell.setCellValue(celda.getValorDate());
                                             cell.setCellStyle(SoporteReporte.getCellDateStyle(wb, rowColor));
-                                        }                                
+                                        }
                                     }
-                                    
-                                    else if( celda.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.TITULO.getKey()) ){
+
+                                    else if (celda.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.TITULO.getKey())) {
                                         style.setFont(SoporteReporte.getFontTitulo(wb));
                                         cell.setCellType(Cell.CELL_TYPE_STRING);
                                         cell.setCellValue(celda.getValor());
                                         cell.setCellStyle(style);
                                     }
-                                    
-                                    else if( celda.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.NUMERO.getKey())){
-                                        if(celda.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.ENTERO.getKey())){ 
+
+                                    else if (celda.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.NUMERO.getKey())) {
+                                        if (celda.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.ENTERO.getKey())) {
                                             //style.setDataFormat(format.getFormat("#,###,###,###"));
                                             cell.setCellType(Cell.CELL_TYPE_NUMERIC);
-                                            cell.setCellValue(celda.getValorLong());                                            
-                                            if(!celda.getValorLong().equals(0L)){
+                                            cell.setCellValue(celda.getValorLong());
+                                            if (!celda.getValorLong().equals(0L)) {
                                                 cell.setCellStyle(SoporteReporte.getCellIntegerStyle(wb, rowColor));
                                             }
-                                        }
-                                        else if(celda.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.DECIMAL.getKey())){
+                                        } else if (celda.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.DECIMAL.getKey())) {
                                             //style.setDataFormat(format.getFormat("#,###,###,###.####"));
                                             cell.setCellType(Cell.CELL_TYPE_NUMERIC);
                                             cell.setCellValue(celda.getValorBigDecimal().doubleValue());
                                             cell.setCellStyle(style);
-                                            if(celda.getValorBigDecimal().equals(new BigDecimal(0))){
+                                            if (!celda.getValorBigDecimal().equals(new BigDecimal(0))) {
                                                 cell.setCellStyle(SoporteReporte.getCellDecimalStyle(wb, rowColor));
                                             }
                                         }
-                                    }                                
+                                    }
                                 }
-    
+
                                 //cell.setCellStyle(style);
-                                
+
                             }
                             i++;
                         }
@@ -363,70 +367,70 @@ public class ReporteServiceBean implements ReporteServiceLocal {
 
         return wb;
     }
-    
+
     @Deprecated
-    public byte[] getBytesHtmlToPdf(byte[] html) throws Exception{
-        
+    public byte[] getBytesHtmlToPdf(byte[] html) throws Exception {
+
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(html);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        ByteArrayOutputStream  outputStream;
+        ByteArrayOutputStream outputStream;
         Document document;
-        try{                        
+        try {
             outputStream = new ByteArrayOutputStream();
             Tidy tidy = new Tidy();
             tidy.setXHTML(true);
             tidy.setDocType("omit");
             tidy.parseDOM(byteArrayInputStream, byteArrayOutputStream);
-                    
+
             String strHtml = new String(html);
-            if(strHtml.equals("") || strHtml.length() == 0 || strHtml == null){
+            if (strHtml.equals("") || strHtml.length() == 0 || strHtml == null) {
                 document = DocumentFactory.buildDocument(DocumentFactory.HTML_EMPTY);
-            }else{
+            } else {
                 document = DocumentFactory.buildDocument(new String(html));
             }
-            
-            
-            ITextRenderer renderer = new ITextRenderer();            
+
+
+            ITextRenderer renderer = new ITextRenderer();
             renderer.setDocument(document, null);
             renderer.layout();
-            renderer.createPDF(outputStream);            
+            renderer.createPDF(outputStream);
             return outputStream.toByteArray();
-            
-        }catch(Exception e){
-            throw new RuntimeException("Error al obtener los bytes de reporte", e);                                   
-        }  
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error al obtener los bytes de reporte", e);
+        }
     }
-    
-    
-    public XSSFWorkbook createInterfaceXBRL(List<ReportePrincipalVO> reportes) throws Exception{
-        
+
+
+    public XSSFWorkbook createInterfaceXBRL(List<ReportePrincipalVO> reportes) throws Exception {
+
         return null;
     }
-    
-    public XSSFWorkbook createReporteFlujoAprobacion(final List<VersionPeriodo> versionPeriodoList) throws Exception{
-        XSSFWorkbook wb = new XSSFWorkbook();    
+
+    public XSSFWorkbook createReporteFlujoAprobacion(final List<VersionPeriodo> versionPeriodoList) throws Exception {
+        XSSFWorkbook wb = new XSSFWorkbook();
         XSSFCellStyle style = wb.createCellStyle();
-        XSSFCellStyle styleDate = wb.createCellStyle();        
+        XSSFCellStyle styleDate = wb.createCellStyle();
         CreationHelper createHelper = wb.getCreationHelper();
         XSSFSheet sheet = wb.createSheet("Reporte Flujo de Aprobación");
-        sheet.setZoom(6,7);
+        sheet.setZoom(6, 7);
         sheet.setFitToPage(true);
         sheet.createFreezePane(0, 1, 0, 1);
         int rowNum = 0;
         XSSFRow row;
-        XSSFCell cell1, cell2, cell3, cell4, cell5, cell6, cell7, cell8, cell9;                
-        this.createHeaderReporteFlujoAprobacion(wb, sheet, sheet.createRow(0));        
-        for(final VersionPeriodo versionPeriodo : versionPeriodoList){
+        XSSFCell cell1, cell2, cell3, cell4, cell5, cell6, cell7, cell8, cell9;
+        this.createHeaderReporteFlujoAprobacion(wb, sheet, sheet.createRow(0));
+        for (final VersionPeriodo versionPeriodo : versionPeriodoList) {
             rowNum++;
             row = sheet.createRow(rowNum);
             style = SoporteReporte.getCellWithBorder(wb);
             styleDate = SoporteReporte.getCellWithBorder(wb);
             if ((rowNum % 2) == 0) {
                 style.setFillForegroundColor(new XSSFColor(new java.awt.Color(246, 246, 246)));
-                style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);  
-                
+                style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
+
                 styleDate.setFillForegroundColor(new XSSFColor(new java.awt.Color(246, 246, 246)));
-                styleDate.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);  
+                styleDate.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
             }
             //definicion de celdas
             cell1 = row.createCell(0);
@@ -447,40 +451,42 @@ public class ReporteServiceBean implements ReporteServiceLocal {
             cell8.setCellStyle(style);
             cell9 = row.createCell(8);
             cell9.setCellStyle(style);
-            
+
             //datos
             cell1.setCellValue(versionPeriodo.getEstado().getNombre());
             cell2.setCellValue(versionPeriodo.getVersion().getCatalogo().getTipoCuadro().getNombre());
-            cell3.setCellValue(versionPeriodo.getVersion().getCatalogo().getTitulo());            
-            
-            for(CatalogoGrupo catalogoGrupo : versionPeriodo.getVersion().getCatalogo().getCatalogoGrupoList()){
-                if(catalogoGrupo.getGrupo().getGrupoOid().getIdGrupoOid().equals(Constantes.ROL_SUP)){
-                    for(UsuarioGrupo usuarioGrupo : catalogoGrupo.getGrupo().getUsuarioGrupoList()){
-                        cell4.setCellValue(MessageFormat.format("{0} : {1}", catalogoGrupo.getGrupo().getNombre(), usuarioGrupo.getUsuarioOid()));
-                    }                    
+            cell3.setCellValue(versionPeriodo.getVersion().getCatalogo().getTitulo());
+
+            for (CatalogoGrupo catalogoGrupo : versionPeriodo.getVersion().getCatalogo().getCatalogoGrupoList()) {
+                if (catalogoGrupo.getGrupo().getGrupoOid().getIdGrupoOid().equals(Constantes.ROL_SUP)) {
+                    for (UsuarioGrupo usuarioGrupo : catalogoGrupo.getGrupo().getUsuarioGrupoList()) {
+                        cell4.setCellValue(MessageFormat.format("{0} : {1}", catalogoGrupo.getGrupo().getNombre(),
+                                                                usuarioGrupo.getUsuarioOid()));
+                    }
                 }
             }
-            
+
             cell5.setCellValue(versionPeriodo.getVersion().getVersion());
             cell6.setCellValue(versionPeriodo.getComentario() == null ? "" : versionPeriodo.getComentario());
-            
-            
-            if(versionPeriodo.getFechaUltimoProceso() != null){               
+
+
+            if (versionPeriodo.getFechaUltimoProceso() != null) {
                 styleDate.setDataFormat(createHelper.createDataFormat().getFormat(Util.DATE_PATTERN_DD_MM_YYYY_HH_MM_SS));
                 cell7.setCellValue(versionPeriodo.getFechaUltimoProceso());
                 cell7.setCellStyle(styleDate);
-            }else{
+            } else {
                 cell7.setCellValue(Util.STRING_VACIO);
             }
-            
-            cell8.setCellValue(MessageFormat.format("{0}-{1}", versionPeriodo.getPeriodo().getAnioPeriodo(), versionPeriodo.getPeriodo().getMesPeriodo()));
+
+            cell8.setCellValue(MessageFormat.format("{0}-{1}", versionPeriodo.getPeriodo().getAnioPeriodo(),
+                                                    versionPeriodo.getPeriodo().getMesPeriodo()));
             cell9.setCellValue((versionPeriodo.getVersion().getVigencia().equals(1L) ? "SÍ" : "NO"));
-            
+
         }
         return wb;
     }
-    
-    private void createHeaderReporteFlujoAprobacion(XSSFWorkbook wb, XSSFSheet sheet, XSSFRow row){
+
+    private void createHeaderReporteFlujoAprobacion(XSSFWorkbook wb, XSSFSheet sheet, XSSFRow row) {
         XSSFCell cell1, cell2, cell3, cell4, cell5, cell6, cell7, cell8, cell9;
         //ancho de columnas
         sheet.setColumnWidth(0, 4000);
@@ -489,7 +495,7 @@ public class ReporteServiceBean implements ReporteServiceLocal {
         sheet.setColumnWidth(3, 12000);
         sheet.setColumnWidth(5, 4000);
         sheet.setColumnWidth(6, 6000);
-        
+
         XSSFCellStyle style = wb.createCellStyle();
         style = SoporteReporte.getCellWithBorder(wb);
         style.setFillForegroundColor(new XSSFColor(new java.awt.Color(230, 233, 238)));
@@ -523,8 +529,8 @@ public class ReporteServiceBean implements ReporteServiceLocal {
         cell7.setCellValue("FECHA ULTIMO PROCESO");
         cell8.setCellValue("PERIODO");
         cell9.setCellValue("VIGENTE");
-        
+
     }
-    
-    
+
+
 }

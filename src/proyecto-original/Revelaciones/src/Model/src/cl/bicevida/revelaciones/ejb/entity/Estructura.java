@@ -96,6 +96,10 @@ public class Estructura implements Serializable {
     
     @Transient
     private HtmlVO htmlVo;
+    
+    
+    
+    
 
 
     public Estructura() {

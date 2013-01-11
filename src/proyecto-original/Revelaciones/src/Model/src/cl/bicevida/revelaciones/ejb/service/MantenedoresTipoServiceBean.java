@@ -99,4 +99,9 @@ public class MantenedoresTipoServiceBean implements MantenedoresTipoServiceLocal
     public List<EstadoCuadro> findAllEstadoCuadro(){
         return em.createNamedQuery(EstadoCuadro.FIND_ALL).getResultList();       
     }
+    
+    /*Metodos para EstadoCuadro*/
+    public EstadoCuadro findEstadoCuadroById(Long idEstado){
+        return (EstadoCuadro)em.createNamedQuery(EstadoCuadro.FIND_BY_ID).setParameter("idEstado", idEstado).getSingleResult();
+    }
 }

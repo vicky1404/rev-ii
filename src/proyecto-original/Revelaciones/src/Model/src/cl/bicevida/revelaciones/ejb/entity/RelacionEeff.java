@@ -1,6 +1,7 @@
 package cl.bicevida.revelaciones.ejb.entity;
 
 
+import cl.bicevida.revelaciones.ejb.cross.EeffUtil;
 import cl.bicevida.revelaciones.ejb.entity.pk.RelacionEeffPK;
 
 import java.io.Serializable;
@@ -21,13 +22,17 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 @Entity
 @NamedQueries( { @NamedQuery(name = RelacionEeff.FIND_ALL, query = "select o from RelacionEeff o"),
                  @NamedQuery(name = RelacionEeff.FIND_BY_PERIODO, query = "select o from RelacionEeff o where o.periodo.idPeriodo = :idPeriodo order by o.idFecu"),
                  @NamedQuery(name = RelacionEeff.FIND_BY_PERIODO_FECU, query = "select o from RelacionEeff o where o.periodo.idPeriodo = :idPeriodo and o.idFecu = :idFecu"),
-                 @NamedQuery(name = RelacionEeff.DELETE_BY_CELDA, query = "delete from RelacionEeff o where o.celda2 = :celda")})
+                 @NamedQuery(name = RelacionEeff.DELETE_BY_CELDA, query = "delete from RelacionEeff o where o.celda2 = :celda"),
+                 @NamedQuery(name = RelacionEeff.DELETE_BY_GRILLA_PERIODO, query = "delete from RelacionEeff o where o.idGrilla = :idGrilla and o.idPeriodo = :idPeriodo"),
+                 @NamedQuery(name = RelacionEeff.DELETE_BY_FECU_PERIODO, query = "delete from RelacionEeff o where o.idFecu = :idFecu and o.idPeriodo = :idPeriodo"),
+                 @NamedQuery(name = RelacionEeff.UPDATE_MONTO_BY_FECU_PERIODO, query = "update RelacionEeff o set o.montoTotal = :montoTotal where o.idFecu = :idFecu and o.idPeriodo = :idPeriodo ")})
 @Table(name = "REV_RELACION_EEFF")
 @IdClass(RelacionEeffPK.class)
 public class RelacionEeff implements Serializable {
@@ -39,6 +44,9 @@ public class RelacionEeff implements Serializable {
     public static final String FIND_BY_PERIODO = "RelacionEeff.findByPeriodo";
     public static final String FIND_BY_PERIODO_FECU = "RelacionEeff.findByPeriodoFecu";
     public static final String DELETE_BY_CELDA = "RelacionEeff.deleteByCelda";
+    public static final String DELETE_BY_GRILLA_PERIODO = "RelacionEeff.deleteByGrillaPeriodo";
+    public static final String UPDATE_MONTO_BY_FECU_PERIODO = "RelacionEeff.updateMontoByFecuPeriodo";
+    public static final String DELETE_BY_FECU_PERIODO = "RelacionEeff.deleteByFecuPeriodo";
     
     @Id
     @Column(name = "ID_FECU", nullable = false, insertable = false, updatable = false)
@@ -76,6 +84,9 @@ public class RelacionEeff implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_FECU")
     private CodigoFecu codigoFecu;
+    
+    @Transient
+    private BigDecimal montoTotalNuevo;
 
     public RelacionEeff() {
     }
@@ -156,6 +167,13 @@ public class RelacionEeff implements Serializable {
         return idFila;
     }
     
+    public String getFecuFormat(){
+        if(idFecu!=null)
+            return EeffUtil.formatFecu(idFecu);
+        else
+            return "";
+    }
+    
     public void copyEstadoFinanciero(EstadoFinanciero eeff,Celda celda, Periodo periodo){
         this.idFecu = eeff.getIdFecu();
         this.idPeriodo = periodo.getIdPeriodo();
@@ -166,5 +184,52 @@ public class RelacionEeff implements Serializable {
         this.montoTotal = eeff.getMontoTotal();        
         this.periodo = periodo;
         this.codigoFecu = eeff.getCodigoFecu();
+    }
+
+    public void setMontoTotalNuevo(BigDecimal montoTotalNuevo) {
+        this.montoTotalNuevo = montoTotalNuevo;
+    }
+
+    public BigDecimal getMontoTotalNuevo() {
+        return montoTotalNuevo;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (!(object instanceof RelacionEeff)) {
+            return false;
+        }
+        final RelacionEeff other = (RelacionEeff)object;
+        if (!(idFecu == null ? other.idFecu == null : idFecu.equals(other.idFecu))) {
+            return false;
+        }
+        if (!(idPeriodo == null ? other.idPeriodo == null : idPeriodo.equals(other.idPeriodo))) {
+            return false;
+        }
+        if (!(idGrilla == null ? other.idGrilla == null : idGrilla.equals(other.idGrilla))) {
+            return false;
+        }
+        if (!(idColumna == null ? other.idColumna == null : idColumna.equals(other.idColumna))) {
+            return false;
+        }
+        if (!(idFila == null ? other.idFila == null : idFila.equals(other.idFila))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int PRIME = 37;
+        int result = 1;
+        result = PRIME * result + ((idFecu == null) ? 0 : idFecu.hashCode());
+        result = PRIME * result + ((idPeriodo == null) ? 0 : idPeriodo.hashCode());
+        result = PRIME * result + ((idGrilla == null) ? 0 : idGrilla.hashCode());
+        result = PRIME * result + ((idColumna == null) ? 0 : idColumna.hashCode());
+        result = PRIME * result + ((idFila == null) ? 0 : idFila.hashCode());
+        return result;
     }
 }

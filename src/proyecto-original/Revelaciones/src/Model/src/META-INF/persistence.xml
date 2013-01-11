@@ -13,7 +13,7 @@
       <property name="eclipselink.logging.level" value="FINE"/>
       <property name="eclipselink.cache.shared.default" value="false"/>
       <property name="eclipselink.query-results-cache" value="false"/>
-      <property name="eclipselink.logging.logger" value="DefaultLogger"/>
+      <!--property name="eclipselink.logging.logger" value="DefaultLogger"/-->
     </properties>
   </persistence-unit>
 </persistence>

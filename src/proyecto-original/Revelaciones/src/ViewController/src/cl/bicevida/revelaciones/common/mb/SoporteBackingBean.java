@@ -10,30 +10,29 @@ import cl.bicevida.revelaciones.common.util.BeanUtil;
 import cl.bicevida.revelaciones.common.util.GeneradorDisenoHelper;
 import cl.bicevida.revelaciones.common.util.PropertyManager;
 import cl.bicevida.revelaciones.ejb.common.EstadoCuadroEnum;
-import cl.bicevida.revelaciones.ejb.common.TipoImpresionEnum;
 import cl.bicevida.revelaciones.ejb.cross.Constantes;
 import cl.bicevida.revelaciones.ejb.cross.Util;
 import cl.bicevida.revelaciones.ejb.entity.AgrupacionColumna;
-import cl.bicevida.revelaciones.ejb.entity.Catalogo;
 import cl.bicevida.revelaciones.ejb.entity.Columna;
-import cl.bicevida.revelaciones.ejb.entity.EstadoCuadro;
 import cl.bicevida.revelaciones.ejb.entity.Estructura;
 import cl.bicevida.revelaciones.ejb.entity.Grilla;
 import cl.bicevida.revelaciones.ejb.entity.Grupo;
 import cl.bicevida.revelaciones.ejb.entity.Periodo;
-import cl.bicevida.revelaciones.ejb.entity.TipoCelda;
-import cl.bicevida.revelaciones.ejb.entity.TipoCuadro;
-import cl.bicevida.revelaciones.ejb.entity.TipoDato;
+import cl.bicevida.revelaciones.ejb.entity.SubAgrupacionColumna;
+import cl.bicevida.revelaciones.ejb.entity.SubColumna;
+import cl.bicevida.revelaciones.ejb.entity.SubGrilla;
 import cl.bicevida.revelaciones.ejb.entity.TipoEstructura;
 import cl.bicevida.revelaciones.ejb.entity.VersionPeriodo;
 import cl.bicevida.revelaciones.ejb.facade.local.FacadeServiceLocal;
 import cl.bicevida.revelaciones.mb.CuadroBackingBean;
+import cl.bicevida.revelaciones.mb.CuadroDesagregadoBackingBean;
 import cl.bicevida.revelaciones.mb.GeneradorDisenoBackingBean;
 import cl.bicevida.revelaciones.mb.GeneradorVersionBackingBean;
 import cl.bicevida.revelaciones.mb.GeneradorVisualizadorBackingBean;
 import cl.bicevida.revelaciones.mb.ReporteUtilBackingBean;
 import cl.bicevida.revelaciones.vo.AgrupacionColumnaModelVO;
 import cl.bicevida.revelaciones.vo.AgrupacionModelVO;
+import cl.bicevida.revelaciones.vo.AgrupacionSubColumnaModelVO;
 import cl.bicevida.revelaciones.vo.AgrupacionVO;
 
 import java.io.Serializable;
@@ -43,8 +42,6 @@ import java.security.Principal;
 import java.text.MessageFormat;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -53,21 +50,16 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.ejb.EJB;
-import javax.ejb.EJBException;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.model.SelectItem;
-
-import javax.persistence.NoResultException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import oracle.adf.view.rich.component.rich.data.RichTable;
 import oracle.adf.view.rich.component.rich.input.RichInputText;
 import oracle.adf.view.rich.context.AdfFacesContext;
 
@@ -97,6 +89,7 @@ public abstract class SoporteBackingBean implements Serializable{
     private ComponenteBackingBean componenteBackingBean;
     private Filtro filtro;
     private AplicacionBackingBean aplicacionBackingBean;
+    private CuadroDesagregadoBackingBean cuadroDesagregadoBackingBean;
     private boolean sistemaBloqueado;
         
 
@@ -297,6 +290,13 @@ public abstract class SoporteBackingBean implements Serializable{
         return aplicacionBackingBean;
     }
     
+    public CuadroDesagregadoBackingBean getCuadroDesagregadoBackingBean() {
+        if(cuadroDesagregadoBackingBean == null){
+            cuadroDesagregadoBackingBean = BeanUtil.findBean(cuadroDesagregadoBackingBean.BEAN_NAME);
+        }
+        return cuadroDesagregadoBackingBean;
+    }
+    
     public Periodo getFiltroPeriodo() throws Exception{                           
         this.getFiltro().setPeriodo(this.getFacade().getMantenedoresTipoService().findByPeriodo(
                         cl.bicevida.revelaciones.ejb.cross.Util.getLong(getFiltro().getPeriodo().getAnioPeriodo().concat(getFiltro().getPeriodo().getMesPeriodo()), null)));                                         
@@ -316,7 +316,7 @@ public abstract class SoporteBackingBean implements Serializable{
         if(versionPeriodo.getEstado().getIdEstado().equals(EstadoCuadroEnum.CERRADO.getKey())){
             retorno = Boolean.FALSE;
         }
-        if(versionPeriodo.getEstado().getIdEstado().equals(EstadoCuadroEnum.INICIADO.getKey())){
+        else if(versionPeriodo.getEstado().getIdEstado().equals(EstadoCuadroEnum.INICIADO.getKey())){
             if(!(getRequest().isUserInRole(Constantes.ROL_RESP)) && 
                !(getRequest().isUserInRole(Constantes.ROL_SUP)) &&
                !(getRequest().isUserInRole(Constantes.ROL_ENC)) &&
@@ -324,7 +324,7 @@ public abstract class SoporteBackingBean implements Serializable{
                 retorno = Boolean.FALSE;                
             }
         }
-        if(versionPeriodo.getEstado().getIdEstado().equals(EstadoCuadroEnum.MODIFICADO.getKey())){
+        else if(versionPeriodo.getEstado().getIdEstado().equals(EstadoCuadroEnum.MODIFICADO.getKey())){
             if(!(getRequest().isUserInRole(Constantes.ROL_RESP)) && 
                !(getRequest().isUserInRole(Constantes.ROL_SUP)) &&
                !(getRequest().isUserInRole(Constantes.ROL_ENC)) &&
@@ -332,7 +332,7 @@ public abstract class SoporteBackingBean implements Serializable{
                 retorno = Boolean.FALSE;     
             }
         }
-        if(versionPeriodo.getEstado().getIdEstado().equals(EstadoCuadroEnum.POR_APROBAR.getKey())){
+        else if(versionPeriodo.getEstado().getIdEstado().equals(EstadoCuadroEnum.POR_APROBAR.getKey())){
             if(!(getRequest().isUserInRole(Constantes.ROL_RESP)) && 
                !(getRequest().isUserInRole(Constantes.ROL_SUP)) &&
                !(getRequest().isUserInRole(Constantes.ROL_ENC)) &&
@@ -340,25 +340,26 @@ public abstract class SoporteBackingBean implements Serializable{
                 retorno = Boolean.FALSE;     
             }
         }
-        if(versionPeriodo.getEstado().getIdEstado().equals(EstadoCuadroEnum.APROBADO.getKey())){
+        else if(versionPeriodo.getEstado().getIdEstado().equals(EstadoCuadroEnum.APROBADO.getKey())){
             if(!(getRequest().isUserInRole(Constantes.ROL_RESP)) && 
                !(getRequest().isUserInRole(Constantes.ROL_SUP)) && 
                !(getRequest().isUserInRole(Constantes.ROL_ADMIN))){
                 retorno = Boolean.FALSE;     
             }
         }
-        if(versionPeriodo.getEstado().getIdEstado().equals(EstadoCuadroEnum.CERRADO.getKey())){
+        else if(versionPeriodo.getEstado().getIdEstado().equals(EstadoCuadroEnum.CERRADO.getKey())){
             if(!(getRequest().isUserInRole(Constantes.ROL_RESP)) && 
                !(getRequest().isUserInRole(Constantes.ROL_ADMIN))){
                 retorno = Boolean.FALSE;     
             }
         }
-        if(versionPeriodo.getEstado().getIdEstado().equals(EstadoCuadroEnum.CONTINGENCIA.getKey())){
+        else if(versionPeriodo.getEstado().getIdEstado().equals(EstadoCuadroEnum.CONTINGENCIA.getKey())){
             if(!(getRequest().isUserInRole(Constantes.ROL_RESP)) && 
                !(getRequest().isUserInRole(Constantes.ROL_ADMIN))){
                 retorno = Boolean.FALSE;     
             }
         }
+        
         if(retorno == Boolean.FALSE){
             agregarErrorMessage(PropertyManager.getInstance().getMessage("general_mensaje_nota_sin_privilegios_modificar"));
         }
@@ -578,6 +579,122 @@ public abstract class SoporteBackingBean implements Serializable{
         
         return nivelesList;
     }
+    
+    
+    
+    //TODO mover metodo    
+    public List<AgrupacionSubColumnaModelVO> soporteAgrupacionSubColumna(Long idGrilla, List<SubColumna> subColumnas , List<SubAgrupacionColumna> subAgrupaciones) {
+
+        Map<Long, SubColumna> subColumnaMap = new LinkedHashMap<Long, SubColumna>();
+        Map<Long, AgrupacionSubColumnaModelVO> nivel1Map = new LinkedHashMap<Long, AgrupacionSubColumnaModelVO>();
+        Map<Long, AgrupacionSubColumnaModelVO> nivel2Map = new LinkedHashMap<Long, AgrupacionSubColumnaModelVO>();
+        List<AgrupacionSubColumnaModelVO> nivelesList = new ArrayList<AgrupacionSubColumnaModelVO>();
+        Map<Long,Long> nivel = new HashMap<Long,Long>();
+        Long niveles = 0L;
+        
+        try {
+            
+            for(SubColumna subColumna : subColumnas){
+                subColumnaMap.put(subColumna.getIdSubColumna(), subColumna);
+            }
+            
+            List<AgrupacionVO> agrupacionesNivel = GeneradorDisenoHelper.crearSubAgrupadorVO(subAgrupaciones, 1L);
+            
+            List<AgrupacionModelVO> agrupacionesModel = new ArrayList<AgrupacionModelVO>();
+            
+            for(AgrupacionVO agrupacion : agrupacionesNivel){
+                
+                AgrupacionModelVO agrupacionModel = new AgrupacionModelVO();
+                agrupacionModel.setDesde(agrupacion.getDesde());
+                agrupacionModel.setHasta(agrupacion.getHasta());
+                agrupacionModel.setGrupo(agrupacion.getGrupo());
+                agrupacionModel.setAncho(agrupacion.getAncho());
+                agrupacionModel.setNivel(agrupacion.getNivel());
+                agrupacionModel.setIdGrilla(agrupacion.getIdGrilla());
+                agrupacionModel.setTitulo(agrupacion.getTitulo());
+                agrupacionesModel.add(agrupacionModel);
+            }
+            
+            
+            
+            for(AgrupacionModelVO agrupacion : agrupacionesModel){
+                
+                if(agrupacion.getNivel() == 1L){
+                    
+                    List<SubColumna> columnasNew = new ArrayList<SubColumna>();
+                    AgrupacionSubColumnaModelVO agrupacionN1VO = new AgrupacionSubColumnaModelVO();
+                    agrupacionN1VO.setTituloNivel(agrupacion.getTitulo());
+                    agrupacionN1VO.setNivel(1L);
+                    agrupacionN1VO.setAgrupacion(agrupacion);
+                    for(Long i=agrupacion.getDesde(); i<= agrupacion.getHasta(); i++){
+                        if(subColumnaMap.containsKey(i)){
+                            columnasNew.add(subColumnaMap.get(i));
+                            niveles = 1L;
+                        }
+                    }
+                    agrupacionN1VO.setSubColumnas(columnasNew);
+                    nivel1Map.put(agrupacion.getGrupo(), agrupacionN1VO);
+                    
+                }else  if(agrupacion.getNivel() == 2L){
+
+                    AgrupacionSubColumnaModelVO agrupacionN2VO = new AgrupacionSubColumnaModelVO();
+                    
+                    List<AgrupacionSubColumnaModelVO> niveles1New = new ArrayList<AgrupacionSubColumnaModelVO>();
+                    
+                    for(Long i=agrupacion.getDesde(); i<= agrupacion.getHasta(); i++){
+                        
+                        //Long grupoNivel1 = GeneradorDisenoHelper.getGrupoNivel1(nivel1Map,i);
+                        AgrupacionColumna col = new AgrupacionColumna();
+                        col.setIdNivel(1L);
+                        col.setIdGrilla(idGrilla);
+                        col.setIdColumna(i);
+                        col = getFacade().getEstructuraService().findAgrupacionColumnaById(col);
+                        Long grupoNivel1 = col.getGrupo();
+                        
+                        if(grupoNivel1 != null && !nivel.containsKey(grupoNivel1)){
+                            nivel.put(grupoNivel1, grupoNivel1);
+                            niveles1New.add(nivel1Map.get(grupoNivel1));
+                            niveles = 2L;
+                        }
+                    }
+                    
+                    agrupacionN2VO.setTituloNivel(agrupacion.getTitulo());
+                    agrupacionN2VO.setNivel(2L);
+                    agrupacionN2VO.setNiveles(niveles1New);
+                    
+                    nivel2Map.put(agrupacion.getGrupo(), agrupacionN2VO);
+              }
+            }
+            
+            if (niveles == 0L) {
+                return null;   
+            }
+            
+            if (niveles == 1L) {
+                Iterator it = nivel1Map.entrySet().iterator();
+                while (it.hasNext()) {
+                    Map.Entry entry = (Map.Entry)it.next();
+                    nivelesList.add((AgrupacionSubColumnaModelVO)entry.getValue());
+                    
+                }
+            }
+
+            if (niveles == 2L) {
+                Iterator it = nivel2Map.entrySet().iterator();
+                while (it.hasNext()) {
+                    Map.Entry entry = (Map.Entry)it.next();
+                    nivelesList.add((AgrupacionSubColumnaModelVO)entry.getValue());
+                }
+            }
+
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        
+        return nivelesList;
+    }
+    
+    
     //TODO mover metodo
     public void setListGrilla(List<Estructura> estructuraList) throws Exception {
             
@@ -600,6 +717,36 @@ public abstract class SoporteBackingBean implements Serializable{
                 }
             }
     }
+    
+    //TODO mover metodo
+    
+    public void setListSubGrilla(List<Estructura> estructuraList) throws Exception {
+            
+            for(Estructura estructuras : estructuraList){
+                if(estructuras.getTipoEstructura().getIdTipoEstructura().equals(TipoEstructura.ESTRUCTURA_TIPO_GRILLA)){
+                    for(Grilla grilla : estructuras.getGrillaList()){
+                        
+                        for (SubGrilla subGrilla : grilla.getSubGrillaList()){
+                                List<SubAgrupacionColumna> subAgrupaciones = getFacade().getEstructuraService().findSubAgrupacionColumnaBySubGrilla(subGrilla);
+                                List<AgrupacionSubColumnaModelVO> agrupacionSubColumnaList = soporteAgrupacionSubColumna(grilla.getIdGrilla(), subGrilla.getSubColumnaList(),subAgrupaciones);                        
+                                if(agrupacionSubColumnaList==null || agrupacionSubColumnaList.isEmpty()){
+                                    estructuras.getGrillaVO().setColumnas(grilla.getColumnaList());
+                                    estructuras.getGrillaVO().setNivel(0L);
+                                }else if(agrupacionSubColumnaList.get(0).getNivel() == 1L){
+                                    estructuras.getGrillaVO().setNivel(agrupacionSubColumnaList.get(0).getNivel());
+                                    estructuras.getGrillaVO().setNivel1DesagregadoList(agrupacionSubColumnaList);
+                                }else if(agrupacionSubColumnaList.get(0).getNivel() == 2L){
+                                    estructuras.getGrillaVO().setNivel(agrupacionSubColumnaList.get(0).getNivel());
+                                    estructuras.getGrillaVO().setNivel2DesagregadoList(agrupacionSubColumnaList);    
+                                }
+                            
+                            }
+                    }
+                }
+            }
+    }
+
+    
     //TODO mover metodo
     public void setGrillaVO(Estructura estructura) throws Exception {
             
@@ -674,4 +821,42 @@ public abstract class SoporteBackingBean implements Serializable{
         }
         return sistemaBloqueado;
     }
+    
+    public List<Grupo> getGruposByUsuario() throws Exception {
+            return this.getFacade().getSeguridadService().findGruposByUsuario(this.getNombreUsuario());
+        }
+    
+    public boolean existeGrupoEnLista(Grupo grupo, List<Grupo> grupoList){
+        boolean respuesta = Boolean.FALSE;        
+        for (Grupo g : grupoList){
+            if (grupo != null && grupo.getIdGrupo().equals(g.getIdGrupo())){
+                    respuesta = Boolean.TRUE;
+                    break;
+                }
+            }
+            return respuesta;
+        }
+    
+    public String formatTaxonomyParentName(String name){
+        name = name.replaceAll("http://www.svs.cl/cl/fr/cs/role/", "");
+        if(name.contains("nota")){
+            name = Util.capitalizar(name.replaceAll("_role", ""));
+        }
+        return name;
+    }
+    
+    public void validateHtml(FacesContext facesContext, UIComponent uIComponent, Object object) {
+        final Integer MAX_TEXT_BYTES = Integer.parseInt(PropertyManager.getInstance().getMessage("constantes_max_text_bytes"));
+        String html = (String) object;         
+        if(cl.bicevida.revelaciones.ejb.cross.Util.getBytes(html).length >= MAX_TEXT_BYTES) {
+            FacesMessage message = new FacesMessage();
+            message.setSeverity(FacesMessage.SEVERITY_ERROR);
+            message.setSummary(MessageFormat.format(PropertyManager.getInstance().getMessage("general_mensaje_texto_maximo_permitido"), MAX_TEXT_BYTES));
+            message.setDetail(null);        
+            facesContext.addMessage(null, message);
+            ((RichInputText)uIComponent).setValid(Boolean.FALSE);            
+        }
+    }
+
+    
 }

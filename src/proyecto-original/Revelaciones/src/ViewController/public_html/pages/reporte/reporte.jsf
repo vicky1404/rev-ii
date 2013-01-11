@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+        xmlns:h="http://java.sun.com/jsf/html">
     <af:document title="reporte.jsf" id="d1">
         <af:resource source="/js/jquery/jquery-1.6.4.min.js" type="javascript"/>
         <af:resource source="/js/util/form-utils.js" type="javascript"/>
@@ -25,11 +26,24 @@
                   }
               }
           }
+          
+          function cerrarPopUpExcel(evt){
+              AdfPage.PAGE.findComponent('p_down_excel').hide();
+          }
+          
+          function cerrarPopUpWord(evt){
+              AdfPage.PAGE.findComponent('p_down_word').hide();
+          }
+        </af:resource>
+        <af:resource type="css">
+            .colStyle1 {
+                width: 70px;               
+            }           
         </af:resource>
         <af:form id="f1">
             <af:popup id="p1_loading" contentDelivery="immediate" animate="default">
                 <af:dialog id="d2" type="none" title="Cargando..." closeIconVisible="false" inlineStyle="width:220px;"
-                           modal="true">
+                           modal="false">
                     <af:panelGroupLayout id="pgl1" layout="horizontal">
                         <af:image shortDesc="Generando" source="/images/icon/loading5.gif" id="i2"/>
                         <af:spacer width="30px;" id="s4"/>
@@ -37,36 +51,59 @@
                     </af:panelGroupLayout>
                 </af:dialog>
             </af:popup>
+            
+            <af:popup id="p_down_excel" contentDelivery="immediate" animate="false">
+                <af:dialog id="d3" type="cancel" title="Descargar" closeIconVisible="true" inlineStyle="width:300px;"
+                           modal="false" titleIconSource="/images/icon/page_excel_16x16.png" >
+                    <af:panelGroupLayout id="pgl2" layout="horizontal">                        
+                        <af:commandLink actionListener="#{reporteBackingBean.downloadExcel}" id="cl1" text="Descargar Archivo Excel Generado" inlineStyle="text-decoration:underline;">
+                            <af:clientListener method="cerrarPopUpExcel" type="blur"/>
+                        </af:commandLink>
+                    </af:panelGroupLayout>
+                </af:dialog>
+            </af:popup>
+            
+            <af:popup id="p_down_word" contentDelivery="immediate" animate="false">
+                <af:dialog id="d4" type="cancel" title="Descargar" closeIconVisible="true" inlineStyle="width:300px;"
+                           modal="false" titleIconSource="/images/icon/word.png" >
+                    <af:panelGroupLayout id="pgl3" layout="horizontal">                        
+                        <af:commandLink actionListener="#{reporteBackingBean.downloadWord}" id="cl2" text="Descargar Archivo Word Generado" inlineStyle="text-decoration:underline;">  
+                            <af:clientListener method="cerrarPopUpWord" type="blur"/>
+                        </af:commandLink>
+                    </af:panelGroupLayout>
+                </af:dialog>
+            </af:popup>
+            
             <af:panelBox id="pnBox1Periodo" text="Reportes" inlineStyle="height:auto;">
-                <af:group id="groupPeriodo">
-                    <af:panelFormLayout id="pfl1" rows="1" labelWidth="100" maxColumns="2" fieldWidth="30">
-                        <af:selectOneChoice id="soc1" value="#{reporteBackingBean.filtro.periodo.mesPeriodo}" required="true"
-                                            label="#{msg.etiqueta_periodo}"
-                                            requiredMessageDetail="#{msg.periodo_mensaje_seleccione_mes}">
-                            <f:selectItem itemLabel="#{msg.etiqueta_mes_periodo}" id="sel1"/>
-                            <f:selectItems value="#{reporteBackingBean.componenteBackingBean.meses}" id="meses"/>
-                        </af:selectOneChoice>
-                        <af:selectOneChoice label=" " id="soc2" value="#{reporteBackingBean.filtro.periodo.anioPeriodo}" required="true"
-                                            requiredMessageDetail="#{msg.periodo_mensaje_seleccione_anio}"
-                                            inlineStyle="padding-left:200px;">
-                            <f:selectItem itemLabel="#{msg.etiqueta_anio_periodo}" id="sel2"/>
-                            <f:selectItems value="#{reporteBackingBean.componenteBackingBean.anios}" id="anios"/>
-                        </af:selectOneChoice>
-                        <f:facet name="footer"/>
-                    </af:panelFormLayout>
-                    <af:panelFormLayout id="pfl3" rows="1" labelWidth="100" maxColumns="0" fieldWidth="100">
-                        <af:selectOneChoice label="#{msg.etiqueta_tipo_cuadro}:" id="cmb_tc"
-                                            value="#{reporteBackingBean.filtro.tipoCuadro}"
-                                            unselectedLabel="#{msg.general_control_seleccione}" required="false"
-                                            requiredMessageDetail="#{msg.general_control_seleccione} #{msg.etiqueta_tipo_cuadro}">
-                            <f:selectItems value="#{reporteBackingBean.componenteBackingBean.tipoCuadroItems}" id="tipos_c"/>
-                        </af:selectOneChoice>
-                        <f:facet name="footer">
-                            <af:commandButton text="#{msg.general_control_buscar}" id="cbPeriodos"
-                                              action="#{reporteBackingBean.buscar}" blocking="true"/>
-                        </f:facet>
-                    </af:panelFormLayout>
-                </af:group>
+                <h:panelGrid columns="3" id="pg1" columnClasses="colStyle1">
+                    <af:outputLabel value="#{msg.etiqueta_periodo}" id="ol1"/>
+                    <af:selectOneChoice id="soc1" value="#{reporteBackingBean.filtro.periodo.mesPeriodo}"
+                                        required="true" showRequired="false"
+                                        requiredMessageDetail="#{msg.periodo_mensaje_seleccione_mes}">
+                        <f:selectItem itemLabel="#{msg.etiqueta_mes_periodo}" id="sel1"/>
+                        <f:selectItems value="#{reporteBackingBean.componenteBackingBean.meses}" id="meses"/>
+                    </af:selectOneChoice>
+                    <af:selectOneChoice label=" " id="soc2" value="#{reporteBackingBean.filtro.periodo.anioPeriodo}"
+                                        required="true" requiredMessageDetail="#{msg.periodo_mensaje_seleccione_anio}">
+                        <f:selectItem itemLabel="#{msg.etiqueta_anio_periodo}" id="sel2"/>
+                        <f:selectItems value="#{reporteBackingBean.componenteBackingBean.anios}" id="anios"/>
+                    </af:selectOneChoice>
+                    
+                    <af:outputLabel value="#{msg.etiqueta_tipo_cuadro}:" id="ol2"/>
+                    <af:selectOneChoice id="cmb_tc"
+                                        value="#{reporteBackingBean.filtro.tipoCuadro}"
+                                        unselectedLabel="#{msg.general_control_seleccione}" required="false"
+                                        requiredMessageDetail="#{msg.general_control_seleccione} #{msg.etiqueta_tipo_cuadro}">
+                        <f:selectItems value="#{reporteBackingBean.componenteBackingBean.tipoCuadroItems}"
+                                       id="tipos_c"/>
+                    </af:selectOneChoice>
+                    <af:spacer id="s2"/>
+                    
+                    <af:spacer id="s3"/>
+                    <af:spacer id="s5"/>
+                    <af:commandButton text="#{msg.general_control_buscar}" id="cbPeriodos"
+                                      action="#{reporteBackingBean.buscar}" blocking="true"/>
+                </h:panelGrid>
             </af:panelBox>
             <af:spacer width="10" height="10" id="s1"/>
             <af:panelCollection id="pc1" styleClass="AFStretchWidth"
@@ -84,7 +121,7 @@
                                                  inlineStyle="padding-bottom:0px;" partialSubmit="false"
                                                  actionListener="#{reporteBackingBean.generarDocx}"
                                                  shortDesc="#{msg.general_control_exportar_word} elementos seleccionados"
-                                                 icon="/images/icon/word.png" 
+                                                 icon="/images/icon/word.png"
                                                  rendered="#{reporteBackingBean.renderBotonExportarWord}">
                             <!--af:clientListener method="cargarEvento" type="action"/-->
                         </af:commandToolbarButton>
@@ -107,9 +144,8 @@
                         </af:commandLink>
                     </af:toolbar>
                 </f:facet>
-                
                 <af:table value="#{reporteBackingBean.catalogoReportes}" var="row" rowBandingInterval="1" id="t2"
-                          styleClass="AFStretchWidth" summary="Tabla de catalogo" fetchSize="1000" rows="1"  
+                          styleClass="AFStretchWidth" summary="Tabla de catalogo" fetchSize="1000" rows="1"
                           columnResizing="enabled" inlineStyle="width:inherit; height:auto;" rowSelection="none"
                           columnStretching="column:c3" autoHeightRows="1000" contentDelivery="whenAvailable"
                           emptyText="#{msg.general_mensaje_busqueda_sin_registros}"
@@ -133,7 +169,8 @@
                                                     autoSubmit="true"
                                                     requiredMessageDetail="#{msg.general_control_seleccione} la orientación de impresión"
                                                     valueChangeListener="#{reporteBackingBean.onChangeTipoImpresion}">
-                                    <f:selectItems value="#{reporteBackingBean.componenteBackingBean.tipoImpresionItems}" id="tipos_c5"/>
+                                    <f:selectItems value="#{reporteBackingBean.componenteBackingBean.tipoImpresionItems}"
+                                                   id="tipos_c5"/>
                                 </af:selectOneChoice>
                             </af:group>
                         </f:facet>
@@ -141,7 +178,8 @@
                                             value="#{row.entity.catalogo.impresionHorizontal}"
                                             unselectedLabel="#{msg.general_control_seleccione}" required="false"
                                             requiredMessageDetail="#{msg.general_control_seleccione} la orientación de impresión">
-                            <f:selectItems value="#{reporteBackingBean.componenteBackingBean.tipoImpresionItems}" id="si1"/>
+                            <f:selectItems value="#{reporteBackingBean.componenteBackingBean.tipoImpresionItems}"
+                                           id="si1"/>
                         </af:selectOneChoice>
                     </af:column>
                     <af:column sortable="false" headerText="Versión" align="right" id="c8" width="50">

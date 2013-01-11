@@ -20,6 +20,7 @@ import cl.bicevida.revelaciones.ejb.entity.Columna;
 import cl.bicevida.revelaciones.ejb.entity.Estructura;
 import cl.bicevida.revelaciones.ejb.entity.Grilla;
 import cl.bicevida.revelaciones.ejb.entity.TipoCuadro;
+import cl.bicevida.revelaciones.ejb.entity.Version;
 import cl.bicevida.revelaciones.ejb.entity.VersionPeriodo;
 import cl.bicevida.revelaciones.vo.GrillaVO;
 
@@ -201,6 +202,11 @@ public class MantenedorFormulaBackingBean extends SoporteBackingBean implements 
         this.limpiarResultadoGrilla();
         Filtro filtroPaso = getFiltro();
         filtroPaso.getPeriodo().setPeriodo(null);
+        catalogoInstance = null;
+        catalogoModel = null; 
+        if (tablaCatalogoTree != null && tablaCatalogoTree.getDisclosedRowKeys()!=null ){
+                tablaCatalogoTree.getDisclosedRowKeys().clear();//esta linea fue agregada para resolver NoRowAvailableException. MGC
+        }
         //this.setPeriodoCatalogoList(null);
         //getCuadroBackingBean().setEstructuraList(null);
 
@@ -686,8 +692,10 @@ public class MantenedorFormulaBackingBean extends SoporteBackingBean implements 
      * @param event
      */
     public void buscarEstructuraGrilla(ActionEvent event){
+        
         final Estructura estructura = (Estructura)event.getComponent().getAttributes().get("estructura");
         final Catalogo catalogo = (Catalogo)event.getComponent().getAttributes().get("catalogo");
+        final Version version = (Version)event.getComponent().getAttributes().get("version");
         this.setBarraFormula(null);
         this.setCeldaTarget(null);
         super.getFiltro().setTipoFormula(null);
@@ -696,22 +704,39 @@ public class MantenedorFormulaBackingBean extends SoporteBackingBean implements 
         this.setCountFormulasSinGrabar(this.getFormulaMap().size());
         this.desMarcarCeldasSelecionadasByTarget();
         this.updateTipoFormulaCombo(this.getTipoFormulaCombo(), super.getFiltro().getTipoFormula());  
+        
+        
+        if (tablaCatalogoTree != null && tablaCatalogoTree.getDisclosedRowKeys()!=null ){
+                tablaCatalogoTree.getDisclosedRowKeys().clear();////esta linea fue agregada para resolver NoRowAvailableException. MGC
+        }
+        
         try {
-            this.setCatalogo(catalogo);
-            this.setEstructura(estructura);
-            this.setGrilla(this.getFacade().getGrillaService().findGrillaById(estructura.getIdEstructura()));
-            this.setGrillaVO(this.getFacade().getEstructuraService().getGrillaVO(this.getGrilla(), Boolean.FALSE));
-            super.getFiltro().setTipoFormula(this.getGrilla().getTipoFormula());
-            this.buildCeldaMap();
-            this.setRenderGrilla(Boolean.TRUE);
-            this.updateTipoFormulaCombo(this.getTipoFormulaCombo(), super.getFiltro().getTipoFormula());              
+                    if (!version.isDesagregado()){
+                    
+                        
+                            this.setCatalogo(catalogo);
+                            this.setEstructura(estructura);
+                            this.setGrilla(this.getFacade().getGrillaService().findGrillaById(estructura.getIdEstructura()));
+                            this.setGrillaVO(this.getFacade().getEstructuraService().getGrillaVO(this.getGrilla(), Boolean.FALSE));
+                            super.getFiltro().setTipoFormula(this.getGrilla().getTipoFormula());
+                            this.buildCeldaMap();
+                            this.setRenderGrilla(Boolean.TRUE);
+                            this.updateTipoFormulaCombo(this.getTipoFormulaCombo(), super.getFiltro().getTipoFormula());              
+                    } else {
+                            this.setRenderGrilla(Boolean.FALSE);
+                            super.agregarWarnMessage(PropertyManager.getInstance().getMessage("general_mensaje_cuadro_formula_version_desagregada"));
+                        }
+                        
+                    
+                        AdfFacesContext.getCurrentInstance().addPartialTarget(this.getBarraFormulaOutput());
+                        AdfFacesContext.getCurrentInstance().addPartialTarget(this.getPanelGroupLayoutBarraFormula()); 
+                        AdfFacesContext.getCurrentInstance().addPartialTarget(this.getPanelGroupLayoutTablaFormula());
+            
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             super.agregarErrorMessage(PropertyManager.getInstance().getMessage("general_mensaje_nota_get_catalogo_error"));
         } 
-        AdfFacesContext.getCurrentInstance().addPartialTarget(this.getBarraFormulaOutput());
-        AdfFacesContext.getCurrentInstance().addPartialTarget(this.getPanelGroupLayoutBarraFormula()); 
-        AdfFacesContext.getCurrentInstance().addPartialTarget(this.getPanelGroupLayoutTablaFormula());
+     
     }
 
     /**

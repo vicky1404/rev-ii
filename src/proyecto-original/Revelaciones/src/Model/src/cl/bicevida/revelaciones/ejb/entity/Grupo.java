@@ -55,6 +55,9 @@ public class Grupo implements Serializable {
     
     @OneToMany(mappedBy = "grupo", targetEntity = MenuGrupo.class)    
     private List<MenuGrupo> menuGrupoList;
+    
+    @OneToMany(mappedBy = "grupo")
+    private List<SubGrilla> grillaList;
 
     public Grupo() {
     }
@@ -173,5 +176,34 @@ public class Grupo implements Serializable {
     }
 
 
-    
+    public void setGrillaList(List<SubGrilla> grillaList) {
+        this.grillaList = grillaList;
+    }
+
+    public List<SubGrilla> getGrillaList() {
+        return grillaList;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (!(object instanceof Grupo)) {
+            return false;
+        }
+        final Grupo other = (Grupo)object;
+        if (!(idGrupo == null ? other.idGrupo == null : idGrupo.equals(other.idGrupo))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int PRIME = 37;
+        int result = 1;
+        result = PRIME * result + ((idGrupo == null) ? 0 : idGrupo.hashCode());
+        return result;
+    }
 }

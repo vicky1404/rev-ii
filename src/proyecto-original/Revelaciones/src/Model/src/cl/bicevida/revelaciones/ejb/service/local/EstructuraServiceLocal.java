@@ -6,6 +6,8 @@ import cl.bicevida.revelaciones.ejb.entity.Celda;
 import cl.bicevida.revelaciones.ejb.entity.Estructura;
 import cl.bicevida.revelaciones.ejb.entity.Grilla;
 import cl.bicevida.revelaciones.ejb.entity.HistorialVersionPeriodo;
+import cl.bicevida.revelaciones.ejb.entity.SubAgrupacionColumna;
+import cl.bicevida.revelaciones.ejb.entity.SubGrilla;
 import cl.bicevida.revelaciones.ejb.entity.Version;
 import cl.bicevida.revelaciones.ejb.entity.VersionPeriodo;
 import cl.bicevida.revelaciones.exceptions.FormulaException;
@@ -32,6 +34,8 @@ public interface EstructuraServiceLocal {
     
     List<Estructura> getEstructuraByVersion(Version version, boolean applyFormula) throws FormulaException, Exception;
     
+    List<Estructura> getSubGrillaByVersion(Version version, boolean applyFormula, SubGrilla subGrilla) throws FormulaException, Exception;
+    
     public List<Estructura> getEstructuraByVersionTipo(Version version, Long idTipoEstructura) throws Exception;
     
     //List<FilaVO> buildGrilla(Grilla grilla)throws Exception;
@@ -46,6 +50,8 @@ public interface EstructuraServiceLocal {
     
     GrillaVO getGrillaVO(Grilla grilla, boolean applyFormula) throws FormulaException, Exception;
     
+    GrillaVO getGrillaSubGrillaVO(SubGrilla subGrilla, boolean applyFormula) throws FormulaException, Exception;
+    
     Estructura findEstructuraById(Long id) throws Exception;
     
     List<AgrupacionColumna> findAgrupacionColumnaByGrilla(Grilla grilla) throws Exception;
@@ -56,6 +62,10 @@ public interface EstructuraServiceLocal {
     
     void persistEstructura(List<Estructura> estructuras, VersionPeriodo versionPeriodo, HistorialVersionPeriodo historialVersionPeriodo) throws Exception;
     
+    void persistEstructuraSubGrilla(List<Estructura> estructuras, VersionPeriodo versionPeriodo, HistorialVersionPeriodo historialVersionPeriodo, SubGrilla subGrilla) throws Exception;
+    
     public List<AgrupacionColumna> findAgrupacionColumnaByGrillaNivel(Long idGrilla, Long idNivel) throws Exception;
+    
+    public List<SubAgrupacionColumna> findSubAgrupacionColumnaBySubGrilla(SubGrilla subGrilla) throws Exception;
     
 }

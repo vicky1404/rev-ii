@@ -42,6 +42,7 @@ import net.sf.jasperreports.engine.JasperReport;
 
 import org.apache.commons.beanutils.MethodUtils;
 import org.apache.log4j.Logger;
+import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.DataFormat;
@@ -289,6 +290,7 @@ public abstract class SoporteReporte {
     
     public static XSSFFont getFontTitle(XSSFWorkbook wb) {
         XSSFFont font = wb.createFont();
+        font.setFontName(HSSFFont.FONT_ARIAL);        
         font.setBoldweight(XSSFFont.BOLDWEIGHT_BOLD);
         font.setFontHeightInPoints((short)13);
         return font;
@@ -296,6 +298,7 @@ public abstract class SoporteReporte {
     
     public static XSSFFont getFontSubTitle(XSSFWorkbook wb) {
         XSSFFont font = wb.createFont();
+        font.setFontName(HSSFFont.FONT_ARIAL);
         font.setBoldweight(XSSFFont.BOLDWEIGHT_BOLD);
         font.setFontHeightInPoints((short)11);
         return font;
@@ -303,6 +306,7 @@ public abstract class SoporteReporte {
 
     public static XSSFFont getFontColumnHeader(XSSFWorkbook wb) {
         XSSFFont font = wb.createFont();
+        font.setFontName(HSSFFont.FONT_ARIAL);
         font.setBoldweight(XSSFFont.BOLDWEIGHT_BOLD);
         font.setFontHeightInPoints((short)11);
         return font;
@@ -310,6 +314,7 @@ public abstract class SoporteReporte {
 
     public static XSSFFont getFontTotal(XSSFWorkbook wb) {
         XSSFFont font = wb.createFont();
+        font.setFontName(HSSFFont.FONT_ARIAL);
         font.setBoldweight(XSSFFont.BOLDWEIGHT_BOLD);
         font.setFontHeightInPoints((short)10);
         return font;
@@ -317,6 +322,7 @@ public abstract class SoporteReporte {
 
     public static XSSFFont getFontSubTotal(XSSFWorkbook wb) {
         XSSFFont font = wb.createFont();
+        font.setFontName(HSSFFont.FONT_ARIAL);
         font.setBoldweight(XSSFFont.BOLDWEIGHT_BOLD);
         font.setFontHeightInPoints((short)10);
         return font;
@@ -324,6 +330,7 @@ public abstract class SoporteReporte {
 
     public static XSSFFont getFontTitulo(XSSFWorkbook wb) {
         XSSFFont font = wb.createFont();
+        font.setFontName(HSSFFont.FONT_ARIAL);
         font.setBoldweight(XSSFFont.BOLDWEIGHT_BOLD);
         font.setFontHeightInPoints((short)10);
         return font;
@@ -331,6 +338,7 @@ public abstract class SoporteReporte {
     
     public static XSSFFont getFontNormal(XSSFWorkbook wb) {
         XSSFFont font = wb.createFont();
+        font.setFontName(HSSFFont.FONT_ARIAL);
         font.setBoldweight(XSSFFont.BOLDWEIGHT_NORMAL);        
         font.setFontHeightInPoints((short)10);
         
@@ -343,6 +351,7 @@ public abstract class SoporteReporte {
         style.setBorderLeft(XSSFCellStyle.BORDER_THIN);
         style.setBorderRight(XSSFCellStyle.BORDER_THIN);
         style.setBorderTop(XSSFCellStyle.BORDER_THIN);
+        style.setFont(getFontNormal(wb));
         return style;
     }
     
@@ -355,6 +364,7 @@ public abstract class SoporteReporte {
         style.setBorderTop(XSSFCellStyle.BORDER_THIN);
         style.setDataFormat(format.getFormat("#,###,###,###.####"));
         style.setFillForegroundColor(rowColor);
+        style.setFont(getFontNormal(wb));
         //style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);  
         return style;
     }
@@ -368,6 +378,7 @@ public abstract class SoporteReporte {
         style.setBorderTop(XSSFCellStyle.BORDER_THIN);
         style.setDataFormat(format.getFormat("#,###,###,###"));
         style.setFillForegroundColor(rowColor);
+        style.setFont(getFontNormal(wb));
         //style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);  
         return style;
     }
@@ -381,6 +392,7 @@ public abstract class SoporteReporte {
         style.setBorderTop(XSSFCellStyle.BORDER_THIN);
         style.setDataFormat(createHelper.createDataFormat().getFormat(Util.DATE_PATTERN_DD_MM_YYYY));
         style.setFillForegroundColor(rowColor);
+        style.setFont(getFontNormal(wb));
         //style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);  
         return style;
     }

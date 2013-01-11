@@ -33,5 +33,10 @@ public class Constantes {
     public static final String REV_TIPO_OPERACION = PREFIX + "TIPO_OPERACION";
     public static final String REV_USUARIO_GRUPO = PREFIX + "USUARIO_GRUPO";
     public static final String REV_VERSION = PREFIX + "VERSION";
-    public static final String REV_VERSION_PERIODO = PREFIX + "VERSION_PERIODO";
+    public static final String REV_VERSION_PERIODO = PREFIX + "VERSION_PERIODO";    
+    public static final String REV_SUB_GRILLA = PREFIX + "SUB_GRILLA";
+    public static final String REV_SUB_COLUMNA = PREFIX + "SUB_COLUMNA";
+    public static final String REV_SUB_CELDA = PREFIX + "SUB_CELDA";
+    public static final String REV_SUB_AGRUPACION_COLUMNA = PREFIX + "SUB_AGRUPACION_COLUMNA";
+    
 }

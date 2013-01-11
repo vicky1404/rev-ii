@@ -8,8 +8,11 @@ import cl.bicevida.revelaciones.eeff.CargadorEeffVO;
 
 import cl.bicevida.revelaciones.eeff.RelacionEeffVO;
 
+import cl.bicevida.revelaciones.ejb.entity.UsuarioGrupo;
+
 import java.io.InputStream;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.ejb.Local;
@@ -18,7 +21,9 @@ import javax.ejb.Local;
 @Local
 public interface CargadorEeffServiceLocal {
     
-    Map<Long, EstadoFinanciero> leerEeff(final InputStream loadedExcel)throws EstadoFinancieroException, Exception;
+    CargadorEeffVO leerEeff(final InputStream loadedExcel)throws EstadoFinancieroException, Exception;
     
-    void validarEeffConRelacionEeff(Map<Long, EstadoFinanciero> eeffMap, Long idPeriodo, CargadorEeffVO cargadorVO);
+    void validarNuevoEeff(List<EstadoFinanciero> eeffListNuevo, Long idPeriodo, CargadorEeffVO cargadorVO) throws Exception;
+    
+    void sendMailEeff(List<UsuarioGrupo> usuarioGrupoList)  throws Exception;
 }

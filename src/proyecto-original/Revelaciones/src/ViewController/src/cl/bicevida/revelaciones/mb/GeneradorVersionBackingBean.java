@@ -3,6 +3,7 @@ package cl.bicevida.revelaciones.mb;
 
 import cl.bicevida.revelaciones.common.mb.SoporteBackingBean;
 import cl.bicevida.revelaciones.common.util.GeneradorDisenoHelper;
+import cl.bicevida.revelaciones.ejb.cross.Util;
 import cl.bicevida.revelaciones.ejb.entity.Catalogo;
 import cl.bicevida.revelaciones.ejb.entity.Estructura;
 import cl.bicevida.revelaciones.ejb.entity.TipoCuadro;
@@ -66,9 +67,11 @@ public class GeneradorVersionBackingBean extends SoporteBackingBean{
     public List catalogosSugeridos(FacesContext facesContext, AutoSuggestUIHints autoSuggestUIHints) {
         if(autoSuggestUIHints.getSubmittedValue()!=null){
             getCatalogosFiltrados().clear();
-            for(Catalogo catalogo : getCatalogos()){
-                if(catalogo.getNombre().toUpperCase().indexOf(autoSuggestUIHints.getSubmittedValue().toUpperCase()) >= 0){
-                    this.getCatalogosFiltrados().add(catalogo);
+            if(Util.esListaValida(getCatalogos())){
+                for(Catalogo catalogo : getCatalogos()){
+                    if(catalogo.getNombre().toUpperCase().indexOf(autoSuggestUIHints.getSubmittedValue().toUpperCase()) >= 0){
+                        this.getCatalogosFiltrados().add(catalogo);
+                    }
                 }
             }
         }
@@ -105,12 +108,12 @@ public class GeneradorVersionBackingBean extends SoporteBackingBean{
                 }
             }catch(Exception e){
                 getBusquedaInputText().setValue("");
-                agregarWarnMessage("Busqueda sin resultados");
+                agregarWarnMessage("Búsqueda sin resultados");
             }
             
             if(catalogo==null){
                 init();
-                agregarWarnMessage("Busqueda sin resultados");
+                agregarWarnMessage("Búsqueda sin resultados");
             }else{
                 setCatalogoBusqueda(catalogo);
                 getBusquedaInputText().setReadOnly(true);
@@ -257,8 +260,8 @@ public class GeneradorVersionBackingBean extends SoporteBackingBean{
                 List<Estructura> estructuras = getFacade().getEstructuraService().findEstructuraByVersion(version);
                 
                 if(estructuras==null || estructuras.size()==0){
-                        this.setEstructuras(null);
-                        return;
+                    this.setEstructuras(null);
+                    return;
                 }
 
                 getGeneradorDiseno().setGrillaModelMap(GeneradorDisenoHelper.createGrillaModel(estructuras));

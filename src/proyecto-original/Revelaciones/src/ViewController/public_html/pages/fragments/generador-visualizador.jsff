@@ -44,7 +44,7 @@
                             <af:inputText label=" " id="rte_#{item.idEstructura}" simple="true"
                                           styleClass="AFStretchWidth" contentStyle="width: 100%;" rows="25"
                                           value="#{item.htmlVo.html.contenidoStr}"
-                                          validator="#{cuadroBackingBean.validateHtml}"></af:inputText>
+                                          validator="#{generadorVisualizadorBackingBean.validateHtml}"></af:inputText>
                         </f:facet>
                     </af:switcher>
                 </af:forEach>

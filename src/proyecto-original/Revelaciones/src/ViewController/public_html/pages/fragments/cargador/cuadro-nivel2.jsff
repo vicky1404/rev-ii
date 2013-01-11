@@ -57,7 +57,7 @@
                                 
                                 <af:convertNumber integerOnly="true" type="number" maxFractionDigits="0" groupingUsed="true"
                                                   maxIntegerDigits="#{msg.constantes_max_lenght_number}"
-                                                  locale="#{cuadroBackingBean.localeCL}" pattern="##,###,###,###"
+                                                  locale="#{cargadorGrillaBackingBean.localeCL}" pattern="##,###,###,###"
                                                   hintPattern="#{msg.general_mensaje_ingrese_numero_entero}"
                                                   messageDetailConvertPattern="#{msg.general_mensaje_validacion_numero_entero}"/>
                                 <af:validateLongRange maximum="#{msg.constantes_maximum_validate_long_range}" hintMaximum="#{msg.constantes_msg_validate_long_range}"/>
@@ -71,7 +71,7 @@
                                 <af:convertNumber integerOnly="false" type="number"
                                                   maxIntegerDigits="#{msg.constantes_max_lenght_number}"
                                                   maxFractionDigits="4"
-                                                  locale="#{cuadroBackingBean.localeCL}" pattern="##,###,###,###.####"
+                                                  locale="#{cargadorGrillaBackingBean.localeCL}" pattern="##,###,###,###.####"
                                                   hintPattern="#{msg.general_mensaje_ingrese_numero_decimal}"
                                                   messageDetailConvertPattern="#{msg.general_mensaje_validacion_numero_decimal}"/>
                                 <af:validateDoubleRange maximum="#{msg.constantes_maximum_validate_long_range}"  hintMaximum="#{msg.constantes_msg_validate_decimal_range}" messageDetailMaximum=" "/>
