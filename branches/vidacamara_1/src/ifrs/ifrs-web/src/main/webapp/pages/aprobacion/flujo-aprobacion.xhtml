@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="/WEB-INF/templates/main-template.xhtml">
+	<ui:define name="content">
+		<h:form id="form_flujo">
+			<h:outputScript name="js/util/form-util.js" />
+			<p:messages id="messages_reporte_cuadro" autoUpdate="true"
+				showSummary="true"></p:messages>
+
+			<!-- p:growl id="messages_reporte_cuadro" autoUpdate="true"
+				showDetail="true" showSummary="true" /-->
+			<p:ajaxStatus onstart="statusDialog.show();"
+				oncomplete="statusDialog.hide();" />
+			
+			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
+
+			<!-- dialogo de descarga excel -->
+			<p:dialog id="popUpDownExcel" header="#{msg.label_descargar}"
+				widgetVar="p_down_excel" width="300" height="50" modal="false"
+				draggable="false" resizable="false">
+				<h:panelGrid columns="2">
+					<h:graphicImage value="/resources/images/icon/excel_16x16.png" />
+					<h:commandLink
+						action="#{flujoAprobacionBackingBean.descargarReporteFlujoAprobacionAction}"
+						id="cl1" value="#{msg.lavel_descargar_excel_generado}"
+						onblur="p_down_excel.hide(); statusDialogNoModal.hide();"
+						onclick="statusDialogNoModal.show();"
+						style="text-decoration:underline;" />
+				</h:panelGrid>
+			</p:dialog>
+
+			<!-- dialogo de despliague de grafico por usuario-->
+			<p:dialog id="p3" widgetVar="popUpChartByUser" modal="false"
+				showEffect="drop" hideEffect="drop"
+				header="#{msg.label_resumen_de_avance_para_el_periodo}: #{flujoAprobacionBackingBean.filtroBackingBean.mes}-#{flujoAprobacionBackingBean.filtroBackingBean.anio}">
+				<p:pieChart id="pch1"
+					value="#{flujoAprobacionBackingBean.cuadrosByUsuarioPieModel}"
+					legendPosition="w"
+					seriesColors="#{msg.flujo_aprobacion_grafico_series_colors}"
+					title="#{msg.label_resumen_de_cuadros_por_usuario}"
+					style="width:400px;height:300px"
+					rendered="#{flujoAprobacionBackingBean.renderChartByUser}" />
+			</p:dialog>
+
+			<!-- dialogo de despliague de grafico general-->
+			<p:dialog id="p4" widgetVar="popUpChartAll" modal="false"
+				showEffect="drop" hideEffect="drop"
+				header="#{msg.label_resumen_de_avance_para_el_periodo}: #{flujoAprobacionBackingBean.filtroBackingBean.mes}-#{flujoAprobacionBackingBean.filtroBackingBean.anio}">
+				<p:pieChart id="pch2"
+					value="#{flujoAprobacionBackingBean.cuadrosAllPieModel}"
+					legendPosition="w"
+					seriesColors="#{msg.flujo_aprobacion_grafico_series_colors}"
+					title="#{msg.label_resumen_general_de_cuadros}" style="width:400px;height:300px"
+					rendered="#{flujoAprobacionBackingBean.renderChartAll}" />
+			</p:dialog>
+
+			<p:panel id="filtro_flujo_aprobacion"
+				header="#{menuBackingBean.breadcrumb}" toggleable="true"
+				closable="false" toggleSpeed="500" closeSpeed="2000"
+				widgetVar="panel">
+				<h:panelGrid border="0" columns="2" style="width:400px;">
+					<h:column headerClass="ancho250">
+						<p:outputLabel value="#{msg.label_periodo}:" style="width:200px;"
+							for="soc1" />
+					</h:column>
+					<h:column>
+						<p:selectOneMenu id="soc1" label="#{msg.label_mes_periodo}"
+							value="#{flujoAprobacionBackingBean.filtroBackingBean.mes}"
+							required="true">
+							<f:selectItem itemLabel="#{msg.label_seleccione}" />
+							<f:selectItems
+								value="#{flujoAprobacionBackingBean.componenteBackingBean.meses}"
+								id="si1" />
+						</p:selectOneMenu>
+						<p:selectOneMenu id="soc2" style="margin-left:5px;"
+							label="#{msg.label_anio_periodo}"
+							value="#{flujoAprobacionBackingBean.filtroBackingBean.anio}"
+							required="true">
+							<f:selectItem itemLabel="#{msg.label_seleccione}" />
+							<f:selectItems
+								value="#{flujoAprobacionBackingBean.componenteBackingBean.anios}"
+								id="si2" />
+						</p:selectOneMenu>
+					</h:column>
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<p:outputLabel value="#{msg.label_tipo_cuadro}:" for="stc" />
+					<p:selectOneMenu label="#{msg.label_tipo_cuadro}"
+						converter="tipoCuadroConverter" id="stc"
+						value="#{flujoAprobacionBackingBean.filtroBackingBean.tipoCuadro}"
+						required="false" requiredMessage="#{msg.mensaje_seleccione_valor}">
+						<f:selectItem itemLabel="#{msg.label_seleccione}" />
+						<f:selectItems
+							value="#{flujoAprobacionBackingBean.componenteBackingBean.tipoCuadroItems}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="#{msg.label_estado_cuadro}:" for="soc3" />
+					<p:selectOneMenu label="#{msg.label_estado_cuadro}:" id="soc3"
+						value="#{flujoAprobacionBackingBean.estadoCuadro}"
+						required="false" converter="estadoCuadroConverter">
+						<f:selectItem itemLabel="#{msg.label_seleccione}" />
+						<f:selectItems
+							value="#{flujoAprobacionBackingBean.componenteBackingBean.estadoCuadroItems}"
+							id="estados" />
+					</p:selectOneMenu>
+				</h:panelGrid>
+				<h:panelGrid columns="3">
+					<h:outputLabel value=" " />
+					<p:commandButton value="#{msg.boton_buscar}" icon="ui-icon-search"
+						actionListener="#{flujoAprobacionBackingBean.buscarAction}"
+						update="form_flujo:tabla_catalogo_flujo" ajax="false"
+						onclick="statusDialogNoModal.show();">
+					</p:commandButton>
+					<p:commandButton icon="ui-icon-cancel" value="#{msg.boton_cancel}"
+						id="btnCancelar1" immediate="true"
+						action="flujo-aprobacion?faces-redirect=true">
+					</p:commandButton>
+				</h:panelGrid>
+
+			</p:panel>
+			<br />
+			<p:toolbar rendered="#{flujoAprobacionBackingBean.renderFlujo}">
+				<p:toolbarGroup>
+					<p:commandButton icon="ui-icon-disk"
+						value="#{msg.workflow_control_cambiar_estado}" id="btnGuardar"
+						actionListener="#{flujoAprobacionBackingBean.guardarAction}"
+						update="form_flujo:tabla_catalogo_flujo">
+					</p:commandButton>
+					<p:separator />
+					<p:commandButton value="#{msg.label_exportar_a_excel}" id="excbtn1"
+						icon="ui-icon-xls"
+						actionListener="#{flujoAprobacionBackingBean.generarReporteFlujoAprobacionAction}">
+					</p:commandButton>
+					<p:separator />
+					<p:commandLink
+						actionListener="#{flujoAprobacionBackingBean.graficoCuadrosByUsuarioAction}"
+						value="#{msg.label_ver_mi_estado_de_avance}"></p:commandLink>
+					<p:separator />
+					<p:commandLink
+						actionListener="#{flujoAprobacionBackingBean.graficoCuadrosAllAction}"
+						value="#{msg.label_ver_estado_de_avance_general}"></p:commandLink>
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:dataTable
+				value="#{flujoAprobacionBackingBean.catalogoFlujoAprobacion}"
+				emptyMessage="#{msg.mensaje_tabla_sin_registros}"
+				id="tabla_catalogo_flujo" var="row" lazy="false"
+				rendered="#{flujoAprobacionBackingBean.renderFlujo}"
+				rowKey="#{row.idVersion}"
+				binding="#{flujoAprobacionBackingBean.catalogoFlujoTable}">
+				<p:column style="width:16px">
+					<p:rowToggler id="rt1" />
+				</p:column>
+				<p:column id="c6" headerText="#{msg.label_estado_cuadro}">
+					<f:facet name="header">
+						<h:selectOneMenu label="#{msg.label_estado_cuadro}"
+							id="estadoSelectHeader"
+							binding="#{flujoAprobacionBackingBean.comboEstadoCuadroHeader}">
+							<f:selectItem itemLabel="#{msg.label_seleccione}" />
+							<f:selectItems
+								value="#{flujoAprobacionBackingBean.componenteBackingBean.estadoCuadroItems}"
+								id="estados2" />
+							<f:converter converterId="estadoCuadroConverter"
+								for="estadoSelectHeader"></f:converter>
+							<p:ajax
+								listener="#{flujoAprobacionBackingBean.onchangeEstadoCuadroHeader}"
+								update="tabla_catalogo_flujo" />
+						</h:selectOneMenu>
+					</f:facet>
+					<h:selectOneMenu label=" " value="#{row.estado}" id="ce1"
+						required="true" converter="estadoCuadroConverter"
+						requiredMessage="Seleccione el estado de: #{row.catalogo.nombre}"
+						styleClass="x6 cmbEstadoNota"
+						valueChangeListener="#{flujoAprobacionBackingBean.onChangeEstadoNota}">
+						<f:selectItem itemLabel="#{msg.label_seleccione}" />
+						<f:selectItems
+							value="#{flujoAprobacionBackingBean.componenteBackingBean.estadoCuadroItems}"
+							id="est" />
+						<f:ajax render="@form" execute="@this" />
+					</h:selectOneMenu>
+				</p:column>
+				<p:column sortable="false" headerText="#{msg.label_titulo}"
+					align="start" id="c4">
+					<h:outputText value="#{row.catalogo.titulo}" id="ot4" />
+				</p:column>
+				<p:column id="c1" headerText="#{msg.grupo_grupo_responsable}">
+					<ui:repeat value="${row.catalogo.catalogoGrupoList}"
+						var="catalogoGrupo">
+						<li style="margin-left: 15px;"><h:outputText
+								value="#{catalogoGrupo.grupo.nombre}" id="ot1" /></li>
+					</ui:repeat>
+				</p:column>
+				<p:column sortable="false" headerText="#{msg.label_version}"
+					align="right" id="c8">
+					<h:outputText value="#{row.version}" id="ot8" />
+				</p:column>
+				<p:column sortable="false" headerText="#{msg.label_observacion}"
+					align="start" id="c5">					
+					<h:outputText value="#{row.comentario}" id="ot18"
+						rendered="#{row.estado.idEstado == 5 ? false : true}" />
+					<p:inputTextarea id="txt_obs" rows="4" wrap="hard"
+						autoResize="true"
+						required="#{row.estado.idEstado == 5 ? true : false}"
+						requiredMessage="#{msg.mensaje_ingrese_observacion_apertura_contingencia}: #{row.catalogo.nombre}"
+						rendered="#{row.estado.idEstado == 5 ? true : false}"
+						value="#{row.comentario}" />
+
+				</p:column>
+				<p:column headerText="#{msg.label_fecha_ultimo_proceso}" id="c7">
+					<h:outputText value="#{row.fechaUltimoProceso}" id="ot7">
+						<f:convertDateTime pattern="#{msg.fecha_hora_pattern}" />
+					</h:outputText>
+				</p:column>
+				<p:column sortable="false" headerText="#{msg.label_periodo}"
+					align="right" id="c9" style="text-aling:right; width: 70px;">
+					<h:outputText
+						value="#{row.periodoEmpresa.periodo.mesPeriodo}-#{row.periodoEmpresa.periodo.anioPeriodo}"
+						id="ot8_1" />
+				</p:column>
+				<p:column headerText="Vigente" align="start" id="c10">
+					<h:outputText value="#{row.vigencia eq 1 ? 'SI' : 'NO'}" id="ot10" />
+				</p:column>
+				<p:rowExpansion>
+					<br />
+					<p:dataTable value="#{row.historialVersionList}"
+						emptyMessage="#{msg.workflow_mensaje_sin_datos_historial}"
+						var="detail" id="dt2" styleClass="datalle_flujo"
+						style="width:97%; padding-left:15px;" rows="10" paginator="true">
+						<p:column id="c16">
+							<f:facet name="header">
+								<h:outputText value="#{msg.label_fecha_proceso}" id="ot21" />
+							</f:facet>
+							<h:outputText value="#{detail.fechaProceso}" id="ot3">
+								<f:convertDateTime pattern="#{msg.fecha_hora_pattern}" />
+							</h:outputText>
+						</p:column>
+						<p:column id="c15">
+							<f:facet name="header">
+								<h:outputText value="#{msg.label_observacion}" id="ot19" />
+							</f:facet>
+							<h:outputText value="#{detail.comentario}" id="ot20" />
+						</p:column>
+						<p:column id="c17">
+							<f:facet name="header">
+								<h:outputText value="#{msg.label_usuario}" id="ot23" />
+							</f:facet>
+							<h:outputText value="#{detail.usuario.nombreUsuario}" id="ot24" />
+						</p:column>
+						<p:column id="c19">
+							<f:facet name="header">
+								<h:outputText value="#{msg.label_estado_cuadro}" id="ot27" />
+							</f:facet>
+							<h:outputText value="#{detail.estadoCuadro.nombre}" id="ot28" />
+						</p:column>
+					</p:dataTable>
+					<br />
+				</p:rowExpansion>
+				<f:facet name="footer">
+					<br />
+				</f:facet>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="/WEB-INF/templates/main-template.xhtml">
+	<ui:define name="content">
+
+		<h:form id="form">  
+			<p:messages id="messages" autoUpdate="true" globalOnly="true"/>
+			<p:ajaxStatus onstart="statusDialogNoModal.show();" oncomplete="statusDialogNoModal.hide();" />
+			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
+			<p:panel id="filtro" header="#{menuBackingBean.breadcrumb} > Periodo : #{eeff.periodoEmpresa.periodo.periodoFormat}" toggleable="true"  closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel">
+		 		<h:panelGrid columns="6" cellpadding="10">
+		 			<p:outputLabel for="soc01" value="#{msg.label_tipo_cuadro}"/>
+			 		<p:selectOneMenu label="#{msg.label_tipo_cuadro}" id="soc01" 
+									required="true"                               
+	                                unselectedLabel="#{msg.general_control_seleccione}"
+	                                binding="#{eeff.tipoCuadroSelect}" converter="tipoCuadroConverter" >
+	                    <f:selectItem itemLabel="#{msg.label_seleccionar}"/>            
+	                	<f:selectItems value="#{eeff.componenteBackingBean.tipoCuadroItems}" id="si1"/>
+	                	<p:ajax listener="#{eeff.tipoCuadroChangeListener}" event="change" />
+	            	</p:selectOneMenu>
+	            	<p:outputLabel for="it1" value="#{msg.label_cuadro}" />
+					<p:autoComplete value="#{eeff.filtroBackingBean.catalogo}" maxResults="20" maxlength="10" 
+									completeMethod="#{eeff.catalogosSugeridos}"
+									converter="catalogoConverter"										
+									var="cat"	
+									binding="#{eeff.busquedaInputText}"		
+									itemValue="#{cat}"													
+									itemLabel="#{cat.nombre}"													 
+									id="it1" dropdown="true" required="true"/>
+									
+			 		<p:commandButton value="Buscar" icon="ui-icon-search" id="cb1"  actionListener="#{eeff.buscarCatalogo}" update="@form"/>
+	            	<p:commandButton value="Limpiar" icon="ui-icon-cancel" id="cb02" actionListener="#{eeff.limpiarCatalogolistener}" update="@form" immediate="true"/>
+	            	
+		 		</h:panelGrid>
+		</p:panel>	
+		
+		<p:spacer height="10"/>
+		
+		<p:treeTable id="tabla" value="#{eeff.root}" var="tree" rendered="#{eeff.renderTreeTabla}" >
+    		
+    		<p:column headerText="Comentario" resizable="true" selectionMode="single">    		
+    			<h:outputText value="#{tree.col1}" style="font-weight:bold;"/>
+    			    <p:commandLink actionListener="#{eeff.buscarEstructuraListener}" update="@form" rendered="#{tree.image != null}"
+    			    	style="text-decoration: none;"  onmouseover="javascript:this.style.color='SlateGray';" onmouseout="javascript:this.style.color='black';">    			    	
+	    				<p:graphicImage value="/resources/images/icon/#{tree.image}" />	 
+	    				<p:spacer width="10"/>
+	    				<h:outputText value="Cargar contenido"/> 
+    			    	<f:attribute name="estructura" value="#{tree.estructura}"/>
+	                    <f:attribute name="catalogo" value="#{tree.catalogo}"/>	 
+    			    </p:commandLink>    			        				
+    		</p:column>
+    		<p:column headerText="#{msg.tabla_cabecera_version}" >
+    			<h:outputText value="#{tree.col2}" />
+    		</p:column>
+    		<p:column headerText="#{msg.tabla_cabecera_cuadro}" >
+    			<h:outputText value="#{tree.col3}" />
+    		</p:column>
+    		<p:column headerText="#{msg.tabla_cabecera_estado}" >
+    			<h:outputText value="#{tree.col4}" />
+    		</p:column>
+    		<p:column headerText="#{msg.tabla_cabecera_fecha_proceso}" >
+    			<h:outputText value="#{tree.col5}" />   			
+    		</p:column>
+    		<p:column headerText="#{msg.tabla_cabecera_vigencia}" >
+    			<h:outputText value="#{tree.col6 eq 1 ? 'SI' : tree.col6 eq 0 ? 'NO' : '' }" rendered="#{tree.image == null}"/>
+    		</p:column>    	
+    	</p:treeTable>  
+    	
+    	<p:spacer height="10"></p:spacer>
+    	
+    	<p:scrollPanel style="width:auto;height:100px" rendered="#{eeff.renderEstructuraTabla and eeff.grillaVO != null}">
+    	<p:dataTable var="row" value="#{eeff.grillaVO.rows}" rendered="#{eeff.renderEstructuraTabla}" id="tablaCuadro">
+			<p:columns value="#{eeff.grillaVO.columnas}" var="col" columnIndexVar="index" id="columnas" >
+				 <f:facet name="header">
+                 	<h:outputText value="#{col.tituloColumna}" id="ot19"/>
+                 </f:facet>
+      			<div align="right" style="display:inline;float: right;width: 150px;">
+      			<p:row>
+      				<p:column>
+					<h:outputText value="#{row[col.idColumna].valorLong}" id="ot2" style="text-align:right;" rendered="#{row[col.idColumna].tipoDato.idTipoDato == 2}">
+						<f:convertNumber integerOnly="true" type="number" maxFractionDigits="0" pattern="##,###,###,###"/>
+					</h:outputText>
+					</p:column>
+					<p:column>
+					<h:outputText value="#{row[col.idColumna].valorBigDecimal}" id="ot14" style="text-align:right;" rendered="#{row[col.idColumna].tipoDato.idTipoDato == 3}">
+                    	<f:convertNumber integerOnly="false" type="number" maxFractionDigits="4" pattern="##,###,###,###.####"/>
+                    </h:outputText>
+                    </p:column>
+					<p:column>
+					<h:outputText value=" " id="optext1x" />
+					<p:commandLink id="linkPrincipalTabla1x" actionListener="#{eeff.cargarRelacionCeldaListener}" update="@form" style="display:inline-block">	
+						<p:graphicImage id="row1x" styleClass="ui-icon ui-icon-circle-triangle-e" rendered="#{row[col.idColumna].esNumero and row[col.idColumna].sizeRelacionEeffList == 0 and row[col.idColumna].sizeRelacionDetalleEeffList == 0}"/>
+						<p:graphicImage id="cal1x" styleClass="ui-icon ui-icon-calculator" rendered="#{row[col.idColumna].esNumero and (row[col.idColumna].sizeRelacionEeffList != 0 or row[col.idColumna].sizeRelacionDetalleEeffList != 0)}"/>
+						<f:param name="idColumna" value="#{col.idColumna}" />
+                        <f:param name="idGrilla" value="#{col.idGrilla}" />
+                        <f:param name="idFila" value="#{row[col.idColumna].idFila}" />                        
+                    </p:commandLink>  
+                    <h:outputText value=" " id="optext2x" /> 
+                    </p:column>
+                    <p:column>
+                    <p:commandLink id="eliminaRelacion1x" update="@form" style="display:inline-block" actionListener="#{eeff.eliminarRelacionListener}">
+                    	<p:graphicImage id="cal2x" styleClass="ui-icon ui-icon-trash" rendered="#{row[col.idColumna].esNumero and (row[col.idColumna].sizeRelacionEeffList != 0 or row[col.idColumna].sizeRelacionDetalleEeffList != 0)}"/>
+                    	
+                    	<f:param name="idColumna" value="#{col.idColumna}" />
+                        <f:param name="idGrilla" value="#{col.idGrilla}" />
+                        <f:param name="idFila" value="#{row[col.idColumna].idFila}" />
+                       
+                    </p:commandLink>
+                     <h:outputText value=" " id="optext3x" /> 
+                    </p:column>                 
+					<p:column>
+					<h:outputText value="[#{col.idColumna},#{row[col.idColumna].idFila}]" style="font-weight:bold;" rendered="#{row[col.idColumna].tipoDato.idTipoDato == 3 or row[col.idColumna].tipoDato.idTipoDato == 2}"/>
+					</p:column>
+					</p:row>
+			</div>		
+				<h:outputText value="#{row[col.idColumna].valor}" id="ot21" style="#{row[col.idColumna].tipoCelda.idTipoCelda == 2 ? 'font-weight:bold; text-align:left;' : ''}" rendered="#{row[col.idColumna].tipoDato.idTipoDato != 3 and row[col.idColumna].tipoDato.idTipoDato != 2}"/>
+			</p:columns>		
+		</p:dataTable> 
+		</p:scrollPanel>
+    	
+    	<p:spacer height="10"></p:spacer>
+    	<h:outputText value="Hay #{eeff.countMapping} relación sin guardar" rendered="#{eeff.countMapping > 0 and eeff.mostrarMensajeRelacionesSinGuardar}" style="color:red;"/>
+    	<p:spacer height="10"></p:spacer>
+    	
+    	<p:tabView id="tabView1">
+    		<p:tab id="tab1" title="Mapeo de celdas con estados financieros">
+    			<h:panelGrid columns="11" cellpadding="10" border="0" >
+    				<h:outputLabel value="Celda : " id="ol1" for="it2"/>
+    			 	<p:inputText  value="[#{eeff.relCelda.idColumna},#{eeff.relCelda.idFila}]" readonly="true" size="7" binding="#{eeff.relCeldaText}" id="it2" rendered="#{not empty eeff.relCelda}"/>
+    			 	<h:outputLabel value="Relación Fecu" id="ol4" for="socRelFecu"/>
+    			 	
+	                <p:selectOneMenu id="socRelFecu" value="#{eeff.relFecuSeleccionada}" converter="relacionEeffConverter">
+	                    <f:selectItem itemLabel="Ver" id="six3"/>
+	                    <f:selectItems value="#{eeff.itemFecuList}" id="si3" />
+	                    <p:ajax update="@form" listener="#{eeff.onChangeFecu}" event="change"/>
+                	</p:selectOneMenu>
+                	<p:commandLink id="linkInfoDec1x" rendered="#{eeff.relFecuSeleccionada != null}" onclick="widPopupFecu.show()" style="text-decoration:underline;" >
+                		<p:graphicImage styleClass="ui-icon ui-icon-search" title="Información adicional sobre la FECU seleccionada"></p:graphicImage>                		
+                	</p:commandLink>
+                
+	                <h:outputLabel value="Relación Cuenta" id="ol2" for="socRelCuenta"/>
+	                
+	                <p:selectOneMenu id="socRelCuenta" value="#{eeff.relCuentaSeleccionada}" converter="relacionDetalleEeffConverter">
+                            <f:selectItem itemLabel="Ver" id="six2"/>
+	                    	<f:selectItems value="#{eeff.itemCuentaList}" id="si4"/>
+	                    	<p:ajax update="@form" listener="#{eeff.onChangeCuenta}" event="change"/>
+	                </p:selectOneMenu>
+	               <p:commandLink id="linkInfoDec2x" rendered="#{eeff.relCuentaSeleccionada != null}" onclick="widPopupCuenta.show()" style="text-decoration:underline;">
+	               		<p:graphicImage styleClass="ui-icon ui-icon-search" title="Información adicional sobre la cuenta seleccionada"></p:graphicImage>      
+	               </p:commandLink>
+           		   <p:commandButton id="cil6" actionListener="#{eeff.guardarRelacionListener}" icon="ui-icon-disk" value="Guardar" update="@form" rendered="#{eeff.countMapping > 0}"></p:commandButton>
+           		   <p:commandButton id="cil61x" icon="ui-icon-trash" value="Eliminar" onclick="widPopupEliminar.show()"/>   		   
+                
+    			</h:panelGrid>	
+    		</p:tab>    	
+    	</p:tabView>
+    	
+		
+		<p:spacer height="10"></p:spacer>
+		
+		
+        
+		<p:tabView id="tabView2">
+    		<p:tab id="tab2" title="Información de estados financieros">
+    		
+    		<p:selectOneMenu label="Código Fecu" id="soc1" value="#{eeff.estadoFinanciero}" converter="estadoFinancieroConverter">
+                		<f:selectItem itemLabel="#{msg.label_seleccionar}"></f:selectItem>
+                        <f:selectItems value="#{eeff.fecuItems}" id="mesesPeriodo" />
+                        <p:ajax update="@form" listener="#{eeff.codigoFecuChangeListener}" event="change"  />
+        	</p:selectOneMenu>
+    		
+ 			<p:spacer height="10" id="s32"/>
+		
+		 	<p:dataTable value="#{eeff.estadoFinanciero}" var="row" id="t3" style="height:inherit;" emptyMessage="#{msg.general_sin_informacion}">
+		 	    <p:column headerText="Cargar">
+		 	    			<p:commandLink id="cil3" title="#{row.idFecu}" actionListener="#{eeff.cargarFecuListener}" update="@form">
+		                        <p:graphicImage styleClass="ui-icon ui-icon-circle-triangle-e"></p:graphicImage>
+		                    	<f:attribute name="eeff" value="#{row}"/>          
+		                    </p:commandLink>
+		 	    </p:column>
+                <p:column sortable="false" headerText="Id Fecu" align="start" id="c13">
+                	
+		                    <h:outputText value="#{row.idFecu}" id="ot19"/>
+	               
+                </p:column>
+                <p:column sortable="false" headerText="Descripción" align="start" id="c14">
+                    <h:outputText value="#{row.codigoFecu.descripcion}" id="ot15"/>
+                </p:column>
+                <p:column sortable="false" headerText="Monto Total" align="start" id="c16">
+                    <h:outputText value="#{row.montoTotal}" id="ot17" >
+                        <f:convertNumber pattern="##,###,###,###" />
+                    </h:outputText>
+                </p:column>
+            </p:dataTable>
+		
+		<p:spacer height="10" id="s3"/>
+		
+		<p:scrollPanel style="width:auto;height:100px" rendered="#{eeff.detalleEeffs != null and eeff.detalleEeffs.size() > 0}">
+			<p:dataTable value="#{eeff.detalleEeffs}" var="row" id="t4" style="height:inherit" emptyMessage="#{msg.general_sin_informacion}">
+			
+				<p:column headerText="Cargar">
+				<p:commandLink id="cil4"  title="#{row.idCuenta}" actionListener="#{eeff.cargarCuentaListener}" update="@form">
+	                        <p:graphicImage style="border:none;" styleClass="ui-icon ui-icon-circle-triangle-e"></p:graphicImage>
+	                    	<f:attribute name="detalleEeff" value="#{row}"/>                    
+                </p:commandLink>
+				</p:column>
+                <p:column sortable="false" headerText="FECU" id="c5">
+                     <h:outputText value="#{row.idFecu}" id="ot20"/>
+                </p:column>
+                <p:column sortable="false" headerText="Número Cuenta" align="start" id="c6" filterBy="#{row.idCuenta}" >
+                    <h:outputText value="#{row.idCuenta}" id="ot4"/>
+                </p:column>
+                <p:column sortable="false" headerText="Descripción Cuenta" align="start" id="c7" width="300">
+                    <h:outputText value="#{row.cuentaContable.descripcion}" id="ot7"/>
+                </p:column>
+                <p:column sortable="false" headerText="Monto Miles Pesos" align="start" id="c9">
+                    <h:outputText value="#{row.montoPesosMil}" id="ot9">
+                        <f:convertNumber pattern="##,###,###,###" />
+                    </h:outputText>
+                </p:column>
+            </p:dataTable>
+		</p:scrollPanel>
+		
+    		</p:tab>    	
+    	</p:tabView>
+    	
+    	
+    	<p:dialog id="popupFecu" header="#{msg.pop_up_titulo_informacion_adicional_fecu}" widgetVar="widPopupFecu" width="600" resizable="false" showEffect="drop" hideEffect="drop" dynamic="true" modal="false" closable="true">
+    		<center>    		
+    		<h:panelGrid columns="2" cellpadding="10" border="1" style="width:auto;" >
+    		    <h:outputText value="FECU" id="ot82x" style="font-weight:bold"/>
+    			<h:outputText value="Monto ($)" id="ot122x" style="font-weight:bold"/>
+    		
+    			<h:outputText value="#{eeff.relFecuSeleccionada.fecuFormat}" id="ot82"/>    			
+    			<h:outputText value="#{eeff.relFecuSeleccionada.montoTotal}" id="ot122" style="text-align:left;">
+    				<f:convertNumber pattern="##,###,###,###" />
+    			</h:outputText>
+    		</h:panelGrid>
+    		</center>
+    	</p:dialog>
+    	
+    	<p:dialog id="popupCuenta" header="#{msg.pop_up_titulo_informacion_adicional_cuenta}" widgetVar="widPopupCuenta" width="600" resizable="false" showEffect="drop" hideEffect="drop" dynamic="true" modal="false" closable="true">
+    		<center>
+			<h:panelGrid columns="3" cellpadding="10" border="1" style="width:auto;" >
+				<h:outputText value="FECU" id="ot823x" style="font-weight:bold;"/>
+	   			<h:outputText value="Código cuenta" id="ot923x" style="font-weight:bold"/>
+	   			<h:outputText value="Monto Miles Pesos" id="ot1223x" style="font-weight:bold"/>
+			    			
+				<h:outputText value="#{eeff.relCuentaSeleccionada.fecuFormat}" id="ot823"/>
+	   			<h:outputText value="#{eeff.relCuentaSeleccionada.idCuenta}" id="ot923"/>	   			
+	   			<h:outputText value="#{eeff.relCuentaSeleccionada.montoPesosMil}" id="ot1223" style="text-align:left;">
+	   				<f:convertNumber pattern="##,###,###,###" />
+	   			</h:outputText>
+  			</h:panelGrid>
+  			</center>
+    	</p:dialog>
+    	
+    	<p:dialog id="popupEliminar" header="#{msg.pop_up_titulo_confirmacion}" widgetVar="widPopupEliminar" width="400" resizable="false" showEffect="drop" hideEffect="drop" dynamic="true" modal="false" closable="true">
+    		<center>
+			<h:panelGrid columns="1" cellpadding="10" border="0" style="width:auto;" >
+				<h:outputText value="Esta acción eliminará todo. ¿Esta seguro?" id="ot823xy"/>	
+				<p:commandButton icon="ui-icon-trash" value="#{msg.boton_eliminar}" actionListener="#{eeff.eliminarTodasRelacionListener}" update="@form"/>					
+  			</h:panelGrid>
+  			</center>
+    	</p:dialog>
+		
+		</h:form>
+		
+	</ui:define>
+</ui:composition>

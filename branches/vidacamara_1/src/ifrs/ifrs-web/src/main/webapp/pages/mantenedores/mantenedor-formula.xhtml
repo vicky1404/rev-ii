@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="/WEB-INF/templates/main-template.xhtml">
+	
+	<ui:define name="content">
+		<h:form id="form">  
+		
+		<p:messages id="messages" autoUpdate="true" globalOnly="true"/>
+		<!-- p:ajaxStatus onstart="statusDialogNoModal.show();" oncomplete="statusDialogNoModal.hide();" />
+		< ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" /-->
+		
+		<p:panel id="filtro" header="#{menuBackingBean.breadcrumb}" toggleable="true"  closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel">  
+  		
+	  		<table>
+	  		<tr align="left">
+	  		
+	  			<td width="170">
+	  				<p:outputLabel value="#{msg.label_tipo_cuadro}" for="somTipoCuadro"/>
+	  				<p:spacer width="10"/>
+	  				<h:outputText value="/"/>
+	  				<p:spacer width="10"/>
+	  				<p:outputLabel value="#{msg.label_nombre}" for="somCatalogo"/>
+	  			</td>
+	  			
+	  			<td width="150">
+	  				<p:selectOneMenu value="#{formula.idTipoCuadro}" id="somTipoCuadro" required="true" binding="#{formula.comboBuscarIdTipoCuadro}"  style="width:120px">
+	  					<f:selectItem itemLabel="#{msg.label_seleccionar}" />
+	  					<f:selectItems value="#{formula.componenteBackingBean.tipoCuadroList}" id="siTipoCuadro" var="tipoCuadroVar" itemValue="#{tipoCuadroVar.idTipoCuadro}" itemLabel="#{tipoCuadroVar.nombre}"/>
+	  					<p:ajax update="somCatalogo" listener="#{formula.changeTipoCuadro}" event="change"  onstart="statusDialog.show();" oncomplete="statusDialog.hide();"/>
+	  				</p:selectOneMenu>
+	  			</td>
+	  			
+	  			<td  width="150">		
+	  				<p:selectOneMenu value="#{formula.filtroBackingBean.catalogo.idCatalogo}" id="somCatalogo" required="true" binding="#{formula.comboBuscarIdCatalogo}" style="width:120px">
+	  					<f:selectItem itemLabel="#{msg.label_seleccionar}" />
+	  					<f:selectItems value="#{formula.catalogoList}" id="siCatalogo" var="catalogoVar" itemValue="#{catalogoVar.idCatalogo}" itemLabel="#{catalogoVar.nombre}"/>	  					
+	  				</p:selectOneMenu>
+	  				
+	  			</td>
+	  		</tr>
+	  		<tr>
+	  			<td>
+	  				<p:outputLabel value="#{msg.label_periodo}" for="somMesPeriodo"/>
+	  			</td>
+	  			<td>		
+	  				<p:selectOneMenu value="#{formula.filtroBackingBean.mes}" id="somMesPeriodo" 
+	  					required="true" label="#{msg.label_mes_periodo}" binding="#{formula.comboBuscarMeses}" style="width:120px">
+	  					<f:selectItem itemLabel="#{msg.label_mes_periodo}" />
+	  					<f:selectItems value="#{formula.componenteBackingBean.meses}" id="siMeses"/>	  					
+	  				</p:selectOneMenu>
+	  			</td>
+	  			
+	  			<td>
+	  				<p:selectOneMenu value="#{formula.filtroBackingBean.anio}" id="somAnioPeriodo" 
+	  					required="true" label="#{msg.label_anio_periodo}" binding="#{formula.comboBuscarAnio}" style="width:120px">
+	  					<f:selectItem itemLabel="#{msg.label_anio_periodo}" />
+	  					<f:selectItems value="#{formula.componenteBackingBean.anios}" id="siAnios" />	  					
+	  				</p:selectOneMenu>
+	  			</td>
+	  			
+	  		</tr>
+	  		<tr>
+	  			<td>
+	  				<p:commandButton actionListener="#{formula.buscar}" icon="ui-icon-search" value="#{msg.boton_buscar}" update="@form"></p:commandButton>
+	  				<p:commandButton actionListener="#{formula.cancelarBuscar}" icon="ui-icon-cancel" value="#{msg.boton_cancel}" update="@form" immediate="true"></p:commandButton>
+	  			</td>
+	  			
+	  			<td colspan="2"><p:spacer width="10"/></td>
+	  			
+	  		</tr>
+	  		</table>
+	  		
+	  		
+    	</p:panel>
+    	
+    	<p:spacer height="10"></p:spacer>
+    	
+    	<p:treeTable id="tabla" value="#{formula.root}" var="tree" rendered="#{formula.renderedCatalogoTree}" selectionMode="single" selection="#{formula.selectedNode}">
+    		
+    		<p:column headerText="Revelaciones editables" resizable="true" selectionMode="single">
+    		
+    			<h:outputText value="#{tree.col1}" style="font-weight:bold;"/>
+    			    <p:commandLink actionListener="#{formula.buscarEstructuraGrilla}" update="@form" rendered="#{tree.image != null}"
+    			    style="text-decoration: none;"  onmouseover="javascript:this.style.color='SlateGray';" onmouseout="javascript:this.style.color='black';">    			    	
+	    				<p:graphicImage value="/resources/images/icon/#{tree.image}" />	 
+	    				<p:spacer width="10"></p:spacer>   
+	    				<h:outputText value="Configurar fórmula"/> 
+    			    	<f:attribute name="estructura" value="#{tree.estructura}"/>
+	                    <f:attribute name="catalogo" value="#{tree.catalogo}"/>	 
+    			    </p:commandLink>    			        				
+    		</p:column>
+    		<p:column headerText="#{msg.tabla_cabecera_version}" >
+    			<h:outputText value="#{tree.col2}" />
+    		</p:column>
+    		<p:column headerText="#{msg.tabla_cabecera_cuadro}" >
+    			<h:outputText value="#{tree.col3}" />
+    		</p:column>
+    		<p:column headerText="#{msg.tabla_cabecera_estado}" >
+    			<h:outputText value="#{tree.col4}" />
+    		</p:column>
+    		<p:column headerText="#{msg.tabla_cabecera_fecha_proceso}" >
+    			<h:outputText value="#{tree.col5}" />   			
+    		</p:column>
+    		<p:column headerText="#{msg.tabla_cabecera_vigencia}" >
+    			<h:outputText value="#{tree.col6 eq 1 ? 'SI' : tree.col6 eq 0 ? 'NO' : '' }" rendered="#{tree.image == null}"/>
+    		</p:column>    	
+    	</p:treeTable>  
+    	
+    	<p:spacer height="10"></p:spacer>
+    	
+       <p:panel header="Formulas" id="fs2" rendered="#{formula.renderTablaFormula}" >
+       		
+       			<div>
+       			
+       				<h:inputText  id="itTO1"
+                     readonly="true" style="font-weight:bold;border:none;width:125px;"
+                     value="Tipo de Operación" />
+       				       				
+       				<p:spacer width="5" id="s80" />
+       				
+       				<p:selectOneMenu value="#{formula.tipoOperacion}" id="somOperacion" 
+							required="true" label="#{msg.formula_tipo_operacion}" style="width:50px" rendered="#{formula.idTipoFormula == formula.tipoFormulaEstatica}">
+							<f:selectItem itemLabel="#{msg.label_seleccionar}" />
+							<f:selectItems value="#{formula.componenteBackingBean.tipoOperacionItems}" id="siOperacion" />
+					</p:selectOneMenu>
+				</div>
+				
+				<div>
+					
+ 					<h:inputText  id="ot5"
+                     readonly="true" style="font-weight:bold;border:none;width:125px;"
+                     title="El resultado de la celda [#{formula.celdaTarget.idColumna},#{formula.celdaTarget.idFila}] se compone de:"
+                     value="Fórmula : [#{formula.celdaTarget.idColumna},#{formula.celdaTarget.idFila}] =" />
+                                    
+                      <p:spacer width="5" id="s7" />
+                      
+                      <p:inputText id="it1" 
+                                    value="#{formula.barraFormula}" size="#{formula.largoBarraFormula}" readonly="true"/>
+                 </div>
+                 
+                 <p:spacer height="10" id="s9" />
+                 
+                 <div align="right">
+                      
+                      <h:inputText id="it2" value="Existen fórmulas sin guardar" readonly="true"  rendered="#{formula.celdaTarget != null and formula.countFormulasSinGrabar > 0}" size="50" style="color:red;border:none;outline:none;"/>
+                      
+                      <p:commandButton value="Guardar Fórmula Estática" id="cb1" 
+                      	actionListener="#{formula.guardarFormulaEstatica}"
+                      	update="@form" 
+                      	rendered="#{formula.idTipoFormula == formula.tipoFormulaEstatica and formula.renderBarraFormula}">
+                         
+                      </p:commandButton>
+                      
+                      <p:commandButton value="Guardar Fórmula Dinámica" id="cb2"
+                      	update="@form"  
+                      	actionListener="#{formula.guardarFormulaDinamica}" 
+                      	rendered="#{formula.idTipoFormula == formula.tipoFormulaDinamica and formula.renderBarraFormula}">
+                         
+                      </p:commandButton>
+                      
+                      <p:spacer width="10" id="s16" />
+                      
+                      <p:commandButton value="Cancelar"
+                      				  update="@form"
+                                        action="#{formula.cancelarFormulaEstatica}"
+                                        rendered="#{formula.idTipoFormula == formula.tipoFormulaEstatica and formula.renderBarraFormula}"
+                                        id="cb4">
+                         
+                      </p:commandButton>
+                      
+                      <p:commandButton value="Cancelar"
+                                        action="#{formula.cancelarFormulaDinamica}"
+                                        update="@form"
+                                        rendered="#{formula.idTipoFormula == formula.tipoFormulaDinamica and formula.renderBarraFormula}"
+                                        id="cb3">
+                          
+                      </p:commandButton>
+                      
+                      <p:spacer width="10" id="s18" />
+                      <!--eliminar todas las formulas-->
+                      
+                      <p:commandButton value="Eliminar Todas"                                              
+                                       onclick="confirm_eliminar_estaticas.show()"
+                                       rendered="#{formula.idTipoFormula == formula.tipoFormulaEstatica}"
+                                       id="cb7">
+                         
+                      </p:commandButton>
+                      
+                      <p:commandButton value="Eliminar Todas"                                              
+                                        onclick="confirm_eliminar_dinamicas.show()"
+                                        rendered="#{formula.idTipoFormula == formula.tipoFormulaDinamica}"
+                                        id="cb8">
+                         
+                      </p:commandButton>
+                      
+			</div>
+			
+       </p:panel>
+    	
+    	<p:fieldset legend="Revelación" id="fs1" binding="#{formula.panelGroupLayoutTablaFormula}" rendered="#{formula.renderTablaFormula}">
+    		
+    		<div>
+				<h:outputText value="#{formula.grillaVO.grilla.titulo}" id="of1" rendered="#{formula.grillaVO.grilla.titulo != null}"/>
+    		</div>
+
+    		<div>
+    		<h:selectOneMenu value="#{formula.idTipoFormula}" binding="#{formula.tipoFormulaCombo}" id="somTipoFormula" valueChangeListener="#{formula.onChangeTipoFormula}">
+    			<f:selectItem itemLabel="#{msg.label_seleccionar}"/>
+    			<f:selectItems value="#{formula.componenteBackingBean.tipoFormulaList}" var="tipoFormulaVar" itemValue="#{tipoFormulaVar.valor}" itemLabel="#{tipoFormulaVar.label}"/>
+    			<f:ajax render="@form" execute="@this"/>    			
+    		</h:selectOneMenu>
+    		</div>
+
+
+    		<p:dataTable id="dt1" value="#{formula.grillaVO.rows}" var="row" >
+    		
+    		
+    		 <p:columns value="#{formula.grillaVO.columnas}" var="col" columnIndexVar="index" id="columnas">	 
+    		 		
+    		 		
+    		 		  
+    		 		  <div style="width:#{col.ancho + 25}px;">
+                                            
+                                            <f:facet name="header">
+                                                <h:outputText value="#{col.tituloColumna}" id="ot19"/>
+                                            </f:facet>
+                                            
+                                            
+                                            <div align="left" style="border: 0px solid;">
+                                            <!-- TIPO CELDA TEXTO -->
+                                          
+                                                <h:outputText value="#{row[col.idColumna].valor}" id="ot2b"  
+                                                			   style="padding-left:10px; text-align:left; border: 0px solid;"                                                             
+                                                               disabled="true"
+                                                               rendered="#{(row[col.idColumna].tipoCelda.idTipoCelda == 0) or (row[col.idColumna].tipoCelda.idTipoCelda == 6)}"></h:outputText>
+                                            </div>	
+                                            
+                                            
+                                            <div align="left" style="border: 0px solid;">
+                                            <!-- TIPO CELDA TITULO -->
+                                                <h:outputText value="#{row[col.idColumna].valor}" id="ot3b"
+                                                               style="font-weight:bold; text-align:left; border: 0px solid;"
+                                                               disabled="true"
+                                                               rendered="#{row[col.idColumna].tipoCelda.idTipoCelda == 2}"></h:outputText>
+                                            </div>
+                                            
+                                            <div align="left" style="padding-left:2px; padding-right:0px; border: 0px solid; display:block;">
+                                              
+                                                <h:outputText value="[#{col.idColumna},#{row[col.idColumna].idFila}]"
+                                                               style="font-weight:bold; text-align:center; border: 0px solid;"
+                                                               rendered="#{row[col.idColumna].esNumero}" id="ot4"
+                                                               title="Columna: #{col.idColumna} , Fila: #{row[col.idColumna].idFila}"/>
+                                                 
+                                                <p:spacer width="5" id="s5" style="border: 0px solid;"/>
+                                                 
+                                                <!-- selectores para formula estatica-->
+                                                
+                                                <h:panelGroup layout="block" rendered="#{formula.idTipoFormula == formula.tipoFormulaEstatica}"> 
+                                                 
+                                                <p:commandLink actionListener="#{formula.selectCeldaEstatica}"
+                                                					 update="@form"
+                                                                     style="border: 0px solid;"                                                                     
+                                                                     title="Columna: #{col.idColumna} , Fila: #{row[col.idColumna].idFila}"                                                                    
+                                                                     id="cil2">
+                                                              
+                                                    <p:graphicImage value="/resources/images/icon/uncheck_obj_16x16.gif" id="estaticaUnChecked" rendered="#{row[col.idColumna].esNumero and not row[col.idColumna].selectedByFormula and (formula.idTipoFormula == formula.tipoFormulaEstatica)}"/>           
+                                                    <f:param name="idColumna" value="#{col.idColumna}" />
+                                                    <f:param name="idGrilla" value="#{col.idGrilla}" />
+                                                    <f:param name="idFila" value="#{row[col.idColumna].idFila}" />                                                   
+                                                    <f:param name="selected" value="#{true}"/>
+                                                    
+                                                </p:commandLink>
+                                                 
+                                                <p:commandLink actionListener="#{formula.selectCeldaEstatica}"                                                                     
+                                                                     style="border: 0px solid;"
+                                                                     update="@form"                                                                    
+                                                                     title="Columna: #{col.idColumna} , Fila: #{row[col.idColumna].idFila}"                                                                     
+                                                                     id="cil3">
+                                                    
+                                                    <p:graphicImage value="/resources/images/icon/checked_16x16.gif" rendered="#{row[col.idColumna].esNumero and row[col.idColumna].selectedByFormula and (formula.idTipoFormula == formula.tipoFormulaEstatica)}" id="estaticaChecked"/>          
+                                                    <f:param name="idColumna" value="#{col.idColumna}" />
+                                                    <f:param name="idGrilla" value="#{col.idGrilla}" />
+                                                    <f:param name="idFila" value="#{row[col.idColumna].idFila}" />
+                                                    <f:param name="selected" value="#{false}"/>
+                                                </p:commandLink>
+                                                 
+                                                <p:spacer width="5" id="s8" style="border: 0px solid;" rendered="#{formula.idTipoFormula == formula.tipoFormulaEstatica}"/>
+                                                
+                                                <p:commandLink actionListener="#{formula.fijarCeldaEstaticaTarget}"
+                                                			update="@form"                                      			
+                                                			id="cil1">
+                                                    <p:graphicImage value="/resources/images/icon/function.png" id="imgcil1" rendered="#{((row[col.idColumna].tipoCelda.idTipoCelda == 4) or (row[col.idColumna].tipoCelda.idTipoCelda == 5)) and (formula.idTipoFormula == formula.tipoFormulaEstatica)}"/> 
+                                                    <f:param name="idColumna" value="#{col.idColumna}" />
+                                                    <f:param name="idGrilla" value="#{col.idGrilla}" />
+                                                    <f:param name="idFila" value="#{row[col.idColumna].idFila}" />                                                    
+                                                </p:commandLink>
+                                                
+                                                <p:spacer width="5" id="s13" style="border: 0px solid;" rendered="#{formula.idTipoFormula == formula.tipoFormulaEstatica}"/>
+                                                 
+                                                <p:commandLink actionListener="#{formula.eliminarFormulaEstatica}"
+                                                                     style="border: 0px solid;"                                                                    
+                                                                     title="Eliminar la fórmula resultado de Columna: #{col.idColumna} , Fila: #{row[col.idColumna].idFila}"
+                                                                     update="@form"
+                                                                     id="cil4">
+                                                                        
+                                                    <p:graphicImage value="/resources/images/icon/remove_16x16.png" rendered="#{row[col.idColumna].formula != null or row[col.idColumna].formula eq '' and 
+                                                    																			(formula.idTipoFormula == formula.tipoFormulaEstatica)}"/>
+                                                    <f:param name="idColumna" value="#{col.idColumna}" />
+                                                    <f:param name="idGrilla" value="#{col.idGrilla}" />
+                                                    <f:param name="idFila" value="#{row[col.idColumna].idFila}" />                                                    
+                                                </p:commandLink>
+                                                
+                                                </h:panelGroup>
+                                                 
+                                                <!-- selectores para formula dinámica-->
+                                                
+                                                <h:panelGroup layout="block" rendered="#{formula.idTipoFormula == formula.tipoFormulaDinamica}">
+                                                 
+                                                <p:commandLink actionListener="#{formula.selectNewCeldaDinamica}"
+                                                                     style="border: 0px solid;"                                                                     
+                                                                     title="Columna: #{col.idColumna} , Fila: #{row[col.idColumna].idFila}"
+                                                                     update="@form"                                                                     
+                                                                     id="cil5">
+                                                    
+                                             		<p:graphicImage value="/resources/images/icon/uncheck_obj_16x16.gif" rendered="#{row[col.idColumna].esNumero and not row[col.idColumna].selectedByFormula and (formula.idTipoFormula == formula.tipoFormulaDinamica)}" />
+                                                    <f:param name="idColumna" value="#{col.idColumna}" />
+                                                    <f:param name="idGrilla" value="#{col.idGrilla}" />
+                                                    <f:param name="idFila" value="#{row[col.idColumna].idFila}" />                                                    
+                                                    <f:param name="selected" value="#{true}"/>
+                                                    
+                                                </p:commandLink>
+                                                 
+                                                <p:commandLink actionListener="#{formula.selectNewCeldaDinamica}"                                                                    
+                                                                     style="border: 0px solid;"
+                                                                     title="Columna: #{col.idColumna} , Fila: #{row[col.idColumna].idFila}"
+                                                                     update="@form"
+                                                                     id="cil6">
+                                                                     
+                                                    <p:graphicImage value="/resources/images/icon/checked_16x16.gif" rendered="#{row[col.idColumna].esNumero and row[col.idColumna].selectedByFormula and (formula.idTipoFormula == formula.tipoFormulaDinamica)}" />
+                                                    <f:param name="idColumna" value="#{col.idColumna}" />
+                                                    <f:param name="idGrilla" value="#{col.idGrilla}" />
+                                                    <f:param name="idFila" value="#{row[col.idColumna].idFila}" />                                                    
+                                                    <f:param name="selected" value="#{false}"/>
+                                                </p:commandLink>
+                                                 
+                                                <p:spacer width="8px" id="s14" style="border: 0px solid;" rendered="#{formula.idTipoFormula == formula.tipoFormulaDinamica}"/>
+                                                
+                                                <p:commandLink actionListener="#{formula.fijarCeldaDinamicaTarget}"
+                                                                     style="border: 0px solid;"
+                                                                     title="Seleccionar como resultado la Columna: #{col.idColumna} , Fila: #{row[col.idColumna].idFila}"
+                                                                     update="@form"
+                                                                     id="fijarCeldaDinamica1">                                                    
+                                                     <p:graphicImage value="/resources/images/icon/function.png" rendered="#{((row[col.idColumna].tipoCelda.idTipoCelda == 4) or (row[col.idColumna].tipoCelda.idTipoCelda == 5)) and (formula.idTipoFormula == formula.tipoFormulaDinamica)}" />
+                                                    <f:param name="idColumna" value="#{col.idColumna}" />
+                                                    <f:param name="idGrilla" value="#{col.idGrilla}" />
+                                                    <f:param name="idFila" value="#{row[col.idColumna].idFila}" />                                                    
+                                                </p:commandLink>
+                                                 
+                                                <p:spacer width="5" id="s15" inlineStyle="border: 0px solid;"
+                                                           rendered="#{formula.idTipoFormula == formula.tipoFormulaDinamica}"/>
+                                                 
+                                                <p:commandLink actionListener="#{formula.eliminarFormulaDinamica}"
+                                                                     style="border: 0px solid;"
+                                                                     title="Eliminar la fórmula Vertical de Columna: #{col.idColumna} , Fila: #{row[col.idColumna].idFila}"
+                                                                     update="@form"                                                                     
+                                                                     id="cil8">                                                                    
+                                                    <p:graphicImage value="/resources/images/icon/remove_16x16.png" rendered="#{ (row[col.idColumna].parentVertical != null or row[col.idColumna].parentHorizontal != null) and (formula.idTipoFormula == formula.tipoFormulaDinamica)}" />
+                                                    <f:param name="idColumna" value="#{col.idColumna}" />
+                                                    <f:param name="idGrilla" value="#{col.idGrilla}" />
+                                                    <f:param name="idFila" value="#{row[col.idColumna].idFila}" />                                                    
+                                                </p:commandLink>
+                                                
+                                                </h:panelGroup>
+                                                
+                                            </div>
+                     </div>
+    		 </p:columns>    
+    		 		
+    		</p:dataTable>   
+    		
+    		 	
+    	</p:fieldset>
+    	
+    	
+    	
+    	<!-- POP UP -->
+    	
+    	<p:dialog showEffect="drop" severity="alert" hideEffect="drop" dynamic="true" widgetVar="confirm_eliminar_estaticas" header="Confirmación" modal="false" id="cee1">
+    		<h:outputText value="¿Desea realmente Eliminar todas las Fórmulas Estáticas de la Grilla?" />
+    		<f:verbatim>
+    			<br></br><br></br>
+    		</f:verbatim>
+    		<p:commandButton icon="ui-icon-disk" oncomplete="confirm_eliminar_estaticas.hide()" value="Aceptar" id="aot1" actionListener="#{formula.eliminarFormulaEstaticaAll}" update="@form"></p:commandButton>    		
+    		<p:commandButton icon="ui-icon-cancel" value="#{msg.boton_cancel}" id="btnCancelar1" onclick="confirm_eliminar_estaticas.hide()" ></p:commandButton>
+    	</p:dialog>
+    	
+    	<p:dialog showEffect="drop" hideEffect="drop" dynamic="true" widgetVar="confirm_eliminar_dinamicas" header="Confirmación" modal="false" id="ced1">
+    		<h:outputText value="¿Desea realmente Eliminar todas las Fórmulas Dinámicas de la Grilla?" />
+    		<f:verbatim>
+    			<br></br><br></br>
+    		</f:verbatim>
+    		<p:commandButton icon="ui-icon-disk" oncomplete="confirm_eliminar_dinamicas.hide()" value="Aceptar" id="aot12" actionListener="#{formula.eliminarFormulaDinamicaAll}" update="@form"></p:commandButton>    		
+    		<p:commandButton icon="ui-icon-cancel" value="#{msg.boton_cancel}" id="btnCancelar2" onclick="confirm_eliminar_dinamicas.hide()" ></p:commandButton>
+    	</p:dialog>
+    	
+    	</h:form>
+    	
+    	 
+	</ui:define>
+</ui:composition>
