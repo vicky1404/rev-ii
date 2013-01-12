@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/main-template.xhtml">
+	
+	<ui:define name="content">
+		<h:form id="form">  
+		
+		<p:messages id="messages" autoUpdate="true" globalOnly="true"/>
+		<p:ajaxStatus onstart="statusDialogNoModal.show();" oncomplete="statusDialogNoModal.hide();" />
+		<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
+		<p:panel id="filtro" header="#{menuBackingBean.breadcrumb}" toggleable="true"  closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel">  
+  		
+	  		<table border="0" width="40%">
+	  		<tr>
+	  			<td>
+	  				<p:outputLabel value="#{msg.label_tipo_cuadro}" for="somTipoCuadro"/>
+	  			</td>
+	  			<td>
+	  				<p:selectOneMenu value="#{cuadroBackingBean.idCuadro}" id="somTipoCuadro">
+	  					<f:selectItem itemLabel="#{msg.label_todos}" />
+	  					<f:selectItems value="#{cuadroBackingBean.componenteBackingBean.tipoCuadroList}" id="siTipoCuadro" var="tipoCuadroVar" itemValue="#{tipoCuadroVar.idTipoCuadro}" itemLabel="#{tipoCuadroVar.nombre}"/>
+	  					<p:ajax update="tabla" listener="#{cuadroBackingBean.actualizaLista}" event="change"/>
+	  				</p:selectOneMenu>
+	  			</td>
+	  		</tr>
+	  		</table>
+	  		
+    	</p:panel>
+    	
+    	<p:toolbar style="font-size: 10px; margin-left: auto; margin-right: auto" >
+      		<p:toolbarGroup align="left" >
+				<p:commandButton icon="ui-icon-document" value="#{msg.boton_nuevo}" title="#{msg.boton_nuevo}"  type="button" onclick="ingresoRegistro.show()" />
+				<p:separator />
+				<p:commandButton icon="ui-icon-trash" value="#{msg.boton_eliminar}" title="#{msg.boton_eliminar}"  onclick="confirmEliminar.show()"  />
+				<!-- h:commandLink immediate="true">  
+            		<p:commandButton  icon="ui-icon-link" value="#{msg.boton_excel}"></p:commandButton>  
+            		<p:dataExporter type="csv" target="tabla" fileName="tiposCuadro" />  
+        		</h:commandLink  -->
+      		</p:toolbarGroup>	
+   		</p:toolbar>
+    	
+    	<p:dataTable value="#{cuadroBackingBean.catalogoList}" var="row" id="tabla"  editable="true" emptyMessage="#{msg.mensaje_tabla_sin_registros}" rowsPerPageTemplate="10,20,30,40,50,60,100" paginator="true" rows="10" selectionMode="single" rowKey="#{row.idCatalogo}" selection="#{cuadroBackingBean.selectedCuadro}">
+    	
+    		<p:ajax event="rowEdit" listener="#{cuadroBackingBean.editar}" /> 
+    		 
+    		<p:column headerText="#{msg.label_empresa}" id="colRazonSocial">
+	    				<h:outputText value="#{row.empresa.razonSocial}" id="outRazonSocial"/>
+    		</p:column>
+    		<p:column headerText="#{msg.tabla_cabecera_orden}" id="colOrden">
+    			<p:cellEditor id="cellOrden">
+	    			<f:facet name="output">
+	    				<h:outputText value="#{row.orden}" id="outOrden"/>
+	    			</f:facet>
+	    			<f:facet name="input">
+	    				<p:inputText value="#{row.orden}" id="inpOrden"/>
+	    			</f:facet>
+	    		</p:cellEditor>	
+    		</p:column>
+    		<p:column headerText="#{msg.tabla_cabecera_nombre}" id="colNombre">
+    			<p:cellEditor id="cellNombre">
+	    			<f:facet name="output">
+	    				<h:outputText value="#{row.nombre}" id="outNombre"/>
+	    			</f:facet>
+	    			<f:facet name="input">
+	    				<p:inputText value="#{row.nombre}" id="inpNombre"/>
+	    			</f:facet>
+    			</p:cellEditor>
+    		</p:column>    		
+    		<p:column headerText="#{msg.tabla_cabecera_titulo} #{msg.tabla_cabecera_cuadro}" id="colTitulo">  
+    			<p:cellEditor id="cellTitulo">  			
+    				<f:facet name="output">
+    					<h:outputText value="#{row.titulo}" id="outTitulo"/>
+    				</f:facet>
+    				<f:facet name="input">
+    					<p:inputText value="#{row.titulo}" id="inpTitulo" size="60"/>
+    				</f:facet>
+    			</p:cellEditor>
+    		</p:column>
+    		<p:column headerText="#{msg.tabla_cabecera_tipo_impresion}" id="colImpresion">
+    			<p:cellEditor>
+    				<f:facet name="output">
+    					<h:outputText value="HORIZONTAL" rendered="#{row.impresionHorizontal == 1}"/>
+    					<h:outputText value="HORIZONTAL" rendered="#{row.impresionHorizontal == null}"/>
+    					<h:outputText value="VERTICAL" rendered="#{row.impresionHorizontal == 0}" />
+    				</f:facet>
+    				<f:facet name="input">
+    					<p:selectOneMenu value="#{row.impresionHorizontal}" id="selImpresion" style="width:100px">
+		    				<f:selectItems value="#{cuadroBackingBean.componenteBackingBean.tipoImpresionItems}"/>	
+		    			</p:selectOneMenu>
+    				
+    				</f:facet>
+		    	</p:cellEditor>
+    		</p:column>
+    		<p:column headerText="#{msg.tabla_cabecera_tipo_cuadro}" id="colTipoCuadro">
+    					<h:outputText value="#{row.tipoCuadro.nombre}" />
+    		</p:column>
+    		
+    		<p:column headerText="#{msg.tabla_cabecera_vigencia}" id="colVigencia">
+    			<p:cellEditor>
+    				<f:facet name="output">
+						<h:outputText value="Sí" rendered="#{row.vigencia == 1}"/>
+						<h:outputText value="No" rendered="#{row.vigencia == 0}"/>       				
+    				</f:facet>
+    				<f:facet name="input">
+		    			<p:selectOneMenu value="#{row.vigencia}" id="selVigencia" style="width:50px">
+		    				<f:selectItems value="#{cuadroBackingBean.componenteBackingBean.vigencias}"/>	
+		    			</p:selectOneMenu>
+    				</f:facet>
+    			</p:cellEditor>
+    		</p:column>
+    		
+    		<p:column headerText="#{msg.etiqueta_validar_eeff}" id="colValidar">
+    			<p:cellEditor>
+    				<f:facet name="output">
+						<h:outputText value="Sí" rendered="#{row.validarEeff == 1}"/>
+						<h:outputText value="No" rendered="#{row.validarEeff == 0}"/>       				
+    				</f:facet>
+    				<f:facet name="input">
+		    			<p:selectOneMenu value="#{row.validarEeff}" id="selValidar" style="width:50px">
+		    				<f:selectItems value="#{cuadroBackingBean.componenteBackingBean.vigencias}"/>	
+		    			</p:selectOneMenu>
+    				</f:facet>
+    			</p:cellEditor>
+    		</p:column>
+
+    		<p:column headerText="#{msg.tabla_cabecera_editar}" id="cEditar" style="width:5%" >
+		 		<p:rowEditor id="rEditor" />
+		 	</p:column>
+    	</p:dataTable>
+    	 
+		</h:form>
+		
+		
+		<!--  POP UP -->			 
+		 <p:dialog header="Ingreso" widgetVar="ingresoRegistro" id="ingreso"  width="500" resizable="false" showEffect="drop" hideEffect="drop" dynamic="true" modal="false" >
+		 	<h:form id="formIngreso">  
+        	<h:panelGrid id="display" columns="3" cellpadding="4">
+        	
+        		<h:outputText value="#{msg.label_empresa}" />             
+        	  	<h:outputText value="#{cuadroBackingBean.filtroBackingBean.empresa.nombre}" />
+        	  	<p:separator/>
+	            
+	            <p:outputLabel for="Nombre" value="#{msg.label_nombre}" />  
+	            <p:inputText value="#{cuadroBackingBean.nuevoCuadro.nombre}" id="Nombre" label="#{msg.label_nombre}" required="true">
+	            	<f:validateLength minimum="1" maximum="256"></f:validateLength>
+	            </p:inputText>
+	            <h:message for="Nombre" id="msgNombre" style="color:red"/>	  			
+	            	  			
+	            <p:outputLabel for="Orden" value="#{msg.label_orden}" />  
+	            <p:inputText value="#{cuadroBackingBean.nuevoCuadro.orden}" id="Orden" label="#{msg.label_orden}" required="true">
+	            	<f:convertNumber integerOnly="true"/>
+	            	<f:validateLongRange minimum="1" maximum="99999"  for="Orden"></f:validateLongRange>	            	
+	            </p:inputText>
+	            <h:message for="Orden" id="msgOrden" style="color:red"/>	  			
+
+
+	            <p:outputLabel for="Titulo" value="#{msg.label_titulo_cuadro}" />  
+	            <p:inputText value="#{cuadroBackingBean.nuevoCuadro.titulo}" id="Titulo" label="#{msg.label_titulo_cuadro}" required="true">
+	            	<f:validateLength minimum="1" maximum="256"></f:validateLength>
+	            </p:inputText>
+	            <h:message for="Titulo" id="msgTitulo" style="color:red"/>	  			
+
+				<p:outputLabel for="Impresion" value="#{msg.label_tipo_impresion}" />
+    			<p:selectOneMenu value="#{cuadroBackingBean.nuevoCuadro.impresionHorizontal}" id="Impresion" required="true">
+    				<f:selectItem itemLabel="#{msg.label_seleccione}"/>
+    				<f:selectItems value="#{cuadroBackingBean.componenteBackingBean.tipoImpresionItems}"/>	
+    			</p:selectOneMenu>
+	            <h:message for="Impresion" id="msgImpresion" style="color:red"/>
+	            
+	            <p:outputLabel for="TipoCuadro" value="#{msg.label_tipo_cuadro}" />   			
+    			<p:selectOneMenu value="#{cuadroBackingBean.nuevoCuadro.tipoCuadro}" id="TipoCuadro" label="#{msg.label_tipo_cuadro}" required="true" converter="tipoCuadroConverter">
+    				<f:selectItem itemLabel="#{msg.label_seleccione}"/>
+    				<f:selectItems value="#{cuadroBackingBean.componenteBackingBean.tipoCuadroList}" var="tipoCuadroVar" itemValue="#{tipoCuadroVar}" itemLabel="#{tipoCuadroVar.nombre}"/>	
+    			</p:selectOneMenu>
+    			<h:message for="Impresion" id="msgTipoCuadro" style="color:red"/>
+    			
+    			<p:outputLabel for="Vigencia" value="#{msg.label_vigencia}" />  
+    			<p:selectOneMenu value="#{cuadroBackingBean.nuevoCuadro.vigencia}" id="Vigencia" label="#{msg.label_vigencia}" required="true">
+    				<f:selectItem itemLabel="#{msg.label_seleccione}"/>
+    				<f:selectItems value="#{cuadroBackingBean.componenteBackingBean.vigencias}"/>	
+    			</p:selectOneMenu>
+    			<h:message for="Vigencia" id="msgVigencia" style="color:red"/>
+	  			
+	  			<p:commandButton icon="ui-icon-disk" value="#{msg.boton_guardar}" actionListener="#{cuadroBackingBean.guardar}" id="btnGuardar" update=":form:tabla :form:messages msgNombre msgOrden msgTitulo msgImpresion msgTipoCuadro msgVigencia" oncomplete="handleLoginRequest(xhr, status, args)" ></p:commandButton>
+	  			<p:commandButton icon="ui-icon-cancel" value="#{msg.boton_cancel}" id="btnCancelar" onclick="ingresoRegistro.hide()"></p:commandButton>
+	  			<p:separator/>
+	  			
+        	</h:panelGrid>
+        	</h:form>
+    	</p:dialog> 
+    	
+    	<p:dialog header="Confirmar Eliminar Catalogo" widgetVar="confirmEliminar" resizable="false">  
+		    <h:form id="formBorrar">  
+		  
+		        <h:panelGrid columns="1" style="margin-bottom:10px">  
+		            <h:outputText value="Al realizar esta acción, se eliminará toda la información del cuadro seleccionado y no podrá recuperarla" />
+		            <h:outputText value="¿Está seguro que desea eliminar catalogo?" />  
+		        </h:panelGrid>  
+		  		
+		  		<h:panelGrid columns="3" style="margin-bottom:10px">  
+		        	<p:commandButton id="sb1" value="#{msg.general_control_aceptar}" icon="ui-icon-disk"  oncomplete="confirmEliminar.hide();"  action="#{cuadroBackingBean.eliminar}" update=":form:tabla"/>
+		        	<p:separator/>  
+		        	<p:commandButton id="sb2" value="#{msg.general_control_cancelar}"  icon="ui-icon-cancel" oncomplete="confirmEliminar.hide();"/>
+		        </h:panelGrid>
+		              
+		    </h:form>  
+		</p:dialog>  
+    	
+    	<script type="text/javascript">  
+		    function handleLoginRequest(xhr, status, args) {  
+		        //if(args.validationFailed || !args.loggedIn) {  //Ejemplo de uso en http://www.primefaces.org/showcase/ui/dialogLogin.jsf
+		        if(args.validationFailed ) {
+		            jQuery('#ingreso').effect("shake", { times:3 }, 100);  
+		        } else { 
+		        	ingresoRegistro.hide(); 
+		            //jQuery('#idDeAlgunComponente').fadeOut();  
+		        }  
+		    }  
+		</script> 
+	</ui:define>
+</ui:composition>
