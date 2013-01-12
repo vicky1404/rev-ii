@@ -1,7 +1,0 @@
-<?xml version = '1.0' encoding = 'UTF-8'?>
-<schema xmlns="http://xmlns.oracle.com/jdeveloper/1112/offlinedb">
-  <ID class="oracle.javatools.db.IdentifierBasedID">
-    <identifier class="java.lang.String">afed7646-c013-44bd-833e-55373cc518b9</identifier>
-  </ID>
-  <name>REVELACIONES</name>
-</schema>

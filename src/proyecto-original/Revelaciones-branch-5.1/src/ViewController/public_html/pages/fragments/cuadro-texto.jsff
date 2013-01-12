@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
-    <af:group id="g2">
-        <af:spacer height="20" id="sp_texto0"/>
-        <af:outputText value="#{item.textoVo.texto.texto}"
-                       inlineStyle="#{item.textoVo.texto.negrita ? 'font-weight:bold' : ''}"
-                       id="text_#{item.idEstructura}" escape="false"/>
-    </af:group>
-</ui:composition>
