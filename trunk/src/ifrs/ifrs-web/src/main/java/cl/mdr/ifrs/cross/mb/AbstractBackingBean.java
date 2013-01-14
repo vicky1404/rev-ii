@@ -7,7 +7,11 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.security.Principal;
 import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.StringTokenizer;
@@ -48,6 +52,10 @@ public abstract class AbstractBackingBean {
     private FiltroBackingBean filtroBackingBean;
 
 	private Locale localeCL = new Locale("es", "CL");	
+	
+	private Integer restaLic = new Integer(0);
+	
+	private boolean renderMensajeExpiracionLicencia;
 	
 	public FacadeServiceLocal getFacadeService() {
 		return facadeService;
@@ -256,15 +264,27 @@ public abstract class AbstractBackingBean {
 	
 	protected boolean isValidSoft() throws Exception{
 		
+		Calendar fechaArchivo = GregorianCalendar.getInstance();
+		Calendar fechaActual = GregorianCalendar.getInstance();
+		fechaArchivo.set(2012, 0, 20);
+		fechaActual.setTime(new Date());
+				
 		List<Empresa> empresaList = null;
 		
 		File archivo = new File(this.getlicFile());
 				
 		if (!archivo.exists()){
 			return false;
-		}	
+		}
+		
+		this.setRestaLic( new Integer(Util.restaLic(fechaArchivo, fechaActual)) ) ;
+		
+		
 		
 		if (this.licType().equalsIgnoreCase(Constantes.TYPE_INST_CL)){
+			if ((Constantes.D_LIC.intValue() - this.getRestaLic().intValue() ) <= 0) {
+				return false;
+			}
 			empresaList = this.getFacadeService().getEmpresaService().findAll();
 			if(empresaList != null){
 				
@@ -288,6 +308,9 @@ public abstract class AbstractBackingBean {
 				
 			}
 		} else if (this.licType().equalsIgnoreCase(Constantes.TYPE_INST_OP)){
+			if ((Constantes.D_LIC.intValue() - this.getRestaLic().intValue() ) <= 0) {
+				return false;
+			}
 			empresaList = this.getFacadeService().getEmpresaService().findAll();
 			if (empresaList != null && empresaList.size() > 0 && empresaList.size() != this.numRuts().intValue()){
 				return false;	
@@ -442,5 +465,49 @@ public abstract class AbstractBackingBean {
         }
         return name;
     }
+
+	public Integer getRestaLic() {
+		return restaLic;
+	}
+
+	public void setRestaLic(Integer restaLic) {
+		this.restaLic = restaLic;
+	}
+	
+	public int getDiasRestantes(){
+		return (Constantes.D_LIC.intValue() - this.getRestaLic().intValue() );
+	}
+
+	public boolean isRenderMensajeExpiracionLicencia() {
+		
+		if (this.getRestaLic() != null && (Constantes.D_LIC.intValue() - this.getRestaLic().intValue()) <= Constantes.D_EX.intValue()){
+			
+			
+			renderMensajeExpiracionLicencia = true;
+			
+			if (this.licType().equalsIgnoreCase(Constantes.TYPE_INST_FR)){
+				renderMensajeExpiracionLicencia = false;
+			}
+			
+		} else {
+			renderMensajeExpiracionLicencia = false;
+		}
+		return renderMensajeExpiracionLicencia;
+	}
+	
+   public boolean isRenderLicenciaExpiro() {
+		
+		if (this.getRestaLic() != null && (Constantes.D_LIC.intValue() - this.getRestaLic().intValue()) <= 0){
+			renderMensajeExpiracionLicencia = true;
+		} else {
+			renderMensajeExpiracionLicencia = false;
+		}
+		return renderMensajeExpiracionLicencia;
+	}
+
+	public void setRenderMensajeExpiracionLicencia(
+			boolean renderMensajeExpiracionLicencia) {
+		this.renderMensajeExpiracionLicencia = renderMensajeExpiracionLicencia;
+	}
 
 }
