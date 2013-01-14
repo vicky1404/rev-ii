@@ -13,6 +13,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import cl.mdr.ifrs.ejb.common.Constantes;
 
@@ -34,7 +35,7 @@ public class CuentaContable implements Serializable {
         
     private String descripcion;
         
-    private Short vigencia;
+    private Long vigencia;
     
     @OneToMany(mappedBy = "cuentaContable", fetch = FetchType.LAZY)
     private List<DetalleEeff> detalleEeffList;
@@ -43,7 +44,14 @@ public class CuentaContable implements Serializable {
     @OneToMany(mappedBy = "cuentaContable", fetch = FetchType.LAZY)
     private List<RelacionDetalleEeff> relacionDetalleEeffList;
     
+    @Transient
+    private boolean editarId = false;
+    
     public CuentaContable(){
+    }
+    
+    public CuentaContable(boolean editarId) {
+        this.editarId = editarId;
     }
 
     public void setIdCuenta(Long idCuenta) {
@@ -62,13 +70,7 @@ public class CuentaContable implements Serializable {
         return descripcion;
     }
 
-    public void setVigencia(Short vigencia) {
-        this.vigencia = vigencia;
-    }
-
-    public Short getVigencia() {
-        return vigencia;
-    }
+    
 
     public void setRelacionDetalleEeffList(List<RelacionDetalleEeff> relacionDetalleEeffList) {
         this.relacionDetalleEeffList = relacionDetalleEeffList;
@@ -141,5 +143,21 @@ public class CuentaContable implements Serializable {
 		} else if (!vigencia.equals(other.vigencia))
 			return false;
 		return true;
+	}
+
+	public boolean isEditarId() {
+		return editarId;
+	}
+
+	public void setEditarId(boolean editarId) {
+		this.editarId = editarId;
+	}
+
+	public Long getVigencia() {
+		return vigencia;
+	}
+
+	public void setVigencia(Long vigencia) {
+		this.vigencia = vigencia;
 	}
 }
