@@ -9,6 +9,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -526,5 +527,34 @@ public class Util{
       return m.find();
     }
     
+    /**
+     * Resta una fecha de inicio y otra de fin para calcular el tiempo que resta a la licencia.
+     * @param fechaInicio
+     * @param fechaFin
+     * @return
+     */
+    public static int restaLic(Calendar fechaInicio , Calendar fechaFin){
+    
+    	int respuesta = 0;
+    	int anios = 0;
+    	
+    	if (fechaInicio != null && fechaFin != null){
+    		
+    		if (fechaFin.get(Calendar.YEAR) == fechaInicio.get(Calendar.YEAR)){
+    			
+    			respuesta = fechaFin.get(Calendar.DAY_OF_YEAR) - fechaInicio.get(Calendar.DAY_OF_YEAR);
+    			
+    		} else if (fechaFin.get(Calendar.YEAR) > fechaInicio.get(Calendar.YEAR)){
+    			
+    			anios = fechaFin.get(Calendar.YEAR) - fechaInicio.get(Calendar.YEAR);
+    			respuesta = (fechaFin.get(Calendar.DAY_OF_YEAR) + (Constantes.D_LIC * anios)) - fechaInicio.get(Calendar.DAY_OF_YEAR);    			
+    		}
+    		
+    	}   	
+    	
+    	
+    	
+    	return respuesta;
+    }
 }
 

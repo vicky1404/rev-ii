@@ -25,7 +25,9 @@ import cl.mdr.ifrs.ejb.common.Constantes;
 import cl.mdr.ifrs.ejb.common.VigenciaEnum;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Celda;
+import cl.mdr.ifrs.ejb.entity.CodigoFecu;
 import cl.mdr.ifrs.ejb.entity.Columna;
+import cl.mdr.ifrs.ejb.entity.CuentaContable;
 import cl.mdr.ifrs.ejb.entity.DetalleEeff;
 import cl.mdr.ifrs.ejb.entity.EstadoFinanciero;
 import cl.mdr.ifrs.ejb.entity.Grilla;
@@ -471,6 +473,38 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
         cell.setRelacionEeffList(this.getRelacionEeffByCelda(cell));
         cell.setRelacionDetalleEeffList(this.getRelacionDetalleEeffByCelda(cell));
         
+    }
+    
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public List<CodigoFecu> getCodigoFecuAll() {
+        Query query = em.createNamedQuery(CodigoFecu.FIND_ALL);
+        return query.getResultList();
+    }
+
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public List<CuentaContable> getCuentaContableAll() {
+        Query query = em.createNamedQuery(CuentaContable.FIND_ALL);
+        return query.getResultList();
+    }
+
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public boolean validaContieneMapping(final Long idPeriodo, final Long idGrilla) {
+        final List<Long> mappingFecuList =
+            em.createQuery("select o.idPeriodo from RelacionEeff o where o.idPeriodo =:idPeriodo and o.idGrilla =:idGrilla")
+            .setParameter("idPeriodo", idPeriodo)
+            .setParameter("idGrilla", idGrilla)
+            .getResultList();
+        final List<Long> mappingCuentaContableList =
+            em.createQuery("select o.idPeriodo from RelacionDetalleEeff o where o.idPeriodo =:idPeriodo and o.idGrilla =:idGrilla")
+            .setParameter("idPeriodo", idPeriodo)
+            .setParameter("idGrilla", idGrilla)
+            .getResultList();
+        if ((!mappingFecuList.isEmpty() && mappingFecuList.size() > 0) ||
+            (!mappingCuentaContableList.isEmpty() && mappingCuentaContableList.size() > 0)) {
+            return Boolean.TRUE;
+        } else {
+            return Boolean.FALSE;
+        }
     }
 
 }
