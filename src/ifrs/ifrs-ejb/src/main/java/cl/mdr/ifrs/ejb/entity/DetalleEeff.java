@@ -60,10 +60,10 @@ public class DetalleEeff implements Serializable {
     private BigDecimal montoPesos;
     
     @Column(name = "MONTO_MILES")
-    private BigDecimal montoMiles;
+    private BigDecimal montoMilesValidarMapeo;
     
     @Column(name = "MONTO_PESOS_MIL")
-    private BigDecimal montoPesosMil;
+    private BigDecimal montoXBRL;
     
     @Column(name = "MONTO_RECLASIFICACION")
     private BigDecimal montoReclasificacion;
@@ -78,7 +78,7 @@ public class DetalleEeff implements Serializable {
     private EstadoFinanciero estadoFinanciero1;
     
     @Transient
-    private BigDecimal montoPesosNuevo;
+    private BigDecimal montoMilesValidarMapeoNuevo;
     
     @Transient
     private boolean selectedForMapping;
@@ -104,13 +104,7 @@ public class DetalleEeff implements Serializable {
     }
 
 
-    public BigDecimal getMontoMiles() {
-        return montoMiles;
-    }
-
-    public void setMontoMiles(BigDecimal montoMiles) {
-        this.montoMiles = montoMiles;
-    }
+   
 
     public BigDecimal getMontoPesos() {
         return montoPesos;
@@ -162,21 +156,8 @@ public class DetalleEeff implements Serializable {
             return "";
     }
 
-    public void setMontoPesosNuevo(BigDecimal montoPesosNuevo) {
-        this.montoPesosNuevo = montoPesosNuevo;
-    }
-
-    public BigDecimal getMontoPesosNuevo() {
-        return montoPesosNuevo;
-    }
-
-    public void setMontoPesosMil(BigDecimal montoPesosMil) {
-        this.montoPesosMil = montoPesosMil;
-    }
-
-    public BigDecimal getMontoPesosMil() {
-        return montoPesosMil;
-    }
+   
+   
 
     public void setCuentaContable(CuentaContable cuentaContable) {
         this.cuentaContable = cuentaContable;
@@ -193,4 +174,29 @@ public class DetalleEeff implements Serializable {
     public boolean isSelectedForMapping() {
         return selectedForMapping;
     }
+
+	public BigDecimal getMontoMilesValidarMapeo() {
+		return montoMilesValidarMapeo;
+	}
+
+	public void setMontoMilesValidarMapeo(BigDecimal montoMilesValidarMapeo) {
+		this.montoMilesValidarMapeo = montoMilesValidarMapeo;
+	}
+
+	public BigDecimal getMontoXBRL() {
+		return montoXBRL;
+	}
+
+	public void setMontoXBRL(BigDecimal montoXBRL) {
+		this.montoXBRL = montoXBRL;
+	}
+
+	public BigDecimal getMontoMilesValidarMapeoNuevo() {
+		return montoMilesValidarMapeoNuevo;
+	}
+
+	public void setMontoMilesValidarMapeoNuevo(
+			BigDecimal montoMilesValidarMapeoNuevo) {
+		this.montoMilesValidarMapeoNuevo = montoMilesValidarMapeoNuevo;
+	}
 }

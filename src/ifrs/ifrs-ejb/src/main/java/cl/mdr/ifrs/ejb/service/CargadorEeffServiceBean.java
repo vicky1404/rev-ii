@@ -1,6 +1,7 @@
 package cl.mdr.ifrs.ejb.service;
 
 
+
 import static ch.lambdaj.Lambda.index;
 import static ch.lambdaj.Lambda.on;
 import static ch.lambdaj.Lambda.sort;
@@ -69,7 +70,7 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
     public CargadorEeffServiceBean() {
     }
     
-    public CargadorEeffVO leerEeff(final InputStream loadedExcel)throws EstadoFinancieroException, Exception {
+public CargadorEeffVO leerEeff(final InputStream loadedExcel)throws EstadoFinancieroException, Exception {
         
         
         XSSFWorkbook workBook = new XSSFWorkbook(loadedExcel);
@@ -138,7 +139,7 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
                         idFecu = getCodigoFecu(cell, c+1, r1+1, errores);
                         
                         if(!fecuMap.containsKey(idFecu))
-                            EeffUtil.addErrorFecuNotFound(c+1, r1+1,errores);
+                            EeffUtil.addErrorFecuNotFound(idFecu ,errores);
                         else
                             eeff.setCodigoFecu(fecuMap.get(idFecu));
                         
@@ -157,7 +158,7 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
                     eeff.setIdFecu(idFecu);
                     
                     if(eeffMap.containsKey(idFecu)){
-                        EeffUtil.addErrorFecuDu(1, r1+1,errores);
+                        EeffUtil.addErrorFecuDu(idFecu, errores);
                     }else{
                         eeffMap.put(idFecu, eeff);
                         contador++;
@@ -209,11 +210,11 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
                         if(cuentaMap.containsKey(idCuenta)){
                             detalleEeff.setCuentaContable(cuentaMap.get(idCuenta));
                         }else{
-                            EeffUtil.addErrorCuentaNotFound(c+1, r1+1,errores);
+                            EeffUtil.addErrorCuentaNotFound(idCuenta ,errores);
                         }
                         
                         if(cuentaCargadaMap.containsKey(idCuenta))
-                            EeffUtil.addErrorCuentaDu(c+1, r1+1,errores);
+                            EeffUtil.addErrorCuentaDu(idCuenta, errores);
                         else
                             cuentaCargadaMap.put(idCuenta, idCuenta);
                         
@@ -240,11 +241,11 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
                     break;
                 
                 case 6:
-                    detalleEeff.setMontoMiles(getValorBigDecimal(cell));
+                    detalleEeff.setMontoMilesValidarMapeo(getValorBigDecimal(cell));
                     break;
                 
                 case 7:
-                    detalleEeff.setMontoPesosMil(getValorBigDecimal(cell));
+                    detalleEeff.setMontoXBRL(getValorBigDecimal(cell));
                     break;
                 
                 }
@@ -252,7 +253,7 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
             
             if(idFecu!=null){
                 if(!eeffMap.containsKey(idFecu)){
-                    EeffUtil.addErrorFecu(1+1, r1+1, errores);
+                    EeffUtil.addErrorFecu(idFecu, errores);
                 }else{
                     EstadoFinanciero eeff = eeffMap.get(idFecu);
                     detalleEeff.setEstadoFinanciero1(eeff);
@@ -274,7 +275,7 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
             idFecu = ((Double)cell.getNumericCellValue()).longValue();
             
         }catch(Exception e){
-            EeffUtil.addErrorFecuNull(col+1, row+1,errores);
+            EeffUtil.addErrorFecuNull(col, row,errores);
         }
         
         return idFecu;
@@ -317,8 +318,8 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
         List<RelacionEeff> relEeffList = facadeService.getEstadoFinancieroService().getRelacionEeffByPeriodo(periodoEmpresa.getIdPeriodo(), periodoEmpresa.getIdRut());
         List<RelacionDetalleEeff> relDetEeffList = facadeService.getEstadoFinancieroService().getRelacionDetalleEeffByPeriodo(periodoEmpresa.getIdPeriodo(), periodoEmpresa.getIdRut());
         
-        Map<Long,RelacionEeff> relEeffMap = index(relEeffList, on(RelacionEeff.class).getIdFecu());
-        Map<String,RelacionDetalleEeff> relDetalleEeffMap = EeffUtil.convertListRelEeffDetToMap(relDetEeffList);
+        Map<Long,List<RelacionEeff>> relEeffMap = EeffUtil.convertListRelEeffToMap(relEeffList);
+        Map<String,List<RelacionDetalleEeff>> relDetalleEeffMap = EeffUtil.convertListRelEeffDetToMap(relDetEeffList);
         
         /********************** LISTAS DE RESULTADO DE VALIDACION **************************************************/
         
@@ -362,14 +363,26 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
         eeffBorradoList.addAll(eeffMap.values());// = new ArrayList<EstadoFinanciero>(eeffMap.values());
         eeffDetBorradoList.addAll(detalleEeffMap.values());  // = new ArrayList<DetalleEeff>(detalleEeffMap.values());
         
-        relEeffBorradoList.addAll(relEeffMap.values()); // = new ArrayList<RelacionEeff>(relEeffMap.values());
-        relEeffDetBorradoList.addAll(relDetalleEeffMap.values()); // = new ArrayList<RelacionDetalleEeff>(relDetalleEeffMap.values());
+        for(List<RelacionEeff> relBList : relEeffMap.values()){
+            for(RelacionEeff relB : relBList){
+                relEeffBorradoList.add(relB);
+            }
+        }
         
+        //relEeffBorradoList.addAll(relEeffMap.values()); // = new ArrayList<RelacionEeff>(relEeffMap.values());
         
+        for(List<RelacionDetalleEeff> relDetBList : relDetalleEeffMap.values()){
+            for(RelacionDetalleEeff relDetB : relDetBList){
+                relEeffDetBorradoList.add(relDetB);
+            }
+        }
         
-        cargadorVO.setEeffBorradoList(eeffBorradoList);
-        cargadorVO.setEeffDetBorradoList(eeffDetBorradoList);
+        //relEeffDetBorradoList.addAll(relDetalleEeffMap.values());
+        
+        cargadorVO.setEeffBorradoList(eeffBorradoList);        
         cargadorVO.setEeffDescuadreList(eeffDescuadreList);
+        
+        cargadorVO.setEeffDetBorradoList(eeffDetBorradoList);
         cargadorVO.setEeffDetDescuadreList(eeffDetDescuadreList);
         
         cargadorVO.setRelEeffBorradoList(relEeffBorradoList);
@@ -377,13 +390,13 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
         cargadorVO.setRelEeffDescuadreList(relEeffDescuadreList);
         cargadorVO.setRelEeffDetDescuadreList(relEeffDetDescuadreList);
         
+        cargarGrillaNoValida(cargadorVO);
+        
         sortList(cargadorVO);
         
         buildMailList(cargadorVO);
     
     }
-    
-    
     
     /**
      *Valida el monto de Eeff contra EEff nuevo
@@ -422,14 +435,14 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
                         
                         DetalleEeff eeffDet = detalleEeffMap.get(key);
                         
-                        if(!eeffDet.getMontoPesos().equals(eeffDetNuevo.getMontoPesos())){
+                        if(!eeffDet.getMontoMilesValidarMapeo().equals(eeffDetNuevo.getMontoMilesValidarMapeo())){
                             
-                            eeffDet.setMontoPesosNuevo(eeffDetNuevo.getMontoPesos());
+                            eeffDet.setMontoMilesValidarMapeoNuevo(eeffDetNuevo.getMontoMilesValidarMapeo());
                             eeffDetDescuadreList.add(eeffDet);
                             
                             logger.info("Descuadre en pesos Cuenta : " + eeffDetNuevo.getIdCuenta() + 
-                                        " - Monto Nuevo : "  + eeffDet.getMontoPesosNuevo() + 
-                                        " - Monto Antiguo " +  eeffDet.getMontoPesos());
+                                        " - Monto Nuevo : "  + eeffDet.getMontoMilesValidarMapeoNuevo() + 
+                                        " - Monto Antiguo " +  eeffDet.getMontoMilesValidarMapeo());
                         }
                         
                         detalleEeffMap.remove(key);
@@ -445,8 +458,8 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
      *Valida el monto del mapeo de Eeff (Relacion EEFF) contra EEff nuevo
      */
     private void validarRelEeffConEeffNuevo(final EstadoFinanciero eeffNuevo,
-                                            final Map<Long,RelacionEeff> relEeffMap, 
-                                            final Map<String,RelacionDetalleEeff> relDetalleEeffMap,
+                                            final Map<Long,List<RelacionEeff>> relEeffMap, 
+                                            final Map<String,List<RelacionDetalleEeff>> relDetalleEeffMap,
                                             final List<RelacionEeff>  relEeffDescuadreList,
                                             final List<RelacionDetalleEeff> relEeffDetDescuadreList){
         
@@ -455,16 +468,20 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
         /*Validando mapeo monto de FECU relacion EEFF contra monto FECU de EEFF nuevo*/
         if(relEeffMap.containsKey(idFecu)){
             
-            RelacionEeff relEeff = relEeffMap.get(idFecu);
+            List<RelacionEeff> relEeffList = relEeffMap.get(idFecu);
             
-            if(!relEeff.getMontoTotal().equals(eeffNuevo.getMontoTotal())){
+            for(RelacionEeff relEeff : relEeffList){
+            
+                if(!relEeff.getMontoTotal().equals(eeffNuevo.getMontoTotal())){
+                    
+                    relEeff.setMontoTotalNuevo(eeffNuevo.getMontoTotal());
+                    relEeffDescuadreList.add(relEeff);
+                    
+                    logger.info("Descuadre en Mapeo monto Fecu : " + EeffUtil.formatFecu(idFecu) + 
+                                " - Monto Nuevo : "  + relEeff.getMontoTotalNuevo() + 
+                                " - Monto Antiguo " + relEeff.getMontoTotal());
+                }
                 
-                relEeff.setMontoTotalNuevo(eeffNuevo.getMontoTotal());
-                relEeffDescuadreList.add(relEeff);
-                
-                logger.info("Descuadre en Mapeo monto Fecu : " + EeffUtil.formatFecu(idFecu) + 
-                            " - Monto Nuevo : "  + relEeff.getMontoTotalNuevo() + 
-                            " - Monto Antiguo " + relEeff.getMontoTotal());
             }
             
             /*Validando mapeo monto de CUENTA relacion EEFF contra monto CUENTA de EEFF nuevo*/
@@ -476,24 +493,25 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
                     
                     if(relDetalleEeffMap.containsKey(key)){
                         
-                        RelacionDetalleEeff relEeffDet = relDetalleEeffMap.get(key);
+                        List<RelacionDetalleEeff> relEeffDetList = relDetalleEeffMap.get(key);
                         
-                        if(!relEeffDet.getMontoPesos().equals(eeffDetNuevo.getMontoPesos())){
+                        for(RelacionDetalleEeff relEeffDet : relEeffDetList){
+                        
+                                if(!relEeffDet.getMontoMilesValidarMapeo().equals(eeffDetNuevo.getMontoMilesValidarMapeo())){
+                                    
+                                    relEeffDet.setMontoMilesValidarMapeoNuevo(eeffDetNuevo.getMontoMilesValidarMapeo());
+                                    relEeffDetDescuadreList.add(relEeffDet);
+                                    
+                                    logger.info("Descuadre en Mapeo pesos Cuenta : " + eeffDetNuevo.getIdCuenta() + 
+                                                " - Monto Nuevo : "  + relEeffDet.getMontoMilesValidarMapeoNuevo() + 
+                                                " - Monto Antiguo " +  relEeffDet.getMontoMilesValidarMapeo());
+                                }
                             
-                            relEeffDet.setMontoPesosNuevo(eeffDetNuevo.getMontoPesos());
-                            relEeffDetDescuadreList.add(relEeffDet);
-                            
-                            logger.info("Descuadre en Mapeo pesos Cuenta : " + eeffDetNuevo.getIdCuenta() + 
-                                        " - Monto Nuevo : "  + relEeffDet.getMontoPesosNuevo() + 
-                                        " - Monto Antiguo " + relEeffDet.getMontoPesos());
+                                relDetalleEeffMap.remove(key);
                         }
-                        
-                        relDetalleEeffMap.remove(key);
-                        
                     }
                 }
             }
-            
             relEeffMap.remove(idFecu);
         }
     }
@@ -694,7 +712,7 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
                         .append(EeffUtil.getTdFontTag()).append(relDetalleEeff.getCelda5().getColumna().getTituloColumna()).append(EeffUtil.getTdFontCloseTag())
                         .append(EeffUtil.getTdFontTag()).append(relDetalleEeff.getIdFila()).append(EeffUtil.getTdFontCloseTag())
                         .append(EeffUtil.getTdFontTag()).append(Util.formatCellKey(relDetalleEeff.getCelda5())).append(EeffUtil.getTdFontCloseTag())
-                        .append(EeffUtil.getTdFontTag()).append(relDetalleEeff.getCelda5().getValor()).append(EeffUtil.getTdFontCloseTag())
+                        .append(EeffUtil.getTdFontTag()).append(relDetalleEeff.getCelda5().getValorBigDecimal()).append(EeffUtil.getTdFontCloseTag())
                         .append("</tr>");
                     
                     count++;
@@ -714,14 +732,13 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
             }
         }
         
-        if(mensajeMap != null && !mensajeMap.isEmpty()){
-        	logger.info(mensaje);
-        	buildUsuarioGrupo(cargadorVO, mensajeMap);
-        }
+        logger.info(mensaje);
+        
+        buildUsuarioGrupo(cargadorVO, mensajeMap);
         
     }
     
-    private void buildUsuarioGrupo(final CargadorEeffVO cargadorVO, final Map<Long,List<StringBuilder>> mensajeMap) throws Exception{
+private void buildUsuarioGrupo(final CargadorEeffVO cargadorVO, final Map<Long,List<StringBuilder>> mensajeMap) throws Exception{
         
         Map<String,UsuarioGrupo> usuarioMailMap = new LinkedHashMap<String,UsuarioGrupo>();
         
@@ -831,6 +848,26 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
         } catch (Exception e) {
             logger.error("Error de dirección de correo" + e.getMessage());
         }
+    }
+    
+    private void cargarGrillaNoValida(final CargadorEeffVO cargadorVO){
+        
+        for(RelacionEeff rel : cargadorVO.getRelEeffBorradoList()){
+            cargadorVO.getGrillaNoValida().put(rel.getIdGrilla(), rel.getIdGrilla());
+        }
+        
+        for(RelacionEeff rel : cargadorVO.getRelEeffDescuadreList()){
+            cargadorVO.getGrillaNoValida().put(rel.getIdGrilla(), rel.getIdGrilla());
+        }
+        
+        for(RelacionDetalleEeff relDet : cargadorVO.getRelEeffDetBorradoList()){
+            cargadorVO.getGrillaNoValida().put(relDet.getIdGrilla(), relDet.getIdGrilla());
+        }
+        
+        for(RelacionDetalleEeff relDet : cargadorVO.getRelEeffDetDescuadreList()){
+            cargadorVO.getGrillaNoValida().put(relDet.getIdGrilla(), relDet.getIdGrilla());
+        }
+        
     }
     
 }
