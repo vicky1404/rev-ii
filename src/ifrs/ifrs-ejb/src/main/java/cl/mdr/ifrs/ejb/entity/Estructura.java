@@ -7,22 +7,22 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
-import com.google.gson.annotations.Expose;
 
 import cl.mdr.ifrs.ejb.common.Constantes;
 import cl.mdr.ifrs.vo.GrillaVO;
 import cl.mdr.ifrs.vo.HtmlVO;
 import cl.mdr.ifrs.vo.TextoVO;
+
+import com.google.gson.annotations.Expose;
 
 
 @Entity
@@ -51,8 +51,7 @@ public class Estructura implements Serializable {
     private static final long serialVersionUID = -2123468030703890538L;
     
     @Id
-    @GeneratedValue(generator="ID_GEN_ESTRUCTURA")
-    @SequenceGenerator(name="ID_GEN_ESTRUCTURA", sequenceName = "SEQ_ESTRUCTURA" ,allocationSize = 1)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "ID_ESTRUCTURA", nullable = false)
     @Expose
     private Long idEstructura;

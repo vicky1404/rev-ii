@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
@@ -15,7 +16,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import cl.mdr.ifrs.ejb.common.Constantes;
@@ -41,7 +41,8 @@ import com.google.gson.annotations.Expose;
 })
 @Table(name = Constantes.VERSION_EEFF)
 public class VersionEeff implements Serializable {
-    
+	private static final long serialVersionUID = 3871781069569025001L;
+	
 	public static final String FIND_ALL = "VersionEeff.findAll";
     public static final String FIND_BY_PERIODO_EMPRESA = "VersionEeff.findByPeriodEmpresa";
     public static final String FIND_VIGENTE_BY_PERIODO_EMPRESA = "VersionEeff.findVigenteByPeriodoEmpresa";
@@ -49,8 +50,7 @@ public class VersionEeff implements Serializable {
     public static final String UPDATE_VIGENCIA_BY_PERIODO_EMPRESA = "VersionEeff.updateVigenciaByPeriodoEmpresa";
     
     @Id
-    @GeneratedValue(generator="ID_GEN_VERSION_EEFF")
-    @SequenceGenerator(name="ID_GEN_VERSION_EEFF", sequenceName = "SEQ_VERSION_EEFF" ,allocationSize = 1)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "ID_VERSION_EEFF", nullable = false)
     private Long idVersionEeff;
     

@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
@@ -15,7 +16,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -24,9 +24,9 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-import com.google.gson.annotations.Expose;
-
 import cl.mdr.ifrs.ejb.common.Constantes;
+
+import com.google.gson.annotations.Expose;
 
 
 @Entity
@@ -133,8 +133,7 @@ public class Version implements Serializable {
     public static final String FIND_VIGENTE_SIN_CERRAR = "Version.findVigenteSinCerrar";
     
     @Id
-    @GeneratedValue(generator="ID_GEN_VERSION")
-    @SequenceGenerator(name="ID_GEN_VERSION", sequenceName = "SEQ_VERSION" ,allocationSize = 1)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "ID_VERSION", nullable = false)
     @Expose
     private Long idVersion;

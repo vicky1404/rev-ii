@@ -6,10 +6,10 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import cl.mdr.ifrs.ejb.common.Constantes;
@@ -30,8 +30,7 @@ public class TipoCuadro implements Serializable {
     public static final String FIND_BY_FILTRO = "TipoCuadro.findByFiltro";
     
     @Id
-    @GeneratedValue(generator="ID_GEN_TIPO_CUADRO")
-    @SequenceGenerator(name="ID_GEN_TIPO_CUADRO", sequenceName = "SEQ_TIPO_CUADRO")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "ID_TIPO_CUADRO", nullable = false)
     private Long idTipoCuadro;
     

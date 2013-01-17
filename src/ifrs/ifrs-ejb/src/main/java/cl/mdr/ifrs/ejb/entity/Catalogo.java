@@ -8,21 +8,21 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-import com.google.gson.annotations.Expose;
-
 import cl.mdr.ifrs.ejb.common.Constantes;
+
+import com.google.gson.annotations.Expose;
 
 
 @Entity
@@ -103,8 +103,7 @@ public class Catalogo implements Serializable {
     
     
     @Id
-    @GeneratedValue(generator="ID_GEN_CATALOGO")
-    @SequenceGenerator(name="ID_GEN_CATALOGO", sequenceName = "SEQ_CATALOGO" ,allocationSize = 1)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "ID_CATALOGO", nullable = false)
     @Expose
     private Long idCatalogo;
