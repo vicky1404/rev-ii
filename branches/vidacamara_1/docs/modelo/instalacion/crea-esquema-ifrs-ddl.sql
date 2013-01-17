@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      Microsoft SQL Server 2008                    */
-/* Created on:     17/01/2013 12:16:02                          */
+/* Created on:     17/01/2013 18:08:55                          */
 /*==============================================================*/
 
 
@@ -1162,7 +1162,7 @@ go
 /* Table: IFRS_TIPO_CUADRO                                      */
 /*==============================================================*/
 create table IFRS_TIPO_CUADRO (
-   ID_TIPO_CUADRO       numeric(4,0)         not null,
+   ID_TIPO_CUADRO       numeric(4,0)         identity,
    NOMBRE               varchar(256)         null,
    TITULO               varchar(512)         null,
    constraint PK_NEW_REV_TIPO_CUADRO primary key nonclustered (ID_TIPO_CUADRO)
