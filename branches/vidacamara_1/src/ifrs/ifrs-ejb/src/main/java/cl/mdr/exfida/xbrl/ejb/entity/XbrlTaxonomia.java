@@ -1,18 +1,15 @@
 package cl.mdr.exfida.xbrl.ejb.entity;
 
 import java.io.Serializable;
-
-import java.math.BigDecimal;
-
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -28,8 +25,7 @@ public class XbrlTaxonomia implements Serializable {
     
     @Id
     @Column(name = "ID_TAXONOMIA", nullable = false)
-    @GeneratedValue(generator="ID_GEN_XBRL_TAXONOMIA")
-    @SequenceGenerator(name="ID_GEN_XBRL_TAXONOMIA", sequenceName = "SEQ_XBRL_TAXONOMIA" ,allocationSize = 1)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long idTaxonomia;
     
     @Column(length = 1024)
