@@ -116,7 +116,7 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 			this.buildMenuEmpresa();
 			super.getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(HOME_VIEW_ID));
 		}catch(Exception e){
-			log.error(e);
+			log.error(e.getCause(), e);
 			super.addFatalMessage("Se ha producido un error al desplegar el Menú asociado al Usuario");
 		}	
 	}
@@ -141,7 +141,7 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 									this.setRenderSelectorEmpresa(Boolean.FALSE);														
 									super.getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(HOME_VIEW_ID));
 								}catch(Exception e){
-									log.error(e);
+									log.error(e.getCause(), e);
 									super.addFatalMessage("Se ha producido un error al desplegar el Menú asociado al Usuario");
 								}				
 							}
@@ -188,7 +188,7 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 			this.buildCatalogoMap();
 			super.getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(HOME_VIEW_ID));
 		}catch(Exception e){
-			log.error(e);
+			log.error(e.getCause(), e);
 			super.addFatalMessage("Se ha producido un error al desplegar el Menú asociado al Usuario");
 		}
 	}
@@ -214,7 +214,10 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 		@SuppressWarnings("unused")
 		//TODO implementar bloqueo de sistema.
 		boolean bloqueado = this.isSistemaBloqueado();
-		
+		if( catalogoList != null && catalogoList.size() > 0 ){
+			super.addErrorMessage("El Usuario no tiene revelaciones asociadas");
+			return;
+		}
         for(TipoCuadro tipoCuadro : this.getTiposCuadroFromCatalogo(this.getCatalogoList())){            
             TreeNode node = new DefaultTreeNode(tipoCuadro.getTitulo(), root);              
             for(Catalogo catalogo : this.getCatalogoList()){
@@ -388,11 +391,13 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
     private List<TipoCuadro> getTiposCuadroFromCatalogo(final List<Catalogo> catalogoList){
         Set<TipoCuadro> tipoCuadroSet = new LinkedHashSet<TipoCuadro>();
         List<TipoCuadro> tipoCuadroList = new ArrayList<TipoCuadro>();
-        for(Catalogo catalogo : catalogoList){
-            tipoCuadroSet.add(catalogo.getTipoCuadro());
-        }
-        for(TipoCuadro tipoCuadro : tipoCuadroSet){
-            tipoCuadroList.add(tipoCuadro);
+        if(catalogoList != null){
+	        for(Catalogo catalogo : catalogoList){
+	            tipoCuadroSet.add(catalogo.getTipoCuadro());
+	        }
+	        for(TipoCuadro tipoCuadro : tipoCuadroSet){
+	            tipoCuadroList.add(tipoCuadro);
+	        }
         }
         return tipoCuadroList;
     }

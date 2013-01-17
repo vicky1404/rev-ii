@@ -59,7 +59,7 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("</head>");
       out.write("<body>");
 
-                response.sendRedirect(request.getContextPath().concat("/pages/home.jsf"));       
+                response.sendRedirect(request.getContextPath().concat("/login.jsf"));       
             
       out.write("</body>");
       out.write("</html>");

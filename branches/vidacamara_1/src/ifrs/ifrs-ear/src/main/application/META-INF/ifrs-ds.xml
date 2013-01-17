@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <datasources xmlns="http://www.jboss.org/ironjacamar/schema">
- <datasource jndi-name="java:jboss/datasources/ifrsDS" enabled="true" 
+ <!-- datasource jndi-name="java:jboss/datasources/ifrsDS" enabled="true" 
      use-java-context="true" pool-name="ifrsPool">
   <connection-url>jdbc:oracle:thin:@localhost:1521:xe</connection-url>
   <driver>oracle</driver>
@@ -9,5 +9,18 @@
    <user-name>ifrs</user-name>
    <password>ifrs</password>
   </security>
- </datasource>
+ </datasource-->
+ <datasource jndi-name="java:jboss/datasources/ifrsDS" pool-name="ifrsPool" enabled="true" use-java-context="true">
+  <connection-url>jdbc:sqlserver://localhost:1433;databaseName=EXFIDA</connection-url>
+  <driver>sqljdbc</driver>
+  <pool>
+    <min-pool-size>10</min-pool-size>
+    <max-pool-size>100</max-pool-size>
+    <prefill>true</prefill>
+  </pool>
+  <security>
+    <user-name>sa</user-name>
+    <password>admin.2012</password>
+  </security>
+</datasource>
 </datasources>

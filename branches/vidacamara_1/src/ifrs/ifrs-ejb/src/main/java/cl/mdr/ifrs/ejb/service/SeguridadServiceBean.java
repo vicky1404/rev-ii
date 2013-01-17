@@ -389,13 +389,13 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
     
     public void persistCatalogoGrupo(Long idCatalogo, String idGrupoAcceso) throws Exception{
     	
-    	BigDecimal result = (BigDecimal)
-    	em.createNativeQuery("SELECT COUNT(*) FROM " + Constantes.CATALOGO_GRUPO + " WHERE ID_CATALOGO = ? AND ID_GRUPO_ACCESO = ? ")
+    	Integer result = 
+    	(Integer) em.createNativeQuery("SELECT COUNT(*) FROM " + Constantes.CATALOGO_GRUPO + " WHERE ID_CATALOGO = ? AND ID_GRUPO_ACCESO = ? ")
     	  .setParameter(1, idCatalogo)
     	  .setParameter(2, idGrupoAcceso)
     	  .getSingleResult();
     	
-    	if(result==null || result.equals(new BigDecimal(0))){
+    	if(result==null || result == 0 ){
 	    	em.createNativeQuery("INSERT INTO " + Constantes.CATALOGO_GRUPO + " ( ID_CATALOGO, ID_GRUPO_ACCESO)  VALUES (?,?)")
 	    	  .setParameter(1, idCatalogo)
 	    	  .setParameter(2, idGrupoAcceso)

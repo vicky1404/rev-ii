@@ -90,9 +90,9 @@ public class CatalogoServiceBean implements CatalogoServiceLocal{
 		List<Catalogo> catalogoByFiltro = em.createNamedQuery(Catalogo.CATALOGO_FIND_BY_FILTRO)
 											 .setParameter("rut", rutEmpresa )
 											 .setParameter("usuario", usuario )
-                                             .setParameter("tipoCuadro", tipoCuadro != null ? tipoCuadro.getIdTipoCuadro().longValue() : "" )   
-                                             .setParameter("grupo", grupo != null ? grupo.getIdGrupoAcceso() : null)
-                                             .setParameter("vigencia", vigencia != null ? vigencia.longValue() : "")                                                
+                                             .setParameter("tipoCuadro", tipoCuadro)   
+                                             .setParameter("grupo", grupo)
+                                             .setParameter("vigencia", vigencia)                                                
                                              .getResultList();
         return catalogoByFiltro;
     }
@@ -102,9 +102,9 @@ public class CatalogoServiceBean implements CatalogoServiceLocal{
     public List<Catalogo> findCatalogoByGrupo(final Long rutEmpresa, final TipoCuadro tipoCuadro, final Grupo grupo, final Long vigencia) throws Exception{        
 		return em.createNamedQuery(Catalogo.CATALOGO_FIND_BY_GRUPO)
 											 .setParameter("rut", rutEmpresa )											 
-                                             .setParameter("tipoCuadro", tipoCuadro != null ? tipoCuadro.getIdTipoCuadro().longValue() : "" )   
-                                             .setParameter("grupo", grupo != null ? grupo.getIdGrupoAcceso() : null)
-                                             .setParameter("vigencia", vigencia != null ? vigencia.longValue() : "")                                                
+                                             .setParameter("tipoCuadro", tipoCuadro)   
+                                             .setParameter("grupo", grupo)
+                                             .setParameter("vigencia", vigencia)                                                
                                              .getResultList();
         
     }
@@ -113,9 +113,8 @@ public class CatalogoServiceBean implements CatalogoServiceLocal{
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public List<Catalogo> findAllVigenteByTipo(final Long rutEmpresa, final TipoCuadro tipoCuadro)throws Exception{
         return em.createNamedQuery(Catalogo.CATALOGO_FIND_ALL_VIGENTE_BY_TIPO)
-        		//TODO Solucionar problema Caused by: java.sql.SQLSyntaxErrorException: ORA-00932: tipos de dato inconsistentes: se esperaba NUMBER se ha obtenido BINARY
 								        	 .setParameter("rutEmpresa",rutEmpresa)
-								        	 .setParameter("tipoCuadro", tipoCuadro != null ? tipoCuadro.getIdTipoCuadro().longValue() : "" )                                                                                             
+								        	 .setParameter("tipoCuadro", tipoCuadro)                                                                                             
                                              .getResultList();
     }
     

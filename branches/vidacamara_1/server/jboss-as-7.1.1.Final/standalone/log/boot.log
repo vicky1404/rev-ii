@@ -1,7 +1,7 @@
-09:29:04,461 INFO  [org.jboss.modules] JBoss Modules version 1.1.1.GA
-09:29:07,613 INFO  [org.jboss.msc] JBoss MSC version 1.0.2.GA
-09:29:07,725 INFO  [org.jboss.as] JBAS015899: JBoss AS 7.1.1.Final "Brontes" starting
-09:29:07,725 DEBUG [org.jboss.as.config] Configured system properties:
+22:46:52,321 INFO  [org.jboss.modules] JBoss Modules version 1.1.1.GA
+22:46:52,536 INFO  [org.jboss.msc] JBoss MSC version 1.0.2.GA
+22:46:52,594 INFO  [org.jboss.as] JBAS015899: JBoss AS 7.1.1.Final "Brontes" starting
+22:46:52,596 DEBUG [org.jboss.as.config] Configured system properties:
 	awt.toolkit = sun.awt.windows.WToolkit
 	file.encoding = Cp1252
 	file.encoding.pkg = sun.io
@@ -9,13 +9,13 @@
 	java.awt.graphicsenv = sun.awt.Win32GraphicsEnvironment
 	java.awt.headless = true
 	java.awt.printerjob = sun.awt.windows.WPrinterJob
-	java.class.path = D:\server\jboss-as-7.1.1.Final\jboss-modules.jar
+	java.class.path = D:\EXFIDA\branches\vidacamara_1\server\jboss-as-7.1.1.Final\jboss-modules.jar
 	java.class.version = 50.0
 	java.endorsed.dirs = C:\Program Files\Java\jdk1.6.0_32\jre\lib\endorsed
 	java.ext.dirs = C:\Program Files\Java\jdk1.6.0_32\jre\lib\ext;C:\Windows\Sun\Java\lib\ext
 	java.home = C:\Program Files\Java\jdk1.6.0_32\jre
 	java.io.tmpdir = C:\Users\rreyes\AppData\Local\Temp\
-	java.library.path = C:\Program Files\Java\jdk1.6.0_32\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;native;C:\oraclexe\app\oracle\product\10.2.0\server\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Common Files\Roxio Shared\DLLShared\;C:\Program Files\TortoiseSVN\bin;.
+	java.library.path = C:\Program Files\Java\jdk1.6.0_32\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;native;C:\oraclexe\app\oracle\product\10.2.0\server\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\WIDCOMM\Bluetooth Software\;C:\Program Files\WIDCOMM\Bluetooth Software\syswow64;C:\Program Files\TortoiseSVN\bin;c:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\;c:\Program Files\Microsoft SQL Server\100\Tools\Binn\;c:\Program Files\Microsoft SQL Server\100\DTS\Binn\;c:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\VSShell\Common7\IDE\;c:\Program Files (x86)\Microsoft SQL Server\100\DTS\Binn\;.
 	java.net.preferIPv4Stack = true
 	java.runtime.name = Java(TM) SE Runtime Environment
 	java.runtime.version = 1.6.0_32-b05
@@ -44,25 +44,25 @@
 	javax.xml.transform.TransformerFactory = __redirected.__TransformerFactory
 	javax.xml.validation.SchemaFactory:http://www.w3.org/2001/XMLSchema = __redirected.__SchemaFactory
 	javax.xml.xpath.XPathFactory:http://java.sun.com/jaxp/xpath/dom = __redirected.__XPathFactory
-	jboss.bind.address = localhost
-	jboss.home.dir = D:\server\jboss-as-7.1.1.Final
+	jboss.bind.address = 0.0.0.0
+	jboss.home.dir = D:\EXFIDA\branches\vidacamara_1\server\jboss-as-7.1.1.Final
 	jboss.host.name = pc-rreyes
-	jboss.modules.dir = D:\server\jboss-as-7.1.1.Final\modules
+	jboss.modules.dir = D:\EXFIDA\branches\vidacamara_1\server\jboss-as-7.1.1.Final\modules
 	jboss.modules.system.pkgs = org.jboss.byteman
 	jboss.node.name = pc-rreyes
 	jboss.qualified.host.name = pc-rreyes
-	jboss.server.base.dir = D:\server\jboss-as-7.1.1.Final\standalone
-	jboss.server.config.dir = D:\server\jboss-as-7.1.1.Final\standalone\configuration
-	jboss.server.data.dir = D:\server\jboss-as-7.1.1.Final\standalone\data
-	jboss.server.deploy.dir = D:\server\jboss-as-7.1.1.Final\standalone\data\content
-	jboss.server.log.dir = D:\server\jboss-as-7.1.1.Final\standalone\log
+	jboss.server.base.dir = D:\EXFIDA\branches\vidacamara_1\server\jboss-as-7.1.1.Final\standalone
+	jboss.server.config.dir = D:\EXFIDA\branches\vidacamara_1\server\jboss-as-7.1.1.Final\standalone\configuration
+	jboss.server.data.dir = D:\EXFIDA\branches\vidacamara_1\server\jboss-as-7.1.1.Final\standalone\data
+	jboss.server.deploy.dir = D:\EXFIDA\branches\vidacamara_1\server\jboss-as-7.1.1.Final\standalone\data\content
+	jboss.server.log.dir = D:\EXFIDA\branches\vidacamara_1\server\jboss-as-7.1.1.Final\standalone\log
 	jboss.server.name = pc-rreyes
-	jboss.server.temp.dir = D:\server\jboss-as-7.1.1.Final\standalone\tmp
+	jboss.server.temp.dir = D:\EXFIDA\branches\vidacamara_1\server\jboss-as-7.1.1.Final\standalone\tmp
 	line.separator = 
 
-	logging.configuration = file:/D:/server/jboss-as-7.1.1.Final/standalone/configuration/logging.properties
-	module.path = D:/server/jboss-as-7.1.1.Final/modules
-	org.jboss.boot.log.file = D:/server/jboss-as-7.1.1.Final/standalone/log/boot.log
+	logging.configuration = file:/D:/EXFIDA/branches/vidacamara_1/server/jboss-as-7.1.1.Final/standalone/configuration/logging.properties
+	module.path = D:/EXFIDA/branches/vidacamara_1/server/jboss-as-7.1.1.Final/modules
+	org.jboss.boot.log.file = D:/EXFIDA/branches/vidacamara_1/server/jboss-as-7.1.1.Final/standalone/log/boot.log
 	org.jboss.resolver.warning = true
 	org.xml.sax.driver = __redirected.__XMLReaderFactory
 	os.arch = amd64
@@ -76,23 +76,23 @@
 	sun.cpu.isalist = amd64
 	sun.desktop = windows
 	sun.io.unicode.encoding = UnicodeLittle
-	sun.java.command = org.jboss.modules.Main -mp D:/server/jboss-as-7.1.1.Final/modules -jaxpmodule javax.xml.jaxp-provider org.jboss.as.standalone -b localhost --server-config=standalone.xml
+	sun.java.command = org.jboss.modules.Main -mp D:/EXFIDA/branches/vidacamara_1/server/jboss-as-7.1.1.Final/modules -jaxpmodule javax.xml.jaxp-provider org.jboss.as.standalone -b 0.0.0.0 --server-config=standalone.xml
 	sun.java.launcher = SUN_STANDARD
 	sun.jnu.encoding = Cp1252
 	sun.management.compiler = HotSpot 64-Bit Tiered Compilers
 	sun.os.patch.level = 
 	sun.rmi.dgc.client.gcInterval = 3600000
 	sun.rmi.dgc.server.gcInterval = 3600000
-	user.country = CL
-	user.dir = D:\server\jboss-as-7.1.1.Final\bin
+	user.country = ES
+	user.dir = D:\EXFIDA\branches\vidacamara_1\server\jboss-as-7.1.1.Final\bin
 	user.home = C:\Users\rreyes
 	user.language = es
 	user.name = rreyes
 	user.timezone = America/Santiago
 	user.variant = 
-09:29:07,757 DEBUG [org.jboss.as.config] VM Arguments: -Xms64m -Xmx512m -XX:MaxPermSize=256m -Djava.net.preferIPv4Stack=true -Dorg.jboss.resolver.warning=true -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -Djboss.modules.system.pkgs=org.jboss.byteman -Djava.awt.headless=true -Dorg.jboss.boot.log.file=D:/server/jboss-as-7.1.1.Final/standalone/log/boot.log -Dlogging.configuration=file:/D:/server/jboss-as-7.1.1.Final/standalone/configuration/logging.properties -Djboss.home.dir=D:/server/jboss-as-7.1.1.Final -Dfile.encoding=Cp1252 
-09:29:15,089 INFO  [org.xnio] XNIO Version 3.0.3.GA
-09:29:15,089 INFO  [org.jboss.as.server] JBAS015888: Creating http management service using socket-binding (management-http)
-09:29:15,246 INFO  [org.xnio.nio] XNIO NIO Implementation Version 3.0.3.GA
-09:29:15,277 INFO  [org.jboss.remoting] JBoss Remoting version 3.2.3.GA
-09:29:15,339 INFO  [org.jboss.as.logging] JBAS011502: Removing bootstrap log handlers
+22:46:52,610 DEBUG [org.jboss.as.config] VM Arguments: -Xms64m -Xmx512m -XX:MaxPermSize=256m -Djava.net.preferIPv4Stack=true -Dorg.jboss.resolver.warning=true -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -Djboss.modules.system.pkgs=org.jboss.byteman -Djava.awt.headless=true -Dorg.jboss.boot.log.file=D:/EXFIDA/branches/vidacamara_1/server/jboss-as-7.1.1.Final/standalone/log/boot.log -Dlogging.configuration=file:/D:/EXFIDA/branches/vidacamara_1/server/jboss-as-7.1.1.Final/standalone/configuration/logging.properties -Djboss.home.dir=D:/EXFIDA/branches/vidacamara_1/server/jboss-as-7.1.1.Final -Dfile.encoding=Cp1252 
+22:46:53,900 INFO  [org.xnio] XNIO Version 3.0.3.GA
+22:46:53,900 INFO  [org.jboss.as.server] JBAS015888: Creating http management service using socket-binding (management-http)
+22:46:53,917 INFO  [org.xnio.nio] XNIO NIO Implementation Version 3.0.3.GA
+22:46:53,931 INFO  [org.jboss.remoting] JBoss Remoting version 3.2.3.GA
+22:46:53,964 INFO  [org.jboss.as.logging] JBAS011502: Removing bootstrap log handlers

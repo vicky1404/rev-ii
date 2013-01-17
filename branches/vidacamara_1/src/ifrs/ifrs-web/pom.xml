@@ -23,22 +23,30 @@
    </repositories>
 
    <dependencies>
+   
+   	  <!-- Prime faces -->
+      <dependency>  
+        <groupId>org.primefaces</groupId>  
+        <artifactId>primefaces</artifactId>  
+        <version>3.3.1</version>  
+      </dependency>
+              
+      <!-- Prime faces theme  -->
+      <dependency>  
+	    <groupId>org.primefaces.themes</groupId>  
+	    <artifactId>bluesky</artifactId>  
+	    <version>1.0.6</version>  
+	  </dependency>
 
       <!-- Dependency on the EJB module so we can use it's services if needed -->
-      <dependency>
-         <groupId>cl.mdr.ifrs</groupId>
-         <artifactId>ifrs-ejb</artifactId>
-         <type>ejb</type>
-         <scope>provided</scope>
-      </dependency>
 
       <!-- Import the CDI API, we use provided scope as the API is included 
          in JBoss AS 7 -->
-      <dependency>
-         <groupId>javax.enterprise</groupId>
-         <artifactId>cdi-api</artifactId>
-         <scope>provided</scope>
-      </dependency>
+<!--       <dependency> -->
+<!--          <groupId>javax.enterprise</groupId> -->
+<!--          <artifactId>cdi-api</artifactId> -->
+<!--          <scope>provided</scope> -->
+<!--       </dependency> -->
       
       <!-- Import the JSF API, we use provided scope as the API is included 
          in JBoss AS 7 -->
@@ -67,21 +75,7 @@
          <artifactId>hibernate-jpa-2.0-api</artifactId>
          <scope>provided</scope>
       </dependency>
-      
-      <!-- Prime faces -->
-      <dependency>  
-        <groupId>org.primefaces</groupId>  
-        <artifactId>primefaces</artifactId>  
-        <version>3.3.1</version>  
-      </dependency>
-              
-      <!-- Prime faces theme  -->
-      <dependency>  
-	    <groupId>org.primefaces.themes</groupId>  
-	    <artifactId>bluesky</artifactId>  
-	    <version>1.0.6</version>  
-	  </dependency>
-	  	       
+      	  	      
       <!-- Servlet Api 2.5 -->
       <dependency>
 		<groupId>javax.servlet</groupId>
@@ -108,23 +102,25 @@
 		<version>1.0</version>
 	 </dependency>
 
-
-     <dependency>
-     	<groupId>xbrlcore</groupId>
-     	<artifactId>xbrl-core</artifactId>
-     	<version>0.0.1-SNAPSHOT</version>
-     	<scope>provided</scope>
-     </dependency>
-     
-     <dependency>
+	<dependency>
       <groupId>org.jasypt</groupId>
       <artifactId>jasypt</artifactId>
       <version>1.9.0</version>
       <scope>compile</scope>
     </dependency>
-    
+
+<!--      <dependency> -->
+<!--      	<groupId>xbrlcore</groupId> -->
+<!--      	<artifactId>xbrl-core</artifactId> -->
+<!--      	<version>0.0.1-SNAPSHOT</version> -->
+<!--      	<scope>provided</scope> -->
+<!--      </dependency> -->
+   	<dependency>
+   		<groupId>cl.mdr.ifrs</groupId>
+   		<artifactId>ifrs-ejb</artifactId>
+   		<type>ejb</type>
+   	</dependency>
    </dependencies>
-   
 
    <build>
       <plugins>
