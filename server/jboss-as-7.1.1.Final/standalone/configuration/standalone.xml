@@ -108,6 +108,9 @@
                     <driver name="oracle" module="com.oracle.ojdbc6">
                         <xa-datasource-class>oracle.jdbc.OracleDriver</xa-datasource-class>
                     </driver>
+                    <driver name="sqljdbc" module="com.microsoft.sqlserver.jdbc">
+                        <xa-datasource-class>com.microsoft.sqlserver.jdbc.SQLServerDataSource</xa-datasource-class>
+                    </driver>
                 </drivers>
             </datasources>
         </subsystem>
@@ -288,7 +291,7 @@
         <interface name="unsecure">
             <inet-address value="${jboss.bind.address.unsecure:127.0.0.1}"/>
         </interface>
-		<interface name="any">
+        <interface name="any">
             <any-address/>
         </interface>
     </interfaces>

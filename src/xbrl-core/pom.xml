@@ -52,15 +52,15 @@
         <scope>provided</scope>
         <version>1.0</version>        
         <systemPath>${project.basedir}/lib/log4j.jar</systemPath>
-    </dependency>
+    </dependency-->
     
     <dependency>
         <groupId>org.example</groupId>        
         <artifactId>xerces</artifactId>        
-        <scope>provided</scope>
+        <scope>system</scope>
         <version>1.0</version>        
         <systemPath>${project.basedir}/lib/xerces.jar</systemPath>
-    </dependency-->
+    </dependency>
 
 	<dependency> 
     	<groupId>org.example</groupId>    	
@@ -85,11 +85,11 @@
     	<version>4.4</version>
     	<scope>test</scope>
     </dependency>
-    <dependency>
-    	<groupId>xerces</groupId>
-    	<artifactId>xerces</artifactId>
-    	<version>1.2.3</version>
-    </dependency>
+<!--     <dependency> -->
+<!--     	<groupId>xerces</groupId> -->
+<!--     	<artifactId>xerces</artifactId> -->
+<!--     	<version>1.2.3</version> -->
+<!--     </dependency> -->
   </dependencies>
   
   

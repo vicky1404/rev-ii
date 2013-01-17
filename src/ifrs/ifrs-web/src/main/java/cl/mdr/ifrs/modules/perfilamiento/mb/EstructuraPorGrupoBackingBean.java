@@ -45,7 +45,8 @@ public class EstructuraPorGrupoBackingBean extends AbstractBackingBean implement
 		
 		this.getTipoCuadroSelected();
         try {
-            this.setGrillaCatalogoList(this.getCatalogoByGrupoList(super.getFacadeService().getCatalogoService().findCatalogoByGrupo(super.getFiltroBackingBean().getEmpresa().getIdRut(), null, new Grupo(this.getIdGrupoSelected()), null), 
+        	List<Catalogo> catalogoByGrupo = super.getFacadeService().getCatalogoService().findCatalogoByGrupo(super.getFiltroBackingBean().getEmpresa().getIdRut(), null, new Grupo(this.getIdGrupoSelected()), null);            
+        	this.setGrillaCatalogoList(this.getCatalogoByGrupoList(catalogoByGrupo, 
                                                                    super.getFacadeService().getCatalogoService().findAllVigenteByTipo(super.getFiltroBackingBean().getEmpresa().getIdRut(), this.getTipoCuadroSelected() )));            
             this.setRenderTablaCatalogo(Boolean.TRUE);
         } catch (Exception e) {
