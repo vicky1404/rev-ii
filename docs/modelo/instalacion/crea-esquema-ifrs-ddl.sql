@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      Microsoft SQL Server 2008                    */
-/* Created on:     11/01/2013 20:54:40                          */
+/* Created on:     17/01/2013 12:16:02                          */
 /*==============================================================*/
 
 
@@ -671,7 +671,7 @@ go
 /* Table: IFRS_CATALOGO                                         */
 /*==============================================================*/
 create table IFRS_CATALOGO (
-   ID_CATALOGO          numeric(8,0)         not null,
+   ID_CATALOGO          numeric(8,0)         identity,
    RUT                  numeric(10)          not null,
    ID_TIPO_CUADRO       numeric(4,0)         not null,
    COD_CUADRO           numeric(5,0)         null,
@@ -823,7 +823,7 @@ go
 /* Table: IFRS_ESTADO_CUADRO                                    */
 /*==============================================================*/
 create table IFRS_ESTADO_CUADRO (
-   ID_ESTADO_CUADRO     numeric(2,0)         not null,
+   ID_ESTADO_CUADRO     numeric(2,0)         identity,
    NOMBRE               varchar(128)         null,
    constraint PK_NEW_REV_ESTADO_NOTA primary key nonclustered (ID_ESTADO_CUADRO)
 )
@@ -840,7 +840,7 @@ go
 /* Table: IFRS_ESTADO_PERIODO                                   */
 /*==============================================================*/
 create table IFRS_ESTADO_PERIODO (
-   ID_ESTADO_PERIODO    numeric(2,0)         not null,
+   ID_ESTADO_PERIODO    numeric(2,0)         identity,
    NOMBRE               varchar(128)         null,
    constraint PK_NEW_REV_ESTADO_PERIODO primary key nonclustered (ID_ESTADO_PERIODO)
 )
@@ -857,7 +857,7 @@ go
 /* Table: IFRS_ESTRUCTURA                                       */
 /*==============================================================*/
 create table IFRS_ESTRUCTURA (
-   ID_ESTRUCTURA        numeric(10,0)        not null,
+   ID_ESTRUCTURA        numeric(10,0)        identity,
    ID_VERSION           numeric(8,0)         null,
    ID_TIPO_ESTRUCTURA   numeric(4,0)         null,
    ORDEN                numeric(5,0)         null,
@@ -925,12 +925,12 @@ go
 /* Table: IFRS_HISTORIAL_REPORTE                                */
 /*==============================================================*/
 create table IFRS_HISTORIAL_REPORTE (
-   ID_HISTORIAL_REPORTE numeric(10,0)        not null,
+   ID_HISTORIAL_REPORTE numeric(10,0)        identity,
    COMENTARIO           varchar(1024)        null,
    IP_USUARIO           varchar(256)         null,
    CHECK_SUM_EXPORTACION varchar(512)         null,
    FECHA_EXPORTACION    datetime             null,
-   DOCUMENTO            ntext                null,
+   DOCUMENTO            varbinary(max)       null,
    NOMBRE_ARCHIVO       varchar(512)         null,
    ID_PERIODO           numeric(6)           null,
    ID_RUT               numeric(10)          null,
@@ -951,7 +951,7 @@ go
 /* Table: IFRS_HISTORIAL_VERSION                                */
 /*==============================================================*/
 create table IFRS_HISTORIAL_VERSION (
-   ID_HISTORIAL         numeric              not null,
+   ID_HISTORIAL         numeric              identity,
    ID_ESTADO_CUADRO     numeric(2,0)         null,
    ID_VERSION           numeric(8,0)         null,
    NOMBRE_USUARIO       varchar(256)         null,
@@ -974,7 +974,7 @@ go
 /*==============================================================*/
 create table IFRS_HTML (
    ID_HTML              numeric(10,0)        not null,
-   CONTENIDO            ntext                null,
+   CONTENIDO            varbinary(Max)       null,
    TITULO               varchar(1024)        null,
    constraint PK_NEW_REV_HTML_NOTA primary key nonclustered (ID_HTML)
 )
@@ -984,7 +984,7 @@ go
 /* Table: IFRS_LOG_PROCESO                                      */
 /*==============================================================*/
 create table IFRS_LOG_PROCESO (
-   ID_LOG               numeric(10)          not null,
+   ID_LOG               numeric(10)          identity,
    USUARIO              varchar(256)         null,
    FECHA                datetime             null,
    LOG                  varchar(4000)        null,
@@ -1145,7 +1145,7 @@ go
 /* Table: IFRS_TIPO_CELDA                                       */
 /*==============================================================*/
 create table IFRS_TIPO_CELDA (
-   ID_TIPO_CELDA        numeric(4,0)         not null,
+   ID_TIPO_CELDA        numeric(4,0)         identity,
    NOMBRE               varchar(128)         null,
    constraint PK_NEW_REV_TIPO_CELDA primary key nonclustered (ID_TIPO_CELDA)
 )
@@ -1173,7 +1173,7 @@ go
 /* Table: IFRS_TIPO_DATO                                        */
 /*==============================================================*/
 create table IFRS_TIPO_DATO (
-   ID_TIPO_DATO         numeric(2,0)         not null,
+   ID_TIPO_DATO         numeric(2,0)         identity,
    NOMBRE               varchar(64)          null,
    NOMBRE_CLASE         varchar(256)         null,
    constraint PK_NEW_REV_TIPO_DATO primary key nonclustered (ID_TIPO_DATO)
@@ -1202,7 +1202,7 @@ go
 /* Table: IFRS_TIPO_ESTRUCTURA                                  */
 /*==============================================================*/
 create table IFRS_TIPO_ESTRUCTURA (
-   ID_TIPO_ESTRUCTURA   numeric(4,0)         not null,
+   ID_TIPO_ESTRUCTURA   numeric(4,0)         identity,
    NOMBRE               varchar(64)          null,
    constraint PK_NEW_REV_TIPO_ESTRUCTURA primary key nonclustered (ID_TIPO_ESTRUCTURA)
 )
@@ -1266,7 +1266,7 @@ go
 /* Table: IFRS_VERSION                                          */
 /*==============================================================*/
 create table IFRS_VERSION (
-   ID_VERSION           numeric(8,0)         not null,
+   ID_VERSION           numeric(8,0)         identity,
    ID_CATALOGO          numeric(8,0)         null,
    ID_PERIODO           numeric(6)           null,
    ID_RUT               numeric(10)          null,
@@ -1294,7 +1294,7 @@ go
 /* Table: IFRS_VERSION_EEFF                                     */
 /*==============================================================*/
 create table IFRS_VERSION_EEFF (
-   ID_VERSION_EEFF      numeric(10)          not null,
+   ID_VERSION_EEFF      numeric(10)          identity,
    ID_PERIODO           numeric(6)           not null,
    ID_RUT               numeric(10)          not null,
    ID_ESTADO_EEFF       numeric(4)           null,
