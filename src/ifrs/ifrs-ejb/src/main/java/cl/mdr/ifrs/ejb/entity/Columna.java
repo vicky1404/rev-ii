@@ -54,7 +54,7 @@ public class Columna implements Serializable {
     @Expose
     private String tituloColumna;
     
-    @Fetch(FetchMode.JOIN)
+    //@Fetch(FetchMode.JOIN)
     @OneToMany(mappedBy = "columna", fetch = FetchType.LAZY, orphanRemoval=true)
     //@OrderBy("idColumna asc ,idFila asc")
     private List<Celda> celdaList;
@@ -68,9 +68,9 @@ public class Columna implements Serializable {
     @Expose
     private boolean rowHeader;
     
-    @Fetch(FetchMode.SUBSELECT)
     @OneToMany(mappedBy = "columna" ,cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, orphanRemoval=true)
     private List<AgrupacionColumna> agrupacionColumnaList;
+    
     
     @Transient
     @Expose
