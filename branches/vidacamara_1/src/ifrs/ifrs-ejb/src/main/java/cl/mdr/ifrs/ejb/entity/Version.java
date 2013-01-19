@@ -92,7 +92,7 @@ import com.google.gson.annotations.Expose;
                                     //" v.catalogo.orden asc")
                 @NamedQuery(name = Version.VERSION_DETALLE_FIND_BY_FILTRO,
 	                query = " select distinct v " +
-	                		" from Version v join fetch v.historialVersionList, CatalogoGrupo cg, UsuarioGrupo ug, GrupoEmpresa ge where " +
+	                		" from Version v left join fetch v.historialVersionList, CatalogoGrupo cg, UsuarioGrupo ug, GrupoEmpresa ge where " +
 	                        " v.catalogo.idCatalogo = cg.idCatalogo " + 
 	                        " and ug.grupo = cg.grupo " +
 	                        " and ug.grupo = ge.grupo " +
