@@ -106,8 +106,8 @@ Insert into IFRS_MENU (ID_MENU,NOMBRE,ESTADO,GRUPO,URL_MENU,ES_PADRE,ORDEN) valu
 Insert into IFRS_MENU (ID_MENU,NOMBRE,ESTADO,GRUPO,URL_MENU,ES_PADRE,ORDEN) values ('23','Grupos de Usuario','1','2','/pages/mantenedores/grupo.jsf','0','804');
 Insert into IFRS_MENU (ID_MENU,NOMBRE,ESTADO,GRUPO,URL_MENU,ES_PADRE,ORDEN) values ('24','Catálogo de Revelaciones','1','2','/pages/mantenedores/ingreso-nota.jsf','0','802');
 Insert into IFRS_MENU (ID_MENU,NOMBRE,ESTADO,GRUPO,URL_MENU,ES_PADRE,ORDEN) values ('25','Tipo Revelación','1','2','/pages/mantenedores/tipo-cuadro.jsf','0','801');
-insert into ifrs_menu (ID_MENU,NOMBRE,ESTADO,GRUPO,URL_MENU,ES_PADRE,ORDEN)values ('64', 'Cargador FECU',1,6,'/pages/eeff/cargador-fecu.jsf',0,304);
-insert into ifrs_menu (ID_MENU,NOMBRE,ESTADO,GRUPO,URL_MENU,ES_PADRE,ORDEN)values ('65', 'Cargador Cuentas',1,6,'/pages/eeff/cargador-cuenta.jsf',0,305);
+insert into ifrs_menu (ID_MENU,NOMBRE,ESTADO,GRUPO,URL_MENU,ES_PADRE,ORDEN)values ('64', 'Cargador FECU','1','6','/pages/eeff/cargador-fecu.jsf','0','304');
+insert into ifrs_menu (ID_MENU,NOMBRE,ESTADO,GRUPO,URL_MENU,ES_PADRE,ORDEN)values ('65', 'Cargador Cuentas','1','6','/pages/eeff/cargador-cuenta.jsf','0','305');
 
 
 Insert into IFRS_EMPRESA (ID_RUT, DV, NOMBRE, RAZON_SOCIAL, GIRO) Values (99003000, '6', 'Compañia De Seguros De Vida Camara S.A.', 'Compañía de Seguros de Vida Cámara S.A.', 'SEGUROS');
@@ -501,6 +501,10 @@ Insert into IFRS_MENU_GRUPO (ID_MENU,ID_GRUPO_ACCESO) values ('72','GRP_ADMIN');
 Insert into IFRS_MENU_GRUPO (ID_MENU,ID_GRUPO_ACCESO) values ('72','GRP_ROOT');
 Insert into IFRS_MENU_GRUPO (ID_MENU,ID_GRUPO_ACCESO) values ('81','GRP_ADMIN');
 Insert into IFRS_MENU_GRUPO (ID_MENU,ID_GRUPO_ACCESO) values ('81','GRP_ROOT');
+Insert into IFRS_MENU_GRUPO (ID_MENU,ID_GRUPO_ACCESO) values ('64','GRP_ADMIN');
+Insert into IFRS_MENU_GRUPO (ID_MENU,ID_GRUPO_ACCESO) values ('64','GRP_ROOT');
+Insert into IFRS_MENU_GRUPO (ID_MENU,ID_GRUPO_ACCESO) values ('65','GRP_ADMIN');
+Insert into IFRS_MENU_GRUPO (ID_MENU,ID_GRUPO_ACCESO) values ('65','GRP_ROOT');
 
 
 
