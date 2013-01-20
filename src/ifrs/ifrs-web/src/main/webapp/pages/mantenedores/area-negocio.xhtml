@@ -55,8 +55,7 @@
 				selection="#{areaNegocioBackingBean.areaNegocio}"
 				rendered="#{areaNegocioBackingBean.renderAreaNegocio}"				
 				editable="true">
-				<p:ajax event="rowEdit"
-					listener="#{areaNegocioBackingBean.editarAction}" />
+				<p:ajax event="rowEdit"	listener="#{areaNegocioBackingBean.editarAction}"/>
 				<p:column headerText="ID" align="left" id="c3">
 					<h:outputText value="#{row.idAreaNegocio}" id="t1"
 						style="font-weight:bold;" />

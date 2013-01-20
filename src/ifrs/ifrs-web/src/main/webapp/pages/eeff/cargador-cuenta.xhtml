@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/main-template.xhtml">
+	<ui:define name="content">
+	
+	<h:form id="f1" enctype="multipart/form-data">
+	
+	<p:messages id="messages" autoUpdate="true" globalOnly="true"/>
+	<p:ajaxStatus onstart="statusDialogNoModal.show();" oncomplete="statusDialogNoModal.hide();" />
+	<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
+			
+    
+    <p:tabView>
+    
+	    <p:tab id="tab1" title="Editor Cuentas" titletip="Cuentas cargados desde excel" >
+	    
+	    <p:toolbar style="font-size: 10px; margin-left: auto; margin-right: auto" >
+      			<p:toolbarGroup align="left" >
+					<p:commandButton actionListener="#{cargadorCuentaBackingBean.editarListener}" value="#{msg.general_control_guardar}" icon="ui-icon-disk" update="@form"/>
+					<p:commandButton action="#{cargadorCuentaBackingBean.agregarCuenta}" value="#{msg.general_control_agregarFila}" icon="ui-icon-plus" update="t1"/>
+				</p:toolbarGroup>
+   		</p:toolbar>
+	                
+		         
+	                <p:dataTable value="#{cargadorCuentaBackingBean.cuentaEditarList}" var="row" id="t1" 
+	                    emptyMessage="#{msg.general_sin_informacion}" width="600px">
+	                
+	                    <p:column headerText="#{msg.carga_eeff_codigo_cuenta}" id="c1" width="150">
+	                        <h:outputText value="#{row.idCuenta}" id="ot1" rendered="#{!row.editarId}"/>
+	                        <p:inputText value="#{row.idCuenta}" id="it2" required="true" rendered="#{row.editarId}" >
+	                        <f:convertNumber integerOnly="true" type="number" maxFractionDigits="0"
+	                              groupingUsed="true"
+	                              maxIntegerDigits="12"	                              
+	                              hintPattern="#{msg.general_mensaje_ingrese_numero_entero}"	                              
+	                              messageDetailConvertPattern="#{msg.general_mensaje_validacion_numero_entero}"/>
+	                        </p:inputText>
+	                    </p:column>
+	                    <p:column headerText="#{msg.eeff_desc_cuenta}" id="c2">
+	                        <p:inputText value="#{row.descripcion}" id="it1" required="true" size="100"/>
+	                    </p:column>
+	                    <p:column sortable="false" width="90" headerText="Vigencia" align="start" id="c8">
+	                        <p:selectOneMenu label=" " id="soc1" value="#{row.vigencia}" showRequired="true"
+	                                            requiredMessageDetail="Seleccione Vigencia" required="true">
+	                            <f:selectItems value="#{cargadorCuentaBackingBean.componenteBackingBean.vigencias}" id="si1" itemValue="#{row.vigencia}"/>
+	                        </p:selectOneMenu>
+	                    </p:column>
+	                </p:dataTable>
+	                
+	                </p:tab> 
+    
+                <p:tab id="tab2" title="Carga Cuentas" titletip="Cuentas cargados desde excel" >
+     
+                
+                    <p:fileUpload value="#{cargadorCuentaBackingBean.uploadedFile}"
+		 				fileUploadListener="#{cargadorCuentaBackingBean.procesarArchivo}" 
+		 				binding="#{cargadorCuentaBackingBean.richInputFile}" 
+		 				sizeLimit="#{msg.constantes_max_excel_file_bytes}" 
+		 				label="#{msg.label_seleccione} Excel" 
+		 				mode="advanced" 
+		 				update="t2"  
+		 				allowTypes="/(.|\/)(xls|xlsx)$/" 
+		 				invalidFileMessage="#{msg.general_error_tipo_archivo_invalido}"
+		 				invalidSizeMessage="#{msg.general_error_archivo_excede_tamano_maximo}"
+		 				showButtons="false" />
+                    
+                    <p:commandButton value="#{msg.carga_eeff_guardar}" id="cb3" title="Guarda los datos cargados desde el archivo"
+                                  actionListener="#{cargadorCuentaBackingBean.guardarListener}"
+                                  icon="ui-icon-disk"
+                                  partialSubmit="true"/>
+                
+                
+                
+                <p:dataTable value="#{cargadorCuentaBackingBean.cuentaList}" var="row" id="t2" emptyMessage="#{msg.general_sin_informacion}" width="420px">
+                
+                    <p:column headerText="#{msg.carga_eeff_codigo_cuenta}" id="c3" width="150">
+                        <h:outputText value="#{row.idCuenta}" id="ot3"/>
+                    </p:column>
+                    <p:column headerText="#{msg.eeff_desc_cuenta}" id="c4" width="250">
+                        <h:outputText value="#{row.descripcion}" id="ot4"/>
+                    </p:column>
+                </p:dataTable>
+                
+                </p:tab>
+    
+    </p:tabView>
+     </h:form>
+       </ui:define>
+</ui:composition>

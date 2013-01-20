@@ -69,6 +69,7 @@ public class GrupoBackingBean extends AbstractBackingBean implements Serializabl
 	 */
 	public void editarAction(RowEditEvent event){
 		try {
+			this.getGrupoList();
 			super.getFacadeService().getGrupoService().editarGrupo((Grupo) event.getObject());
 			super.addInfoMessage("Se ha modificado el Grupo correctamente");
 			this.buildGrupoList();
