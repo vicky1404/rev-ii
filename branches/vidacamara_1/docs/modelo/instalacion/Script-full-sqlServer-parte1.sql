@@ -81,7 +81,7 @@ Insert into IFRS_MENU (ID_MENU,NOMBRE,ESTADO,GRUPO,URL_MENU,ES_PADRE,ORDEN) valu
 Insert into IFRS_MENU (ID_MENU,NOMBRE,ESTADO,GRUPO,URL_MENU,ES_PADRE,ORDEN) values ('32','Configurador de Fórmulas','1','3','/pages/mantenedores/mantenedor-formula.jsf','0','202');
 Insert into IFRS_MENU (ID_MENU,NOMBRE,ESTADO,GRUPO,URL_MENU,ES_PADRE,ORDEN) values ('6','Estados Financieros','1','6','#','1','300');
 Insert into IFRS_MENU (ID_MENU,NOMBRE,ESTADO,GRUPO,URL_MENU,ES_PADRE,ORDEN) values ('61','Mapeador','1','6','/pages/eeff/validador-eeff.jsf','0','301');
-Insert into IFRS_MENU (ID_MENU,NOMBRE,ESTADO,GRUPO,URL_MENU,ES_PADRE,ORDEN) values ('62','Cargador','1','6','/pages/eeff/cargador-eeff.jsf','0','302');
+Insert into IFRS_MENU (ID_MENU,NOMBRE,ESTADO,GRUPO,URL_MENU,ES_PADRE,ORDEN) values ('62','Cargador EEFF','1','6','/pages/eeff/cargador-eeff.jsf','0','302');
 Insert into IFRS_MENU (ID_MENU,NOMBRE,ESTADO,GRUPO,URL_MENU,ES_PADRE,ORDEN) values ('63','Visualizador','1','6','/pages/eeff/visualizador-eeff.jsf','0','303');
 Insert into IFRS_MENU (ID_MENU,NOMBRE,ESTADO,GRUPO,URL_MENU,ES_PADRE,ORDEN) values ('7','XBRL','1','7','#','1','350');
 Insert into IFRS_MENU (ID_MENU,NOMBRE,ESTADO,GRUPO,URL_MENU,ES_PADRE,ORDEN) values ('71','Navegador de Taxonomías','1','7','/pages/xbrl/navegador-taxonomia.jsf','0','351');
