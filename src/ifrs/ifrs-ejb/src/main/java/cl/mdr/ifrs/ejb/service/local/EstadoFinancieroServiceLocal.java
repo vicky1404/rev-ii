@@ -8,6 +8,8 @@ import javax.ejb.Local;
 import javax.persistence.Query;
 
 import cl.mdr.ifrs.ejb.entity.Celda;
+import cl.mdr.ifrs.ejb.entity.CodigoFecu;
+import cl.mdr.ifrs.ejb.entity.CuentaContable;
 import cl.mdr.ifrs.ejb.entity.DetalleEeff;
 import cl.mdr.ifrs.ejb.entity.EstadoFinanciero;
 import cl.mdr.ifrs.ejb.entity.Grilla;
@@ -77,5 +79,11 @@ public interface EstadoFinancieroServiceLocal {
     void loadEEFFByGrilla(final Grilla grid);
     
     void loadEEFFByCelda(final Celda cell);
+    
+    List<CodigoFecu> getCodigoFecuAll();
+
+    List<CuentaContable> getCuentaContableAll();
+
+    boolean validaContieneMapping(Long idPeriodo, Long idGrilla);
     
 }

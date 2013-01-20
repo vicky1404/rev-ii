@@ -12,6 +12,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.google.gson.annotations.Expose;
 
@@ -39,18 +40,42 @@ public class CodigoFecu implements Serializable {
     private String descripcion;
     
     @Expose
-    private Short vigencia;
+    private Long vigencia;
     
-    @OneToMany(mappedBy = "codigoFecu", fetch = FetchType.LAZY)
+    public Long getVigencia() {
+		return vigencia;
+	}
+
+	public void setVigencia(Long vigencia) {
+		this.vigencia = vigencia;
+	}
+
+	@OneToMany(mappedBy = "codigoFecu", fetch = FetchType.LAZY)
     private List<EstadoFinanciero> eeffList;
     
     @OneToMany(mappedBy = "codigoFecu", fetch = FetchType.LAZY)
     private List<RelacionEeff> relacionEeffList;
     
+    @Transient
+    private boolean editarId = false;   
+   
+    
+    public boolean isEditarId() {
+		return editarId;
+	}
+
+	public void setEditarId(boolean editarId) {
+		this.editarId = editarId;
+	}
+
+	public CodigoFecu(boolean editarId) {
+        this.editarId = editarId;
+    }
+    
     public CodigoFecu(){
     }
 
-    public CodigoFecu(Long idFecu, String descripcion, Short vigente) {
+    public CodigoFecu(Long idFecu, String descripcion, Long vigente) {
         this.idFecu = idFecu;
         this.descripcion = descripcion;
         this.vigencia = vigente;
@@ -72,13 +97,7 @@ public class CodigoFecu implements Serializable {
         return descripcion;
     }
 
-    public void setVigencia(Short vigente) {
-        this.vigencia = vigente;
-    }
-
-    public Short getVigencia() {
-        return vigencia;
-    }
+   
 
     public void setEeffList(List<EstadoFinanciero> eeffList) {
         this.eeffList = eeffList;

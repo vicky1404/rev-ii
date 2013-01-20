@@ -1,26 +1,20 @@
 package cl.mdr.exfida.xbrl.ejb.service;
 
-import static cl.mdr.ifrs.ejb.cross.Constantes.PERSISTENCE_UNIT_NAME;
-
 import static ch.lambdaj.Lambda.extract;
 import static ch.lambdaj.Lambda.index;
 import static ch.lambdaj.Lambda.on;
+import static cl.mdr.ifrs.ejb.cross.Constantes.PERSISTENCE_UNIT_NAME;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
-
 import java.util.Map;
-
-
 import java.util.Set;
 
 import javax.ejb.Stateless;
-
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
