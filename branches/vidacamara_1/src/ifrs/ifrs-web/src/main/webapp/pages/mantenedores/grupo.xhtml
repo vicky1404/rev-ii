@@ -55,7 +55,7 @@
 				rendered="#{grupoBackingBean.renderGrupos}" editable="true"
 				binding="#{grupoBackingBean.tablaGrupos}"
 				selection="#{grupoBackingBean.tableGrupoSelected}">
-				<p:ajax event="rowEdit" listener="#{grupoBackingBean.editarAction}" />
+				<p:ajax event="rowEdit" listener="#{grupoBackingBean.editarAction}" update="@this"/>
 				<p:column headerText="ID Grupo" align="left" id="c3">
 					<h:outputText value="#{row.idGrupoAcceso}" id="t1"
 						style="font-weight:bold;" />
@@ -74,19 +74,19 @@
 				</p:column>
 				<p:column sortable="false" headerText="Área Negocio" align="start"
 					id="c8" rowHeader="unstyled">
-					<p:cellEditor>
-						<f:facet name="output">
+					<!-- p:cellEditor>
+						<f:facet name="output"-->
 							<h:outputText value="#{row.areaNegocio.nombre}" />
-						</f:facet>
+						<!-- /f:facet>
 						<f:facet name="input">
-							<h:selectOneMenu value="#{row.areaNegocio.idAreaNegocio}">
+							<h:selectOneMenu value="#{row.areaNegocio.idAreaNegocio}" id="selAreaNegocio" >
 								<f:selectItems
 									value="#{areaNegocioBackingBean.areaNegocioByEmpresaList}"
 									var="an" itemValue="#{an.idAreaNegocio}"
 									itemLabel="#{an.nombre}" />
 							</h:selectOneMenu>
 						</f:facet>
-					</p:cellEditor>
+					</p:cellEditor -->
 				</p:column>
 				<p:column sortable="false" headerText="Vigente" align="start"
 					id="c9" rowHeader="unstyled">
