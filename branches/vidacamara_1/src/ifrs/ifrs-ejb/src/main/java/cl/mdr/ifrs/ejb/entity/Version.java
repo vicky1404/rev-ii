@@ -133,7 +133,7 @@ public class Version implements Serializable {
     public static final String FIND_VIGENTE_SIN_CERRAR = "Version.findVigenteSinCerrar";
     
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    //@GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "ID_VERSION", nullable = false)
     @Expose
     private Long idVersion;

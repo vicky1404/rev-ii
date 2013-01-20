@@ -23,6 +23,8 @@ public interface CeldaServiceLocal {
     
     List<Celda> findCeldaByColumna(Columna columna);
     
+    List<Celda> findCeldaByGrilla(Grilla grilla) throws Exception;
+    
     List<Celda> findCeldaByGrupo(Long grupo, Grilla grilla) throws Exception;
     
     Long findMaxGrupo(Grilla grilla) throws Exception;

@@ -54,7 +54,7 @@ public class Columna implements Serializable {
     @Expose
     private String tituloColumna;
     
-    //@Fetch(FetchMode.JOIN)
+    @Fetch(FetchMode.SELECT)
     @OneToMany(mappedBy = "columna", fetch = FetchType.LAZY, orphanRemoval=true)
     //@OrderBy("idColumna asc ,idFila asc")
     private List<Celda> celdaList;

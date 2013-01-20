@@ -156,7 +156,8 @@ public class VersionServiceBean implements VersionServiceLocal{
         versionVigente.setFechaUltimoProceso(new Date());
         versionVigente.setEstado(estadoCuado);                
         
-        final BigDecimal idVersion = (BigDecimal) em.createNativeQuery("select SEQ_VERSION.nextval from dual").getSingleResult();
+        //final BigDecimal idVersion = (BigDecimal) em.createNativeQuery("select SEQ_VERSION.nextval from dual").getSingleResult();
+        final BigDecimal idVersion = (BigDecimal) em.createNativeQuery("select (MAX(ID_VERSION)+1) from "+Constantes.VERSION+"").getSingleResult();
         em.createNativeQuery(" INSERT "+
         					 " INTO "+Constantes.VERSION+" (ID_VERSION,ID_CATALOGO,ID_PERIODO,ID_ESTADO_CUADRO,VERSION,VIGENCIA,FECHA_CREACION,COMENTARIO,USUARIO,ID_RUT,DATOS_MODIFICADOS)"+
         					 " VALUES(?,?,?,?,?,?,?,?,?,?,?)").
@@ -193,7 +194,7 @@ public class VersionServiceBean implements VersionServiceLocal{
             estructura.setVersion(versionVigente);            
             estructuras.set(i,estructura);
             
-            final BigDecimal idEstructura = (BigDecimal) em.createNativeQuery("select SEQ_ESTRUCTURA.nextval from dual").getSingleResult();
+            final BigDecimal idEstructura = (BigDecimal) em.createNativeQuery("select (MAX(ID_ESTRUCTURA)+1) from "+Constantes.ESTRUCTURA+"").getSingleResult();
             em.createNativeQuery(" INSERT "+
             		             " INTO "+Constantes.ESTRUCTURA+" (ID_ESTRUCTURA, ID_VERSION,ID_TIPO_ESTRUCTURA,ORDEN)"+
             					 " VALUES(?,?,?,?)").
@@ -295,8 +296,8 @@ public class VersionServiceBean implements VersionServiceLocal{
             estructuras.set(i,estructura);                      
             if(estructuraModelMap.containsKey(estructura.getOrden())){
                 EstructuraModel estructuraModel = estructuraModelMap.get(estructura.getOrden());
-                
-                final BigDecimal idEstructura = (BigDecimal) em.createNativeQuery("select SEQ_ESTRUCTURA.nextval from dual").getSingleResult();
+                                
+                final BigDecimal idEstructura = (BigDecimal) em.createNativeQuery("select (MAX(ID_ESTRUCTURA)+1) from "+Constantes.ESTRUCTURA+"").getSingleResult();
             	estructura.setIdEstructura(idEstructura.longValue());
             	
             	em.createNativeQuery(" INSERT "+
@@ -404,8 +405,7 @@ public class VersionServiceBean implements VersionServiceLocal{
         Query query = em.createNamedQuery(Version.VERSION_FIND_ALL_NO_VIGENTE);
         return query.getResultList();
     }
-    
-    @SuppressWarnings("unchecked")
+        
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public Version findVersionVigente(Catalogo catalogo){
         Query query = em.createNamedQuery(Version.VERSION_FIND_NO_VIGENTE);
@@ -428,8 +428,7 @@ public class VersionServiceBean implements VersionServiceLocal{
         query.setParameter("catalogo",catalogo);
         return query.getResultList();
     }
-    
-    @SuppressWarnings("unchecked")
+       
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public Version findVersionByVersion(Version version){
         Query query = em.createNamedQuery(Version.VERSION_FIND_BY_VERSION);
@@ -444,8 +443,8 @@ public class VersionServiceBean implements VersionServiceLocal{
         query.setParameter("periodo", periodo != null ? periodo.longValue() : "");
         query.setParameter("rutEmpresa", empresa.getIdRut());
         query.setParameter("usuario", usuario);
-        query.setParameter("tipoCuadro", tipoCuadro.getIdTipoCuadro() != null ? tipoCuadro.getIdTipoCuadro().longValue() : "" ) ; 
-        query.setParameter("vigente", vigente != null ? vigente.longValue() : "" );        
+        query.setParameter("tipoCuadro", tipoCuadro.getIdTipoCuadro()) ; 
+        query.setParameter("vigente", vigente);        
         return query.getResultList();
     }
         

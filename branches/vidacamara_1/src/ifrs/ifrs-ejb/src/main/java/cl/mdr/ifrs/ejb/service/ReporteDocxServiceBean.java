@@ -222,7 +222,7 @@ public class ReporteDocxServiceBean implements ReporteDocxServiceLocal {
         byte[] documentData = byteArrayOutputStream.toByteArray();
         InputStream inputStream = new ByteArrayInputStream(documentData);            
         
-        /*
+        
         historialReporte = new HistorialReporte();        
         historialReporte.setUsuario(usuario);
         historialReporte.setIpUsuario(ipUsuario);
@@ -233,7 +233,7 @@ public class ReporteDocxServiceBean implements ReporteDocxServiceLocal {
         historialReporte.setNombreArchivo(nombreArchivo);
         historialReporte.setPeriodoEmpresa(periodoEmpresa);
         em.persist(historialReporte);
-        */     
+        
         return wordMLPackage;                
     }
     

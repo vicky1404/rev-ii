@@ -51,7 +51,7 @@ public class Estructura implements Serializable {
     private static final long serialVersionUID = -2123468030703890538L;
     
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    //@GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "ID_ESTRUCTURA", nullable = false)
     @Expose
     private Long idEstructura;

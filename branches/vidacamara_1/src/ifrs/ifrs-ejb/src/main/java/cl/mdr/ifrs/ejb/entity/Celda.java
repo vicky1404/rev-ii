@@ -32,6 +32,7 @@ import cl.mdr.ifrs.ejb.entity.pk.CeldaPK;
 @Entity
 @NamedQueries( { @NamedQuery(name = "Celda.findAll", query = "select o from Celda o"), 
                  @NamedQuery(name = Celda.CELDA_FIND_BY_COLUMNA, query = "select o from Celda o where o.columna = :columna"),
+                 @NamedQuery(name = Celda.CELDA_FIND_BY_ID_GRILLA, query = "select o from Celda o where o.idGrilla = :idGrilla"),
                  /*@NamedQuery(name = Celda.CELDA_FIND_BY_GRUPO, query = "select o from Celda o where o.grupo = :grupo and o.idGrilla = :idGrilla "),
                  @NamedQuery(name = Celda.CELDA_FIND_MAX_GRUPO, query = "select max(o.grupo) from Celda o where o.idGrilla = :idGrilla "),*/
                  @NamedQuery(name = Celda.CELDA_FIND_BY_ID_FILA, query = "select o from Celda o where o.idGrilla = :idGrilla and o.idFila = :idFila order by o.idColumna")                 
@@ -41,6 +42,7 @@ import cl.mdr.ifrs.ejb.entity.pk.CeldaPK;
 public class Celda implements Serializable {
     
     public final static String CELDA_FIND_BY_COLUMNA = "Celda.findCeldaByColumna";
+    public final static String CELDA_FIND_BY_ID_GRILLA = "Celda.findCeldaByIdGrilla";
     public final static String CELDA_FIND_BY_GRUPO = "Celda.findCeldaByGrupo";
     public final static String CELDA_FIND_MAX_GRUPO = "Celda.findCeldaMaxGrupo";
     public final static String CELDA_FIND_BY_ID_FILA = "Celda.findCeldaByIdFila";

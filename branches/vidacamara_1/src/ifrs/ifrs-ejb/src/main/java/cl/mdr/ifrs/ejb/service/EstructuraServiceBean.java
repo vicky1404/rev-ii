@@ -85,12 +85,7 @@ public class EstructuraServiceBean implements EstructuraServiceLocal {
      * @throws Exception
      */
     public List<Celda> getCeldasFromGrilla(Grilla grilla) throws Exception{
-        final List<Celda> celdas = new ArrayList<Celda>(); 
-        for(Columna columna : grilla.getColumnaList()){
-            for(Celda celda : columna.getCeldaList()){
-                celdas.add(celda);
-            }                
-        }
+        final List<Celda> celdas = facadeService.getCeldaService().findCeldaByGrilla(grilla);                 
         return celdas;    
     }
 
