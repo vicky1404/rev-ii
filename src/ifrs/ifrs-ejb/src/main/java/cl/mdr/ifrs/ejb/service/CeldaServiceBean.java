@@ -60,6 +60,13 @@ public class CeldaServiceBean implements CeldaServiceLocal{
     
     @SuppressWarnings("unchecked")
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public List<Celda> findCeldaByGrilla(Grilla grilla) throws Exception{
+        Query query = em.createNamedQuery(Celda.CELDA_FIND_BY_ID_GRILLA);
+        query.setParameter("idGrilla",grilla.getIdGrilla());
+        return query.getResultList();
+    }
+        
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public Celda findCeldaByColumnaGrilla(Columna columna){
         Query query = em.createNamedQuery(Celda.CELDA_FIND_BY_COLUMNA);
         query.setParameter("columna",columna);

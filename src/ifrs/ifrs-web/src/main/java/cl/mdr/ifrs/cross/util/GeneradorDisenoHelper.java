@@ -505,73 +505,7 @@ public class GeneradorDisenoHelper {
         }
     }
     
-    public static Map<Long, EstructuraModel> cloneEstructuraModel(List<Estructura> estructuras){
-        
-        Map<Long, EstructuraModel> estructuraModelMap = new LinkedHashMap<Long, EstructuraModel>();
-        
-        Long i=1L;
-        
-        for(Estructura estructura : estructuras){
-        	
-            if (estructura.getTipoEstructura().getIdTipoEstructura() == TipoEstructura.ESTRUCTURA_TIPO_GRILLA){            	
-                Grilla grillaNew = new Grilla();                
-                List<Long> niveles = new ArrayList<Long>();
-                grillaNew.setTitulo(estructura.getGrilla() .getTitulo());
-                grillaNew.setColumnaList(estructura.getGrilla() .getColumnaList());
-                grillaNew.setEstructura(estructura.getGrilla() .getEstructura());
-                
-                EstructuraModel estructuraModel = new EstructuraModel();
-                estructuraModel.setTituloGrilla(grillaNew.getTitulo());
-                List<Columna> columnasNew = new ArrayList<Columna>();
-                for(Columna columna : grillaNew.getColumnaList()){
-                    
-                    Columna columnaNew = new Columna();
-                    columnaNew.setAncho(columna.getAncho());
-                    columnaNew.setIdColumna(columna.getIdColumna());
-                    columnaNew.setOrden(columna.getOrden());
-                    columnaNew.setTituloColumna(columna.getTituloColumna());
-                    columnaNew.setCeldaList(columna.getCeldaList());
-                    columnaNew.setGrilla(columna.getGrilla());
-                    columnaNew.setRowHeader(columna.isRowHeader());
-                    columnaNew.setAgrupacionColumnaList(columna.getAgrupacionColumnaList());
-                                                            
-                    if(columnaNew.getCeldaList()!=null){
-                        for(Celda celda : columna.getCeldaList()){
-                            celda.setIdGrilla(null);
-                        }
-                    }
-                    
-                    columnasNew.add(columnaNew);
-                }
-                estructuraModel.setColumnas(columnasNew);
-                estructuraModel.setTipoEstructura(TipoEstructura.ESTRUCTURA_TIPO_GRILLA);                                
-                estructuraModel.setNivelesAgregados(niveles);
-                estructuraModelMap.put(i, estructuraModel);
-                i++;
-            }  
-            
-            if (estructura.getTipoEstructura().getIdTipoEstructura() == TipoEstructura.ESTRUCTURA_TIPO_TEXTO){                
-            	EstructuraModel estructuraModel = new EstructuraModel();
-                estructura.getTexto().setIdTexto(null);
-                estructuraModel.setTexto(estructura.getTexto());
-                estructuraModel.setTipoEstructura(TipoEstructura.ESTRUCTURA_TIPO_TEXTO);
-                estructuraModelMap.put(i, estructuraModel);
-                i++;
-            }
-            
-            if (estructura.getTipoEstructura().getIdTipoEstructura() == TipoEstructura.ESTRUCTURA_TIPO_HTML){
-            	EstructuraModel estructuraModel = new EstructuraModel();
-                estructura.getHtml().setIdHtml(null);
-                estructuraModel.setHtml(estructura.getHtml());
-                estructuraModel.setTipoEstructura(TipoEstructura.ESTRUCTURA_TIPO_HTML);
-                estructuraModelMap.put(i, estructuraModel);
-                i++;
-            }
-            
-        }
-        
-        return estructuraModelMap;
-    }
+    
     
     
     

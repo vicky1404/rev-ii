@@ -81,7 +81,7 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
 				return;
 			}
 			
-			estructuraList = getFacadeService().getEstructuraService().getEstructuraByVersion(versionSeleccionada, true);
+			estructuraList = super.getFacadeService().getEstructuraService().getEstructuraByVersion(versionSeleccionada, true);
             
 			if(!Util.esListaValida(getEstructuraList())){
                 addWarnMessage(PropertyManager.getInstance().getMessage("general_mensaje_version_sin_registros"));

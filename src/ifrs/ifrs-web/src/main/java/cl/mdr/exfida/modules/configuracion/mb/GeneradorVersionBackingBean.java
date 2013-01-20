@@ -520,7 +520,7 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
                          estructurasNew.add(estructuraNew);
                      }
                      
-                     this.getConfiguradorDisenoBackingBean().setEstructuraModelMap(GeneradorDisenoHelper.cloneEstructuraModel(estructurasNew));
+                     this.getConfiguradorDisenoBackingBean().setEstructuraModelMap(this.cloneEstructuraModel(estructurasNew));
                      
                      for(Version versionPaso : this.getVersionList()){
                          versionPaso.setVigencia(0L);
@@ -544,9 +544,85 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
             
         }catch(Exception e){
             super.addErrorMessage("Se ha producido un error al copiar la configuración.");
-            LOG.error(e.getMessage(),e);
+            LOG.error(e.getMessage(), e);
         }                   
     }
+    
+	/**
+	 * Metodo Helper encangado de clonar una Revelación completa con todos sus tipos de
+	 * estructura
+	 * @param estructuras
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<Long, EstructuraModel> cloneEstructuraModel(final List<Estructura> estructuras) throws Exception {
+
+		Map<Long, EstructuraModel> estructuraModelMap = new LinkedHashMap<Long, EstructuraModel>();
+
+		Long i = 1L;
+
+		for (Estructura estructura : estructuras) {
+
+			if (estructura.getTipoEstructura().getIdTipoEstructura() == TipoEstructura.ESTRUCTURA_TIPO_GRILLA) {
+				Grilla grillaNew = new Grilla();
+				List<Long> niveles = new ArrayList<Long>();
+				grillaNew.setTitulo(estructura.getGrilla().getTitulo());
+				grillaNew.setColumnaList(estructura.getGrilla().getColumnaList());
+				grillaNew.setEstructura(estructura.getGrilla().getEstructura());
+
+				EstructuraModel estructuraModel = new EstructuraModel();
+				estructuraModel.setTituloGrilla(grillaNew.getTitulo());
+				List<Columna> columnasNew = new ArrayList<Columna>();
+				for (Columna columna : grillaNew.getColumnaList()) {
+
+					Columna columnaNew = new Columna();
+					columnaNew.setAncho(columna.getAncho());
+					columnaNew.setIdColumna(columna.getIdColumna());
+					columnaNew.setOrden(columna.getOrden());
+					columnaNew.setTituloColumna(columna.getTituloColumna());
+					columnaNew.setCeldaList(columna.getCeldaList());
+					columnaNew.setGrilla(columna.getGrilla());
+					columnaNew.setRowHeader(columna.isRowHeader());
+					columnaNew.setAgrupacionColumnaList(columna.getAgrupacionColumnaList());
+
+					List<Celda> celdaList = super.getFacadeService().getCeldaService().findCeldaByColumna(columnaNew);
+					if (celdaList != null) {
+						for (Celda celda : celdaList) {
+							celda.setIdGrilla(null);
+						}
+						columnaNew.setCeldaList(celdaList);
+					}
+					columnasNew.add(columnaNew);
+				}
+				estructuraModel.setColumnas(columnasNew);
+				estructuraModel.setTipoEstructura(TipoEstructura.ESTRUCTURA_TIPO_GRILLA);
+				estructuraModel.setNivelesAgregados(niveles);
+				estructuraModelMap.put(i, estructuraModel);
+				i++;
+			}
+
+			if (estructura.getTipoEstructura().getIdTipoEstructura() == TipoEstructura.ESTRUCTURA_TIPO_TEXTO) {
+				EstructuraModel estructuraModel = new EstructuraModel();
+				estructura.getTexto().setIdTexto(null);
+				estructuraModel.setTexto(estructura.getTexto());
+				estructuraModel.setTipoEstructura(TipoEstructura.ESTRUCTURA_TIPO_TEXTO);
+				estructuraModelMap.put(i, estructuraModel);
+				i++;
+			}
+
+			if (estructura.getTipoEstructura().getIdTipoEstructura() == TipoEstructura.ESTRUCTURA_TIPO_HTML) {
+				EstructuraModel estructuraModel = new EstructuraModel();
+				estructura.getHtml().setIdHtml(null);
+				estructuraModel.setHtml(estructura.getHtml());
+				estructuraModel.setTipoEstructura(TipoEstructura.ESTRUCTURA_TIPO_HTML);
+				estructuraModelMap.put(i, estructuraModel);
+				i++;
+			}
+
+		}
+
+		return estructuraModelMap;
+	}
     
     public boolean isRenderEstructura() {
 		return renderEstructura;
