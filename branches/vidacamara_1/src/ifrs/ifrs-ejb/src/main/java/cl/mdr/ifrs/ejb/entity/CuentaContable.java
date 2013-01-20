@@ -13,6 +13,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import cl.mdr.ifrs.ejb.common.Constantes;
 
@@ -34,18 +35,36 @@ public class CuentaContable implements Serializable {
         
     private String descripcion;
         
-    private Short vigencia;
-    
-    @OneToMany(mappedBy = "cuentaContable", fetch = FetchType.LAZY)
+   
+	public void setVigencia(Long vigencia) {
+		this.vigencia = vigencia;
+	}
+
+	@OneToMany(mappedBy = "cuentaContable", fetch = FetchType.LAZY)
     private List<DetalleEeff> detalleEeffList;
     
     
     @OneToMany(mappedBy = "cuentaContable", fetch = FetchType.LAZY)
     private List<RelacionDetalleEeff> relacionDetalleEeffList;
     
-    public CuentaContable(){
-    }
 
+    @Transient
+    private boolean editarId = false;
+    
+    public boolean isEditarId() {
+		return editarId;
+	}
+
+	public void setEditarId(boolean editarId) {
+		this.editarId = editarId;
+	}
+
+	public CuentaContable(){
+    }
+    
+    public CuentaContable(boolean editarId) {
+        this.editarId = editarId;
+    }
     public void setIdCuenta(Long idCuenta) {
         this.idCuenta = idCuenta;
     }
@@ -62,13 +81,7 @@ public class CuentaContable implements Serializable {
         return descripcion;
     }
 
-    public void setVigencia(Short vigencia) {
-        this.vigencia = vigencia;
-    }
-
-    public Short getVigencia() {
-        return vigencia;
-    }
+   
 
     public void setRelacionDetalleEeffList(List<RelacionDetalleEeff> relacionDetalleEeffList) {
         this.relacionDetalleEeffList = relacionDetalleEeffList;
@@ -142,4 +155,11 @@ public class CuentaContable implements Serializable {
 			return false;
 		return true;
 	}
+	
+	 private Long vigencia;
+	    
+	    public Long getVigencia() {
+			return vigencia;
+		}
+
 }
