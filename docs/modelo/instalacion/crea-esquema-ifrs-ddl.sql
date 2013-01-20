@@ -857,7 +857,7 @@ go
 /* Table: IFRS_ESTRUCTURA                                       */
 /*==============================================================*/
 create table IFRS_ESTRUCTURA (
-   ID_ESTRUCTURA        numeric(10,0)        identity,
+   ID_ESTRUCTURA        numeric(10,0)        not null,
    ID_VERSION           numeric(8,0)         null,
    ID_TIPO_ESTRUCTURA   numeric(4,0)         null,
    ORDEN                numeric(5,0)         null,
@@ -1266,7 +1266,7 @@ go
 /* Table: IFRS_VERSION                                          */
 /*==============================================================*/
 create table IFRS_VERSION (
-   ID_VERSION           numeric(8,0)         identity,
+   ID_VERSION           numeric(8,0)         not null,
    ID_CATALOGO          numeric(8,0)         null,
    ID_PERIODO           numeric(6)           null,
    ID_RUT               numeric(10)          null,
