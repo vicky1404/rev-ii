@@ -137,8 +137,8 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
 		        		.setParameter(4, detEeff.getMontoEbs())
 		        		.setParameter(5, detEeff.getMontoReclasificacion())
 		        		.setParameter(6, detEeff.getMontoPesos())
-		        		.setParameter(7, detEeff.getMontoMiles())
-		        		.setParameter(8, detEeff.getMontoPesosMil())
+		        		.setParameter(7, detEeff.getMontoMilesValidarMapeo())
+		        		.setParameter(8, detEeff.getMontoXBRL())
 		        		.executeUpdate();
 		        	}
 		        	
@@ -381,7 +381,7 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
         	query.setParameter(++contador, relDetalleEeff.getPeriodoEmpresa().getIdPeriodo());        	
         	query.setParameter(++contador, relDetalleEeff.getPeriodoEmpresa().getIdRut());
         	query.setParameter(++contador, relDetalleEeff.getMontoEbs());
-        	query.setParameter(++contador, relDetalleEeff.getMontoMiles());
+        	query.setParameter(++contador, relDetalleEeff.getMontoMilesValidarMapeo());
         	query.setParameter(++contador, relDetalleEeff.getMontoPesos());
         	query.setParameter(++contador, relDetalleEeff.getMontoReclasificacion());
         	query.setParameter(++contador, relDetalleEeff.getMontoPesosMil());
