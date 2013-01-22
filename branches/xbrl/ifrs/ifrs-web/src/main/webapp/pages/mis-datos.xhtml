@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="/WEB-INF/templates/main-template.xhtml">
+	<ui:define name="content">
+		<h:form id="form_misdatos">
+			<p:messages id="messages" autoUpdate="true" globalOnly="true" />
+			<p:ajaxStatus onstart="statusDialog.show();"
+				oncomplete="statusDialog.hide();" />
+			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
+			<h:panelGroup layout="block"
+				rendered="#{misDatosBackingBean.usuario.cambiarPassword eq 1}">
+				<div class="ui-messages ui-widget">
+					<div class="ui-messages-warn ui-corner-all">
+						<span class="ui-messages-warn-icon"></span>
+						<ul>
+						    <li><span class="ui-messages-warn-summary"
+								style="font-size: 11px;">Bienvenido a EXFIDA.<br />									
+							</span></li>
+							<li><span class="ui-messages-warn-detail"
+								style="font-size: 11px;">
+									Estimado(a) #{misDatosBackingBean.usuario.nombre} #{misDatosBackingBean.usuario.apellidoPaterno} #{misDatosBackingBean.usuario.apellidoMaterno}, 
+									es necesario cambiar su clave.
+							</span></li>
+						</ul>
+					</div>
+				</div>
+			</h:panelGroup>
+			<p:panel header="Mis Datos" toggleable="true" closable="false" 
+				toggleSpeed="500" closeSpeed="2000" widgetVar="panel">
+				<h:panelGrid columns="3">
+					<p:outputLabel value="Nombre de Usuario" for="it11" />
+					<p:inputText id="it11" required="true"
+						style="text-transform: lowercase;"
+						value="#{misDatosBackingBean.usuario.nombreUsuario}"
+						disabled="true">
+						<f:validateLength minimum="1" maximum="256"></f:validateLength>
+					</p:inputText>
+					<h:message for="it11" styleClass="ui-outputlabel ui-state-error" />
+
+					<p:outputLabel value="Nombre" for="it211" />
+					<p:inputText id="it211" size="40" required="true"
+						value="#{misDatosBackingBean.usuario.nombre}">
+						<f:validateLength minimum="1" maximum="256"></f:validateLength>
+					</p:inputText>
+					<h:message for="it211" styleClass="ui-outputlabel ui-state-error" />
+
+					<p:outputLabel value="Apellido Paterno" for="it311" />
+					<p:inputText id="it311" size="40" required="true"
+						value="#{misDatosBackingBean.usuario.apellidoPaterno}">
+						<f:validateLength minimum="1" maximum="256"></f:validateLength>
+					</p:inputText>
+					<h:message for="it311" styleClass="ui-outputlabel ui-state-error" />
+
+					<p:outputLabel value="Apellido Materno" for="it411" />
+					<p:inputText size="40" required="true" id="it411"
+						value="#{misDatosBackingBean.usuario.apellidoMaterno}">
+						<f:validateLength minimum="1" maximum="256"></f:validateLength>
+					</p:inputText>
+					<h:message for="it411" styleClass="ui-outputlabel ui-state-error" />
+
+					<p:outputLabel value="Nueva Clave" for="itcl" />
+					<p:password size="40" required="true" id="itcl" autocomplete="off"
+						inline="false" feedback="true" weakLabel="Seguridad Baja"
+						goodLabel="Seguridad Media" strongLabel="Muy Segura"
+						promptLabel="Ingrese una Clave" match="itcl2"
+						value="#{misDatosBackingBean.usuario.password}" />
+					<h:message for="itcl" styleClass="ui-outputlabel ui-state-error" />
+
+					<p:outputLabel value="Verificar Clave" for="itcl2" />
+					<p:password size="40" required="true" id="itcl2" autocomplete="off"
+						value="#{misDatosBackingBean.usuario.password}" />
+					<h:message for="itcl2" styleClass="ui-outputlabel ui-state-error" />
+
+					<p:outputLabel value="Email" for="ite1" />
+					<p:inputText size="40" required="true" id="ite1"
+						value="#{misDatosBackingBean.usuario.email}">
+						<f:validateLength minimum="1" maximum="256"></f:validateLength>
+					</p:inputText>
+					<h:message for="ite1" styleClass="ui-outputlabel ui-state-error" />
+
+					<h:outputLabel value="Rol" />
+					<h:outputText value="#{misDatosBackingBean.usuario.rol.nombreRol}" />
+					<p:spacer width="5" />
+
+					<h:outputLabel value="Vigente" />
+					<h:outputText value="#{msg.label_si}"
+						rendered="#{misDatosBackingBean.usuario.vigente eq 1}" />
+					<h:outputText value="#{msg.label_no}"
+						rendered="#{misDatosBackingBean.usuario.vigente eq 0}" />
+					<p:spacer width="5" />
+
+					<p:spacer width="5" />					
+					<p:commandButton value="Modificar" icon="ui-icon-disk"
+						id="btnG1" actionListener="#{misDatosBackingBean.editAction}"
+						update="@form">
+					</p:commandButton>
+					<p:spacer width="5" />
+				</h:panelGrid>
+			</p:panel>
+		</h:form>		
+	</ui:define>
+</ui:composition>

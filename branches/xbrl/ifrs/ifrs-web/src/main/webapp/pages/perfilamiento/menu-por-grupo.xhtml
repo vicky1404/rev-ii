@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/main-template.xhtml">
+	<ui:define name="content">
+		<h:outputScript name="js/util/form-util.js" />
+		<h:form id="f_menu_grupo">
+			<p:messages id="messages_menu_grupo" autoUpdate="true" showDetail="true" showSummary="true" globalOnly="true"/>
+			<p:ajaxStatus onstart="statusDialog.show();" oncomplete="statusDialog.hide();" />
+			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
+			<p:panel id="filtro_menu_grupo"
+				header="#{menuBackingBean.breadcrumb}" toggleable="true"
+				closable="false" toggleSpeed="500" closeSpeed="2000"
+				widgetVar="panel">
+				<h:panelGrid columns="3">
+					<p:outputLabel value="#{msg.label_grupo}:" for="som1" />
+					<p:selectOneMenu label="#{msg.label_grupo}" id="som1"
+						value="#{menuPorGrupoBackingBean.idGrupoSelected}" required="true"
+						requiredMessage="#{msg.mensaje_seleccione_valor}">
+						<f:selectItem itemLabel="#{msg.label_seleccione}" />
+						<f:selectItems
+							value="#{grupoBackingBean.grupoByEmpresaList}"
+							var="grupo" itemLabel="#{grupo.nombre}"
+							itemValue="#{grupo.idGrupoAcceso}" />
+					</p:selectOneMenu>
+					<h:message for="som1" styleClass="ui-outputlabel ui-state-error" />
+				</h:panelGrid>
+				<h:panelGrid columns="3">
+					<h:outputLabel value="" />
+					<p:commandButton value="#{msg.boton_buscar}" icon="ui-icon-search"
+						actionListener="#{menuPorGrupoBackingBean.buscarMenuPorGrupoAction}"
+						update="@form" >
+					</p:commandButton>
+					<p:commandButton icon="ui-icon-cancel" value="#{msg.boton_cancel}"
+						id="btnCancelar11" immediate="true"
+						action="menu-por-grupo?faces-redirect=true">
+					</p:commandButton>
+				</h:panelGrid>
+			</p:panel>
+			<br />
+			<p:toolbar rendered="#{menuPorGrupoBackingBean.renderTablaMenu}">
+				<p:toolbarGroup>
+					<p:commandButton icon="ui-icon-disk"
+						value="#{msg.boton_guardar_menu_grupo}" id="btnGuardar"
+						actionListener="#{menuPorGrupoBackingBean.guardarMenuGrupoAction}"
+						update="messages_menu_grupo">
+					</p:commandButton>
+					<p:separator />
+					<p:commandLink value="#{msg.label_seleccionar_todo}"
+						onclick="selectAll()"></p:commandLink>
+					<p:separator />
+					<p:commandLink value="#{msg.label_no_seleccionar_todo}"
+						onclick="unSelectAll()"></p:commandLink>
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:dataTable emptyMessage="#{msg.mensaje_tabla_sin_registros}"
+				value="#{menuPorGrupoBackingBean.grillaMenuList}" id="tabla_menu"
+				var="row" lazy="false" selectionMode="single"
+				rowKey="#{row.entity.idMenu}"
+				rendered="#{menuPorGrupoBackingBean.renderTablaMenu}">
+				<p:column headerText="#{msg.label_seleccionar}" id="c2"
+					style="text-align:center;">
+					<h:selectBooleanCheckbox value="#{row.selected}" id="sel1"
+						label=" " />
+				</p:column>
+				<p:column headerText="Id Menu" id="c3">
+					<h:outputText value="#{row.entity.idMenu}" id="t1"
+						style="#{row.entity.padre ? 'font-weight:bold' : 'a'}" />
+				</p:column>
+				<p:column headerText="Grupo" id="c6">
+					<h:outputText value="#{row.entity.grupo}" id="t4"
+						style="#{row.entity.padre ? 'font-weight:bold' : 'a'}" />
+				</p:column>
+				<p:column headerText="Nombre" id="c4">
+					<h:outputText value="#{row.entity.nombre}" id="t2"
+						style="#{row.entity.padre ? 'font-weight:bold;' : 'padding-left:10px;'}" />
+				</p:column>
+				<p:column headerText="Url Menu" id="c5">
+					<h:outputText value="#{row.entity.urlMenu}" id="t3"
+						rendered="#{!row.entity.padre}" />
+				</p:column>
+				<f:facet name="footer">
+					<br />
+				</f:facet>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
