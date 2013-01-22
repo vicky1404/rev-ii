@@ -7,8 +7,6 @@ import static ch.lambdaj.Lambda.on;
 import static ch.lambdaj.Lambda.select;
 import static org.hamcrest.Matchers.equalTo;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -27,8 +25,8 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTCol;
 
@@ -48,17 +46,17 @@ public class CargadorEstructuraServiceTest {
 	private static InputStream loadedExcel;
 	private static XSSFWorkbook workBook;
 	
-	@BeforeClass
-	public static void init(){
+	@Before
+	public void init(){
 		try {
-			loadedExcel = new FileInputStream(new File("C:\\config-nota.xlsx"));						
+			loadedExcel = CargadorEstructuraServiceTest.class.getResourceAsStream("/load-excel/config-nota.xlsx");						
 		} catch (Exception e) {			
 			e.printStackTrace();
 		}
 	}
 	
-	@AfterClass
-	public static void tearDown(){
+	@After
+	public void tearDown(){
 		loadedExcel = null;
 		workBook = null;
 	}
@@ -234,7 +232,7 @@ public class CargadorEstructuraServiceTest {
                 for (int c = 0; c < cols; c++) {
                     cell = row.getCell((short)c);
                     if (cell != null) {
-                        if (r1 == columnRow.intValue()) {
+                        if (columnRow != null && r1 == columnRow.intValue()) {
                             CTCol ctCol =
                             sheet.getColumnHelper().getColumn(Util.getLong(cell.getColumnIndex(), new Long(0)), true);
                             Columna columna = new Columna();
