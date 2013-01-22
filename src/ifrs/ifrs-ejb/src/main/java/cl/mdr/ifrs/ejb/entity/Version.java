@@ -31,7 +31,7 @@ import com.google.gson.annotations.Expose;
 
 @Entity
 @NamedQueries( { @NamedQuery(name = Version.VERSION_FIND_ALL, query = "select o from Version o"),
-                 @NamedQuery(name = Version.VERSION_FIND_ALL_VIGENTE, query = "select o from Version o, Catalogo c where c.idCatalogo = o.catalogo.idCatalogo and c.vigencia = 1 and o.vigencia = 1 order by o.fechaCreacion, o.version"),
+                 @NamedQuery(name = Version.VERSION_FIND_ALL_VIGENTE, query = "select o from Version o, Catalogo c where c.idCatalogo = o.catalogo.idCatalogo and c.vigencia = 1 and o.vigencia = 1 and c.empresa.idRut = :idRut order by o.fechaCreacion, o.version"),
                  @NamedQuery(name = Version.VERSION_FIND_ALL_NO_VIGENTE, query = "select o from Version o where o.vigencia = 0"),
                  @NamedQuery(name = Version.VERSION_FIND_NO_VIGENTE, query = "select o from Version o where o.vigencia = 0 and o.catalogo = :catalogo"),
                  @NamedQuery(name = Version.VERSION_FIND_VIGENTE, query = "select o from Version o where o.vigencia = 1 and o.catalogo = :catalogo "),

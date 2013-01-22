@@ -385,8 +385,9 @@ public class VersionServiceBean implements VersionServiceLocal{
     
     @SuppressWarnings("unchecked")
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-    public List<Version> findAllVersionVigente(){
+    public List<Version> findAllVersionVigente(Long idRut){
         Query query = em.createNamedQuery(Version.VERSION_FIND_ALL_VIGENTE);
+        query.setParameter("idRut", idRut);
         return query.getResultList();
     }
     

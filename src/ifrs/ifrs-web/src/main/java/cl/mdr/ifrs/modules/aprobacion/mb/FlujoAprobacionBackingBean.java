@@ -293,14 +293,20 @@ public class FlujoAprobacionBackingBean extends AbstractBackingBean implements S
     
     public void graficoCuadrosByUsuarioAction(){
     	try {
-			final List<Version> versiones = super.getFacadeService().getVersionService().findVersionByFiltro(super.getNombreUsuario(), super.getFiltroBackingBean().getTipoCuadro(), super.getFiltroPeriodoEmpresa(), this.getEstadoCuadro(), VigenciaEnum.VIGENTE.getKey(), null);
+    		
+    		if(catalogoFlujoAprobacion==null){
+    			addWarnMessage("No se ha encontrado información");
+    		}
+    		
+    		//catalogoFlujoAprobacion
+			//final List<Version> versiones = super.getFacadeService().getVersionService().findVersionByFiltro(super.getNombreUsuario(), super.getFiltroBackingBean().getTipoCuadro(), super.getFiltroPeriodoEmpresa(), this.getEstadoCuadro(), VigenciaEnum.VIGENTE.getKey(), null);
 			cuadrosByUsuarioPieModel = new PieChartModel();  			  
-			cuadrosByUsuarioPieModel.set(EstadoCuadroEnum.INICIADO.getValue(), select(versiones ,having(on(Version.class).getEstado().getIdEstado(), equalTo(EstadoCuadroEnum.INICIADO.getKey()))).size() );  
-			cuadrosByUsuarioPieModel.set(EstadoCuadroEnum.MODIFICADO.getValue(), select(versiones ,having(on(Version.class).getEstado().getIdEstado(), equalTo(EstadoCuadroEnum.MODIFICADO.getKey()))).size());  
-			cuadrosByUsuarioPieModel.set(EstadoCuadroEnum.POR_APROBAR.getValue(), select(versiones ,having(on(Version.class).getEstado().getIdEstado(), equalTo(EstadoCuadroEnum.POR_APROBAR.getKey()))).size());  
-			cuadrosByUsuarioPieModel.set(EstadoCuadroEnum.APROBADO.getValue(), select(versiones ,having(on(Version.class).getEstado().getIdEstado(), equalTo(EstadoCuadroEnum.APROBADO.getKey()))).size());  
-			cuadrosByUsuarioPieModel.set(EstadoCuadroEnum.CERRADO.getValue(), select(versiones ,having(on(Version.class).getEstado().getIdEstado(), equalTo(EstadoCuadroEnum.CERRADO.getKey()))).size());
-			cuadrosByUsuarioPieModel.set(EstadoCuadroEnum.CONTINGENCIA.getValue(), select(versiones ,having(on(Version.class).getEstado().getIdEstado(), equalTo(EstadoCuadroEnum.CONTINGENCIA.getKey()))).size());
+			cuadrosByUsuarioPieModel.set(EstadoCuadroEnum.INICIADO.getValue(), select(catalogoFlujoAprobacion ,having(on(Version.class).getEstado().getIdEstado(), equalTo(EstadoCuadroEnum.INICIADO.getKey()))).size() );  
+			cuadrosByUsuarioPieModel.set(EstadoCuadroEnum.MODIFICADO.getValue(), select(catalogoFlujoAprobacion ,having(on(Version.class).getEstado().getIdEstado(), equalTo(EstadoCuadroEnum.MODIFICADO.getKey()))).size());  
+			cuadrosByUsuarioPieModel.set(EstadoCuadroEnum.POR_APROBAR.getValue(), select(catalogoFlujoAprobacion ,having(on(Version.class).getEstado().getIdEstado(), equalTo(EstadoCuadroEnum.POR_APROBAR.getKey()))).size());  
+			cuadrosByUsuarioPieModel.set(EstadoCuadroEnum.APROBADO.getValue(), select(catalogoFlujoAprobacion ,having(on(Version.class).getEstado().getIdEstado(), equalTo(EstadoCuadroEnum.APROBADO.getKey()))).size());  
+			cuadrosByUsuarioPieModel.set(EstadoCuadroEnum.CERRADO.getValue(), select(catalogoFlujoAprobacion ,having(on(Version.class).getEstado().getIdEstado(), equalTo(EstadoCuadroEnum.CERRADO.getKey()))).size());
+			cuadrosByUsuarioPieModel.set(EstadoCuadroEnum.CONTINGENCIA.getValue(), select(catalogoFlujoAprobacion ,having(on(Version.class).getEstado().getIdEstado(), equalTo(EstadoCuadroEnum.CONTINGENCIA.getKey()))).size());
 			this.setRenderChartByUser(Boolean.TRUE);
 			this.displayPopUp("popUpChartByUser", FORMULARIO_FLUJO_APROBACION);
     	} catch (Exception e) {
@@ -311,7 +317,7 @@ public class FlujoAprobacionBackingBean extends AbstractBackingBean implements S
     
     public void graficoCuadrosAllAction(){
     	try {
-			final List<Version> versiones = super.getFacadeService().getVersionService().findAllVersionVigente();
+			final List<Version> versiones = super.getFacadeService().getVersionService().findAllVersionVigente(super.getFiltroBackingBean().getEmpresa().getIdRut());
 			cuadrosAllPieModel = new PieChartModel();  			  
 			cuadrosAllPieModel.set(EstadoCuadroEnum.INICIADO.getValue(), select(versiones ,having(on(Version.class).getEstado().getIdEstado(), equalTo(EstadoCuadroEnum.INICIADO.getKey()))).size() );  
 			cuadrosAllPieModel.set(EstadoCuadroEnum.MODIFICADO.getValue(), select(versiones ,having(on(Version.class).getEstado().getIdEstado(), equalTo(EstadoCuadroEnum.MODIFICADO.getKey()))).size());  
