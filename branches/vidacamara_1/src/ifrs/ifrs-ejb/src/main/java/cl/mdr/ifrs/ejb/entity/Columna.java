@@ -20,6 +20,8 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import com.google.gson.annotations.Expose;
 
@@ -54,9 +56,8 @@ public class Columna implements Serializable {
     @Expose
     private String tituloColumna;
     
-    @Fetch(FetchMode.SELECT)
-    @OneToMany(mappedBy = "columna", fetch = FetchType.LAZY, orphanRemoval=true)
-    //@OrderBy("idColumna asc ,idFila asc")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "columna", orphanRemoval=true)
     private List<Celda> celdaList;
     
     @ManyToOne
@@ -68,7 +69,7 @@ public class Columna implements Serializable {
     @Expose
     private boolean rowHeader;
     
-    @OneToMany(mappedBy = "columna" ,cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, orphanRemoval=true)
+    @OneToMany(mappedBy = "columna" ,cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, orphanRemoval=true)
     private List<AgrupacionColumna> agrupacionColumnaList;
     
     

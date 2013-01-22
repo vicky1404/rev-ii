@@ -130,7 +130,6 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
         this.getTipoFormulaCombo().setValue(null);
 	}
 	
-	
     public void changeTipoCuadro() {
     	
 		try {
@@ -216,6 +215,7 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
 			this.setIdTipoFormula(estructura.getGrilla().getTipoFormula());
 			this.celdasKeyMap = FormulaHelper.buildCeldaMap(this.getGrillaVO());
 			this.celdaGrillaList =  FormulaHelper.celdaMapToList(this.getGrillaVO());	
+			this.setRenderTablaFormula(Boolean.TRUE);
 			
 		} catch (Exception e) {
 			logger.error(e);

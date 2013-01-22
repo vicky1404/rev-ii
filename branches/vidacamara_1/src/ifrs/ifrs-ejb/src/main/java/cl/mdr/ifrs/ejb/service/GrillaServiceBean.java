@@ -47,8 +47,7 @@ public class GrillaServiceBean implements GrillaServiceLocal{
     
 	public Grilla findGrillaById(Long idGrilla) throws Exception {
 
-		Query query = em.createNamedQuery(Grilla.FIND_GRILLA_BY_ID)
-				.setParameter("idGrilla", idGrilla);
+		Query query = em.createNamedQuery(Grilla.FIND_GRILLA_BY_ID).setParameter("idGrilla", idGrilla);
 
 		if (query.getResultList().size() > 0) {
 

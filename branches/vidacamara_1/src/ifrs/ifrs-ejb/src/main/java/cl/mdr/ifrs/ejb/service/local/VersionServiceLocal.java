@@ -90,7 +90,7 @@ public interface VersionServiceLocal {
     /**
      * @return
      */
-    List<Version> findAllVersionVigente();
+    List<Version> findAllVersionVigente(Long idRut);
     
     /**
      * @return

@@ -79,7 +79,7 @@ public class Estructura implements Serializable {
     
     //@OneToMany(mappedBy = "estructura1", targetEntity = Grilla.class, fetch = FetchType.EAGER)        
     @OneToOne(mappedBy = "estructura", fetch = FetchType.EAGER, orphanRemoval=true)
-    //@JoinColumn(name = "ID_GRILLA", referencedColumnName="ID_ESTRUCTURA",  insertable = false, updatable = false)
+    @JoinColumn(name = "ID_GRILLA", referencedColumnName="ID_ESTRUCTURA",  insertable = false, updatable = false)
     private Grilla grilla;
        
     

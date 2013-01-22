@@ -1,8 +1,9 @@
 package cl.mdr.ifrs.ejb.service;
 
 
+import static cl.mdr.ifrs.ejb.cross.Constantes.PERSISTENCE_UNIT_NAME;
+
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -24,14 +25,12 @@ import org.apache.log4j.Logger;
 import cl.mdr.ifrs.ejb.common.Constantes;
 import cl.mdr.ifrs.ejb.common.TipoEstructuraEnum;
 import cl.mdr.ifrs.ejb.cross.SortHelper;
-import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.AgrupacionColumna;
 import cl.mdr.ifrs.ejb.entity.Celda;
 import cl.mdr.ifrs.ejb.entity.Columna;
 import cl.mdr.ifrs.ejb.entity.Estructura;
 import cl.mdr.ifrs.ejb.entity.Grilla;
 import cl.mdr.ifrs.ejb.entity.HistorialVersion;
-import cl.mdr.ifrs.ejb.entity.Html;
 import cl.mdr.ifrs.ejb.entity.Version;
 import cl.mdr.ifrs.ejb.facade.local.FacadeServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.EstructuraServiceLocal;
@@ -39,7 +38,6 @@ import cl.mdr.ifrs.exceptions.FormulaException;
 import cl.mdr.ifrs.vo.GrillaVO;
 import cl.mdr.ifrs.vo.HtmlVO;
 import cl.mdr.ifrs.vo.TextoVO;
-import static cl.mdr.ifrs.ejb.cross.Constantes.PERSISTENCE_UNIT_NAME;
 
 
 @Stateless(name = "EstructuraNotaService" , mappedName = "AppRevelaciones-Model-EstructuraNotaService")
@@ -185,6 +183,9 @@ public class EstructuraServiceBean implements EstructuraServiceLocal {
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public GrillaVO getGrillaVO(Grilla grilla, boolean applyFormula) throws FormulaException, Exception{
     
+    	//final Estructura estructura = facadeService.getEstructuraService().findEstructuraById(grillaE.getIdGrilla());
+    	//final Grilla grilla = estructura.getGrilla();
+    	
         if(applyFormula){
             if (grilla.getTipoFormula() == null || grilla.getTipoFormula().equals(Grilla.TIPO_GRILLA_ESTATICA)){
                 facadeService.getFormulaService().processStaticFormula(grilla);
@@ -332,13 +333,13 @@ public class EstructuraServiceBean implements EstructuraServiceLocal {
                             .setParameter(1, celda.getIdColumna())
                             .setParameter(2, celda.getIdFila())
                             .setParameter(3, celda.getIdGrilla())
-                            .setParameter(4, celda.getTipoCelda().getIdTipoCelda()==null?"":celda.getTipoCelda().getIdTipoCelda())
-                            .setParameter(5, celda.getTipoDato().getIdTipoDato()==null?"":celda.getTipoDato().getIdTipoDato())
+                            .setParameter(4, celda.getTipoCelda().getIdTipoCelda())
+                            .setParameter(5, celda.getTipoDato().getIdTipoDato())
                             .setParameter(6, celda.getValor())
-                            .setParameter(7, celda.getChildHorizontal()==null?"":celda.getChildHorizontal())
-                            .setParameter(8, celda.getParentHorizontal()==null?"":celda.getParentHorizontal())
-                            .setParameter(9, celda.getChildVertical()==null?"":celda.getChildVertical())
-                            .setParameter(10, celda.getParentVertical()==null?"":celda.getParentVertical())
+                            .setParameter(7, celda.getChildHorizontal())
+                            .setParameter(8, celda.getParentHorizontal())
+                            .setParameter(9, celda.getChildVertical())
+                            .setParameter(10, celda.getParentVertical())
                             .setParameter(11, celda.getFormula())
                             .executeUpdate();
                         }

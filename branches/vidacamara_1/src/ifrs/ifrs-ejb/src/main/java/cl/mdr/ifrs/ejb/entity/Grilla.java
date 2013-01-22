@@ -17,6 +17,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import com.google.gson.annotations.Expose;
 
@@ -48,9 +50,8 @@ public class Grilla implements Serializable {
     @Expose
     private String titulo;
     
-    @Fetch(FetchMode.SUBSELECT)
-    @OneToMany(mappedBy = "grilla", fetch = FetchType.EAGER, orphanRemoval=true)
-    //@OrderBy("idColumna asc")            
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "grilla",  orphanRemoval=true)     
     private List<Columna> columnaList;
     
     @OneToOne(targetEntity = Estructura.class, fetch = FetchType.EAGER, orphanRemoval=true)
@@ -65,6 +66,10 @@ public class Grilla implements Serializable {
     
 
     public Grilla() {
+    }
+    
+    public Grilla(Long idGrilla) {
+    	this.idGrilla = idGrilla;
     }
 
     public Grilla(Estructura estructura, Long idGrilla, String titulo) {
