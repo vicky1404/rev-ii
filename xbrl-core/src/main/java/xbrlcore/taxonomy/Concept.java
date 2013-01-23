@@ -41,6 +41,14 @@ public class Concept implements Serializable, Cloneable {
 	private String namespacePrefix;
 
 	private String namespaceUri;
+	
+	private String label;
+	
+	private boolean mapeado;
+	
+	public Concept() {
+		this(null);
+	}
 
 	/**
 	 * 
@@ -362,5 +370,21 @@ public class Concept implements Serializable, Cloneable {
 	 */
 	public void setNumericItem(boolean numericItem) {
 		this.numericItem = numericItem;
+	}
+
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
+	}
+
+	public boolean isMapeado() {
+		return mapeado;
+	}
+
+	public void setMapeado(boolean mapeado) {
+		this.mapeado = mapeado;
 	}
 }
