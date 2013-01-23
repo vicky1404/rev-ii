@@ -114,8 +114,8 @@ public class SAXBuilder {
 			LabelLinkbase labelLinkbase = dts.getLabelLinkbase();
 			if (labelLinkbase == null) {
 				/**
-				 * TODO: Das sollte geändert werden! --> Verweis von dts auf
-				 * linkbase und zurück ?!?
+				 * TODO: Das sollte geï¿½ndert werden! --> Verweis von dts auf
+				 * linkbase und zurï¿½ck ?!?
 				 */
 				labelLinkbase = new LabelLinkbase(dts);
 				dts.setLabelLinkbase(labelLinkbase);
@@ -238,7 +238,7 @@ public class SAXBuilder {
 					String key = (String) fixedSchemaFilesIterator.next();
 					String value = (String) fixedSchemaFiles.get(key);
 					if (uri.toString().equals(key)) {
-						parseSchema(new InputSource("schemaFiles/" + value));
+						parseSchema(new InputSource(getClass().getResource("/schemaFiles/" + value).toString()));
 					}
 				}
 			}
