@@ -26,7 +26,7 @@ public class Dimension implements Serializable, Cloneable {
 
     static final long serialVersionUID = 3163965042260005456L;
 
-    private Concept concept = new Concept();
+    private Concept concept;
 
     private Set<ExtendedLinkElement> domainMemberSet;
 
@@ -103,7 +103,7 @@ public class Dimension implements Serializable, Cloneable {
     public int hashCode() {
         int hash = 1;
         hash = hash * 31 + (isTyped() ? 1 : 0);
-        //hash = hash * 31 + concept.hashCode();
+        hash = hash * 31 + concept.hashCode();
         hash = hash * 31 + domainMemberSet.hashCode();
         hash = hash * 31 + (typedElement != null ? typedElement.hashCode() : 0);
         return hash;
@@ -133,11 +133,7 @@ public class Dimension implements Serializable, Cloneable {
      * @return True if the dimension is a typed dimension, otherwise false.
      */
     public boolean isTyped() {
-    	if(concept != null){  
-    		return concept.isTypedDimension();
-    	}else{
-    		return false;
-    	}
+        return concept.isTypedDimension();
     }
 
     /**

@@ -108,8 +108,7 @@ public class Arc implements Serializable, Comparable<Object> {
         if (!(obj instanceof Arc))
             return false;
         Arc otherArc = (Arc) obj;
-        //TODO se comento esta validacion por problemas con la taxonomia de la svs
-        /*
+
         if (sourceElement.isLocator()
                 && otherArc.getSourceElement().isLocator()) {
             Locator sourceLocator = (Locator) sourceElement;
@@ -117,7 +116,7 @@ public class Arc implements Serializable, Comparable<Object> {
             return sourceLocator.getConcept().equals(
                     otherSourceLoctator.getConcept())
                     && extendedLinkRole.equals(otherArc.getExtendedLinkRole());
-        }*/
+        }
         return false;
     }
 
@@ -172,16 +171,19 @@ public class Arc implements Serializable, Comparable<Object> {
             Locator sourceLocator = (Locator) sourceElement;
             Locator targetLocator = (Locator) targetElement;
             Locator otherSourceLocator = (Locator) otherArc.getSourceElement();
-            Locator otherTargetLocator = (Locator) otherArc.getTargetElement();            
-			return sourceLocator.getConcept() != null && sourceLocator.getConcept().equals(otherSourceLocator.getConcept())
-				   && (targetLocator.getConcept() != null && targetLocator.getConcept().equals(otherTargetLocator.getConcept()))
-				   && extendedLinkRole.equals(otherArc.getExtendedLinkRole());
-		} else {
-			return sourceElement.equals(otherArc.getSourceElement())
-					&& targetElement.equals(otherArc.getTargetElement())
-					&& extendedLinkRole.equals(otherArc.getExtendedLinkRole());
-		}
-	}
+            Locator otherTargetLocator = (Locator) otherArc.getTargetElement();
+            return sourceLocator.getConcept().equals(
+                    otherSourceLocator.getConcept())
+                    && (targetLocator.getConcept() != null 
+                    && targetLocator.getConcept().equals(
+                            otherTargetLocator.getConcept()))
+                    && extendedLinkRole.equals(otherArc.getExtendedLinkRole());
+        } else {
+            return sourceElement.equals(otherArc.getSourceElement())
+                    && targetElement.equals(otherArc.getTargetElement())
+                    && extendedLinkRole.equals(otherArc.getExtendedLinkRole());
+        }
+    }
 
     /**
      * @return Returns a hash code for this object.

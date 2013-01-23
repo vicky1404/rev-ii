@@ -100,9 +100,10 @@ public class DefinitionLinkbase extends Linkbase {
                 Arc currArc = hasHypercubeArcsIterator.next();
                 /* from is the hypercube, to is the dimension */
                 /* check if it's still the same hypercube element */
-                Concept currHypercubeConcept = ((Locator) currArc.getSourceElement()).getConcept();
-                //System.out.println("se cae aca "+currHypercubeConcept == null ? "potito" : currHypercubeConcept);
-                if ((currHypercubeConcept != null) && !currHypercubeConcept.getSubstitutionGroup().equals(GeneralConstants.XBRL_SUBST_GROUP_HYPERCUBE_ITEM)) {
+                Concept currHypercubeConcept = ((Locator) currArc
+                        .getSourceElement()).getConcept();
+                if (!currHypercubeConcept.getSubstitutionGroup().equals(
+                        GeneralConstants.XBRL_SUBST_GROUP_HYPERCUBE_ITEM)) {
                     /* wrong substitution group, throw exception */
                     throw new TaxonomyCreationException(
                             ExceptionConstants.EX_HYPERCUBE_ITEM_WRONG_SUBSTITUTION_GROUP);
@@ -111,7 +112,7 @@ public class DefinitionLinkbase extends Linkbase {
 
                 Concept currDimensionElement = ((Locator) currArc
                         .getTargetElement()).getConcept();
-                if ((currDimensionElement != null) && !currDimensionElement.getSubstitutionGroup().equals(
+                if (!currDimensionElement.getSubstitutionGroup().equals(
                         GeneralConstants.XBRL_SUBST_GROUP_DIMENSION_ITEM)) {
                     /* wrong substitution group, throw exception */
                     throw new TaxonomyCreationException(
@@ -123,7 +124,7 @@ public class DefinitionLinkbase extends Linkbase {
                         currDimensionElement);
 
                 /* check whether it is an explicit dimension */
-                if ((currDimensionElement != null) && !currDimensionElement.isTypedDimension()) {
+                if (!currDimensionElement.isTypedDimension()) {
                     /* determine the domain member of this dimension */
                     /*
                      * this is the complete sublist below the current dimension
@@ -167,7 +168,6 @@ public class DefinitionLinkbase extends Linkbase {
                      */
                     currXBRLDimension.setDomainMemberSet(domainMemberXLinkSet);
                 }
-                if(currHypercube != null)
                 currHypercube.addDimension(currXBRLDimension);
             }
         }
