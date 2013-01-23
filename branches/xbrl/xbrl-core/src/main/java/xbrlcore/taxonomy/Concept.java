@@ -41,15 +41,7 @@ public class Concept implements Serializable, Cloneable {
 	private String namespacePrefix;
 
 	private String namespaceUri;
-	
-	private boolean mapeado;
-    
-	private String label;
 
-	public Concept(){
-		
-	}
-	
 	/**
 	 * 
 	 * @param name
@@ -370,21 +362,5 @@ public class Concept implements Serializable, Cloneable {
 	 */
 	public void setNumericItem(boolean numericItem) {
 		this.numericItem = numericItem;
-	}
-	
-	public boolean isMapeado() {
-		return mapeado;
-	}
-
-	public void setMapeado(boolean mapeado) {
-		this.mapeado = mapeado;
-	}
-
-	public String getLabel() {
-		return label;
-	}
-
-	public void setLabel(String label) {
-		this.label = label;
 	}
 }

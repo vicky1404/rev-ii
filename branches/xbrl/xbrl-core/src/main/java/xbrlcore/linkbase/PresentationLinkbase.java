@@ -30,8 +30,6 @@ public class PresentationLinkbase extends Linkbase {
 	 */
 	private Map<String, List<PresentationLinkbaseElement>> linkRoleToElementList;
 
-	
-
 	private int positionDeepestLevel;
 
 	/**
@@ -427,14 +425,5 @@ public class PresentationLinkbase extends Linkbase {
 			}
 		}
 		return resultList;
-	}
-	
-	public Map<String, List<PresentationLinkbaseElement>> getLinkRoleToElementList() {
-		return linkRoleToElementList;
-	}
-
-	public void setLinkRoleToElementList(
-			Map<String, List<PresentationLinkbaseElement>> linkRoleToElementList) {
-		this.linkRoleToElementList = linkRoleToElementList;
 	}
 }

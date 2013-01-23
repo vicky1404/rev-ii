@@ -570,7 +570,8 @@ public class Linkbase implements Serializable {
 	 * @return Locator of the concept from the base set of arcs in the given
 	 *         extended link role.
 	 */
-	public ExtendedLinkElement getExtendedLinkElementFromBaseSet(Concept concept, String extendedLinkRole) {
+	public ExtendedLinkElement getExtendedLinkElementFromBaseSet(
+			Concept concept, String extendedLinkRole) {
 		if (extendedLinkRole == null) {
 			extendedLinkRole = GeneralConstants.XBRL_LINKBASE_DEFAULT_LINKROLE;
 		}
@@ -582,14 +583,14 @@ public class Linkbase implements Serializable {
 		}
 
 		for (int i = 0; i < tmpArcBaseSet.size(); i++) {
-			Arc currArc = (Arc) tmpArcBaseSet.get(i);									
-			if ((((Locator) currArc.getSourceElement()).getConcept() != null) 
-								  && currArc.getSourceElement().isLocator() 
-								  && ((Locator) currArc.getSourceElement()).getConcept().equals(concept)) {
+			Arc currArc = (Arc) tmpArcBaseSet.get(i);
+			if (currArc.getSourceElement().isLocator()
+					&& ((Locator) currArc.getSourceElement()).getConcept()
+							.equals(concept)) {
 				return currArc.getSourceElement();
-			} else if ((((Locator) currArc.getTargetElement()).getConcept() != null) 
-								  && currArc.getTargetElement().isLocator() 
-								  && ((Locator) currArc.getTargetElement()).getConcept().equals(concept)) {
+			} else if (currArc.getTargetElement().isLocator()
+					&& ((Locator) currArc.getTargetElement()).getConcept()
+							.equals(concept)) {
 				return currArc.getTargetElement();
 			}
 		}
@@ -625,8 +626,9 @@ public class Linkbase implements Serializable {
 						&& sourceLinkElement.isLocator()) {
 					Locator currLoc = (Locator) sourceLinkElement;
 
-					if (currLoc.getConcept() != null && currLoc.getConcept().equals(concept)) {
-						resultList.add(resultList.size(), arc.getTargetElement());
+					if (currLoc.getConcept().equals(concept)) {
+						resultList.add(resultList.size(), arc
+								.getTargetElement());
 					}
 				}
 			}
@@ -662,7 +664,7 @@ public class Linkbase implements Serializable {
 				if (arc.getExtendedLinkRole().equals(extendedLinkRole)
 						&& targetLinkElement.isLocator()) {
 					Locator currLoc = (Locator) targetLinkElement;
-					if (currLoc.getConcept() != null && currLoc.getConcept().equals(concept)) {
+					if (currLoc.getConcept().equals(concept)) {
 						resultList.add(arc.getSourceElement());
 					}
 				}
@@ -893,7 +895,7 @@ public class Linkbase implements Serializable {
 				ExtendedLinkElement arcSourceElement = arc.getSourceElement();
 				Concept arcSourceConcept = ((Locator) arcSourceElement)
 						.getConcept();
-				if ((arcSourceConcept != null) && arc.getExtendedLinkRole().equals(extendedLinkRole)
+				if (arc.getExtendedLinkRole().equals(extendedLinkRole)
 						&& arcSourceConcept.equals(concept)) {
 					if ((arcRole != null && arc.getArcrole().equals(arcRole))
 							|| arcRole == null) {
