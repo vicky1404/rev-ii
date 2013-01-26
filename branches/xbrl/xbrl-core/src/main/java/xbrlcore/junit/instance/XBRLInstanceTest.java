@@ -1,6 +1,7 @@
 package xbrlcore.junit.instance;
 
 import java.io.File;
+import java.nio.charset.Charset;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,6 +19,7 @@ import xbrlcore.instance.Fact;
 import xbrlcore.instance.Instance;
 import xbrlcore.instance.InstanceContext;
 import xbrlcore.instance.InstanceFactory;
+import xbrlcore.instance.InstanceOutputter;
 import xbrlcore.instance.InstanceUnit;
 import xbrlcore.instance.InstanceUnitFactory;
 import xbrlcore.instance.InstanceValidator;
@@ -241,6 +243,10 @@ public final class XBRLInstanceTest {
             year3Fact.setInstanceContext(ctx);
             year2Fact.setInstanceContext(ctx);
             capitalRequirementsFact.setInstanceContext(ctx2);
+            
+            InstanceOutputter instanceOutputter = new InstanceOutputter(instance);
+            System.out.println(instanceOutputter.getXMLString(Charset.defaultCharset()));
+            
         } catch (Exception ex) {
             System.out.println(ex.toString());
             ex.printStackTrace();

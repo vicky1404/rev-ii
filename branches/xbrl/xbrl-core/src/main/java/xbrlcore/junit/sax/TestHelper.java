@@ -42,7 +42,8 @@ public class TestHelper {
 			throws SAXException, IOException, ParserConfigurationException, XBRLException {
 
 		SAXBuilder saxBuilder = new SAXBuilder();
-		return saxBuilder.build(new InputSource(source));
+		String string = source.startsWith("/") ? "" : "/";
+		return saxBuilder.build( new InputSource(TestHelper.class.getResource(string + source).toString()));
 
 	}
 
