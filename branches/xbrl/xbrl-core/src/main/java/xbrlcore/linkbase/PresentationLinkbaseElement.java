@@ -26,13 +26,13 @@ public class PresentationLinkbaseElement implements Serializable {
 
 	private final Locator locator;
 
-	private Concept parentElement;
+	private Locator parentElement;
 
 	private int level;
 
 	private int numSuccessorAtDeepestLevel;
 
-	private List<Concept> successorElements;
+	private List<Locator> successorElements;
 
 	private int positionDeepestLevel;
 
@@ -49,7 +49,7 @@ public class PresentationLinkbaseElement implements Serializable {
 		parentElement = null;
 		level = 0;
 		numSuccessorAtDeepestLevel = 0;
-		successorElements = new ArrayList<Concept>();
+		successorElements = new ArrayList<Locator>();
 		positionDeepestLevel = -1;
 	}
 
@@ -77,7 +77,7 @@ public class PresentationLinkbaseElement implements Serializable {
 	/**
 	 * @return XBRL element of the parent element.
 	 */
-	public final Concept getParentElement() {
+	public final Locator getParentElement() {
 		return parentElement;
 	}
 
@@ -85,14 +85,14 @@ public class PresentationLinkbaseElement implements Serializable {
 	 * @param element
 	 *            XBRL element of the parent element.
 	 */
-	public void setParentElement(Concept element) {
+	public void setParentElement(Locator element) {
 		parentElement = element;
 	}
 
 	/**
 	 * @return List of Concept objects of the successor elements.
 	 */
-	public final List<Concept> getSuccessorElements() {
+	public final List<Locator> getSuccessorElements() {
 		return successorElements;
 	}
 
@@ -100,7 +100,7 @@ public class PresentationLinkbaseElement implements Serializable {
 	 * @param list
 	 *            List of Concept objects of the successor elements.
 	 */
-	public void setSuccessorElements(List<Concept> list) {
+	public void setSuccessorElements(List<Locator> list) {
 		successorElements = list;
 	}
 

@@ -1,0 +1,78 @@
+--Información a revelar sobre reservas técnicas [sinopsis]
+----Reservas para seguros generales [sinopsis]
+------Reserva riesgos en curso [sinopsis]
+--------Saldo inicial al 1ero de enero (5.21.31.10) 
+--------Reserva por venta nueva
+--------Liberación de reserva
+----------Liberación de reserva stock (1)
+----------Liberación de reserva venta nueva
+--------Otros
+--------Total reserva riesgos en curso (5.21.31.10) 
+------Reserva de siniestros [sinopsis]
+--------Reserva de siniestros [tabla]
+----------Composición reserva siniestros [eje]
+------------Reserva siniestros [miembro]
+--------------Liquidados y no pagados [miembro]
+--------------Liquidados y controvertidos por el asegurado [miembro]
+--------------En proceso de liquidación [miembro]
+--------------Ocurridos y no reportados [miembro]
+--------Reserva de siniestros [partidas]
+----------Saldo inicial al 1ero de enero (5.21.31.60) 
+----------Incremento
+----------Disminuciones
+----------Ajuste por diferencia de cambio
+----------Otros
+----------Saldo final (5.21.31.60) 
+------Reserva de insuficiencia de primas [sinopsis]
+--------Información a revelar sobre reservas insuficiencia de primas [boque de texto]
+------Otras reservas técnicas [sinopsis]
+--------Información a revelar sobre otras reservas técnicas [boque de texto]
+----SOAP [sinopsis]
+------Cuadro N° 1 Siniestros [sinopsis]
+--------A. N° de siniestros denunciados del período [sinopsis]
+----------Siniestros rechazados (1)
+----------Siniestros en revisión (2)
+----------Siniestros aceptados (3)
+----------Total siniestros del período (1+2+3)
+--------B. N° de siniestros pagados o por pagar del período referido sólo a los siniestros denunciados y aceptados del período [sinopsis]
+----------Siniestros pagados (4)
+----------Siniestros parcialmente pagados (5)
+----------Siniestros por pagar (6)
+----------Total siniestros del período (4+5+6)
+--------C. N° de personas siniestradas del período referido a los siniestros denunciados aceptados y en revisión del período [sinopsis]
+----------Fallecidos (7)
+----------Personas con incapacidad permanente total (8)
+----------Personas con incapacidad permanente parcial (9)
+----------Personas a las que se les pagó o pagará sólo gastos de hospital y otros (10)
+----------Personas de siniestros en revisión (11)
+----------Total de personas siniestradas del período (7+8+9+10+11)
+--------D. Siniestros pagados directos en el período referido a los siniestros denunciados ya sea en revisión o aceptados, del período y del período anterior [sinopsis]
+----------Indemnizaciones (sin gastos de hospital ) (12) [sinopsis]
+------------Fallecidos
+------------Inválidos parcial
+------------Inválidos total
+------------Total indemnizaciones
+----------Gastos de hospital y otros (13)
+----------Costo de liquidación (14)
+----------Total de siniestros pagados directos (12+13+14)
+--------E. Costo de siniestros directos del período referido a los siniestros denunciados ya sea en revisión o aceptados, del período y del período anterior [sinopsis]
+----------Siniestros pagados directos (15)
+----------Siniestros por pagar directos (16)
+----------Ocurridos y no reportados (17)
+----------Siniestros por pagar directos período anterior (18)
+----------Costo de siniestros directos del período (15+16+17-18)
+------Cuadro N° 2 Antecedentes de la venta [sinopsis]
+--------Antecedentes de la venta [tabla]
+----------Vehículos SOAP [eje]
+------------Total [miembro]
+------------1.  Automóviles [miembro]
+------------2.  Camionetas y furgones [miembro]
+------------3.  Camiones [miembro]
+------------4.  Buses [miembro]
+------------5.  Motocicletas y similares [miembro]
+------------6.  Taxis [miembro]
+------------7.  Otros [miembro]
+--------Antecedentes de la venta [partidas]
+----------Número vehiculos asegurados
+----------Prima directa
+----------Prima promedio por vehículo

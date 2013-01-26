@@ -25,7 +25,8 @@ import xbrlcore.xlink.Resource;
  * This class is a superclass for all classes implementing linkbases. It
  * provides basic linkbase methods each linkbase has to implement. It has to
  * manage a list of xbrlcore.xlink.ExtendedLinkElement and xbrlcore.xlink.Arc
- * objects. <br/><br/>
+ * objects. <br/>
+ * <br/>
  * 
  * @author Daniel Hamm
  */
@@ -33,14 +34,15 @@ public abstract class Linkbase implements Serializable {
 
 	private static final long serialVersionUID = 6720994841702824990L;
 
-    public static final String DEFAULT_LINK_ROLE = GeneralConstants.XBRL_LINKBASE_DEFAULT_LINKROLE;
+	public static final String DEFAULT_LINK_ROLE = GeneralConstants.XBRL_LINKBASE_DEFAULT_LINKROLE;
 
-	private final DiscoverableTaxonomySet dts; // the taxonomy this linkbase belongs to
+	private final DiscoverableTaxonomySet dts; // the taxonomy this linkbase
+												// belongs to
 
 	private final String name;
 
-    // different extended link roles of this linkbase
-    private final Set<String> extendedLinkRoles = new HashSet<String>();
+	// different extended link roles of this linkbase
+	private final Set<String> extendedLinkRoles = new HashSet<String>();
 
 	private final Set<ExtendedLinkElement> extendedLinkElements = new HashSet<ExtendedLinkElement>();
 
@@ -55,7 +57,8 @@ public abstract class Linkbase implements Serializable {
 	 * 
 	 * @param dts
 	 *            Discoverable Taxonomy Set (DTS) this linkbase refers to.
-	 * @param name the name
+	 * @param name
+	 *            the name
 	 */
 	public Linkbase(DiscoverableTaxonomySet dts, String name) {
 		this.dts = dts;
@@ -63,108 +66,109 @@ public abstract class Linkbase implements Serializable {
 	}
 
 	public final DiscoverableTaxonomySet getDiscoverableTaxonomySet() {
-	    return dts;
+		return dts;
 	}
 
 	public final String getName() {
-	    return name;
+		return name;
 	}
 
 	public abstract void buildLinkbase() throws TaxonomyCreationException, XBRLException;
 
-    /**
-     * Adds a new extended link role to the linkbase.
-     * 
-     * @param xbrlExtendedLinkRole
-     *            New extended link role.
-     */
-    public void addExtendedLinkRole(String xbrlExtendedLinkRole) {
-        extendedLinkRoles.add(xbrlExtendedLinkRole);
-    }
+	/**
+	 * Adds a new extended link role to the linkbase.
+	 * 
+	 * @param xbrlExtendedLinkRole
+	 *            New extended link role.
+	 */
+	public void addExtendedLinkRole(String xbrlExtendedLinkRole) {
+		extendedLinkRoles.add(xbrlExtendedLinkRole);
+	}
 
-    /**
-     * @return Set of String objects representing the extended link roles of the
-     *         linkbase.
-     */
-    public final Collection<String> getExtendedLinkRoles() {
-        return extendedLinkRoles;
-    }
+	/**
+	 * @return Set of String objects representing the extended link roles of the
+	 *         linkbase.
+	 */
+	public final Collection<String> getExtendedLinkRoles() {
+		return extendedLinkRoles;
+	}
 
-    /**
-     * Adds a new ExtendedLinkElement (either a resource or a locator) object to
-     * the list of objects.
-     * 
-     * @param element
-     *            The XLinkElement object that shall be added.
-     */
-    public void addExtendedLinkElement(ExtendedLinkElement element) //throws TaxonomyCreationException
-    {
-        extendedLinkElements.add(element);
-    }
+	/**
+	 * Adds a new ExtendedLinkElement (either a resource or a locator) object to
+	 * the list of objects.
+	 * 
+	 * @param element
+	 *            The XLinkElement object that shall be added.
+	 */
+	public void addExtendedLinkElement(ExtendedLinkElement element) // throws
+																	// TaxonomyCreationException
+	{
+		extendedLinkElements.add(element);
+	}
 
-    /**
-     * @return List with extendedLinkElement objects.
-     */
-    public final Set<ExtendedLinkElement> getExtendedLinkElements() {
-        return extendedLinkElements;
-    }
+	/**
+	 * @return List with extendedLinkElement objects.
+	 */
+	public final Set<ExtendedLinkElement> getExtendedLinkElements() {
+		return extendedLinkElements;
+	}
 
-    public void applyArcs(LinkbaseArcsContainer<Arc> container, boolean copyLists) {
-        Iterator<Entry<String, List<Arc>>> it = null;
+	public void applyArcs(LinkbaseArcsContainer<Arc> container, boolean copyLists) {
+		Iterator<Entry<String, List<Arc>>> it = null;
 
-        it = container.getBaseArcs();
-        while (it.hasNext()) {
-            Entry<String, List<Arc>> e = it.next();
-            if (copyLists)
-                arcsBaseSet.put(e.getKey(), new ArrayList<Arc>(e.getValue()));
-            else
-                arcsBaseSet.put(e.getKey(), e.getValue());
-        }
+		it = container.getBaseArcs();
+		while (it.hasNext()) {
+			Entry<String, List<Arc>> e = it.next();
+			if (copyLists)
+				arcsBaseSet.put(e.getKey(), new ArrayList<Arc>(e.getValue()));
+			else
+				arcsBaseSet.put(e.getKey(), e.getValue());
+		}
 
-        it = container.getOverriddenArcs();
-        while (it.hasNext()) {
-            Entry<String, List<Arc>> e = it.next();
-            if (copyLists)
-                overridenArcs.put(e.getKey(), new ArrayList<Arc>(e.getValue()));
-            else
-                overridenArcs.put(e.getKey(), e.getValue());
-        }
+		it = container.getOverriddenArcs();
+		while (it.hasNext()) {
+			Entry<String, List<Arc>> e = it.next();
+			if (copyLists)
+				overridenArcs.put(e.getKey(), new ArrayList<Arc>(e.getValue()));
+			else
+				overridenArcs.put(e.getKey(), e.getValue());
+		}
 
-        it = container.getProhibitingArcs();
-        while (it.hasNext()) {
-            Entry<String, List<Arc>> e = it.next();
-            if (copyLists)
-                prohibitingArcs.put(e.getKey(), new ArrayList<Arc>(e.getValue()));
-            else
-                prohibitingArcs.put(e.getKey(), e.getValue());
-        }
+		it = container.getProhibitingArcs();
+		while (it.hasNext()) {
+			Entry<String, List<Arc>> e = it.next();
+			if (copyLists)
+				prohibitingArcs.put(e.getKey(), new ArrayList<Arc>(e.getValue()));
+			else
+				prohibitingArcs.put(e.getKey(), e.getValue());
+		}
 
-        it = container.getProhibitedArcs();
-        while (it.hasNext()) {
-            Entry<String, List<Arc>> e = it.next();
-            if (copyLists)
-                prohibitedArcs.put(e.getKey(), new ArrayList<Arc>(e.getValue()));
-            else
-                prohibitedArcs.put(e.getKey(), e.getValue());
-        }
-    }
+		it = container.getProhibitedArcs();
+		while (it.hasNext()) {
+			Entry<String, List<Arc>> e = it.next();
+			if (copyLists)
+				prohibitedArcs.put(e.getKey(), new ArrayList<Arc>(e.getValue()));
+			else
+				prohibitedArcs.put(e.getKey(), e.getValue());
+		}
+	}
 
-    /**
-     * @return List with Arc objects.
-     */
-    public final Map<String, List<Arc>> getArcsBaseSet() {
-        return arcsBaseSet;
-    }
+	/**
+	 * @return List with Arc objects.
+	 */
+	public final Map<String, List<Arc>> getArcsBaseSet() {
+		return arcsBaseSet;
+	}
 
-    /**
-     * Returns a base set of arcs (list of Arc objects) from the default link
-     * role (http://www.xbrl.org/2003/role/link).
-     * 
-     * @return Base set of arcs from the default link role.
-     */
-    public final List<Arc> getArcBaseSet() {
-        return getArcBaseSet(DEFAULT_LINK_ROLE);
-    }
+	/**
+	 * Returns a base set of arcs (list of Arc objects) from the default link
+	 * role (http://www.xbrl.org/2003/role/link).
+	 * 
+	 * @return Base set of arcs from the default link role.
+	 */
+	public final List<Arc> getArcBaseSet() {
+		return getArcBaseSet(DEFAULT_LINK_ROLE);
+	}
 
 	/**
 	 * Returns a base set of arcs (list of Arc objects) to a specific extended
@@ -190,37 +194,39 @@ public abstract class Linkbase implements Serializable {
 	 * @return List of arc objects that match to the given parameters.
 	 */
 	public final List<Arc> getArcBaseSet(String arcrole, String extendedLinkRole) {
-        return getArcBaseSet(arcrole, extendedLinkRole, new ArrayList<Arc>());
+		return getArcBaseSet(arcrole, extendedLinkRole, new ArrayList<Arc>());
 	}
 
-    /**
-     * Returns a base set of arcs (list of Arc objects) with a given arcrole in
-     * a given exended link role.
-     * 
-     * @param arcrole
-     *            Role of the arc.
-     * @param extendedLinkRole
-     *            Extended link role of the linkbase. If NULL, the default link
-     *            role is taken.
-     * @param target the target collection to add arcs to
-     * @param <Arcs> type restriction
-     * @return List of arc objects that match to the given parameters.
-     */
-    public <Arcs extends Collection<Arc>> Arcs getArcBaseSet(String arcrole, String extendedLinkRole, Arcs target) {
-        if (extendedLinkRole == null) {
-            extendedLinkRole = DEFAULT_LINK_ROLE;
-        }
+	/**
+	 * Returns a base set of arcs (list of Arc objects) with a given arcrole in
+	 * a given exended link role.
+	 * 
+	 * @param arcrole
+	 *            Role of the arc.
+	 * @param extendedLinkRole
+	 *            Extended link role of the linkbase. If NULL, the default link
+	 *            role is taken.
+	 * @param target
+	 *            the target collection to add arcs to
+	 * @param <Arcs>
+	 *            type restriction
+	 * @return List of arc objects that match to the given parameters.
+	 */
+	public <Arcs extends Collection<Arc>> Arcs getArcBaseSet(String arcrole, String extendedLinkRole, Arcs target) {
+		if (extendedLinkRole == null) {
+			extendedLinkRole = DEFAULT_LINK_ROLE;
+		}
 
-        List<Arc> tmpArcBaseSet = getArcBaseSet(extendedLinkRole);
-        if (tmpArcBaseSet != null) {
-            for (Arc xArc : tmpArcBaseSet) {
-                if (xArc.getArcRole().equals(arcrole)) {
-                    target.add(xArc);
-                }
-            }
-        }
-        return target;
-    }
+		List<Arc> tmpArcBaseSet = getArcBaseSet(extendedLinkRole);
+		if (tmpArcBaseSet != null) {
+			for (Arc xArc : tmpArcBaseSet) {
+				if (xArc.getArcRole().equals(arcrole)) {
+					target.add(xArc);
+				}
+			}
+		}
+		return target;
+	}
 
 	/**
 	 * Returns a base set of arcs (list of Arc objects) with a given list of arc
@@ -236,35 +242,37 @@ public abstract class Linkbase implements Serializable {
 		return getArcBaseSet(arcrole, extendedLinkRole, new ArrayList<Arc>());
 	}
 
-    /**
-     * Returns a base set of arcs (list of Arc objects) with a given list of arc
-     * roles (list of String objects) in a given extended link role.
-     * 
-     * @param arcrole
-     *            List of arc roles (String objects).
-     * @param extendedLinkRole
-     *            Extended link role of the linkbase.
-     * @param target the target collection to add arcs to
-     * @param <Arcs> type restriction
-     * @return List of arc objects that match to the given parameters.
-     */
-    public <Arcs extends Collection<Arc>> Arcs getArcBaseSet(List<String> arcrole, String extendedLinkRole, Arcs target) {
-        for (int i = 0; i < arcrole.size(); i++) {
-            String currentArcrole = arcrole.get(i);
-            getArcBaseSet(currentArcrole, extendedLinkRole, target);
-        }
-        return target;
-    }
+	/**
+	 * Returns a base set of arcs (list of Arc objects) with a given list of arc
+	 * roles (list of String objects) in a given extended link role.
+	 * 
+	 * @param arcrole
+	 *            List of arc roles (String objects).
+	 * @param extendedLinkRole
+	 *            Extended link role of the linkbase.
+	 * @param target
+	 *            the target collection to add arcs to
+	 * @param <Arcs>
+	 *            type restriction
+	 * @return List of arc objects that match to the given parameters.
+	 */
+	public <Arcs extends Collection<Arc>> Arcs getArcBaseSet(List<String> arcrole, String extendedLinkRole, Arcs target) {
+		for (int i = 0; i < arcrole.size(); i++) {
+			String currentArcrole = arcrole.get(i);
+			getArcBaseSet(currentArcrole, extendedLinkRole, target);
+		}
+		return target;
+	}
 
-    /**
-     * Returns all overriden arcs (list of Arc objects) of the default link
-     * role.
-     * 
-     * @return List of overriden arcs in the default link role.
-     */
-    public final List<Arc> getOverridenArcs() {
-        return getOverridenArcs(DEFAULT_LINK_ROLE);
-    }
+	/**
+	 * Returns all overriden arcs (list of Arc objects) of the default link
+	 * role.
+	 * 
+	 * @return List of overriden arcs in the default link role.
+	 */
+	public final List<Arc> getOverridenArcs() {
+		return getOverridenArcs(DEFAULT_LINK_ROLE);
+	}
 
 	/**
 	 * Returns all overriden arcs (list of Arc objects) of a specific extended
@@ -278,15 +286,15 @@ public abstract class Linkbase implements Serializable {
 		return overridenArcs.get(extendedLinkRole);
 	}
 
-    /**
-     * Returns all prohibiting arcs (list of Arc objects) of the default link
-     * role.
-     * 
-     * @return List of prohibiting arcs in the default link role.
-     */
-    public final List<Arc> getProhibitingArcs() {
-        return getProhibitingArcs(DEFAULT_LINK_ROLE);
-    }
+	/**
+	 * Returns all prohibiting arcs (list of Arc objects) of the default link
+	 * role.
+	 * 
+	 * @return List of prohibiting arcs in the default link role.
+	 */
+	public final List<Arc> getProhibitingArcs() {
+		return getProhibitingArcs(DEFAULT_LINK_ROLE);
+	}
 
 	/**
 	 * Returns all prohibiting arcs (list of Arc objects) of a specific extended
@@ -300,15 +308,15 @@ public abstract class Linkbase implements Serializable {
 		return prohibitingArcs.get(extendedLinkRole);
 	}
 
-    /**
-     * Returns all prohibited arcs (list of Arc objects) of the default link
-     * role.
-     * 
-     * @return List of prohibited arcs in the default link role.
-     */
-    public final List<Arc> getProhibitedArcs() {
-        return getProhibitedArcs(DEFAULT_LINK_ROLE);
-    }
+	/**
+	 * Returns all prohibited arcs (list of Arc objects) of the default link
+	 * role.
+	 * 
+	 * @return List of prohibited arcs in the default link role.
+	 */
+	public final List<Arc> getProhibitedArcs() {
+		return getProhibitedArcs(DEFAULT_LINK_ROLE);
+	}
 
 	/**
 	 * Returns all prohibited arcs (list of Arc objects) of a specific extended
@@ -332,9 +340,7 @@ public abstract class Linkbase implements Serializable {
 	 */
 	public Resource getResource(String id) {
 		for (ExtendedLinkElement currExLinkElement : extendedLinkElements) {
-			if (currExLinkElement.isResource()
-					&& currExLinkElement.getId() != null
-					&& currExLinkElement.getId().equals(id)) {
+			if (currExLinkElement.isResource() && currExLinkElement.getId() != null && currExLinkElement.getId().equals(id)) {
 				return (Resource) currExLinkElement;
 			}
 		}
@@ -351,29 +357,24 @@ public abstract class Linkbase implements Serializable {
 	 *            Label of the extended link element object.
 	 * @param extendedLinkRole
 	 *            Extended link role of the linkbase.
-	 * @param linkbaseSource 
+	 * @param linkbaseSource
 	 * @return List with all ExtendedLinkElement objects matching the given
 	 *         parameters.
 	 */
-	public List<ExtendedLinkElement> getExtendedLinkElements(String label, String extendedLinkRole,
-			String linkbaseSource) {
+	public List<ExtendedLinkElement> getExtendedLinkElements(String label, String extendedLinkRole, String linkbaseSource) {
 		if (extendedLinkRole == null) {
 			extendedLinkRole = DEFAULT_LINK_ROLE;
 		}
 
-        List<ExtendedLinkElement> resultList = new ArrayList<ExtendedLinkElement>();
+		List<ExtendedLinkElement> resultList = new ArrayList<ExtendedLinkElement>();
 
 		for (ExtendedLinkElement extendedLinkElement : extendedLinkElements) {
-			if (extendedLinkElement.getLabel().equals(label)
-					&& extendedLinkElement.getExtendedLinkRole().equals(
-							extendedLinkRole)) {
+			if (extendedLinkElement.getLabel().equals(label) && extendedLinkElement.getExtendedLinkRole().equals(extendedLinkRole)) {
 				/*
 				 * check if they are from the same linkbase file, only if
 				 * linkbaseSource is set
 				 */
-				if ((linkbaseSource != null && extendedLinkElement
-						.getLinkbaseSource().equals(linkbaseSource))
-						|| linkbaseSource == null) {
+				if ((linkbaseSource != null && extendedLinkElement.getLinkbaseSource().equals(linkbaseSource)) || linkbaseSource == null) {
 
 					resultList.add(extendedLinkElement);
 				}
@@ -402,17 +403,17 @@ public abstract class Linkbase implements Serializable {
 
 		List<Arc> arcList = getArcBaseSet(extendedLinkRole);
 		if (arcList != null) {
-    		for (int i = 0; i < arcList.size(); i++) {
-    			Arc currArc = arcList.get(i);
-    			ExtendedLinkElement sourceElement = currArc.getSourceElement();
-    			ExtendedLinkElement targetElement = currArc.getTargetElement();
-    			if (usedExtendedLinkElements.add(sourceElement)) {
-    				resultList.add(sourceElement);
-    			}
-    			if (usedExtendedLinkElements.add(targetElement)) {
-    				resultList.add(targetElement);
-    			}
-    		}
+			for (int i = 0; i < arcList.size(); i++) {
+				Arc currArc = arcList.get(i);
+				ExtendedLinkElement sourceElement = currArc.getSourceElement();
+				ExtendedLinkElement targetElement = currArc.getTargetElement();
+				if (usedExtendedLinkElements.add(sourceElement)) {
+					resultList.add(sourceElement);
+				}
+				if (usedExtendedLinkElements.add(targetElement)) {
+					resultList.add(targetElement);
+				}
+			}
 		}
 
 		return resultList;
@@ -433,8 +434,7 @@ public abstract class Linkbase implements Serializable {
 	 * @return Locator of the concept from the base set of arcs in the given
 	 *         extended link role.
 	 */
-	public Locator getExtendedLinkElementFromBaseSet(
-			Concept concept, String extendedLinkRole) {
+	public Locator getExtendedLinkElementFromBaseSet(Concept concept, String extendedLinkRole) {
 		if (extendedLinkRole == null) {
 			extendedLinkRole = DEFAULT_LINK_ROLE;
 		}
@@ -447,15 +447,11 @@ public abstract class Linkbase implements Serializable {
 
 		for (int i = 0; i < tmpArcBaseSet.size(); i++) {
 			Arc currArc = tmpArcBaseSet.get(i);
-			if (currArc.getSourceElement().isLocator()
-					&& ((Locator) currArc.getSourceElement()).getConcept()
-							.equals(concept)) {
+			if (currArc.getSourceElement().isLocator() && ((Locator) currArc.getSourceElement()).getConcept().equals(concept)) {
 				return (Locator) currArc.getSourceElement();
 			} else {
 				Concept concept2 = ((Locator) currArc.getTargetElement()).getConcept();
-				if (currArc.getTargetElement().isLocator()
-						&& concept2 != null && concept2
-								.equals(concept)) {
+				if (currArc.getTargetElement().isLocator() && concept2 != null && concept2.equals(concept)) {
 					return (Locator) currArc.getTargetElement();
 				}
 			}
@@ -476,8 +472,7 @@ public abstract class Linkbase implements Serializable {
 	 * @return List of extended link element objects which the given concept is
 	 *         linked to.
 	 */
-	public List<ExtendedLinkElement> getTargetExtendedLinkElements(Concept concept,
-			String extendedLinkRole) {
+	public List<ExtendedLinkElement> getTargetExtendedLinkElements(Concept concept, String extendedLinkRole) {
 		if (extendedLinkRole == null) {
 			extendedLinkRole = DEFAULT_LINK_ROLE;
 		}
@@ -488,14 +483,12 @@ public abstract class Linkbase implements Serializable {
 			for (int i = 0; i < tmpArcBaseSet.size(); i++) {
 				Arc arc = tmpArcBaseSet.get(i);
 				ExtendedLinkElement sourceLinkElement = arc.getSourceElement();
-				if (arc.getExtendedLinkRole().equals(extendedLinkRole)
-						&& sourceLinkElement.isLocator()) {
+				if (arc.getExtendedLinkRole().equals(extendedLinkRole) && sourceLinkElement.isLocator()) {
 					Locator currLoc = (Locator) sourceLinkElement;
 
 					Concept concept2 = currLoc.getConcept();
 					if (concept2 != null && concept2.equals(concept)) {
-						resultList.add(resultList.size(), arc
-								.getTargetElement());
+						resultList.add(resultList.size(), arc.getTargetElement());
 					}
 				}
 			}
@@ -516,8 +509,7 @@ public abstract class Linkbase implements Serializable {
 	 * @return List of extended link element objects which are linked to the
 	 *         given concept.
 	 */
-	public List<ExtendedLinkElement> getSourceExtendedLinkElements(Concept concept,
-			String extendedLinkRole) {
+	public List<ExtendedLinkElement> getSourceExtendedLinkElements(Concept concept, String extendedLinkRole) {
 		if (extendedLinkRole == null) {
 			extendedLinkRole = DEFAULT_LINK_ROLE;
 		}
@@ -526,8 +518,7 @@ public abstract class Linkbase implements Serializable {
 		if (tmpArcBaseSet != null) {
 			for (Arc arc : tmpArcBaseSet) {
 				ExtendedLinkElement targetLinkElement = arc.getTargetElement();
-				if (arc.getExtendedLinkRole().equals(extendedLinkRole)
-						&& targetLinkElement.isLocator()) {
+				if (arc.getExtendedLinkRole().equals(extendedLinkRole) && targetLinkElement.isLocator()) {
 					Locator currLoc = (Locator) targetLinkElement;
 					Concept concept2 = currLoc.getConcept();
 					if (concept2 != null && concept2.equals(concept)) {
@@ -556,40 +547,35 @@ public abstract class Linkbase implements Serializable {
 	 * @return List with ExtendedLinkElement objects of the source network of
 	 *         the given concept.
 	 */
-	public Set<ExtendedLinkElement> buildSourceNetwork(Concept concept, String arcRole,
-			String extendedLinkRole) {
+	public Set<ExtendedLinkElement> buildSourceNetwork(Concept concept, String arcRole, String extendedLinkRole) {
 		Set<ExtendedLinkElement> resultSet = new HashSet<ExtendedLinkElement>();
 		if (extendedLinkRole == null) {
 			extendedLinkRole = DEFAULT_LINK_ROLE;
 		}
 
-		ExtendedLinkElement linkElement = getExtendedLinkElementFromBaseSet(
-				concept, extendedLinkRole);
+		ExtendedLinkElement linkElement = getExtendedLinkElementFromBaseSet(concept, extendedLinkRole);
 
 		if (linkElement == null) {
 			return null;
 		}
 
-		resultSet = collectSourceNetwork(linkElement, arcRole,
-				extendedLinkRole, resultSet);
+		resultSet = collectSourceNetwork(linkElement, arcRole, extendedLinkRole, resultSet);
 
 		return resultSet;
 	}
 
-    /**
-     * Helping method for buildSourceNetwork. The method is working recursively.
-     */
-    private Set<ExtendedLinkElement> collectSourceNetwork(ExtendedLinkElement xLinkElement,
-            String arcRole, String extendedLinkRole, Set<ExtendedLinkElement> resultSet) {
-        resultSet.add(xLinkElement);
-        List<ExtendedLinkElement> sourceElementList = getSourceExtendedLinkElements(
-                ((Locator) xLinkElement).getConcept(), extendedLinkRole);
-        for (ExtendedLinkElement currExLinkElement : sourceElementList) {
-            collectSourceNetwork(currExLinkElement, arcRole, extendedLinkRole,
-                    resultSet);
-        }
-        return resultSet;
-    }
+	/**
+	 * Helping method for buildSourceNetwork. The method is working recursively.
+	 */
+	private Set<ExtendedLinkElement> collectSourceNetwork(ExtendedLinkElement xLinkElement, String arcRole, String extendedLinkRole,
+			Set<ExtendedLinkElement> resultSet) {
+		resultSet.add(xLinkElement);
+		List<ExtendedLinkElement> sourceElementList = getSourceExtendedLinkElements(((Locator) xLinkElement).getConcept(), extendedLinkRole);
+		for (ExtendedLinkElement currExLinkElement : sourceElementList) {
+			collectSourceNetwork(currExLinkElement, arcRole, extendedLinkRole, resultSet);
+		}
+		return resultSet;
+	}
 
 	/**
 	 * Returns a list with all the extended link elements in the given extended
@@ -606,55 +592,47 @@ public abstract class Linkbase implements Serializable {
 	 *            Extended link role of the linkbase.
 	 * @return List with ExtendedLinkElement objects of the target network of
 	 *         the given concept.
-	 * @throws XBRLException 
+	 * @throws XBRLException
 	 */
-	public Set<ExtendedLinkElement> buildTargetNetwork(Concept concept, String arcRole,
-			String extendedLinkRole) throws XBRLException {
+	public Set<ExtendedLinkElement> buildTargetNetwork(Concept concept, String arcRole, String extendedLinkRole) throws XBRLException {
 		Set<ExtendedLinkElement> resultSet = new HashSet<ExtendedLinkElement>();
 		if (extendedLinkRole == null) {
 			extendedLinkRole = DEFAULT_LINK_ROLE;
 		}
 
-		ExtendedLinkElement linkElement = getExtendedLinkElementFromBaseSet(
-				concept, extendedLinkRole);
+		ExtendedLinkElement linkElement = getExtendedLinkElementFromBaseSet(concept, extendedLinkRole);
 
-        //if (linkElement == null) {
+		// if (linkElement == null) {
 		if (!(linkElement instanceof Locator)) {
 			return null;
 		}
 
-		resultSet = collectTargetNetwork((Locator)linkElement, arcRole,
-				extendedLinkRole, resultSet);
+		resultSet = collectTargetNetwork((Locator) linkElement, arcRole, extendedLinkRole, resultSet);
 
 		/* remove the first element */
-		resultSet.remove(getExtendedLinkElementFromBaseSet(concept,
-				extendedLinkRole));
+		resultSet.remove(getExtendedLinkElementFromBaseSet(concept, extendedLinkRole));
 		return resultSet;
 	}
 
 	/**
 	 * Helping method for buildTargetNetwork. The method is working recursively.
 	 */
-	private Set<ExtendedLinkElement> collectTargetNetwork(Locator xLinkElement,
-			String arcRole, String extendedLinkRole, Set<ExtendedLinkElement> resultSet) {
+	private Set<ExtendedLinkElement> collectTargetNetwork(Locator xLinkElement, String arcRole, String extendedLinkRole, Set<ExtendedLinkElement> resultSet) {
 		resultSet.add(xLinkElement);
 
-		List<Arc> arcs = getTargetArcsFromExtendedLinkElement(xLinkElement, arcRole,
-				extendedLinkRole);
+		List<Arc> arcs = getTargetArcsFromExtendedLinkElement(xLinkElement, arcRole, extendedLinkRole);
 		for (Arc currArc : arcs) {
 			ExtendedLinkElement xLinkElementTo = currArc.getTargetElement();
 			if (xLinkElementTo instanceof Locator) {
-    			if (currArc.getTargetRole() != null) {
-    				/*
-    				 * arc is pointing to a different extended link role
-    				 * (xbrldt:targetRole="...")
-    				 */
-    				collectTargetNetwork((Locator)xLinkElementTo, arcRole,
-    				        currArc.getTargetRole(), resultSet);
-    			} else {
-    				collectTargetNetwork((Locator)xLinkElementTo, arcRole,
-    				        currArc.getExtendedLinkRole(), resultSet);
-    			}
+				if (currArc.getTargetRole() != null) {
+					/*
+					 * arc is pointing to a different extended link role
+					 * (xbrldt:targetRole="...")
+					 */
+					collectTargetNetwork((Locator) xLinkElementTo, arcRole, currArc.getTargetRole(), resultSet);
+				} else {
+					collectTargetNetwork((Locator) xLinkElementTo, arcRole, currArc.getExtendedLinkRole(), resultSet);
+				}
 			}
 		}
 		return resultSet;
@@ -673,7 +651,7 @@ public abstract class Linkbase implements Serializable {
 			return null;
 		List<Arc> tmpArcBaseSet = getArcBaseSet(loc.getExtendedLinkRole());
 		if (tmpArcBaseSet != null) {
-			for ( Arc arc : tmpArcBaseSet) {
+			for (Arc arc : tmpArcBaseSet) {
 				if (arc.getSourceElement().equals(loc)) {
 					return arc;
 				}
@@ -697,7 +675,7 @@ public abstract class Linkbase implements Serializable {
 		if (tmpArcBaseSet != null) {
 			for (Arc arc : tmpArcBaseSet) {
 				Locator target = (Locator) arc.getTargetElement();
-				if (loc.getConcept().equals(target.getConcept())) {
+				if (loc.getConcept().equals(target.getConcept()) && loc.getLabel().equals(target.getLabel())) {
 					return arc;
 				}
 			}
@@ -705,45 +683,43 @@ public abstract class Linkbase implements Serializable {
 		return null;
 	}
 
-    /**
-     * Gets all the arc objects, which point FROM the given {@link Concept} to
-     * any other one.
-     * 
-     * @param concept
-     *            The concept FROM which the arc must point
-     * @param arcRole
-     *            The arcrole attribute of the links. If NULL, the arcrole is
-     *            not taken into account.
-     * @param extendedLinkRole
-     *            The extended link role of the linkbase. If NULL, the default
-     *            link role is taken.
-     * @return List with arc objects which belongs to the target network of the
-     *         given extended link element.
-     */
-    public List<Arc> getArcsFromConcept(
-            Concept concept, String arcRole,
-            String extendedLinkRole) {
-        if (extendedLinkRole == null) {
-            extendedLinkRole = DEFAULT_LINK_ROLE;
-        }
-        List<Arc> tmpArcBaseSet = getArcBaseSet(extendedLinkRole);
+	/**
+	 * Gets all the arc objects, which point FROM the given {@link Concept} to
+	 * any other one.
+	 * 
+	 * @param concept
+	 *            The concept FROM which the arc must point
+	 * @param arcRole
+	 *            The arcrole attribute of the links. If NULL, the arcrole is
+	 *            not taken into account.
+	 * @param extendedLinkRole
+	 *            The extended link role of the linkbase. If NULL, the default
+	 *            link role is taken.
+	 * @return List with arc objects which belongs to the target network of the
+	 *         given extended link element.
+	 */
+	public List<Arc> getArcsFromConcept(Concept concept, String arcRole, String extendedLinkRole) {
+		if (extendedLinkRole == null) {
+			extendedLinkRole = DEFAULT_LINK_ROLE;
+		}
+		List<Arc> tmpArcBaseSet = getArcBaseSet(extendedLinkRole);
 
-        List<Arc> resultList = null;
-        if (tmpArcBaseSet != null) {
-            for (Arc arc : tmpArcBaseSet) {
-                ExtendedLinkElement arcSourceElement = arc.getSourceElement();
-                Concept arcSourceConcept = ((Locator) arcSourceElement).getConcept();
-                if (arcSourceConcept != null && arcSourceConcept.equals(concept)) {
-                    if ((arcRole == null) || arcRole.equals(arc.getArcRole())) {
-                        if (resultList == null)
-                            resultList = new ArrayList<Arc>();
-                        resultList.add(arc);
-                    }
-                }
-            }
-        }
-        return resultList;
-    }
+		List<Arc> resultList = null;
+		if (tmpArcBaseSet != null) {
+			for (Arc arc : tmpArcBaseSet) {
+				ExtendedLinkElement arcSourceElement = arc.getSourceElement();
+				Concept arcSourceConcept = ((Locator) arcSourceElement).getConcept();
+				if (arcSourceConcept != null && arcSourceConcept.equals(concept)) {
+					if ((arcRole == null) || arcRole.equals(arc.getArcRole())) {
+						if (resultList == null)
+							resultList = new ArrayList<Arc>();
+						resultList.add(arc);
+					}
+				}
+			}
+		}
+		return resultList;
+	}
 
 	/**
 	 * Gets all the arc objects which link from a given extended link element to
@@ -761,12 +737,10 @@ public abstract class Linkbase implements Serializable {
 	 * @return List with arc objects which belongs to the target network of the
 	 *         given extended link element.
 	 */
-	public List<Arc> getTargetArcsFromExtendedLinkElement(
-			Locator xLinkElement, String arcRole,
-			String extendedLinkRole) {
-	    List<Arc> resultList = getArcsFromConcept(xLinkElement.getConcept(), arcRole, extendedLinkRole);
-	    if (resultList == null)
-	        resultList = new ArrayList<Arc>();
+	public List<Arc> getTargetArcsFromExtendedLinkElement(Locator xLinkElement, String arcRole, String extendedLinkRole) {
+		List<Arc> resultList = getArcsFromConcept(xLinkElement.getConcept(), arcRole, extendedLinkRole);
+		if (resultList == null)
+			resultList = new ArrayList<Arc>();
 
 		return resultList;
 	}

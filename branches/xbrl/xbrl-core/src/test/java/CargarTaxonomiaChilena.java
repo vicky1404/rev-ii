@@ -1,9 +1,12 @@
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 
 import java.io.IOException;
+import java.io.StringReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Scanner;
 import java.util.Set;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -23,6 +26,7 @@ import xbrlcore.taxonomy.Concept;
 import xbrlcore.taxonomy.DiscoverableTaxonomySet;
 import xbrlcore.taxonomy.RoleType;
 import xbrlcore.xlink.Arc;
+import xbrlcore.xlink.Locator;
 
 public class CargarTaxonomiaChilena {
 
@@ -39,33 +43,53 @@ public class CargarTaxonomiaChilena {
 	@Test
 	public void testCargarDefinicionTaxonomiasSVS() throws Exception {
 
+		StringBuilder builder = new StringBuilder();
 		Set<RoleType> roleTypesSorted = dts.getRoleTypesSorted();
 		assertNotNull(roleTypesSorted);
 		for (RoleType roleType : roleTypesSorted) {
 			String firstDefinition = roleType.getFirstDefinition();
 			assertNotNull(firstDefinition);
-			LOGGER.info(roleType.getTaxonomySchema().getName() + " " + firstDefinition);
+			String name = roleType.getTaxonomySchema().getName() + " " + firstDefinition;
+			LOGGER.info(name);
+			builder.append(name);
+			builder.append(String.format("%n"));
 		}
+		
+		testResultado(builder.toString(), "/expected/taxonomy/TitulosNotas.txt");
 
 	}
 
-	@Test
-	public void testCargarTituloRolesNotas() throws Exception {
-		Set<RoleType> roleTypesSorted = dts.getRoleTypesSorted();
-		assertNotNull(roleTypesSorted);
-		for (RoleType roleType : roleTypesSorted) {
-			String firstDefinition = roleType.getFirstDefinition();
-			assertNotNull(firstDefinition);
-			LOGGER.info(firstDefinition);
-		}
 
-	}
 
 	@Test
 	public void testCargarLabelConceptosPorRoleEEFFRole20000() throws Exception {
 
 		String role = "http://www.svs.cl/cl/fr/cs/role/eeff_role-200000";
 
+		testResultado(printNotaConceptos(role), "/expected/taxonomy/LabelsEEFF20000.txt");
+
+	}
+	
+	@Test
+	public void testCargarLabelConceptosPorNota25() throws Exception {
+
+		String role = "http://www.svs.cl/cl/fr/cs/role/nota-25_role-838100";
+
+		testResultado(printNotaConceptos(role), "/expected/taxonomy/LabelsNota25.txt");
+
+	}
+
+	private void testResultado(String printNotaConceptos, String file) {
+		
+		Scanner scanner = new Scanner(getClass().getResourceAsStream(file));
+		Scanner scannerResult = new Scanner(new StringReader(printNotaConceptos));
+		while (scanner.hasNext()) {
+			assertEquals(scanner.next(), scannerResult.next());
+		}
+	}
+
+	private String printNotaConceptos(String role) {
+		StringBuilder builder = new StringBuilder();
 		PresentationLinkbase presentationLinkbase = dts.getPresentationLinkbase();
 		LabelLinkbase labelLinkbase = dts.getLabelLinkbase();
 
@@ -81,13 +105,14 @@ public class CargarTaxonomiaChilena {
 			Concept concept = presentationLinkbaseElement.getConcept();
 			String label = null;
 			String preferredLabel = null;
-			Arc arcForSourceLocator = presentationLinkbase.getArcForSourceLocator(presentationLinkbaseElement.getLocator());
+			Locator locator = presentationLinkbaseElement.getLocator();
+			Arc arcForSourceLocator = presentationLinkbase.getArcForSourceLocator(locator);
 			if(arcForSourceLocator != null){
 				preferredLabel = arcForSourceLocator.getPreferredLabel();
 			}
 			
 			if(preferredLabel == null){
-				Arc arcForTargeLocator = presentationLinkbase.getArcForTargetLocator(presentationLinkbaseElement.getLocator());
+				Arc arcForTargeLocator = presentationLinkbase.getArcForTargetLocator(locator);
 				if(arcForTargeLocator != null){
 					preferredLabel = arcForTargeLocator.getPreferredLabel();	
 				}
@@ -103,12 +128,20 @@ public class CargarTaxonomiaChilena {
 			}
 					
 			String attrib = concept.getAttrib("codigo");
+			String string = null;
 			if(attrib != null && !attrib.isEmpty()){
-				LOGGER.info(prefix + label + " (" + attrib + ") ");	
+				string = prefix + label + " (" + attrib + ") ";
+					
+			}else{
+				string = prefix + label;
+				
 			}
+			LOGGER.info(string);
+			builder.append(string);
+			builder.append(String.format("%n"));
 			
 		}
-
+		return builder.toString();
 	}
 
 }
