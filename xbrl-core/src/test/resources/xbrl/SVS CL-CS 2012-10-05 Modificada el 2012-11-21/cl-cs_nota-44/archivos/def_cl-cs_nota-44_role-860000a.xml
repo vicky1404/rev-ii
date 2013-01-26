@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-44_role-860000.xsd#nota-44_role-860000a" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-44_role-860000a" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#all" arcroleURI="http://xbrl.org/int/dim/arcrole/all" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#dimension-default" arcroleURI="http://xbrl.org/int/dim/arcrole/dimension-default" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#dimension-domain" arcroleURI="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#hypercube-dimension" arcroleURI="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#domain-member" arcroleURI="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="simple" />
+  <link:definitionLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-44_role-860000a" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PosicionEnActivosYPasivosEnMonedaExtranjeraSinopsis" xlink:label="lbl35187" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PosicionEnActivosYPasivosEnMonedaExtranjeraTabla" xlink:label="lbl35188" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35187" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xbrldt:closed="true" xlink:arcrole="http://xbrl.org/int/dim/arcrole/all" xlink:type="arc" xbrldt:contextElement="scenario" xlink:to="lbl35188" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MonedasExtranjerasEje" xlink:label="lbl35189" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ConsolidadoMonedasExtranjerasMiembro" xlink:label="lbl35190" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35189" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-default" xlink:type="arc" xlink:to="lbl35190" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ConsolidadoMonedasExtranjerasMiembro" xlink:label="lbl35191" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35189" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="arc" xlink:to="lbl35191" />
+    <link:definitionArc xlink:from="lbl35188" xlink:arcrole="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="arc" xlink:to="lbl35189" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservasEnMonedaExtranjera" xlink:label="lbl35192" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosPorPagarEnMonedaExtranjera" xlink:label="lbl35193" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35192" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35193" order="220.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudoresPorPrimasEnMonedaExtranjera" xlink:label="lbl35194" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudoresPorPrimasAseguradosEnMonedaExtranjera" xlink:label="lbl35195" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35194" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35195" order="120.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PosicionEnActivosYPasivosEnMonedaExtranjeraPartidas" xlink:label="lbl35196" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PosicionNetaMonedaOrigen" xlink:label="lbl35197" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35196" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35197" order="291.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PasivosEnMonedaExtranjeraSinopsis" xlink:label="lbl35198" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35198" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35192" order="190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservaRiesgoEnCursoEnMonedaExtranjera" xlink:label="lbl35199" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35192" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35199" order="200.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimasPorPagarEnMonedaExtranjera" xlink:label="lbl35200" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35198" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35200" order="230.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosPasivosEnMonedaExtranjera" xlink:label="lbl35201" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35200" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35201" order="270.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ActivosEnMonedaExtranjeraSinopsis" xlink:label="lbl35202" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosActivosEnMonedaExtranjera" xlink:label="lbl35203" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35202" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35203" order="160.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosDeudoresEnMonedaExtranjera" xlink:label="lbl35204" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35202" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35204" order="150.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudoresPorPrimasReaseguradoresEnMonedaExtranjera" xlink:label="lbl35205" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35194" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35205" order="130.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InversionesEnMonedaExtranjera" xlink:label="lbl35206" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DepositosEnMonedaExtranjera" xlink:label="lbl35207" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35206" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35207" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PosicionNetaEnMonedaExtranjera" xlink:label="lbl35208" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35196" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35208" order="290.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudoresPorSiniestrosEnMonedaExtranjera" xlink:label="lbl35209" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35202" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35209" order="140.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrasInversionesEnMonedaExtranjera" xlink:label="lbl35210" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35206" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35210" order="100.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimasPorPagarAseguradosEnMonedaExtranjera" xlink:label="lbl35211" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35200" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35211" order="240.0" />
+    <link:definitionArc xlink:from="lbl35196" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35198" order="180.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimasPorPagarReaseguradoresEnMonedaExtranjera" xlink:label="lbl35212" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35200" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35212" order="250.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PasivosEnMonedaExtranjera" xlink:label="lbl35213" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35196" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35213" order="280.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudasConInstitucionesFinancierasEnMonedaExtranjera" xlink:label="lbl35214" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35200" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35214" order="260.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ActivosEnMonedaExtranjera" xlink:label="lbl35215" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35196" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35215" order="170.0" />
+    <link:definitionArc xlink:from="lbl35187" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35196" order="60.0" />
+    <link:definitionArc xlink:from="lbl35196" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35202" order="70.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservaMatematicaEnMonedaExtranjera" xlink:label="lbl35216" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35192" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35216" order="210.0" />
+    <link:definitionArc xlink:from="lbl35202" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35194" order="110.0" />
+    <link:definitionArc xlink:from="lbl35202" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35206" order="80.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TiposCambiosCierreFechaInformacion" xlink:label="lbl35217" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35196" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35217" order="292.0" />
+  </link:definitionLink>
+</link:linkbase>
+

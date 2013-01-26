@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-28_role-843000.xsd#nota-28_role-843000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-28_role-843000" />
+  <link:calculationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-28_role-843000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudasConIntermediarios" xlink:label="lbl34417" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudasConCorredores" xlink:label="lbl34418" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34417" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34418" order="200.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosPasivosNoFinancieros" xlink:label="lbl34419" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosDeOtrosPasivosNoFinancieros" xlink:label="lbl34420" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34419" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34420" order="360.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CuentasPorPagarPorImpuestosCorrientes" xlink:label="lbl34421" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IvaPorPagar" xlink:label="lbl34422" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34421" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34422" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudasConAsesoresPrevisionales" xlink:label="lbl34423" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34417" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34423" order="200.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrasDeudasConIntermediarios" xlink:label="lbl34424" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34417" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34424" order="200.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudasConElPersonal" xlink:label="lbl34425" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudasPrevisionales" xlink:label="lbl34426" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34425" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34426" order="300.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ImpuestoReaseguro" xlink:label="lbl34427" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34421" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34427" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrasDeudasPorSeguro" xlink:label="lbl34428" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34417" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34428" order="200.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrasDeudasConPersonal" xlink:label="lbl34429" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34425" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34429" order="300.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AFP" xlink:label="lbl34430" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34419" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34430" order="360.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosPasivosImpuestosCorrientes" xlink:label="lbl34431" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34421" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34431" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ImpuestoTerceros" xlink:label="lbl34432" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34421" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34432" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_RemuneracionesPorPagar" xlink:label="lbl34433" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34425" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34433" order="300.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_Salud" xlink:label="lbl34434" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34419" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34434" order="360.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CajaCompensacion" xlink:label="lbl34435" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34419" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34435" order="360.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ImpuestoRentaPorPagar" xlink:label="lbl34436" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34421" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34436" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IndemnizacionesYOtros" xlink:label="lbl34437" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34425" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34437" order="300.0" />
+  </link:calculationLink>
+</link:linkbase>
+

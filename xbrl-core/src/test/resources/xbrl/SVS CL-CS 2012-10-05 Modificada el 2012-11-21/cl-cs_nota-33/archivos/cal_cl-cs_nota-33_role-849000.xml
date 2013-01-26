@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-33_role-849000.xsd#Nota-33_role-849000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-33_role-849000" />
+  <link:calculationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-33_role-849000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CostosAdministracion" xlink:label="lbl34656" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_GastosAsociadosCanalDistribucion" xlink:label="lbl34657" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34656" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34657" order="80.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosGastosDistintosAsociadosCanalDistribucion" xlink:label="lbl34658" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34656" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34658" order="80.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_Remuneraciones" xlink:label="lbl34659" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34656" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34659" order="80.0" />
+  </link:calculationLink>
+</link:linkbase>
+

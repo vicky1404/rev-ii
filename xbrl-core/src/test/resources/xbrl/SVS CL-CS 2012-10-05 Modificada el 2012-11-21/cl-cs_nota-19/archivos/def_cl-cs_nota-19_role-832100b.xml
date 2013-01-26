@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-19_role-832100.xsd#nota-19_role-832100b" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-19_role-832100b" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#all" arcroleURI="http://xbrl.org/int/dim/arcrole/all" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#dimension-default" arcroleURI="http://xbrl.org/int/dim/arcrole/dimension-default" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#dimension-domain" arcroleURI="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#hypercube-dimension" arcroleURI="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#domain-member" arcroleURI="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="simple" />
+  <link:definitionLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-19_role-832100b" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnReservasTecnicasSinopsis" xlink:label="lbl32871" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnReservasTecnicasTabla" xlink:label="lbl32872" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32871" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xbrldt:closed="true" xlink:arcrole="http://xbrl.org/int/dim/arcrole/all" xlink:type="arc" xbrldt:contextElement="scenario" xlink:to="lbl32872" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ActivoPorReservasTecnicasEje" xlink:label="lbl32873" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnReservasTecnicasMiembro" xlink:label="lbl32874" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32873" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-default" xlink:type="arc" xlink:to="lbl32874" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnReservasTecnicasMiembro" xlink:label="lbl32875" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32873" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="arc" xlink:to="lbl32875" />
+    <link:definitionArc xlink:from="lbl32872" xlink:arcrole="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="arc" xlink:to="lbl32873" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnReservasTecnicasBrutoMiembro" xlink:label="lbl32876" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32875" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32876" order="2.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DetalleParticipacionReaseguroEnReservasTecnicasPartidas" xlink:label="lbl32877" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnOtrasReservaTecnicas" xlink:label="lbl32878" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32877" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32878" order="460.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnReservaSiniestros" xlink:label="lbl32879" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnReservaSiniestrosLiquidadosYNoPagados" xlink:label="lbl32880" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32879" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32880" order="360.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnReservaSiniestrosOcurridosYNoReportados" xlink:label="lbl32881" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32879" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32881" order="400.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroReservasMiembro" xlink:label="lbl32882" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32875" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32882" order="3.0" />
+    <link:definitionArc xlink:from="lbl32871" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32877" order="330.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnReservaCatastroficaTerremoto" xlink:label="lbl32883" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32877" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32883" order="311.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnReservaSiniestrosLiquidadosYContrvertidosPorAsegurado" xlink:label="lbl32884" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32879" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32884" order="370.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnReservasTecnicas" xlink:label="lbl32885" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32877" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32885" order="420.0" />
+    <link:definitionArc xlink:from="lbl32877" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32879" order="380.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnReservaSiniestrosEnProcesoLiquidacion" xlink:label="lbl32886" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32879" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32886" order="390.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnReservaRiesgoEnCurso" xlink:label="lbl32887" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32877" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32887" order="340.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnReservaInsuficienciaPrimas" xlink:label="lbl32888" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32877" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32888" order="312.0" />
+  </link:definitionLink>
+</link:linkbase>
+

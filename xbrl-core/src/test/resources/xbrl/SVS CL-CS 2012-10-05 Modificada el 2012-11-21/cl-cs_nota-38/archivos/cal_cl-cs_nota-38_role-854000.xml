@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-38_role-854000.xsd#Nota-38_role-854000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-38_role-854000" />
+  <link:calculationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-38_role-854000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesCuentasResultados" xlink:label="lbl34881" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesResultadoInversiones" xlink:label="lbl34882" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34881" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34882" order="570.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesActivo" xlink:label="lbl34883" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesActivosFinancierosValorRazonable" xlink:label="lbl34884" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34883" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34884" order="390.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesCuentasPorCobrarAsegurados" xlink:label="lbl34885" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34883" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34885" order="390.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioPasivo" xlink:label="lbl34886" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioOtrosPasivos" xlink:label="lbl34887" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34886" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34887" order="190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesCuentasEgresos" xlink:label="lbl34888" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34881" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34888" order="570.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioActivo" xlink:label="lbl34889" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioActivosFinancierosValorRazonable" xlink:label="lbl34890" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34889" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34890" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioCuentasPorCobrarAsegurados" xlink:label="lbl34891" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34889" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34891" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioOtrosActivos" xlink:label="lbl34892" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34889" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34892" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioActivosFinancierosCostoAmortizado" xlink:label="lbl34893" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34889" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34893" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustables" xlink:label="lbl34894" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34894" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34883" order="610.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesCuentasIngresos" xlink:label="lbl34895" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34881" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34895" order="570.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesPasivo" xlink:label="lbl34896" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesPasivosFinancieros" xlink:label="lbl34897" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34896" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34897" order="490.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesInversionesSegurosCUI" xlink:label="lbl34898" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34883" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34898" order="390.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesPrestamos" xlink:label="lbl34899" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34883" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34899" order="390.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioCuentasResultados" xlink:label="lbl34900" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioResultadoInversiones" xlink:label="lbl34901" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34900" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34901" order="270.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciasCambio" xlink:label="lbl34902" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34902" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34900" order="310.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioReservasTecnicas" xlink:label="lbl34903" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34886" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34903" order="190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioInversionesInmobiliarias" xlink:label="lbl34904" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34889" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34904" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesReservasTecnicas" xlink:label="lbl34905" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34896" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34905" order="490.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioDeudasConAsegurados" xlink:label="lbl34906" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34886" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34906" order="190.0" />
+    <link:calculationArc xlink:from="lbl34894" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34881" order="610.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioInversionesSegurosCUI" xlink:label="lbl34907" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34889" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34907" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioDeudoresOperacionesCoaseguro" xlink:label="lbl34908" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34889" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34908" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesParticipacionReaseguroReservasTecnicas" xlink:label="lbl34909" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34883" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34909" order="390.0" />
+    <link:calculationArc xlink:from="lbl34902" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34886" order="310.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesOtrosPasivos" xlink:label="lbl34910" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34896" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34910" order="490.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesOtrosActivos" xlink:label="lbl34911" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34883" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34911" order="390.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioPrestamos" xlink:label="lbl34912" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34889" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34912" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioDeudasOperacionesReaseguro" xlink:label="lbl34913" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34886" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34913" order="190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioCuentasEgresos" xlink:label="lbl34914" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34900" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34914" order="270.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioParticipacionReaseguroReservasTecnicas" xlink:label="lbl34915" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34889" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34915" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesDeudasOperacionesCoaseguro" xlink:label="lbl34916" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34896" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34916" order="490.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioDeudoresOperacionesReaseguro" xlink:label="lbl34917" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34889" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34917" order="90.0" />
+    <link:calculationArc xlink:from="lbl34902" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34889" order="310.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesDeudoresOperacionesCoaseguro" xlink:label="lbl34918" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34883" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34918" order="390.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioPasivosFinancieros" xlink:label="lbl34919" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34886" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34919" order="190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesInversionesInmobiliarias" xlink:label="lbl34920" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34883" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34920" order="390.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioDeudasOperacionesCoaseguro" xlink:label="lbl34921" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34886" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34921" order="190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioPatrimonio" xlink:label="lbl34922" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34902" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34922" order="310.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesPatrimonio" xlink:label="lbl34923" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34894" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34923" order="610.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesDeudoresOperacionesReaseguro" xlink:label="lbl34924" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34883" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34924" order="390.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesDeudasConAsegurados" xlink:label="lbl34925" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34896" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34925" order="490.0" />
+    <link:calculationArc xlink:from="lbl34894" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34896" order="610.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesDeudasOperacionesReaseguro" xlink:label="lbl34926" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34896" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34926" order="490.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioCuentasIngresos" xlink:label="lbl34927" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34900" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34927" order="270.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesActivosFinancierosCostoAmortizado" xlink:label="lbl34928" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34883" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34928" order="390.0" />
+  </link:calculationLink>
+</link:linkbase>
+

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-18_role-830000.xsd#nota-18_role-830000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-18_role-830000" />
+  <link:calculationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-18_role-830000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudoresPorOperacionesCoaseguro" xlink:label="lbl32764" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimasPorCobrarOperacionesCoasegurosBruto" xlink:label="lbl32765" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32764" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32765" order="120.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroDeudoresOperacionesCoaseguro" xlink:label="lbl32766" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32764" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32766" order="120.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosPorCobrarOperacionesCoasegurosBruto" xlink:label="lbl32767" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32764" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32767" order="120.0" />
+  </link:calculationLink>
+</link:linkbase>
+

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-32_role-848000.xsd#Nota-32_role-848000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-32_role-848000" />
+  <link:presentationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-32_role-848000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosDirectos" xlink:label="lbl34623" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosPorPagarDirectos" xlink:label="lbl34624" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34623" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34624" order="50.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosCedidos" xlink:label="lbl34625" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosPorPagarCedidos" xlink:label="lbl34626" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34625" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34626" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CostoSiniestrosSinopsis" xlink:label="lbl34627" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CostoSiniestrosDelEjercicio" xlink:label="lbl34628" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34627" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl34628" order="150.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosAceptados" xlink:label="lbl34629" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosPagadosAceptados" xlink:label="lbl34630" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34629" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34630" order="120.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosPagadosCedidos" xlink:label="lbl34631" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34625" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34631" order="80.0" />
+    <link:presentationArc xlink:from="lbl34627" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34629" order="110.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionRevelarSobreCostoSiniestrosEjercicioBoqueDeTexto" xlink:label="lbl34632" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34632" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34627" order="20.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosPagadosDirectos" xlink:label="lbl34633" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34623" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34633" order="40.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosPorPagarCedidosPeriodoAnterior" xlink:label="lbl34634" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34625" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34634" order="100.0" />
+    <link:presentationArc xlink:from="lbl34627" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34625" order="70.0" />
+    <link:presentationArc xlink:from="lbl34627" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34623" order="30.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosPorPagarDirectosPeriodoAnterior" xlink:label="lbl34635" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34623" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34635" order="60.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosPorPagarAceptadosPeriodoAnterior" xlink:label="lbl34636" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34629" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34636" order="140.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosPorPagarAceptados" xlink:label="lbl34637" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34629" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34637" order="130.0" />
+  </link:presentationLink>
+</link:linkbase>
+

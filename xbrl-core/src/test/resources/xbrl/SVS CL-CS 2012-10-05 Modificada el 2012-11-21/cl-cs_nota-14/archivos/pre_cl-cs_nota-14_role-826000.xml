@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-14_role-826000.xsd#nota-14_role-826000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-14_role-826000" />
+  <link:presentationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-14_role-826000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PropiedadesUsoPropioPartidas" xlink:label="lbl32161" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosAjustesPropiedadesUsoPropio" xlink:label="lbl32162" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32161" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32162" order="540.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PropiedadesDeInversionMiembro" xlink:label="lbl32163" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EdificiosMiembro" xlink:label="lbl32164" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32163" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32164" order="70.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorContratoLeasingMiembro" xlink:label="lbl32165" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InteresesPorRecibirLeasingMiembro" xlink:label="lbl32166" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32165" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32166" order="300.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PropiedadesDeInversionTabla" xlink:label="lbl32167" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PropiedadesDeInversionEje" xlink:label="lbl32168" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32167" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32168" order="40.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroLeasingMiembro" xlink:label="lbl32169" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32165" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32169" order="320.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValoresContratosArrendamientosEje" xlink:label="lbl32170" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CuentasPorCobrarLeasingMiembro" xlink:label="lbl32171" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32170" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32171" order="350.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TerrenosMiembro" xlink:label="lbl32172" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32163" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32172" order="60.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorCostoLeasingMiembro" xlink:label="lbl32173" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32171" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32173" order="330.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionRevelarSobreInversionesInmobiliariasSinopsis" xlink:label="lbl32174" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CuentasPorCobrarLeasingSinopsis" xlink:label="lbl32175" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32174" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32175" order="240.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_A%C3%B1osRemanentesContratoLeasingTabla" xlink:label="lbl32176" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32176" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32170" order="280.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PropiedadesDeInversionPartidas" xlink:label="lbl32177" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PropiedadesDeInversionExtranjeras" xlink:label="lbl32178" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32177" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/periodEndLabel" xlink:to="lbl32178" order="210.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VentasBajasYTransferenciasPropiedadesUsoPropio" xlink:label="lbl32179" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32161" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32179" order="510.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AjustesRevalorizacionPropiedadesUsoPropio" xlink:label="lbl32180" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32161" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32180" order="530.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PropiedadesDeUsoPropioSinopsis" xlink:label="lbl32181" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32181" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32161" order="480.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroPropiedadesInversionProvision" xlink:label="lbl32182" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32177" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32182" order="180.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AdicionesMejorasYTransferenciasPropiedadesUsoPropio" xlink:label="lbl32183" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32161" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32183" order="500.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_A%C3%B1osRemanentesContratoLeasingSinopsis" xlink:label="lbl32184" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32184" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32176" order="270.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PropiedadesDeInversionSinopsis" xlink:label="lbl32185" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32185" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32167" order="30.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PropiedadesDeUsoPropioMiembro" xlink:label="lbl32186" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32186" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32164" order="460.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosMiembro" xlink:label="lbl32187" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32186" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32187" order="470.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorFinalContratoMiembro" xlink:label="lbl32188" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32165" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32188" order="321.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PropiedadesUsoPropio" xlink:label="lbl32189" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32161" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/periodEndLabel" xlink:to="lbl32189" order="580.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_A%C3%B1osRemanentesContratoLeasingPartidas" xlink:label="lbl32190" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TerminoContratoLeasingEntre1Y5A%C3%B1os" xlink:label="lbl32191" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32190" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32191" order="380.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ExplicacionCuentasPorCobrarLeasingParaArrendamientosFinancierosBloqueDeTexto" xlink:label="lbl32192" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32192" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32184" order="260.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PropiedadesUsoPropio" xlink:label="lbl32193" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32161" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/periodStartLabel" xlink:to="lbl32193" order="481.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TerminoContratoLeasingHasta1A%C3%B1o" xlink:label="lbl32194" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32190" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32194" order="370.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TerminoContratoLeasingSuperior5A%C3%B1os" xlink:label="lbl32195" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32190" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32195" order="390.0" />
+    <link:presentationArc xlink:from="lbl32185" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32177" order="90.0" />
+    <link:presentationArc xlink:from="lbl32184" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32190" order="360.0" />
+    <link:presentationArc xlink:from="lbl32163" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32187" order="80.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DepreciacionEjercicioPropiedadesInversion" xlink:label="lbl32196" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32177" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32196" order="130.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorContablePropiedadesInversion" xlink:label="lbl32197" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32177" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/periodStartLabel" xlink:to="lbl32197" order="100.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PropiedadesDeUsoPropioEje" xlink:label="lbl32198" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32198" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl32186" order="440.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorRazonablePropiedadesUsoPropio" xlink:label="lbl32199" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32161" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32199" order="560.0" />
+    <link:presentationArc xlink:from="lbl32175" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32192" order="250.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PropiedadesDeInversion" xlink:label="lbl32200" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32177" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/periodEndLabel" xlink:to="lbl32200" order="220.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PropiedadesDeInversion" xlink:label="lbl32201" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32177" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/periodEndLabel" xlink:to="lbl32201" order="190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosAjustesPropiedadesInversion" xlink:label="lbl32202" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32177" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32202" order="150.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CapitalInsolutoLeasingMiembro" xlink:label="lbl32203" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32165" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32203" order="290.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DepreciacionEjercicioPropiedadesUsoPropio" xlink:label="lbl32204" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32161" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32204" order="520.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorRazonablePropiedadesInversion" xlink:label="lbl32205" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32177" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32205" order="170.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AdicionesMejorasYTransferenciasPropiedadesInversion" xlink:label="lbl32206" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32177" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32206" order="110.0" />
+    <link:presentationArc xlink:from="lbl32186" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32172" order="450.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PropiedadesDeUsoPropioTabla" xlink:label="lbl32207" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32181" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32207" order="420.0" />
+    <link:presentationArc xlink:from="lbl32168" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl32163" order="50.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorContablePropiedadesInversion" xlink:label="lbl32208" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32177" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32208" order="160.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CuentasPorCobrarLeasing" xlink:label="lbl32209" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32190" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl32209" order="400.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AjustesRevalorizacionPropiedadesInversion" xlink:label="lbl32210" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32177" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32210" order="140.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorPresenteLeasingMiembro" xlink:label="lbl32211" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32165" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32211" order="310.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorTasacionLeasingMiembro" xlink:label="lbl32212" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32171" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32212" order="340.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VentasBajasYTransferenciasPropiedadesInversion" xlink:label="lbl32213" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32177" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32213" order="120.0" />
+    <link:presentationArc xlink:from="lbl32174" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32181" order="410.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ExplicacionPropiedadesInversionParaArriendosOperativosBloqueDeTexto" xlink:label="lbl32214" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32185" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32214" order="230.0" />
+    <link:presentationArc xlink:from="lbl32207" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32198" order="430.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PropiedadesDeInversionNacionales" xlink:label="lbl32215" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32177" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/periodEndLabel" xlink:to="lbl32215" order="200.0" />
+    <link:presentationArc xlink:from="lbl32171" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32165" order="281.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorContablePropiedadesUsoPropio" xlink:label="lbl32216" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32161" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32216" order="550.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroPropiedadesUsoPropioProvision" xlink:label="lbl32217" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32161" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32217" order="570.0" />
+    <link:presentationArc xlink:from="lbl32174" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32185" order="20.0" />
+  </link:presentationLink>
+</link:linkbase>
+

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-47_role-863200.xsd#nota-47_role-863200" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-47_role-863200" />
+  <link:calculationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-47_role-863200" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimaPorCobrarNoVencidaRepresentativaReservaSiniestros" xlink:label="lbl35776" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimaPorCobrarVencidaNoProvisionadaRepresentativaPatrimonioLibre" xlink:label="lbl35777" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35776" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35777" order="480.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CreditoAseguradosNoVencidoCarteraPolizas" xlink:label="lbl35778" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CreditoAseguradosNoVencido" xlink:label="lbl35779" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35778" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35779" order="50.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimaAceptadaNoDevengadaNetaDeDescuento" xlink:label="lbl35780" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimaAceptadaNoDevengada" xlink:label="lbl35781" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35780" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35781" order="440.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimaDirectaNoGanadaNetaDeDescuento" xlink:label="lbl35782" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimaDirectaNoDevengada" xlink:label="lbl35783" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35782" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35783" order="340.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimaPorCobrarNoVencidaNoDevengadaRepresentativaDeReservaRiesgoEnCursoYPatrimonio" xlink:label="lbl35784" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimaPorCobrarNoVencidaNoDevengadaCarteraPolizas" xlink:label="lbl35785" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35784" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35785" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DescuentoAceptacionNoDevengado" xlink:label="lbl35786" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35780" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35786" order="440.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimaPorCobrarNoVencidaRepresentativaReservaRiesgoEnCurso" xlink:label="lbl35787" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35776" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35787" order="480.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CreditoAseguradosNoVencidoPolizasIndividuales" xlink:label="lbl35788" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35778" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35788" order="50.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DescuentosCesionNoDevengado" xlink:label="lbl35789" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35782" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35789" order="340.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimaPorCobrarNoVencidaNoDevengadaPolizasIndividuales" xlink:label="lbl35790" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35784" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35790" order="90.0" />
+  </link:calculationLink>
+</link:linkbase>
+

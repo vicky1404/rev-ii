@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-30_role-846000.xsd#nota-30_role-846000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-30_role-846000" />
+  <link:calculationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-30_role-846000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReaseguroExtranjero" xlink:label="lbl34527" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimaCedidaReaseguradorExtranjero" xlink:label="lbl34528" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34527" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34528" order="320.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReaseguroNacional" xlink:label="lbl34529" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CostoReaseguroNacionalNoProporcional" xlink:label="lbl34530" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34529" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34530" order="130.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReaseguradoresCorredoresReasegurosVigentes" xlink:label="lbl34531" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34531" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34527" order="480.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimaCedidaReaseguradoNacional" xlink:label="lbl34532" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34529" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34532" order="130.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CostoReaseguroNoProporcionalReaseguradoresExtranjeros" xlink:label="lbl34533" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34527" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34533" order="320.0" />
+    <link:calculationArc xlink:from="lbl34531" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34529" order="480.0" />
+  </link:calculationLink>
+</link:linkbase>
+

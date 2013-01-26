@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-38_role-854000.xsd#Nota-38_role-854000b" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-38_role-854000b" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#all" arcroleURI="http://xbrl.org/int/dim/arcrole/all" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#dimension-default" arcroleURI="http://xbrl.org/int/dim/arcrole/dimension-default" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#dimension-domain" arcroleURI="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#hypercube-dimension" arcroleURI="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#domain-member" arcroleURI="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="simple" />
+  <link:definitionLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-38_role-854000b" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesSinopsis" xlink:label="lbl34961" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesTabla" xlink:label="lbl34962" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34961" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xbrldt:closed="true" xlink:arcrole="http://xbrl.org/int/dim/arcrole/all" xlink:type="arc" xbrldt:contextElement="scenario" xlink:to="lbl34962" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesEje" xlink:label="lbl34963" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesMiembro" xlink:label="lbl34964" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34963" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-default" xlink:type="arc" xlink:to="lbl34964" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesMiembro" xlink:label="lbl34965" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34963" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="arc" xlink:to="lbl34965" />
+    <link:definitionArc xlink:from="lbl34962" xlink:arcrole="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="arc" xlink:to="lbl34963" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesActivo" xlink:label="lbl34966" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesDeudoresOperacionesReaseguro" xlink:label="lbl34967" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34966" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34967" order="150.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesCuentasResultados" xlink:label="lbl34968" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesCuentasEgresos" xlink:label="lbl34969" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34968" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34969" order="290.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesActivosFinancierosCostoAmortizado" xlink:label="lbl34970" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34966" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34970" order="110.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesPasivo" xlink:label="lbl34971" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesOtrosPasivos" xlink:label="lbl34972" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34971" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34972" order="250.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesPartidas" xlink:label="lbl34973" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesPatrimonio" xlink:label="lbl34974" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34973" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34974" order="260.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesInversionesInmobiliarias" xlink:label="lbl34975" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34966" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34975" order="135.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesParticipacionReaseguroReservasTecnicas" xlink:label="lbl34976" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34966" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34976" order="170.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AbonoMiembro" xlink:label="lbl34977" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34965" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34977" order="3.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CargoMiembro" xlink:label="lbl34978" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34965" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34978" order="2.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesCuentasPorCobrarAsegurados" xlink:label="lbl34979" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34966" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34979" order="140.0" />
+    <link:definitionArc xlink:from="lbl34961" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34973" order="80.0" />
+    <link:definitionArc xlink:from="lbl34973" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34966" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesResultadoInversiones" xlink:label="lbl34980" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34968" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34980" order="300.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesDeudasOperacionesReaseguro" xlink:label="lbl34981" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34971" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34981" order="230.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesPasivosFinancieros" xlink:label="lbl34982" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34971" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34982" order="200.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesInversionesSegurosCUI" xlink:label="lbl34983" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34966" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34983" order="130.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesActivosFinancierosValorRazonable" xlink:label="lbl34984" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34966" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34984" order="100.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesDeudasConAsegurados" xlink:label="lbl34985" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34971" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34985" order="220.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesOtrosActivos" xlink:label="lbl34986" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34966" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34986" order="180.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesReservasTecnicas" xlink:label="lbl34987" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34971" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34987" order="210.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesDeudasOperacionesCoaseguro" xlink:label="lbl34988" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34971" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34988" order="240.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesCuentasIngresos" xlink:label="lbl34989" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34968" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34989" order="280.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustables" xlink:label="lbl34990" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34973" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34990" order="310.0" />
+    <link:definitionArc xlink:from="lbl34973" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34968" order="270.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesPrestamos" xlink:label="lbl34991" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34966" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34991" order="120.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesDeudoresOperacionesCoaseguro" xlink:label="lbl34992" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34966" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34992" order="160.0" />
+    <link:definitionArc xlink:from="lbl34973" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34971" order="190.0" />
+  </link:definitionLink>
+</link:linkbase>
+

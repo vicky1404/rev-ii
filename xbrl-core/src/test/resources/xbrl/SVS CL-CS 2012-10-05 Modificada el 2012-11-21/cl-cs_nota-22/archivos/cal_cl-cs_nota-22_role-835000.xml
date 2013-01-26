@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-22_role-835000.xsd#nota-22_role-835000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-22_role-835000" />
+  <link:calculationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-22_role-835000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CompensacionesPorPagarDirectivosClaveYAdministradores" xlink:label="lbl33201" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrasPrestaciones" xlink:label="lbl33202" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl33201" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33202" order="360.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CuentasPorCobrarIntermediarios" xlink:label="lbl33203" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CuentasPorCobrarCorredoresSeguros" xlink:label="lbl33204" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl33203" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33204" order="140.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrasCuentasPorCobrarSeguros" xlink:label="lbl33205" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl33203" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33205" order="140.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MontoTransacciones" xlink:label="lbl33206" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MontoTransaccionActivo" xlink:label="lbl33207" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl33206" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33207" order="710.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CuentasPorCobrarOtrosIntermediarios" xlink:label="lbl33208" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl33203" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33208" order="140.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MontoTransaccionOtros" xlink:label="lbl33209" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl33206" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33209" order="710.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_Sueldos" xlink:label="lbl33210" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl33201" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33210" order="360.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EfectoEnResultadoTransacciones" xlink:label="lbl33211" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EfectoEnResultadoOtros" xlink:label="lbl33212" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl33211" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33212" order="750.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CuentasPorCobrarAsesoresPrevisionales" xlink:label="lbl33213" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl33203" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33213" order="140.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MontoTransaccionPasivo" xlink:label="lbl33214" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl33206" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33214" order="710.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EfectoEnResultadoActivo" xlink:label="lbl33215" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl33211" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33215" order="750.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EfectoEnResultadoPasivo" xlink:label="lbl33216" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl33211" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33216" order="750.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroCuentasPorCobrarIntermediarios" xlink:label="lbl33217" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl33203" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33217" order="140.0" />
+  </link:calculationLink>
+</link:linkbase>
+

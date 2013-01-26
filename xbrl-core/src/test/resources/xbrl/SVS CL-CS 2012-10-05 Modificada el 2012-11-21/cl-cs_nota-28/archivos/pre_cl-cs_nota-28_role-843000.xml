@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-28_role-843000.xsd#nota-28_role-843000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-28_role-843000" />
+  <link:presentationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-28_role-843000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TotalSaldosMiembro" xlink:label="lbl34381" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SaldosEmpresasRelacionadasMiembro" xlink:label="lbl34382" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34381" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34382" order="140.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudasConElPersonalSinopsis" xlink:label="lbl34383" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_RemuneracionesPorPagar" xlink:label="lbl34384" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34383" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34384" order="270.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudasConIntermediariosPartidas" xlink:label="lbl34385" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PasivosCorrientesDeudasConIntermediarios" xlink:label="lbl34386" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34385" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34386" order="210.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudasPrevisionales" xlink:label="lbl34387" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34383" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34387" order="280.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionRevelarSobreOtrosPasivosSinopsis" xlink:label="lbl34388" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosPasivosNoFinancierosSinopsis" xlink:label="lbl34389" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34388" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34389" order="310.0" />
+    <link:presentationArc xlink:from="lbl34388" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34383" order="250.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudasConIntermediariosTabla" xlink:label="lbl34390" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SaldosPorTipoRelacionEje" xlink:label="lbl34391" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34390" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34391" order="120.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudasConAsesoresPrevisionales" xlink:label="lbl34392" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34385" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34392" order="170.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CuentasPorPagarPorImpuestosCorrientesSinopsis" xlink:label="lbl34393" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34388" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34393" order="20.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_Salud" xlink:label="lbl34394" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34389" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34394" order="330.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosDeOtrosPasivosNoFinancieros" xlink:label="lbl34395" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34389" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34395" order="350.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CajaCompensacion" xlink:label="lbl34396" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34389" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34396" order="340.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AFP" xlink:label="lbl34397" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34389" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34397" order="320.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CuentasPorPagarPorImpuestosCorrientes" xlink:label="lbl34398" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34393" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl34398" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ImpuestoRentaPorPagar" xlink:label="lbl34399" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34393" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34399" order="40.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PasivosNoCorrientesDeudasConIntermediarios" xlink:label="lbl34400" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34385" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34400" order="220.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudasConElPersonal" xlink:label="lbl34401" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34383" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl34401" order="300.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ImpuestoReaseguro" xlink:label="lbl34402" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34393" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34402" order="60.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudasConIntermediarios" xlink:label="lbl34403" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34385" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl34403" order="200.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrasDeudasConIntermediarios" xlink:label="lbl34404" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34385" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34404" order="181.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrasDeudasConPersonal" xlink:label="lbl34405" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34383" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34405" order="290.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrasDeudasPorSeguro" xlink:label="lbl34406" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34385" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34406" order="190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosPasivosImpuestosCorrientes" xlink:label="lbl34407" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34393" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34407" order="80.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IndemnizacionesYOtros" xlink:label="lbl34408" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34383" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34408" order="260.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SaldosTercerosMiembro" xlink:label="lbl34409" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34381" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34409" order="150.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IvaPorPagar" xlink:label="lbl34410" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34393" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34410" order="30.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ImpuestoTerceros" xlink:label="lbl34411" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34393" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34411" order="50.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EplicacionIngresosAnticipadosBloqueDeTexto" xlink:label="lbl34412" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34388" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34412" order="301.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudasConCorredores" xlink:label="lbl34413" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34385" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34413" order="180.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudasConIntermediariosSinopsis" xlink:label="lbl34414" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionRevelarSobreDeudasConIntermediariosBloqueDeTexto" xlink:label="lbl34415" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34414" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34415" order="221.0" />
+    <link:presentationArc xlink:from="lbl34391" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl34381" order="130.0" />
+    <link:presentationArc xlink:from="lbl34388" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34414" order="100.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosPasivosNoFinancieros" xlink:label="lbl34416" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34389" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl34416" order="360.0" />
+    <link:presentationArc xlink:from="lbl34414" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34390" order="110.0" />
+    <link:presentationArc xlink:from="lbl34414" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34385" order="160.0" />
+  </link:presentationLink>
+</link:linkbase>
+

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-13_role-825000.xsd#nota-13_role-825000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-13_role-825000" />
+  <link:calculationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-13_role-825000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ActivosFinancierosNacional" xlink:label="lbl32074" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ActivosFinancierosValorRazonableNacional" xlink:label="lbl32075" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32074" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32075" order="490.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InversionesCarteraNacional" xlink:label="lbl32076" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InversionesNacionalesCUIEnCustodia" xlink:label="lbl32077" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32076" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32077" order="510.0" />
+    <link:calculationArc xlink:from="lbl32076" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32074" order="510.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ActivosFinancierosCostoAmortizadoNacional" xlink:label="lbl32078" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32074" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32078" order="490.0" />
+  </link:calculationLink>
+</link:linkbase>
+

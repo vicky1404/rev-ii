@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-23_role-836000.xsd#nota-23_role-836000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-23_role-836000" />
+  <link:calculationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-23_role-836000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PasivosFinancierosValorRazonable" xlink:label="lbl33329" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosPasivosFinancierosValorRazonable" xlink:label="lbl33330" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl33329" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33330" order="160.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudaEntidadesFinancieras" xlink:label="lbl33331" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MontoDeudaLargoPlazo" xlink:label="lbl33332" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl33331" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33332" order="361.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MontoDeudaCortoPlazo" xlink:label="lbl33333" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl33331" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33333" order="361.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DerivadosInversion" xlink:label="lbl33334" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl33329" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33334" order="160.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DerivadosImplicitos" xlink:label="lbl33335" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl33329" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33335" order="160.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValoresRepresentativosDeDeuda" xlink:label="lbl33336" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl33329" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33336" order="160.0" />
+  </link:calculationLink>
+</link:linkbase>
+

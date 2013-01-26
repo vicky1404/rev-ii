@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:nota-8_role-816000_rol="http://www.svs.cl/cl/fr/cs/2012-10-05/rol_cl-cs_nota-8_role-816000_rol" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://www.svs.cl/cl/fr/cs/2012-10-05/rol_cl-cs_nota-8_role-816000_rol">
+  <annotation>
+    <appinfo>
+      <link:roleType id="nota-8_role-816000l" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-8_role-816000l">
+        <link:definition>[816000l] Nota 8 - Cobertura de riesgo de crédito</link:definition>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="nota-8_role-816000k" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-8_role-816000k">
+        <link:definition>[816000k] Nota 8 - Swaps</link:definition>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="nota-8_role-816000j" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-8_role-816000j">
+        <link:definition>[816000j] Nota 8 - Futuros venta</link:definition>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="nota-8_role-816000i" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-8_role-816000i">
+        <link:definition>[816000i] Nota 8 - Futuros compra</link:definition>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="nota-8_role-816000h" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-8_role-816000h">
+        <link:definition>[816000h] Nota 8 - Forwards venta</link:definition>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="nota-8_role-816000g" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-8_role-816000g">
+        <link:definition>[816000g] Nota 8 - Forwards compra</link:definition>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="nota-8_role-816000f" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-8_role-816000f">
+        <link:definition>[816000f] Nota 8 - Opciones de venta</link:definition>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="nota-8_role-816000e" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-8_role-816000e">
+        <link:definition>[816000e] Nota 8 - Opciones de compra</link:definition>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="nota-8_role-816000d" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-8_role-816000d">
+        <link:definition>[816000d] Nota 8 - Operaciones de venta corta</link:definition>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="nota-8_role-816000c" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-8_role-816000c">
+        <link:definition>[816000c] Nota 8 - Posición en contratos de derivados (futuros)</link:definition>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="nota-8_role-816000" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-8_role-816000">
+        <link:definition>[816000] Nota 8 - Activos financieros a valor razonable</link:definition>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="nota-8_role-816000b" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-8_role-816000b">
+        <link:definition>[816000b] Nota 8 - Posición en contratos de derivados</link:definition>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="nota-8_role-816000a" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-8_role-816000a">
+        <link:definition>[816000a] Nota 8 - Inversiones a valor razonable</link:definition>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+    </appinfo>
+  </annotation>
+  <import namespace="http://www.xbrl.org/2003/instance" schemaLocation="http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd" />
+</schema>
+

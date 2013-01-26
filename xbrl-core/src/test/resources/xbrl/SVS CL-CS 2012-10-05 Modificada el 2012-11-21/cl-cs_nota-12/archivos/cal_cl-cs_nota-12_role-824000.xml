@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-12_role-824000.xsd#nota-12_role-824000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-12_role-824000" />
+  <link:calculationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-12_role-824000" xlink:type="extended" />
+</link:linkbase>
+

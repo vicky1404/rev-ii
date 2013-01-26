@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-3_role-811100.xsd#nota-3_role-811100" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-3_role-811100" />
+  <link:presentationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-3_role-811100" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaInversionesInmobiliarias" xlink:label="lbl30827" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaMueblesEquiposUsoPropio" xlink:label="lbl30828" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30827" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30828" order="151.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionRevelarSobrePoliticasContablesSinopsis" xlink:label="lbl30829" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaOperacionesCobertura" xlink:label="lbl30830" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30829" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30830" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_BasesConsolidacion" xlink:label="lbl30831" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30829" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30831" order="20.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaOtrosActivosPasivosDerivadosDeContratosSegurosReaseguros" xlink:label="lbl30832" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaGastosAdquisicion" xlink:label="lbl30833" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30832" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30833" order="230.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaProvisiones" xlink:label="lbl30834" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30829" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30834" order="380.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaDerivadosImplicitosContratosSeguro" xlink:label="lbl30835" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30832" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30835" order="210.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaReservasTecnicas" xlink:label="lbl30836" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaReservaInsuficienciaPrima" xlink:label="lbl30837" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30836" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30837" order="310.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaTransaccionesSaldosMonedaExtranjera" xlink:label="lbl30838" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30829" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30838" order="450.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaOperacionesSeguros" xlink:label="lbl30839" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30829" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30839" order="180.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaDiferenciaCambio" xlink:label="lbl30840" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30829" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30840" order="30.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaReservaSeguroInvalidezYSobrevivencia" xlink:label="lbl30841" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30836" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30841" order="280.0" />
+    <link:presentationArc xlink:from="lbl30829" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30827" order="120.0" />
+    <link:presentationArc xlink:from="lbl30839" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30832" order="200.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaCombinacionNegocios" xlink:label="lbl30842" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30829" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30842" order="40.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaOperacionesDiscontinuadas" xlink:label="lbl30843" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30829" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30843" order="470.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaCostosIntermediacion" xlink:label="lbl30844" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30829" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30844" order="440.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaInversionesFinancieras" xlink:label="lbl30845" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30829" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30845" order="60.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaCalce" xlink:label="lbl30846" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30839" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30846" order="350.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaIngresosGastosInversiones" xlink:label="lbl30847" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaActivosFinancierosCostoAmortizado" xlink:label="lbl30848" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30847" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30848" order="410.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaImpuestoALaRentaEImpuestoDiferido" xlink:label="lbl30849" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30829" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30849" order="460.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaCuentasPorCobrarLeasing" xlink:label="lbl30850" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30827" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30850" order="140.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaActivosFinancierosValorRazonable" xlink:label="lbl30851" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30847" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30851" order="400.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaInversionesSegurosCuentaUnicasInversion" xlink:label="lbl30852" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30829" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30852" order="100.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaPropiedadesUsoPropio" xlink:label="lbl30853" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30827" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30853" order="150.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaReservaSiniestros" xlink:label="lbl30854" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30836" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30854" order="300.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaReservaRentasVitalicias" xlink:label="lbl30855" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30836" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30855" order="290.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaReservaCatastroficaTerremoto" xlink:label="lbl30856" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30836" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30856" order="301.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaContratosSegurosAdquiridosCombinacionesNegociosCesionesCartera" xlink:label="lbl30857" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30832" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30857" order="220.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaPrimas" xlink:label="lbl30858" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30839" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30858" order="190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaCostoDeSiniestros" xlink:label="lbl30859" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30829" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30859" order="430.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaInversionesActivosFinancierosCostoAmortizado" xlink:label="lbl30860" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30845" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30860" order="80.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaActivosNoCorrientesMantenidosParaVenta" xlink:label="lbl30861" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30829" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30861" order="170.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaIntangibles" xlink:label="lbl30862" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30829" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30862" order="160.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaReservaRentasPrivadas" xlink:label="lbl30863" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30836" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30863" order="260.0" />
+    <link:presentationArc xlink:from="lbl30829" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30847" order="390.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaEfectivoEfectivoEquivalente" xlink:label="lbl30864" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30829" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30864" order="50.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaOtros" xlink:label="lbl30865" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30829" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30865" order="480.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaParticipacionDeEmpresasRelacionadas" xlink:label="lbl30866" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30829" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30866" order="360.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaReservaAdecuacionPasivos" xlink:label="lbl30867" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30836" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30867" order="320.0" />
+    <link:presentationArc xlink:from="lbl30839" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30836" order="240.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaPasivoFinanciero" xlink:label="lbl30868" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30829" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30868" order="370.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaCostoPorIntereses" xlink:label="lbl30869" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30829" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30869" order="420.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaPropiedadesInversion" xlink:label="lbl30870" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30827" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30870" order="130.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaOtrasReservasTecnicas" xlink:label="lbl30871" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30836" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30871" order="330.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaDeterioroActivos" xlink:label="lbl30872" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30829" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30872" order="110.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaReservaRiesgosCurso" xlink:label="lbl30873" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30836" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30873" order="250.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaParticipacionReaseguroReservasTecnicas" xlink:label="lbl30874" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30836" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30874" order="340.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaInversionesActivosFinancierosValorRazonable" xlink:label="lbl30875" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30845" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30875" order="70.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PoliticaReservaMatematica" xlink:label="lbl30876" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30836" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30876" order="270.0" />
+  </link:presentationLink>
+</link:linkbase>
+

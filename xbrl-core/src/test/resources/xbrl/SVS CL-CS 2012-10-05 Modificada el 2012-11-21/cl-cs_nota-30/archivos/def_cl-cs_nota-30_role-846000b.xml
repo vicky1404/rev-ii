@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-30_role-846000.xsd#nota-30_role-846000b" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-31_role-846000b" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#all" arcroleURI="http://xbrl.org/int/dim/arcrole/all" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#dimension-default" arcroleURI="http://xbrl.org/int/dim/arcrole/dimension-default" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#dimension-domain" arcroleURI="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#hypercube-dimension" arcroleURI="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#domain-member" arcroleURI="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="simple" />
+  <link:definitionLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-31_role-846000b" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimaCedidaReaseguradoresExtranjerosSinopsis" xlink:label="lbl34553" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimaCedidaReaseguradoresExtranjerosTabla" xlink:label="lbl34554" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34553" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xbrldt:closed="true" xlink:arcrole="http://xbrl.org/int/dim/arcrole/all" xlink:type="arc" xbrldt:contextElement="scenario" xlink:to="lbl34554" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReaseguradoresExtranjerosEje" xlink:label="lbl34555" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReaseguradoresExtranjerosMiembro" xlink:label="lbl34556" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34555" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-default" xlink:type="arc" xlink:to="lbl34556" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReaseguradoresExtranjerosMiembro" xlink:label="lbl34557" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34555" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="arc" xlink:to="lbl34557" />
+    <link:definitionArc xlink:from="lbl34554" xlink:arcrole="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="arc" xlink:to="lbl34555" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AntecedentesReaseguradorExtranjeroPartidas" xlink:label="lbl34558" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_NombreReaseguradorExtranjero" xlink:label="lbl34559" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34558" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34559" order="260.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FechaClasificacionUnoReaseguradorExtranjero" xlink:label="lbl34560" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34558" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34560" order="370.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReaseguroExtranjero" xlink:label="lbl34561" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34558" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34561" order="320.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_NombreCorredorReasegurosExtranjero" xlink:label="lbl34562" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34558" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34562" order="250.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimaCedidaReaseguradorExtranjero" xlink:label="lbl34563" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34558" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34563" order="300.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CodigoIdentificacionReasegurador" xlink:label="lbl34564" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34558" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34564" order="270.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CodigoClasificadorRiesgoUnoReaseguradorExtranjero" xlink:label="lbl34565" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34558" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34565" order="330.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ClasificacionRiesgoUnoReaseguradorExtranjero" xlink:label="lbl34566" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34558" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34566" order="350.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ClasificacionRiesgoDosReaseguradorExtranjero" xlink:label="lbl34567" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34558" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34567" order="360.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CostoReaseguroNoProporcionalReaseguradoresExtranjeros" xlink:label="lbl34568" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34558" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34568" order="310.0" />
+    <link:definitionArc xlink:from="lbl34553" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34558" order="240.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PaisOrigen" xlink:label="lbl34569" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34558" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34569" order="290.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TipoRelacionConReaseguradorExtranjero" xlink:label="lbl34570" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34558" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34570" order="280.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FechaClasificacionDosReaseguradorExtranjero" xlink:label="lbl34571" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34558" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34571" order="380.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CodigoClasificadorRiesgoDosReaseguradorExtranjero" xlink:label="lbl34572" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34558" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34572" order="340.0" />
+  </link:definitionLink>
+</link:linkbase>
+

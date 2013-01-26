@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-46_role-862200.xsd#nota-46_role-862200" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-46_role-862200" />
+  <link:calculationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-46_role-862200" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SubtotalDelDL3500" xlink:label="lbl35552" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_RentaVitalicia" xlink:label="lbl35553" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35552" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35553" order="240.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InvalidezYSobrevivencia" xlink:label="lbl35554" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35552" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35554" order="240.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SubtotalSeguros" xlink:label="lbl35555" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SegurosAdicionales" xlink:label="lbl35556" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35555" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35556" order="170.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SegurosSalud" xlink:label="lbl35557" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35555" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35557" order="170.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MargenDeSolvencia" xlink:label="lbl35558" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MargendeSolvenciaSegurosAccidentesSaludYAdicionales" xlink:label="lbl35559" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35558" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35559" order="790.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SegurosAFP" xlink:label="lbl35560" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35552" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35560" order="240.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SegurosAccidentes" xlink:label="lbl35561" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35555" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35561" order="170.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MargendeSolvenciaSegurosNoGeneranReservasMatematicas" xlink:label="lbl35562" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35558" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35562" order="790.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MargenDeSolvenciaSegurosConReservaMatamatica" xlink:label="lbl35563" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35558" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35563" order="790.0" />
+  </link:calculationLink>
+</link:linkbase>
+

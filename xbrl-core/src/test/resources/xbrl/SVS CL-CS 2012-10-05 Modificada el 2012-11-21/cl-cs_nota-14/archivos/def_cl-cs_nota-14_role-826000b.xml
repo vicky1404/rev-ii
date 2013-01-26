@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-14_role-826000.xsd#nota-14_role-826000b" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-14_role-826000b" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#all" arcroleURI="http://xbrl.org/int/dim/arcrole/all" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#dimension-default" arcroleURI="http://xbrl.org/int/dim/arcrole/dimension-default" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#dimension-domain" arcroleURI="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#hypercube-dimension" arcroleURI="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#domain-member" arcroleURI="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="simple" />
+  <link:definitionLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-14_role-826000b" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_A%C3%B1osRemanentesContratoLeasingSinopsis" xlink:label="lbl32246" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_A%C3%B1osRemanentesContratoLeasingTabla" xlink:label="lbl32247" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32246" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xbrldt:closed="true" xlink:arcrole="http://xbrl.org/int/dim/arcrole/all" xlink:type="arc" xbrldt:contextElement="scenario" xlink:to="lbl32247" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValoresContratosArrendamientosEje" xlink:label="lbl32248" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CuentasPorCobrarLeasingMiembro" xlink:label="lbl32249" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32248" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-default" xlink:type="arc" xlink:to="lbl32249" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CuentasPorCobrarLeasingMiembro" xlink:label="lbl32250" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32248" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="arc" xlink:to="lbl32250" />
+    <link:definitionArc xlink:from="lbl32247" xlink:arcrole="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="arc" xlink:to="lbl32248" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_A%C3%B1osRemanentesContratoLeasingPartidas" xlink:label="lbl32251" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TerminoContratoLeasingHasta1A%C3%B1o" xlink:label="lbl32252" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32251" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32252" order="370.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorContratoLeasingMiembro" xlink:label="lbl32253" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CapitalInsolutoLeasingMiembro" xlink:label="lbl32254" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32253" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32254" order="3.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorCostoLeasingMiembro" xlink:label="lbl32255" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32250" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32255" order="8.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CuentasPorCobrarLeasing" xlink:label="lbl32256" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32251" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32256" order="400.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TerminoContratoLeasingSuperior5A%C3%B1os" xlink:label="lbl32257" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32251" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32257" order="390.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TerminoContratoLeasingEntre1Y5A%C3%B1os" xlink:label="lbl32258" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32251" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32258" order="380.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroLeasingMiembro" xlink:label="lbl32259" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32253" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32259" order="6.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorFinalContratoMiembro" xlink:label="lbl32260" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32253" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32260" order="7.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InteresesPorRecibirLeasingMiembro" xlink:label="lbl32261" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32253" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32261" order="4.0" />
+    <link:definitionArc xlink:from="lbl32246" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32251" order="360.0" />
+    <link:definitionArc xlink:from="lbl32250" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xbrldt:usable="false" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32253" order="2.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorPresenteLeasingMiembro" xlink:label="lbl32262" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32253" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32262" order="5.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorTasacionLeasingMiembro" xlink:label="lbl32263" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32250" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32263" order="9.0" />
+  </link:definitionLink>
+</link:linkbase>
+

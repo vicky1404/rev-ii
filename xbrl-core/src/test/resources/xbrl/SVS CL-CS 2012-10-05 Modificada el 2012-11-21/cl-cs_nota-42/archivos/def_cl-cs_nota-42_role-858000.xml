@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-42_role-858000.xsd#nota-42_role-858000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-42_role-858000" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#all" arcroleURI="http://xbrl.org/int/dim/arcrole/all" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#dimension-domain" arcroleURI="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#hypercube-dimension" arcroleURI="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#domain-member" arcroleURI="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="simple" />
+  <link:definitionLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-42_role-858000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ContingenciasCompromisosSinopsis" xlink:label="lbl35068" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ContingenciasCompromisosTabla" xlink:label="lbl35069" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35068" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xbrldt:closed="true" xlink:arcrole="http://xbrl.org/int/dim/arcrole/all" xlink:type="arc" xbrldt:contextElement="scenario" xlink:to="lbl35069" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TipoContingenciaOCompromisoEje" xlink:label="lbl35070" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PasivoIndirectoMiembro" xlink:label="lbl35071" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35070" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="arc" xlink:to="lbl35071" order="4" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AccionesLegalesMiembro" xlink:label="lbl35072" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35070" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="arc" xlink:to="lbl35072" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_JuiciosMiembro" xlink:label="lbl35073" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35070" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="arc" xlink:to="lbl35073" order="2" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrasContingenciasOCompromisosMiembro" xlink:label="lbl35074" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35070" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="arc" xlink:to="lbl35074" order="5" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ActivosGarantiaMiembro" xlink:label="lbl35075" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35070" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="arc" xlink:to="lbl35075" order="3" />
+    <link:definitionArc xlink:from="lbl35069" xlink:arcrole="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="arc" xlink:to="lbl35070" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DetalleCompromisosPartidas" xlink:label="lbl35076" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MontoLiberacionCompromiso" xlink:label="lbl35077" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35076" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35077" order="150.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FechaLiberacionCompromiso" xlink:label="lbl35078" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35076" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35078" order="140.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TipoActivosComprometidos" xlink:label="lbl35079" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35076" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35079" order="110.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AcreedorDelCompromiso" xlink:label="lbl35080" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35076" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35080" order="100.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SaldoPendientePagoFechaCierreEEFF" xlink:label="lbl35081" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35076" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35081" order="130.0" />
+    <link:definitionArc xlink:from="lbl35068" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35076" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_Observaciones" xlink:label="lbl35082" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35076" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35082" order="160.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorContableActivosComprometidos" xlink:label="lbl35083" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35076" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35083" order="120.0" />
+  </link:definitionLink>
+</link:linkbase>
+

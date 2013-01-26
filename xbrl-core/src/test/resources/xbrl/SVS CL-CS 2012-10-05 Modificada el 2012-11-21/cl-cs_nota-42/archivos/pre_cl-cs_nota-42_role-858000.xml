@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-42_role-858000.xsd#nota-42_role-858000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-42_role-858000" />
+  <link:presentationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-42_role-858000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TipoContingenciaOCompromisoEje" xlink:label="lbl35051" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ActivosGarantiaMiembro" xlink:label="lbl35052" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35051" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35052" order="70.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DetalleCompromisosPartidas" xlink:label="lbl35053" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MontoLiberacionCompromiso" xlink:label="lbl35054" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35053" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35054" order="150.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionRevelarSobreContingenciasYCompromisosSinopsis" xlink:label="lbl35055" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ContingenciasCompromisosSinopsis" xlink:label="lbl35056" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35055" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35056" order="20.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_JuiciosMiembro" xlink:label="lbl35057" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35051" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35057" order="60.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AccionesLegalesMiembro" xlink:label="lbl35058" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35051" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35058" order="50.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_Observaciones" xlink:label="lbl35059" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35053" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35059" order="160.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorContableActivosComprometidos" xlink:label="lbl35060" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35053" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35060" order="120.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrasContingenciasOCompromisosMiembro" xlink:label="lbl35061" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35051" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35061" order="80.0" />
+    <link:presentationArc xlink:from="lbl35056" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35053" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SaldoPendientePagoFechaCierreEEFF" xlink:label="lbl35062" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35053" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35062" order="130.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ContingenciasCompromisosTabla" xlink:label="lbl35063" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35056" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35063" order="30.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FechaLiberacionCompromiso" xlink:label="lbl35064" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35053" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35064" order="140.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PasivoIndirectoMiembro" xlink:label="lbl35065" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35051" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35065" order="71.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TipoActivosComprometidos" xlink:label="lbl35066" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35053" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35066" order="110.0" />
+    <link:presentationArc xlink:from="lbl35063" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35051" order="40.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AcreedorDelCompromiso" xlink:label="lbl35067" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35053" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35067" order="100.0" />
+  </link:presentationLink>
+</link:linkbase>
+

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-29_role-844000.xsd#nota-29_role-844000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-29_role-844000" />
+  <link:presentationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-29_role-844000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrasReservasPatrimonialesTabla" xlink:label="lbl34456" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrasReservasPatrimonialesEje" xlink:label="lbl34457" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34456" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34457" order="80.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrasReservasPatrimonialesSinopsis" xlink:label="lbl34458" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrasReservasPatrimonialesPartidas" xlink:label="lbl34459" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34458" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34459" order="120.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrasReservasPatrimonialesMiembro" xlink:label="lbl34460" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservasPatrimonialesMiembro" xlink:label="lbl34461" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34460" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34461" order="110.0" />
+    <link:presentationArc xlink:from="lbl34458" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34456" order="70.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_NombreCuentaReserva" xlink:label="lbl34462" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34459" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34462" order="130.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DistribucionDividendosSinopsis" xlink:label="lbl34463" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ExplicacionDistribucionDividendosBloqueDeTexto" xlink:label="lbl34464" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34463" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34464" order="50.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CapitalPagadoSinopsis" xlink:label="lbl34465" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ExplicacionCapitalPagadoBloqueDeTexto" xlink:label="lbl34466" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34465" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34466" order="30.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionRevelarSobrePatrimonioSinopsis" xlink:label="lbl34467" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34467" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34465" order="20.0" />
+    <link:presentationArc xlink:from="lbl34467" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34458" order="60.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservasEstatutariasMiembro" xlink:label="lbl34468" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34460" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34468" order="100.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MontoReservasPatrimoniales" xlink:label="lbl34469" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34459" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34469" order="140.0" />
+    <link:presentationArc xlink:from="lbl34457" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34460" order="90.0" />
+    <link:presentationArc xlink:from="lbl34467" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34463" order="40.0" />
+  </link:presentationLink>
+</link:linkbase>
+

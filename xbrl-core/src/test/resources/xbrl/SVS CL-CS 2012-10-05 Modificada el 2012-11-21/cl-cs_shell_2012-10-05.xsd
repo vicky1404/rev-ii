@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:cl-cs_shell="http://www.svs.cl/cl/fr/cs/2012-10-05/shell" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://www.svs.cl/cl/fr/cs/2012-10-05/shell">
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-31_role-847000" schemaLocation="cl-cs_nota-31/cl-cs_nota-31_role-847000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-47_role-863200" schemaLocation="cl-cs_nota-47/cl-cs_nota-47_role-863200.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-36_role-852000" schemaLocation="cl-cs_nota-36/cl-cs_nota-36_role-852000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-19_role-832100" schemaLocation="cl-cs_nota-19/cl-cs_nota-19_role-832100.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-16_role-828000" schemaLocation="cl-cs_nota-16/cl-cs_nota-16_role-828000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_eeff_role-110000" schemaLocation="cl-cs_eeff/cl-cs_eeff_role-110000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-40_role-856000" schemaLocation="cl-cs_nota-40/cl-cs_nota-40_role-856000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-45_role-861000" schemaLocation="cl-cs_nota-45/cl-cs_nota-45_role-861000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-12_role-824000" schemaLocation="cl-cs_nota-12/cl-cs_nota-12_role-824000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-7_role-815000" schemaLocation="cl-cs_nota-7/cl-cs_nota-7_role-815000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-2_role-811000" schemaLocation="cl-cs_nota-2/cl-cs_nota-2_role-811000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-24_role-837000" schemaLocation="cl-cs_nota-24/cl-cs_nota-24_role-837000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-27_role-842000" schemaLocation="cl-cs_nota-27/cl-cs_nota-27_role-842000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-39_role-855000" schemaLocation="cl-cs_nota-39/cl-cs_nota-39_role-855000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-20_role-833000" schemaLocation="cl-cs_nota-20/cl-cs_nota-20_role-833000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-46_role-862200" schemaLocation="cl-cs_nota-46/cl-cs_nota-46_role-862200.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_eeff_role-600000" schemaLocation="cl-cs_eeff/cl-cs_eeff_role-600000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-30_role-846000" schemaLocation="cl-cs_nota-30/cl-cs_nota-30_role-846000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-35_role-851000" schemaLocation="cl-cs_nota-35/cl-cs_nota-35_role-851000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_eeff_role-500000" schemaLocation="cl-cs_eeff/cl-cs_eeff_role-500000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-47_role-863100" schemaLocation="cl-cs_nota-47/cl-cs_nota-47_role-863100.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-25_role-838200" schemaLocation="cl-cs_nota-25/cl-cs_nota-25_role-838200.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-43_role-859000" schemaLocation="cl-cs_nota-43/cl-cs_nota-43_role-859000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-48_role-864000" schemaLocation="cl-cs_nota-48/cl-cs_nota-48_role-864000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-15_role-827000" schemaLocation="cl-cs_nota-15/cl-cs_nota-15_role-827000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-6_role-814000" schemaLocation="cl-cs_nota-6/cl-cs_nota-6_role-814000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-44_role-860000" schemaLocation="cl-cs_nota-44/cl-cs_nota-44_role-860000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-11_role-823000" schemaLocation="cl-cs_nota-11/cl-cs_nota-11_role-823000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_eeff_role-300000" schemaLocation="cl-cs_eeff/cl-cs_eeff_role-300000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-1_role-810000" schemaLocation="cl-cs_nota-1/cl-cs_nota-1_role-810000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_eeff_role-200000" schemaLocation="cl-cs_eeff/cl-cs_eeff_role-200000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05" schemaLocation="cl-cs_cor_2012-10-05.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-48_role-864300" schemaLocation="cl-cs_nota-48/cl-cs_nota-48_role-864300.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-23_role-836000" schemaLocation="cl-cs_nota-23/cl-cs_nota-23_role-836000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-33_role-849000" schemaLocation="cl-cs_nota-33/cl-cs_nota-33_role-849000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-38_role-854000" schemaLocation="cl-cs_nota-38/cl-cs_nota-38_role-854000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-34_role-850000" schemaLocation="cl-cs_nota-34/cl-cs_nota-34_role-850000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-46_role-862100" schemaLocation="cl-cs_nota-46/cl-cs_nota-46_role-862100.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-4_role-811200" schemaLocation="cl-cs_nota-4/cl-cs_nota-4_role-811200.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-42_role-858000" schemaLocation="cl-cs_nota-42/cl-cs_nota-42_role-858000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-14_role-826000" schemaLocation="cl-cs_nota-14/cl-cs_nota-14_role-826000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-25_role-838100" schemaLocation="cl-cs_nota-25/cl-cs_nota-25_role-838100.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-29_role-844000" schemaLocation="cl-cs_nota-29/cl-cs_nota-29_role-844000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-10_role-822000" schemaLocation="cl-cs_nota-10/cl-cs_nota-10_role-822000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-22_role-835000" schemaLocation="cl-cs_nota-22/cl-cs_nota-22_role-835000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-26_role-840000" schemaLocation="cl-cs_nota-26/cl-cs_nota-26_role-840000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-32_role-848000" schemaLocation="cl-cs_nota-32/cl-cs_nota-32_role-848000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-19_role-832200" schemaLocation="cl-cs_nota-19/cl-cs_nota-19_role-832200.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-37_role-853000" schemaLocation="cl-cs_nota-37/cl-cs_nota-37_role-853000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-9_role-821000" schemaLocation="cl-cs_nota-9/cl-cs_nota-9_role-821000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-17_role-829000" schemaLocation="cl-cs_nota-17/cl-cs_nota-17_role-829000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-13_role-825000" schemaLocation="cl-cs_nota-13/cl-cs_nota-13_role-825000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-8_role-816000" schemaLocation="cl-cs_nota-8/cl-cs_nota-8_role-816000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-18_role-830000" schemaLocation="cl-cs_nota-18/cl-cs_nota-18_role-830000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-3_role-811100" schemaLocation="cl-cs_nota-3/cl-cs_nota-3_role-811100.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-41_role-857000" schemaLocation="cl-cs_nota-41/cl-cs_nota-41_role-857000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-28_role-843000" schemaLocation="cl-cs_nota-28/cl-cs_nota-28_role-843000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-5_role-812000" schemaLocation="cl-cs_nota-5/cl-cs_nota-5_role-812000.xsd" />
+  <import namespace="http://www.svs.cl/cl/fr/cs/2012-10-05/cl-cs_nota-21_role-834000" schemaLocation="cl-cs_nota-21/cl-cs_nota-21_role-834000.xsd" />
+</schema>
+

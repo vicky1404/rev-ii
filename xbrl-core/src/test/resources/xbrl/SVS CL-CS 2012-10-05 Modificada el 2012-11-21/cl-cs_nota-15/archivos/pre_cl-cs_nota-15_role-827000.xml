@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-15_role-827000.xsd#nota-15_role-827000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-15_role-827000" />
+  <link:presentationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-15_role-827000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ActivosNoCorrientesMantenidosParaVentaPartidas" xlink:label="lbl32282" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReconocimientoResultadoPerdidaActivosMantenidoParaVenta" xlink:label="lbl32283" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32282" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32283" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ActivosNoCorrientesMantenidosParaVentaSinopsis" xlink:label="lbl32284" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ActivosNoCorrientesMantenidosParaVentaTabla" xlink:label="lbl32285" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32284" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32285" order="30.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ActivosNoCorrientesMantenidosParaVenta" xlink:label="lbl32286" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32282" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32286" order="70.0" />
+    <link:presentationArc xlink:from="lbl32284" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32282" order="60.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IdentificacionActivoMantenidosParaVentaEje" xlink:label="lbl32287" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ActivosNoCorrientesMantenidosParaVentaMiembro" xlink:label="lbl32288" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32287" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl32288" order="50.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ExplicacionActivosNoCorrientesMantenidosParaVentaBloqueDeTexto" xlink:label="lbl32289" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32289" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32284" order="20.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReconocimientoResultadoUtilidadActivosMantenidoParaVenta" xlink:label="lbl32290" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32282" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32290" order="80.0" />
+    <link:presentationArc xlink:from="lbl32285" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32287" order="40.0" />
+  </link:presentationLink>
+</link:linkbase>
+

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-45_role-861000.xsd#nota-45_role-861000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-45_role-861000" />
+  <link:calculationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-45_role-861000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimasDirectas" xlink:label="lbl35281" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IIIRegionPrimaDirecta" xlink:label="lbl35282" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35281" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35282" order="290.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IRegionPrimaDirecta" xlink:label="lbl35283" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35281" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35283" order="290.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_XRegionPrimaDirecta" xlink:label="lbl35284" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35281" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35284" order="290.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VRegionPrimaDirecta" xlink:label="lbl35285" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35281" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35285" order="290.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_XIRegionPrimaDirecta" xlink:label="lbl35286" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35281" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35286" order="290.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IVRegionPrimaDirecta" xlink:label="lbl35287" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35281" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35287" order="290.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_RegionMetropolitanaPrimaDirecta" xlink:label="lbl35288" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35281" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35288" order="290.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VIIIRegionPrimaDirecta" xlink:label="lbl35289" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35281" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35289" order="290.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_XVRegionPrimaDirecta" xlink:label="lbl35290" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35281" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35290" order="290.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_XIIRegionPrimaDirecta" xlink:label="lbl35291" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35281" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35291" order="290.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IIRegionPrimaDirecta" xlink:label="lbl35292" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35281" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35292" order="290.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VIIRegionPrimaDirecta" xlink:label="lbl35293" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35281" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35293" order="290.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VIRegionPrimaDirecta" xlink:label="lbl35294" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35281" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35294" order="290.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IXRegionPrimaDirecta" xlink:label="lbl35295" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35281" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35295" order="290.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_XIVRegionPrimaDirecta" xlink:label="lbl35296" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35281" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35296" order="290.0" />
+  </link:calculationLink>
+</link:linkbase>
+

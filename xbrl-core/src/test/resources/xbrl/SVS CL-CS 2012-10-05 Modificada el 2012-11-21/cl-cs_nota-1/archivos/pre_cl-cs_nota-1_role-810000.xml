@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-1_role-810000.xsd#nota-1_role-810000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-1_role-810000" />
+  <link:presentationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-1_role-810000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionRevelarSobreEntidadQueReportaSinopsis" xlink:label="lbl30741" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AuditoresExternos" xlink:label="lbl30742" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30741" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30742" order="420.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_NumeroRegistroValores" xlink:label="lbl30743" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30741" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30743" order="120.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_RUTEntidadInforma" xlink:label="lbl30744" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30741" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30744" order="30.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ActividadesPrincipales" xlink:label="lbl30745" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30741" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30745" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionSobreDiezMayoresAccionistasSinopsis" xlink:label="lbl30746" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionSobreDiezMayoresAccionistasTabla" xlink:label="lbl30747" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30746" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30747" order="140.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_NumeroResolucionExcenta" xlink:label="lbl30748" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FechaResolucionExenta" xlink:label="lbl30749" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30748" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30749" order="110.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IdentificacionAccionistasEje" xlink:label="lbl30750" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionSobreDiezMayoresAccionistasMiembro" xlink:label="lbl30751" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30750" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30751" order="151.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AccionistaSieteMiembro" xlink:label="lbl30752" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30751" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30752" order="220.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ClasificadoresRiesgo" xlink:label="lbl30753" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_NombreClasificadoraRiesgo" xlink:label="lbl30754" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30753" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30754" order="370.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AccionistasPartidas" xlink:label="lbl30755" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_RUTAccionista" xlink:label="lbl30756" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30755" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30756" order="280.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_GrupoEconomico" xlink:label="lbl30757" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_NombreEntidadControladora" xlink:label="lbl30758" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30757" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30758" order="70.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AccionistaUnoMiembro" xlink:label="lbl30759" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30751" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30759" order="160.0" />
+    <link:presentationArc xlink:from="lbl30741" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30757" order="60.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ClasificacionRiesgo" xlink:label="lbl30760" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30753" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30760" order="390.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionSobreClasificadoresRiesgoSinopsis" xlink:label="lbl30761" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30741" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30761" order="310.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FechaClasificacion" xlink:label="lbl30762" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30753" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30762" order="410.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionSobreClasificadoresRiesgoTabla" xlink:label="lbl30763" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionPorClasificadoraRiesgoEje" xlink:label="lbl30764" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30763" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30764" order="330.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ClasificadorasRiesgoMiembro" xlink:label="lbl30765" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30764" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30765" order="331.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_NombreControladoraUltimaDelGrupo" xlink:label="lbl30766" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30757" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30766" order="80.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrincipalesCambiosSocietariosDeFusionesYAdquisiones" xlink:label="lbl30767" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30741" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30767" order="50.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_RUTClasificadoraRiesgo" xlink:label="lbl30768" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30753" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30768" order="380.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_NumeroRegistroAuditoresExternosEnSVS" xlink:label="lbl30769" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30741" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30769" order="430.0" />
+    <link:presentationArc xlink:from="lbl30761" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30763" order="320.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_NumeroRegistroClasificadoresRiesgo" xlink:label="lbl30770" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30753" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30770" order="400.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ClasificadoraRiesgoUnoMiembro" xlink:label="lbl30771" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30765" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30771" order="340.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PorcentajePropiedad" xlink:label="lbl30772" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30755" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30772" order="300.0" />
+    <link:presentationArc xlink:from="lbl30746" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30755" order="260.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_Domicilio" xlink:label="lbl30773" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30741" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30773" order="40.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AccionistaTresMiembro" xlink:label="lbl30774" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30751" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30774" order="180.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AccionistaDiezMiembro" xlink:label="lbl30775" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30751" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30775" order="250.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TipoPersona" xlink:label="lbl30776" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30755" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30776" order="290.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AccionistaCincoMiembro" xlink:label="lbl30777" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30751" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30777" order="200.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AccionistaCuatroMiembro" xlink:label="lbl30778" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30751" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30778" order="190.0" />
+    <link:presentationArc xlink:from="lbl30741" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30746" order="130.0" />
+    <link:presentationArc xlink:from="lbl30761" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30753" order="360.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AccionistaSeisMiembro" xlink:label="lbl30779" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30751" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30779" order="210.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AccionistaNueveMiembro" xlink:label="lbl30780" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30751" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30780" order="240.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AccionistaOchoMiembro" xlink:label="lbl30781" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30751" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30781" order="230.0" />
+    <link:presentationArc xlink:from="lbl30747" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30750" order="150.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AccionistaDosMiembro" xlink:label="lbl30782" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30751" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30782" order="170.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ClasificadoraRiesgoDosMiembro" xlink:label="lbl30783" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30765" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30783" order="350.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_RazonSocialEntidadQueInforma" xlink:label="lbl30784" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30741" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30784" order="20.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_NombreAccionista" xlink:label="lbl30785" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30755" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30785" order="270.0" />
+    <link:presentationArc xlink:from="lbl30741" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30748" order="100.0" />
+  </link:presentationLink>
+</link:linkbase>
+

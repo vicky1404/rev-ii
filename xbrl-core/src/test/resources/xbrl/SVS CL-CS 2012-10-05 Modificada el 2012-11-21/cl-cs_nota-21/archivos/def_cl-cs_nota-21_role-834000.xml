@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-21_role-834000.xsd#nota-21_role-834000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-21_role-834000" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#all" arcroleURI="http://xbrl.org/int/dim/arcrole/all" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#dimension-default" arcroleURI="http://xbrl.org/int/dim/arcrole/dimension-default" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#dimension-domain" arcroleURI="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#hypercube-dimension" arcroleURI="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#domain-member" arcroleURI="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="simple" />
+  <link:definitionLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-21_role-834000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EfectoImpuestosDiferidosEnPatrimonioYEnResultadosSinopsis" xlink:label="lbl33094" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EfectoImpuestosDiferidosEnPatrimonioYEnResultadosTabla" xlink:label="lbl33095" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33094" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xbrldt:closed="true" xlink:arcrole="http://xbrl.org/int/dim/arcrole/all" xlink:type="arc" xbrldt:contextElement="scenario" xlink:to="lbl33095" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ActivosYPasivosPorImpuestosDiferidosEje" xlink:label="lbl33096" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ImpuestoDiferidoNetoMiembro" xlink:label="lbl33097" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33096" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-default" xlink:type="arc" xlink:to="lbl33097" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ImpuestoDiferidoNetoMiembro" xlink:label="lbl33098" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33096" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="arc" xlink:to="lbl33098" />
+    <link:definitionArc xlink:from="lbl33095" xlink:arcrole="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="arc" xlink:to="lbl33096" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EfectoImpuestosDiferidosEnPatrimonioYEnResultadosPartidas" xlink:label="lbl33099" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EfectoImpuestosDiferidosEnResultadosSinopsis" xlink:label="lbl33100" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33099" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33100" order="220.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EfectoImpuestosDiferidosEnPatrimonioSinopsis" xlink:label="lbl33101" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33099" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33101" order="170.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroContratosLeasing" xlink:label="lbl33102" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33100" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33102" order="290.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroMutuosHipotecarios" xlink:label="lbl33103" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33100" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33103" order="260.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorizacionFondosMutuos" xlink:label="lbl33104" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33100" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33104" order="330.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosEfectosDeImpuestoDiferidoEnPatrimonio" xlink:label="lbl33105" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33101" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33105" order="200.0" />
+    <link:definitionArc xlink:from="lbl33094" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33099" order="160.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ProvisionIndemnizacionA%C3%B1osDeServicio" xlink:label="lbl33106" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33100" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33106" order="410.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EfectoImpuestosDiferidosEnResultados" xlink:label="lbl33107" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33100" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33107" order="460.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ActivosPorImpuestoDiferidoMiembro" xlink:label="lbl33108" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33098" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33108" order="2.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorizacionPactos" xlink:label="lbl33109" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33100" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33109" order="360.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroBienesRaices" xlink:label="lbl33110" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33100" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33110" order="270.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ProvisionGratificaciones" xlink:label="lbl33111" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33100" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33111" order="380.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PerdidasTributarias" xlink:label="lbl33112" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33100" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33112" order="440.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_GastosActivados" xlink:label="lbl33113" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33100" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33113" order="430.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ProvisionDEF" xlink:label="lbl33114" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33100" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33114" order="390.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroCuentasIncobrables" xlink:label="lbl33115" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33100" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33115" order="230.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroIntangibles" xlink:label="lbl33116" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33100" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33116" order="280.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorizacionAcciones" xlink:label="lbl33117" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33100" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33117" order="310.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosEfectosImpuestoDiferidoEnResultado" xlink:label="lbl33118" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33100" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33118" order="450.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EfectoImpuestoDiferidoGastosAnticipados" xlink:label="lbl33119" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33100" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33119" order="420.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroInstrumentosRentaFija" xlink:label="lbl33120" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33100" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33120" order="250.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroDeudoresPorReaseguro" xlink:label="lbl33121" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33100" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33121" order="240.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroPrestamosOtorgados" xlink:label="lbl33122" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33100" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33122" order="300.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EfectoImpuestosDiferidosEnPatrimonio" xlink:label="lbl33123" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33101" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33123" order="210.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CoberturasConEfectoEnPatrimonio" xlink:label="lbl33124" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33101" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33124" order="190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorizacionInversionExtranjera" xlink:label="lbl33125" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33100" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33125" order="340.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ProvisionRemuneraciones" xlink:label="lbl33126" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33100" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33126" order="370.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorizacionOperacionesCoberturaRiesgoFinanciero" xlink:label="lbl33127" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33100" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33127" order="350.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InversionesFinancierasConEfectoEnPatrimonio" xlink:label="lbl33128" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33101" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33128" order="180.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ProvisionVacaciones" xlink:label="lbl33129" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33100" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33129" order="400.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorizacionFondosInversion" xlink:label="lbl33130" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33100" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33130" order="320.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PasivosPorImpuestoDiferidoMiembro" xlink:label="lbl33131" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33098" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33131" order="3.0" />
+  </link:definitionLink>
+</link:linkbase>
+

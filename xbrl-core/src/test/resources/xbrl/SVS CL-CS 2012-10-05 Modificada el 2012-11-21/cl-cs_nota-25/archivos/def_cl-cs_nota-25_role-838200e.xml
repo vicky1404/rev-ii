@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-25_role-838200.xsd#nota-25_role-838200e" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-25_role-838200e" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#all" arcroleURI="http://xbrl.org/int/dim/arcrole/all" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#dimension-default" arcroleURI="http://xbrl.org/int/dim/arcrole/dimension-default" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#dimension-domain" arcroleURI="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#hypercube-dimension" arcroleURI="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#domain-member" arcroleURI="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="simple" />
+  <link:definitionLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-25_role-838200e" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IndicesCoberturasSinopsis" xlink:label="lbl34003" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IndicesCoberturasTabla" xlink:label="lbl34004" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34003" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xbrldt:closed="true" xlink:arcrole="http://xbrl.org/int/dim/arcrole/all" xlink:type="arc" xbrldt:contextElement="scenario" xlink:to="lbl34004" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionTramoEje" xlink:label="lbl34005" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TotalTramosMiembro" xlink:label="lbl34006" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34005" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-default" xlink:type="arc" xlink:to="lbl34006" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TotalTramosMiembro" xlink:label="lbl34007" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34005" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="arc" xlink:to="lbl34007" />
+    <link:definitionArc xlink:from="lbl34004" xlink:arcrole="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="arc" xlink:to="lbl34005" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CPK2Sinopsis" xlink:label="lbl34008" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FlujoActivosNominalesUFAkTramoCPk2" xlink:label="lbl34009" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34008" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34009" order="1400.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CPK1Sinopsis" xlink:label="lbl34010" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FlujoActivosNominalesUFAkTramoCPk1" xlink:label="lbl34011" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34010" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34011" order="1340.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CPK4Sinopsis" xlink:label="lbl34012" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IndiceCoberturaActivosCAkTramoCPk4" xlink:label="lbl34013" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34012" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34013" order="1550.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FlujoPasivosFinancierosCkTramoCPk4" xlink:label="lbl34014" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34012" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34014" order="1540.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FlujoPasivosFinancierosCkTramoCPk1" xlink:label="lbl34015" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34010" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34015" order="1360.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IndicesCoberturasPorTramosPartidas" xlink:label="lbl34016" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34016" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34010" order="1330.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CPK3Sinopsis" xlink:label="lbl34017" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FlujoActivosNominalesUFAkTramoCPk3" xlink:label="lbl34018" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34017" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34018" order="1460.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FlujoPasivosSegurosNominalesUFBkTramoCPk4" xlink:label="lbl34019" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34012" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34019" order="1530.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FlujoPasivosFinancierosCkTramoCPk3" xlink:label="lbl34020" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34017" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34020" order="1480.0" />
+    <link:definitionArc xlink:from="lbl34016" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34017" order="1450.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_Tramo2Miembro" xlink:label="lbl34021" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34007" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34021" order="3.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_Tramo8Miembro" xlink:label="lbl34022" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34007" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34022" order="9.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_Tramo1Miembro" xlink:label="lbl34023" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34007" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34023" order="2.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_Tramo6Miembro" xlink:label="lbl34024" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34007" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34024" order="7.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IndiceCoberturaPasivosCPkTramoCPk3" xlink:label="lbl34025" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34017" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34025" order="1500.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IndiceCoberturaActivosCAkTramoCPk3" xlink:label="lbl34026" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34017" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34026" order="1490.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_Tramo4Miembro" xlink:label="lbl34027" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34007" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34027" order="5.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IndiceCoberturaPasivosCPkTramoCPk2" xlink:label="lbl34028" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34008" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34028" order="1440.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_Tramo5Miembro" xlink:label="lbl34029" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34007" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34029" order="6.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_Tramo9Miembro" xlink:label="lbl34030" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34007" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34030" order="10.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FlujoPasivosSegurosNominalesUFBkTramoCPk1" xlink:label="lbl34031" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34010" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34031" order="1350.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FlujoActivosNominalesUFAkTramoCPk4" xlink:label="lbl34032" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34012" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34032" order="1520.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_Tramo3Miembro" xlink:label="lbl34033" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34007" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34033" order="4.0" />
+    <link:definitionArc xlink:from="lbl34016" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34012" order="1510.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FlujoPasivosSegurosNominalesUFBkTramoCPk2" xlink:label="lbl34034" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34008" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34034" order="1410.0" />
+    <link:definitionArc xlink:from="lbl34003" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34016" order="1320.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_Tramo7Miembro" xlink:label="lbl34035" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34007" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34035" order="8.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IndiceCoberturaActivosCAkTramoCPk1" xlink:label="lbl34036" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34010" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34036" order="1370.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_Tramo10Miembro" xlink:label="lbl34037" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34007" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34037" order="11.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IndiceCoberturaPasivosCPkTramoCPk1" xlink:label="lbl34038" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34010" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34038" order="1380.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IndiceCoberturaPasivosCPkTramoCPk4" xlink:label="lbl34039" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34012" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34039" order="1560.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IndiceCoberturaActivosCAkTramoCPk2" xlink:label="lbl34040" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34008" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34040" order="1430.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FlujoPasivosSegurosNominalesUFBkTramoCPk3" xlink:label="lbl34041" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34017" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34041" order="1470.0" />
+    <link:definitionArc xlink:from="lbl34016" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34008" order="1390.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FlujoPasivosFinancierosCkTramoCPk2" xlink:label="lbl34042" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34008" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34042" order="1420.0" />
+  </link:definitionLink>
+</link:linkbase>
+

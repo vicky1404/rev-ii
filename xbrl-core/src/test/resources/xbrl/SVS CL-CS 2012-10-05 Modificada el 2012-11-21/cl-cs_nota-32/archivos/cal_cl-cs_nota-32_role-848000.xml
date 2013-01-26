@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-32_role-848000.xsd#Nota-32_role-848000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-32_role-848000" />
+  <link:calculationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-32_role-848000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosAceptados" xlink:label="lbl34638" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosPorPagarAceptados" xlink:label="lbl34639" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34638" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34639" order="110.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosCedidos" xlink:label="lbl34640" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosPorPagarCedidosPeriodoAnterior" xlink:label="lbl34641" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34640" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34641" order="70.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosDirectos" xlink:label="lbl34642" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosPorPagarDirectosPeriodoAnterior" xlink:label="lbl34643" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34642" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34643" order="30.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CostoSiniestrosDelEjercicio" xlink:label="lbl34644" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34644" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34640" order="150.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosPagadosDirectos" xlink:label="lbl34645" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34642" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34645" order="30.0" />
+    <link:calculationArc xlink:from="lbl34644" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34638" order="150.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosPorPagarCedidos" xlink:label="lbl34646" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34640" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34646" order="70.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosPagadosCedidos" xlink:label="lbl34647" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34640" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34647" order="70.0" />
+    <link:calculationArc xlink:from="lbl34644" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34642" order="150.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosPorPagarAceptadosPeriodoAnterior" xlink:label="lbl34648" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34638" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34648" order="110.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosPagadosAceptados" xlink:label="lbl34649" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34638" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34649" order="110.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosPorPagarDirectos" xlink:label="lbl34650" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34642" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34650" order="30.0" />
+  </link:calculationLink>
+</link:linkbase>
+

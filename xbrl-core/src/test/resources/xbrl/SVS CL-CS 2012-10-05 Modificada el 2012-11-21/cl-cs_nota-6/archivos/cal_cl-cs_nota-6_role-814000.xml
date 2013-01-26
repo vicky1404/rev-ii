@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-6_role-814000.xsd#nota-6_role-814000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-6_role-814000" />
+  <link:calculationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-6_role-814000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ActivosFinancierosEnMora" xlink:label="lbl30959" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_De1A3Meses" xlink:label="lbl30960" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl30959" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl30960" order="180.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_Mas24Meses" xlink:label="lbl30961" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl30959" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl30961" order="180.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_De9A12Meses" xlink:label="lbl30962" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl30959" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl30962" order="180.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_De3A6Meses" xlink:label="lbl30963" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl30959" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl30963" order="180.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_De12A24Meses" xlink:label="lbl30964" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl30959" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl30964" order="180.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_De6A9Meses" xlink:label="lbl30965" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl30959" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl30965" order="180.0" />
+  </link:calculationLink>
+</link:linkbase>
+

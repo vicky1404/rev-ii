@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:nota-25_role-838200_rol="http://www.svs.cl/cl/fr/cs/2012-10-05/rol_cl-cs_nota-25_role-838200_rol" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://www.svs.cl/cl/fr/cs/2012-10-05/rol_cl-cs_nota-25_role-838200_rol">
+  <annotation>
+    <appinfo>
+      <link:roleType id="nota-25_role-838200n" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-25_role-838200n">
+        <link:definition>[838200n] Nota 25 - Antecedentes de la venta</link:definition>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="nota-25_role-838200m" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-25_role-838200m">
+        <link:definition>[838200m] Nota 25 - Reservas de invalidez y sobrevivencia</link:definition>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="nota-25_role-838200l" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-25_role-838200l">
+        <link:definition>[838200l] Nota 25 - Sobrevivencia</link:definition>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="nota-25_role-838200k" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-25_role-838200k">
+        <link:definition>[838200k] Nota 25 - Inválidos transitorios fallecidos</link:definition>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="nota-25_role-838200j" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-25_role-838200j">
+        <link:definition>[838200j] Nota 25 - Inválidos parciales transitorios con solicitud</link:definition>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="nota-25_role-838200i" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-25_role-838200i">
+        <link:definition>[838200i] Nota 25 - Inválidos transitorios</link:definition>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="nota-25_role-838200h" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-25_role-838200h">
+        <link:definition>[838200h] Nota 25 - Invalidez sin primer dictamen</link:definition>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="nota-25_role-838200g" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-25_role-838200g">
+        <link:definition>[838200g] Nota 25 - Información de contratos y grupos</link:definition>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="nota-25_role-838200f" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-25_role-838200f">
+        <link:definition>[838200f] Nota 25 - Aplicación tablas de mortalidad rentas vitalicias</link:definition>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="nota-25_role-838200e" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-25_role-838200e">
+        <link:definition>[838200e] Nota 25 - Indices de coberturas</link:definition>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="nota-25_role-838200d" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-25_role-838200d">
+        <link:definition>[838200d] Nota 25 - Ajuste reserva por calce</link:definition>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="nota-25_role-838200c" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-25_role-838200c">
+        <link:definition>[838200c] Nota 25 - Reserva de siniestros</link:definition>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="nota-25_role-838200b" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-25_role-838200b">
+        <link:definition>[838200b] Nota 25 - Reserva de descalce seguros con cuenta única de inversión</link:definition>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="nota-25_role-838200" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-25_role-838200">
+        <link:definition>[838200] Nota 25 - Reservas técnicas - Seguros de vida</link:definition>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="nota-25_role-838200a" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-25_role-838200a">
+        <link:definition>[838200a] Nota 25 - Reserva valor del fondo</link:definition>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+    </appinfo>
+  </annotation>
+  <import namespace="http://www.xbrl.org/2003/instance" schemaLocation="http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd" />
+</schema>
+

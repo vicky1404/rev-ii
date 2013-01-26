@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_eeff_role-500000.xsd#eeff_role-500000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/eeff_role-500000" />
+  <link:presentationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/eeff_role-500000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EstadoDeFlujosSinopsis" xlink:label="lbl30538" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EfectivoYEfectivoEquivalente" xlink:label="lbl30539" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30538" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/periodEndLabel" xlink:to="lbl30539" order="620.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IngresosActividadesFinanciamientoSinopsis" xlink:label="lbl30540" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AumentosCapital" xlink:label="lbl30541" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30540" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30541" order="490.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IngresosActividadesOperacionSinopsis" xlink:label="lbl30542" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IngresoActivosFinancierosValorRazonable" xlink:label="lbl30543" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30542" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30543" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IngresosActividadesInversionSinopsis" xlink:label="lbl30544" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IngresosPorPropiedadesMueblesYEquipo" xlink:label="lbl30545" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30544" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30545" order="290.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FlujosEfectivoActividadesInversionSinopsis" xlink:label="lbl30546" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EgresosActividadesInversionSinopsis" xlink:label="lbl30547" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30546" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30547" order="360.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IngresoRentasYSiniestrosReasegurados" xlink:label="lbl30548" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30542" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30548" order="70.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrestamosYPartidasPorCobrar" xlink:label="lbl30549" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30542" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30549" order="120.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EgresosActividadesOperacionSinopsis" xlink:label="lbl30550" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EgresoActivosInmobiliarios" xlink:label="lbl30551" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30550" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30551" order="221.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IngresosPropiedadesInversion" xlink:label="lbl30552" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30544" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30552" order="300.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EgresosActivosFinancierosCostoAmortizado" xlink:label="lbl30553" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30550" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30553" order="220.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EgresoActivosFinancierosValorRazonable" xlink:label="lbl30554" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30550" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30554" order="210.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_GastosImpuestos" xlink:label="lbl30555" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30550" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30555" order="230.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FlujosEfectivoActividadesFinanciamientoSinopsis" xlink:label="lbl30556" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30556" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30540" order="460.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EgresosActivosMantenidosParaVenta" xlink:label="lbl30557" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30547" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30557" order="400.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EgresosActividadesFinanciamientoSinopsis" xlink:label="lbl30558" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EgresosEfectivoActividadesFinanciamiento" xlink:label="lbl30559" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30558" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl30559" order="570.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IngresoActivosInmobiliarios" xlink:label="lbl30560" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30542" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30560" order="101.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FlujosEfectivoNetoActividadesFinanciamiento" xlink:label="lbl30561" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30556" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl30561" order="580.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IngresosEfectivoActividadAseguradora" xlink:label="lbl30562" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30542" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl30562" order="140.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EgresosPrestacionesSeguroDirectoYCoaseguro" xlink:label="lbl30563" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30550" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30563" order="160.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IngresosPorParticipacionesEnEntidadesDelGrupoYFiliales" xlink:label="lbl30564" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30544" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30564" order="330.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EfectivoYEfectivoEquivalente" xlink:label="lbl30565" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30538" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/periodStartLabel" xlink:to="lbl30565" order="610.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IngresosEfectivoActividadesFinanciamiento" xlink:label="lbl30566" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30540" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl30566" order="510.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IngresoComisionesReasegurosCedidos" xlink:label="lbl30567" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30542" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30567" order="80.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FlujosEfectivoNetoActividadesInversion" xlink:label="lbl30568" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30546" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl30568" order="440.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EfectosVariacionesTipoDeCambio" xlink:label="lbl30569" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30556" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30569" order="590.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PagoRentasYSiniestros" xlink:label="lbl30570" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30550" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30570" order="180.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FlujosDeEfectivoActividadesOperacionSinopsis" xlink:label="lbl30571" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30538" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30571" order="20.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IngresosEmisionInstrumentosPatrimonio" xlink:label="lbl30572" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30540" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30572" order="470.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IngresosPrestamosARelacionados" xlink:label="lbl30573" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30540" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30573" order="480.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EgresosEfectivoActividadesInversion" xlink:label="lbl30574" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30547" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl30574" order="430.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EgresosPrestamosConRelacionados" xlink:label="lbl30575" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30558" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30575" order="551.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IngresoActivosFinancierosCostoAmortizado" xlink:label="lbl30576" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30542" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30576" order="100.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InteresesDividendosRecibidos" xlink:label="lbl30577" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30542" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30577" order="110.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IngresosPrimasReaseguroAceptado" xlink:label="lbl30578" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30542" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30578" order="50.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EgresosActivosIntangiles" xlink:label="lbl30579" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30547" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30579" order="390.0" />
+    <link:presentationArc xlink:from="lbl30571" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30542" order="30.0" />
+    <link:presentationArc xlink:from="lbl30556" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30558" order="520.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DevolucionPorRentasYSiniestros" xlink:label="lbl30580" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30542" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30580" order="60.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IngresosActivosMantenidosParaVenta" xlink:label="lbl30581" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30544" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30581" order="320.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ComponentesEfectivoYEquivalentesAlFinalDelPeriodoSinopsis" xlink:label="lbl30582" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30538" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30582" order="630.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AumentoDisminucionEfectivoYEquivalentes" xlink:label="lbl30583" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30538" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl30583" order="600.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EgresosEfectivoActividadAseguradora" xlink:label="lbl30584" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30550" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl30584" order="250.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IngresosEfectivoActividadesInversion" xlink:label="lbl30585" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30544" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl30585" order="350.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DisminucionCapital" xlink:label="lbl30586" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30558" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30586" order="550.0" />
+    <link:presentationArc xlink:from="lbl30538" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30546" order="270.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EgresosPorParticipacionesEnEntidadesDelGrupoYFiliales" xlink:label="lbl30587" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30547" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30587" order="410.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EquivalenteAlEfectivo" xlink:label="lbl30588" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30582" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30588" order="660.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EgresoComisionesSegurosDirectos" xlink:label="lbl30589" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30550" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30589" order="190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EfectivoEnCaja" xlink:label="lbl30590" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30582" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30590" order="640.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_Bancos" xlink:label="lbl30591" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30582" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30591" order="650.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosEgresosRelacionadosConActividadesFinanciamiento" xlink:label="lbl30592" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30558" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30592" order="560.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EgresosPropiedadesInversion" xlink:label="lbl30593" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30547" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30593" order="380.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IngresosPrimasSegurosYCoaseguro" xlink:label="lbl30594" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30542" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30594" order="40.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosEgresosRelacionadosConActividadesInversion" xlink:label="lbl30595" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30547" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30595" order="420.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosIngresosRelacionadosConActividadesFinanciamiento" xlink:label="lbl30596" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30540" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30596" order="500.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EgresoGastoAdministracion" xlink:label="lbl30597" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30550" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30597" order="231.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EgresoComisionesReasegurosAceptados" xlink:label="lbl30598" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30550" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30598" order="200.0" />
+    <link:presentationArc xlink:from="lbl30571" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30550" order="150.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IngresosPrestamosBancarios" xlink:label="lbl30599" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30540" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30599" order="481.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosIngresosRelacionadosConActividadesInversion" xlink:label="lbl30600" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30544" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30600" order="340.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosEgresosActividadAseguradora" xlink:label="lbl30601" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30550" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30601" order="240.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosIngresoActividadAseguradora" xlink:label="lbl30602" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30542" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30602" order="130.0" />
+    <link:presentationArc xlink:from="lbl30546" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30544" order="280.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FlujosEfectivoNetosActividadesOperacion" xlink:label="lbl30603" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30571" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl30603" order="260.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InteresesPagados" xlink:label="lbl30604" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30558" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30604" order="540.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DividendosAccionistas" xlink:label="lbl30605" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30558" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30605" order="530.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IngresosActivosIntangibles" xlink:label="lbl30606" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30544" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30606" order="310.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EgresosPorPropiedadesMueblesYEquipo" xlink:label="lbl30607" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30547" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30607" order="370.0" />
+    <link:presentationArc xlink:from="lbl30538" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30556" order="450.0" />
+  </link:presentationLink>
+</link:linkbase>
+

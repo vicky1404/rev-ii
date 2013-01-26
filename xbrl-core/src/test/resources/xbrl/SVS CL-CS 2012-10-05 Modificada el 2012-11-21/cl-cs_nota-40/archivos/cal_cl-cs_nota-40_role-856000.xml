@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-40_role-856000.xsd#nota-40_role-856000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-40_role-856000" />
+  <link:calculationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-40_role-856000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ImpuestoRenta" xlink:label="lbl35023" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ImpuestoPorGastosRechazadosArticulo21" xlink:label="lbl35024" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35023" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35024" order="270.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AbonoCargoImpuestosDiferidos" xlink:label="lbl35025" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OriginacionYReversoDiferenciasTemporarias" xlink:label="lbl35026" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35025" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35026" order="180.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_BeneficioFiscalEjerciciosAnteriores" xlink:label="lbl35027" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35025" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35027" order="180.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ImpuestosRentaYDiferido" xlink:label="lbl35028" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35023" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35028" order="270.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CambioEnDiferenciasTemporalesNoReconocidas" xlink:label="lbl35029" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35025" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35029" order="180.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReconocimientosPerdidasTributariasNoReconocidasPreviamente" xlink:label="lbl35030" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35025" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35030" order="180.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosConceptosPorImpuestos" xlink:label="lbl35031" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35023" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35031" order="270.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_GastoImpuestoRentaImpuestoA%C3%B1oCorriente" xlink:label="lbl35032" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35028" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35032" order="230.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PPMPerdidasAcumuladasArticulo31Inciso3" xlink:label="lbl35033" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl35023" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35033" order="270.0" />
+    <link:calculationArc xlink:from="lbl35028" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl35025" order="230.0" />
+  </link:calculationLink>
+</link:linkbase>
+

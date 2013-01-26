@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-1_role-810000.xsd#nota-1_role-810000a" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-1_role-810000a" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#all" arcroleURI="http://xbrl.org/int/dim/arcrole/all" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#dimension-domain" arcroleURI="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#hypercube-dimension" arcroleURI="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#domain-member" arcroleURI="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="simple" />
+  <link:definitionLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-1_role-810000a" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionSobreDiezMayoresAccionistasSinopsis" xlink:label="lbl30786" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionSobreDiezMayoresAccionistasTabla" xlink:label="lbl30787" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl30786" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xbrldt:closed="true" xlink:arcrole="http://xbrl.org/int/dim/arcrole/all" xlink:type="arc" xbrldt:contextElement="scenario" xlink:to="lbl30787" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IdentificacionAccionistasEje" xlink:label="lbl30788" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionSobreDiezMayoresAccionistasMiembro" xlink:label="lbl30789" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl30788" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xbrldt:usable="false" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="arc" xlink:to="lbl30789" />
+    <link:definitionArc xlink:from="lbl30787" xlink:arcrole="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="arc" xlink:to="lbl30788" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AccionistaUnoMiembro" xlink:label="lbl30790" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl30789" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl30790" order="2.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AccionistaSieteMiembro" xlink:label="lbl30791" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl30789" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl30791" order="8.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AccionistasPartidas" xlink:label="lbl30792" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl30786" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl30792" order="260.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AccionistaCuatroMiembro" xlink:label="lbl30793" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl30789" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl30793" order="5.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TipoPersona" xlink:label="lbl30794" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl30792" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl30794" order="290.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_RUTAccionista" xlink:label="lbl30795" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl30792" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl30795" order="280.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AccionistaDiezMiembro" xlink:label="lbl30796" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl30789" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl30796" order="11.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AccionistaTresMiembro" xlink:label="lbl30797" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl30789" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl30797" order="4.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AccionistaSeisMiembro" xlink:label="lbl30798" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl30789" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl30798" order="7.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PorcentajePropiedad" xlink:label="lbl30799" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl30792" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl30799" order="300.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AccionistaDosMiembro" xlink:label="lbl30800" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl30789" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl30800" order="3.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AccionistaNueveMiembro" xlink:label="lbl30801" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl30789" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl30801" order="10.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AccionistaCincoMiembro" xlink:label="lbl30802" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl30789" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl30802" order="6.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_NombreAccionista" xlink:label="lbl30803" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl30792" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl30803" order="270.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AccionistaOchoMiembro" xlink:label="lbl30804" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl30789" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl30804" order="9.0" />
+  </link:definitionLink>
+</link:linkbase>
+

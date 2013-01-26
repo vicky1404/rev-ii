@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-27_role-842000.xsd#nota-27_role-842000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-27_role-842000" />
+  <link:presentationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-27_role-842000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ProvisionesSinopsis" xlink:label="lbl34345" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ProvisionesPartidas" xlink:label="lbl34346" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34345" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34346" order="60.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ProvisionesTabla" xlink:label="lbl34347" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TiposProvisionesEje" xlink:label="lbl34348" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34347" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34348" order="40.0" />
+    <link:presentationArc xlink:from="lbl34345" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34347" order="30.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_Provisiones" xlink:label="lbl34349" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34346" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/periodStartLabel" xlink:to="lbl34349" order="80.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IncrementosProvisionesExistentes" xlink:label="lbl34350" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34346" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34350" order="110.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionRevelarSobreProvisionesSinopsis" xlink:label="lbl34351" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ExplicacionProvisionesBloqueDeTexto" xlink:label="lbl34352" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34351" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34352" order="190.0" />
+    <link:presentationArc xlink:from="lbl34351" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34345" order="20.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ProvisionesCorriente" xlink:label="lbl34353" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34346" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34353" order="170.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ProvisionesNoCorriente" xlink:label="lbl34354" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34346" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34354" order="180.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ProvisionAdicionalEfectuadaEnPeriodo" xlink:label="lbl34355" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34346" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34355" order="100.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosConceptosProvisiones" xlink:label="lbl34356" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34346" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34356" order="140.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ProvisionesMiembro" xlink:label="lbl34357" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34348" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl34357" order="50.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_Concepto" xlink:label="lbl34358" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34346" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34358" order="70.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ImportesNoUtilizadosDurantePeriodo" xlink:label="lbl34359" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34346" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34359" order="130.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_Provisiones" xlink:label="lbl34360" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34346" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl34360" order="160.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ImportesUsadosDurantePeriodo" xlink:label="lbl34361" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34346" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34361" order="120.0" />
+  </link:presentationLink>
+</link:linkbase>
+

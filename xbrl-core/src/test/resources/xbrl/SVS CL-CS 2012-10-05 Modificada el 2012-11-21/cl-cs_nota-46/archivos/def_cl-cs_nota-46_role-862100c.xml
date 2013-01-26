@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-46_role-862100.xsd#nota-46_role-862100c" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-46_role-862100c" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#all" arcroleURI="http://xbrl.org/int/dim/arcrole/all" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#dimension-default" arcroleURI="http://xbrl.org/int/dim/arcrole/dimension-default" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#dimension-domain" arcroleURI="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#hypercube-dimension" arcroleURI="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#domain-member" arcroleURI="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="simple" />
+  <link:definitionLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-46_role-862100c" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ResumenSinopsis" xlink:label="lbl35458" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MargenSolvenciaGeneralesTabla" xlink:label="lbl35459" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35458" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xbrldt:closed="true" xlink:arcrole="http://xbrl.org/int/dim/arcrole/all" xlink:type="arc" xbrldt:contextElement="scenario" xlink:to="lbl35459" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MargenSolvenciaGeneralesEje" xlink:label="lbl35460" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MargenSolvenciaGeneralesMiembro" xlink:label="lbl35461" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35460" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-default" xlink:type="arc" xlink:to="lbl35461" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MargenSolvenciaGeneralesMiembro" xlink:label="lbl35462" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35460" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="arc" xlink:to="lbl35462" />
+    <link:definitionArc xlink:from="lbl35459" xlink:arcrole="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="arc" xlink:to="lbl35460" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VehiculosMiembro" xlink:label="lbl35463" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35462" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35463" order="3.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MargenSolvenciaResumenPartidas" xlink:label="lbl35464" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MargenDeSolvencia" xlink:label="lbl35465" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35464" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35465" order="940.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TotalEnFuncionDeLosSiniestrosResumen" xlink:label="lbl35466" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FSResumen" xlink:label="lbl35467" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35466" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35467" order="890.0" />
+    <link:definitionArc xlink:from="lbl35464" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35466" order="880.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_GrandesRiesgosMiembro" xlink:label="lbl35468" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosGrandesRiesgosMiembro" xlink:label="lbl35469" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35468" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35469" order="7.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IncendioGrandesRiesgoMiembro" xlink:label="lbl35470" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35468" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35470" order="6.0" />
+    <link:definitionArc xlink:from="lbl35458" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35464" order="810.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TotalEnFuncionDeLasPrimasResumen" xlink:label="lbl35471" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FRPrimasResumenSinopsis" xlink:label="lbl35472" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35471" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35472" order="850.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosResumen" xlink:label="lbl35473" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35466" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35473" order="900.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IncendioMiembro" xlink:label="lbl35474" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35462" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35474" order="2.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FPResumen" xlink:label="lbl35475" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35471" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35475" order="830.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FRSiniestrosResumenSinopsis" xlink:label="lbl35476" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FRSiniestrosCompa%C3%B1iaResumen" xlink:label="lbl35477" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35476" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35477" order="920.0" />
+    <link:definitionArc xlink:from="lbl35464" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35471" order="820.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FRSVSResumen" xlink:label="lbl35478" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35472" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35478" order="870.0" />
+    <link:definitionArc xlink:from="lbl35462" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xbrldt:usable="false" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35468" order="5.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimasResumen" xlink:label="lbl35479" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35471" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35479" order="840.0" />
+    <link:definitionArc xlink:from="lbl35476" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35478" order="930.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosRamosMiembro" xlink:label="lbl35480" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35462" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35480" order="4.0" />
+    <link:definitionArc xlink:from="lbl35466" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35476" order="910.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FRPrimasCompa%C3%B1iaResumen" xlink:label="lbl35481" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35472" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35481" order="860.0" />
+  </link:definitionLink>
+</link:linkbase>
+
