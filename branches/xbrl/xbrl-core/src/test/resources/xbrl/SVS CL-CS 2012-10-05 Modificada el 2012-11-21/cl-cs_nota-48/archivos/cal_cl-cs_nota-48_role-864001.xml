@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-48_role-864000.xsd#nota-48_role-864001" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-48_role-864001" />
+  <link:calculationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-48_role-864001" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InversionesRepresentativasReservasTecnicasPatrimonioRiesgo" xlink:label="lbl36011" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CreditoDeConsumo" xlink:label="lbl36012" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36011" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36012" order="1190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CuotasDeFondosDeInversion" xlink:label="lbl36013" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FondosDeInversionMobiliarios" xlink:label="lbl36014" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36013" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36014" order="940.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FondosDeInversionInmobiliarios" xlink:label="lbl36015" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36013" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36015" order="940.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DepositosAPlazoTitulosRepresentativosDeCaptacionesEmitidosPorBancosEInstitucionesFinancieras" xlink:label="lbl36016" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DepositosYOtros" xlink:label="lbl36017" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36016" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36017" order="890.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CreditoAseguradosPorPrimaNoVencidaNoDevengadaGenerales" xlink:label="lbl36018" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36011" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36018" order="1190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ActivosInternacionales" xlink:label="lbl36019" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36011" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36019" order="1190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_BienesRaices" xlink:label="lbl36020" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_BienesRaicesUrbanosHabitacionalesEntregadosEnLeasing" xlink:label="lbl36021" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36020" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36021" order="1020.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_LetrasDeCreditoEmitidasPorBancoEInstitucionesFinancieras" xlink:label="lbl36022" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36011" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36022" order="1190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_Bancos" xlink:label="lbl36023" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36011" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36023" order="1190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrasInversionesFinancieras" xlink:label="lbl36024" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36011" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36024" order="1190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_BienesRaicesNoHabitacionalesEntregadosEnLeasing" xlink:label="lbl36025" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36020" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36025" order="1020.0" />
+    <link:calculationArc xlink:from="lbl36011" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36013" order="1190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MutuosHipotecariosEndosables" xlink:label="lbl36026" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36011" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36026" order="1190.0" />
+    <link:calculationArc xlink:from="lbl36011" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36016" order="1190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosPorCobrarReaseguradoresPagadosAseguradosNoVencido" xlink:label="lbl36027" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36011" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36027" order="1190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FondosMutuosRepresentativos" xlink:label="lbl36028" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36011" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36028" order="1190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AccionesDeSociedadesAnonimasInmobiliarias" xlink:label="lbl36029" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36011" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36029" order="1190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrasInversionesRepresentativasSegunDL1092" xlink:label="lbl36030" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36011" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36030" order="1190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AccionesDeSociedadesAnonimasAbiertasAdmitidas" xlink:label="lbl36031" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36011" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36031" order="1190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_BonosPagaresYDebenturesEmitidosPorEmpresasPublicasOPrivadas" xlink:label="lbl36032" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36011" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36032" order="1190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CreditoNoVencidoSeguroInvalidezSobrevivenciaYCreditoPorSaldoCuentaIndividualVida" xlink:label="lbl36033" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36011" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36033" order="1190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_Derivados" xlink:label="lbl36034" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36011" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36034" order="1190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FondosDeInversionCapitalDeRiesgo" xlink:label="lbl36035" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36013" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36035" order="940.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_BienesRaicesNoHabitacionalesParaUsoPropioODeRenta" xlink:label="lbl36036" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36020" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36036" order="1020.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_BonosBancarios" xlink:label="lbl36037" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36016" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36037" order="890.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CreditoACedentesPorPrimasNoVencidasDevengadaGenerales" xlink:label="lbl36038" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36011" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36038" order="1190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AvanceTenedoresDePolizasSegurosDeVida" xlink:label="lbl36039" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36011" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36039" order="1190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_BienesRaicesUrbanosHabitacionalesParaUsoPropioODeRenta" xlink:label="lbl36040" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36020" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36040" order="1020.0" />
+    <link:calculationArc xlink:from="lbl36011" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36020" order="1190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CreditoACedentesPorPrimasNoVencidasYNoDevengadaGenerales" xlink:label="lbl36041" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36011" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36041" order="1190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InstrumentosEmitidosPorElEstadoOBancoCentral" xlink:label="lbl36042" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36011" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36042" order="1190.0" />
+  </link:calculationLink>
+</link:linkbase>
+

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-24_role-837000.xsd#nota-24_role-837000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-24_role-837000" />
+  <link:presentationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-24_role-837000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionRevelarSobrePasivosNoCorrientesMantenidosParaVentaSinopsis" xlink:label="lbl33370" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PasivosNoCorrientesMantenidosParaVentaSinopsis" xlink:label="lbl33371" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl33370" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl33371" order="20.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PasivosNoCorrientesMantenidosParaVentaPartidas" xlink:label="lbl33372" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PasivoNoCorrientesMantenidosParaVenta" xlink:label="lbl33373" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl33372" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl33373" order="70.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PasivosNoCorrientesMantenidosParaVentaTabla" xlink:label="lbl33374" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IdentificacionPasivoMantenidosParaVentaEje" xlink:label="lbl33375" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl33374" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl33375" order="40.0" />
+    <link:presentationArc xlink:from="lbl33371" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl33374" order="30.0" />
+    <link:presentationArc xlink:from="lbl33371" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl33372" order="60.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReconocimientoEnResultadoPerdidaPasivosNoCorrientesMantenidosParaVenta" xlink:label="lbl33376" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl33372" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl33376" order="100.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PasivosNoCorrientesMantenidosParaVentaMiembro" xlink:label="lbl33377" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl33375" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl33377" order="50.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReconocimientoEnResultadoUtilidadPasivosNoCorrientesMantenidosParaVenta" xlink:label="lbl33378" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl33372" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl33378" order="90.0" />
+  </link:presentationLink>
+</link:linkbase>
+

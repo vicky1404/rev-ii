@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-11_role-823000.xsd#nota-11_role-823000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-11_role-823000" />
+  <link:calculationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-11_role-823000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_RentaVariableNacional" xlink:label="lbl31810" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FondosMutuos" xlink:label="lbl31811" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl31810" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31811" order="250.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InversionesNacionalesCUI" xlink:label="lbl31812" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrasInversionesNacionales" xlink:label="lbl31813" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl31812" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31813" order="180.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AccionesSociedadesAnonimasCerradas" xlink:label="lbl31814" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl31810" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31814" order="250.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InversionesSegurosCuentaUnicaInversion" xlink:label="lbl31815" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_BancoCUI" xlink:label="lbl31816" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl31815" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31816" order="480.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InversionesExtranjeroCUI" xlink:label="lbl31817" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_RentaFijaExtranjera" xlink:label="lbl31818" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl31817" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31818" order="320.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_RentaVariableExtranjera" xlink:label="lbl31819" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CuotasFondosInversionExtranjeros" xlink:label="lbl31820" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl31819" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31820" order="380.0" />
+    <link:calculationArc xlink:from="lbl31815" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31817" order="480.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_RentaFijaNacional" xlink:label="lbl31821" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl31812" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31821" order="180.0" />
+    <link:calculationArc xlink:from="lbl31815" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31812" order="480.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InstrumentoDeudaOCredito" xlink:label="lbl31822" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl31821" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31822" order="190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AccionesSociedadesAnonimasAbiertas" xlink:label="lbl31823" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl31810" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31823" order="250.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrasInversionesExtranjeras" xlink:label="lbl31824" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl31817" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31824" order="320.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CuotasFondosMutuosExtranjeros" xlink:label="lbl31825" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl31819" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31825" order="380.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InstrumentosEmpresasNacionalesTransadosEnExtranjero" xlink:label="lbl31826" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl31821" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31826" order="190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosRentaVariableExtranjera" xlink:label="lbl31827" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl31819" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31827" order="380.0" />
+    <link:calculationArc xlink:from="lbl31812" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31810" order="180.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CuotasFondosInversionConstituidosPaisCuyosActivosEstanInvertidosValoresExtranjeros" xlink:label="lbl31828" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl31819" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31828" order="380.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TitulosEmitidosPorBancosYFinancierasExtranjeras" xlink:label="lbl31829" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl31818" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31829" order="330.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InstrumentosEstado" xlink:label="lbl31830" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl31821" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31830" order="190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TitulosEmitidosPorEmpresasExtranjeras" xlink:label="lbl31831" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl31818" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31831" order="330.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EmitidosPorEstadosYBancosCentralesExtranjeros" xlink:label="lbl31832" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl31818" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31832" order="330.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosRentaVariableNacional" xlink:label="lbl31833" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl31810" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31833" order="250.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_Inmobiliaria" xlink:label="lbl31834" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl31815" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31834" order="480.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CuotasFondosMutuosConstituidosPaisCuyosActivosEstanInvertidosValoresExtranjeros" xlink:label="lbl31835" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl31819" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31835" order="380.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosRentaFijaNacional" xlink:label="lbl31836" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl31821" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31836" order="190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InstrumentosEmitidosSistemaFinanciero" xlink:label="lbl31837" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl31821" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31837" order="190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AccionesSociedadesExtranjeras" xlink:label="lbl31838" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl31819" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31838" order="380.0" />
+    <link:calculationArc xlink:from="lbl31817" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31819" order="320.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FondosInversion" xlink:label="lbl31839" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl31810" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31839" order="250.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosRentaFijaExtranjera" xlink:label="lbl31840" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl31818" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31840" order="330.0" />
+  </link:calculationLink>
+</link:linkbase>
+

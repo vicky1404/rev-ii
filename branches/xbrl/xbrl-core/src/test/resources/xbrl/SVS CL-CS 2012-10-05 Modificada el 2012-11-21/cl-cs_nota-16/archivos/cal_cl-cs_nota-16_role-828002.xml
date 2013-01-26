@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-16_role-828000.xsd#nota-16_role-828002" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-16_role-828002" />
+  <link:calculationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-16_role-828002" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CuentasPorCobrarAsegurados" xlink:label="lbl32413" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CuentasPorCobrarAseguradosMonedaExtranjera" xlink:label="lbl32414" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32413" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32414" order="650.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CuentasPorCobrarAseguradosMonedaNacional" xlink:label="lbl32415" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32413" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32415" order="650.0" />
+  </link:calculationLink>
+</link:linkbase>
+

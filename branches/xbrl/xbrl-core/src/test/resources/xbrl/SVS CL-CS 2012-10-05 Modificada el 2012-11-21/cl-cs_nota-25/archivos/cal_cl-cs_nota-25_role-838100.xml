@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-25_role-838100.xsd#nota-25_role-838100" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-25_role-838100" />
+  <link:calculationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-25_role-838100" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosSOAPPagadosOPorPagar" xlink:label="lbl33466" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosSOAPParcialmentePagados" xlink:label="lbl33467" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl33466" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33467" order="390.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosSOAPPagados" xlink:label="lbl33468" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl33466" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33468" order="390.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CostoSiniestrosSOAPDirectos" xlink:label="lbl33469" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CostoSiniestrosSOAPPorPagarDirectosPeriodoAnterior" xlink:label="lbl33470" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl33469" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33470" order="610.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosSOAPDenunciados" xlink:label="lbl33471" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosSOAPAceptados" xlink:label="lbl33472" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl33471" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33472" order="340.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PersonasSiniestradas" xlink:label="lbl33473" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PersonasConIncapacidadPermanenteTotal" xlink:label="lbl33474" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl33473" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33474" order="460.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_Indemnizaciones" xlink:label="lbl33475" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IndemnizacionesInvalidosParcial" xlink:label="lbl33476" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl33475" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33476" order="520.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PersonasConIncapacidadPermanenteParcial" xlink:label="lbl33477" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl33473" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33477" order="460.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosSOAPRechazados" xlink:label="lbl33478" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl33471" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33478" order="340.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PersonasSiniestrosEnRevision" xlink:label="lbl33479" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl33473" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33479" order="460.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosSOAPPorPagar" xlink:label="lbl33480" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl33466" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33480" order="390.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IndemnizacionesFallecidos" xlink:label="lbl33481" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl33475" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33481" order="520.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CostoSiniestrosSOAPPorPagarDirectos" xlink:label="lbl33482" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl33469" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33482" order="610.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PersonasALasQueSePagoOPagaraSoloGastosHospitalYOtros" xlink:label="lbl33483" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl33473" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33483" order="460.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosSOAPPagadosDirectos" xlink:label="lbl33484" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_GastosHospitalYOtros" xlink:label="lbl33485" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl33484" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33485" order="550.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CostoSiniestrosSOAPPagadosDirectos" xlink:label="lbl33486" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl33469" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33486" order="610.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosSOAPEnRevision" xlink:label="lbl33487" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl33471" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33487" order="340.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CostoLiquidacion" xlink:label="lbl33488" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl33484" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33488" order="550.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IndemnizacionesInvalidosTotal" xlink:label="lbl33489" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl33475" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33489" order="520.0" />
+    <link:calculationArc xlink:from="lbl33484" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33475" order="550.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_Fallecidos" xlink:label="lbl33490" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl33473" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33490" order="460.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CostoSiniestrosSOAPOcurridosYNoReportados" xlink:label="lbl33491" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl33469" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl33491" order="610.0" />
+  </link:calculationLink>
+</link:linkbase>
+

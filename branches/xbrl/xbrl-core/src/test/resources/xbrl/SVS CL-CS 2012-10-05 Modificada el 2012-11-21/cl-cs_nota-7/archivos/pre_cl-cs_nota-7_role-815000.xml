@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-7_role-815000.xsd#nota-7_role-815000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-7_role-815000" />
+  <link:presentationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-7_role-815000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MonedasMiembro" xlink:label="lbl30979" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtraMonedaMiembro" xlink:label="lbl30980" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30979" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30980" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DetalleEfectivoYEfectivoEquivalenteSinopsis" xlink:label="lbl30981" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DetalleEfectivoYEfectivoEquivalenteTabla" xlink:label="lbl30982" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30981" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30982" order="30.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EfectivoYEfectivoEquivalentePartidas" xlink:label="lbl30983" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30981" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30983" order="100.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EfectivoEnCaja" xlink:label="lbl30984" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30983" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30984" order="110.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CLPMiembro" xlink:label="lbl30985" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30979" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30985" order="60.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionRevelarSobreEfectivoYEfectivoEquivalenteSinopsis" xlink:label="lbl30986" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30986" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30981" order="20.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EquivalenteAlEfectivo" xlink:label="lbl30987" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30983" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30987" order="130.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_Bancos" xlink:label="lbl30988" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30983" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30988" order="120.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DetallePorTipoMonedaEje" xlink:label="lbl30989" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30989" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl30979" order="50.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EfectivoYEfectivoEquivalente" xlink:label="lbl30990" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30983" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl30990" order="140.0" />
+    <link:presentationArc xlink:from="lbl30982" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30989" order="40.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EURMiembro" xlink:label="lbl30991" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30979" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30991" order="80.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_USDMiembro" xlink:label="lbl30992" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30979" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30992" order="70.0" />
+  </link:presentationLink>
+</link:linkbase>
+

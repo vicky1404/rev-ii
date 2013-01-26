@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-23_role-836000.xsd#nota-23_role-836000a" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-23_role-836000a" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#all" arcroleURI="http://xbrl.org/int/dim/arcrole/all" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#dimension-domain" arcroleURI="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#hypercube-dimension" arcroleURI="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#domain-member" arcroleURI="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="simple" />
+  <link:definitionLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-23_role-836000a" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PasivosFinancierosValorRazonableCambiosEnResultadoSinopsis" xlink:label="lbl33337" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PasivosFinancierosValorRazonableCambiosEnResultadoTabla" xlink:label="lbl33338" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33337" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xbrldt:closed="true" xlink:arcrole="http://xbrl.org/int/dim/arcrole/all" xlink:type="arc" xbrldt:contextElement="scenario" xlink:to="lbl33338" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorizacionPasivosFinancierosYEfectosEje" xlink:label="lbl33339" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorLibroPasivoFinancieroValorRazonableMiembro" xlink:label="lbl33340" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33339" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="arc" xlink:to="lbl33340" order="2" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EfectoEnOCIPasivoFinancieroMiembro" xlink:label="lbl33341" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33339" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="arc" xlink:to="lbl33341" order="4" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EfectoEnResultadoPasivoFinancieroValorRazonableMiembro" xlink:label="lbl33342" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33339" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="arc" xlink:to="lbl33342" order="3" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PasivoFinancieroValorRazonableMiembro" xlink:label="lbl33343" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33339" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="arc" xlink:to="lbl33343" />
+    <link:definitionArc xlink:from="lbl33338" xlink:arcrole="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="arc" xlink:to="lbl33339" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PasivosFinancierosValorRazonablePartidas" xlink:label="lbl33344" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DerivadosInversion" xlink:label="lbl33345" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33344" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33345" order="120.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosPasivosFinancierosValorRazonable" xlink:label="lbl33346" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33344" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33346" order="150.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PasivosFinancierosValorRazonable" xlink:label="lbl33347" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33344" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33347" order="160.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValoresRepresentativosDeDeuda" xlink:label="lbl33348" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33344" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33348" order="100.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DerivadosImplicitos" xlink:label="lbl33349" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33344" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33349" order="130.0" />
+    <link:definitionArc xlink:from="lbl33337" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33344" order="90.0" />
+  </link:definitionLink>
+</link:linkbase>
+

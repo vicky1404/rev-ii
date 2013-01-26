@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-10_role-822000.xsd#nota-10_role-822000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-10_role-822000" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#all" arcroleURI="http://xbrl.org/int/dim/arcrole/all" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#dimension-default" arcroleURI="http://xbrl.org/int/dim/arcrole/dimension-default" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#dimension-domain" arcroleURI="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#hypercube-dimension" arcroleURI="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#domain-member" arcroleURI="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="simple" />
+  <link:definitionLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-10_role-822000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionSobrePrestamosSinopsis" xlink:label="lbl31750" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorizacionPrestamosTabla" xlink:label="lbl31751" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31750" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xbrldt:closed="true" xlink:arcrole="http://xbrl.org/int/dim/arcrole/all" xlink:type="arc" xbrldt:contextElement="scenario" xlink:to="lbl31751" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MetodoValorizacionEje" xlink:label="lbl31752" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CostoAmortizadoMiembro" xlink:label="lbl31753" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31752" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-default" xlink:type="arc" xlink:to="lbl31753" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorRazonableMiembro" xlink:label="lbl31754" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31752" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="arc" xlink:to="lbl31754" order="4" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CostoAmortizadoMiembro" xlink:label="lbl31755" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31752" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="arc" xlink:to="lbl31755" />
+    <link:definitionArc xlink:from="lbl31751" xlink:arcrole="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="arc" xlink:to="lbl31752" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrestamosPartidas" xlink:label="lbl31756" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AvanceTenedoresPolizas" xlink:label="lbl31757" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31756" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31757" order="100.0" />
+    <link:definitionArc xlink:from="lbl31750" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31756" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrestamosOtorgados" xlink:label="lbl31758" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31756" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31758" order="110.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CostoAmortizadoBrutoMiembro" xlink:label="lbl31759" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31755" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31759" order="2.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_Prestamos" xlink:label="lbl31760" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31756" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31760" order="120.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroMiembro" xlink:label="lbl31761" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31755" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31761" order="3.0" />
+  </link:definitionLink>
+</link:linkbase>
+

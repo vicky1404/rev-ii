@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-27_role-842000.xsd#nota-27_role-842000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-27_role-842000" />
+  <link:calculationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-27_role-842000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_Provisiones" xlink:label="lbl34362" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ProvisionesNoCorriente" xlink:label="lbl34363" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34362" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34363" order="160.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ProvisionesCorriente" xlink:label="lbl34364" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34362" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34364" order="160.0" />
+  </link:calculationLink>
+</link:linkbase>
+

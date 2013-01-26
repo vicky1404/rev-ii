@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-5_role-812000.xsd#nota-5_role-812000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-5_role-812000" />
+  <link:calculationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-5_role-812000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PatrimonioSegunNIIFInicioPeriodo" xlink:label="lbl30915" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EfectoAcumuladoOtrosConceptosNoSignificativos" xlink:label="lbl30916" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl30915" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl30916" order="300.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AjustesReservasTecnicas" xlink:label="lbl30917" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl30915" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl30917" order="300.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AjusteImpuestosDiferidos" xlink:label="lbl30918" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl30915" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl30918" order="300.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AjusteConversionAcumulados" xlink:label="lbl30919" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl30915" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl30919" order="300.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AjusteInversionesInmobiliarias" xlink:label="lbl30920" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl30915" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl30920" order="300.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PatrimonioSegunPrincipiosContablesChilenos" xlink:label="lbl30921" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl30915" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl30921" order="300.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AjusteInversionesContabilizadasAplicandoMetodoParticipacion" xlink:label="lbl30922" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl30915" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl30922" order="300.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AjusteMonedaFuncional" xlink:label="lbl30923" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl30915" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl30923" order="300.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AjusteInteresesMinoritarios" xlink:label="lbl30924" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl30915" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl30924" order="300.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AjusteGastosDiferidosYOtrosActivosIntangibles" xlink:label="lbl30925" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl30915" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl30925" order="300.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AjustePropiedadesMueblesYEquipos" xlink:label="lbl30926" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl30915" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl30926" order="300.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AjusteValorRazonableActivosDisponiblesParaVenta" xlink:label="lbl30927" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl30915" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl30927" order="300.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AjusteInstrumentosFinancieros" xlink:label="lbl30928" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl30915" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl30928" order="300.0" />
+  </link:calculationLink>
+</link:linkbase>
+

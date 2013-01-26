@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-7_role-815000.xsd#nota-7_role-815000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-7_role-815000" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#all" arcroleURI="http://xbrl.org/int/dim/arcrole/all" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#dimension-default" arcroleURI="http://xbrl.org/int/dim/arcrole/dimension-default" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#dimension-domain" arcroleURI="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#hypercube-dimension" arcroleURI="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#domain-member" arcroleURI="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="simple" />
+  <link:definitionLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-7_role-815000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DetalleEfectivoYEfectivoEquivalenteSinopsis" xlink:label="lbl30997" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DetalleEfectivoYEfectivoEquivalenteTabla" xlink:label="lbl30998" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl30997" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xbrldt:closed="true" xlink:arcrole="http://xbrl.org/int/dim/arcrole/all" xlink:type="arc" xbrldt:contextElement="scenario" xlink:to="lbl30998" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DetallePorTipoMonedaEje" xlink:label="lbl30999" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MonedasMiembro" xlink:label="lbl31000" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl30999" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-default" xlink:type="arc" xlink:to="lbl31000" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MonedasMiembro" xlink:label="lbl31001" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl30999" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="arc" xlink:to="lbl31001" />
+    <link:definitionArc xlink:from="lbl30998" xlink:arcrole="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="arc" xlink:to="lbl30999" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EfectivoYEfectivoEquivalentePartidas" xlink:label="lbl31002" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EquivalenteAlEfectivo" xlink:label="lbl31003" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31002" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31003" order="130.0" />
+    <link:definitionArc xlink:from="lbl30997" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31002" order="100.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EURMiembro" xlink:label="lbl31004" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31001" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31004" order="4.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtraMonedaMiembro" xlink:label="lbl31005" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31001" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31005" order="5.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_Bancos" xlink:label="lbl31006" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31002" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31006" order="120.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_USDMiembro" xlink:label="lbl31007" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31001" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31007" order="3.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EfectivoYEfectivoEquivalente" xlink:label="lbl31008" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31002" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31008" order="140.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CLPMiembro" xlink:label="lbl31009" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31001" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31009" order="2.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EfectivoEnCaja" xlink:label="lbl31010" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31002" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31010" order="110.0" />
+  </link:definitionLink>
+</link:linkbase>
+

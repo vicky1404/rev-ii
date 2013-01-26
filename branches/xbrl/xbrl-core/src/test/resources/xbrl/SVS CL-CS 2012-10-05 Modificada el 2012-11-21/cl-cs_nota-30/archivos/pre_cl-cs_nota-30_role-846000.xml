@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-30_role-846000.xsd#nota-30_role-846000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-30_role-846000" />
+  <link:presentationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-30_role-846000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AntecedentesReaseguradorExtranjeroPartidas" xlink:label="lbl34480" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PaisOrigen" xlink:label="lbl34481" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34480" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34481" order="290.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimaCedidaReaseguradoresExtranjerosSinopsis" xlink:label="lbl34482" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34482" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34480" order="240.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_NombreCorredorReasegurosExtranjero" xlink:label="lbl34483" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34480" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34483" order="250.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FechaClasificacionUnoReaseguradorExtranjero" xlink:label="lbl34484" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34480" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34484" order="370.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimaCedidaReaseguradoresNacionalesSinopsis" xlink:label="lbl34485" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AntecedentesReaseguradorNacionalPartidas" xlink:label="lbl34486" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34485" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34486" order="60.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_NombreReaseguradorExtranjero" xlink:label="lbl34487" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34480" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34487" order="260.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReaseguradoresCorredoresReasegurosVigentesSinopsis" xlink:label="lbl34488" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReaseguroNacionalYExtranjeroTabla" xlink:label="lbl34489" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34488" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34489" order="400.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReaseguroEje" xlink:label="lbl34490" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34489" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34490" order="410.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionRevelarSobreReaseguradoresYCorredoresReaseguroVigentesSinopsis" xlink:label="lbl34491" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34491" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34485" order="20.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ClasificacionDeRiesgoSinopsis" xlink:label="lbl34492" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CodigoClasificadorRiesgoUnoReaseguradorNacional" xlink:label="lbl34493" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34492" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34493" order="140.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReaseguroNacional" xlink:label="lbl34494" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34486" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl34494" order="130.0" />
+    <link:presentationArc xlink:from="lbl34486" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34492" order="131.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReaseguradoresExtranjerosEje" xlink:label="lbl34495" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReaseguradoresExtranjerosMiembro" xlink:label="lbl34496" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34495" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34496" order="230.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimaCedidaReaseguradoresNacionalesTabla" xlink:label="lbl34497" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34485" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34497" order="30.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimaCedidaReaseguradoNacional" xlink:label="lbl34498" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34486" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34498" order="110.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FechaClasificacionDosReaseguradorNacional" xlink:label="lbl34499" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34492" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34499" order="190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReaseguroMiembro" xlink:label="lbl34500" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_GastosPorReaseguroNoProporcionalMiembro" xlink:label="lbl34501" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34500" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34501" order="440.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReaseguroPartidas" xlink:label="lbl34502" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReaseguroExtranjero" xlink:label="lbl34503" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34502" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34503" order="470.0" />
+    <link:presentationArc xlink:from="lbl34490" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34500" order="420.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ClasificacionRiesgoDosReaseguradorNacional" xlink:label="lbl34504" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34492" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34504" order="170.0" />
+    <link:presentationArc xlink:from="lbl34488" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34502" order="450.0" />
+    <link:presentationArc xlink:from="lbl34480" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl34503" order="320.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CodigoClasificadorRiesgoUnoReaseguradorExtranjero" xlink:label="lbl34505" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34480" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34505" order="330.0" />
+    <link:presentationArc xlink:from="lbl34502" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34494" order="460.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ClasificacionRiesgoUnoReaseguradorExtranjero" xlink:label="lbl34506" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34480" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34506" order="350.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CostoReaseguroNacionalNoProporcional" xlink:label="lbl34507" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34486" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34507" order="120.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_NombreCorredorReasegurosNacional" xlink:label="lbl34508" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34486" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34508" order="70.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ClasificacionRiesgoDosReaseguradorExtranjero" xlink:label="lbl34509" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34480" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34509" order="360.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimaCedidaReaseguradoresExtranjerosTabla" xlink:label="lbl34510" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34482" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34510" order="210.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FechaClasificacionDosReaseguradorExtranjero" xlink:label="lbl34511" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34480" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34511" order="380.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CodigoClasificadorRiesgoDosReaseguradorNacional" xlink:label="lbl34512" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34492" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34512" order="150.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReaseguradoresCorredoresReasegurosVigentes" xlink:label="lbl34513" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34502" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl34513" order="480.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CodigoClasificadorRiesgoDosReaseguradorExtranjero" xlink:label="lbl34514" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34480" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34514" order="340.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_NombreReaseguradorNacional" xlink:label="lbl34515" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34486" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34515" order="80.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FechaClasificacionUnoReaseguradorNacional" xlink:label="lbl34516" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34492" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34516" order="180.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimaCedidaReaseguradorExtranjero" xlink:label="lbl34517" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34480" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34517" order="300.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TipoRelacionConReaseguradorNacional" xlink:label="lbl34518" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34486" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34518" order="100.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CodigoIdentificacionReasegurador" xlink:label="lbl34519" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34480" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34519" order="270.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_RutReasegurador" xlink:label="lbl34520" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34486" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34520" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ClasificacionRiesgoUnoReaseguradorNacional" xlink:label="lbl34521" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34492" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34521" order="160.0" />
+    <link:presentationArc xlink:from="lbl34510" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34495" order="220.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimasCedidasMiembro" xlink:label="lbl34522" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34500" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34522" order="430.0" />
+    <link:presentationArc xlink:from="lbl34491" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34488" order="390.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CostoReaseguroNoProporcionalReaseguradoresExtranjeros" xlink:label="lbl34523" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34480" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34523" order="310.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReaseguradoresNacionalesEje" xlink:label="lbl34524" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReaseguradoresNacionalesMiembro" xlink:label="lbl34525" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34524" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34525" order="50.0" />
+    <link:presentationArc xlink:from="lbl34497" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34524" order="40.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TipoRelacionConReaseguradorExtranjero" xlink:label="lbl34526" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34480" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34526" order="280.0" />
+    <link:presentationArc xlink:from="lbl34491" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34482" order="200.0" />
+  </link:presentationLink>
+</link:linkbase>
+

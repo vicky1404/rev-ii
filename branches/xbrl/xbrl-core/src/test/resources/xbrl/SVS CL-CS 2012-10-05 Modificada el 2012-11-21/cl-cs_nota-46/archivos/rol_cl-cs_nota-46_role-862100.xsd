@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:nota-46_role-862100_rol="http://www.svs.cl/cl/fr/cs/2012-10-05/rol_cl-cs_nota-46_role-862100_rol" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://www.svs.cl/cl/fr/cs/2012-10-05/rol_cl-cs_nota-46_role-862100_rol">
+  <annotation>
+    <appinfo>
+      <link:roleType id="nota-46_role-862100c" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-46_role-862100c">
+        <link:definition>[862100c] Nota 46 -Margen de Solvencia</link:definition>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="nota-46_role-862100" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-46_role-862100">
+        <link:definition>[862100] Nota 46 - Margen de solvencia - Seguros generales</link:definition>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="nota-46_role-862100b" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-46_role-862100b">
+        <link:definition>[862100b] Nota 46 -Siniestros últimos tres años</link:definition>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="nota-46_role-862100a" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-46_role-862100a">
+        <link:definition>[862100a] Nota 46 -Primas y factor de reaseguro</link:definition>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+    </appinfo>
+  </annotation>
+  <import namespace="http://www.xbrl.org/2003/instance" schemaLocation="http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd" />
+</schema>
+

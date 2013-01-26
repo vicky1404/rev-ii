@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-44_role-860000.xsd#nota-44_role-860000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-44_role-860000" />
+  <link:presentationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-44_role-860000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MonedaExtranjeraSinopsis" xlink:label="lbl35089" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MovimientoDivisasPorConceptoReasegurosSinopsis" xlink:label="lbl35090" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35089" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35090" order="300.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MargenContribucionOperacionesSegurosEnMonedaExtranjeraSinopsis" xlink:label="lbl35091" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ConceptosOperacionessegurosSinopsis" xlink:label="lbl35092" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35091" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35092" order="470.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PosicionEnActivosYPasivosEnMonedaExtranjeraPartidas" xlink:label="lbl35093" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TiposCambiosCierreFechaInformacion" xlink:label="lbl35094" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35093" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35094" order="292.0" />
+    <link:presentationArc xlink:from="lbl35089" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35091" order="430.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservasEnMonedaExtranjera" xlink:label="lbl35095" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservaRiesgoEnCursoEnMonedaExtranjera" xlink:label="lbl35096" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35095" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35096" order="200.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ConceptoReasegurosPartidas" xlink:label="lbl35097" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MovimientoNetoDivisas" xlink:label="lbl35098" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35097" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35098" order="420.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PosicionEnActivosYPasivosEnMonedaExtranjeraSinopsis" xlink:label="lbl35099" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35099" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35093" order="60.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AjusteReservaTecnicaEnMonedaExtranjera" xlink:label="lbl35100" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35092" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35100" order="510.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservaMatematicaEnMonedaExtranjera" xlink:label="lbl35101" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35095" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35101" order="210.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ActivosEnMonedaExtranjera" xlink:label="lbl35102" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35093" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35102" order="170.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimaAceptadaEnMonedaExtranjera" xlink:label="lbl35103" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35092" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35103" order="500.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MovimientoDivisasEje" xlink:label="lbl35104" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MovimientoNetoDivisasMiembro" xlink:label="lbl35105" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35104" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35105" order="350.0" />
+    <link:presentationArc xlink:from="lbl35089" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35099" order="20.0" />
+    <link:presentationArc xlink:from="lbl35090" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35097" order="380.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PasivosEnMonedaExtranjeraSinopsis" xlink:label="lbl35106" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35093" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35106" order="180.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ResultadoAntesImpuestoEnMonedaExtranjera" xlink:label="lbl35107" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35092" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35107" order="600.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InversionesEnMonedaExtranjera" xlink:label="lbl35108" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DepositosEnMonedaExtranjera" xlink:label="lbl35109" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35108" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35109" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ActivosEnMonedaExtranjeraSinopsis" xlink:label="lbl35110" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosActivosEnMonedaExtranjera" xlink:label="lbl35111" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35110" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35111" order="160.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudoresPorPrimasEnMonedaExtranjera" xlink:label="lbl35112" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35110" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35112" order="110.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SalidasDivisasMiembro" xlink:label="lbl35113" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35105" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35113" order="370.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MargenContribucionOperacionesSegurosEnMonedaExtranjeraTabla" xlink:label="lbl35114" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35091" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35114" order="440.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PosicionEnActivosYPasivosEnMonedaExtranjeraTabla" xlink:label="lbl35115" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35099" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35115" order="30.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MovimientoDivisasPorConceptoReasegurosTabla" xlink:label="lbl35116" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35090" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35116" order="310.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CostoIntermediacionEnMonedaExtranjera" xlink:label="lbl35117" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35092" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35117" order="530.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MonedasOperacionesDeSegurosEje" xlink:label="lbl35118" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ConsolidadoMonedasExtranjerasMiembro" xlink:label="lbl35119" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35118" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35119" order="460.0" />
+    <link:presentationArc xlink:from="lbl35110" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35108" order="80.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MonedasReasegurosEje" xlink:label="lbl35120" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35120" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35119" order="330.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CostoAdministracionEnMonedaExtranjera" xlink:label="lbl35121" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35092" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35121" order="550.0" />
+    <link:presentationArc xlink:from="lbl35116" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35104" order="340.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IngresoExplotacionEnMonedaExtranjera" xlink:label="lbl35122" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35092" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35122" order="520.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrasInversionesEnMonedaExtranjera" xlink:label="lbl35123" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35108" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35123" order="100.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimaCedidaEnMonedaExtranjera" xlink:label="lbl35124" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35092" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35124" order="490.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PosicionNetaEnMonedaExtranjera" xlink:label="lbl35125" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35093" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35125" order="290.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MovimientosDivisasPorSiniestros" xlink:label="lbl35126" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35097" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35126" order="400.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosPasivosEnMonedaExtranjera" xlink:label="lbl35127" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35106" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35127" order="270.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioOperacionesSegurosMonedaExtranjera" xlink:label="lbl35128" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35092" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35128" order="590.0" />
+    <link:presentationArc xlink:from="lbl35106" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35095" order="190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimasPorPagarEnMonedaExtranjera" xlink:label="lbl35129" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimasPorPagarReaseguradoresEnMonedaExtranjera" xlink:label="lbl35130" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35129" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35130" order="250.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimasPorPagarAseguradosEnMonedaExtranjera" xlink:label="lbl35131" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35129" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35131" order="240.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosPorPagarEnMonedaExtranjera" xlink:label="lbl35132" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35095" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35132" order="220.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PosicionNetaMonedaOrigen" xlink:label="lbl35133" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35093" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35133" order="291.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MonedasExtranjerasEje" xlink:label="lbl35134" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35134" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35119" order="50.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ProductoInversionesEnMonedaExtranjera" xlink:label="lbl35135" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35092" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35135" order="570.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MovimientoDivisasPorPrimas" xlink:label="lbl35136" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35097" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35136" order="390.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosMovimientosDivisas" xlink:label="lbl35137" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35097" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35137" order="410.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudoresPorPrimasAseguradosEnMonedaExtranjera" xlink:label="lbl35138" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35112" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35138" order="120.0" />
+    <link:presentationArc xlink:from="lbl35116" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35120" order="320.0" />
+    <link:presentationArc xlink:from="lbl35106" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35129" order="230.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudoresPorPrimasReaseguradoresEnMonedaExtranjera" xlink:label="lbl35139" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35112" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35139" order="130.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosDeudoresEnMonedaExtranjera" xlink:label="lbl35140" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35110" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35140" order="150.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimaDirectaEnMonedaExtranjera" xlink:label="lbl35141" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35092" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35141" order="480.0" />
+    <link:presentationArc xlink:from="lbl35115" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35134" order="40.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudoresPorSiniestrosEnMonedaExtranjera" xlink:label="lbl35142" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35110" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35142" order="140.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudasConInstitucionesFinancierasEnMonedaExtranjera" xlink:label="lbl35143" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35106" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35143" order="260.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CostoExplotacionEnMonedaExtranjera" xlink:label="lbl35144" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35092" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35144" order="560.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EntradasDivisasMiembro" xlink:label="lbl35145" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35105" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35145" order="360.0" />
+    <link:presentationArc xlink:from="lbl35093" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35110" order="70.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CostoSiniestrosEnMonedaExtranjera" xlink:label="lbl35146" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35092" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35146" order="540.0" />
+    <link:presentationArc xlink:from="lbl35114" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35118" order="450.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosIngresosYEgresosEnMonedaExtranjera" xlink:label="lbl35147" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35092" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35147" order="580.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PasivosEnMonedaExtranjera" xlink:label="lbl35148" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35093" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35148" order="280.0" />
+  </link:presentationLink>
+</link:linkbase>
+

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-8_role-816000.xsd#nota-8_role-816000l" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-8_role-816000l" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#all" arcroleURI="http://xbrl.org/int/dim/arcrole/all" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#dimension-domain" arcroleURI="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#hypercube-dimension" arcroleURI="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#domain-member" arcroleURI="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="simple" />
+  <link:definitionLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-8_role-816000l" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ContratosCoberturaRiesgoCreditoSinopsis" xlink:label="lbl31557" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CoberturaRiesgoCreditoTabla" xlink:label="lbl31558" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31557" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xbrldt:closed="true" xlink:arcrole="http://xbrl.org/int/dim/arcrole/all" xlink:type="arc" xbrldt:contextElement="scenario" xlink:to="lbl31558" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ContratosCoberturaRiesgoCreditoEje" xlink:label="lbl31559" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TotalCoberturaMiembro" xlink:label="lbl31560" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31559" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="arc" xlink:to="lbl31560" />
+    <link:definitionArc xlink:from="lbl31558" xlink:arcrole="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="arc" xlink:to="lbl31559" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CoberturaRiesgoCreditoPartidas" xlink:label="lbl31561" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31557" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31561" order="3030.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CaracteristicasOperacionCoberturaRiesgoCreditoSinopsis" xlink:label="lbl31562" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31561" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31562" order="3100.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrecioEjercicioCoberturaRiesgoCredito" xlink:label="lbl31563" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31562" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31563" order="3140.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MonedaPrimaCoberturaRiesgoCredito" xlink:label="lbl31564" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31562" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31564" order="3170.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ContrapartesOperacionCoberturaRiesgoCreditoSinopsis" xlink:label="lbl31565" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_NombreContraparte" xlink:label="lbl31566" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31565" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31566" order="3070.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ActivoObjeto" xlink:label="lbl31567" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31562" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31567" order="3110.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionValorizacionCoberturaRiesgoCreditoSinopsis" xlink:label="lbl31568" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorRazonableActivoObjetoCoberturaRiesgoCreditoFechaInformacion" xlink:label="lbl31569" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31568" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31569" order="3210.0" />
+    <link:definitionArc xlink:from="lbl31561" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31568" order="3200.0" />
+    <link:definitionArc xlink:from="lbl31561" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31565" order="3060.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MontoPrimaCoberturaRiesgoCredito" xlink:label="lbl31570" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31562" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31570" order="3150.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_Cobertura1512Miembro" xlink:label="lbl31571" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31560" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31571" order="3.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PeriodicidadPagoPrimaCoberturaRiesgoCredito" xlink:label="lbl31572" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31562" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31572" order="3160.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrecioSpotActivoSubyacenteCoberturaRiesgoCredito" xlink:label="lbl31573" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31568" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31573" order="3220.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FolioOperacion" xlink:label="lbl31574" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31561" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31574" order="3040.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ClasificacionRiesgoContraparte" xlink:label="lbl31575" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31565" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31575" order="3090.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OrigenInformacionCoberturaRiesgoCredito" xlink:label="lbl31576" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31568" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31576" order="3240.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FechaOperacion" xlink:label="lbl31577" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31562" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31577" order="3180.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorCoberturaRiesgoCreditoFechaInformacion" xlink:label="lbl31578" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31568" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31578" order="3230.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FechaVencimientoContrato" xlink:label="lbl31579" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31562" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31579" order="3190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ItemOperacion" xlink:label="lbl31580" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31561" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31580" order="3050.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_NacionalidadContraparte" xlink:label="lbl31581" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31565" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31581" order="3080.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_NominalesCoberturaRiesgoCredito" xlink:label="lbl31582" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31562" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31582" order="3120.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CoberturaMiembro" xlink:label="lbl31583" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31560" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31583" order="2.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MonedaCoberturaRiesgoCredito" xlink:label="lbl31584" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31562" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31584" order="3130.0" />
+  </link:definitionLink>
+</link:linkbase>
+

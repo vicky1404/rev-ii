@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-12_role-824000.xsd#nota-12_role-824000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-12_role-824000" />
+  <link:presentationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-12_role-824000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DetalleParticipacionEmpresasSubsidiariasPartidas" xlink:label="lbl31890" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PorcentajeParticipacionEmpresaSubsidiaria" xlink:label="lbl31891" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31890" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl31891" order="120.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionRevelarSobreParticipacionesEntidadesGrupoBoqueDeTexto" xlink:label="lbl31892" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CambioEnInversionesEnEmpresasRelacionadasSinopsis" xlink:label="lbl31893" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31892" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl31893" order="360.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DetalleCambioParticipacionesEntidadesDelGrupoPartidas" xlink:label="lbl31894" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroInversionEmpresasRelacionadas" xlink:label="lbl31895" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31894" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl31895" order="480.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ResultadoDevengado" xlink:label="lbl31896" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31890" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl31896" order="170.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PatrimonioEmpresaSubsidiaria" xlink:label="lbl31897" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31890" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl31897" order="130.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorPatrimonialProporcionalOValorPatrimonial" xlink:label="lbl31898" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31890" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl31898" order="180.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionesEnEntidadesGrupo" xlink:label="lbl31899" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31894" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/periodStartLabel" xlink:to="lbl31899" order="420.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InversionesEmpresasSubsidiariasTabla" xlink:label="lbl31900" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EmpresasSubsidiariasEje" xlink:label="lbl31901" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31900" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl31901" order="40.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PaisOrigenEmpresaSubsidiaria" xlink:label="lbl31902" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31890" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl31902" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionesEnEmpresasSubsidiarias" xlink:label="lbl31903" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31890" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl31903" order="200.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AdquisicionesInversionesEmpresasRelacionadas" xlink:label="lbl31904" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31894" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl31904" order="440.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ResultadoEjercicioEmpresaSubsidiariaValorRazonable" xlink:label="lbl31905" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31890" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl31905" order="160.0" />
+    <link:presentationArc xlink:from="lbl31893" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl31894" order="410.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_NumeroAccionesEmpresaSubsidiaria" xlink:label="lbl31906" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31890" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl31906" order="110.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionEnEmpresasAsociadasColigadasSinopsis" xlink:label="lbl31907" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DetalleParticipacionEmpresasAsociadassPartidas" xlink:label="lbl31908" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31907" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl31908" order="250.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PatrimonioEmpresaSubsidiariaValorRazonable" xlink:label="lbl31909" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31890" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl31909" order="150.0" />
+    <link:presentationArc xlink:from="lbl31892" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl31907" order="210.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InversionesEmpresasAsociadasTabla" xlink:label="lbl31910" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EmpresasAsociadasEje" xlink:label="lbl31911" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31910" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl31911" order="230.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionEmpresasAsociadasSinopsis" xlink:label="lbl31912" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PasivosEmpresaAsociada" xlink:label="lbl31913" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31912" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl31913" order="320.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EmpresasRelacionadasEje" xlink:label="lbl31914" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionesEnEntidadesGrupoMiembro" xlink:label="lbl31915" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31914" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl31915" order="381.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionesEnEmpresasAsociadasMiembro" xlink:label="lbl31916" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31911" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl31916" order="240.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorLibroAccionEmpresaAsociada" xlink:label="lbl31917" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31908" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl31917" order="350.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionesEnEmpresasAsociadas" xlink:label="lbl31918" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31908" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/periodEndLabel" xlink:to="lbl31918" order="290.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionesEnEntidadesGrupo" xlink:label="lbl31919" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31894" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/periodEndLabel" xlink:to="lbl31919" order="520.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IngresosEmpresaAsociada" xlink:label="lbl31920" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31912" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl31920" order="330.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReconocimientoEnResultadoPorInversionEmpresasRelacionadas" xlink:label="lbl31921" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31894" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl31921" order="460.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_NombreEmpresaAsociada" xlink:label="lbl31922" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31908" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl31922" order="270.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MonedaControlInversionEmpresaSubsidiaria" xlink:label="lbl31923" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31890" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl31923" order="100.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionEmpresasSubsidiariasSinopsis" xlink:label="lbl31924" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31924" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl31890" order="60.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ColigadasMiembro" xlink:label="lbl31925" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31915" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl31925" order="400.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DividendosRecibidosPorInversionEmpresasRelacionadas" xlink:label="lbl31926" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31894" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl31926" order="470.0" />
+    <link:presentationArc xlink:from="lbl31907" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl31910" order="220.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosCambiosInversionEmpresasRelacionadas" xlink:label="lbl31927" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31894" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl31927" order="500.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_RUTEmpresaSubsidiaria" xlink:label="lbl31928" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31890" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl31928" order="70.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CambioEnInversionesEnEmpresasRelacionadasTabla" xlink:label="lbl31929" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31893" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl31929" order="370.0" />
+    <link:presentationArc xlink:from="lbl31924" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl31900" order="30.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PorcentajeParticipacionEmpresaAsociada" xlink:label="lbl31930" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31908" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl31930" order="280.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionesEnEmpresasSubsidiariasMiembro" xlink:label="lbl31931" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31901" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl31931" order="50.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_GastosEmpresaAsociada" xlink:label="lbl31932" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31912" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl31932" order="340.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FilialesMiembro" xlink:label="lbl31933" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31915" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl31933" order="390.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ResultadosNorealizados" xlink:label="lbl31934" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31890" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl31934" order="190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioEnInversionEmpresasRelacionadas" xlink:label="lbl31935" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31894" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl31935" order="490.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_NombreEmpresaSubsidiaria" xlink:label="lbl31936" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31890" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl31936" order="80.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ResultadoEjercicioEmpresaSubsidiaria" xlink:label="lbl31937" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31890" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl31937" order="140.0" />
+    <link:presentationArc xlink:from="lbl31908" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl31912" order="301.0" />
+    <link:presentationArc xlink:from="lbl31929" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl31914" order="380.0" />
+    <link:presentationArc xlink:from="lbl31892" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl31924" order="20.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ActivosEmpresaAsociada" xlink:label="lbl31938" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31912" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl31938" order="310.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorRazonableInversionEnEmpresaAsociada" xlink:label="lbl31939" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31908" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl31939" order="300.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VentasTransferenciasPorInversionEmpresasRelacionadas" xlink:label="lbl31940" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31894" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl31940" order="450.0" />
+  </link:presentationLink>
+</link:linkbase>
+

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-19_role-832200.xsd#nota-19_role-832200" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-19_role-832200" />
+  <link:presentationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-19_role-832200" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnReservasSegurosPrevisionales" xlink:label="lbl32889" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnReservasSeguroInvalidezSobrevivencia" xlink:label="lbl32890" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32889" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32890" order="340.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnReservasTecnicasMiembro" xlink:label="lbl32891" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroReservasMiembro" xlink:label="lbl32892" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32891" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32892" order="290.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservaDeSiniestros" xlink:label="lbl32893" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_LiquidadosYNoPagados" xlink:label="lbl32894" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32893" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32894" order="160.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DetalleReservasTecnicasPartidas" xlink:label="lbl32895" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservaDeRiesgoEnCurso" xlink:label="lbl32896" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32895" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32896" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnReservaSiniestros" xlink:label="lbl32897" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnReservaSiniestrosLiquidadosYContrvertidosPorAsegurado" xlink:label="lbl32898" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32897" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32898" order="390.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DetalleParticipacionReaseguroEnReservasTecnicasPartidas" xlink:label="lbl32899" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnReservaInsuficienciaPrimas" xlink:label="lbl32900" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32899" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32900" order="420.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservasSegurosPrevisionales" xlink:label="lbl32901" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservasRentasVitalicias" xlink:label="lbl32902" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32901" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32902" order="110.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnReservaRentasVitalicias" xlink:label="lbl32903" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32889" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32903" order="330.0" />
+    <link:presentationArc xlink:from="lbl32899" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32889" order="320.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservaInsuficienciaPrima" xlink:label="lbl32904" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32895" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32904" order="200.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EnProcesoLiquidacion" xlink:label="lbl32905" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32893" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32905" order="180.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnReservasTecnicasBrutoMiembro" xlink:label="lbl32906" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32891" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32906" order="280.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnReservaSiniestrosOcurridosYNoReportados" xlink:label="lbl32907" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32897" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32907" order="410.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnReservaRentaPrivadas" xlink:label="lbl32908" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32899" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32908" order="360.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PasivoPorReservaMiembro" xlink:label="lbl32909" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DirectoMiembro" xlink:label="lbl32910" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32909" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32910" order="60.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnReservasTecnicasSinopsis" xlink:label="lbl32911" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnReservasTecnicasTabla" xlink:label="lbl32912" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32911" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32912" order="250.0" />
+    <link:presentationArc xlink:from="lbl32911" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32899" order="300.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnReservaRiesgoEnCurso" xlink:label="lbl32913" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32899" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32913" order="310.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservaRentasPrivadas" xlink:label="lbl32914" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32895" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32914" order="140.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnReservaSiniestrosLiquidadosYNoPagados" xlink:label="lbl32915" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32897" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32915" order="380.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservasSegurosDeVidaSinopsis" xlink:label="lbl32916" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservasTecnicasSinopsis" xlink:label="lbl32917" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32916" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32917" order="20.0" />
+    <link:presentationArc xlink:from="lbl32895" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32901" order="100.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrincipalesSupuestosCaracteristicasYFrecuenciaCalibracionBloqueDeTexto" xlink:label="lbl32918" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32916" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32918" order="450.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnOtrasReservaTecnicas" xlink:label="lbl32919" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32899" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32919" order="430.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ActivoPorReservasTecnicasEje" xlink:label="lbl32920" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32920" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl32891" order="270.0" />
+    <link:presentationArc xlink:from="lbl32916" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32911" order="240.0" />
+    <link:presentationArc xlink:from="lbl32895" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32893" order="150.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservasTecnicasTabla" xlink:label="lbl32921" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PasivoPorReservasTecnicasEje" xlink:label="lbl32922" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32921" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32922" order="40.0" />
+    <link:presentationArc xlink:from="lbl32899" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32897" order="370.0" />
+    <link:presentationArc xlink:from="lbl32922" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32909" order="50.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservaMatematica" xlink:label="lbl32923" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32895" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32923" order="130.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AceptadoMiembro" xlink:label="lbl32924" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32909" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32924" order="70.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnReservaMatematica" xlink:label="lbl32925" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32899" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32925" order="350.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnReservasTecnicas" xlink:label="lbl32926" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32899" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl32926" order="440.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservasSeguroInvalidezSobrevivencia" xlink:label="lbl32927" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32901" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32927" order="120.0" />
+    <link:presentationArc xlink:from="lbl32917" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32921" order="30.0" />
+    <link:presentationArc xlink:from="lbl32912" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32920" order="260.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_LiquidadosYControvertidosPorAsegurado" xlink:label="lbl32928" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32893" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32928" order="170.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OcurridosYNoReportados" xlink:label="lbl32929" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32893" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32929" order="190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrasReservasTecnicas" xlink:label="lbl32930" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32895" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32930" order="210.0" />
+    <link:presentationArc xlink:from="lbl32917" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32895" order="80.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnReservaSiniestrosEnProcesoLiquidacion" xlink:label="lbl32931" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32897" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32931" order="400.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservaValorDelFondo" xlink:label="lbl32932" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32895" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32932" order="220.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservasTecnicas" xlink:label="lbl32933" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32895" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl32933" order="230.0" />
+  </link:presentationLink>
+</link:linkbase>
+

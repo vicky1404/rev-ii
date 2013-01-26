@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-14_role-826000.xsd#nota-14_role-826000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-14_role-826000" />
+  <link:calculationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-14_role-826000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CuentasPorCobrarLeasing" xlink:label="lbl32218" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TerminoContratoLeasingSuperior5A%C3%B1os" xlink:label="lbl32219" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32218" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32219" order="400.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TerminoContratoLeasingEntre1Y5A%C3%B1os" xlink:label="lbl32220" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32218" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32220" order="400.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PropiedadesDeInversion" xlink:label="lbl32221" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PropiedadesDeInversionNacionales" xlink:label="lbl32222" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32221" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32222" order="220.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TerminoContratoLeasingHasta1A%C3%B1o" xlink:label="lbl32223" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32218" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32223" order="400.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PropiedadesDeInversionExtranjeras" xlink:label="lbl32224" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32221" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32224" order="220.0" />
+  </link:calculationLink>
+</link:linkbase>
+

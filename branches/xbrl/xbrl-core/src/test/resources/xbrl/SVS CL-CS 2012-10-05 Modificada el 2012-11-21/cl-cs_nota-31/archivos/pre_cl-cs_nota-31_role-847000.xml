@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-31_role-847000.xsd#nota-31_role-847000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-31_role-847000" />
+  <link:presentationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-31_role-847000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VariacionReservasTecnicasPartidas" xlink:label="lbl34584" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VariacionReservaInsuficienciaPrimas" xlink:label="lbl34585" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34584" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34585" order="140.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VariacionReservaMatematica" xlink:label="lbl34586" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34584" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34586" order="110.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VariacionReservasTecnicasMiembro" xlink:label="lbl34587" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DirectoMiembro" xlink:label="lbl34588" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34587" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34588" order="60.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionRevelarSobreVariacionReservasTecnicasSinopsis" xlink:label="lbl34589" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VariacionReservasTecnicasSinopsis" xlink:label="lbl34590" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34589" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34590" order="20.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VariacionReservasTecnicasTabla" xlink:label="lbl34591" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34590" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34591" order="30.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AceptadoMiembro" xlink:label="lbl34592" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34587" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34592" order="80.0" />
+    <link:presentationArc xlink:from="lbl34590" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34584" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VariacionReservaCatastroficaDeTerremoto" xlink:label="lbl34593" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34584" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34593" order="130.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VariacionReservaDeRiesgoEnCurso" xlink:label="lbl34594" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34584" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34594" order="100.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VariacionReservasTecnicas" xlink:label="lbl34595" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34584" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl34595" order="160.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VariacionReservasTecnicasEje" xlink:label="lbl34596" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34596" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl34587" order="50.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VariacionOtrasReservasTecnicas" xlink:label="lbl34597" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34584" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34597" order="150.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CedidoMiembro" xlink:label="lbl34598" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34587" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34598" order="70.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VariacionReservaValorDelFondo" xlink:label="lbl34599" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34584" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34599" order="120.0" />
+    <link:presentationArc xlink:from="lbl34591" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34596" order="40.0" />
+  </link:presentationLink>
+</link:linkbase>
+

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-13_role-825000.xsd#nota-13_role-825000c" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-13_role-825000c" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#all" arcroleURI="http://xbrl.org/int/dim/arcrole/all" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#dimension-default" arcroleURI="http://xbrl.org/int/dim/arcrole/dimension-default" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#dimension-domain" arcroleURI="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#hypercube-dimension" arcroleURI="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#domain-member" arcroleURI="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="simple" />
+  <link:definitionLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-13_role-825000c" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InversionCuotasFondosPorCuentaAseguradosNCG176Sinopsis" xlink:label="lbl32146" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InversionCuotasFondosPorCuentaAseguradosTabla" xlink:label="lbl32147" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32146" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xbrldt:closed="true" xlink:arcrole="http://xbrl.org/int/dim/arcrole/all" xlink:type="arc" xbrldt:contextElement="scenario" xlink:to="lbl32147" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DetalleInversionPorFondoEje" xlink:label="lbl32148" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InversionCuotasFondosPorCuentaAseguradosMiembro" xlink:label="lbl32149" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32148" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-default" xlink:type="arc" xlink:to="lbl32149" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InversionCuotasFondosPorCuentaAseguradosMiembro" xlink:label="lbl32150" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32148" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="arc" xlink:to="lbl32150" />
+    <link:definitionArc xlink:from="lbl32147" xlink:arcrole="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="arc" xlink:to="lbl32148" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InversionEnCuotasFondosPorCuentaDeAseguradosPartidas" xlink:label="lbl32151" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CuotasPorFondo" xlink:label="lbl32152" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32151" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32152" order="780.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_RunFondo" xlink:label="lbl32153" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32151" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32153" order="770.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorCuotaCierre" xlink:label="lbl32154" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32151" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32154" order="790.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_NumeroPolizasVigentes" xlink:label="lbl32155" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32151" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32155" order="830.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EgresosAsociadosOperacionesAutorizadas" xlink:label="lbl32156" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32151" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32156" order="820.0" />
+    <link:definitionArc xlink:from="lbl32146" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32151" order="750.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_NumeroAsegurados" xlink:label="lbl32157" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32151" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32157" order="840.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InversionesCuotasFondos" xlink:label="lbl32158" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32151" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32158" order="800.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_NombreFondoInversionAsegurados" xlink:label="lbl32159" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32151" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32159" order="760.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IngresosAsociadosOperacionesAutorizadas" xlink:label="lbl32160" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32151" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32160" order="810.0" />
+  </link:definitionLink>
+</link:linkbase>
+

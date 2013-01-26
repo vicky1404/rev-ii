@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-17_role-829000.xsd#nota-17_role-829000b" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-17_role-829000b" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#all" arcroleURI="http://xbrl.org/int/dim/arcrole/all" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#dimension-default" arcroleURI="http://xbrl.org/int/dim/arcrole/dimension-default" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#dimension-domain" arcroleURI="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#hypercube-dimension" arcroleURI="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#domain-member" arcroleURI="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="simple" />
+  <link:definitionLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-17_role-829000b" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EvolucionDelDeterioroPorReaseguradoresSinopsis" xlink:label="lbl32653" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EvolucionDelDeterioroPorReaseguradoresTabla" xlink:label="lbl32654" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32653" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xbrldt:closed="true" xlink:arcrole="http://xbrl.org/int/dim/arcrole/all" xlink:type="arc" xbrldt:contextElement="scenario" xlink:to="lbl32654" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ClasesDeterioroDeudoresPorReasegurosEje" xlink:label="lbl32655" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroDeudoresOperacionesReaseguroMiembro" xlink:label="lbl32656" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32655" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-default" xlink:type="arc" xlink:to="lbl32656" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroDeudoresOperacionesReaseguroMiembro" xlink:label="lbl32657" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32655" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="arc" xlink:to="lbl32657" />
+    <link:definitionArc xlink:from="lbl32654" xlink:arcrole="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="arc" xlink:to="lbl32655" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroOtrosDeudoresPorOperacionesReaseguroMiembro" xlink:label="lbl32658" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32657" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32658" order="5.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EvolucionDelDeterioroPorReaseguradoresPartidas" xlink:label="lbl32659" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroDeudoresOperacionesReaseguro" xlink:label="lbl32660" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32659" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32660" order="360.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CastigoCuentasPorCobrarReaseguros" xlink:label="lbl32661" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32659" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32661" order="330.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroSiniestrosPorCobrarReaseguradoresMiembro" xlink:label="lbl32662" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32657" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32662" order="3.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AumentoDisminucionProvisionDeterioroDeudoresOperacionesReaseguro" xlink:label="lbl32663" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32659" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32663" order="310.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioDeudoresOperacionesReaseguro" xlink:label="lbl32664" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32659" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32664" order="340.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_RecuperoCuentasPorCobrarReaseguros" xlink:label="lbl32665" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32659" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32665" order="320.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroPrimasPorCobrarReaseguroAceptadoMiembro" xlink:label="lbl32666" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32657" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32666" order="2.0" />
+    <link:definitionArc xlink:from="lbl32653" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32659" order="280.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroActivosPorReaseguroNoProporcionalMiembro" xlink:label="lbl32667" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32657" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32667" order="4.0" />
+  </link:definitionLink>
+</link:linkbase>
+

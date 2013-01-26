@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-40_role-856000.xsd#nota-40_role-856000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-40_role-856000" />
+  <link:presentationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-40_role-856000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TasaEfectivaYGastoImpuestoRentaMiembro" xlink:label="lbl34995" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciasPermanentesMiembro" xlink:label="lbl34996" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34995" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34996" order="70.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionRevelarSobreImpuestoRentaBoqueDeTexto" xlink:label="lbl34997" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ResultadoPorImpuestoSinopsis" xlink:label="lbl34998" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34997" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34998" order="160.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_GastosImpuestoRentaSinopsis" xlink:label="lbl34999" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ImpuestosRentaYDiferido" xlink:label="lbl35000" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34999" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl35000" order="230.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ImpuestoRenta" xlink:label="lbl35001" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34999" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35001" order="270.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_GastosNoDeduciblesPorGastosFinancierosYNoTributariosMiembro" xlink:label="lbl35002" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34995" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35002" order="100.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TasaEfectivaYGastoImpuestoRentaPartidas" xlink:label="lbl35003" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TasaImpuesto" xlink:label="lbl35004" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35003" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35004" order="140.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReconciliacionTasaImpuestoEfectivaSinopsis" xlink:label="lbl35005" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34997" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35005" order="20.0" />
+    <link:presentationArc xlink:from="lbl35005" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35003" order="130.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosConceptosMiembro" xlink:label="lbl35006" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34995" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35006" order="120.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PPMPerdidasAcumuladasArticulo31Inciso3" xlink:label="lbl35007" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34999" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35007" order="250.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AbonoCargoImpuestosDiferidos" xlink:label="lbl35008" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_BeneficioFiscalEjerciciosAnteriores" xlink:label="lbl35009" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35008" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35009" order="210.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReconciliacionTasaImpuestoEfectivaTabla" xlink:label="lbl35010" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35005" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35010" order="30.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReconocimientosPerdidasTributariasNoReconocidasPreviamente" xlink:label="lbl35011" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35008" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35011" order="220.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ImpuestoUnicoPorGastosRechazadosMiembro" xlink:label="lbl35012" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34995" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35012" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CambioEnDiferenciasTemporalesNoReconocidas" xlink:label="lbl35013" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35008" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35013" order="200.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ConceptoImpuestoEje" xlink:label="lbl35014" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35010" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35014" order="40.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_GastoImpuestoRentaImpuestoA%C3%B1oCorriente" xlink:label="lbl35015" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34999" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35015" order="170.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadAntesImpuestoMiembro" xlink:label="lbl35016" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34995" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35016" order="60.0" />
+    <link:presentationArc xlink:from="lbl34999" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35008" order="180.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OriginacionYReversoDiferenciasTemporarias" xlink:label="lbl35017" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35008" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35017" order="190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AgregadosODeduccionesMiembro" xlink:label="lbl35018" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34995" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35018" order="80.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IncentivosImpuestosNoReconocidosEnEstadoResultadosMiembro" xlink:label="lbl35019" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34995" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35019" order="110.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosConceptosPorImpuestos" xlink:label="lbl35020" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34999" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35020" order="260.0" />
+    <link:presentationArc xlink:from="lbl35014" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34995" order="50.0" />
+    <link:presentationArc xlink:from="lbl34998" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34999" order="161.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ImpuestoPorGastosRechazadosArticulo21" xlink:label="lbl35021" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34999" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35021" order="240.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_Monto" xlink:label="lbl35022" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35003" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35022" order="150.0" />
+  </link:presentationLink>
+</link:linkbase>
+

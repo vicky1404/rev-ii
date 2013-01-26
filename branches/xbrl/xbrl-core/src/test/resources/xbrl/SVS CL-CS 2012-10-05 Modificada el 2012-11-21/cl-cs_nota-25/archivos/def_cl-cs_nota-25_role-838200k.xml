@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-25_role-838200.xsd#nota-25_role-838200k" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-25_role-838200k" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#all" arcroleURI="http://xbrl.org/int/dim/arcrole/all" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#dimension-domain" arcroleURI="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#hypercube-dimension" arcroleURI="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#domain-member" arcroleURI="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="simple" />
+  <link:definitionLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-25_role-838200k" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InvalidosTransitoriosFallecidosSinopsis" xlink:label="lbl34135" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InvalidosTransitoriosFallecidosTabla" xlink:label="lbl34136" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34135" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xbrldt:closed="true" xlink:arcrole="http://xbrl.org/int/dim/arcrole/all" xlink:type="arc" xbrldt:contextElement="scenario" xlink:to="lbl34136" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InvalidosTransitoriosFallecidosEje" xlink:label="lbl34137" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InvalidosTransitoriosFallecidosMiembro" xlink:label="lbl34138" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34137" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="arc" xlink:to="lbl34138" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionInvalidosFallecidosPorGruposEje" xlink:label="lbl34139" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_GruposMiembro" xlink:label="lbl34140" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34139" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="arc" xlink:to="lbl34140" />
+    <link:definitionArc xlink:from="lbl34136" xlink:arcrole="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="arc" xlink:to="lbl34139" />
+    <link:definitionArc xlink:from="lbl34136" xlink:arcrole="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="arc" xlink:to="lbl34137" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InvalidosTransitoriosFallecidosPartidas" xlink:label="lbl34141" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PorcentajeParticipacionInvalidezTransitoriaFallecidos" xlink:label="lbl34142" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34141" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34142" order="2700.0" />
+    <link:definitionArc xlink:from="lbl34135" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34141" order="2670.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AporteAdicionalInvalidosTransitoriosFallecidos" xlink:label="lbl34143" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34141" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34143" order="2690.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_NumeroSiniestrosPorInvalidosTransitoriosFallecidos" xlink:label="lbl34144" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34141" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34144" order="2680.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AporteAdicionalCompa%C3%B1iaInvalidosTransitoriosFallecidos" xlink:label="lbl34145" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34141" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34145" order="2710.0" />
+  </link:definitionLink>
+</link:linkbase>
+

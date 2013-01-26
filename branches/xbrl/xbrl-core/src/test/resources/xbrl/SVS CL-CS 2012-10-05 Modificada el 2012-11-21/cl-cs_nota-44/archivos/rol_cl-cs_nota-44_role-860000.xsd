@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:nota-44_role-860000_rol="http://www.svs.cl/cl/fr/cs/2012-10-05/rol_cl-cs_nota-44_role-860000_rol" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://www.svs.cl/cl/fr/cs/2012-10-05/rol_cl-cs_nota-44_role-860000_rol">
+  <annotation>
+    <appinfo>
+      <link:roleType id="nota-44_role-860000c" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-44_role-860000c">
+        <link:definition>[860000c] Nota 44 - Margen de contribución de las operaciones de seguros en moneda extranjera</link:definition>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="nota-44_role-860000b" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-44_role-860000b">
+        <link:definition>[860000b] Nota 44 - Movimiento de divisas por concepto de reaseguros</link:definition>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="nota-44_role-860000a" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-44_role-860000a">
+        <link:definition>[860000a] Nota 44 - Posición en activos y pasivos en moneda extranjera</link:definition>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="nota-44_role-860000" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-44_role-860000">
+        <link:definition>[860000] Nota 44 - Moneda Extranjera</link:definition>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+    </appinfo>
+  </annotation>
+  <import namespace="http://www.xbrl.org/2003/instance" schemaLocation="http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd" />
+</schema>
+

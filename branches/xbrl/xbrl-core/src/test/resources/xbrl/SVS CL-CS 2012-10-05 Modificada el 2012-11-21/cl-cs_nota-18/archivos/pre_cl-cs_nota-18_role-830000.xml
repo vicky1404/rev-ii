@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-18_role-830000.xsd#nota-18_role-830000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-18_role-830000" />
+  <link:presentationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-18_role-830000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SaldosAdeudadosPorCoaseguroTabla" xlink:label="lbl32737" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SaldosPorTipoRelacionEje" xlink:label="lbl32738" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32737" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32738" order="40.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EvolucionDelDeterioroPorCoaseguroPartidas" xlink:label="lbl32739" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroDeudoresOperacionesCoaseguro" xlink:label="lbl32740" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32739" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl32740" order="310.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionRevelarSobreDeudoresOperacionesCoaseguroSinopsis" xlink:label="lbl32741" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EvolucionDelDeterioroPorCoaseguroSinopsis" xlink:label="lbl32742" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32741" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32742" order="170.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AumentoDisminucionProvisionDeterioroDeudoresOperacionesCoaseguro" xlink:label="lbl32743" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32739" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32743" order="260.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroDeudasPorCobrarOperacionesCoasegurosMiembro" xlink:label="lbl32744" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosPorCobrarOperacionesCoasegurosMiembro" xlink:label="lbl32745" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32744" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32745" order="220.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudoresPorOperacionesCoaseguroPartidas" xlink:label="lbl32746" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudoresPorOperacionesCoaseguro" xlink:label="lbl32747" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32746" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl32747" order="120.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimasPorCobrarOperacionesCoasegurosMiembro" xlink:label="lbl32748" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32744" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32748" order="210.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_RecuperoDeudoresPorOperacionesCoaseguro" xlink:label="lbl32749" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32739" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32749" order="270.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ClasesDeterioroDeudoresPorCoasegurosEje" xlink:label="lbl32750" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32750" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl32744" order="200.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EvolucionDelDeterioroPorCoaseguroTabla" xlink:label="lbl32751" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32751" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32750" order="190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ActivosCorrientesDeudoresPorOperacionesCoaseguro" xlink:label="lbl32752" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32746" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32752" order="150.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TotalSaldosMiembro" xlink:label="lbl32753" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SaldosEmpresasRelacionadasMiembro" xlink:label="lbl32754" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32753" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32754" order="60.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroDeudoresOperacionesCoaseguro" xlink:label="lbl32755" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32739" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/periodStartLabel" xlink:to="lbl32755" order="240.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ActivosNoCorrientesDeudoresPorOperacionesCoaseguro" xlink:label="lbl32756" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32746" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32756" order="140.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioDeudoresPorOperacionesCoaseguro" xlink:label="lbl32757" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32739" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32757" order="290.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimasPorCobrarOperacionesCoasegurosBruto" xlink:label="lbl32758" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32746" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32758" order="90.0" />
+    <link:presentationArc xlink:from="lbl32742" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32739" order="230.0" />
+    <link:presentationArc xlink:from="lbl32746" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32755" order="110.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SaldosAdeudadosPorCoaseguroSinopsis" xlink:label="lbl32759" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32741" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32759" order="20.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SaldosTercerosMiembro" xlink:label="lbl32760" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32753" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32760" order="70.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ExplicacionEvolucionDeterioroCoaseguroInteresEfectivoBloqueDeTexto" xlink:label="lbl32761" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32739" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32761" order="320.0" />
+    <link:presentationArc xlink:from="lbl32742" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32751" order="180.0" />
+    <link:presentationArc xlink:from="lbl32759" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32746" order="80.0" />
+    <link:presentationArc xlink:from="lbl32738" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl32753" order="50.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosPorCobrarOperacionesCoasegurosBruto" xlink:label="lbl32762" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32746" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32762" order="100.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CastigoDeudoresPorOperacionesCoaseguro" xlink:label="lbl32763" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl32739" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl32763" order="280.0" />
+    <link:presentationArc xlink:from="lbl32759" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl32737" order="30.0" />
+  </link:presentationLink>
+</link:linkbase>
+

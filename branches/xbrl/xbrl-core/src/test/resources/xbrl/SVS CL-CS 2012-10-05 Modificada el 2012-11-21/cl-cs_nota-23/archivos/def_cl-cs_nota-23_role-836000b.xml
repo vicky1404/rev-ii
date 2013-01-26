@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-23_role-836000.xsd#nota-23_role-836000b" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-23_role-836000b" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#all" arcroleURI="http://xbrl.org/int/dim/arcrole/all" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#dimension-default" arcroleURI="http://xbrl.org/int/dim/arcrole/dimension-default" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#dimension-domain" arcroleURI="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#hypercube-dimension" arcroleURI="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#domain-member" arcroleURI="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="simple" />
+  <link:definitionLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-23_role-836000b" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudasConEntidadesFinancierasSinopsis" xlink:label="lbl33350" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudasConEntidadesFinancierasTabla" xlink:label="lbl33351" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33350" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xbrldt:closed="true" xlink:arcrole="http://xbrl.org/int/dim/arcrole/all" xlink:type="arc" xbrldt:contextElement="scenario" xlink:to="lbl33351" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IdentificacionDeudasConEntidadesFinancierasEje" xlink:label="lbl33352" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudasConEntidadesFinancierasMiembro" xlink:label="lbl33353" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33352" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-default" xlink:type="arc" xlink:to="lbl33353" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudasConEntidadesFinancierasMiembro" xlink:label="lbl33354" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33352" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="arc" xlink:to="lbl33354" />
+    <link:definitionArc xlink:from="lbl33351" xlink:arcrole="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="arc" xlink:to="lbl33352" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MontoDeudaLargoPlazoSinopsis" xlink:label="lbl33355" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TasaInteresLargoPlazo" xlink:label="lbl33356" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33355" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33356" order="340.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CaracteristicasDeudasPartidas" xlink:label="lbl33357" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SaldoInsolutoSinopsis" xlink:label="lbl33358" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33357" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33358" order="260.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MontoDeudaCortoPlazoSinopsis" xlink:label="lbl33359" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MontoDeudaCortoPlazo" xlink:label="lbl33360" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33359" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33360" order="320.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FechaOtorgamiento" xlink:label="lbl33361" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33357" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33361" order="250.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MonedaDeuda" xlink:label="lbl33362" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33358" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33362" order="280.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UltimoVencimientoCortoPlazo" xlink:label="lbl33363" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33359" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33363" order="310.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MontoDeudaLargoPlazo" xlink:label="lbl33364" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33355" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33364" order="360.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_NombreBancoOInstitucionFinanciera" xlink:label="lbl33365" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33357" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33365" order="230.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TasaInteresCortoPlazo" xlink:label="lbl33366" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33359" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33366" order="300.0" />
+    <link:definitionArc xlink:from="lbl33357" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33359" order="290.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudaEntidadesFinancieras" xlink:label="lbl33367" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33357" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33367" order="361.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MontoSaldoInsoluto" xlink:label="lbl33368" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33358" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33368" order="270.0" />
+    <link:definitionArc xlink:from="lbl33350" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33357" order="220.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UltimoVencimientoLargoPlazo" xlink:label="lbl33369" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl33355" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33369" order="350.0" />
+    <link:definitionArc xlink:from="lbl33357" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl33355" order="330.0" />
+  </link:definitionLink>
+</link:linkbase>
+

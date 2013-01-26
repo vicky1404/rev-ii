@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-48_role-864300.xsd#nota-48_role-864300" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-48_role-864300" />
+  <link:calculationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-48_role-864300" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ObligacionInvertirReservasTecnicas" xlink:label="lbl36177" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservaSegurosNoPrevisionalesNeta" xlink:label="lbl36178" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36177" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36178" order="490.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservaSeguroInvalidezSobrevivenciaNeta" xlink:label="lbl36179" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservasSeguroInvalidezSobrevivencia" xlink:label="lbl36180" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36179" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36180" order="190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimasPorPagarSegurosGenerales" xlink:label="lbl36181" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservaRiesgoCursoPrimasPorPagar" xlink:label="lbl36182" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36181" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36182" order="460.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ObligacionInvertirReservasTecnicasPatrimonioRiesgo" xlink:label="lbl36183" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PatrimonioRiesgo" xlink:label="lbl36184" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36183" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36184" order="30.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservaRiesgoCursoNeta" xlink:label="lbl36185" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservaDeRiesgoEnCurso" xlink:label="lbl36186" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36185" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36186" order="230.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservaValorDelFondo" xlink:label="lbl36187" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36178" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36187" order="220.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrasReservasNeta" xlink:label="lbl36188" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrasReservasTecnicas" xlink:label="lbl36189" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36188" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36189" order="430.0" />
+    <link:calculationArc xlink:from="lbl36177" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36181" order="490.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservaMatematicaNeta" xlink:label="lbl36190" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnReservaMatematica" xlink:label="lbl36191" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36190" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36191" order="260.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnReservasSeguroInvalidezSobrevivencia" xlink:label="lbl36192" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36179" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36192" order="190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudoresPorReaseguros" xlink:label="lbl36193" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudasOperacionesReaseguro" xlink:label="lbl36194" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36193" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36194" order="580.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnOtrasReservaTecnicas" xlink:label="lbl36195" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36188" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36195" order="430.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservaCatastroficaTerremotoNeta" xlink:label="lbl36196" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnReservaCatastroficaTerremoto" xlink:label="lbl36197" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36196" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36197" order="360.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservaSiniestrosNeta" xlink:label="lbl36198" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36178" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36198" order="220.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimaCedidaNoGanadaMenosDescuentoCesionNoGanado" xlink:label="lbl36199" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DescuentoCesionNoGanado" xlink:label="lbl36200" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36199" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36200" order="620.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimasPorPagarOperacionesCoaseguro" xlink:label="lbl36201" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36193" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36201" order="580.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservasAdicionalesNeta" xlink:label="lbl36202" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservaInsuficienciaPrimasNeta" xlink:label="lbl36203" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36202" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36203" order="390.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PatrimonioNeto" xlink:label="lbl36204" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ActivoNoEfectivo" xlink:label="lbl36205" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36204" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36205" order="80.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservaDeSiniestros" xlink:label="lbl36206" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36198" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36206" order="330.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservaMatematica" xlink:label="lbl36207" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36190" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36207" order="260.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservaRentasVitaliciasNeta" xlink:label="lbl36208" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservasRentasVitalicias" xlink:label="lbl36209" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36208" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36209" order="160.0" />
+    <link:calculationArc xlink:from="lbl36178" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36196" order="220.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservasSegurosPrevisionalesNeta" xlink:label="lbl36210" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36177" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36210" order="490.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ObligacionInvertirReservasTecnicasMasPatrimonioRiesgo" xlink:label="lbl36211" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36211" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36184" order="560.0" />
+    <link:calculationArc xlink:from="lbl36211" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36177" order="560.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservaSiniestrosPrimasPorPagar" xlink:label="lbl36212" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36181" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36212" order="460.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrasPrimasPorPagarOperacionesReaseguro" xlink:label="lbl36213" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36193" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36213" order="580.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservaRentasPrivadasNeta" xlink:label="lbl36214" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservaRentasPrivadas" xlink:label="lbl36215" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36214" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36215" order="300.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimaCedidaNoGanada" xlink:label="lbl36216" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36199" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36216" order="620.0" />
+    <link:calculationArc xlink:from="lbl36210" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36208" order="150.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnReservaRentaPrivadas" xlink:label="lbl36217" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36214" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36217" order="300.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservaCatastroficaTerremoto" xlink:label="lbl36218" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36196" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36218" order="360.0" />
+    <link:calculationArc xlink:from="lbl36178" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36185" order="220.0" />
+    <link:calculationArc xlink:from="lbl36178" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36214" order="220.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnReservaSiniestros" xlink:label="lbl36219" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36198" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36219" order="330.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnReservaRentasVitalicias" xlink:label="lbl36220" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36208" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36220" order="160.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnReservaInsuficienciaPrimas" xlink:label="lbl36221" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36203" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36221" order="400.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservasTecnicasNetasReaseguro" xlink:label="lbl36222" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36183" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36222" order="30.0" />
+    <link:calculationArc xlink:from="lbl36177" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36202" order="490.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SuperavitDeficitInversionesRepresentativasReservasTecnicasPatrimonioRiesgo" xlink:label="lbl36223" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InversionesRepresentativasReservasTecnicasPatrimonioRiesgo" xlink:label="lbl36224" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36223" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36224" order="70.0" />
+    <link:calculationArc xlink:from="lbl36178" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36190" order="220.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_Patrimonio" xlink:label="lbl36225" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36204" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36225" order="80.0" />
+    <link:calculationArc xlink:from="lbl36223" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36183" order="70.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ParticipacionReaseguroEnReservaRiesgoEnCurso" xlink:label="lbl36226" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36185" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36226" order="230.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ReservaInsuficienciaPrima" xlink:label="lbl36227" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl36203" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36227" order="400.0" />
+    <link:calculationArc xlink:from="lbl36202" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36188" order="390.0" />
+    <link:calculationArc xlink:from="lbl36210" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl36179" order="150.0" />
+  </link:calculationLink>
+</link:linkbase>
+

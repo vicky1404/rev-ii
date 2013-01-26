@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-46_role-862200.xsd#nota-46_role-862200c" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-46_role-862200c" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#all" arcroleURI="http://xbrl.org/int/dim/arcrole/all" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#dimension-default" arcroleURI="http://xbrl.org/int/dim/arcrole/dimension-default" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#dimension-domain" arcroleURI="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#hypercube-dimension" arcroleURI="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#domain-member" arcroleURI="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="simple" />
+  <link:definitionLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-46_role-862200c" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SegAccidentesSaludYAdicionalesSinopsis" xlink:label="lbl35598" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SegAccidentesSaludYAdicionalesTabla" xlink:label="lbl35599" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35598" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xbrldt:closed="true" xlink:arcrole="http://xbrl.org/int/dim/arcrole/all" xlink:type="arc" xbrldt:contextElement="scenario" xlink:to="lbl35599" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SegAccidentesSaludYAdicionalesEje" xlink:label="lbl35600" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SegurosAccidentesSaludYAdicionalesMiembro" xlink:label="lbl35601" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35600" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-default" xlink:type="arc" xlink:to="lbl35601" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SegurosAccidentesSaludYAdicionalesMiembro" xlink:label="lbl35602" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35600" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="arc" xlink:to="lbl35602" />
+    <link:definitionArc xlink:from="lbl35599" xlink:arcrole="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="arc" xlink:to="lbl35600" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SegurosAccidentesSaludYAdicionalesEnFuncionDeLasPrimas" xlink:label="lbl35603" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimasSegurosAccidentesSaludYAdicionales" xlink:label="lbl35604" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35603" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35604" order="520.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MargendeSolvenciaSegurosAccidentesSaludYAdicionalesPartidas" xlink:label="lbl35605" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35598" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35605" order="480.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MargendeSolvenciaSegurosAccidentesSaludYAdicionales" xlink:label="lbl35606" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35605" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35606" order="490.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FRPrimasSegurosAccidentesSaludYAdicionalesSinopsis" xlink:label="lbl35607" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FRPrimaCompa%C3%B1iaSegurosAccidentesSaludYAdicionales" xlink:label="lbl35608" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35607" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35608" order="540.0" />
+    <link:definitionArc xlink:from="lbl35606" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35603" order="500.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SegurosAccidentesSaludYAdicionalesEnFuncionDeLosSiniestros" xlink:label="lbl35609" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosSegurosAccidentesSaludYAdicionales" xlink:label="lbl35610" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35609" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35610" order="580.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FSSegurosAccidentesSaludYAdicionales" xlink:label="lbl35611" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35609" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35611" order="570.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FRSiniestrosSegurosAccidentesSaludYAdicionalesSinopsis" xlink:label="lbl35612" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FRSVSSegurosAccidentesSaludYAdicionales" xlink:label="lbl35613" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35612" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35613" order="610.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FRSiniestrosCompa%C3%B1iaSegurosAccidentesSaludYAdicionales" xlink:label="lbl35614" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35612" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35614" order="600.0" />
+    <link:definitionArc xlink:from="lbl35603" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35607" order="530.0" />
+    <link:definitionArc xlink:from="lbl35609" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35612" order="590.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SegurosAccidentesMiembro" xlink:label="lbl35615" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35602" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35615" order="2.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SegurosAdicionalesMiembro" xlink:label="lbl35616" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35602" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35616" order="4.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FPSegurosAccidentesSaludYAdicionales" xlink:label="lbl35617" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35603" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35617" order="510.0" />
+    <link:definitionArc xlink:from="lbl35607" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35613" order="550.0" />
+    <link:definitionArc xlink:from="lbl35606" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35609" order="560.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SegurosSaludMiembro" xlink:label="lbl35618" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl35602" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl35618" order="3.0" />
+  </link:definitionLink>
+</link:linkbase>
+

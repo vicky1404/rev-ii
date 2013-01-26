@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-6_role-814000.xsd#nota-6_role-814000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-6_role-814000" />
+  <link:presentationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-6_role-814000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AntiguedadActivosFinancierosEnMoraPartidas" xlink:label="lbl30929" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_De1A3Meses" xlink:label="lbl30930" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30929" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30930" order="120.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ActivosFinancierosEnMora" xlink:label="lbl30931" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30929" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl30931" order="180.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_RiesgosFinancierosSinopsis" xlink:label="lbl30932" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionCualitativaRiesgosFinancierosBloqueDeTexto" xlink:label="lbl30933" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30932" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30933" order="30.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_De3A6Meses" xlink:label="lbl30934" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30929" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30934" order="130.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionRevelarSobreAdministracionRiesgoSinopsis" xlink:label="lbl30935" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_RiesgosSegurosSinopsis" xlink:label="lbl30936" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30935" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30936" order="250.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilizacionDeProductosDerivadosSinopsis" xlink:label="lbl30937" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilizacionDeProductosDerivadosBloqueDeTexto" xlink:label="lbl30938" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30937" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30938" order="242.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_De12A24Meses" xlink:label="lbl30939" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30929" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30939" order="160.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_RiesgoLiquidezSinopsis" xlink:label="lbl30940" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionRiesgoLiquidezInstrumentosFinancierosBloqueDeTexto" xlink:label="lbl30941" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30940" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30941" order="220.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_RiesgoMercadoSinopsis" xlink:label="lbl30942" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionRiesgoMercadoInstrumentosFinancierosBloqueDeTexto" xlink:label="lbl30943" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30942" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30943" order="240.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_RiesgoCreditoSinopsis" xlink:label="lbl30944" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionRiesgoCreditoInstrumentosFinancierosPunto1BloqueDeTexto" xlink:label="lbl30945" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30944" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30945" order="60.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_De9A12Meses" xlink:label="lbl30946" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30929" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30946" order="150.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ControlInternoSinopsis" xlink:label="lbl30947" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionSobrePoliticaControlInternoYSuCumplimientoBloqueDeTexto" xlink:label="lbl30948" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30947" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30948" order="280.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionRiesgoCreditoPorClaseActivoFinancieroSinopsis" xlink:label="lbl30949" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_RiesgoCreditoPorClaseActivoFinancieroTabla" xlink:label="lbl30950" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30949" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30950" order="80.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ActivosFinancierosEnMoraEje" xlink:label="lbl30951" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ClaseActivoFinancieroMiembro" xlink:label="lbl30952" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30951" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30952" order="100.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionRiesgoCreditoInstrumentosFinancierosPunto3BloqueDeTexto" xlink:label="lbl30953" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30944" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30953" order="200.0" />
+    <link:presentationArc xlink:from="lbl30932" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30937" order="241.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionCualitativaYCuantitativaRiesgosSegurosBloqueDeTexto" xlink:label="lbl30954" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30936" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30954" order="260.0" />
+    <link:presentationArc xlink:from="lbl30932" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30940" order="210.0" />
+    <link:presentationArc xlink:from="lbl30932" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30944" order="50.0" />
+    <link:presentationArc xlink:from="lbl30932" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30942" order="230.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_Mas24Meses" xlink:label="lbl30955" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30929" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30955" order="170.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionAdicionalRiesgoCreditoClaseActivoFinancieroPunto2BloqueDeTexto" xlink:label="lbl30956" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30944" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30956" order="190.0" />
+    <link:presentationArc xlink:from="lbl30935" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30947" order="270.0" />
+    <link:presentationArc xlink:from="lbl30935" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30932" order="20.0" />
+    <link:presentationArc xlink:from="lbl30944" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30949" order="70.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_De6A9Meses" xlink:label="lbl30957" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30929" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30957" order="140.0" />
+    <link:presentationArc xlink:from="lbl30949" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30929" order="110.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionCuantitativaRiesgosFinancierosBloqueDeTexto" xlink:label="lbl30958" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30932" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl30958" order="40.0" />
+    <link:presentationArc xlink:from="lbl30950" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30951" order="90.0" />
+  </link:presentationLink>
+</link:linkbase>
+

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-9_role-821000.xsd#nota-9_role-821000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-9_role-821000" />
+  <link:calculationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-9_role-821000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InversionesRentaFijaNacionalCostoAmortizado" xlink:label="lbl31661" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InstrumentosEmpresasNacionalesTransadosEnExtranjeroCostoAmortizado" xlink:label="lbl31662" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl31661" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31662" order="100.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MutuosHipotecariosCostoAmortizado" xlink:label="lbl31663" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl31661" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31663" order="100.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InversionesRentaFijaExtranjeraCostoAmortizado" xlink:label="lbl31664" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TitulosEmitidosPorBancosYFinancierasExtranjerasCostoAmortizado" xlink:label="lbl31665" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl31664" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31665" order="180.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InstrumentosEmitidosPorSistemaFinancieroCostoAmortizado" xlink:label="lbl31666" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl31661" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31666" order="100.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrasInversionesRentaFijaNacionalCostoAmortizado" xlink:label="lbl31667" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl31661" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31667" order="100.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InstrumentoDeudaOCreditoCostoAmortizado" xlink:label="lbl31668" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl31661" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31668" order="100.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InstrumentosDelEstadoCostoAmortizado" xlink:label="lbl31669" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl31661" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31669" order="100.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ActivosFinancierosCostoAmortizado" xlink:label="lbl31670" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl31670" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31661" order="241.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrasInversionesExtranjerasRentaFijaCostoAmortizado" xlink:label="lbl31671" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl31664" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31671" order="180.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TitulosEmitidosPorEstadosYBancosCentralesExtranjerosCostoAmortizado" xlink:label="lbl31672" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl31664" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31672" order="180.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TitulosEmitidosPorEmpresasExtranjerasCostoAmortizado" xlink:label="lbl31673" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl31664" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31673" order="180.0" />
+    <link:calculationArc xlink:from="lbl31670" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31664" order="241.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosActivosFinancierosCostoAmortizado" xlink:label="lbl31674" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl31670" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31674" order="241.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CreditosSindicados" xlink:label="lbl31675" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl31661" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl31675" order="100.0" />
+  </link:calculationLink>
+</link:linkbase>
+

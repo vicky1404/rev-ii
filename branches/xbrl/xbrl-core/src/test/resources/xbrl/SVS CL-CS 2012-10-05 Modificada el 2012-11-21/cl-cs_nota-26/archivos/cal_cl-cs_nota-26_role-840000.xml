@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-26_role-840000.xsd#nota-26_role-840000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-26_role-840000" />
+  <link:calculationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-26_role-840000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FondosRetenidosPrimas" xlink:label="lbl34255" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMas2FondosRetenidosPrimas" xlink:label="lbl34256" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34255" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34256" order="300.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VencimientosSaldosReaseguradoresSinRetencion" xlink:label="lbl34257" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMas3SaldosReaseguradoresSinRetencion" xlink:label="lbl34258" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34257" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34258" order="190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudasOperacionesReaseguro" xlink:label="lbl34259" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34259" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34257" order="410.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FondosRetenidos" xlink:label="lbl34260" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34260" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34255" order="290.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMas1FondosRetenidosPrimas" xlink:label="lbl34261" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34255" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34261" order="300.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudasOperacionesPorCoaseguro" xlink:label="lbl34262" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimasPorPagarOperacionesCoaseguro" xlink:label="lbl34263" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34262" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34263" order="550.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMenos2FondosRetenidosPrimas" xlink:label="lbl34264" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34255" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34264" order="300.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJSaldosReaseguradoresSinRetencion" xlink:label="lbl34265" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34257" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34265" order="190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMenos2SaldosReaseguradoresSinRetencion" xlink:label="lbl34266" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34257" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34266" order="190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudasConAsegurados" xlink:label="lbl34267" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudasConAseguradosCorrientes" xlink:label="lbl34268" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34267" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34268" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesesAnterioresSaldosReaseguradoresSinRetencion" xlink:label="lbl34269" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34257" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34269" order="190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMas2SaldosReaseguradoresSinRetencion" xlink:label="lbl34270" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34257" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34270" order="190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesesPosterioresSaldosReaseguradoresSinRetencion" xlink:label="lbl34271" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34257" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34271" order="190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJFondosRetenidosPrimas" xlink:label="lbl34272" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34255" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34272" order="300.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMenos1FondosRetenidosPrimas" xlink:label="lbl34273" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34255" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34273" order="300.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosPorPagarOperacionesCoaseguro" xlink:label="lbl34274" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34262" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34274" order="550.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMenos3FondosRetenidosPrimas" xlink:label="lbl34275" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34255" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34275" order="300.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMenos3SaldosReaseguradoresSinRetencion" xlink:label="lbl34276" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34257" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34276" order="190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesesAnterioresFondosRetenidosPrimas" xlink:label="lbl34277" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34255" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34277" order="300.0" />
+    <link:calculationArc xlink:from="lbl34259" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34260" order="410.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FondosRetenidosSiniestros" xlink:label="lbl34278" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34260" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34278" order="290.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudasConAseguradosNoCorrientes" xlink:label="lbl34279" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34267" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34279" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMas3FondosRetenidosPrimas" xlink:label="lbl34280" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34255" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34280" order="300.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMenos1SaldosReaseguradoresSinRetencion" xlink:label="lbl34281" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34257" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34281" order="190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMas1SaldosReaseguradoresSinRetencion" xlink:label="lbl34282" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34257" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34282" order="190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesesPosterioresFondosRetenidosPrimas" xlink:label="lbl34283" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl34255" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl34283" order="300.0" />
+  </link:calculationLink>
+</link:linkbase>
+

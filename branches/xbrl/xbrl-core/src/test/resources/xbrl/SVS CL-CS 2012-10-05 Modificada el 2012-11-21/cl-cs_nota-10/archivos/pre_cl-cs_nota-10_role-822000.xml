@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-10_role-822000.xsd#nota-10_role-822000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-10_role-822000" />
+  <link:presentationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-10_role-822000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EvolucionDeterioroPrestamosSinopsis" xlink:label="lbl31727" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CastigoPrestamos" xlink:label="lbl31728" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31727" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl31728" order="170.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionRevelarSobrePrestamosSinopsis" xlink:label="lbl31729" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionSobrePrestamosSinopsis" xlink:label="lbl31730" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31729" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl31730" order="20.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtroDeterioroPrestamos" xlink:label="lbl31731" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31727" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl31731" order="190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrestamosPartidas" xlink:label="lbl31732" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31730" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl31732" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CostoAmortizadoMiembro" xlink:label="lbl31733" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CostoAmortizadoBrutoMiembro" xlink:label="lbl31734" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31733" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl31734" order="60.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MetodoValorizacionEje" xlink:label="lbl31735" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorRazonableMiembro" xlink:label="lbl31736" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31735" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl31736" order="80.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroPrestamos" xlink:label="lbl31737" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31727" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl31737" order="210.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AvanceTenedoresPolizas" xlink:label="lbl31738" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31732" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl31738" order="100.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroMiembro" xlink:label="lbl31739" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31733" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl31739" order="70.0" />
+    <link:presentationArc xlink:from="lbl31735" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl31733" order="50.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VariacionEfectoTipoCambioPrestamos" xlink:label="lbl31740" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31727" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl31740" order="180.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AumentoDisminucionProvisionDeterioroPrestamos" xlink:label="lbl31741" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31727" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl31741" order="160.0" />
+    <link:presentationArc xlink:from="lbl31729" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl31727" order="130.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroPrestamos" xlink:label="lbl31742" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31727" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/periodStartLabel" xlink:to="lbl31742" order="140.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorizacionPrestamosTabla" xlink:label="lbl31743" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31730" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl31743" order="30.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_Prestamos" xlink:label="lbl31744" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31732" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl31744" order="120.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ExplicacionModeloUtilizadoDeterminarDeterioroBloqueDeTexto" xlink:label="lbl31745" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31727" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl31745" order="220.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrestamosOtorgados" xlink:label="lbl31746" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl31732" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl31746" order="110.0" />
+    <link:presentationArc xlink:from="lbl31743" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl31735" order="40.0" />
+  </link:presentationLink>
+</link:linkbase>
+

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-2_role-811000.xsd#nota-2_role-811000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-2_role-811000" />
+  <link:presentationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-2_role-811000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionRevelarSobreBasesPreparacionSinopsis" xlink:label="lbl30817" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_Reclasificaciones" xlink:label="lbl30818" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30817" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30818" order="80.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_NuevasNormasEInterpretacionesFechasFuturas" xlink:label="lbl30819" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30817" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30819" order="60.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AjustesPeriodosAnterioresOtrosCambiosContables" xlink:label="lbl30820" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30817" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30820" order="100.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_BasesMedicion" xlink:label="lbl30821" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30817" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30821" order="40.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MonedaFuncionalYDePresentacion" xlink:label="lbl30822" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30817" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30822" order="50.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EntidadNoAplicaRequerimientoEstablecido" xlink:label="lbl30823" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30817" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30823" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PeriodoContable" xlink:label="lbl30824" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30817" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30824" order="30.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_HipotesisNegocioEnMarcha" xlink:label="lbl30825" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30817" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30825" order="70.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeclaracionCumplimiento" xlink:label="lbl30826" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl30817" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl30826" order="20.0" />
+  </link:presentationLink>
+</link:linkbase>
+

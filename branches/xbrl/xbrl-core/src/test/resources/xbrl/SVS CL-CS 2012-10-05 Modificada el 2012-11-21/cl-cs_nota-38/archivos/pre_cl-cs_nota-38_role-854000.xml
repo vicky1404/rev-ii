@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-38_role-854000.xsd#Nota-38_role-854000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-38_role-854000" />
+  <link:presentationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-38_role-854000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioPasivo" xlink:label="lbl34820" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioDeudasOperacionesCoaseguro" xlink:label="lbl34821" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34820" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34821" order="240.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioDeudasConAsegurados" xlink:label="lbl34822" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34820" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34822" order="220.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesPasivo" xlink:label="lbl34823" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesDeudasConAsegurados" xlink:label="lbl34824" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34823" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34824" order="520.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioActivo" xlink:label="lbl34825" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioDeudoresOperacionesReaseguro" xlink:label="lbl34826" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34825" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/periodEndLabel" xlink:to="lbl34826" order="150.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioCuentasPorCobrarAsegurados" xlink:label="lbl34827" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34825" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34827" order="140.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesActivo" xlink:label="lbl34828" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesPrestamos" xlink:label="lbl34829" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34828" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34829" order="420.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionRevelarSobreDiferenciaCambioYUnidadesReajustablesSinopsis" xlink:label="lbl34830" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioSinopsis" xlink:label="lbl34831" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34830" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34831" order="20.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioCuentasResultados" xlink:label="lbl34832" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioResultadoInversiones" xlink:label="lbl34833" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34832" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34833" order="300.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesMiembro" xlink:label="lbl34834" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AbonoMiembro" xlink:label="lbl34835" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34834" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34835" order="370.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesPartidas" xlink:label="lbl34836" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesPatrimonio" xlink:label="lbl34837" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34836" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34837" order="560.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesCuentasResultados" xlink:label="lbl34838" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesResultadoInversiones" xlink:label="lbl34839" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34838" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34839" order="600.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesInversionesInmobiliarias" xlink:label="lbl34840" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34828" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34840" order="435.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioPartidas" xlink:label="lbl34841" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34841" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34825" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioPasivosFinancieros" xlink:label="lbl34842" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34820" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34842" order="200.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesSinopsis" xlink:label="lbl34843" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34830" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34843" order="320.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioPatrimonio" xlink:label="lbl34844" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34841" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34844" order="260.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioDeudasOperacionesReaseguro" xlink:label="lbl34845" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34820" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34845" order="230.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioCuentasIngresos" xlink:label="lbl34846" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34832" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34846" order="280.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesDeudoresOperacionesReaseguro" xlink:label="lbl34847" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34828" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34847" order="450.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesReservasTecnicas" xlink:label="lbl34848" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34823" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34848" order="510.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioOtrosActivos" xlink:label="lbl34849" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34825" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34849" order="180.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciasCambio" xlink:label="lbl34850" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34841" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34850" order="310.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesDeudasOperacionesCoaseguro" xlink:label="lbl34851" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34823" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34851" order="540.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioActivosFinancierosCostoAmortizado" xlink:label="lbl34852" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34825" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34852" order="110.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioPrestamos" xlink:label="lbl34853" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34825" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34853" order="120.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesEje" xlink:label="lbl34854" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34854" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34834" order="350.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioTabla" xlink:label="lbl34855" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34831" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34855" order="30.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioMiembro" xlink:label="lbl34856" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34856" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34835" order="70.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioParticipacionReaseguroReservasTecnicas" xlink:label="lbl34857" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34825" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34857" order="170.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioOtrosPasivos" xlink:label="lbl34858" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34820" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34858" order="250.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustables" xlink:label="lbl34859" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34836" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34859" order="610.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioInversionesSegurosCUI" xlink:label="lbl34860" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34825" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34860" order="130.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesOtrosPasivos" xlink:label="lbl34861" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34823" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34861" order="550.0" />
+    <link:presentationArc xlink:from="lbl34841" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34820" order="190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioActivosFinancierosValorRazonable" xlink:label="lbl34862" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34825" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34862" order="100.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesDeudoresOperacionesCoaseguro" xlink:label="lbl34863" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34828" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34863" order="460.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesTabla" xlink:label="lbl34864" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34843" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34864" order="330.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesActivosFinancierosCostoAmortizado" xlink:label="lbl34865" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34828" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34865" order="410.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioReservasTecnicas" xlink:label="lbl34866" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34820" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34866" order="210.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesActivosFinancierosValorRazonable" xlink:label="lbl34867" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34828" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34867" order="400.0" />
+    <link:presentationArc xlink:from="lbl34836" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34823" order="490.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesInversionesSegurosCUI" xlink:label="lbl34868" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34828" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34868" order="430.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioCuentasEgresos" xlink:label="lbl34869" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34832" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34869" order="290.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioDeudoresOperacionesCoaseguro" xlink:label="lbl34870" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34825" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34870" order="160.0" />
+    <link:presentationArc xlink:from="lbl34831" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34841" order="80.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesDeudasOperacionesReaseguro" xlink:label="lbl34871" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34823" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34871" order="530.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CargoMiembro" xlink:label="lbl34872" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34856" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34872" order="60.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioInversionesInmobiliarias" xlink:label="lbl34873" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34825" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34873" order="135.0" />
+    <link:presentationArc xlink:from="lbl34864" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34854" order="340.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesParticipacionReaseguroReservasTecnicas" xlink:label="lbl34874" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34828" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34874" order="470.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesCuentasEgresos" xlink:label="lbl34875" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34838" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34875" order="590.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesPasivosFinancieros" xlink:label="lbl34876" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34823" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34876" order="500.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesCuentasIngresos" xlink:label="lbl34877" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34838" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34877" order="580.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioEje" xlink:label="lbl34878" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34878" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34856" order="50.0" />
+    <link:presentationArc xlink:from="lbl34843" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34836" order="380.0" />
+    <link:presentationArc xlink:from="lbl34834" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34872" order="360.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesOtrosActivos" xlink:label="lbl34879" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34828" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34879" order="480.0" />
+    <link:presentationArc xlink:from="lbl34836" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34828" order="390.0" />
+    <link:presentationArc xlink:from="lbl34836" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34838" order="570.0" />
+    <link:presentationArc xlink:from="lbl34841" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34832" order="270.0" />
+    <link:presentationArc xlink:from="lbl34855" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl34878" order="40.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_UtilidadPerdidaUnidadesReajustablesCuentasPorCobrarAsegurados" xlink:label="lbl34880" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl34828" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl34880" order="440.0" />
+  </link:presentationLink>
+</link:linkbase>
+

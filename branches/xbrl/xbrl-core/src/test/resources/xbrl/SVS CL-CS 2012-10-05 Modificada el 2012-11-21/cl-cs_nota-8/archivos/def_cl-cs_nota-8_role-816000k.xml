@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-8_role-816000.xsd#nota-8_role-816000k" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-8_role-816000k" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#all" arcroleURI="http://xbrl.org/int/dim/arcrole/all" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#dimension-domain" arcroleURI="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#hypercube-dimension" arcroleURI="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#domain-member" arcroleURI="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="simple" />
+  <link:definitionLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-8_role-816000k" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ContratosSwapsSinopsis" xlink:label="lbl31523" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SwapsTabla" xlink:label="lbl31524" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31523" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xbrldt:closed="true" xlink:arcrole="http://xbrl.org/int/dim/arcrole/all" xlink:type="arc" xbrldt:contextElement="scenario" xlink:to="lbl31524" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ContratosSwapsEje" xlink:label="lbl31525" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ObjetivoContratoMiembro" xlink:label="lbl31526" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31525" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="arc" xlink:to="lbl31526" />
+    <link:definitionArc xlink:from="lbl31524" xlink:arcrole="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="arc" xlink:to="lbl31525" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InversionMiembro" xlink:label="lbl31527" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31526" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31527" order="5.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CaracteristicasOperacionSwapSinopsis" xlink:label="lbl31528" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MonedaPosicionLargaSwap" xlink:label="lbl31529" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31528" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31529" order="2830.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TotalCoberturaMiembro" xlink:label="lbl31530" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CoberturaMiembro" xlink:label="lbl31531" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31530" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31531" order="3.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionValorizacionSwapSinopsis" xlink:label="lbl31532" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TasaMercadoPosicionCortaSwap" xlink:label="lbl31533" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31532" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31533" order="2940.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FechaVencimientoContrato" xlink:label="lbl31534" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31532" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31534" order="2890.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorPresentePosicionCortaSwap" xlink:label="lbl31535" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31532" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31535" order="2960.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TipoCambioContratoSwap" xlink:label="lbl31536" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31528" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31536" order="2850.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ContrapartesOperacionSwapSinopsis" xlink:label="lbl31537" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ClasificacionRiesgoContraparte" xlink:label="lbl31538" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31537" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31538" order="2790.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FechaOperacion" xlink:label="lbl31539" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31528" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31539" order="2880.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_NombreContraparte" xlink:label="lbl31540" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31537" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31540" order="2770.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SwapsPartidas" xlink:label="lbl31541" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FolioOperacion" xlink:label="lbl31542" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31541" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31542" order="2740.0" />
+    <link:definitionArc xlink:from="lbl31526" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31530" order="2.0" />
+    <link:definitionArc xlink:from="lbl31541" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31537" order="2760.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorRazonableContratoSwapFechaInformacion" xlink:label="lbl31543" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31532" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31543" order="2970.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_NominalesPosicionCortaSwap" xlink:label="lbl31544" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31528" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31544" order="2820.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TasaPosicionLargaSwap" xlink:label="lbl31545" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31528" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31545" order="2860.0" />
+    <link:definitionArc xlink:from="lbl31523" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31541" order="2730.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_NominalesPosicionLargaSwap" xlink:label="lbl31546" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31528" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31546" order="2810.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorMercadoActivoObjetoAFechaInformacion" xlink:label="lbl31547" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31532" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31547" order="2910.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OrigenInformacionSwap" xlink:label="lbl31548" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31532" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31548" order="2980.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_NacionalidadContraparte" xlink:label="lbl31549" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31537" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31549" order="2780.0" />
+    <link:definitionArc xlink:from="lbl31541" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31528" order="2800.0" />
+    <link:definitionArc xlink:from="lbl31541" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31532" order="2900.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TasaMercadoPosicionLargaSwap" xlink:label="lbl31550" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31532" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31550" order="2930.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TipoCambioMercadoSwap" xlink:label="lbl31551" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31532" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31551" order="2920.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TasaPosicionCortaSwap" xlink:label="lbl31552" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31528" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31552" order="2870.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_Cobertura1512Miembro" xlink:label="lbl31553" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31530" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31553" order="4.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ItemOperacion" xlink:label="lbl31554" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31541" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31554" order="2750.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MonedaPosicionCortaSwap" xlink:label="lbl31555" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31528" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31555" order="2840.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorPresentePosicionLargaSwap" xlink:label="lbl31556" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl31532" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl31556" order="2950.0" />
+  </link:definitionLink>
+</link:linkbase>
+

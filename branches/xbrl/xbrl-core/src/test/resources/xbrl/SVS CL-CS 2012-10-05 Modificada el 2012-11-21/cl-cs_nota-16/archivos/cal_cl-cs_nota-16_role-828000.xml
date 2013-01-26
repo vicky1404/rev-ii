@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-16_role-828000.xsd#nota-16_role-828000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-16_role-828000" />
+  <link:calculationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-16_role-828000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MovimientosDeterioroCuentasPorCobrarAsegurados" xlink:label="lbl32376" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AumentoDisminucionProvisionDeterioroCuentasPorCobrarAsegurados" xlink:label="lbl32377" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32376" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32377" order="790.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VencimientosPrimasSegurosRevocablesPosterioresAFechaEstadosFinancierosNeto" xlink:label="lbl32378" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroVencimientosPrimasSegurosRevocablesPosterioresAFechaEstadosFinancieros" xlink:label="lbl32379" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32378" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32379" order="520.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PagosVencidosPosterioresFechaEstadosFinancieros" xlink:label="lbl32380" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32379" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32380" order="510.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VencimientosPrimasSegurosRevocablesPosterioresAFechaEstadosFinancieros" xlink:label="lbl32381" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMas1CuentasPorCobrarAsegurados" xlink:label="lbl32382" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32381" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32382" order="470.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CuentasPorCobrarAseguradosPorFormaPago" xlink:label="lbl32383" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32383" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32378" order="590.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VencimientosPrimasSegurosRevocablesAnterioresAFechaEstadosFinancieros" xlink:label="lbl32384" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJCuentasPorCobrarAsegurados" xlink:label="lbl32385" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32384" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32385" order="350.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMenos2CuentasPorCobrarAsegurados" xlink:label="lbl32386" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32384" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32386" order="350.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMas2CuentasPorCobrarAsegurados" xlink:label="lbl32387" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32381" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32387" order="470.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VoluntariasPosterioresFechaEstadosFinancieros" xlink:label="lbl32388" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32379" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32388" order="510.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_RecuperoCuentasPorCobrarAsegurados" xlink:label="lbl32389" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32376" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32389" order="790.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CuentasPorCobrarAsegurados" xlink:label="lbl32390" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CuentasPorCobrarCoaseguroLider" xlink:label="lbl32391" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32390" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32391" order="120.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMenos1CuentasPorCobrarAsegurados" xlink:label="lbl32392" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32384" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32392" order="350.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VencimientosPrimasSegurosRevocablesAnterioresAFechaEstadosFinancierosNeto" xlink:label="lbl32393" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32393" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32384" order="410.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMenos3CuentasPorCobrarAsegurados" xlink:label="lbl32394" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32384" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32394" order="350.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VencimientosPrimasSegurosRevocablesMesesAnteriores" xlink:label="lbl32395" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32384" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32395" order="350.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroVencimientosPrimasSegurosRevocablesAnterioresAFechaEstadosFinancieros" xlink:label="lbl32396" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32393" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32396" order="410.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PagosVencidosAnterioresFechaEstadosFinancieros" xlink:label="lbl32397" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32396" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32397" order="390.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VencimientosPrimasSegurosNoRevocables" xlink:label="lbl32398" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32383" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32398" order="590.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesesPosteriores" xlink:label="lbl32399" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32381" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32399" order="470.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaCambioCuentasPorCobrarAsegurados" xlink:label="lbl32400" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32376" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32400" order="790.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AjustesPorNoIdentificacion" xlink:label="lbl32401" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32393" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32401" order="410.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VencimientosPrimasSegurosNoRevocablesAnterioresAFechaEstadosFinancieros" xlink:label="lbl32402" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32398" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32402" order="580.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CastigoCuentasPorCobrarAsegurados" xlink:label="lbl32403" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32376" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32403" order="790.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CuentasPorCobrarAseguradosSinCoaseguro" xlink:label="lbl32404" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32390" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32404" order="120.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroCuentasPorCobrarAsegurados" xlink:label="lbl32405" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32390" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32405" order="120.0" />
+    <link:calculationArc xlink:from="lbl32383" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32393" order="590.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VoluntariasAnterioresFechaEstadosFinancieros" xlink:label="lbl32406" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32396" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32406" order="390.0" />
+    <link:calculationArc xlink:from="lbl32378" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32381" order="520.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMas3CuentasPorCobrarAsegurados" xlink:label="lbl32407" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32381" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32407" order="470.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroVencimientosPrimasSegurosNoRevocables" xlink:label="lbl32408" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32398" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32408" order="580.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VencimientosPrimasSegurosNoRevocablesPosterioresAFechaEstadosFinancieros" xlink:label="lbl32409" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32398" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32409" order="580.0" />
+  </link:calculationLink>
+</link:linkbase>
+

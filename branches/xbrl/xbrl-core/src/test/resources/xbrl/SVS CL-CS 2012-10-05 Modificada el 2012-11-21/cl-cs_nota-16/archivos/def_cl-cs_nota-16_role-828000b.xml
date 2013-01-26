@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-16_role-828000.xsd#nota-16_role-828000b" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-16_role-828000b" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#all" arcroleURI="http://xbrl.org/int/dim/arcrole/all" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#dimension-domain" arcroleURI="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#hypercube-dimension" arcroleURI="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#domain-member" arcroleURI="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="simple" />
+  <link:definitionLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-16_role-828000b" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudoresPorPrimasPorVencimientoSinopsis" xlink:label="lbl32430" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CuentasPorCobrarAseguradosFormaPagoTabla" xlink:label="lbl32431" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32430" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xbrldt:closed="true" xlink:arcrole="http://xbrl.org/int/dim/arcrole/all" xlink:type="arc" xbrldt:contextElement="scenario" xlink:to="lbl32431" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_FormaPagoCuentasPorCobrarAseguradosEje" xlink:label="lbl32432" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimasDocumentadasMiembro" xlink:label="lbl32433" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32432" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="arc" xlink:to="lbl32433" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CuentasPorCobrarCoaseguroLiderMiembro" xlink:label="lbl32434" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32432" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="arc" xlink:to="lbl32434" order="10" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimasAseguradosMiembro" xlink:label="lbl32435" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32432" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xbrldt:usable="false" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="arc" xlink:to="lbl32435" order="3" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosDeudoresMiembro" xlink:label="lbl32436" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32432" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="arc" xlink:to="lbl32436" order="11" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimasInvYSobDL3500Miembro" xlink:label="lbl32437" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32432" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="arc" xlink:to="lbl32437" order="2" />
+    <link:definitionArc xlink:from="lbl32431" xlink:arcrole="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="arc" xlink:to="lbl32432" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VencimientosPrimasSegurosPartidas" xlink:label="lbl32438" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32430" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32438" order="270.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VencimientosPrimasSegurosRevocablesAnterioresAFechaEstadosFinancieros" xlink:label="lbl32439" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMenos3CuentasPorCobrarAsegurados" xlink:label="lbl32440" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32439" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32440" order="310.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VencimientosPrimasSegurosRevocablesPosterioresAFechaEstadosFinancieros" xlink:label="lbl32441" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMas3CuentasPorCobrarAsegurados" xlink:label="lbl32442" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32441" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32442" order="450.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMenos2CuentasPorCobrarAsegurados" xlink:label="lbl32443" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32439" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32443" order="320.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CreditoNoExigibleSegurosRevocablesSinEspecificarFormaPago" xlink:label="lbl32444" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32438" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32444" order="600.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VencimientosPrimasSegurosNoRevocablesSinopsis" xlink:label="lbl32445" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32438" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32445" order="540.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VencimientosPrimasSegurosRevocablesMesesAnteriores" xlink:label="lbl32446" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32439" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32446" order="300.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SinEspecificarFormaPagoMiembro" xlink:label="lbl32447" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32435" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32447" order="9.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ConEspecificacionFormaPagoMiembro" xlink:label="lbl32448" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PlanPagoPACMiembro" xlink:label="lbl32449" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32448" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32449" order="5.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroVencimientosPrimasSegurosNoRevocables" xlink:label="lbl32450" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32445" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32450" order="570.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PlanPagoPATMiembro" xlink:label="lbl32451" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32448" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32451" order="6.0" />
+    <link:definitionArc xlink:from="lbl32435" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xbrldt:usable="false" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32448" order="4.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VencimientosPrimasSegurosRevocablesSinopsis" xlink:label="lbl32452" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroVencimientosPrimasSegurosRevocablesPosterioresAFechaEstadosFinancieros" xlink:label="lbl32453" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32452" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32453" order="510.0" />
+    <link:definitionArc xlink:from="lbl32438" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32452" order="280.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VoluntariasPosterioresFechaEstadosFinancieros" xlink:label="lbl32454" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32453" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32454" order="500.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMenos1CuentasPorCobrarAsegurados" xlink:label="lbl32455" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32439" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32455" order="330.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMas1CuentasPorCobrarAsegurados" xlink:label="lbl32456" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32441" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32456" order="430.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroVencimientosPrimasSegurosRevocablesAnterioresAFechaEstadosFinancieros" xlink:label="lbl32457" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VoluntariasAnterioresFechaEstadosFinancieros" xlink:label="lbl32458" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32457" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32458" order="380.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PagosVencidosAnterioresFechaEstadosFinancieros" xlink:label="lbl32459" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32457" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32459" order="370.0" />
+    <link:definitionArc xlink:from="lbl32452" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32439" order="350.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJCuentasPorCobrarAsegurados" xlink:label="lbl32460" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32439" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32460" order="340.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VencimientosPrimasSegurosNoRevocablesPosterioresAFechaEstadosFinancieros" xlink:label="lbl32461" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32445" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32461" order="560.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PlanPagoCUPMiembro" xlink:label="lbl32462" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32448" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32462" order="7.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VencimientosPrimasSegurosRevocablesAnterioresAFechaEstadosFinancierosNeto" xlink:label="lbl32463" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32452" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32463" order="410.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesesPosteriores" xlink:label="lbl32464" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32441" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32464" order="460.0" />
+    <link:definitionArc xlink:from="lbl32452" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32457" order="390.0" />
+    <link:definitionArc xlink:from="lbl32452" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32441" order="470.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VencimientosPrimasSegurosNoRevocables" xlink:label="lbl32465" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32445" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32465" order="580.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VencimientosPrimasSegurosRevocablesPosterioresAFechaEstadosFinancierosNeto" xlink:label="lbl32466" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32452" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32466" order="520.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PlanPagoCiaMiembro" xlink:label="lbl32467" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32448" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32467" order="8.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMas2CuentasPorCobrarAsegurados" xlink:label="lbl32468" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32441" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32468" order="440.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CreditoNoVencidoSegurosRevocables" xlink:label="lbl32469" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32438" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32469" order="610.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PagosVencidosPosterioresFechaEstadosFinancieros" xlink:label="lbl32470" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32453" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32470" order="490.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CuentasPorCobrarAseguradosPorFormaPago" xlink:label="lbl32471" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32438" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32471" order="590.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AjustesPorNoIdentificacion" xlink:label="lbl32472" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32452" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32472" order="400.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VencimientosPrimasSegurosNoRevocablesAnterioresAFechaEstadosFinancieros" xlink:label="lbl32473" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32445" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32473" order="550.0" />
+  </link:definitionLink>
+</link:linkbase>
+

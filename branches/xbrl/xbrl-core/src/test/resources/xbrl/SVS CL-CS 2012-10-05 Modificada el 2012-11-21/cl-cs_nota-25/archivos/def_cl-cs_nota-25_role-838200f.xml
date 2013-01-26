@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-25_role-838200.xsd#nota-25_role-838200f" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-25_role-838200f" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#all" arcroleURI="http://xbrl.org/int/dim/arcrole/all" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#dimension-default" arcroleURI="http://xbrl.org/int/dim/arcrole/dimension-default" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#dimension-domain" arcroleURI="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#hypercube-dimension" arcroleURI="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#domain-member" arcroleURI="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="simple" />
+  <link:definitionLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-25_role-838200f" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AplicacionTablasRV2009B2006YM2006Sinopsis" xlink:label="lbl34043" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AplicacionTablasMortalidadRentasVitaliciasTabla" xlink:label="lbl34044" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34043" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xbrldt:closed="true" xlink:arcrole="http://xbrl.org/int/dim/arcrole/all" xlink:type="arc" xbrldt:contextElement="scenario" xlink:to="lbl34044" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AplicacionTablasMortalidadEje" xlink:label="lbl34045" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AplicacionTablasMortalidadRentasVitaliciasMiembro" xlink:label="lbl34046" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34045" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-default" xlink:type="arc" xlink:to="lbl34046" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AplicacionTablasMortalidadRentasVitaliciasMiembro" xlink:label="lbl34047" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34045" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="arc" xlink:to="lbl34047" />
+    <link:definitionArc xlink:from="lbl34044" xlink:arcrole="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="arc" xlink:to="lbl34045" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TablasMortalidadRentasVitaliciasPartidas" xlink:label="lbl34048" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_RTF858585" xlink:label="lbl34049" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34048" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34049" order="1690.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PolizasInicioVigenciaAnterior9Marzo2005Miembro" xlink:label="lbl34050" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34047" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34050" order="2.0" />
+    <link:definitionArc xlink:from="lbl34043" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34048" order="1680.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaPorReconocerRV2009" xlink:label="lbl34051" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34048" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34051" order="1770.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaPorReconocerB2004YMI2006" xlink:label="lbl34052" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34048" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34052" order="1750.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_RTF200920062006" xlink:label="lbl34053" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34048" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34053" order="1760.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DiferenciaPorReconocerRV2004" xlink:label="lbl34054" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34048" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34054" order="1720.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_RTF20048585" xlink:label="lbl34055" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34048" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34055" order="1700.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_RTF200420062006" xlink:label="lbl34056" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34048" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34056" order="1730.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_RTFs200420062006" xlink:label="lbl34057" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34048" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34057" order="1740.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PolizasInicioVigenciaAContar9Marzo2005YHasta31Enero2008Miembro" xlink:label="lbl34058" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34047" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34058" order="3.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PolizasInicioVigenciaAContar1Febrero2008Miembro" xlink:label="lbl34059" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34047" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34059" order="4.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_RTFs20048585" xlink:label="lbl34060" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl34048" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl34060" order="1710.0" />
+  </link:definitionLink>
+</link:linkbase>
+

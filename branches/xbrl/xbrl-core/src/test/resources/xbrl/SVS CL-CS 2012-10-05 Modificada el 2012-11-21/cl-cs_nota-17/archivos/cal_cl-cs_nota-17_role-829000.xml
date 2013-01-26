@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-17_role-829000.xsd#nota-17_role-829000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-17_role-829000" />
+  <link:calculationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-17_role-829000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SaldosAdeudadosSiniestrosPorCobrarAReaseguradoresNacionales" xlink:label="lbl32592" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMas1SiniestrosPorCobrarReaseguradoresNacional" xlink:label="lbl32593" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32592" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32593" order="670.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosPorCobrarReaseguradoresExtranjerosBrutos" xlink:label="lbl32594" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMenos2siniestrosPorCobrarReaseguradoresExtranjero" xlink:label="lbl32595" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32594" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32595" order="990.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesesAnterioresSiniestrosPorCobrarReaseguradoresNacional" xlink:label="lbl32596" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32592" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32596" order="670.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosPorCobrarReaseguradoresExtranjeros" xlink:label="lbl32597" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32597" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32594" order="1010.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeudoresPorOperacionesReaseguro" xlink:label="lbl32598" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosPorCobrarReaseguradoresBruto" xlink:label="lbl32599" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32598" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32599" order="140.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosPorCobrarReaseguradoresNacionales" xlink:label="lbl32600" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32600" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32592" order="690.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesesAnterioresSiniestrosPorCobrarReaseguradoresExtranjero" xlink:label="lbl32601" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32594" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32601" order="990.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimasPorCobrarReaseguroAceptadoBruto" xlink:label="lbl32602" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32598" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32602" order="140.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ActivoPorReaseguroNoProporcional" xlink:label="lbl32603" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ActivoPorReaseguroNoProporcionalNoRevocables" xlink:label="lbl32604" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32603" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32604" order="180.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMenos4SiniestrosPorCobrarReaseguradoresNacional" xlink:label="lbl32605" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32592" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32605" order="670.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroDeudoresOperacionesReaseguro" xlink:label="lbl32606" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32598" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32606" order="140.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosDeudoresPorOperacionesReaseguroBruto" xlink:label="lbl32607" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32598" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32607" order="140.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesesPosterioresSiniestrosPorCobrarReaseguradoresExtranjero" xlink:label="lbl32608" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32594" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32608" order="990.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMas3SiniestrosPorCobrarReaseguradoresExtranjero" xlink:label="lbl32609" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32594" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32609" order="990.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMas2SiniestrosPorCobrarReaseguradoresExtranjero" xlink:label="lbl32610" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32594" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32610" order="990.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ActivoPorReaseguroNoProporcionalBruto" xlink:label="lbl32611" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32598" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32611" order="140.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMas1SiniestrosPorCobrarReaseguradoresExtranjero" xlink:label="lbl32612" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32594" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32612" order="990.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMas3SiniestrosPorCobrarReaseguradoresNacional" xlink:label="lbl32613" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32592" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32613" order="670.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesesPosterioresSiniestrosPorCobrarReaseguradoresNacional" xlink:label="lbl32614" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32592" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32614" order="670.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroSiniestrosPorCobrarReaseguradoresNacionales" xlink:label="lbl32615" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32600" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32615" order="690.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMenos2siniestrosPorCobrarReaseguradoresNacional" xlink:label="lbl32616" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32592" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32616" order="670.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMas5SiniestrosPorCobrarReaseguradoresNacional" xlink:label="lbl32617" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32592" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32617" order="670.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJSiniestrosPorCobrarReaseguradoresNacional" xlink:label="lbl32618" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32592" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32618" order="670.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMenos1SiniestrosPorCobrarReaseguradoresExtranjero" xlink:label="lbl32619" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32594" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32619" order="990.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroSiniestrosPorCobrarReaseguradoresExtranjeros" xlink:label="lbl32620" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32597" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32620" order="1010.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMenos1SiniestrosPorCobrarReaseguradoresNacional" xlink:label="lbl32621" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32592" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32621" order="670.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ActivoPorReaseguroNoProporcionalRevocables" xlink:label="lbl32622" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32603" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32622" order="180.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMas2SiniestrosPorCobrarReaseguradoresNacional" xlink:label="lbl32623" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32592" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32623" order="670.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMas5SiniestrosPorCobrarReaseguradoresExtranjero" xlink:label="lbl32624" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32594" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32624" order="990.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJSiniestrosPorCobrarReaseguradoresExtranjero" xlink:label="lbl32625" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32594" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32625" order="990.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMenos5SiniestrosPorCobrarReaseguradoresExtranjero" xlink:label="lbl32626" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32594" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32626" order="990.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMenos3SiniestrosPorCobrarReaseguradoresNacional" xlink:label="lbl32627" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32592" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32627" order="670.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMenos5SiniestrosPorCobrarReaseguradoresNacional" xlink:label="lbl32628" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32592" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32628" order="670.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMas4SiniestrosPorCobrarReaseguradoresNacional" xlink:label="lbl32629" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32592" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32629" order="670.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMenos3SiniestrosPorCobrarReaseguradoresExtranjero" xlink:label="lbl32630" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32594" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32630" order="990.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMas4SiniestrosPorCobrarReaseguradoresExtranjero" xlink:label="lbl32631" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32594" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32631" order="990.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_SiniestrosPorCobrarReaseguradores" xlink:label="lbl32632" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32632" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32597" order="1050.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_MesJMenos4SiniestrosPorCobrarReaseguradoresExtranjero" xlink:label="lbl32633" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl32594" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32633" order="990.0" />
+    <link:calculationArc xlink:from="lbl32632" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl32600" order="1050.0" />
+  </link:calculationLink>
+</link:linkbase>
+

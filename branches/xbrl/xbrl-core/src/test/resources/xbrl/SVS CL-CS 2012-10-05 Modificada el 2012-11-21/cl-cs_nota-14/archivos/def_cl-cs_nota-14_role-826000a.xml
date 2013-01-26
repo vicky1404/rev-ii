@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-14_role-826000.xsd#nota-14_role-826000a" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-14_role-826000a" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#all" arcroleURI="http://xbrl.org/int/dim/arcrole/all" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#dimension-default" arcroleURI="http://xbrl.org/int/dim/arcrole/dimension-default" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#dimension-domain" arcroleURI="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#hypercube-dimension" arcroleURI="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="simple" />
+  <link:arcroleRef xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#domain-member" arcroleURI="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="simple" />
+  <link:definitionLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-14_role-826000a" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PropiedadesDeInversionSinopsis" xlink:label="lbl32225" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PropiedadesDeInversionTabla" xlink:label="lbl32226" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32225" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xbrldt:closed="true" xlink:arcrole="http://xbrl.org/int/dim/arcrole/all" xlink:type="arc" xbrldt:contextElement="scenario" xlink:to="lbl32226" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PropiedadesDeInversionEje" xlink:label="lbl32227" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PropiedadesDeInversionMiembro" xlink:label="lbl32228" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32227" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-default" xlink:type="arc" xlink:to="lbl32228" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PropiedadesDeInversionMiembro" xlink:label="lbl32229" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32227" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:type="arc" xlink:to="lbl32229" />
+    <link:definitionArc xlink:from="lbl32226" xlink:arcrole="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:type="arc" xlink:to="lbl32227" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PropiedadesDeInversionPartidas" xlink:label="lbl32230" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosAjustesPropiedadesInversion" xlink:label="lbl32231" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32230" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32231" order="150.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TerrenosMiembro" xlink:label="lbl32232" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32229" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32232" order="2.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AjustesRevalorizacionPropiedadesInversion" xlink:label="lbl32233" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32230" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32233" order="140.0" />
+    <link:definitionArc xlink:from="lbl32225" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32230" order="100.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PropiedadesDeInversionNacionales" xlink:label="lbl32234" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32230" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32234" order="200.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PropiedadesDeInversionExtranjeras" xlink:label="lbl32235" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32230" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32235" order="210.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DepreciacionEjercicioPropiedadesInversion" xlink:label="lbl32236" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32230" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32236" order="130.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorRazonablePropiedadesInversion" xlink:label="lbl32237" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32230" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32237" order="170.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_EdificiosMiembro" xlink:label="lbl32238" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32229" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32238" order="3.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VentasBajasYTransferenciasPropiedadesInversion" xlink:label="lbl32239" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32230" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32239" order="120.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_DeterioroPropiedadesInversionProvision" xlink:label="lbl32240" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32230" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32240" order="180.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PropiedadesDeInversion" xlink:label="lbl32241" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32230" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32241" order="220.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosMiembro" xlink:label="lbl32242" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32229" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32242" order="4.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PropiedadesDeInversion" xlink:label="lbl32243" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32230" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32243" order="190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_AdicionesMejorasYTransferenciasPropiedadesInversion" xlink:label="lbl32244" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32230" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32244" order="110.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_ValorContablePropiedadesInversion" xlink:label="lbl32245" xlink:type="locator" />
+    <link:definitionArc xlink:from="lbl32230" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:to="lbl32245" order="160.0" />
+  </link:definitionLink>
+</link:linkbase>
+

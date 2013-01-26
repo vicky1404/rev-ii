@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_nota-45_role-861000.xsd#nota-45_role-861000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-45_role-861000" />
+  <link:presentationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/nota-45_role-861000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimaDirectaPorRegionPartidas" xlink:label="lbl35252" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrimasDirectas" xlink:label="lbl35253" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35252" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" xlink:to="lbl35253" order="290.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VentaPorRamosMiembro" xlink:label="lbl35254" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IncendioMiembro" xlink:label="lbl35255" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35254" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35255" order="50.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CuadroVentasPorRegionesSegurosGeneralesTabla" xlink:label="lbl35256" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VentasPorRamossegurosGeneralesEje" xlink:label="lbl35257" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35256" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35257" order="30.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_RoboMiembro" xlink:label="lbl35258" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35254" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35258" order="100.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VRegionPrimaDirecta" xlink:label="lbl35259" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35252" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35259" order="180.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TerremotoMiembro" xlink:label="lbl35260" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35254" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35260" order="70.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_PrdidaBeneficiosMiembro" xlink:label="lbl35261" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35254" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35261" order="60.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IIIRegionPrimaDirecta" xlink:label="lbl35262" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35252" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35262" order="160.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VIIRegionPrimaDirecta" xlink:label="lbl35263" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35252" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35263" order="200.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_XVRegionPrimaDirecta" xlink:label="lbl35264" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35252" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35264" order="270.0" />
+    <link:presentationArc xlink:from="lbl35257" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35254" order="40.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_RegionMetropolitanaPrimaDirecta" xlink:label="lbl35265" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35252" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35265" order="280.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_CascosMiembro" xlink:label="lbl35266" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35254" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35266" order="110.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_OtrosRamosMiembro" xlink:label="lbl35267" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35254" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35267" order="120.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_InformacionRevelarSobreVentasPorRegionesSegurosGeneralesSinopsis" xlink:label="lbl35268" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35268" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35256" order="20.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_XIVRegionPrimaDirecta" xlink:label="lbl35269" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35252" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35269" order="260.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_XRegionPrimaDirecta" xlink:label="lbl35270" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35252" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35270" order="230.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_XIRegionPrimaDirecta" xlink:label="lbl35271" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35252" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35271" order="240.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_XIIRegionPrimaDirecta" xlink:label="lbl35272" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35252" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35272" order="250.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IIRegionPrimaDirecta" xlink:label="lbl35273" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35252" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35273" order="150.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IVRegionPrimaDirecta" xlink:label="lbl35274" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35252" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35274" order="170.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VIRegionPrimaDirecta" xlink:label="lbl35275" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35252" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35275" order="190.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VehiculosMiembro" xlink:label="lbl35276" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35254" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35276" order="80.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IRegionPrimaDirecta" xlink:label="lbl35277" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35252" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35277" order="140.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_TransportesMiembro" xlink:label="lbl35278" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35254" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:to="lbl35278" order="90.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_VIIIRegionPrimaDirecta" xlink:label="lbl35279" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35252" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35279" order="210.0" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-10-05.xsd#cl-cs_IXRegionPrimaDirecta" xlink:label="lbl35280" xlink:type="locator" />
+    <link:presentationArc xlink:from="lbl35252" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35280" order="220.0" />
+    <link:presentationArc xlink:from="lbl35268" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" preferredLabel="http://www.xbrl.org/2003/role/terseLabel" xlink:to="lbl35252" order="130.0" />
+  </link:presentationLink>
+</link:linkbase>
+

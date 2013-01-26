@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:nota-26_role-840000_rol="http://www.svs.cl/cl/fr/cs/2012-10-05/rol_cl-cs_nota-26_role-840000_rol" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://www.svs.cl/cl/fr/cs/2012-10-05/rol_cl-cs_nota-26_role-840000_rol">
+  <annotation>
+    <appinfo>
+      <link:roleType id="nota-26_role-840001" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-26_role-840001">
+        <link:definition>[840001] Nota 26 - Deudas por operaciones de seguro</link:definition>
+        <link:usedOn>link:calculationLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="nota-26_role-840000" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-26_role-840000">
+        <link:definition>[840000] Nota 26 - Deudas por operaciones de seguro</link:definition>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="nota-26_role-840000c" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-26_role-840000c">
+        <link:definition>[840000c] Nota 26 - Deudas por operaciones coaseguro</link:definition>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="nota-26_role-840000b" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-26_role-840000b">
+        <link:definition>[840000b] Nota 26 - Deudas por operaciones de reaseguro</link:definition>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="nota-26_role-840000a" roleURI="http://www.svs.cl/cl/fr/cs/role/nota-26_role-840000a">
+        <link:definition>[840000a] Nota 26 - Deudas con asegurados</link:definition>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+    </appinfo>
+  </annotation>
+  <import namespace="http://www.xbrl.org/2003/instance" schemaLocation="http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd" />
+</schema>
+
