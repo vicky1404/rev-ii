@@ -128,7 +128,8 @@ public class DefinitionLinkbase extends Linkbase {
                     }
                     // if domainMemberXLinkList is null, an exception should be thrown (this cannot happen in an explicit dimension)
                     if (domainMemberXLinkSet == null) {
-                        throw new TaxonomyCreationException(ExceptionConstants.EX_NO_DOMAIN_MEMBER_NETWORK);
+                       // throw new TaxonomyCreationException(ExceptionConstants.EX_NO_DOMAIN_MEMBER_NETWORK);
+                    	continue;
                     }
 
                     // the domain member network must not be null in an explicit dimension

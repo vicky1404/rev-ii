@@ -1,5 +1,7 @@
 package xbrlcore.instance;
 
+import static xbrlcore.taxonomy.Namespace_.toJDOM;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -64,6 +66,11 @@ public class Instance implements Serializable {
         instanceNamespace = NamespaceConstants.XBRLI_NAMESPACE;
 
         addNamespace(NamespaceConstants.XSI_NAMESPACE);
+        addNamespace(NamespaceConstants.LINK_NAMESPACE);
+        addNamespace(NamespaceConstants.XLINK_NAMESPACE);
+        
+        
+        
     }
 
     /**

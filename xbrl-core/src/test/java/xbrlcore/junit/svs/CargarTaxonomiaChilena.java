@@ -1,44 +1,26 @@
-import static junit.framework.Assert.assertEquals;
+package xbrlcore.junit.svs;
 import static junit.framework.Assert.assertNotNull;
 
-import java.io.IOException;
-import java.io.StringReader;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
-import java.util.Scanner;
 import java.util.Set;
 
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.apache.log4j.Logger;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.xml.sax.SAXException;
 
 import xbrlcore.constants.GeneralConstants;
-import xbrlcore.exception.XBRLException;
-import xbrlcore.junit.sax.TestHelper;
 import xbrlcore.linkbase.LabelLinkbase;
 import xbrlcore.linkbase.PresentationLinkbase;
 import xbrlcore.linkbase.PresentationLinkbaseElement;
 import xbrlcore.taxonomy.Concept;
-import xbrlcore.taxonomy.DiscoverableTaxonomySet;
 import xbrlcore.taxonomy.RoleType;
 import xbrlcore.xlink.Arc;
 import xbrlcore.xlink.Locator;
 
-public class CargarTaxonomiaChilena {
+public class CargarTaxonomiaChilena extends AbstractSVSTests {
 
 	private static final Logger LOGGER = Logger.getLogger(CargarTaxonomiaChilena.class);
 
-	static DiscoverableTaxonomySet dts;
-
-	@BeforeClass
-	public static void setUp() throws URISyntaxException, XBRLException, SAXException, IOException, ParserConfigurationException {
-		URI uri = CargarTaxonomiaChilena.class.getResource("/xbrl/SVS CL-CS 2012-10-05 Modificada el 2012-11-21/cl-cs_shell_2012-10-05.xsd").toURI();
-		dts = TestHelper.getDTS(uri.toString());
-	}
+		
 
 	@Test
 	public void testCargarDefinicionTaxonomiasSVS() throws Exception {
@@ -79,14 +61,7 @@ public class CargarTaxonomiaChilena {
 
 	}
 
-	private void testResultado(String printNotaConceptos, String file) {
-		
-		Scanner scanner = new Scanner(getClass().getResourceAsStream(file));
-		Scanner scannerResult = new Scanner(new StringReader(printNotaConceptos));
-		while (scanner.hasNext()) {
-			assertEquals(scanner.next(), scannerResult.next());
-		}
-	}
+	
 
 	private String printNotaConceptos(String role) {
 		StringBuilder builder = new StringBuilder();
