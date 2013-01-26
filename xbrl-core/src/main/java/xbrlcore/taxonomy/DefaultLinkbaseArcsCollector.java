@@ -52,18 +52,18 @@ public class DefaultLinkbaseArcsCollector<A extends LinkbaseArcsContainer.ArcInt
         }
 
         // Check whether newArc is already available
-        for (A tmpArc : tmpArcBaseSet) {
-            if (tmpArc.equalSourceTarget(newArc)
-                    && tmpArc.getPriorityAttribute() == newArc.getPriorityAttribute()
-                    && tmpArc.getUseAttribute() == newArc.getUseAttribute()) {
-                log.log(LogLevel.VERBOUSE, Linkbase.class, "Duplicate arc: " +
-                            newArc.getSourceElementLabel() + " => " +
-                            newArc.getTargetElementLabel() + " (" +
-                            newArc.getArcRole() + ") in " +
-                            newArc.getExtendedLinkRole());
-                return;
-            }
-        }
+//        for (A tmpArc : tmpArcBaseSet) {
+//            if (tmpArc.equalSourceTarget(newArc)
+//                    && tmpArc.getPriorityAttribute() == newArc.getPriorityAttribute()
+//                    && tmpArc.getUseAttribute() == newArc.getUseAttribute()) {
+//                log.log(LogLevel.VERBOUSE, Linkbase.class, "Duplicate arc: " +
+//                            newArc.getSourceElementLabel() + " => " +
+//                            newArc.getTargetElementLabel() + " (" +
+//                            newArc.getArcRole() + ") in " +
+//                            newArc.getExtendedLinkRole());
+//                return;
+//            }
+//        }
 
         // Check whether this arc is already prohibited by another one.
         List<A> prohibitingArcList = prohibitingArcs.get(newArc.getExtendedLinkRole());

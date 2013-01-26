@@ -1,7 +1,7 @@
 package xbrlcore.logging;
 
 public class ConsoleLogInterface implements LogInterface {
-    private LogLevel level = LogLevel.INFO;
+    private LogLevel level = LogLevel.VERBOUSE;
 
     public ConsoleLogInterface() {
     }

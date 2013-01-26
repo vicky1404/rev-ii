@@ -1,0 +1,58 @@
+cl-cs_eeff_role-110000.xsd [110000] Información general sobre estados financieros
+cl-cs_eeff_role-200000.xsd [200000] Estado de situación financiera - Estados financieros individuales
+cl-cs_eeff_role-300000.xsd [300000] Estado de resultados - Estados financieros individuales
+cl-cs_eeff_role-500000.xsd [500000] Estado de flujos - Estados financieros individuales
+cl-cs_eeff_role-600000.xsd [600000] Estado de cambios en el patrimonio - Estados financieros individuales
+cl-cs_nota-1_role-810000.xsd [810000] Nota 1 - Entidad que reporta
+cl-cs_nota-2_role-811000.xsd [811000] Nota 2 - Bases de preparación
+cl-cs_nota-3_role-811100.xsd [811100] Nota 3 - Políticas contables
+cl-cs_nota-4_role-811200.xsd [811200] Nota 4 - Políticas contables significativas
+cl-cs_nota-5_role-812000.xsd [812000] Nota 5 - Primera adopción
+cl-cs_nota-6_role-814000.xsd [814000] Nota 6 - Administración de riesgo
+cl-cs_nota-7_role-815000.xsd [815000] Nota 7 - Efectivo y efectivo equivalente
+cl-cs_nota-8_role-816000.xsd [816000] Nota 8 - Activos financieros a valor razonable
+cl-cs_nota-9_role-821000.xsd [821000] Nota 9 - Activos financieros a costo amortizado
+cl-cs_nota-10_role-822000.xsd [822000] Nota 10 - Préstamos
+cl-cs_nota-11_role-823000.xsd [823000] Nota 11 - Inversiones seguros con cuenta única de inversión (CUI)
+cl-cs_nota-12_role-824000.xsd [824000] Nota 12 - Participaciones en entidades del grupo
+cl-cs_nota-13_role-825000.xsd [825000] Nota 13 - Otras notas de inversiones financieras
+cl-cs_nota-14_role-826000.xsd [826000] Nota 14 - Inversiones inmobiliarias
+cl-cs_nota-15_role-827000.xsd [827000] Nota 15 - Activos no corrientes mantenidos para la venta
+cl-cs_nota-16_role-828000.xsd [828000] Nota 16 - Cuentas por cobrar asegurados
+cl-cs_nota-17_role-829000.xsd [829000] Nota 17 - Deudores por operaciones de reaseguro
+cl-cs_nota-18_role-830000.xsd [830000] Nota 18 - Deudores por operaciones de coaseguro
+cl-cs_nota-19_role-832100.xsd [832100] Nota 19 - Participación del reaseguro en las reservas técnicas (activo) y reservas técnicas (pasivo) - Seguros generales
+cl-cs_nota-19_role-832200.xsd [832200] Nota 19 - Participación del reaseguro en las reservas técnicas (activo) y reservas técnicas (pasivo) - Seguros de vida
+cl-cs_nota-20_role-833000.xsd [833000] Nota 20 - Intangibles
+cl-cs_nota-21_role-834000.xsd [834000] Nota 21 - Impuestos por cobrar
+cl-cs_nota-22_role-835000.xsd [835000] Nota 22 - Otros activos
+cl-cs_nota-23_role-836000.xsd [836000] Nota 23 - Pasivos financieros
+cl-cs_nota-24_role-837000.xsd [837000] Nota 24 - Pasivos no corrientes mantenidos para la venta
+cl-cs_nota-25_role-838100.xsd [838100] Nota 25 - Reservas técnicas - Seguros generales
+cl-cs_nota-25_role-838200.xsd [838200] Nota 25 - Reservas técnicas - Seguros de vida
+cl-cs_nota-26_role-840000.xsd [840000] Nota 26 - Deudas por operaciones de seguro
+cl-cs_nota-27_role-842000.xsd [842000] Nota 27 - Provisiones
+cl-cs_nota-28_role-843000.xsd [843000] Nota 28 - Otros pasivos
+cl-cs_nota-29_role-844000.xsd [844000] Nota 29 - Patrimonio
+cl-cs_nota-30_role-846000.xsd [846000] Nota 30 - Reaseguradores y corredores de reaseguros vigentes
+cl-cs_nota-31_role-847000.xsd [847000] Nota 31 - Variación de reservas técnicas
+cl-cs_nota-32_role-848000.xsd [848000] Nota 32 - Costo de siniestros
+cl-cs_nota-33_role-849000.xsd [849000] Nota 33 - Costo de administración
+cl-cs_nota-34_role-850000.xsd [850000] Nota 34 - Deterioro de seguros
+cl-cs_nota-35_role-851000.xsd [851000] Nota 35 - Resultado de inversiones
+cl-cs_nota-36_role-852000.xsd [852000] Nota 36 - Otros ingresos
+cl-cs_nota-37_role-853000.xsd [853000] Nota 37 - Otros egresos
+cl-cs_nota-38_role-854000.xsd [854000] Nota 38 - Diferencia de cambio y unidades reajustables
+cl-cs_nota-39_role-855000.xsd [855000] Nota 39 - Utilidad (pérdida) por operaciones discontinuas y disponibles para la venta
+cl-cs_nota-40_role-856000.xsd [856000] Nota 40 - Impuesto a la renta
+cl-cs_nota-41_role-857000.xsd [857000] Nota 41 - Estado de flujo de efectivo
+cl-cs_nota-42_role-858000.xsd [858000] Nota 42 - Contingencias y compromisos
+cl-cs_nota-43_role-859000.xsd [859000] Nota 43 - Hechos posteriores
+cl-cs_nota-44_role-860000.xsd [860000] Nota 44 - Moneda Extranjera
+cl-cs_nota-45_role-861000.xsd [861000] Nota 45 - Cuadro de ventas por regiones (seguros generales)
+cl-cs_nota-46_role-862100.xsd [862100] Nota 46 - Margen de solvencia - Seguros generales
+cl-cs_nota-46_role-862200.xsd [862200] Nota 46 - Margen de solvencia - Seguros de vida
+cl-cs_nota-47_role-863100.xsd [863100] Nota 47 - Cumplimiento circular 794 - Alternativa N°1 (seguros generales)
+cl-cs_nota-47_role-863200.xsd [863200] Nota 47 - Cumplimiento circular 794 - Alternativa N°2 (seguros generales)
+cl-cs_nota-48_role-864000.xsd [864000] Nota 48 - Solvencia
+cl-cs_nota-48_role-864300.xsd [864300] Nota 48 - Solvencia - Mutuales
