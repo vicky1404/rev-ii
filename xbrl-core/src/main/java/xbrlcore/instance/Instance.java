@@ -1,7 +1,5 @@
 package xbrlcore.instance;
 
-import static xbrlcore.taxonomy.Namespace_.toJDOM;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;

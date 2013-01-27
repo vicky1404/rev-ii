@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.ConnectException;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -542,9 +541,9 @@ public abstract class AbstractTaxonomyLoader<ResultType, TS> {
         TupleType tupleType = parseTupleType(id, complexType);
         ArrayList<String> refs = new ArrayList<String>();
 
-        @SuppressWarnings( "unchecked" )
         Element listElem = complexType.getChild(getElementNameFromTT(tupleType), toJDOM(NamespaceConstants.XSD_NAMESPACE));
-        List<Element> elementsList = listElem.getChildren("element", toJDOM(NamespaceConstants.XSD_NAMESPACE));
+        @SuppressWarnings("unchecked")
+		List<Element> elementsList = listElem.getChildren("element", toJDOM(NamespaceConstants.XSD_NAMESPACE));
         for (Element element : elementsList) {
             refs.add(element.getAttributeValue("ref"));
         }
@@ -1056,10 +1055,10 @@ public abstract class AbstractTaxonomyLoader<ResultType, TS> {
      * @param importedTaxonomyNames
      * @throws IOException
      */
-    private void getImportedTaxonomyFileNames(Document taxonomySource, Collection<URL> includedTaxonomyNames, Collection<URL> importedTaxonomyNames) throws IOException {
+    @SuppressWarnings("unchecked")
+	private void getImportedTaxonomyFileNames(Document taxonomySource, Collection<URL> includedTaxonomyNames, Collection<URL> importedTaxonomyNames) throws IOException {
         Element rootElement = taxonomySource.getRootElement();
 
-        @SuppressWarnings( "unchecked" )
         List<Element> children = rootElement.getChildren("include", toJDOM(NamespaceConstants.XSD_NAMESPACE));
         for (Element currElement : children) {
             String schemaLocation = currElement.getAttributeValue("schemaLocation");

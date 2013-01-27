@@ -49,7 +49,7 @@ public class TupleDefinition extends Concept {
     protected TupleDefinition(String name, String id, String type, TupleType tupleType,
                               TaxonomySchema taxonomySchema,
                               String substitutionGroup, boolean isAbstract, boolean nillable, String periodType, String typedDomainRef,
-                              List<String[]> itemKeys, @SuppressWarnings("unused") Object dummy) {
+                              List<String[]> itemKeys, Object dummy) {
         super(name, id, type, null, taxonomySchema, substitutionGroup, isAbstract, nillable, periodType, typedDomainRef);
 
         this.tupleType = tupleType;

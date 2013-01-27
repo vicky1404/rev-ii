@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import xbrlcore.linkbase.Linkbase;
 import xbrlcore.linkbase.LinkbaseArcsContainer;
 import xbrlcore.logging.LogInterface;
-import xbrlcore.logging.LogInterface.LogLevel;
 import xbrlcore.xlink.Arc.UseAttribute;
 
 /**
@@ -20,10 +18,7 @@ import xbrlcore.xlink.Arc.UseAttribute;
  */
 public class DefaultLinkbaseArcsCollector<A extends LinkbaseArcsContainer.ArcInterface> extends LinkbaseArcsContainer<A> {
 
-    private final LogInterface log;
-
     public DefaultLinkbaseArcsCollector(LogInterface log) {
-        this.log = log;
     }
 
     /**

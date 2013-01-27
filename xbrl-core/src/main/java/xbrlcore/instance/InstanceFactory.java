@@ -153,7 +153,6 @@ public class InstanceFactory {
 	 * @return An object of xbrlcore.instance.Instance.
 	 * @throws InstanceException
 	 */
-	@SuppressWarnings("unchecked")
 	private Instance getInstance(Set<DiscoverableTaxonomySet> dtsSet, String fileName) throws InstanceException, CloneNotSupportedException {
 
 		instance = new Instance(dtsSet);
