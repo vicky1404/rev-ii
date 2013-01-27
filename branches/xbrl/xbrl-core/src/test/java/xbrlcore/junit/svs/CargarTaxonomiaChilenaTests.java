@@ -16,9 +16,9 @@ import xbrlcore.taxonomy.RoleType;
 import xbrlcore.xlink.Arc;
 import xbrlcore.xlink.Locator;
 
-public class CargarTaxonomiaChilena extends AbstractSVSTests {
+public class CargarTaxonomiaChilenaTests extends AbstractSVSTests {
 
-	private static final Logger LOGGER = Logger.getLogger(CargarTaxonomiaChilena.class);
+	private static final Logger LOGGER = Logger.getLogger(CargarTaxonomiaChilenaTests.class);
 
 		
 
