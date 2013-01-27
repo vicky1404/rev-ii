@@ -47,7 +47,7 @@ public class SAXBuilder {
 
 	private XBRLLinkbaseContentHandler xbrlLinkbaseContentHandler;
 
-	private URI baseDir;
+	
 
 	private Set<String> alreadyParsedNamespaces;
 
@@ -88,14 +88,11 @@ public class SAXBuilder {
 		xbrlSchemaContentHandler = new XBRLSchemaContentHandler();
 		xbrlLinkbaseContentHandler = new XBRLLinkbaseContentHandler();
 
-		baseDir = null;
+		
 		alreadyParsedNamespaces = null;
 		linkbaseFiles = new HashMap<String, LinkBaseInfo>();
 
-		if (baseDir == null) {
-			baseDir = URI.create(source.getSystemId().substring(0,
-					source.getSystemId().lastIndexOf("/") + 1));
-		}
+		
 
 		xmlReader = saxParser.getXMLReader();
 

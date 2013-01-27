@@ -4,7 +4,11 @@
 	<groupId>xbrlcore</groupId>
 	<artifactId>xbrl-core</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<url>http://maven.apache.org</url>
 
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 
 	<dependencies>
 
@@ -16,7 +20,7 @@
 			<version>29.50</version>
 		</dependency>
 		<dependency>
-			<groupId>jdom</groupId>
+			<groupId>org.jdom</groupId>
 			<artifactId>jdom</artifactId>
 			<version>1.1</version>
 		</dependency>
@@ -51,7 +55,12 @@
 			</plugin>
 
 
+
+
 		</plugins>
 	</build>
+
+
+
 
 </project>

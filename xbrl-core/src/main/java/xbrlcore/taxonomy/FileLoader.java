@@ -11,7 +11,7 @@ import java.net.URLConnection;
  * This class is used to be extended in order to load files from other location than
  * the "Instance directory".
  *
- * @author Nicolas Georges, Sébastien Kirche
+ * @author Nicolas Georges, Sbastien Kirche
  * @author Marvin Froehlich (INFOLOG GmbH)
  */
 public class FileLoader {

@@ -68,7 +68,7 @@ public class Instance implements Serializable {
         addNamespace(NamespaceConstants.XSI_NAMESPACE);
         addNamespace(NamespaceConstants.LINK_NAMESPACE);
         addNamespace(NamespaceConstants.XLINK_NAMESPACE);
-        
+        addNamespace(NamespaceConstants.XBRLDI_NAMESPACE);
         
         
     }
@@ -433,20 +433,20 @@ public class Instance implements Serializable {
     private boolean testFact(Fact fact) throws InstanceException {
         if (fact == null) {
             throw new InstanceException(
-                    ExceptionConstants.EX_INSTANCE_FACT_INFORMATION_MISSING);
+                    ExceptionConstants.EX_INSTANCE_FACT_INFORMATION_MISSING + ": fact is null");
         }
         if (!fact.getConcept().isNillable() && (fact.getValue() == null)) {
             throw new InstanceException(
-                ExceptionConstants.EX_INSTANCE_FACT_INFORMATION_MISSING);
+                ExceptionConstants.EX_INSTANCE_FACT_INFORMATION_MISSING + ": concept is not nillable and value is null");
         }
         if (fact.getInstanceContext() == null) {
             throw new InstanceException(
-                    ExceptionConstants.EX_INSTANCE_FACT_INFORMATION_MISSING);
+                    ExceptionConstants.EX_INSTANCE_FACT_INFORMATION_MISSING + ": context is null");
         }
         
 
         if (fact.getConcept().isNumericItem() && fact.getInstanceUnit() == null) {
-            throw new InstanceException(ExceptionConstants.EX_INSTANCE_FACT_UNIT_MISSING);
+            throw new InstanceException(ExceptionConstants.EX_INSTANCE_FACT_UNIT_MISSING + ": concept is numeric and fact it does not have unit");
         }
 
         return true;
@@ -463,25 +463,25 @@ public class Instance implements Serializable {
             throws InstanceException {
         if (context == null) {
             throw new InstanceException(
-                    ExceptionConstants.EX_INSTANCE_CONTEXT_INFORMATION_MISSING);
+                    ExceptionConstants.EX_INSTANCE_CONTEXT_INFORMATION_MISSING + ": context is null");
         }
         if (context.getId() == null || context.getId().length() == 0) {
             throw new InstanceException(
-                    ExceptionConstants.EX_INSTANCE_CONTEXT_INFORMATION_MISSING);
+                    ExceptionConstants.EX_INSTANCE_CONTEXT_INFORMATION_MISSING + ": context id is null");
         }
         if (context.getIdentifier() == null
                 || context.getIdentifier().length() == 0
                 || context.getIdentifierScheme() == null
                 || context.getIdentifierScheme().length() == 0) {
             throw new InstanceException(
-                    ExceptionConstants.EX_INSTANCE_CONTEXT_INFORMATION_MISSING);
+                    ExceptionConstants.EX_INSTANCE_CONTEXT_INFORMATION_MISSING + ": context identifier/identifier schema is null");
         }
         if ((context.getPeriodValue() == null || context.getPeriodValue()
                 .length() == 0)
                 && (context.getPeriodStartDate() == null || context
                         .getPeriodEndDate() == null)) {
             throw new InstanceException(
-                    ExceptionConstants.EX_INSTANCE_CONTEXT_INFORMATION_MISSING);
+                    ExceptionConstants.EX_INSTANCE_CONTEXT_INFORMATION_MISSING + ": period/instant is null");
         }
         return true;
     }
@@ -495,20 +495,20 @@ public class Instance implements Serializable {
     private boolean testUnit(InstanceUnit unit) throws InstanceException {
         if (unit == null) {
             throw new InstanceException(
-                    ExceptionConstants.EX_INSTANCE_UNIT_INFORMATION_MISSING);
+                    ExceptionConstants.EX_INSTANCE_UNIT_INFORMATION_MISSING + ": unit is null");
         }
         if (unit.getId() == null || unit.getId().length() == 0) {
             throw new InstanceException(
-                    ExceptionConstants.EX_INSTANCE_UNIT_INFORMATION_MISSING);
+                    ExceptionConstants.EX_INSTANCE_UNIT_INFORMATION_MISSING + ": id is null");
         }
         if (unit.getNamespaceURI() == null
                 || unit.getNamespaceURI().length() == 0) {
             throw new InstanceException(
-                    ExceptionConstants.EX_INSTANCE_UNIT_INFORMATION_MISSING);
+                    ExceptionConstants.EX_INSTANCE_UNIT_INFORMATION_MISSING + ": namespace uri is null");
         }
         if (unit.getValue() == null || unit.getValue().length() == 0) {
             throw new InstanceException(
-                    ExceptionConstants.EX_INSTANCE_UNIT_INFORMATION_MISSING);
+                    ExceptionConstants.EX_INSTANCE_UNIT_INFORMATION_MISSING + ": unit value is null");
         }
 
         return true;
