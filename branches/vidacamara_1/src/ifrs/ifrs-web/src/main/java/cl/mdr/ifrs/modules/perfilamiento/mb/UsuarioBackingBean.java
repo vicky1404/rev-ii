@@ -43,7 +43,7 @@ public class UsuarioBackingBean extends AbstractBackingBean implements Serializa
 	public Rol rol;
 	private DataTable usuariosTable;
 	private InputText inputNombreUsuario;
-	
+		
 			
 	@PostConstruct
 	void init(){
@@ -54,7 +54,8 @@ public class UsuarioBackingBean extends AbstractBackingBean implements Serializa
 	
 	public String buscarAction(){
 		try {			
-			this.setUsuarioList(super.getFacadeService().getSeguridadService().findUsuariosByFiltro(this.getFiltroUsuario(), this.getRol()));
+			//this.setUsuarioList(super.getFacadeService().getSeguridadService().findUsuariosByFiltro(this.getFiltroUsuario(), this.getRol()));
+			this.setUsuarioList(super.getFacadeService().getSeguridadService().findUsuariosByNombreUsuario(this.getFiltroUsuario()));
 			this.setRenderTablaUsuarios(Boolean.TRUE);
 		} catch (Exception e) {			
 			logger.error(e);
@@ -120,10 +121,10 @@ public class UsuarioBackingBean extends AbstractBackingBean implements Serializa
 	public void resetUsuarioPassword(ActionEvent event){
 		try{
 			this.getEditUsuario().setFechaActualizacion(new Date());
-			this.getEditUsuario().setPassword(this.getEditUsuario().getNombreUsuario());
-			this.getEditUsuario().setCambiarPassword(1L);
-			super.getFacadeService().getSeguridadService().mergeUsuario(this.getEditUsuario());
-			super.addInfoMessage("Se ha regenerado la clave de Usuario éxitosamente");
+			this.getEditUsuario().setPassword(RandomStringUtils.randomAlphanumeric(16).toUpperCase());
+			this.getEditUsuario().setCambiarPassword(1L);			
+			super.getFacadeService().getSeguridadService().resetearClaveUsuario(this.getEditUsuario());			
+			super.addInfoMessage(MessageFormat.format("Se ha regenerado la clave de Usuario éxitosamente y se ha enviado un email de confirmación a: {0}", this.getEditUsuario().getEmail()));
 			super.hidePopUp(POP_UP_EDITAR_USUARIO, FORM_EDITAR_USUARIO);
 		} catch (Exception e) {
 			logger.error(e);
@@ -131,6 +132,7 @@ public class UsuarioBackingBean extends AbstractBackingBean implements Serializa
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	private String generaClave() throws Exception{
 		SecureRandom random = new SecureRandom();
 		return new BigInteger(130, random).toString(32);

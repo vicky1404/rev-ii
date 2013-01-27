@@ -13,8 +13,6 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import org.apache.commons.lang3.RandomStringUtils;
-
 import cl.mdr.ifrs.ejb.common.MailConfigEnum;
 import cl.mdr.ifrs.ejb.common.TipoParametroEnum;
 import cl.mdr.ifrs.ejb.entity.Parametro;

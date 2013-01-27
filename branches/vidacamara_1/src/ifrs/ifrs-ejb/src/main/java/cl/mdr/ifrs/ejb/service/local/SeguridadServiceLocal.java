@@ -30,10 +30,24 @@ public interface SeguridadServiceLocal {
 	
 	/**
 	 * @param usuario
+	 * @return
+	 * @throws Exception
+	 */
+	List<Usuario> findUsuariosByNombreUsuario(final Usuario usuario) throws Exception;
+	
+	/**
+	 * @param usuario
 	 * @throws MessagingException
 	 * @throws Exception
 	 */
 	void crearNuevoUsuario(Usuario usuario) throws MessagingException, Exception;
+	
+	/**
+	 * @param usuario
+	 * @throws MessagingException
+	 * @throws Exception
+	 */
+	void resetearClaveUsuario(final Usuario usuario) throws MessagingException, Exception;
 	
     /**
      * @param usuario

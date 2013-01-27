@@ -41,7 +41,12 @@ import com.google.common.base.Strings;
     													" and (:nombre is null or upper(u.nombre) like :nombre) " +
     													" and (:apellidoPaterno is null or upper(u.apellidoPaterno) like :apellidoPaterno)" +
     													" and (:apellidoMaterno is null or upper(u.apellidoMaterno) like :apellidoMaterno)" +
-    													" and (:rol is null or u.rol.idRol = :rol) ORDER BY u.nombreUsuario ASC")
+    													" and (:rol is null or u.rol.idRol = :rol) ORDER BY u.nombreUsuario ASC"),
+    													
+	@NamedQuery(name = Usuario.FIND_BY_NOMBRE , query =  " select u from Usuario u " +
+														 " left join fetch u.grupos " +														
+														 " where upper(u.nombreUsuario) like :nombreUsuario " +
+														 " ORDER BY u.nombreUsuario ASC")
 })    
 @Table(name="IFRS_USUARIO")
 public class Usuario implements Serializable {
@@ -49,6 +54,7 @@ public class Usuario implements Serializable {
 	
 	public static final String AUTHENTICATE_USER = "Usuario.authenticateUser";
 	public static final String FIND_BY_FILTRO = "Usuario.findByFiltro";
+	public static final String FIND_BY_NOMBRE = "Usuario.findByNombre";
 
 	@Id
 	@Column(name="NOMBRE_USUARIO")	
