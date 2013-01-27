@@ -58,6 +58,7 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 	private static final String HOME_VIEW_ID = "/pages/home.jsf";
 	private static final String MIS_DATOS_VIEW_ID = "/pages/mis-datos.jsf";
 	private static final String SEGURIDAD_VIEW_ID = "/pages/seguridad/seguridad.jsf";
+	private static final String INGRESO_BLOQUEADO_VIEW_ID = "/pages/seguridad/ingreso-bloqueado.jsf";
 	
 	private FiltroBackingBean filtroBackingBean;
 	
@@ -101,6 +102,10 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 			}			
 			if (Util.getLong(super.getUsuarioSesion().getCambiarPassword(), 0L).equals(1L)){
 				super.getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(MIS_DATOS_VIEW_ID));
+			}
+
+			if(this.isSistemaBloqueado()){
+				super.getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(INGRESO_BLOQUEADO_VIEW_ID));
 			}
 						
 			this.buildEmpresaList();
@@ -210,10 +215,7 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 	}
 	
 	private void buildCuadroTreeMenu(TreeNode root) throws Exception{		 
-        
-		@SuppressWarnings("unused")
-		//TODO implementar bloqueo de sistema.
-		boolean bloqueado = this.isSistemaBloqueado();
+        						
 		if( catalogoList != null && catalogoList.size() > 0 ){
 			super.addErrorMessage("El Usuario no tiene revelaciones asociadas");
 			return;
@@ -345,6 +347,9 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
     	this.setCatalogoSelected(this.getCatalogoMap().get(Util.getLong(event.getTreeNode().toString(), null)));
     	if(super.getPrincipal() == null){
     		super.addFatalMessage("Debido a su inactividad, la Sesión ha Caducado. por favor ingrese nuevamente.");
+    	}
+    	if(this.isSistemaBloqueado()){
+    		super.getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(INGRESO_BLOQUEADO_VIEW_ID));
     	}
     	if(this.getCatalogoSelected() != null){
     		this.getFiltroBackingBean().setCatalogo(this.getCatalogoSelected());    	    
