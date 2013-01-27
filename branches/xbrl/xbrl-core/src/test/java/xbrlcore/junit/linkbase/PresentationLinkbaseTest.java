@@ -9,7 +9,6 @@ import org.junit.Test;
 import xbrlcore.junit.sax.TestHelper;
 import xbrlcore.linkbase.PresentationLinkbase;
 import xbrlcore.linkbase.PresentationLinkbaseElement;
-import xbrlcore.taxonomy.Concept;
 import xbrlcore.taxonomy.DiscoverableTaxonomySet;
 import static org.junit.Assert.*;
 
@@ -52,9 +51,9 @@ public final class PresentationLinkbaseTest {
      */
     @Test
     public void getPresentationLinkaseElement() {
-        Concept elementEssen = prTaxonomy.getConceptByID("p-pr_Essen");
-        Concept elementWurst = prTaxonomy.getConceptByID("p-pr_Wurst");
-        Concept elementProdukte = prTaxonomy.getConceptByID("p-pr_Produkte");
+        prTaxonomy.getConceptByID("p-pr_Essen");
+        prTaxonomy.getConceptByID("p-pr_Wurst");
+        prTaxonomy.getConceptByID("p-pr_Produkte");
 
 //        PresentationLinkbaseElement presElementEssen = presentationLinkbase
 //            .getPresentationLinkbaseElement(elementEssen,

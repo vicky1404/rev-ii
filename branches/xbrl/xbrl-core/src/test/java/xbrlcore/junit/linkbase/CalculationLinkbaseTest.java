@@ -5,7 +5,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.io.File;
-import java.io.ObjectInputStream.GetField;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;

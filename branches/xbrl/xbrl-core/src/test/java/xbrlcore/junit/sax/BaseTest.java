@@ -3,8 +3,6 @@ package xbrlcore.junit.sax;
 import java.util.Iterator;
 import java.util.Set;
 
-import org.junit.Ignore;
-
 import xbrlcore.taxonomy.Concept;
 import xbrlcore.taxonomy.DiscoverableTaxonomySet;
 import junit.framework.TestCase;

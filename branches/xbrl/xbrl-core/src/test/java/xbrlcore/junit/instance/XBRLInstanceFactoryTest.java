@@ -1,8 +1,6 @@
 package xbrlcore.junit.instance;
 
 import java.io.File;
-import java.io.ObjectInputStream.GetField;
-
 import static org.junit.Assert.*;
 
 import org.jdom.Document;

@@ -4,7 +4,6 @@ import static junit.framework.Assert.assertEquals;
 
 import java.io.IOException;
 import java.io.StringReader;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Scanner;
 
