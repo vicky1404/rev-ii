@@ -136,7 +136,7 @@
 		
 		
 		<!--  POP UP -->			 
-		 <p:dialog header="Ingreso" widgetVar="ingresoRegistro" id="ingreso"  width="500" resizable="false" showEffect="drop" hideEffect="drop" dynamic="true" modal="false" >
+		 <p:dialog header="Nueva Revelación" widgetVar="ingresoRegistro" id="ingreso"  width="500" resizable="false" showEffect="drop" hideEffect="drop" dynamic="true" modal="false" >
 		 	<h:form id="formIngreso">  
         	<h:panelGrid id="display" columns="3" cellpadding="4">
         	
@@ -145,7 +145,7 @@
         	  	<p:separator/>
 	            
 	            <p:outputLabel for="Nombre" value="#{msg.label_nombre}" />  
-	            <p:inputText value="#{cuadroBackingBean.nuevoCuadro.nombre}" id="Nombre" label="#{msg.label_nombre}" required="true">
+	            <p:inputText value="#{cuadroBackingBean.nuevoCuadro.nombre}" id="Nombre" label="#{msg.label_nombre}" required="true" size="60">
 	            	<f:validateLength minimum="1" maximum="256"></f:validateLength>
 	            </p:inputText>
 	            <h:message for="Nombre" id="msgNombre" style="color:red"/>	  			
@@ -159,7 +159,7 @@
 
 
 	            <p:outputLabel for="Titulo" value="#{msg.label_titulo_cuadro}" />  
-	            <p:inputText value="#{cuadroBackingBean.nuevoCuadro.titulo}" id="Titulo" label="#{msg.label_titulo_cuadro}" required="true">
+	            <p:inputText value="#{cuadroBackingBean.nuevoCuadro.titulo}" id="Titulo" label="#{msg.label_titulo_cuadro}" required="true" size="60">
 	            	<f:validateLength minimum="1" maximum="256"></f:validateLength>
 	            </p:inputText>
 	            <h:message for="Titulo" id="msgTitulo" style="color:red"/>	  			

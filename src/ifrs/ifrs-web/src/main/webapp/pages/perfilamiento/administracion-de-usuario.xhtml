@@ -15,11 +15,12 @@
 			<p:panel id="filtro_usuario" header="#{menuBackingBean.breadcrumb}"
 				toggleable="true" closable="false" toggleSpeed="500"
 				closeSpeed="2000" widgetVar="panel">
-				<h:panelGrid columns="2">
-					<h:outputText value="Nombre de Usuario:" />
+				<h:panelGrid columns="3">
+					<p:outputLabel value="Nombre de Usuario:" for="it1" />
 					<p:inputText id="it1"
-						value="#{usuarioBackingBean.filtroUsuario.nombreUsuario}" />
-					<h:outputText value="Nombre:" />
+						value="#{usuarioBackingBean.filtroUsuario.nombreUsuario}" size="40" required="true" requiredMessage="Ingrese su criterio de búsqueda, ej.: nombre.apellido o primera letra del nombre" />
+					<h:message for="it1" styleClass="ui-outputlabel ui-state-error" />
+					<!-- h:outputText value="Nombre:" />
 					<p:inputText id="it2" size="40"
 						value="#{usuarioBackingBean.filtroUsuario.nombre}" />
 					<h:outputText value="Apellido Paterno:" />
@@ -36,7 +37,7 @@
 							value="#{usuarioBackingBean.componenteBackingBean.rolList}"
 							var="rol" itemValue="#{rol.idRol}" itemLabel="#{rol.idRol}" />
 
-					</p:selectOneMenu>
+					</p:selectOneMenu-->
 				</h:panelGrid>
 				<h:panelGrid columns="3">
 					<p:commandButton value="#{msg.boton_buscar}" icon="ui-icon-search"
@@ -71,9 +72,9 @@
 						<f:convertDateTime pattern="dd-MM-yyyy" />
 					</h:outputText>
 				</p:column>
-				<p:column headerText="Rol">
+				<!-- p:column headerText="Rol">
 					<h:outputText value="#{row.rol.idRol}" />
-				</p:column>
+				</p:column-->
 				<p:column headerText="Vigencia">
 					<h:outputText value="#{row.vigente eq 1 ? 'SI' : 'NO'}" id="ot10" />
 				</p:column>

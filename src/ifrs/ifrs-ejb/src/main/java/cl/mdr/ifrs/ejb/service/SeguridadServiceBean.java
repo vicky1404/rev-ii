@@ -3,7 +3,6 @@ package cl.mdr.ifrs.ejb.service;
 
 import static cl.mdr.ifrs.ejb.cross.Constantes.PERSISTENCE_UNIT_NAME;
 
-import java.math.BigDecimal;
 import java.text.MessageFormat;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -45,7 +44,7 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
         super();
     }
     
-    /*Mantenedor de Usuaario*/
+    /*Mantenedor de Usuario*/
     
     /* (non-Javadoc)
      * @see cl.mdr.ifrs.ejb.service.local.SeguridadServiceLocal#findUsuariosByFiltro(cl.mdr.ifrs.ejb.entity.Usuario)
@@ -54,20 +53,45 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public List<Usuario> findUsuariosByFiltro(final Usuario usuario, final Rol rol) throws Exception{
     	return em.createNamedQuery(Usuario.FIND_BY_FILTRO)
-    		.setParameter("nombreUsuario", usuario.getNombreUsuario() != null ? MessageFormat.format("%{0}%", usuario.getNombreUsuario().toUpperCase()) : null)
-    		.setParameter("nombre", usuario.getNombre() != null ? MessageFormat.format("%{0}%", usuario.getNombre().toUpperCase()) : null)
-    		.setParameter("apellidoPaterno", usuario.getApellidoPaterno() != null ? MessageFormat.format("%{0}%", usuario.getApellidoPaterno().toUpperCase()) : null)
-    		.setParameter("apellidoMaterno", usuario.getApellidoMaterno() != null ? MessageFormat.format("%{0}%", usuario.getApellidoMaterno().toUpperCase()) : null)
+    		.setParameter("nombreUsuario", usuario.getNombreUsuario() != "" ? MessageFormat.format("%{0}%", usuario.getNombreUsuario().toUpperCase()) : null)
+    		.setParameter("nombre", usuario.getNombre() != "" ? MessageFormat.format("%{0}%", usuario.getNombre().toUpperCase()) : null)
+    		.setParameter("apellidoPaterno", usuario.getApellidoPaterno() != "" ? MessageFormat.format("%{0}%", usuario.getApellidoPaterno().toUpperCase()) : null)
+    		.setParameter("apellidoMaterno", usuario.getApellidoMaterno() != "" ? MessageFormat.format("%{0}%", usuario.getApellidoMaterno().toUpperCase()) : null)
     		.setParameter("rol", rol.getIdRol())
     		.getResultList();    	
     }
     
+    /* (non-Javadoc)
+     * @see cl.mdr.ifrs.ejb.service.local.SeguridadServiceLocal#findUsuariosByNombreUsuario(cl.mdr.ifrs.ejb.entity.Usuario)
+     */
+    @SuppressWarnings("unchecked")
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public List<Usuario> findUsuariosByNombreUsuario(final Usuario usuario) throws Exception{
+    	return em.createNamedQuery(Usuario.FIND_BY_NOMBRE)
+    		.setParameter("nombreUsuario", usuario.getNombreUsuario() != "" ? MessageFormat.format("%{0}%", usuario.getNombreUsuario().toUpperCase()) : null)    		
+    		.getResultList();    	
+    }
+    
+    /* (non-Javadoc)
+     * @see cl.mdr.ifrs.ejb.service.local.SeguridadServiceLocal#crearNuevoUsuario(cl.mdr.ifrs.ejb.entity.Usuario)
+     */
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void crearNuevoUsuario(final Usuario usuario) throws MessagingException, Exception{    	
     	em.persist(usuario);
-    	mailService.sendMail("Usuario Creado", 
-    						 MessageFormat.format(ResourceBundle.getBundle("exfida-mail-template").getString("exfida_nuevo_usuario_mail_template"), usuario.getNombre(), usuario.getApellidoPaterno(), usuario.getPassword()),     						
-    						 usuario.getEmail());
+    	mailService.sendMail("EXFIDA - Usuario creado", 
+    						 MessageFormat.format(ResourceBundle.getBundle("exfida-mail-template").getString("exfida_nuevo_usuario_mail_template"), usuario.getNombre(), usuario.getApellidoPaterno(), usuario.getPassword(), usuario.getNombreUsuario()),     						
+    						 "contacto@exfida.com", usuario.getEmail());
+    }
+    
+    /* (non-Javadoc)
+     * @see cl.mdr.ifrs.ejb.service.local.SeguridadServiceLocal#resetearClaveUsuario(cl.mdr.ifrs.ejb.entity.Usuario)
+     */
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void resetearClaveUsuario(final Usuario usuario) throws MessagingException, Exception{    	
+    	em.merge(usuario);
+    	mailService.sendMail("EXFIDA - Clave regenerada", 
+    						 MessageFormat.format(ResourceBundle.getBundle("exfida-mail-template").getString("exfida_merge_usuario_mail_template"), usuario.getNombre(), usuario.getApellidoPaterno(), usuario.getPassword(), usuario.getNombreUsuario()),     						
+    						 "contacto@exfida.com", usuario.getEmail());
     }
     
     /* (non-Javadoc)
