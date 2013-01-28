@@ -116,11 +116,14 @@
 							<p:spacer height="20" id="gDs7" />
 							<div align="left">
 								<div align="left" style="width: 720px;">
+								    <f:verbatim rendered="#{configuradorDisenoBackingBean.renderEditarGrilla}">
+								    	<a href="#{request.contextPath}/resources/docs/configuracion-revelacion.xlsx">Descargar Archivo de Ejemplo</a>
+								    </f:verbatim>
 									<p:fileUpload label="Seleccionar Archivo" id="gDif1"
 										required="true"
 										rendered="#{configuradorDisenoBackingBean.renderEditarGrilla}"
 										requiredMessage="Debe seleccionar el Archivo de Plantilla de Configuración."
-										multiple="false" mode="advanced" update="@form"
+										multiple="false" mode="advanced" update="@form" 
 										cancelLabel="Cancelar"
 										invalidFileMessage="El formato del Archivo es inválido, solo se permiten archivos MS Excel en formato 2007 o superior."
 										invalidSizeMessage="El Archivo a utilizar no puede superar los 3 MB."
