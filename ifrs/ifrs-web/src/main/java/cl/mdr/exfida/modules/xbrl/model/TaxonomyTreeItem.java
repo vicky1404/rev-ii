@@ -12,6 +12,8 @@ public class TaxonomyTreeItem {
     private Concept concept;
     private List<TaxonomyTreeItem> children;
     
+    
+    
     public TaxonomyTreeItem() {
         super();
     }

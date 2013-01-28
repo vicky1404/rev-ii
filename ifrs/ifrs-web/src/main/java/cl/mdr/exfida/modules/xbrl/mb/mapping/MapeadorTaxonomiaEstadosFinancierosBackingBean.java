@@ -139,7 +139,7 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends AbstractBack
     
     public void fijarConceptoForMapping(ActionEvent event){        
         final Concept concept = (Concept)event.getComponent().getAttributes().get("concepto");
-        concept.setMapeado(Boolean.TRUE);
+      //  concept.setMapeado(Boolean.TRUE);
         this.setConceptoSelectedForMapping(concept);   
         if(mappingEstadoFinanciero.get(this.getConceptoSelectedForMapping()) == null){
             mappingEstadoFinanciero.put(this.getConceptoSelectedForMapping(), new LinkedHashMap<EstadoFinanciero, Boolean>());
@@ -156,7 +156,7 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends AbstractBack
     
     public void eliminarConceptoForMapping(ActionEvent event){
         final Concept concept = (Concept)event.getComponent().getAttributes().get("concepto");
-        concept.setMapeado(Boolean.FALSE);
+    //    concept.setMapeado(Boolean.FALSE);
         try {
             this.getFacadeService().getTaxonomyMappingEstadoFinancieroService().deleteMappingByConceptoAndTaxonomia(super.getFiltroBackingBean().getXbrlTaxonomia(), concept);
             mappingEstadoFinanciero.remove(concept);
@@ -166,7 +166,7 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends AbstractBack
             //AdfFacesContext.getCurrentInstance().addPartialTarget(this.getMappingRichDecorativeBox());  
         } catch (Exception e) {
             logger.error(e.getCause(), e);
-            super.addErrorMessage(MessageFormat.format("Se ha producido un error al eliminar el Mapeo para el concepto {0}", concept.getLabel()));
+      //      super.addErrorMessage(MessageFormat.format("Se ha producido un error al eliminar el Mapeo para el concepto {0}", concept.getLabel()));
         }
             
             
@@ -286,20 +286,20 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends AbstractBack
         final DiscoverableTaxonomySet discoverableTaxonomySet = this.getDiscoverableTaxonomySet();
         final LabelLinkbase labelLinkbase = this.getDiscoverableTaxonomySet().getLabelLinkbase();
         TaxonomyTreeItem nodo = null;                    
-        for(Map.Entry<String, List<PresentationLinkbaseElement>> entry : discoverableTaxonomySet.getPresentationLinkbase().getLinkRoleToElementList().entrySet()) {
-            nodo = new TaxonomyTreeItem();
-            nodo.setTaxonomySchema(discoverableTaxonomySet.getTopTaxonomy());
-            nodo.setTaxonomyParent(super.formatTaxonomyParentName(entry.getKey()));
-            conceptChildren = new ArrayList<TaxonomyTreeItem>(); 
-            for(PresentationLinkbaseElement linkbaseElement : entry.getValue()){  
-                final Concept concept = linkbaseElement.getConcept() == null ? new Concept() : linkbaseElement.getConcept();                
-                final String label = Util.getString(labelLinkbase.getLabel(concept, GeneralConstants.XBRL_ROLE_LABEL), "");                
-                concept.setLabel(label);
-                conceptChildren.add(new TaxonomyTreeItem(concept));
-            }
-            nodo.setChildren(conceptChildren); 
-            taxonomyRoot.add(nodo);
-        }                        
+//        for(Map.Entry<String, List<PresentationLinkbaseElement>> entry : discoverableTaxonomySet.getPresentationLinkbase().getLinkRoleToElementList().entrySet()) {
+//            nodo = new TaxonomyTreeItem();
+//            nodo.setTaxonomySchema(discoverableTaxonomySet.getTopTaxonomy());
+//            nodo.setTaxonomyParent(super.formatTaxonomyParentName(entry.getKey()));
+//            conceptChildren = new ArrayList<TaxonomyTreeItem>(); 
+//            for(PresentationLinkbaseElement linkbaseElement : entry.getValue()){  
+//                final Concept concept = linkbaseElement.getConcept();                
+//                final String label = Util.getString(labelLinkbase.getLabel(concept, GeneralConstants.XBRL_ROLE_LABEL), "");                
+//                
+//                conceptChildren.add(new TaxonomyTreeItem(concept));
+//            }
+//            nodo.setChildren(conceptChildren); 
+//            taxonomyRoot.add(nodo);
+//        }                        
         
         this.setListTaxonomyInstance(taxonomyRoot);
     }
@@ -314,37 +314,37 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends AbstractBack
         final DiscoverableTaxonomySet discoverableTaxonomySet = this.getDiscoverableTaxonomySet();
         final LabelLinkbase labelLinkbase = this.getDiscoverableTaxonomySet().getLabelLinkbase();
         TaxonomyTreeItem nodo = null;                    
-        for(Map.Entry<String, List<PresentationLinkbaseElement>> entry : discoverableTaxonomySet.getPresentationLinkbase().getLinkRoleToElementList().entrySet()) {
-            if(entry.getKey().equals(key)){
-                nodo = new TaxonomyTreeItem();
-                nodo.setTaxonomySchema(discoverableTaxonomySet.getTopTaxonomy());
-                nodo.setTaxonomyParent(super.formatTaxonomyParentName(entry.getKey()));
-                conceptChildren = new ArrayList<TaxonomyTreeItem>(); 
-                for(PresentationLinkbaseElement linkbaseElement : entry.getValue()){  
-                    final Concept conceptParent = linkbaseElement.getConcept() == null ? new Concept() : linkbaseElement.getConcept();                
-                    final String label = Util.getString(labelLinkbase.getLabel(conceptParent, GeneralConstants.XBRL_ROLE_LABEL), "");                    
-                    conceptParent.setLabel(label);
-                    TaxonomyTreeItem conceptParentItem = new TaxonomyTreeItem(conceptParent);
-                    
-                    
-                    
-                    List<Concept> successorElements = linkbaseElement.getSuccessorElements();
-                    if(!successorElements.isEmpty()){
-                        List<TaxonomyTreeItem> conceptSuccesorItem = new ArrayList<TaxonomyTreeItem>();
-                        for(Concept conceptSuccesor : successorElements){                                        
-                            final String labelSuccesor = Util.getString(labelLinkbase.getLabel(conceptSuccesor, GeneralConstants.XBRL_ROLE_LABEL), "");
-                            conceptSuccesor.setLabel(labelSuccesor);
-                            conceptSuccesorItem.add(new TaxonomyTreeItem(conceptSuccesor));                            
-                        }
-                        conceptParentItem.setChildren(conceptSuccesorItem);
-                    }  
-                    
-                    conceptChildren.add(conceptParentItem);
-                }
-                nodo.setChildren(conceptChildren); 
-                taxonomyRoot.add(nodo);
-            }
-        }                                
+//        for(Map.Entry<String, List<PresentationLinkbaseElement>> entry : discoverableTaxonomySet.getPresentationLinkbase().getLinkRoleToElementList().entrySet()) {
+//            if(entry.getKey().equals(key)){
+//                nodo = new TaxonomyTreeItem();
+//                nodo.setTaxonomySchema(discoverableTaxonomySet.getTopTaxonomy());
+//                nodo.setTaxonomyParent(super.formatTaxonomyParentName(entry.getKey()));
+//                conceptChildren = new ArrayList<TaxonomyTreeItem>(); 
+//                for(PresentationLinkbaseElement linkbaseElement : entry.getValue()){  
+//                    final Concept conceptParent = linkbaseElement.getConcept() == null ? new Concept() : linkbaseElement.getConcept();                
+//                    final String label = Util.getString(labelLinkbase.getLabel(conceptParent, GeneralConstants.XBRL_ROLE_LABEL), "");                    
+//                    conceptParent.setLabel(label);
+//                    TaxonomyTreeItem conceptParentItem = new TaxonomyTreeItem(conceptParent);
+//                    
+//                    
+//                    
+//                    List<Concept> successorElements = linkbaseElement.getSuccessorElements();
+//                    if(!successorElements.isEmpty()){
+//                        List<TaxonomyTreeItem> conceptSuccesorItem = new ArrayList<TaxonomyTreeItem>();
+//                        for(Concept conceptSuccesor : successorElements){                                        
+//                            final String labelSuccesor = Util.getString(labelLinkbase.getLabel(conceptSuccesor, GeneralConstants.XBRL_ROLE_LABEL), "");
+//                            conceptSuccesor.setLabel(labelSuccesor);
+//                            conceptSuccesorItem.add(new TaxonomyTreeItem(conceptSuccesor));                            
+//                        }
+//                        conceptParentItem.setChildren(conceptSuccesorItem);
+//                    }  
+//                    
+//                    conceptChildren.add(conceptParentItem);
+//                }
+//                nodo.setChildren(conceptChildren); 
+//                taxonomyRoot.add(nodo);
+//            }
+//        }                                
         this.setListTaxonomyInstance(taxonomyRoot);
     }
     
@@ -391,10 +391,10 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends AbstractBack
     public List<SelectItem> getTaxonomyParentItems(){
         List<SelectItem> items = new ArrayList<SelectItem>();
         if (discoverableTaxonomySet != null){
-	        for(Map.Entry<String, List<PresentationLinkbaseElement>> entry : discoverableTaxonomySet.getPresentationLinkbase().getLinkRoleToElementList().entrySet()) {
-	            if(entry.getKey().contains("eeff"))
-	            items.add(new SelectItem( entry.getKey(), super.formatTaxonomyParentName(entry.getKey())));
-	        }        
+//	        for(Map.Entry<String, List<PresentationLinkbaseElement>> entry : discoverableTaxonomySet.getPresentationLinkbase().getLinkRoleToElementList().entrySet()) {
+//	            if(entry.getKey().contains("eeff"))
+//	            items.add(new SelectItem( entry.getKey(), super.formatTaxonomyParentName(entry.getKey())));
+//	        }        
         }
         return items;
     }

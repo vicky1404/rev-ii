@@ -2,8 +2,6 @@ package cl.mdr.exfida.xbrl.ejb.entity;
 
 import java.io.Serializable;
 
-import java.math.BigDecimal;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -18,7 +16,7 @@ import javax.persistence.Table;
 })
 @Table(name = "IFRS_XBRL_RANGO_CODIGO_FECU")
 public class XbrlRangoCodigoFecu implements Serializable {
-    @SuppressWarnings("compatibility:-2404498182761985933")
+    
     private static final long serialVersionUID = 5041656613325961404L;
     
     public static final String FIND_ALL = "XbrlRangoCodigoFecu.findAll";

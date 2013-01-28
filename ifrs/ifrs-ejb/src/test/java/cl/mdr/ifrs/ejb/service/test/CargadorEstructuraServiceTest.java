@@ -100,7 +100,7 @@ public class CargadorEstructuraServiceTest {
 		XSSFSheet sheet = workBook.getSheetAt(0); 
 		List<Columna> columnas = this.getColumnasBySheet(sheet);
 		final Map<Long, Columna> columnaMap = index(columnas, on(Columna.class).getIdColumna());
-		List<AgrupacionColumna> ac = this.getAgrupacionByColumna(sheet, columnaMap);
+		/*List<AgrupacionColumna> ac =*/ this.getAgrupacionByColumna(sheet, columnaMap);
 		//System.out.println(ac);		
 		for(Columna columna : columnas){
 			System.out.println(columna.getAgrupacionColumnaList());

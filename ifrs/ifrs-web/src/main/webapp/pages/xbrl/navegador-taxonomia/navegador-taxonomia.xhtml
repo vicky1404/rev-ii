@@ -19,8 +19,8 @@
 				toggleSpeed="500" closeSpeed="2000" widgetVar="panel">
 
 				<h:panelGrid id="pg1" columns="3" columnClasses="ancho_140">
-					<h:outputLabel value="Taxonomía:" id="ol1" />
-					<p:selectOneMenu label="Taxonomía" id="sol1" effect="fade"
+					<h:outputLabel value="Taxonomï¿½a:" id="ol1" />
+					<p:selectOneMenu label="Taxonomï¿½a" id="sol1" effect="fade"
 						required="true"
 						value="#{navegadorTaxonomiaBackingBean.idXbrlTaxonomiaSelected}">
 						<f:selectItem itemLabel="#{msg.general_control_seleccione}"
@@ -29,7 +29,7 @@
 							value="#{navegadorTaxonomiaBackingBean.xbrlTaxonomias}" var="tax"
 							itemLabel="#{tax.nombre}" itemValue="#{tax.idTaxonomia}" id="si1" />
 					</p:selectOneMenu>
-					<p:commandButton value="Visualizar Taxonomía" id="cb1"
+					<p:commandButton value="Visualizar Taxonomï¿½a" id="cb1"
 						update="@form" icon="ui-icon ui-icon-search"
 						actionListener="#{navegadorTaxonomiaBackingBean.visualizarTaxonomiaAction}">
 					</p:commandButton>
@@ -37,12 +37,12 @@
 				</h:panelGrid>
 				<h:panelGrid id="pg2" columns="2" columnClasses="ancho_140"
 					rendered="#{navegadorTaxonomiaBackingBean.renderTaxonomia}">
-					<h:outputLabel value="Nombre de la Taxonomía principal:" id="ol4" />
+					<h:outputLabel value="Nombre de la Taxonomï¿½a principal:" id="ol4" />
 					<h:outputText
 						value="#{navegadorTaxonomiaBackingBean.discoverableTaxonomySet.topTaxonomy.namespace.prefix} - #{navegadorTaxonomiaBackingBean.discoverableTaxonomySet.topTaxonomy.namespace.URI}"
 						id="it1" />
 										
-					<h:outputLabel value="Versión de la Taxonomía:" id="ol41" />
+					<h:outputLabel value="Versiï¿½n de la Taxonomï¿½a:" id="ol41" />
 					<h:outputText
 						value="#{navegadorTaxonomiaBackingBean.xbrlTaxonomiaSelected.fechaTaxonomia}"
 						id="it111" >
@@ -50,10 +50,10 @@
 					</h:outputText>	
 											
 					<h:outputLabel
-						value="Taxonomías Importadas: (#{fn:length(navegadorTaxonomiaBackingBean.importedTaxonomies)})"
+						value="Taxonomï¿½as Importadas: (#{fn:length(navegadorTaxonomiaBackingBean.importedTaxonomies)})"
 						id="ol2" />
 					<p:commandLink onclick="popUpTaxonomiasImp.show()"
-						value="Visualizar todas las Taxonomías" styleClass="ui-icon ui-icon-zoomin" title="Visualizar todas las Taxonomías">
+						value="Visualizar todas las Taxonomï¿½as" styleClass="ui-icon ui-icon-zoomin" title="Visualizar todas las Taxonomï¿½as">
 							
 					</p:commandLink>
 
@@ -70,7 +70,7 @@
 				var="row" id="t1" style="width:100%;" selectionMode="single"
 				rowKey="#{row.name}" paginator="true" rows="30"
 				paginatorPosition="top"
-				emptyMessage="No existen conceptos asociados a la Taxonomía"				
+				emptyMessage="No existen conceptos asociados a la Taxonomï¿½a"				
 				rowsPerPageTemplate="10,20,30"
 				rendered="#{navegadorTaxonomiaBackingBean.renderTaxonomia}">
 				<f:facet name="header">
@@ -88,7 +88,7 @@
 				</p:column>
 				<p:column sortable="false" headerText="Namespace" align="start"
 					id="c4">
-					<h:outputText value="#{row.namespace.prefix}" id="ot3" />
+					<h:outputText value="#{row.taxonomySchema.namespace.prefix}" id="ot3" />
 				</p:column>
 				<p:column sortable="false" headerText="Substitution Group"
 					align="start" id="c5">
@@ -108,15 +108,15 @@
 			</p:dataTable>
 			<p:dialog id="p3" widgetVar="popUpTaxonomiasImp" modal="false"
 				rendered="#{navegadorTaxonomiaBackingBean.renderTaxonomia}" resizable="false"
-				showEffect="drop" hideEffect="drop" header="Taxonomías Importadas">
+				showEffect="drop" hideEffect="drop" header="Taxonomï¿½as Importadas">
 				<p:dataTable
 					value="#{navegadorTaxonomiaBackingBean.importedTaxonomies}"
 					var="name" id="tax_imp" paginator="true" rows="15"
 					paginatorPosition="top" effectSpeed="fast" rowIndexVar="status">
-					<p:column headerText="N°">
+					<p:column headerText="Nï¿½">
 						<h:outputText value="#{status+1}" />					
 					</p:column>
-					<p:column headerText="Archivo de Taxonomía" filterBy="#{name}" filterMatchMode="contains">
+					<p:column headerText="Archivo de Taxonomï¿½a" filterBy="#{name}" filterMatchMode="contains">
 						<h:outputText value="#{name}" />					
 					</p:column>
 				</p:dataTable>
