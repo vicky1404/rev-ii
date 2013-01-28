@@ -10,7 +10,9 @@ import static ch.lambdaj.Lambda.sort;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -28,6 +30,7 @@ import org.hamcrest.Matchers;
 import org.xml.sax.SAXException;
 
 import xbrlcore.taxonomy.Concept;
+import xbrlcore.taxonomy.ConceptTypes;
 import xbrlcore.taxonomy.DiscoverableTaxonomySet;
 import cl.mdr.exfida.xbrl.ejb.entity.XbrlTaxonomia;
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
@@ -56,7 +59,7 @@ public class NavegadorTaxonomiaBackingBean extends AbstractBackingBean implement
     private List<Concept> taxonomyConceptList;
     private List<Concept> taxonomyConceptAllList;
     private Concept taxonomyConceptFilter;    
-    private List<SelectItem> taxonomyConceptTypeItems;
+    private List<SelectItem> taxonomyConceptTypeItems = new ArrayList<SelectItem>();
    
 
     public NavegadorTaxonomiaBackingBean() {
@@ -66,7 +69,6 @@ public class NavegadorTaxonomiaBackingBean extends AbstractBackingBean implement
     @PostConstruct
     void init(){
     	try {
-    		taxonomyConceptFilter = new Concept();
     		xbrlTaxonomiaSelected = new XbrlTaxonomia();        
 			this.buildXbrlTaxonomiaMap();
 		} catch (Exception e) {
@@ -120,10 +122,14 @@ public class NavegadorTaxonomiaBackingBean extends AbstractBackingBean implement
     
     private void buildTaxonomyConcepts(){        
         taxonomyConceptList = new ArrayList<Concept>();
-        for(Concept concept : this.getDiscoverableTaxonomySet().getConcepts()){ 
-            taxonomyConceptList.add(concept);            
-        }
-        taxonomyConceptList = sort(taxonomyConceptList, on(Concept.class).getId());
+        taxonomyConceptList.addAll(this.getDiscoverableTaxonomySet().getConcepts());
+        Collections.sort(taxonomyConceptList, new Comparator<Concept>() {
+        	
+        	@Override
+        	public int compare(Concept o1, Concept o2) {
+        		return o1.getId().compareTo(o2.getId());
+        	}
+		});
         this.setTaxonomyConceptAllList(taxonomyConceptList);        
     }
     
@@ -132,12 +138,22 @@ public class NavegadorTaxonomiaBackingBean extends AbstractBackingBean implement
     }
     
     private void buildTypeConceptsItem(){
-    	List<String> typesAll = extract(this.getTaxonomyConceptList(), on(Concept.class).getType());    	
-    	final Set<String> typesSet = new TreeSet<String>(typesAll);
+    	    	
+    	ConceptTypes[] values = ConceptTypes.values();
+    	
+    	Arrays.sort(values,new  Comparator<ConceptTypes>(){
+    		 @Override
+    		public int compare(ConceptTypes o1, ConceptTypes o2) {
+    			return o1.toString().compareTo(o2.toString());
+    		}
+    		
+    	});
+    	
+    	
     	taxonomyConceptTypeItems = new ArrayList<SelectItem>();
     	taxonomyConceptTypeItems.add(new SelectItem("", "Seleccione"));
-    	for(String type : typesSet){
-    		taxonomyConceptTypeItems.add(new SelectItem(type, type));
+    	for(ConceptTypes type : values){
+    		taxonomyConceptTypeItems.add(new SelectItem(type.toString(), type.toString()));
     	}
     }
                

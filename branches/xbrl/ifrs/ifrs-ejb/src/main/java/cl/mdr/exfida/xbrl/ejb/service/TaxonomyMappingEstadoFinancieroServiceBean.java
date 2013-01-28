@@ -101,7 +101,7 @@ public class TaxonomyMappingEstadoFinancieroServiceBean implements TaxonomyMappi
         
         for(String concepto : conceptosSet){
             Concept concept = taxonomyConceptMap.get(concepto);
-            concept.setMapeado(Boolean.TRUE);
+            concept.setUserObject(Boolean.TRUE);
             mapping.put(concept, new LinkedHashMap<EstadoFinanciero, Boolean>());
         }
         

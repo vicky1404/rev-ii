@@ -143,7 +143,7 @@ public class MapeadorTaxonomiaRevelacionesBackingBean extends AbstractBackingBea
         
     @PostConstruct    
     void init(){
-        taxonomyConceptFilter = new Concept();
+        //taxonomyConceptFilter = new Concept();
         mapping = new LinkedHashMap<Concept, Map<Celda, Boolean>>();
         celdaMap = new LinkedHashMap<Celda, Celda>();
         celdasByConcept = new ArrayList<SelectItem>();
@@ -219,7 +219,7 @@ public class MapeadorTaxonomiaRevelacionesBackingBean extends AbstractBackingBea
     public void fijarConceptoForMapping(ActionEvent event){
         this.setCeldasByConcept(null);
         final Concept concept = (Concept)event.getComponent().getAttributes().get("concepto");
-        concept.setMapeado(Boolean.TRUE);
+        //concept.setMapeado(Boolean.TRUE);
         this.setConceptoSelectedForMapping(concept);   
         if(mapping.get(this.getConceptoSelectedForMapping()) == null){
             mapping.put(this.getConceptoSelectedForMapping(), new LinkedHashMap<Celda, Boolean>());
@@ -236,7 +236,7 @@ public class MapeadorTaxonomiaRevelacionesBackingBean extends AbstractBackingBea
      */
     public void eliminarConceptoForMapping(ActionEvent event){
         final Concept concept = (Concept)event.getComponent().getAttributes().get("concepto");
-        concept.setMapeado(Boolean.FALSE);
+        //concept.setMapeado(Boolean.FALSE);
         try {
             this.getFacadeService().getTaxonomyMappingRevelacionService().deleteMappingByConceptoAndTaxonomia(super.getFiltroBackingBean().getXbrlTaxonomia(), concept);
             mapping.remove(concept);
@@ -245,7 +245,7 @@ public class MapeadorTaxonomiaRevelacionesBackingBean extends AbstractBackingBea
             //AdfFacesContext.getCurrentInstance().addPartialTarget(this.getGrillaTable());
         } catch (Exception e) {
             logger.error(e.getCause(), e);
-            super.addErrorMessage(MessageFormat.format("Se ha producido un error al eliminar el Mapeo para el concepto {0}", concept.getLabel()));
+            //super.addErrorMessage(MessageFormat.format("Se ha producido un error al eliminar el Mapeo para el concepto {0}", concept.getLabel()));
         }                        
     }
     
@@ -423,20 +423,21 @@ public class MapeadorTaxonomiaRevelacionesBackingBean extends AbstractBackingBea
         final DiscoverableTaxonomySet discoverableTaxonomySet = this.getDiscoverableTaxonomySet();
         final LabelLinkbase labelLinkbase = this.getDiscoverableTaxonomySet().getLabelLinkbase();
         TaxonomyTreeItem nodo = null;                    
-        for(Map.Entry<String, List<PresentationLinkbaseElement>> entry : discoverableTaxonomySet.getPresentationLinkbase().getLinkRoleToElementList().entrySet()) {
-            nodo = new TaxonomyTreeItem();
-            nodo.setTaxonomySchema(discoverableTaxonomySet.getTopTaxonomy());
-            nodo.setTaxonomyParent(super.formatTaxonomyParentName(entry.getKey()));
-            conceptChildren = new ArrayList<TaxonomyTreeItem>(); 
-            for(PresentationLinkbaseElement linkbaseElement : entry.getValue()){  
-                final Concept concept = linkbaseElement.getConcept() == null ? new Concept() : linkbaseElement.getConcept();                
-                final String label = Util.getString(labelLinkbase.getLabel(concept, GeneralConstants.XBRL_ROLE_LABEL), "");                
-                concept.setLabel(label);
-                conceptChildren.add(new TaxonomyTreeItem(concept));
-            }
-            nodo.setChildren(conceptChildren); 
-            taxonomyRoot.add(nodo);
-        }                        
+//        for(Map.Entry<String, List<PresentationLinkbaseElement>> entry : discoverableTaxonomySet.getPresentationLinkbase().getLinkRoleToElementList().entrySet()) {
+//        	
+//            nodo = new TaxonomyTreeItem();
+//            nodo.setTaxonomySchema(discoverableTaxonomySet.getTopTaxonomy());
+//            nodo.setTaxonomyParent(super.formatTaxonomyParentName(entry.getKey()));
+//            conceptChildren = new ArrayList<TaxonomyTreeItem>(); 
+//            for(PresentationLinkbaseElement linkbaseElement : entry.getValue()){  
+//                final Concept concept = linkbaseElement.getConcept();                
+//                final String label = Util.getString(labelLinkbase.getLabel(concept, GeneralConstants.XBRL_ROLE_LABEL), "");                
+//                //concept.setLabel(label);
+//                conceptChildren.add(new TaxonomyTreeItem(concept));
+//            }
+//            nodo.setChildren(conceptChildren); 
+//            taxonomyRoot.add(nodo);
+//        }                        
         
         this.setListTaxonomyInstance(taxonomyRoot);
     }
@@ -451,22 +452,22 @@ public class MapeadorTaxonomiaRevelacionesBackingBean extends AbstractBackingBea
         final DiscoverableTaxonomySet discoverableTaxonomySet = this.getDiscoverableTaxonomySet();
         final LabelLinkbase labelLinkbase = this.getDiscoverableTaxonomySet().getLabelLinkbase();
         TaxonomyTreeItem nodo = null;                    
-        for(Map.Entry<String, List<PresentationLinkbaseElement>> entry : discoverableTaxonomySet.getPresentationLinkbase().getLinkRoleToElementList().entrySet()) {
-            if(entry.getKey().equals(key)){
-                nodo = new TaxonomyTreeItem();
-                nodo.setTaxonomySchema(discoverableTaxonomySet.getTopTaxonomy());
-                nodo.setTaxonomyParent(super.formatTaxonomyParentName(entry.getKey()));
-                conceptChildren = new ArrayList<TaxonomyTreeItem>(); 
-                for(PresentationLinkbaseElement linkbaseElement : entry.getValue()){  
-                    final Concept concept = linkbaseElement.getConcept() == null ? new Concept() : linkbaseElement.getConcept();                
-                    final String label = Util.getString(labelLinkbase.getLabel(concept, GeneralConstants.XBRL_ROLE_LABEL), "");                
-                    concept.setLabel(label);
-                    conceptChildren.add(new TaxonomyTreeItem(concept));
-                }
-                nodo.setChildren(conceptChildren); 
-                taxonomyRoot.add(nodo);
-            }
-        }                                
+//        for(Map.Entry<String, List<PresentationLinkbaseElement>> entry : discoverableTaxonomySet.getPresentationLinkbase().getLinkRoleToElementList().entrySet()) {
+//            if(entry.getKey().equals(key)){
+//                nodo = new TaxonomyTreeItem();
+//                nodo.setTaxonomySchema(discoverableTaxonomySet.getTopTaxonomy());
+//                nodo.setTaxonomyParent(super.formatTaxonomyParentName(entry.getKey()));
+//                conceptChildren = new ArrayList<TaxonomyTreeItem>(); 
+//                for(PresentationLinkbaseElement linkbaseElement : entry.getValue()){  
+//                    final Concept concept = linkbaseElement.getConcept() == null ? new Concept() : linkbaseElement.getConcept();                
+//                    final String label = Util.getString(labelLinkbase.getLabel(concept, GeneralConstants.XBRL_ROLE_LABEL), "");                
+//                    //concept.setLabel(label);
+//                    conceptChildren.add(new TaxonomyTreeItem(concept));
+//                }
+//                nodo.setChildren(conceptChildren); 
+//                taxonomyRoot.add(nodo);
+//            }
+//        }                                
         this.setListTaxonomyInstance(taxonomyRoot);
     }
     
@@ -493,10 +494,10 @@ public class MapeadorTaxonomiaRevelacionesBackingBean extends AbstractBackingBea
     
     public List<SelectItem> getTaxonomyParentItems(){
         List<SelectItem> items = new ArrayList<SelectItem>();
-        for(Map.Entry<String, List<PresentationLinkbaseElement>> entry : discoverableTaxonomySet.getPresentationLinkbase().getLinkRoleToElementList().entrySet()) {
-            if(entry.getKey().toUpperCase().contains("NOTA"))
-            items.add(new SelectItem( entry.getKey(), super.formatTaxonomyParentName(entry.getKey())));
-        }        
+//        for(Map.Entry<String, List<PresentationLinkbaseElement>> entry : discoverableTaxonomySet.getPresentationLinkbase().getLinkRoleToElementList().entrySet()) {
+//            if(entry.getKey().toUpperCase().contains("NOTA"))
+//            items.add(new SelectItem( entry.getKey(), super.formatTaxonomyParentName(entry.getKey())));
+//        }        
         return items;
     }
     

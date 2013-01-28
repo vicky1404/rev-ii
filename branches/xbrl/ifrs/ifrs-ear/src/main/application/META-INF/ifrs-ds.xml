@@ -6,8 +6,8 @@
   <driver>oracle</driver>
   <pool></pool>
   <security>
-   <user-name>ifrs</user-name>
-   <password>ifrs</password>
+   <user-name>EXFIDA</user-name>
+   <password>123456</password>
   </security>
  </datasource>
 </datasources>
