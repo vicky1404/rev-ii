@@ -103,11 +103,7 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 			if (Util.getLong(super.getUsuarioSesion().getCambiarPassword(), 0L).equals(1L)){
 				super.getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(MIS_DATOS_VIEW_ID));
 			}
-
-			if(this.isSistemaBloqueado()){
-				super.getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(INGRESO_BLOQUEADO_VIEW_ID));
-			}
-						
+								
 			this.buildEmpresaList();
 			this.buildMenuEmpresa();									
 		} catch (Exception e) {
