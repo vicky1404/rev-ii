@@ -43,8 +43,7 @@
 	                        <p:inputText value="#{row.descripcion}" id="it1" required="true" size="100"/>
 	                    </p:column>
 	                    <p:column sortable="false" width="90" headerText="Vigencia" align="start" id="c8">
-	                        <p:selectOneMenu label=" " id="soc1" value="#{row.vigencia}" showRequired="true"
-	                                            requiredMessageDetail="Seleccione Vigencia" required="true">
+	                        <p:selectOneMenu label=" " id="soc1" value="#{row.vigencia}" showRequired="true" requiredMessageDetail="Seleccione Vigencia" required="true">
 	                            <f:selectItems value="#{cargadorCuentaBackingBean.componenteBackingBean.vigencias}" id="si1" itemValue="#{row.vigencia}"/>
 	                        </p:selectOneMenu>
 	                    </p:column>
@@ -70,7 +69,7 @@
                     <p:commandButton value="#{msg.carga_eeff_guardar}" id="cb3" title="Guarda los datos cargados desde el archivo"
                                   actionListener="#{cargadorCuentaBackingBean.guardarListener}"
                                   icon="ui-icon-disk"
-                                  partialSubmit="true"/>
+                                  update="@form"/>
                 
                 
                 
