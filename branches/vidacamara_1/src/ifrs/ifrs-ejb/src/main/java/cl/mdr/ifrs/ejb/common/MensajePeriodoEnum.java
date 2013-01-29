@@ -84,16 +84,18 @@ public class MensajePeriodoEnum {
 	public enum AbrirPeriodo{
 		
 		/*--ERRORES
-		--1 ABRE PERIODO CORRECTO
-		--2 PERIODO NO CERRADO    
-		--3 PERIODO NO CERRADO POR EMPRESA
-		--4 INSERTAR LOG
-		--5 PERIODO NUEVO EXISTE
-		--6 ERROR INSERTAR PERIODO
-		--7 ERROR AL GENERAR VERSIONES
-		--8 GRILLA INCONSITENTE
-		--9 TEXTO INCONSISTENTE
-		--10 HTML INCONSISTENTE*/
+		--ERRORES
+			--0 ABRE PERIODO CORRECTO
+			--2 PERIODO NO CERRADO    
+			--3 PERIODO NO CERRADO POR EMPRESA
+			--4 INSERTAR LOG
+			--5 PERIODO NUEVO EXISTE
+			--6 ERROR INSERTAR PERIODO
+			--7 ERROR AL GENERAR VERSIONES
+			--8 GRILLA INCONSITENTE
+			--9 TEXTO INCONSISTENTE
+			--10 HTML INCONSISTENTE
+			--11 ERROR INESPERADO*/
 		
 		ABRIR_PERIODO_OK(1, "El período fue abierto de forma exitosa"),
 		PERIODO_ESTA_ABIERTO(2, "Se debe cerrar el periodo antes de abrir el período. Todas las empresas deben haber cerrado el período, debido a que se generará un nuevo periodo"),
@@ -104,7 +106,8 @@ public class MensajePeriodoEnum {
 		ERROR_COPIAR_VERSION(7,"Error al copiar información para el nuevo período"),
 		ERROR_ESTRUCTURA_GRILLA(8,"Error la estructura grilla que se intenta copiar no existe en base de datos"),
 		ERROR_ESTRUCTURA_TEXTO(9,"Error la estructura texto que se intenta copiar no existe en base de datos"),
-		ERROR_ESTRUCTURA_HTML(10,"Error la estructura html que se intenta copiar no existe en base de datos");
+		ERROR_ESTRUCTURA_HTML(10,"Error la estructura html que se intenta copiar no existe en base de datos"),
+		ERROR_FATAL(11,"Error inesperado al copiar información del período anterior");
 		
 		private int key;
 	    private String value;
@@ -132,7 +135,7 @@ public class MensajePeriodoEnum {
 			AbrirPeriodo salida = null;
 			
 			switch (key) {
-			case 1:
+			case 0:
 				salida = ABRIR_PERIODO_OK;
 				break;
 			case 2:
