@@ -67,7 +67,7 @@ public class PeriodoBackingBean extends AbstractBackingBean{
                 
             	int keyMessage = getFacadeService().getPeriodoService().abrirPeriodo(this.getNombreUsuario());
                 
-            	if (keyMessage == 1){
+            	if (keyMessage == 0){
             		getComponenteBackingBean().setPeriodoList(null);
                     addInfoMessage(PropertyManager.getInstance().getMessage("abrir_periodo_correcto"));
                     //addInfoMessage(MensajePeriodoEnum.CerrarPeriodo.getMensajeByKey(keyMessage).getValue());

@@ -54,7 +54,7 @@ public class PeriodoServiceBean implements PeriodoServiceLocal{
    	
     public Integer abrirPeriodo(String usuario) throws Exception {
     	
-    	CallableStatement callableStatement = ((SessionImpl) em.getDelegate()).connection().prepareCall("{call PKG_IFRS_PERIODO.PRC_NUEVO_PERIODO(?,?)}");
+    	CallableStatement callableStatement = ((SessionImpl) em.getDelegate()).connection().prepareCall("{call PRC_NUEVO_PERIODO(?,?)}");
 
     	callableStatement.setString(1, usuario);
     	callableStatement.registerOutParameter(2, Types.INTEGER);
@@ -68,7 +68,7 @@ public class PeriodoServiceBean implements PeriodoServiceLocal{
     
     public Integer cerrarPeriodo(PeriodoEmpresa periodoEmpresa, String usuario) throws Exception {
     	
-    	CallableStatement callableStatement = ((SessionImpl) em.getDelegate()).connection().prepareCall("{call PKG_IFRS_PERIODO.PRC_CERRAR_PERIODO(?,?,?,?)}");
+    	CallableStatement callableStatement = ((SessionImpl) em.getDelegate()).connection().prepareCall("{call PRC_CERRAR_PERIODO(?,?,?,?)}");
 
     	callableStatement.setLong(1, periodoEmpresa.getIdPeriodo());
     	callableStatement.setLong(2, periodoEmpresa.getIdRut());
