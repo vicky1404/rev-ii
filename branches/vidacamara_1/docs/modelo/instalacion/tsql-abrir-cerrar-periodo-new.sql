@@ -1,10 +1,355 @@
+-- =============================================
+-- Author:		<MDR TECHNOLOGY>
+-- Create date: <28-01-2013>
+-- Description:	<Procedimiento que cierra el periodo para una empresa>
+-- =============================================
+CREATE PROCEDURE [dbo].[PRC_CERRAR_PERIODO](
+@P_ID_PERIODO INT, 
+@P_ID_RUT INT, 
+@P_USUARIO VARCHAR, 
+@P_ERRNO INT OUTPUT
+)
+
+AS
+BEGIN
+
+SET NOCOUNT ON;
+
+DECLARE
+    @V_ERRNO INT,
+    @V_MSG VARCHAR(2048),  
+    @V_ID_LOG INT,
+	@V_EMPRESA VARCHAR(512),
+	@V_PERIODO_EMPRESA_ID_PERIODO INT,
+	@V_PERIODO_EMPRESA_ID_RUT INT,
+	@V_PERIODO_EMPRESA_ID_ESTADO_PERIODO INT,
+	@V_PERIODO_CERRADO  INT,
+	@V_CONTADOR_PERIODO_ABIERTOS INT;
+		
+	--ERRORES
+	--1 SE CIERRA PERIODO SOLO PARA LA EMPRESA
+	--2 SE CIERRA PERIODO PARA TODAS LAS EMPRESAS (TODAS LAS EMPRESAS TIENE EL PERIODO CERRADO) 
+	--3 EMPERSA NO EXISTE
+	--4 ERROR INSERTAR LOG
+	--5 PERIODO NO EXISTE
+	--6 PERIODO EN ESTADO CERRADO
+	--7 OTRO ERROR
+	
+	SET @V_PERIODO_CERRADO = 1;
+	
+	--INSERTANDO LOG
+    BEGIN TRANSACTION;
+    BEGIN TRY
+		
+		INSERT INTO IFRS_LOG_PROCESO(USUARIO,FECHA,LOG) VALUES(@P_USUARIO,GETDATE(),'INICIANDO CERRAR PERIODO');
+		SET @V_ID_LOG = @@IDENTITY;
+		COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+		ROLLBACK TRANSACTION;
+		set @P_ERRNO = 4;
+        RETURN;
+    END CATCH
+    
+    
+    BEGIN TRANSACTION
+	BEGIN TRY
+		
+		SELECT @V_EMPRESA = NOMBRE FROM IFRS_EMPRESA WHERE ID_RUT = 123123;
+		
+		IF @@ROWCOUNT = 0
+		BEGIN
+			SET @P_ERRNO = 3;
+			goto ERR_HANDLER;
+		END;
+		
+		SELECT @V_PERIODO_EMPRESA_ID_ESTADO_PERIODO = ID_ESTADO_PERIODO FROM IFRS_PERIODO_EMPRESA WHERE ID_RUT = @P_ID_RUT AND ID_PERIODO = @P_ID_PERIODO;
+		
+		IF @@ROWCOUNT = 0
+		BEGIN
+			SET @P_ERRNO = 5;
+			goto ERR_HANDLER;
+		END;
+		
+		IF @V_PERIODO_EMPRESA_ID_ESTADO_PERIODO = @V_PERIODO_CERRADO 
+		BEGIN
+			SET @P_ERRNO = 6;
+			goto ERR_HANDLER;
+		END;
+		
+		UPDATE IFRS_PERIODO_EMPRESA SET ID_ESTADO_PERIODO = @V_PERIODO_CERRADO WHERE ID_PERIODO = @P_ID_PERIODO AND ID_RUT = @P_ID_RUT;
+		UPDATE IFRS_LOG_PROCESO SET LOG = 'SE HA CERRADO CORRECTAMENTE EL PERIODO PARA EMPRESA RUT: ' + CAST(@P_ID_RUT AS VARCHAR) WHERE ID_LOG = @V_ID_LOG;
+		SET @P_ERRNO = 1;
+		
+		SELECT 
+				@V_CONTADOR_PERIODO_ABIERTOS = COUNT(*) 
+		FROM 
+				IFRS_PERIODO_EMPRESA 
+		WHERE 
+				ID_PERIODO = @P_ID_PERIODO AND 
+				ID_ESTADO_PERIODO <> @V_PERIODO_CERRADO;
+				
+		IF @V_CONTADOR_PERIODO_ABIERTOS = 0
+		BEGIN	
+			UPDATE IFRS_PERIODO SET ID_ESTADO_PERIODO = @V_PERIODO_CERRADO WHERE ID_PERIODO = @P_ID_PERIODO;
+			UPDATE IFRS_LOG_PROCESO SET LOG = 'SE HA CERRADO CORRECTAMENTE EL PERIODO PARA EMPRESA RUT: ' + CAST(@P_ID_RUT AS VARCHAR) + ' - PERIODO CERRADO' WHERE ID_LOG = @V_ID_LOG;
+			SET @P_ERRNO = 2;
+		END;
+		
+		COMMIT TRANSACTION;
+		
+	END TRY
+	BEGIN CATCH
+		SET @V_ERRNO = ERROR_NUMBER();
+		SET	@V_MSG = ERROR_MESSAGE();
+		goto ERR_HANDLER;
+		RETURN;
+	END CATCH;
+	
+	
+	ERR_HANDLER:
+	BEGIN
+		--PRINT 'ERROR TSQL : ' +  CAST(@@ERROR AS VARCHAR)
+		
+		IF(@V_ERRNO IS NULL)
+			SET @V_ERRNO = 0;
+		IF(@V_MSG IS NULL)
+			SET	@V_MSG = 'SIN ERROR DE SQL - ERROR DE VALIDACION';
+			
+		--ROLLBACK DE LA TRANSACCION
+		ROLLBACK TRANSACTION
+		
+		--COMMIT AL LOG
+		BEGIN TRANSACTION
+		BEGIN TRY
+		
+			--CONTROL DE EXCEPTION
+			IF (@P_ERRNO IS NULL)
+				UPDATE IFRS_LOG_PROCESO SET LOG = 'P_ERRNO = NULL - ERROR : ' + CAST(@V_ERRNO AS VARCHAR) + ' - ' + @V_MSG WHERE ID_LOG = @V_ID_LOG;
+			ELSE IF @P_ERRNO = 3
+				UPDATE IFRS_LOG_PROCESO SET LOG = 'ERROR : NO EXISTE EMPRESA CON EL RUT ' + CAST(@P_ID_RUT AS VARCHAR) WHERE ID_LOG = @V_ID_LOG;
+			ELSE IF @P_ERRNO = 5
+				UPDATE IFRS_LOG_PROCESO SET LOG = 'ERROR : NO EXISTE PERIODO ' + CAST(@P_ID_PERIODO AS VARCHAR) + ' EMPRESA ' + CAST(@P_ID_RUT AS VARCHAR) WHERE ID_LOG = @V_ID_LOG;
+			ELSE IF @P_ERRNO = 6
+				UPDATE IFRS_LOG_PROCESO SET LOG = 'ERROR : PERIODO EN ESADO CERRADO ' + CAST(@P_ID_PERIODO AS VARCHAR) + ' EMPRESA ' + CAST(@P_ID_RUT AS VARCHAR)  WHERE ID_LOG = @V_ID_LOG;
+			ELSE
+				UPDATE IFRS_LOG_PROCESO SET LOG = 'P_ERRNO = '+CAST(@P_ERRNO AS VARCHAR)+' - ERROR : ' + CAST(@V_ERRNO AS VARCHAR) + ' - ' + @V_MSG  WHERE ID_LOG = @V_ID_LOG;
+			
+		COMMIT TRANSACTION;
+		RETURN;
+				
+		END TRY
+		BEGIN CATCH
+			ROLLBACK TRANSACTION
+			RETURN;
+		END CATCH 
+	END;
+	
+	
+END;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 -- =============================================
--- Author:		<MDR Technology>
--- Create date: <Create Date,,>
--- Description:	<Description,,>
+-- Author:		<MDR TECHNOLOGY>
+-- Create date: <28-01-2013>
+-- Description:	<Procedimiento que copia la estructura de la versión anterior>
 -- =============================================
-CREATE PROCEDURE PRC_NUEVO_PERIODO(
+CREATE PROCEDURE [dbo].[PRC_COPIA_TIPO_ESTRUCTURA](
+	@P_ID_ESTRUCTURA_NUEVA INT,
+	@P_ID_ESTRUCTURA_ANTERIOR INT,
+	@P_ID_TIPO_ESTRUCTURA INT
+)
+AS
+BEGIN
+
+SET NOCOUNT ON;
+
+	DECLARE
+	@CONST_TIPO_GRILLA INT,
+	@CONST_TIPO_HTML INT,
+	@CONST_TIPO_TEXTO INT;
+	
+	
+	SET @CONST_TIPO_GRILLA = 0
+    SET @CONST_TIPO_HTML = 1
+    SET @CONST_TIPO_TEXTO = 2
+
+--IF SI ES TIPO GRILLA
+	IF @P_ID_TIPO_ESTRUCTURA = @CONST_TIPO_GRILLA
+	BEGIN
+	
+		DECLARE 
+		@V_CUR_TITULO_GRILLA VARCHAR(256),
+		@V_CUR_TIPO_FORMULA INT;
+		
+		SELECT @V_CUR_TITULO_GRILLA = TITULO, @V_CUR_TIPO_FORMULA = TIPO_FORMULA
+		FROM IFRS_GRILLA
+		WHERE ID_GRILLA = @P_ID_ESTRUCTURA_ANTERIOR;
+
+--INSERTANDO GRILLA
+		INSERT INTO IFRS_GRILLA
+                        (ID_GRILLA, 
+                         TITULO, 
+                         TIPO_FORMULA) 
+        VALUES			(
+                        @P_ID_ESTRUCTURA_NUEVA, 
+                        @V_CUR_TITULO_GRILLA, 
+                        @V_CUR_TIPO_FORMULA);
+		
+--FIN COPIADO GRILLA		
+		
+		--COPIANDO COLUMNA
+		INSERT INTO IFRS_COLUMNA (
+									ID_GRILLA,
+									ID_COLUMNA, 
+									TITULO_COLUMNA, 
+									ORDEN, 
+									ANCHO, 
+									ROW_HEADER) 
+								SELECT 
+									@P_ID_ESTRUCTURA_NUEVA, 
+									ID_COLUMNA, 
+									TITULO_COLUMNA, 
+									ORDEN, 
+									ANCHO, 
+									ROW_HEADER
+								FROM 
+									IFRS_COLUMNA 
+								WHERE 
+									ID_GRILLA = @P_ID_ESTRUCTURA_ANTERIOR
+								ORDER BY 
+									ID_COLUMNA;
+		
+--FIN COPIADO COLUMNA
+
+--COPIANDO CELDA		
+		INSERT INTO IFRS_CELDA (
+/*1*/                           ID_GRILLA, 
+/*2*/                           ID_COLUMNA, 
+/*3*/                           ID_FILA, 
+/*4*/                           ID_TIPO_CELDA, 
+/*5*/                           ID_TIPO_DATO, 
+/*6*/                           VALOR, 
+/*7*/                           FORMULA, 
+/*8*/                           CHILD_HORIZONTAL, 
+/*9*/                           PARENT_HORIZONTAL, 
+/*10*/                          CHILD_VERTICAL, 
+/*11*/                          PARENT_VERTICAL)
+
+		SELECT					@P_ID_ESTRUCTURA_NUEVA, 
+								ID_COLUMNA, 
+								ID_FILA,
+								ID_TIPO_CELDA,
+								ID_TIPO_DATO,
+								CASE ID_TIPO_CELDA WHEN 1 THEN 
+									(CASE WHEN ID_TIPO_DATO IN(2,3) THEN NULL ELSE VALOR END)
+								ELSE VALOR END VALOR, --NO SE COPIA LOS TIPOS 2 Y 3 QUE SON NUMEROS
+								FORMULA, 
+								CHILD_HORIZONTAL,
+								PARENT_HORIZONTAL,
+								CHILD_VERTICAL,
+								PARENT_VERTICAL
+		FROM 
+			IFRS_CELDA 
+		WHERE 
+			ID_GRILLA = @P_ID_ESTRUCTURA_ANTERIOR
+			ORDER BY ID_COLUMNA,ID_FILA;
+
+--FIN COPIADO CELDA
+
+--COPIANDO AGRUPACION_COLUMNA
+
+		INSERT INTO IFRS_AGRUPACION_COLUMNA (
+                                            ID_GRILLA,
+                                            ID_COLUMNA, 
+                                            ID_NIVEL, 
+                                            TITULO, 
+                                            ANCHO, 
+                                            GRUPO)
+        SELECT								@P_ID_ESTRUCTURA_NUEVA,
+											ID_COLUMNA,
+											ID_NIVEL, 
+											TITULO, 
+											ANCHO, 
+											GRUPO
+		FROM 
+			IFRS_AGRUPACION_COLUMNA 
+		WHERE 
+			ID_GRILLA = @P_ID_ESTRUCTURA_ANTERIOR
+			ORDER BY ID_COLUMNA, ID_NIVEL;
+
+	END;
+--COPIANDO TIPO HTML
+	ELSE IF @P_ID_TIPO_ESTRUCTURA = @CONST_TIPO_HTML
+	BEGIN
+		INSERT INTO IFRS_HTML ( ID_HTML, 
+								CONTENIDO, 
+								TITULO)
+		SELECT						
+								@P_ID_ESTRUCTURA_NUEVA, 
+								CONTENIDO, 
+								TITULO
+		FROM 
+			IFRS_HTML
+		WHERE
+			ID_HTML = @P_ID_ESTRUCTURA_ANTERIOR;
+	END;
+--COPIANDO TIPO TEXTO
+	ELSE IF @P_ID_TIPO_ESTRUCTURA = @CONST_TIPO_TEXTO
+	BEGIN
+		INSERT INTO IFRS_TEXTO (ID_TEXTO,
+								TEXTO,
+								NEGRITA)
+		SELECT					
+								@P_ID_ESTRUCTURA_NUEVA,
+								TEXTO,
+								NEGRITA
+		FROM
+			IFRS_TEXTO
+		WHERE 
+			ID_TEXTO = @P_ID_ESTRUCTURA_ANTERIOR;
+	END;
+
+--FINALIZA COPIADO DE ESTRUCTURAS	
+	
+END--END PROCEDURE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- =============================================
+-- Author:		<MDR TECHNOLOGY>
+-- Create date: <28-01-2013>
+-- Description:	<Procedimiento Crea un nuevo periodo copiando los datos del periodo anterior>
+-- =============================================
+CREATE PROCEDURE [dbo].[PRC_NUEVO_PERIODO](
 
 @P_USUARIO VARCHAR(256), 
 @P_ERRNO INT OUTPUT
@@ -39,12 +384,6 @@ DECLARE
 	@V_HTML_CONTENIDO VARBINARY(MAX),
 	@V_HTML_TITULO VARCHAR(1024),
 	
-	
-    /*V_TYPE_PERIODO_ACTUAL IFRS_PERIODO%ROWTYPE;
-    V_TYPE_TEXTO IFRS_TEXTO%ROWTYPE;       --SE ASIGNA A TABLA
-    V_TYPE_GRILLA IFRS_GRILLA%ROWTYPE;     --SE ASIGNA A TABLA
-    V_TYPE_HTML IFRS_HTML%ROWTYPE;*/
-
 
 --CONSTANTES
     @CONST_PERIODO_ABIERTO  INT,
@@ -98,10 +437,7 @@ DECLARE
     SET @CONST_TIPO_TEXTO = 2
     SET @P_ERRNO = 1
     
-    PRINT 'INICIANDO PROCEDURE';
-    
-    
-   
+    --PRINT 'INICIANDO PROCEDURE';
 
     --INSERTANDO LOG
     BEGIN TRANSACTION;
@@ -109,7 +445,7 @@ DECLARE
 		
 		INSERT INTO IFRS_LOG_PROCESO(USUARIO,FECHA,LOG) VALUES(@P_USUARIO,GETDATE(),'INICIANDO ABRIR PERIODO');
 		SET @V_ID_LOG = @@IDENTITY;
-		PRINT 'INSERTANDO LOG ' + CAST(@V_ID_LOG AS VARCHAR)
+		--PRINT 'INSERTANDO LOG ' + CAST(@V_ID_LOG AS VARCHAR)
 		COMMIT TRANSACTION;
     END TRY
     BEGIN CATCH
@@ -118,7 +454,7 @@ DECLARE
         RETURN;
     END CATCH
     
-    --TRANSACCION DE INSERCION
+    --TRANSACCION DE INSERCION LOG INICIAL
     BEGIN TRANSACTION
 	BEGIN TRY
 	
@@ -159,9 +495,9 @@ DECLARE
 	SET @V_MES_PERIODO = MONTH(@V_PERIODO_DATE);
 	SET @V_ANIO_PERIODO = YEAR(@V_PERIODO_DATE);
 	
-	PRINT 'PERIODO DATE' + CAST(@V_PERIODO_DATE AS VARCHAR) 
-	PRINT 'PERIODO MONTH' + CAST(@V_MES_PERIODO AS VARCHAR) 
-	PRINT 'PERIODO YEAR' + CAST(@V_ANIO_PERIODO AS VARCHAR) 
+	--PRINT 'PERIODO DATE' + CAST(@V_PERIODO_DATE AS VARCHAR) 
+	--PRINT 'PERIODO MONTH' + CAST(@V_MES_PERIODO AS VARCHAR) 
+	--PRINT 'PERIODO YEAR' + CAST(@V_ANIO_PERIODO AS VARCHAR) 
 	
 	IF @V_MES_PERIODO = 12
 		BEGIN
@@ -195,8 +531,8 @@ DECLARE
 	--INSERTANDO PERIODO Y PERIODO EMPRESA
     BEGIN TRY
     
-		PRINT  'PERIODO NUEVO -> ' + CAST(@V_ID_PERIODO_NUEVO AS VARCHAR)
-		PRINT 'ESTADO PERIODO NUEVO -> ' + CAST(@CONST_PERIODO_ABIERTO AS VARCHAR)
+		--PRINT  'PERIODO NUEVO -> ' + CAST(@V_ID_PERIODO_NUEVO AS VARCHAR)
+		--PRINT 'ESTADO PERIODO NUEVO -> ' + CAST(@CONST_PERIODO_ABIERTO AS VARCHAR)
 		
         INSERT INTO IFRS_PERIODO (ID_PERIODO, ID_ESTADO_PERIODO)  VALUES ( @V_ID_PERIODO_NUEVO, @CONST_PERIODO_ABIERTO);
         
@@ -226,6 +562,7 @@ DECLARE
 				FETCH CUR_PERIODO_EMPRESA INTO @V_P_ID_RUT;
 				
 			END;
+		
 		CLOSE CUR_PERIODO_EMPRESA;
 		DEALLOCATE CUR_PERIODO_EMPRESA;
        
@@ -241,7 +578,7 @@ DECLARE
     
 	--COPIANDO INFORMACION    
     BEGIN TRY
-		
+    
 		--DECLARANDO VARIABLES CURSOR CUR_VERSION
 		DECLARE
 		@V_CUR_ID_VERSION INT,
@@ -316,7 +653,7 @@ DECLARE
 
 				--SELECT @V_ID_HISTORIAL_VERSION = (MAX(ID_HISTORIAL)+1) FROM IFRS_HISTORIAL_VERSION;
 				--SET @V_ID_HISTORIAL_VERSION = @@IDENTITY;
-				PRINT 'SE INSERTA HISTORIAL VERSION'
+				--PRINT 'SE INSERTA HISTORIAL VERSION'
 				
 				INSERT INTO IFRS_HISTORIAL_VERSION 
 		/*1*/                (   --ID_HISTORIAL,
@@ -334,7 +671,7 @@ DECLARE
 		/*6*/                    @CONST_COMENTARIO_VERSION);
 			
 			
-			PRINT 'DECLARANDO CURSOR PARA COPIAR ESTRUCTURA'
+			--PRINT 'DECLARANDO CURSOR PARA COPIAR ESTRUCTURA'
 			
 			DECLARE @V_CUR_ID_ESTRUCTURA INT, 
 					@V_CUR_ID_TIPO_ESTRUCTURA INT,
@@ -348,7 +685,7 @@ DECLARE
 					FROM IFRS_ESTRUCTURA 
 					WHERE ID_VERSION = @V_CUR_ID_VERSION;
 				
-				PRINT 'ITERANDO PRIMER REGISTRO ESTRUCTURA'
+				--PRINT 'ITERANDO PRIMER REGISTRO ESTRUCTURA'
 
 				OPEN CUR_ESTRUCTURA;
 				--SE LEE PRIMER REGISTRO
@@ -356,7 +693,7 @@ DECLARE
 											@V_CUR_ID_TIPO_ESTRUCTURA,
 											@V_CUR_ORDEN;
 	            
-	            PRINT 'ITERANDO ESTRUCTURAS'
+	            --PRINT 'ITERANDO ESTRUCTURAS'
 	                       
 				--ITERANDO ESTRUCTURA 
 				WHILE (@@FETCH_STATUS = 0)
@@ -375,19 +712,20 @@ DECLARE
                          @V_ID_VERSION_NUEVA, 
 						 @V_CUR_ID_TIPO_ESTRUCTURA, 
                          @V_CUR_ORDEN);
-					END;
-					
-					PRINT 'COPIANDO ESTRUCTURA'
-					
-					EXEC PRC_COPIA_TIPO_ESTRUCTURA @V_ID_ESTRUCTURA_NUEVA, @V_CUR_ID_ESTRUCTURA, @V_CUR_ID_TIPO_ESTRUCTURA
-					
-					PRINT 'TERMINANDO COPIAR ESTRUCTURA'
-					
-					
+                         
+                    EXEC PRC_COPIA_TIPO_ESTRUCTURA @V_ID_ESTRUCTURA_NUEVA, @V_CUR_ID_ESTRUCTURA, @V_CUR_ID_TIPO_ESTRUCTURA
+                         
 					--ITERANDO SIGUIENTE REGISTRO DE ESTRUCTURA
 					FETCH CUR_ESTRUCTURA INTO   @V_CUR_ID_ESTRUCTURA,
 												@V_CUR_ID_TIPO_ESTRUCTURA,
 												@V_CUR_ORDEN;
+												
+					--PRINT 'COPIANDO ESTRUCTURA'
+
+				END; -- END WHILE
+				
+				CLOSE CUR_ESTRUCTURA;
+				DEALLOCATE CUR_ESTRUCTURA;
 			
 			--ITERANDO SIGUIENTE REGISTRO DE VERSION
 			FETCH CUR_VERSION INTO  @V_CUR_ID_VERSION,
@@ -404,22 +742,25 @@ DECLARE
 		
     END TRY    
     BEGIN CATCH
-    
+		SET @V_ERRNO = ERROR_NUMBER();
+		SET	@V_MSG = ERROR_MESSAGE();
+		SET @P_ERRNO = 7
 		CLOSE CUR_ESTRUCTURA;
 		DEALLOCATE CUR_ESTRUCTURA;
 		CLOSE CUR_VERSION;
 		DEALLOCATE CUR_VERSION;
-		PRINT ERROR_NUMBER()
-		PRINT ERROR_MESSAGE()
-		SET @V_ERRNO = ERROR_NUMBER();
-		SET	@V_MSG = ERROR_MESSAGE();
-		CLOSE CUR_VERSION;
-		DEALLOCATE CUR_VERSION;
-		SET @P_ERRNO = 7
-		
+		--PRINT ERROR_NUMBER()
+		--PRINT ERROR_MESSAGE()
 		goto ERR_HANDLER;
         
     END CATCH
+        
+	
+	UPDATE IFRS_LOG_PROCESO SET LOG = 'EL PERIODO HA SIDO ABIERTO CORRECTAMENTE' WHERE ID_LOG = @V_ID_LOG;
+	
+    --SI NO HAY ERRORES COMMIT
+	COMMIT TRANSACTION;
+    RETURN;
     
     
     END TRY
@@ -429,8 +770,8 @@ DECLARE
     END CATCH
     
     ERR_HANDLER:
-		
-		PRINT 'ERROR TSQL : ' +  CAST(@@ERROR AS VARCHAR)
+	BEGIN
+		--PRINT 'ERROR TSQL : ' +  CAST(@@ERROR AS VARCHAR)
 		
 		IF(@V_ERRNO IS NULL)
 			SET @V_ERRNO = 0;
@@ -444,8 +785,8 @@ DECLARE
 		BEGIN TRANSACTION
 		BEGIN TRY
 			
-			PRINT 'TRY LOG'
-			PRINT 'ACTUALIZANDO LOG ' + CAST(@V_ID_LOG AS VARCHAR)
+			--PRINT 'TRY LOG'
+			--PRINT 'ACTUALIZANDO LOG ' + CAST(@V_ID_LOG AS VARCHAR)
 			--CONTROL DE EXCEPTION
 			
 			IF (@P_ERRNO IS NULL)
@@ -471,10 +812,8 @@ DECLARE
 			ROLLBACK TRANSACTION
 			RETURN;
 		END CATCH 
+	END;
 	
-
---SI NO HAY ERRORE COMMIT
-COMMIT TRANSACTION;			
 
 END;
 	
@@ -482,207 +821,4 @@ END;
 
 
 
--- =============================================
--- Author:		<MDR TECHNOLOGY>
--- Create date: <Create Date,,>
--- Description:	<Description,,>
--- =============================================
-CREATE PROCEDURE PRC_COPIA_TIPO_ESTRUCTURA(
-	@P_ID_ESTRUCTURA_NUEVA INT,
-	@P_ID_ESTRUCTURA_ANTERIOR INT,
-	@P_ID_TIPO_ESTRUCTURA INT
-)
-AS
-BEGIN
 
-	DECLARE
-	@CONST_TIPO_GRILLA INT,
-	@CONST_TIPO_HTML INT,
-	@CONST_TIPO_TEXTO INT;
-	
-	
-	SET @CONST_TIPO_GRILLA = 0
-    SET @CONST_TIPO_HTML = 1
-    SET @CONST_TIPO_TEXTO = 2
-	
-	IF @P_ID_TIPO_ESTRUCTURA = @CONST_TIPO_GRILLA
-	BEGIN
-	
-		DECLARE 
-		@V_CUR_TITULO_GRILLA VARCHAR(256),
-		@V_CUR_TIPO_FORMULA INT;
-		
-		SELECT @V_CUR_TITULO_GRILLA = TITULO, @V_CUR_TIPO_FORMULA = TIPO_FORMULA
-		FROM IFRS_GRILLA
-		WHERE ID_GRILLA = @P_ID_ESTRUCTURA_ANTERIOR;
-		
-		-- 'INSERTANDO GRILLA : '
-		INSERT INTO IFRS_GRILLA
-                        (ID_GRILLA, 
-                         TITULO, 
-                         TIPO_FORMULA) 
-        VALUES			(
-                        @P_ID_ESTRUCTURA_NUEVA, 
-                        @V_CUR_TITULO_GRILLA, 
-                        @V_CUR_TIPO_FORMULA);
-		
---FIN COPIADO GRILLA		
-		
-		--COPIANDO COLUMNA
-		  DECLARE
-		  @V_CUR_ID_COLUMNA INT,
-		  @V_CUR_TITULO_COLUMNA VARCHAR(128),
-		  @V_CUR_ORDEN INT,
-		  @V_CUR_ANCHO INT,
-		  @V_CUR_ROW_HEADER INT;
-	      
-		  DECLARE CUR_COLUMNA CURSOR FOR
-				SELECT ID_COLUMNA, TITULO_COLUMNA, ORDEN, ANCHO, ROW_HEADER
-				FROM IFRS_COLUMNA 
-				WHERE ID_GRILLA = @P_ID_ESTRUCTURA_ANTERIOR
-				ORDER BY ID_COLUMNA;
-				
-		  OPEN CUR_COLUMNA;
-		
-		  --PRIMER REGISTRO COLUMNA
-		  FETCH CUR_COLUMNA INTO @V_CUR_ID_COLUMNA, @V_CUR_TITULO_COLUMNA,@V_CUR_ORDEN, @V_CUR_ANCHO, @V_CUR_ROW_HEADER;
-		  
-		  WHILE (@@FETCH_STATUS = 0)
-			BEGIN
-				
-				INSERT INTO IFRS_COLUMNA (
-                                                ID_GRILLA,
-                                                ID_COLUMNA, 
-                                                TITULO_COLUMNA, 
-                                                ORDEN, 
-                                                ANCHO, 
-                                                ROW_HEADER) 
-                        VALUES (                
-                                                @P_ID_ESTRUCTURA_NUEVA, 
-                                                @V_CUR_ID_COLUMNA, 
-                                                @V_CUR_TITULO_COLUMNA, 
-                                                @V_CUR_ORDEN, 
-                                                @V_CUR_ANCHO, 
-                                                @V_CUR_ROW_HEADER); 
-			
-				--ITERANDO REGISTRO COLUMNA
-				FETCH CUR_COLUMNA INTO @V_CUR_ID_COLUMNA, @V_CUR_TITULO_COLUMNA,@V_CUR_ORDEN, @V_CUR_ANCHO, @V_CUR_ROW_HEADER;	
-			END;
-			
-			--LIBERANDO MEMORIA
-			CLOSE CUR_COLUMNA;
-			DEALLOCATE CUR_COLUMNA;
-
---FIN COPIADO COLUMNA	
-
-
-		  --COPIANDO CELDA
-		  DECLARE
-		  @V_CUR_CEL_ID_COLUMNA INT,
-		  @V_CUR_CEL_ID_FILA INT,
-		  @V_CUR_CEL_ID_TIPO_CELDA INT,
-		  @V_CUR_CEL_ID_TIPO_DATO INT,
-		  @V_CUR_CEL_VALOR VARCHAR(2048),
-		  @V_CUR_CEL_CHILD_HORIZONTAL INT,
-		  @V_CUR_CEL_PARENT_HORIZONTAL INT,
-		  @V_CUR_CEL_CHILD_VERTICAL INT,
-		  @V_CUR_CEL_PARENT_VERTICAL INT,
-		  @V_CUR_CEL_FORMULA VARCHAR(256);
-	      
-		  DECLARE CUR_CELDA CURSOR FOR
-				SELECT ID_COLUMNA, ID_FILA,ID_TIPO_CELDA,ID_TIPO_DATO,VALOR,CHILD_HORIZONTAL,PARENT_HORIZONTAL,CHILD_VERTICAL,PARENT_VERTICAL,FORMULA 
-				FROM IFRS_CELDA 
-				WHERE ID_GRILLA = @P_ID_ESTRUCTURA_ANTERIOR
-				ORDER BY ID_COLUMNA, ID_FILA;
-				
-		  OPEN CUR_CELDA;
-		
-		  --PRIMER REGISTRO COLUMNA
-		  FETCH CUR_CELDA INTO @V_CUR_CEL_ID_COLUMNA,@V_CUR_CEL_ID_FILA,@V_CUR_CEL_ID_TIPO_CELDA,@V_CUR_CEL_ID_TIPO_DATO,@V_CUR_CEL_VALOR ,@V_CUR_CEL_CHILD_HORIZONTAL ,@V_CUR_CEL_PARENT_HORIZONTAL ,@V_CUR_CEL_CHILD_VERTICAL ,@V_CUR_CEL_PARENT_VERTICAL ,@V_CUR_CEL_FORMULA;
-		  
-		  WHILE (@@FETCH_STATUS = 0)
-			BEGIN
-				
-							INSERT INTO					IFRS_CELDA (
-/*1*/                                                    ID_GRILLA, 
-/*2*/                                                    ID_COLUMNA, 
-/*3*/                                                    ID_FILA, 
-/*4*/                                                    ID_TIPO_CELDA, 
-/*5*/                                                    ID_TIPO_DATO, 
-/*6*/                                                    VALOR, 
-/*7*/                                                    FORMULA, 
-/*8*/                                                    CHILD_HORIZONTAL, 
-/*9*/                                                    PARENT_HORIZONTAL, 
-/*10*/                                                    CHILD_VERTICAL, 
-/*11*/                                                    PARENT_VERTICAL) 
-                              VALUES (
-/*1*/                                                    @P_ID_ESTRUCTURA_NUEVA, 
-/*2*/                                                    @V_CUR_CEL_ID_COLUMNA, 
-/*3*/                                                    @V_CUR_CEL_ID_FILA, 
-/*4*/                                                    @V_CUR_CEL_ID_TIPO_CELDA, 
-/*5*/                                                    @V_CUR_CEL_ID_TIPO_DATO, 
-/*6*/                                                    @V_CUR_CEL_VALOR, 
-/*7*/                                                    @V_CUR_CEL_FORMULA, 
-/*8*/                                                    @V_CUR_CEL_CHILD_HORIZONTAL, 
-/*9*/                                                    @V_CUR_CEL_PARENT_HORIZONTAL, 
-/*10*/                                                   @V_CUR_CEL_CHILD_VERTICAL, 
-/*11*/                                                   @V_CUR_CEL_PARENT_VERTICAL);  
-			
-				--ITERANDO REGISTRO CELDA
-				FETCH CUR_CELDA INTO @V_CUR_CEL_ID_COLUMNA,@V_CUR_CEL_ID_FILA,@V_CUR_CEL_ID_TIPO_CELDA,@V_CUR_CEL_ID_TIPO_DATO,@V_CUR_CEL_VALOR ,@V_CUR_CEL_CHILD_HORIZONTAL ,@V_CUR_CEL_PARENT_HORIZONTAL ,@V_CUR_CEL_CHILD_VERTICAL ,@V_CUR_CEL_PARENT_VERTICAL ,@V_CUR_CEL_FORMULA;
-			END;
-			
-			--LIBERANDO MEMORIA
-			CLOSE CUR_CELDA;
-			DEALLOCATE CUR_CELDA;
-			
---COPIANDO AGRUPACION_COLUMNA
-	--COPIANDO COLUMNA
-		  DECLARE
-		  @V_CUR_AGR_ID_NIVEL INT,
-		  @V_CUR_AGR_ID_COLUMNA VARCHAR(128),
-		  @V_CUR_AGR_TITULO INT,
-		  @V_CUR_AGR_ANCHO INT,
-		  @V_CUR_AGR_GRUPO INT;
-	      
-		  DECLARE CUR_AGRUPACION_COLUMNA CURSOR FOR
-				SELECT ID_NIVEL ,ID_COLUMNA, TITULO, ANCHO, GRUPO
-				FROM IFRS_AGRUPACION_COLUMNA 
-				WHERE ID_GRILLA = @P_ID_ESTRUCTURA_ANTERIOR;
-				
-		  OPEN CUR_AGRUPACION_COLUMNA;
-		
-		  --PRIMER REGISTRO COLUMNA
-		  FETCH CUR_AGRUPACION_COLUMNA INTO @V_CUR_AGR_ID_NIVEL,@V_CUR_AGR_ID_COLUMNA,@V_CUR_AGR_TITULO,@V_CUR_AGR_ANCHO,@V_CUR_AGR_GRUPO;
-		  
-		  WHILE (@@FETCH_STATUS = 0)
-			BEGIN
-				
-				INSERT INTO IFRS_AGRUPACION_COLUMNA (
-                                                        ID_GRILLA,
-                                                        ID_COLUMNA, 
-                                                        ID_NIVEL, 
-                                                        TITULO, 
-                                                        ANCHO, 
-                                                        GRUPO)
-                    VALUES (                            
-                                                        @P_ID_ESTRUCTURA_NUEVA,
-                                                        @V_CUR_AGR_ID_COLUMNA, 
-                                                        @V_CUR_AGR_ID_NIVEL, 
-                                                        @V_CUR_AGR_TITULO, 
-                                                        @V_CUR_AGR_ANCHO, 
-                                                        @V_CUR_AGR_GRUPO );
-			
-				--ITERANDO REGISTRO COLUMNA
-				FETCH CUR_AGRUPACION_COLUMNA INTO @V_CUR_AGR_ID_NIVEL,@V_CUR_AGR_ID_COLUMNA,@V_CUR_AGR_TITULO,@V_CUR_AGR_ANCHO,@V_CUR_AGR_GRUPO;
-			END;
-			
-			--LIBERANDO MEMORIA
-			CLOSE CUR_AGRUPACION_COLUMNA;
-			DEALLOCATE CUR_AGRUPACION_COLUMNA;			
-		
-		
-	END;--END IF
-	
-	
-END--END PROCEDURE
