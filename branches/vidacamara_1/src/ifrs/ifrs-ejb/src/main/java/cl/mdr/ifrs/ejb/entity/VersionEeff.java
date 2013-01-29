@@ -49,8 +49,7 @@ public class VersionEeff implements Serializable {
     public static final String FIN_MAX_VERSION_BY_PERIODO_EMPRESA = "VersionEeff.findByMaxVersionByPeriodoEmpresa";
     public static final String UPDATE_VIGENCIA_BY_PERIODO_EMPRESA = "VersionEeff.updateVigenciaByPeriodoEmpresa";
     
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Id   
     @Column(name = "ID_VERSION_EEFF", nullable = false)
     private Long idVersionEeff;
     

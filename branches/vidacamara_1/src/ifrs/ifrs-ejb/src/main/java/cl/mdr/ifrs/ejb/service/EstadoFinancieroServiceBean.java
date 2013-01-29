@@ -94,36 +94,46 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
     
     public void persisVersionEeff(VersionEeff version){
     	
+    	boolean b[] = {false, true,true,true,true,true,true,true}; 
+    	
+    	
+    	
     	if(version.getIdVersionEeff() != null)
     		return;
     	
         version.setVersion(getMaxVersionByPeriodo(version.getPeriodoEmpresa().getIdPeriodo(), version.getPeriodoEmpresa().getIdRut()) +1L);
         updateNoVigenteByPeriodo(version.getPeriodoEmpresa().getIdPeriodo(), version.getPeriodoEmpresa().getIdRut(), VigenciaEnum.NO_VIGENTE.getKey());
         
-        BigDecimal seq =  (BigDecimal) em.createNativeQuery(" SELECT SEQ_VERSION_EEFF.NEXTVAL FROM DUAL ").getSingleResult();
+        //BigDecimal seq =  (BigDecimal) em.createNativeQuery(" SELECT SEQ_VERSION_EEFF.NEXTVAL FROM DUAL ").getSingleResult();
+        BigDecimal idVersion = (BigDecimal) em.createNativeQuery("select (MAX(ID_VERSION_EEFF)+1) from "+Constantes.VERSION_EEFF+"").getSingleResult();
         
-        em.createNativeQuery(" Insert into " + Constantes.VERSION_EEFF + " (ID_VERSION_EEFF,ID_PERIODO, ID_RUT ,ID_ESTADO_EEFF,VERSION,VIGENCIA,USUARIO,FECHA) values (?,?,?,?,?,?,?,?) " )
-        .setParameter(1, seq)
+        if (idVersion == null)
+        	idVersion = new BigDecimal(1);
+        
+        Query query = em.createNativeQuery(" SET IDENTITY_INSERT "+ Constantes.VERSION_EEFF +" ON; Insert into " + Constantes.VERSION_EEFF + " (ID_VERSION_EEFF,ID_PERIODO, ID_RUT ,ID_ESTADO_EEFF,VERSION,VIGENCIA,USUARIO,FECHA) values (?,?,?,?,?,?,?,?); SET IDENTITY_INSERT "+Constantes.VERSION_EEFF+" OFF; " )
+        .setParameter(1, idVersion)
         .setParameter(2, version.getPeriodoEmpresa().getIdPeriodo())
         .setParameter(3, version.getPeriodoEmpresa().getIdRut())
         .setParameter(4, version.getTipoEstadoEeff().getIdEstadoEeff())
         .setParameter(5, version.getVersion())
         .setParameter(6, version.getVigencia())
         .setParameter(7, version.getUsuario())
-        .setParameter(8, new Date())
-        .executeUpdate();
+        .setParameter(8, new Date());
         
-        version.setIdVersionEeff(seq.longValue());
+        query.executeUpdate();
+        
+        //version.setIdVersionEeff(seq.longValue());
+        version.setIdVersionEeff(idVersion.longValue());
         
         if(Util.esListaValida(version.getEstadoFinancieroList())){
         
         	for(EstadoFinanciero eeff : version.getEstadoFinancieroList()) {
 		        em.createNativeQuery(" Insert into " + Constantes.EEFF + " (ID_VERSION_EEFF, ID_FECU, MONTO_TOTAL) values (?,?,?) ")
-		        .setParameter(1, seq)
+		        .setParameter(1, idVersion)
 		        .setParameter(2, eeff.getIdFecu())
 		        .setParameter(3, eeff.getMontoTotal())
 		        .executeUpdate();
-		        eeff.setIdVersionEeff(seq.longValue());
+		        eeff.setIdVersionEeff(idVersion.longValue());
 		        
 		        if(Util.esListaValida(eeff.getDetalleEeffList4())){
 		        	
@@ -133,7 +143,7 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
 		        																		 " (?,?,?,?,?,?,?,?) ")
 		        		.setParameter(1, detEeff.getIdCuenta())
 		        		.setParameter(2, detEeff.getIdFecu())
-		        		.setParameter(3, seq)
+		        		.setParameter(3, idVersion)
 		        		.setParameter(4, detEeff.getMontoEbs())
 		        		.setParameter(5, detEeff.getMontoReclasificacion())
 		        		.setParameter(6, detEeff.getMontoPesos())
@@ -321,6 +331,10 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
     		pk.setIdCuenta(relacionDetalleEeff.getIdCuenta());
     		pk.setIdFecu(relacionDetalleEeff.getIdFecu());
     		pk.setIdPeriodo(relacionDetalleEeff.getIdPeriodo());
+    		pk.setIdRut(relacionDetalleEeff.getIdRut());
+    		pk.setIdGrilla(relacionDetalleEeff.getIdGrilla());
+    		pk.setIdColumna(relacionDetalleEeff.getIdColumna());
+    		pk.setIdFila(relacionDetalleEeff.getIdFila());
     	
        return (RelacionDetalleEeff) em.find(RelacionDetalleEeff.class, pk);
     }

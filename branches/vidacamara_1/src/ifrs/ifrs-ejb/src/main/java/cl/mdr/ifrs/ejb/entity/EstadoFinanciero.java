@@ -24,6 +24,8 @@ import com.google.gson.annotations.Expose;
 import cl.mdr.ifrs.ejb.common.Constantes;
 import cl.mdr.ifrs.ejb.cross.EeffUtil;
 import cl.mdr.ifrs.ejb.entity.pk.EstadoFinancieroPK;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
 @Entity
 @NamedQueries( { @NamedQuery(name = EstadoFinanciero.FIND_ALL, query = "select o from EstadoFinanciero o"),
@@ -48,6 +50,7 @@ public class EstadoFinanciero implements Serializable {
     
     
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "ID_FECU", nullable = false, insertable = false, updatable = false)
     @Expose
     private Long idFecu;
