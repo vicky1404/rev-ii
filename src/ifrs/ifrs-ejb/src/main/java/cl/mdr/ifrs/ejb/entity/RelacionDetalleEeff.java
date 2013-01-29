@@ -288,12 +288,11 @@ public class RelacionDetalleEeff implements Serializable {
         this.celda5 = celda;
         
     }
-    
-    @Override
+
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((celda5 == null) ? 0 : celda5.hashCode());
 		result = prime * result
 				+ ((idColumna == null) ? 0 : idColumna.hashCode());
 		result = prime * result
@@ -305,18 +304,6 @@ public class RelacionDetalleEeff implements Serializable {
 		result = prime * result
 				+ ((idPeriodo == null) ? 0 : idPeriodo.hashCode());
 		result = prime * result + ((idRut == null) ? 0 : idRut.hashCode());
-		result = prime * result
-				+ ((montoEbs == null) ? 0 : montoEbs.hashCode());
-		result = prime * result
-				+ ((montoMiles == null) ? 0 : montoMiles.hashCode());
-		result = prime * result
-				+ ((montoPesos == null) ? 0 : montoPesos.hashCode());
-		result = prime
-				* result
-				+ ((montoReclasificacion == null) ? 0 : montoReclasificacion
-						.hashCode());
-		result = prime * result
-				+ ((periodoEmpresa == null) ? 0 : periodoEmpresa.hashCode());
 		return result;
 	}
 
@@ -329,11 +316,6 @@ public class RelacionDetalleEeff implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		RelacionDetalleEeff other = (RelacionDetalleEeff) obj;
-		if (celda5 == null) {
-			if (other.celda5 != null)
-				return false;
-		} else if (!celda5.equals(other.celda5))
-			return false;
 		if (idColumna == null) {
 			if (other.idColumna != null)
 				return false;
@@ -369,32 +351,9 @@ public class RelacionDetalleEeff implements Serializable {
 				return false;
 		} else if (!idRut.equals(other.idRut))
 			return false;
-		if (montoEbs == null) {
-			if (other.montoEbs != null)
-				return false;
-		} else if (!montoEbs.equals(other.montoEbs))
-			return false;
-		if (montoMiles == null) {
-			if (other.montoMiles != null)
-				return false;
-		} else if (!montoMiles.equals(other.montoMiles))
-			return false;
-		if (montoPesos == null) {
-			if (other.montoPesos != null)
-				return false;
-		} else if (!montoPesos.equals(other.montoPesos))
-			return false;
-		if (montoReclasificacion == null) {
-			if (other.montoReclasificacion != null)
-				return false;
-		} else if (!montoReclasificacion.equals(other.montoReclasificacion))
-			return false;
-		if (periodoEmpresa == null) {
-			if (other.periodoEmpresa != null)
-				return false;
-		} else if (!periodoEmpresa.equals(other.periodoEmpresa))
-			return false;
 		return true;
 	}
+    
+    
 
 }

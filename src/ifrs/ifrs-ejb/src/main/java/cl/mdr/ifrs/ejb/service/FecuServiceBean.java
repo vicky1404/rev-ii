@@ -240,6 +240,11 @@ public class FecuServiceBean implements FecuServiceLocal{
     public void persistFecu(final List<CodigoFecu> fecuList) throws Exception {
 
         for(CodigoFecu fecu : fecuList){
+        	
+        	if (fecu.getDescripcion() != null && fecu.getDescripcion().length() > 0){
+        	 fecu.setDescripcion( fecu.getDescripcion().trim() );
+        	}
+        	
             fecu.setEditarId(false);
             em.persist(fecu);
         }
@@ -260,6 +265,11 @@ public class FecuServiceBean implements FecuServiceLocal{
     public void persistCuenta(final List<CuentaContable> cuentaList) throws Exception {
 
         for(CuentaContable cuenta : cuentaList){
+        	
+        	if (cuenta.getDescripcion() != null && cuenta.getDescripcion().length() > 0){
+        		cuenta.setDescripcion(cuenta.getDescripcion().trim());
+        	}
+        	
             cuenta.setEditarId(false);
             em.persist(cuenta);
         }
