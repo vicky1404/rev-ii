@@ -532,6 +532,10 @@ public class ValidadorEeffBackingBean extends AbstractBackingBean{
         		relacion.setIdCuenta( this.getRelCuentaSeleccionada().getIdCuenta() );
         		relacion.setIdFecu(this.getRelCuentaSeleccionada().getIdFecu());
         		relacion.setIdPeriodo( this.getRelCuentaSeleccionada().getIdPeriodo() );
+        		relacion.setIdRut(this.getRelCuentaSeleccionada().getIdRut());
+        		relacion.setIdGrilla(this.getRelCuentaSeleccionada().getIdGrilla());
+        		relacion.setIdColumna(this.getRelCuentaSeleccionada().getIdColumna());
+        		relacion.setIdFila(this.getRelCuentaSeleccionada().getIdFila());
         		
             relCuentaSeleccionada = super.getFacadeService().getEstadoFinancieroService().getRelacionDetalleEeffByRelacionDetalleEeff(relacion);
         }

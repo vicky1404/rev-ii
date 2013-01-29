@@ -131,6 +131,7 @@ public class CargadorCuentaBackingBean extends AbstractBackingBean{
             logger.error("Error al insertar cuenta",e);
         }
         
+        
     }
  
     
