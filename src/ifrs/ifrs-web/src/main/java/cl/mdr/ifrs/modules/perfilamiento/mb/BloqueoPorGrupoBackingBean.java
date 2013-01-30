@@ -19,7 +19,9 @@ import javax.faces.bean.ViewScoped;
 import org.apache.log4j.Logger;
 
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
+import cl.mdr.ifrs.cross.mb.MenuBackingBean;
 import cl.mdr.ifrs.cross.model.CommonGridModel;
+import cl.mdr.ifrs.cross.util.UtilBean;
 import cl.mdr.ifrs.ejb.entity.Grupo;
 
 /**
@@ -35,6 +37,7 @@ public class BloqueoPorGrupoBackingBean extends AbstractBackingBean implements S
 	 private transient List<CommonGridModel<Grupo>> grillaBloqueoGrupoList;
 	 private boolean renderTablaGruposBloqueados;
 	 private Long accesoBloqueado = 100L;
+	 private MenuBackingBean menuBackingBean;
 	 
 	 @PostConstruct
 	 void init(){
@@ -104,12 +107,19 @@ public class BloqueoPorGrupoBackingBean extends AbstractBackingBean implements S
                 grupoBloqueadoList.add(grillaGrupo.getEntity());            
             }
             super.getFacadeService().getSeguridadService().updateBloqueoGrupo(grupoBloqueadoList);                       
-            super.addInfoMessage("Éxito", "Se actualizó correctamente el bloqueo del Sistema");                        
+            super.addInfoMessage(null, "Se actualizó correctamente el bloqueo del Sistema");             
         } catch (Exception e) {
             logger.error(e.getCause(), e);
             super.addErrorMessage("Error", "Error al bloquear el sistema");
         }       
     } 
+    
+    public MenuBackingBean getMenuBackingBean() {
+		if(menuBackingBean == null){
+			menuBackingBean = UtilBean.findBean(MenuBackingBean.BEAN_NAME);
+		}
+		return menuBackingBean;
+	}
 
 
 	public List<CommonGridModel<Grupo>> getGrillaBloqueoGrupoList() {

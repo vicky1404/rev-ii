@@ -69,7 +69,7 @@ public class Columna implements Serializable {
     @Expose
     private boolean rowHeader;
     
-    @OneToMany(mappedBy = "columna" ,cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, orphanRemoval=true)
+    @OneToMany(mappedBy = "columna" ,cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, orphanRemoval=true)
     private List<AgrupacionColumna> agrupacionColumnaList;
     
     

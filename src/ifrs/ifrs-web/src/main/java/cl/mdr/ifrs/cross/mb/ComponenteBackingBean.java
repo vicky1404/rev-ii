@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -21,7 +20,6 @@ import cl.mdr.ifrs.ejb.common.TipoImpresionEnum;
 import cl.mdr.ifrs.ejb.common.VigenciaEnum;
 import cl.mdr.ifrs.ejb.cross.FormulaHelper;
 import cl.mdr.ifrs.ejb.cross.Util;
-import cl.mdr.ifrs.ejb.entity.AreaNegocio;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
 import cl.mdr.ifrs.ejb.entity.Empresa;
 import cl.mdr.ifrs.ejb.entity.EstadoCuadro;

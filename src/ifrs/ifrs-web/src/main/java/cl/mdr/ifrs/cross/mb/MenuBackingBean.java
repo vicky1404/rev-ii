@@ -83,7 +83,7 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
     private Catalogo catalogoSelected;
     private boolean renderSelectorEmpresa;
     private boolean redireccionado;
-    private boolean valid = true;
+    private boolean valid = true;    
     private String breadcrumb;
     private org.primefaces.model.MenuModel model; 
     
@@ -95,15 +95,21 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 	@PostConstruct
 	public void load(){				
 		try {	
-			
+						
 			valid = isValidSoft();
+			
 			if(!valid){
 				super.getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(SEGURIDAD_VIEW_ID));
 			}			
+			
 			if (Util.getLong(super.getUsuarioSesion().getCambiarPassword(), 0L).equals(1L)){
 				super.getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(MIS_DATOS_VIEW_ID));
 			}
-								
+			
+			if(this.isSistemaBloqueado()){
+	    		super.getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(INGRESO_BLOQUEADO_VIEW_ID));
+	    	}
+													
 			this.buildEmpresaList();
 			this.buildMenuEmpresa();									
 		} catch (Exception e) {
@@ -172,7 +178,7 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
     		super.addFatalMessage("Debido a su inactividad, la Sesión ha Caducado. por favor ingrese nuevamente.");
     		return;
     	}
-		
+						
 		if(event.getNewValue() == null){
 			this.getFiltroBackingBean().init();
 			super.addWarnMessage(PropertyManager.getInstance().getMessage("general_seleccionar_empresa"));
@@ -343,7 +349,7 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
     	this.setCatalogoSelected(this.getCatalogoMap().get(Util.getLong(event.getTreeNode().toString(), null)));
     	if(super.getPrincipal() == null){
     		super.addFatalMessage("Debido a su inactividad, la Sesión ha Caducado. por favor ingrese nuevamente.");
-    	}
+    	}    	
     	if(this.isSistemaBloqueado()){
     		super.getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(INGRESO_BLOQUEADO_VIEW_ID));
     	}
@@ -610,5 +616,8 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 	public void setBreadcrumb(String breadcrumb) {
 		this.breadcrumb = breadcrumb;
 	}
+	
+
+	
 
 }
