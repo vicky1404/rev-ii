@@ -90,7 +90,8 @@ public class TaxonomyMappingEstadoFinancieroServiceBean implements TaxonomyMappi
     public Map<Concept, Map<EstadoFinanciero, Boolean>> buildMappingEstadoFinanciero(final XbrlTaxonomia xbrlTaxonomia, final List<Concept> conceptList, final List<EstadoFinanciero> estadoFinancieroList) throws Exception{
         EstadoFinanciero estadoFinanciero = null;
         Map<Concept, Map<EstadoFinanciero, Boolean>> mapping = new LinkedHashMap<Concept, Map<EstadoFinanciero, Boolean>>();    
-        Map<String, Concept> taxonomyConceptMap =  index(conceptList, on(Concept.class).getId());
+        Concept on = on(Concept.class);
+		Map<String, Concept> taxonomyConceptMap =  index(conceptList, on.getId());
         final List<XbrlConceptoCodigoFecu> xbrlConceptoCodigoFecuList = 
                                             em.createQuery("select o from XbrlConceptoCodigoFecu o where o.xbrlTaxonomia.idTaxonomia =:idTaxonomia").
                                             setParameter("idTaxonomia", xbrlTaxonomia.getIdTaxonomia()).

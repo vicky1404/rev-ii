@@ -11,15 +11,18 @@ public class TaxonomyTreeItem {
     private String taxonomyParent;
     private Concept concept;
     private List<TaxonomyTreeItem> children;
-    
+    private String label;
     
     
     public TaxonomyTreeItem() {
-        super();
+    }
+    
+    public TaxonomyTreeItem(Concept concept) {
+    	this(concept, "");
     }
 
-    public TaxonomyTreeItem(Concept concept) {
-        super();
+    public TaxonomyTreeItem(Concept concept, String label) {
+    	this.setLabel(label);
         this.concept = concept;
     }
 
@@ -55,4 +58,12 @@ public class TaxonomyTreeItem {
     public String getTaxonomyParent() {
         return taxonomyParent;
     }
+
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
+	}
 }

@@ -270,7 +270,8 @@ public class PresentationLinkbase extends Linkbase {
 		List<PresentationLinkbaseElement> presentationLinkbaseElementList = linkRoleToElementLists.get(extendedLinkRole);
 		if (presentationLinkbaseElementList != null) {
 			for (PresentationLinkbaseElement currElement : presentationLinkbaseElementList) {
-				if (currElement != null && currElement.getConcept() != null 
+				if (currElement != null && currElement.getConcept() != null
+						&& tmpElement != null && tmpElement.getConcept() != null
 						&& currElement.getConcept().getId().equals(tmpElement.getConcept().getId())
 						&& currElement.getLocator().getLabel().equals(tmpElement.getLabel())) {
 					return currElement;

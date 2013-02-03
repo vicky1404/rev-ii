@@ -62,6 +62,8 @@ public class XBRLLinkbaseContentHandler implements ContentHandler {
 	private Map<String, String> namespaceMapping;
 	
 	private Map<String, String> rolesType = new HashMap<String, String>();
+	
+	public StringBuilder label = null;
 
 	public XBRLLinkbaseContentHandler() {
 
@@ -225,6 +227,7 @@ public class XBRLLinkbaseContentHandler implements ContentHandler {
 			String type = atts.getValue(NamespaceConstants.XBRL_SCHEMA_LOC_XLINK_URI, "type");
 			if (type.equals("resource")) {
 				inLabel = true;
+				label = new StringBuilder();
 				resourceAtts = convert(atts);
 			} else {
                 // TODO: Exception werfen
@@ -271,7 +274,7 @@ public class XBRLLinkbaseContentHandler implements ContentHandler {
     @Override
     public void characters(char[] arg0, int arg1, int arg2) throws SAXException {
         if (inLabel) {
-            buildResource(new String(arg0, arg1, arg2));
+            label.append(new String(arg0, arg1, arg2));
         }
 
     }
@@ -292,6 +295,14 @@ public class XBRLLinkbaseContentHandler implements ContentHandler {
     @Override
     public void endElement(String namespaceURI, String localName, String qName)
             throws SAXException {
+    	
+    	if (inLabel) {
+            buildResource(label.toString());
+            label = null;
+            inLabel = false;
+        }
+    	
+    	
         if (localName.equals(GeneralConstants.XBRL_LINKBASE_LINK_LABEL)
                 && namespaceURI.equals(NamespaceConstants.XBRL_SCHEMA_LOC_LINKBASE_URI)) {
             /* create all arcs now */
