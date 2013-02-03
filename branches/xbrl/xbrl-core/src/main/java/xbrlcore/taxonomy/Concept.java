@@ -211,7 +211,7 @@ public class Concept implements Serializable, Cloneable {
     /**
      * @return ID of the element.
      */
-    public final String getId() {
+    public String getId() {
         return id;
     }
 

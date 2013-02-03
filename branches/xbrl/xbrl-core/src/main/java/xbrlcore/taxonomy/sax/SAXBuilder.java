@@ -12,6 +12,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.apache.log4j.Logger;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
@@ -31,7 +32,7 @@ import xbrlcore.taxonomy.sax.XBRLSchemaContentHandler.LinkBaseInfo;
 /**
  * @author d2504hd
  * 
- * Daniel Hamm
+ *         Daniel Hamm
  */
 public class SAXBuilder {
 
@@ -47,8 +48,6 @@ public class SAXBuilder {
 
 	private XBRLLinkbaseContentHandler xbrlLinkbaseContentHandler;
 
-	
-
 	private Set<String> alreadyParsedNamespaces;
 
 	private Map<String, LinkBaseInfo> linkbaseFiles;
@@ -57,55 +56,94 @@ public class SAXBuilder {
 
 	private Map<String, String> fixedSchemaFiles;
 
+	private BuilderStatusCallback observer;
+	
+	private FilterSaxBuilder filter;
+
+	private static final Logger LOGGER = Logger.getLogger(SAXBuilder.class);
+
 	/**
 	 * TODO: Konstruktor sollte keine Exceptions werfen!
 	 * 
-	 * @throws ParserConfigurationException 
-	 * @throws SAXException 
+	 * @throws ParserConfigurationException
+	 * @throws SAXException
 	 */
-	public SAXBuilder() throws ParserConfigurationException, SAXException {
+	public SAXBuilder(BuilderStatusCallback observer, FilterSaxBuilder filter) throws ParserConfigurationException, SAXException {
+		this.filter = filter;
 		saxParserFactory = SAXParserFactory.newInstance();
 		saxParserFactory.setNamespaceAware(true);
 		saxParser = saxParserFactory.newSAXParser();
 
 		fixedSchemaFiles = new HashMap<String, String>();
-		fixedSchemaFiles.put(
-				"http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd",
-				"xbrl-instance-2003-12-31.xsd");
-		fixedSchemaFiles.put("http://www.xbrl.org/2005/xbrldt-2005.xsd",
-				"xbrldt-2005.xsd");
+		fixedSchemaFiles.put("http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd", "xbrl-instance-2003-12-31.xsd");
+		fixedSchemaFiles.put("http://www.xbrl.org/2005/xbrldt-2005.xsd", "xbrldt-2005.xsd");
 		fixedSchemaFiles.put("http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd", "xbrl-linkbase-2003-12-31.xsd");
 		fixedSchemaFiles.put("http://www.xbrl.org/2003/2005-11-07/xbrl-linkbase-2003-12-31.xsd", "xbrl-linkbase-2003-12-31.xsd");
-		
-		 			
 
-		
+		this.observer = observer;
 	}
 
-	public DiscoverableTaxonomySet build(InputSource source)
-			throws IOException, SAXException, XBRLException {
+	public SAXBuilder() throws ParserConfigurationException, SAXException {
+		this(new BuilderStatusCallback() {
+			
+			private long startTime;
+
+			@Override
+			public void startBuild() {
+				startTime = System.currentTimeMillis();
+				LOGGER.info("Loading top schema");
+			}
+
+			@Override
+			public void loadingTaxonomy(String name) {
+				LOGGER.info("Loading " + name);
+			}
+
+			@Override
+			public void loadingLinkBase(int total, int index, String name) {
+				LOGGER.info(String.format("Loading linkbase %s of %s : %s", index, total, name));
+			}
+
+			@Override
+			public void endBuild() {
+				long seconds = (System.currentTimeMillis() - startTime) / 1000;
+				LOGGER.info(String.format("Taxnomy loaded in %s seconds", seconds ));
+			}
+		}, new FilterSaxBuilder() {
+			
+			@Override
+			public boolean isParseable(String name) {
+				return true;
+			}
+		});
+	}
+
+	public DiscoverableTaxonomySet build(InputSource source) throws IOException, SAXException, XBRLException {
 		topTaxonomy = true;
 		xbrlSchemaContentHandler = new XBRLSchemaContentHandler();
 		xbrlLinkbaseContentHandler = new XBRLLinkbaseContentHandler();
 
-		
 		alreadyParsedNamespaces = null;
 		linkbaseFiles = new HashMap<String, LinkBaseInfo>();
-
-		
 
 		xmlReader = saxParser.getXMLReader();
 
 		/* parse schemas */
 		dts = new DiscoverableTaxonomySet();
+
+		observer.startBuild();
 		dts = parseSchema(source);
 
 		/* parse linkbases */
 		xbrlLinkbaseContentHandler.setDTS(dts);
-		
-		for (String fileName : linkbaseFiles.keySet()) {
+
+		Set<String> keySet = linkbaseFiles.keySet();
+		int total = keySet.size();
+		int index = 0;
+		for (String fileName : keySet) {
 			LinkBaseInfo linkBaseInfo = linkbaseFiles.get(fileName);
 			String role = linkBaseInfo.getRole();
+			observer.loadingLinkBase(total, ++index, getName(fileName));
 			parseLinkbases(new InputSource(fileName), role, linkBaseInfo.getTaxonomy());
 		}
 
@@ -115,16 +153,17 @@ public class SAXBuilder {
 		if (dts.getDefinitionLinkbase() != null) {
 			dts.getDefinitionLinkbase().buildLinkbase();
 		}
-		
-		
+
+		observer.endBuild();
+
 		return dts;
 
 	}
 
-	private void parseLinkbases(InputSource source, String role, TaxonomySchema taxonomySchema)
-			throws SAXException, IOException {
+	private void parseLinkbases(InputSource source, String role, TaxonomySchema taxonomySchema) throws SAXException, IOException {
+
 		xbrlLinkbaseContentHandler.getRolesType().clear();
-		
+
 		/** Label Linkbase */
 		if (role.equals(GeneralConstants.XBRL_LINKBASE_ROLE_LABEL)) {
 			LabelLinkbase labelLinkbase = dts.getLabelLinkbase();
@@ -143,10 +182,8 @@ public class SAXBuilder {
 
 		}
 		/** Presentation Linkbase */
-		else if (role
-				.equals(GeneralConstants.XBRL_LINKBASE_ROLE_PRESENTATION)) {
-			PresentationLinkbase presentationLinkbase = dts
-					.getPresentationLinkbase();
+		else if (role.equals(GeneralConstants.XBRL_LINKBASE_ROLE_PRESENTATION)) {
+			PresentationLinkbase presentationLinkbase = dts.getPresentationLinkbase();
 			if (presentationLinkbase == null) {
 				presentationLinkbase = new PresentationLinkbase(dts);
 				dts.setPresentationLinkbase(presentationLinkbase);
@@ -155,9 +192,9 @@ public class SAXBuilder {
 
 			xmlReader.setContentHandler(xbrlLinkbaseContentHandler);
 			xmlReader.parse(source);
-			
+
 			Map<String, String> rolesType = xbrlLinkbaseContentHandler.getRolesType();
-			
+
 			Set<Entry<String, String>> entrySet = rolesType.entrySet();
 			for (Entry<String, String> entry : entrySet) {
 				InputSource inputSource = new InputSource((source.getSystemId().substring(0, source.getSystemId().lastIndexOf("/") + 1) + entry.getValue()));
@@ -165,19 +202,17 @@ public class SAXBuilder {
 				xmlReader.setContentHandler(xbrlRoleTypeContentHandler);
 				xmlReader.parse(inputSource);
 				RoleType roleType = xbrlRoleTypeContentHandler.getRoleType();
-				if(roleType != null){
+				if (roleType != null) {
 					taxonomySchema.addRoleType(roleType);
-					
+
 				}
-				
+
 			}
 			rolesType.clear();
-			
-			
+
 		}
 		/** Definition Linkbase */
-		else if (role
-				.equals(GeneralConstants.XBRL_LINKBASE_ROLE_DEFINITION)) {
+		else if (role.equals(GeneralConstants.XBRL_LINKBASE_ROLE_DEFINITION)) {
 			DefinitionLinkbase definitionLinkbase = dts.getDefinitionLinkbase();
 			if (definitionLinkbase == null) {
 				definitionLinkbase = new DefinitionLinkbase(dts);
@@ -189,26 +224,22 @@ public class SAXBuilder {
 			xmlReader.parse(source);
 		}
 		/** Calculation Linkbase */
-        else if (role
-                .equals(GeneralConstants.XBRL_LINKBASE_ROLE_CALCULATION)) {
-            CalculationLinkbase calculationLinkbase = dts
-                    .getCalculationLinkbase();
-            if (calculationLinkbase == null) {
-                calculationLinkbase = new CalculationLinkbase(dts);
-                dts.setCalculationLinkbase(calculationLinkbase);
-            }
-            xbrlLinkbaseContentHandler.setLinkbase(calculationLinkbase);
+		else if (role.equals(GeneralConstants.XBRL_LINKBASE_ROLE_CALCULATION)) {
+			CalculationLinkbase calculationLinkbase = dts.getCalculationLinkbase();
+			if (calculationLinkbase == null) {
+				calculationLinkbase = new CalculationLinkbase(dts);
+				dts.setCalculationLinkbase(calculationLinkbase);
+			}
+			xbrlLinkbaseContentHandler.setLinkbase(calculationLinkbase);
 
-            xmlReader.setContentHandler(xbrlLinkbaseContentHandler);
-            xmlReader.parse(source);
-        }
-        /** Reference Linkbase */
-		else if (role
-				.equals(GeneralConstants.XBRL_LINKBASE_ROLE_REFERENCE)) {
-			ReferenceLinkbase referenceLinkbase = dts
-					.getReferenceLinkbase();
+			xmlReader.setContentHandler(xbrlLinkbaseContentHandler);
+			xmlReader.parse(source);
+		}
+		/** Reference Linkbase */
+		else if (role.equals(GeneralConstants.XBRL_LINKBASE_ROLE_REFERENCE)) {
+			ReferenceLinkbase referenceLinkbase = dts.getReferenceLinkbase();
 			if (referenceLinkbase == null) {
-			    referenceLinkbase = new ReferenceLinkbase(dts);
+				referenceLinkbase = new ReferenceLinkbase(dts);
 				dts.setReferenceLinkbase(referenceLinkbase);
 			}
 			xbrlLinkbaseContentHandler.setLinkbase(referenceLinkbase);
@@ -219,25 +250,21 @@ public class SAXBuilder {
 
 	}
 
-	private DiscoverableTaxonomySet parseSchema(InputSource source)
-			throws SAXException, IOException {
-		URI schemaDir = URI.create(source.getSystemId().substring(0,
-				source.getSystemId().lastIndexOf("/") + 1));
+	private DiscoverableTaxonomySet parseSchema(InputSource source) throws SAXException, IOException {
+		URI schemaDir = URI.create(source.getSystemId().substring(0, source.getSystemId().lastIndexOf("/") + 1));
 
 		/*
 		 * TODO: That is just a work-around. Think about how to implement it
 		 * correctly with name and location; especially when creating the
 		 * references in instance documents
 		 */
-		String name = source.getSystemId().substring(
-				source.getSystemId().lastIndexOf('/') + 1,
-				source.getSystemId().length());
+		String name = source.getSystemId().substring(source.getSystemId().lastIndexOf('/') + 1, source.getSystemId().length());
 
-        TaxonomySchema newSchema = new TaxonomySchema(dts, name);
-        if (topTaxonomy) {
-            dts.setTopTaxonomy(newSchema);
-            topTaxonomy = false;
-        }
+		TaxonomySchema newSchema = new TaxonomySchema(dts, name);
+		if (topTaxonomy) {
+			dts.setTopTaxonomy(newSchema);
+			topTaxonomy = false;
+		}
 
 		dts.addTaxonomy(newSchema);
 		xbrlSchemaContentHandler.setTaxonomySchema(newSchema);
@@ -246,16 +273,13 @@ public class SAXBuilder {
 		xmlReader.parse(source);
 
 		/* get imported schemas */
-		Map<String, String> importedSchemaFiles = xbrlSchemaContentHandler
-				.getImportedSchemaFiles();
-		newSchema.setImportedTaxonomyNames(new HashSet<String>(importedSchemaFiles
-				.values()));
-
+		Map<String, String> importedSchemaFiles = xbrlSchemaContentHandler.getImportedSchemaFiles();
+		newSchema.setImportedTaxonomyNames(new HashSet<String>(importedSchemaFiles.values()));
 		/* remove all schema files that have already been parsed */
 		if (alreadyParsedNamespaces == null) {
 			alreadyParsedNamespaces = new HashSet<String>(importedSchemaFiles.keySet());
 		} else {
-		    for (String ns : alreadyParsedNamespaces) {
+			for (String ns : alreadyParsedNamespaces) {
 				importedSchemaFiles.remove(ns);
 			}
 			alreadyParsedNamespaces.addAll(importedSchemaFiles.keySet());
@@ -267,27 +291,39 @@ public class SAXBuilder {
 			LinkBaseInfo linkBaseInfo = tmpLinkbaseFiles.get(fileName);
 			linkbaseFiles.put(schemaDir.toString() + fileName, linkBaseInfo);
 		}
-		
-		
 
 		/* parse imported schemas */
 		for (String currSchemaLocation : importedSchemaFiles.values()) {
 			URI uri = URI.create(currSchemaLocation);
 
 			if (uri.isAbsolute()) {
-			    for (String key : fixedSchemaFiles.keySet()) {
+				for (String key : fixedSchemaFiles.keySet()) {
 					String value = fixedSchemaFiles.get(key);
 					if (uri.toString().equals(key)) {
+						observer.loadingTaxonomy(getName(value));
 						parseSchema(new InputSource(getClass().getResource("/schemaFiles/" + value).toString()));
 					}
 				}
 			}
 
 			else {
-				parseSchema(new InputSource( (source.getSystemId().substring(0, source.getSystemId().lastIndexOf("/") + 1) + currSchemaLocation)));
+				String schemaName = getName(currSchemaLocation);
+				if(filter.isParseable(schemaName)){
+					observer.loadingTaxonomy(schemaName);
+					parseSchema(new InputSource((source.getSystemId().substring(0, source.getSystemId().lastIndexOf("/") + 1) + currSchemaLocation)));	
+				}
+				
 			}
 
 		}
 		return dts;
+	}
+
+	private String getName(String value) {
+		if (value != null && !value.trim().isEmpty() && value.contains("/")) {
+			return value.substring(value.lastIndexOf("/") + 1);
+		}
+
+		return value;
 	}
 }

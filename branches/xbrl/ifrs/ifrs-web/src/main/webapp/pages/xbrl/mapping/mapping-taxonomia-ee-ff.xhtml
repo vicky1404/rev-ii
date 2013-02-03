@@ -5,48 +5,108 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/main-template.xhtml">
-	
+
 	<ui:define name="content">
-	
-	<h:form id="form">  
-		<p:messages id="messages" autoUpdate="true" globalOnly="true"/>
-		<p:ajaxStatus onstart="statusDialogNoModal.show();" oncomplete="statusDialogNoModal.hide();" />
-		<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
-			
-		<p:panel id="filtro" header="#{menuBackingBean.breadcrumb}" toggleable="true"  closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel">
-		    <h:panelGrid columns="3" cellpadding="10" border="0">
-	 			<p:selectOneMenu id="sol1" required="true" unselectedLabel="#{msg.general_control_seleccione}" value="#{navegadorTaxonomiaBackingBean.filtroBackingBean.xbrlTaxonomia}" converter="xbrlTaxonomiaConverter">
-	            	<f:selectItems value="#{navegadorTaxonomiaBackingBean.xbrlTaxonomiasSelectItem}" id="si1"/>
-	            </p:selectOneMenu>
-	            <p:commandButton value="Buscar" actionListener="#{mapeadorTaxonomiaEstadosFinancierosBackingBean.buscarTaxonomia}" update="@form"></p:commandButton>
-	    		<p:commandButton value="Limpiar" action="mapping-taxonomia-ee-ff" immediate="true"></p:commandButton>
-   			</h:panelGrid>  
-    	</p:panel>
-    	<p:fieldset legend="Simple FieldSet" rendered="#{mapeadorTaxonomiaEstadosFinancierosBackingBean.renderMappingPanel}">
-                           <p:selectOneListbox id="sml1" size="3" contentStyle="width:120px;" label="Código FECU">
-                               <f:selectItems value="#{mapeadorTaxonomiaEstadosFinancierosBackingBean.codigosFecuByConcept}"
-                                              id="si4"/>
-                           </p:selectOneListbox>
-                           <p:commandButton actionListener="#{mapeadorTaxonomiaEstadosFinancierosBackingBean.guardarMapeo}" value="Guardar"/>
-		</p:fieldset> 
-		<p:spacer height="10"></p:spacer>
-		
-    	<h:panelGrid columns="2" width="100%">
-		    	<p:layout fullPage="false" id="ly1" style="height:100px">
-					<p:layoutUnit position="west" size="200" header="Left" resizable="true" closable="false" collapsible="true" >
-					
-			            		<p:selectOneMenu label="Informe de Estados Financieros:"
-                                                   valueChangeListener="#{mapeadorTaxonomiaEstadosFinancierosBackingBean.taxonomyParentChangeListener}"                                                    
-                                                   value="#{mapeadorTaxonomiaEstadosFinancierosBackingBean.parentTaxonomia}">
-                                    <f:selectItems value="#{mapeadorTaxonomiaEstadosFinancierosBackingBean.taxonomyParentItems}" id="si5"/>
-                                </p:selectOneMenu>
-                                
-			    	</p:layoutUnit>
-			    	<p:layoutUnit position="center">  
+
+		<h:form id="form">
+			<p:messages id="messages" autoUpdate="true" globalOnly="true" />
+			<!-- <p:ajaxStatus onstart="statusDialogNoModal.show();" oncomplete="statusDialogNoModal.hide();" /> -->
+			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
+
+			<p:panel id="filtro" header="#{menuBackingBean.breadcrumb}"
+				toggleable="true" closable="false" toggleSpeed="500"
+				closeSpeed="2000" widgetVar="panel">
+				<h:panelGrid columns="3" cellpadding="10" border="0">
+					<p:selectOneMenu id="sol1" required="true"
+						unselectedLabel="#{msg.general_control_seleccione}"
+						value="#{navegadorTaxonomiaBackingBean.filtroBackingBean.xbrlTaxonomia}"
+						converter="xbrlTaxonomiaConverter">
+						<f:selectItems
+							value="#{navegadorTaxonomiaBackingBean.xbrlTaxonomiasSelectItem}"
+							id="si1" />
+					</p:selectOneMenu>
+					<p:commandButton value="Buscar"
+						actionListener="#{mapeadorTaxonomiaEstadosFinancierosBackingBean.buscarTaxonomia}"
+						onclick="pbAjax.start()"></p:commandButton>
+					<p:commandButton value="Limpiar" action="mapping-taxonomia-ee-ff"
+						immediate="true"></p:commandButton>
+
+
+					<p:progressBar widgetVar="pbAjax" ajax="true"
+						value="#{mapeadorTaxonomiaEstadosFinancierosBackingBean.progress}"
+						labelTemplate="{value}%" styleClass="animated">
+						<p:ajax event="complete" update="@form" />
+					</p:progressBar>
+
+
+
+
+
+				</h:panelGrid>
+			</p:panel>
+
+			<p:fieldset legend="Simple FieldSet"
+				rendered="#{mapeadorTaxonomiaEstadosFinancierosBackingBean.renderMappingPanel}">
+				<p:selectOneListbox id="sml1" size="3" contentStyle="width:120px;"
+					label="Cï¿½digo FECU">
+					<f:selectItems
+						value="#{mapeadorTaxonomiaEstadosFinancierosBackingBean.codigosFecuByConcept}"
+						id="si4" />
+				</p:selectOneListbox>
+				<p:commandButton
+					actionListener="#{mapeadorTaxonomiaEstadosFinancierosBackingBean.guardarMapeo}"
+					value="Guardar" />
+
+
+			</p:fieldset>
+			<p:spacer height="10"></p:spacer>
+
+
+
+			<h:panelGrid columns="2" width="100%">
+				<p:layout fullPage="false" id="ly1" style="min-height:800px" >
+					<p:layoutUnit position="west" header="Left" 
+						resizable="true" closable="false" size="800" collapsible="true">
+
+						<p:selectOneMenu label="Informe de Estados Financieros:"
+							value="#{mapeadorTaxonomiaEstadosFinancierosBackingBean.parentTaxonomia}">
+							<f:selectItems
+								value="#{mapeadorTaxonomiaEstadosFinancierosBackingBean.taxonomyParentItems}"
+								id="si5" />
+							<p:ajax event="change" update="arbolConceptos"
+								listener="#{mapeadorTaxonomiaEstadosFinancierosBackingBean.taxonomyParentChangeListener()}" />
+						</p:selectOneMenu>
+
+						<p:treeTable id="arbolConceptos"
+							value="#{mapeadorTaxonomiaEstadosFinancierosBackingBean.rootConcept}"
+							var="nodo">
+							<f:facet name="header">
+									Conceptos
+								</f:facet>
+
+							<p:column>
+								<f:facet name="header">Etiqueta</f:facet>
+								<h:outputText value="#{nodo.label}" />
+							</p:column>
+							
+							<p:column>
+								<f:facet name="header">Id</f:facet>
+								<h:outputText value="#{nodo.id}" />
+							</p:column>
+							
+							<p:column>
+								<f:facet name="header">Codigo</f:facet>
+								<h:outputText value="#{nodo.codigo}" />
+							</p:column>
+
+
+						</p:treeTable>
+					</p:layoutUnit>
+					<p:layoutUnit position="center">  
 			            This fullPage layout consists of five different layoutUnits which are resizable and closable by default.  
 			  		</p:layoutUnit>
 				</p:layout>
-		</h:panelGrid>
-  </h:form>
-  </ui:define>
+			</h:panelGrid>
+		</h:form>
+	</ui:define>
 </ui:composition>
