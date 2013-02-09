@@ -46,13 +46,13 @@ public class XbrlConceptoCodigoFecu implements Serializable {
     private XbrlTaxonomia xbrlTaxonomia;
 
     public XbrlConceptoCodigoFecu() {
-        super();
     }
 
     public XbrlConceptoCodigoFecu(String idConceptoXbrl, EstadoFinanciero estadoFinanciero, XbrlTaxonomia xbrlTaxonomia) {
-        super();
         this.idConceptoXbrl = idConceptoXbrl;
         this.estadoFinanciero = estadoFinanciero;
+        this.idFecu = estadoFinanciero.getIdFecu();
+        this.idVersionEeff = estadoFinanciero.getIdVersionEeff();
         this.xbrlTaxonomia = xbrlTaxonomia;
     }
 

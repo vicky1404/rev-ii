@@ -14,12 +14,14 @@ public class ConceptTreeNode implements Serializable {
 	private RoleType roleType;
 	private String codigo;
 	private String id;
+	private String type;
 	
 	public ConceptTreeNode(RoleType roleType, String label) {
 		this.roleType = roleType;
 		this.label = label;
 		this.codigo = "";
 		this.id = roleType.getId();
+		this.type = "Role";
 	}
 	
 	public ConceptTreeNode(Concept concept, String label) {
@@ -27,6 +29,7 @@ public class ConceptTreeNode implements Serializable {
 		this.label = label;
 		this.codigo = concept.getAttrib("codigo");
 		this.id = concept.getId();
+		this.type = concept.getTypeString();
 	}
 	
 	public String getCodigo(){
@@ -35,6 +38,11 @@ public class ConceptTreeNode implements Serializable {
 	
 	public String getId(){
 		return id;
+	}
+	
+
+	public String getType(){
+		return type;
 	}
 
 

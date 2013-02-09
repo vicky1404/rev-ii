@@ -8,9 +8,17 @@
 
 	<ui:define name="content">
 
+		<style type="text/css">
+.mapeado {
+	background-color: #6CE26C !important;
+	background-image: none !important;
+	color: #000000 !important;
+}
+</style>
+
 		<h:form id="form">
 			<p:messages id="messages" autoUpdate="true" globalOnly="true" />
-			<!-- <p:ajaxStatus onstart="statusDialogNoModal.show();" oncomplete="statusDialogNoModal.hide();" /> -->
+			<p:ajaxStatus onstart="statusDialogNoModal.show();" oncomplete="statusDialogNoModal.hide();" />
 			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
 
 			<p:panel id="filtro" header="#{menuBackingBean.breadcrumb}"
@@ -26,17 +34,11 @@
 							id="si1" />
 					</p:selectOneMenu>
 					<p:commandButton value="Buscar"
-						actionListener="#{mapeadorTaxonomiaEstadosFinancierosBackingBean.buscarTaxonomia}"
-						onclick="pbAjax.start()"></p:commandButton>
+						actionListener="#{mapeadorTaxonomiaEstadosFinancierosBackingBean.buscarTaxonomia}" update="@form"></p:commandButton>
 					<p:commandButton value="Limpiar" action="mapping-taxonomia-ee-ff"
 						immediate="true"></p:commandButton>
 
 
-					<p:progressBar widgetVar="pbAjax" ajax="true"
-						value="#{mapeadorTaxonomiaEstadosFinancierosBackingBean.progress}"
-						labelTemplate="{value}%" styleClass="animated">
-						<p:ajax event="complete" update="@form" />
-					</p:progressBar>
 
 
 
@@ -45,14 +47,12 @@
 				</h:panelGrid>
 			</p:panel>
 
-			<p:fieldset legend="Simple FieldSet"
+			<p:fieldset
 				rendered="#{mapeadorTaxonomiaEstadosFinancierosBackingBean.renderMappingPanel}">
-				<p:selectOneListbox id="sml1" size="3" contentStyle="width:120px;"
-					label="C�digo FECU">
-					<f:selectItems
-						value="#{mapeadorTaxonomiaEstadosFinancierosBackingBean.codigosFecuByConcept}"
-						id="si4" />
-				</p:selectOneListbox>
+
+				<p:commandButton value="Auto Mapping"
+					actionListener="#{mapeadorTaxonomiaEstadosFinancierosBackingBean.generarMappingAutomatico}"
+					update="panelGroup" />
 				<p:commandButton
 					actionListener="#{mapeadorTaxonomiaEstadosFinancierosBackingBean.guardarMapeo}"
 					value="Guardar" />
@@ -63,17 +63,18 @@
 
 
 
-			<h:panelGrid columns="2" width="100%">
-				<p:layout fullPage="false" id="ly1" style="min-height:800px" >
-					<p:layoutUnit position="west" header="Left" 
-						resizable="true" closable="false" size="800" collapsible="true">
+			<h:panelGrid columns="2" width="100%" id="panelGroup"
+				rendered="#{mapeadorTaxonomiaEstadosFinancierosBackingBean.renderMappingPanel}">
+				<p:layout fullPage="false" id="ly1" style="min-height:800px">
+					<p:layoutUnit position="west" header="Left" resizable="true"
+						closable="false" size="800" collapsible="true">
 
 						<p:selectOneMenu label="Informe de Estados Financieros:"
 							value="#{mapeadorTaxonomiaEstadosFinancierosBackingBean.parentTaxonomia}">
 							<f:selectItems
 								value="#{mapeadorTaxonomiaEstadosFinancierosBackingBean.taxonomyParentItems}"
 								id="si5" />
-							<p:ajax event="change" update="arbolConceptos"
+							<p:ajax event="change" update="panelGroup"
 								listener="#{mapeadorTaxonomiaEstadosFinancierosBackingBean.taxonomyParentChangeListener()}" />
 						</p:selectOneMenu>
 
@@ -88,23 +89,63 @@
 								<f:facet name="header">Etiqueta</f:facet>
 								<h:outputText value="#{nodo.label}" />
 							</p:column>
-							
+
 							<p:column>
 								<f:facet name="header">Id</f:facet>
 								<h:outputText value="#{nodo.id}" />
 							</p:column>
 							
 							<p:column>
+								<f:facet name="header">Tipo</f:facet>
+								<h:outputText value="#{nodo.type}" />
+							</p:column>
+
+							<p:column>
 								<f:facet name="header">Codigo</f:facet>
 								<h:outputText value="#{nodo.codigo}" />
 							</p:column>
-
-
+							
 						</p:treeTable>
 					</p:layoutUnit>
-					<p:layoutUnit position="center">  
-			            This fullPage layout consists of five different layoutUnits which are resizable and closable by default.  
-			  		</p:layoutUnit>
+					<p:layoutUnit position="center">
+					
+						 
+					
+						<p:dataTable id="listEEFF" var="e"
+							
+							value="#{mapeadorTaxonomiaEstadosFinancierosBackingBean.mappingFilter}">
+							<p:column headerText="Codigo">
+								<h:outputText value="#{e.estadoFinanciero.fecuFormat}" />
+							</p:column>
+
+							<p:column headerText="Descripcion">
+								<h:outputText value="#{e.estadoFinanciero.codigoFecu.descripcion}" />
+							</p:column>
+
+							<p:column headerText="Monto">
+								<h:outputText value="#{e.estadoFinanciero.montoTotal}" />
+							</p:column>
+							
+							<p:column headerText="Concepto Valor">
+								<ul>
+								<ui:repeat var="v" value="#{e.conceptsValue}">
+								 <li>#{v}</li> 	
+								</ui:repeat>
+								</ul>
+								
+							</p:column>
+							
+							<p:column headerText="Concepto Miembro">
+								<ul>
+								<ui:repeat var="v" value="#{e.conceptsMember}">
+									<li>#{v}</li> 	
+								</ui:repeat>
+								</ul>
+								
+							</p:column>
+
+						</p:dataTable>
+					</p:layoutUnit>
 				</p:layout>
 			</h:panelGrid>
 		</h:form>
