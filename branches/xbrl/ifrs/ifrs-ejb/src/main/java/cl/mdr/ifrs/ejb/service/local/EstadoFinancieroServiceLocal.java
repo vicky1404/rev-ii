@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.ejb.Local;
-import javax.persistence.Query;
 
 import cl.mdr.ifrs.ejb.entity.Celda;
 import cl.mdr.ifrs.ejb.entity.CodigoFecu;
@@ -39,6 +38,8 @@ public interface EstadoFinancieroServiceLocal {
     TipoEstadoEeff getTipoEstadoEeffById(Long idEstadoEeff);
     
     List<EstadoFinanciero> getEeffVigenteByPeriodo(Long idPeriodo, Long idRut);
+    
+    List<EstadoFinanciero> getEeffVigenteXBRLMappingByPeriodo(Long idPeriodo, Long idRut);
     
     List<EstadoFinanciero> getEeffByVersion(Long idVersionEeff);
     

@@ -60,7 +60,7 @@ public class SAXBuilder {
 	
 	private FilterSaxBuilder filter;
 
-	private static final Logger LOGGER = Logger.getLogger(SAXBuilder.class);
+	static final Logger LOGGER = Logger.getLogger(SAXBuilder.class);
 
 	/**
 	 * TODO: Konstruktor sollte keine Exceptions werfen!
@@ -84,32 +84,7 @@ public class SAXBuilder {
 	}
 
 	public SAXBuilder() throws ParserConfigurationException, SAXException {
-		this(new BuilderStatusCallback() {
-			
-			private long startTime;
-
-			@Override
-			public void startBuild() {
-				startTime = System.currentTimeMillis();
-				LOGGER.info("Loading top schema");
-			}
-
-			@Override
-			public void loadingTaxonomy(String name) {
-				LOGGER.info("Loading " + name);
-			}
-
-			@Override
-			public void loadingLinkBase(int total, int index, String name) {
-				LOGGER.info(String.format("Loading linkbase %s of %s : %s", index, total, name));
-			}
-
-			@Override
-			public void endBuild() {
-				long seconds = (System.currentTimeMillis() - startTime) / 1000;
-				LOGGER.info(String.format("Taxnomy loaded in %s seconds", seconds ));
-			}
-		}, new FilterSaxBuilder() {
+		this(new DefaultStatusCallback(), new FilterSaxBuilder() {
 			
 			@Override
 			public boolean isParseable(String name) {

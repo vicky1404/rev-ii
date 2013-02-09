@@ -28,6 +28,7 @@ import cl.mdr.ifrs.ejb.entity.pk.EstadoFinancieroPK;
 @Entity
 @NamedQueries( { @NamedQuery(name = EstadoFinanciero.FIND_ALL, query = "select o from EstadoFinanciero o"),
     @NamedQuery(name = EstadoFinanciero.FIND_VIGENTE_BY_PERIODO_EMPRESA, query = "select o from EstadoFinanciero o, VersionEeff v, CodigoFecu f where f.idFecu = o.idFecu and v.idVersionEeff = o.idVersionEeff and v.periodoEmpresa.idPeriodo = :idPeriodo and v.periodoEmpresa.idRut = :idRut and v.vigencia = 1 order by o.idFecu desc"),
+    @NamedQuery(name = EstadoFinanciero.FIND_VIGENTE_XBRL_BY_PERIODO_EMPRESA, query = "select o from EstadoFinanciero o left join fetch o.versionEeff v left join fetch o.codigoFecu f left join fetch v.tipoEstadoEeff left join fetch v.periodoEmpresa p left join fetch p.empresa left join fetch p.estadoPeriodo left join fetch p.estadoPeriodo left join fetch p.periodo where v.periodoEmpresa.idPeriodo = :idPeriodo and v.periodoEmpresa.idRut = :idRut and v.vigencia = 1 order by o.idFecu asc"),
     @NamedQuery(name = EstadoFinanciero.FIND_BY_VERSION, query = "select o from EstadoFinanciero o where o.idVersionEeff = :idVersionEeff order by o.idFecu"),
     @NamedQuery(name = EstadoFinanciero.FIND_EAGER_BY_VERSION, query = "select distinct o from EstadoFinanciero o join fetch o.detalleEeffList4 where o.idVersionEeff = :idVersionEeff order by o.idFecu"),
     @NamedQuery(name = EstadoFinanciero.FIND_BY_LIKE_FECU, query = "select distinct o from EstadoFinanciero o join fetch o.detalleEeffList4 where o.idVersionEeff = :idVersionEeff and str(o.idFecu) like :likeFecu order by o.idFecu")})
@@ -41,10 +42,12 @@ public class EstadoFinanciero implements Serializable {
 	private static final long serialVersionUID = 138435343926279767L;
 	public static final String FIND_ALL = "EstadoFinanciero.findAll";
     public static final String FIND_VIGENTE_BY_PERIODO_EMPRESA = "EstadoFinanciero.findVigenteByPeriodo";
+    public static final String FIND_VIGENTE_XBRL_BY_PERIODO_EMPRESA = "EstadoFinanciero.findVigenteXbrlByPeriodo";
     public static final String FIND_BY_VERSION = "EstadoFinanciero.findByVersion";
     public static final String FIND_EAGER_BY_VERSION = "EstadoFinanciero.findEagerByVersion";
     public static final String FIND_BY_LIKE_FECU = "EstadoFinanciero.findByLikeFecu";
     public static final String FIND_BY_LIKE_CUENTA= "EstadoFinanciero.findByLikeCuenta";
+	
     
     
     @Id

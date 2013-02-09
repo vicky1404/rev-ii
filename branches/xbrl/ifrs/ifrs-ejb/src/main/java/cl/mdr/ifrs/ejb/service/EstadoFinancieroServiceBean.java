@@ -164,6 +164,14 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
     }
     
     @SuppressWarnings("unchecked")
+    public List<EstadoFinanciero> getEeffVigenteXBRLMappingByPeriodo(Long idPeriodo, Long idRut){
+        Query query = em.createNamedQuery(EstadoFinanciero.FIND_VIGENTE_XBRL_BY_PERIODO_EMPRESA);
+        query.setParameter("idPeriodo", idPeriodo);
+        query.setParameter("idRut", idRut);
+        return query.getResultList();
+    }
+    
+    @SuppressWarnings("unchecked")
     public List<EstadoFinanciero> getEeffByVersion(Long idVersionEeff){
         Query query = em.createNamedQuery(EstadoFinanciero.FIND_BY_VERSION);
         query.setParameter("idVersionEeff", idVersionEeff);

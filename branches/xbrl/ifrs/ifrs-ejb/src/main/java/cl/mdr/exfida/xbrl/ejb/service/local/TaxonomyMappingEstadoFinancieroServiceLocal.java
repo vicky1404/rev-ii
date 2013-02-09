@@ -17,7 +17,5 @@ public interface TaxonomyMappingEstadoFinancieroServiceLocal {
     
     void deleteMappingByConceptoAndTaxonomia(XbrlTaxonomia xbrlTaxonomia, Concept concept) throws Exception;
     
-    Map<String, Long[]> getRangoCodigoFecuMap() throws Exception;
-    
-    Map<Concept, Map<EstadoFinanciero, Boolean>> buildMappingEstadoFinanciero(XbrlTaxonomia xbrlTaxonomia, List<Concept> conceptList, List<EstadoFinanciero> estadoFinancieroList) throws Exception;
+    Map<EstadoFinanciero, List<Concept>> buildMappingEstadoFinanciero(XbrlTaxonomia xbrlTaxonomia, List<Concept> conceptList, List<EstadoFinanciero> estadoFinancieroList) throws Exception;
 }
