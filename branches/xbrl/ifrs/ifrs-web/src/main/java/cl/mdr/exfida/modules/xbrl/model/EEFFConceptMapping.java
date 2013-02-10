@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xbrlcore.taxonomy.Concept;
-
 import cl.mdr.ifrs.ejb.entity.EstadoFinanciero;
 
 public class EEFFConceptMapping {
@@ -51,5 +50,12 @@ public class EEFFConceptMapping {
 		}
 		return list;
 	}
+	
+	public String getKey(){
+		return this.estadoFinanciero.getIdFecu() + "" + this.estadoFinanciero.getIdVersionEeff()  + "" + this.concepts.hashCode(); 
+				
+	}
+
+
 
 }

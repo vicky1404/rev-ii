@@ -18,7 +18,8 @@
 
 		<h:form id="form">
 			<p:messages id="messages" autoUpdate="true" globalOnly="true" />
-			<p:ajaxStatus onstart="statusDialogNoModal.show();" oncomplete="statusDialogNoModal.hide();" />
+			<p:ajaxStatus onstart="statusDialogNoModal.show();"
+				oncomplete="statusDialogNoModal.hide();" />
 			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
 
 			<p:panel id="filtro" header="#{menuBackingBean.breadcrumb}"
@@ -34,7 +35,8 @@
 							id="si1" />
 					</p:selectOneMenu>
 					<p:commandButton value="Buscar"
-						actionListener="#{mapeadorTaxonomiaEstadosFinancierosBackingBean.buscarTaxonomia}" update="@form"></p:commandButton>
+						actionListener="#{mapeadorTaxonomiaEstadosFinancierosBackingBean.buscarTaxonomia}"
+						update="@form"></p:commandButton>
 					<p:commandButton value="Limpiar" action="mapping-taxonomia-ee-ff"
 						immediate="true"></p:commandButton>
 
@@ -80,7 +82,7 @@
 
 						<p:treeTable id="arbolConceptos"
 							value="#{mapeadorTaxonomiaEstadosFinancierosBackingBean.rootConcept}"
-							var="nodo">
+							var="nodo" selectionMode="multiple" selection="#{mapeadorTaxonomiaEstadosFinancierosBackingBean.selectedConcepts}">
 							<f:facet name="header">
 									Conceptos
 								</f:facet>
@@ -94,7 +96,7 @@
 								<f:facet name="header">Id</f:facet>
 								<h:outputText value="#{nodo.id}" />
 							</p:column>
-							
+
 							<p:column>
 								<f:facet name="header">Tipo</f:facet>
 								<h:outputText value="#{nodo.type}" />
@@ -104,44 +106,58 @@
 								<f:facet name="header">Codigo</f:facet>
 								<h:outputText value="#{nodo.codigo}" />
 							</p:column>
-							
+
 						</p:treeTable>
 					</p:layoutUnit>
-					<p:layoutUnit position="center">
-					
-						 
-					
+
+					<p:layoutUnit position="north" >
+
+
+						<p:panelGrid columns="2">
+							<p:commandButton value="Mapear" actionListener="#{mapeadorTaxonomiaEstadosFinancierosBackingBean.mapearConceptosEEFF}" update="listEEFF" />
+							<p:commandButton value="Quitar" actionListener="#{mapeadorTaxonomiaEstadosFinancierosBackingBean.quitarConceptosEEFF}" update="listEEFF" />
+						</p:panelGrid>
+
+
+					</p:layoutUnit>
+
+					<p:layoutUnit position="center" resizable="true" collapsible="true">
+
+
+
 						<p:dataTable id="listEEFF" var="e"
-							
+							rowKey="#{e.key}"
+							selection="#{mapeadorTaxonomiaEstadosFinancierosBackingBean.selectedconceptMapping}" selectionMode="single"
 							value="#{mapeadorTaxonomiaEstadosFinancierosBackingBean.mappingFilter}">
 							<p:column headerText="Codigo">
 								<h:outputText value="#{e.estadoFinanciero.fecuFormat}" />
 							</p:column>
 
 							<p:column headerText="Descripcion">
-								<h:outputText value="#{e.estadoFinanciero.codigoFecu.descripcion}" />
+								<h:outputText
+									value="#{e.estadoFinanciero.codigoFecu.descripcion}" />
 							</p:column>
 
 							<p:column headerText="Monto">
 								<h:outputText value="#{e.estadoFinanciero.montoTotal}" />
 							</p:column>
-							
+
 							<p:column headerText="Concepto Valor">
 								<ul>
-								<ui:repeat var="v" value="#{e.conceptsValue}">
-								 <li>#{v}</li> 	
-								</ui:repeat>
+									<ui:repeat var="v" value="#{e.conceptsValue}">
+										<li>#{v}</li>
+									</ui:repeat>
 								</ul>
-								
+
 							</p:column>
-							
+
 							<p:column headerText="Concepto Miembro">
 								<ul>
-								<ui:repeat var="v" value="#{e.conceptsMember}">
-									<li>#{v}</li> 	
-								</ui:repeat>
+									<ui:repeat var="v" value="#{e.conceptsMember}">
+										<li>#{v}</li>
+									</ui:repeat>
 								</ul>
-								
+
 							</p:column>
 
 						</p:dataTable>
