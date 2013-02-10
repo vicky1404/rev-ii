@@ -13,7 +13,7 @@ import xbrlcore.taxonomy.Concept;
 @Local
 public interface TaxonomyMappingEstadoFinancieroServiceLocal {
            
-    void persistMappingTaxonomiaEstadoFinanciero(XbrlTaxonomia xbrlTaxonomia, Map<Concept, Map<EstadoFinanciero, Boolean>> mappingEstadoFinanciero) throws Exception;
+    void persistMappingTaxonomiaEstadoFinanciero(XbrlTaxonomia xbrlTaxonomia, Map<EstadoFinanciero, List<Concept>> mappingEstadoFinanciero) throws Exception;
     
     void deleteMappingByConceptoAndTaxonomia(XbrlTaxonomia xbrlTaxonomia, Concept concept) throws Exception;
     

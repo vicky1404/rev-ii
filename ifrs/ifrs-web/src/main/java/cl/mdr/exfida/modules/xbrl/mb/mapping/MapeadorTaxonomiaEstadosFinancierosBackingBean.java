@@ -75,8 +75,6 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends AbstractBack
 
 	private TreeNode rootConcept;
 
-	// mapping
-	private Concept conceptoSelectedForMapping;
 	private Map<EstadoFinanciero, List<Concept>> mappingEstadoFinanciero;
 
 	// display de elementos contenidos en el mapping
@@ -87,6 +85,10 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends AbstractBack
 	
 	private List<EEFFConceptMapping> mappings;
 	private List<EEFFConceptMapping> mappingFilter;
+	
+	private EEFFConceptMapping selectedconceptMapping;
+	
+	private TreeNode[] selectedConcepts; 
 
 	public MapeadorTaxonomiaEstadosFinancierosBackingBean() {
 	}
@@ -184,50 +186,24 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends AbstractBack
 		
 	}
 
-	public void fijarConceptoForMapping(ActionEvent event) {
-		final Concept concept = (Concept) event.getComponent().getAttributes().get("concepto");
-		// concept.setMapeado(Boolean.TRUE);
-		setConceptoSelectedForMapping(concept);
-		if (mappingEstadoFinanciero.get(getConceptoSelectedForMapping()) == null) {
-			// mappingEstadoFinanciero.put(getConceptoSelectedForMapping(), new
-			// LinkedHashMap<EstadoFinanciero, Boolean>());
-		}
-		/*
-		 * if(mappingDetalleEstadoFinanciero.get(this.getConceptoSelectedForMapping
-		 * ()) == null){
-		 * mappingDetalleEstadoFinanciero.put(this.getConceptoSelectedForMapping
-		 * (), new LinkedHashMap<DetalleEeff, Boolean>()); }
-		 */
-		desmarcarCodigosFecu();
-		// this.desmarcarCuentasContables();
-		updateMappingDisplay(getConceptoSelectedForMapping());
-		// AdfFacesContext.getCurrentInstance().addPartialTarget(this.getViewMappingPanel());
-		// AdfFacesContext.getCurrentInstance().addPartialTarget(this.getMappingRichDecorativeBox());
-	}
+	
 
 	public void eliminarConceptoForMapping(ActionEvent event) {
 		final Concept concept = (Concept) event.getComponent().getAttributes().get("concepto");
-		// concept.setMapeado(Boolean.FALSE);
 		try {
 			getFacadeService().getTaxonomyMappingEstadoFinancieroService().deleteMappingByConceptoAndTaxonomia(super.getFiltroBackingBean().getXbrlTaxonomia(),
 					concept);
 			mappingEstadoFinanciero.remove(concept);
-			desmarcarCodigosFecu();
-			// AdfFacesContext.getCurrentInstance().addPartialTarget(this.getViewMappingPanel());
-			// AdfFacesContext.getCurrentInstance().addPartialTarget(this.getMappingRichDecorativeBox());
 		} catch (Exception e) {
 			logger.error(e.getCause(), e);
-			// super.addErrorMessage(MessageFormat.format("Se ha producido un error al eliminar el Mapeo para el concepto {0}",
-			// concept.getLabel()));
+			super.addErrorMessage("Se ha producido un error al eliminar el Mapeo para el concepto");
 		}
 
 	}
 
 	public void guardarMapeo(ActionEvent event) {
 		try {
-			// super.getFacadeService().getTaxonomyMappingEstadoFinancieroService()
-			// .persistMappingTaxonomiaEstadoFinanciero(super.getFiltroBackingBean().getXbrlTaxonomia(),
-			// getMappingEstadoFinanciero());
+			super.getFacadeService().getTaxonomyMappingEstadoFinancieroService().persistMappingTaxonomiaEstadoFinanciero(super.getFiltroBackingBean().getXbrlTaxonomia(), this.mappingEstadoFinanciero);
 			super.addInfoMessage("Se han guardado los Mapeos correctamente");
 			setUnsavedMappingsCount(0);
 		} catch (Exception e) {
@@ -236,76 +212,64 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends AbstractBack
 		}
 	}
 
-	public void clearPage(ActionEvent event) {
-		setUnsavedMappingsCount(0);
-		// getMappingEstadoFinanciero().clear();
-		setConceptoSelectedForMapping(null);
-		// AdfFacesContext.getCurrentInstance().addPartialTarget(this.getViewMappingPanel());
-		// AdfFacesContext.getCurrentInstance().addPartialTarget(this.getMappingRichDecorativeBox());
-	}
+	
 
-	public void selectCodigoFecuForMapping(ActionEvent event) {
-		// if (conceptoSelectedForMapping == null) {
-		// super.addWarnMessage("Antes de incluir un C�digo FECU en el Mapeo. debe seleccionar un Concepto desde la Taxonom�a XBRL.");
-		// return;
-		// }
-		// final EstadoFinanciero estadoFinanciero = (EstadoFinanciero)
-		// event.getComponent().getAttributes().get("estadoFinanciero");
-		// final boolean selection = (Boolean)
-		// event.getComponent().getAttributes().get("selected");
-		// if (selection) {
-		// getMappingEstadoFinanciero().get(getConceptoSelectedForMapping()).put(estadoFinanciero,
-		// Boolean.TRUE);
-		// estadoFinanciero.setSelectedForMapping(Boolean.TRUE);
-		// } else {
-		// getMappingEstadoFinanciero().get(getConceptoSelectedForMapping()).remove(estadoFinanciero);
-		// estadoFinanciero.setSelectedForMapping(Boolean.FALSE);
-		// }
-		// //
-		// this.setUnsavedMappingsCount(this.getMappingEstadoFinanciero().size()
-		// // + this.getMappingDetalleEstadoFinanciero().size());
-		// updateMappingDisplay(getConceptoSelectedForMapping());
-		// //
-		// AdfFacesContext.getCurrentInstance().addPartialTarget(this.getViewMappingPanel());
-		// //
-		// AdfFacesContext.getCurrentInstance().addPartialTarget(this.getMappingRichDecorativeBox());
-	}
-
-	/**
-     */
-	public void desmarcarCodigosFecu() {
-		for (EstadoFinanciero estadoFinanciero : getEstadoFinancieroList()) {
-			estadoFinanciero.setSelectedForMapping(Boolean.FALSE);
+	public void mapearConceptosEEFF(ActionEvent event) {
+		if (selectedconceptMapping == null || selectedConcepts == null || selectedConcepts.length == 0) {
+			super.addWarnMessage("Debe seleccionar un o varios Concepto desde la Taxonomía XBRL y un Codigo FECU");
+			return;
 		}
-	}
-
-	/**
-     */
-	public void desmarcarCuentasContables() {
-		for (DetalleEeff detalleEstadoFinanciero : getDetalleEstadoFinancieroList()) {
-			detalleEstadoFinanciero.setSelectedForMapping(Boolean.FALSE);
+		
+		List<Concept> list = mappingEstadoFinanciero.get(selectedconceptMapping.getEstadoFinanciero());
+		
+		for (TreeNode node : selectedConcepts) {
+			
+			ConceptTreeNode data = (ConceptTreeNode) node.getData();
+			if(!data.getConcept().isAbstract() || data.getConcept().getTypeString().equals("nonnum:domainItemType")){
+				if(!list.contains(data.getConcept())){
+					list.add(data.getConcept());	
+				}
+			}else{
+				super.addWarnMessage("El Concepto " + data.getConcept().getId() +  " no se puede mapear con un valor.");
+				return;	
+			}
+				
 		}
-	}
-
-	public void updateMappingDisplay(final Concept key) {
-		codigosFecuByConcept = new ArrayList<SelectItem>();
-		// cuentasContablesByConcept = new ArrayList<SelectItem>();
-		// if (getMappingEstadoFinanciero().size() > 0) {
-		// for (Map.Entry<EstadoFinanciero, Boolean> entry :
-		// getMappingEstadoFinanciero().get(key).entrySet()) {
-		// if (entry.getValue()) {
-		// EstadoFinanciero estadoFinanciero = entry.getKey();
-		// estadoFinanciero.setSelectedForMapping(Boolean.TRUE);
-		// codigosFecuByConcept.add(new SelectItem(estadoFinanciero,
-		// MessageFormat.format("[{0}]", estadoFinanciero.getFecuFormat()),
-		// MessageFormat
-		// .format("C�digo FECU: {0} - {1}", estadoFinanciero.getFecuFormat(),
-		// estadoFinanciero.getCodigoFecu().getDescripcion())));
-		// }
-		// }
-		// }
+		
+		filtrarEstadosFinancieros(parentTaxonomia);
 
 	}
+	
+	public void quitarConceptosEEFF(ActionEvent event) {
+		if (selectedconceptMapping == null ) {
+			super.addWarnMessage("Debe seleccionar un o varios Concepto desde la Taxonomía XBRL y un Codigo FECU");
+			return;
+		}
+		
+		List<Concept> list = mappingEstadoFinanciero.get(selectedconceptMapping.getEstadoFinanciero());
+		
+		if(selectedConcepts == null || selectedConcepts.length == 0){
+			list.clear();
+		}else{
+			for (TreeNode node : selectedConcepts) {
+				
+				ConceptTreeNode data = (ConceptTreeNode) node.getData();
+				if(list.contains(data.getConcept())){
+					list.remove(data.getConcept());	
+				}
+					
+			}	
+		}
+		
+		
+		
+		filtrarEstadosFinancieros(parentTaxonomia);
+
+	}
+
+
+
+	
 
 	/**
 	 * Metodo que construye una estructura de navegacion tipo Arbol con una DTS
@@ -501,13 +465,6 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends AbstractBack
 		return estadoFinanciero;
 	}
 
-	public void setConceptoSelectedForMapping(Concept conceptoSelectedForMapping) {
-		this.conceptoSelectedForMapping = conceptoSelectedForMapping;
-	}
-
-	public Concept getConceptoSelectedForMapping() {
-		return conceptoSelectedForMapping;
-	}
 
 	public void setUnsavedMappingsCount(int unsavedMappingsCount) {
 		this.unsavedMappingsCount = unsavedMappingsCount;
@@ -543,6 +500,22 @@ public class MapeadorTaxonomiaEstadosFinancierosBackingBean extends AbstractBack
 
 	public List<EEFFConceptMapping> getMappingFilter() {
 		return mappingFilter;
+	}
+
+	public TreeNode[] getSelectedConcepts() {
+		return selectedConcepts;
+	}
+
+	public void setSelectedConcepts(TreeNode[] selectedConcepts) {
+		this.selectedConcepts = selectedConcepts;
+	}
+
+	public EEFFConceptMapping getSelectedconceptMapping() {
+		return selectedconceptMapping;
+	}
+
+	public void setSelectedconceptMapping(EEFFConceptMapping selectedconceptMapping) {
+		this.selectedconceptMapping = selectedconceptMapping;
 	}
 
 	

@@ -1,6 +1,5 @@
 package cl.mdr.exfida.xbrl.ejb.service;
 
-import static ch.lambdaj.Lambda.extract;
 import static ch.lambdaj.Lambda.having;
 import static ch.lambdaj.Lambda.index;
 import static ch.lambdaj.Lambda.on;
@@ -9,12 +8,9 @@ import static cl.mdr.ifrs.ejb.cross.Constantes.PERSISTENCE_UNIT_NAME;
 import static org.hamcrest.Matchers.equalTo;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -25,7 +21,6 @@ import javax.persistence.Query;
 
 import xbrlcore.taxonomy.Concept;
 import cl.mdr.exfida.xbrl.ejb.entity.XbrlConceptoCodigoFecu;
-import cl.mdr.exfida.xbrl.ejb.entity.XbrlRangoCodigoFecu;
 import cl.mdr.exfida.xbrl.ejb.entity.XbrlTaxonomia;
 import cl.mdr.exfida.xbrl.ejb.service.local.TaxonomyMappingEstadoFinancieroServiceLocal;
 import cl.mdr.ifrs.ejb.entity.EstadoFinanciero;
@@ -42,11 +37,11 @@ public class TaxonomyMappingEstadoFinancieroServiceBean implements TaxonomyMappi
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void persistMappingTaxonomiaEstadoFinanciero(final XbrlTaxonomia xbrlTaxonomia,
-			final Map<Concept, Map<EstadoFinanciero, Boolean>> mappingEstadoFinanciero) throws Exception {
+			final Map<EstadoFinanciero, List<Concept>> mappingEstadoFinanciero) throws Exception {
 		List<XbrlConceptoCodigoFecu> xbrlConceptoCodigoFecuList = new ArrayList<XbrlConceptoCodigoFecu>();
-		for (Map.Entry<Concept, Map<EstadoFinanciero, Boolean>> entry : mappingEstadoFinanciero.entrySet()) {
-			for (Map.Entry<EstadoFinanciero, Boolean> entryEstadoFinanciero : entry.getValue().entrySet()) {
-				xbrlConceptoCodigoFecuList.add(new XbrlConceptoCodigoFecu(entry.getKey().getId(), entryEstadoFinanciero.getKey(), xbrlTaxonomia));
+		for (Map.Entry<EstadoFinanciero, List<Concept>> entry : mappingEstadoFinanciero.entrySet()) {
+			for (Concept concept : entry.getValue()) {
+				xbrlConceptoCodigoFecuList.add(new XbrlConceptoCodigoFecu(concept.getId(), entry.getKey(), xbrlTaxonomia));
 			}
 		}
 
