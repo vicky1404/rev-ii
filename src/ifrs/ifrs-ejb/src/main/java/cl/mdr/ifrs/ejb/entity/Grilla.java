@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyCollection;
@@ -51,7 +52,8 @@ public class Grilla implements Serializable {
     private String titulo;
     
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "grilla",  orphanRemoval=true)     
+    @OneToMany(mappedBy = "grilla",  orphanRemoval=true)
+    @BatchSize(size=10)
     private List<Columna> columnaList;
     
     @OneToOne(targetEntity = Estructura.class, fetch = FetchType.EAGER, orphanRemoval=true)

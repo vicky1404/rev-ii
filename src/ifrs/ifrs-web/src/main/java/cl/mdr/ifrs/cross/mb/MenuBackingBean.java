@@ -45,6 +45,7 @@ import cl.mdr.ifrs.ejb.entity.Empresa;
 import cl.mdr.ifrs.ejb.entity.Grupo;
 import cl.mdr.ifrs.ejb.entity.Menu;
 import cl.mdr.ifrs.ejb.entity.TipoCuadro;
+import cl.mdr.ifrs.ejb.entity.Usuario;
 
 /**
  * @author http://www.mdrtech.cl
@@ -97,6 +98,7 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 		try {	
 						
 			valid = isValidSoft();
+			final Usuario usuario = super.getUsuarioSesion();
 			
 			if(!valid){
 				super.getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(SEGURIDAD_VIEW_ID));
@@ -106,12 +108,12 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 				super.getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(MIS_DATOS_VIEW_ID));
 			}
 			
-			if(this.isSistemaBloqueado()){
+			if(this.isSistemaBloqueado(usuario)){
 	    		super.getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(INGRESO_BLOQUEADO_VIEW_ID));
 	    	}
 													
-			this.buildEmpresaList();
-			this.buildMenuEmpresa();									
+			this.buildEmpresaList();								
+			this.buildMenuEmpresa(usuario);									
 		} catch (Exception e) {
 			log.error(e.getMessage(),e);
 		}		
@@ -119,8 +121,11 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 	
 	public void resetMenu(){
 		try{
+			
+			final Usuario usuario = super.getUsuarioSesion();
+			
 			this.buildEmpresaList();
-			this.buildMenuEmpresa();
+			this.buildMenuEmpresa(usuario);
 			super.getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(HOME_VIEW_ID));
 		}catch(Exception e){
 			log.error(e.getCause(), e);
@@ -128,7 +133,7 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 		}	
 	}
 	
-	public void buildMenuEmpresa(){
+	public void buildMenuEmpresa(final Usuario usuario){
 		init();
 		try
 		{
@@ -143,7 +148,7 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 										root.getChildren().clear();
 									}
 									this.buildCuadroTreeMenu(this.getRoot());
-									this.buildAccordionPanelMenu();
+									this.buildAccordionPanelMenu(usuario);
 									this.buildCatalogoMap();
 									this.setRenderSelectorEmpresa(Boolean.FALSE);														
 									super.getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(HOME_VIEW_ID));
@@ -170,7 +175,9 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 		if(!valid)
 			return;
 		
-		if (Util.getLong(super.getUsuarioSesion().getCambiarPassword(), 0L).equals(1L)){
+		final Usuario usuario = super.getUsuarioSesion();
+		
+		if (Util.getLong(usuario.getCambiarPassword(), 0L).equals(1L)){
 			super.getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(MIS_DATOS_VIEW_ID));
 		}
 		
@@ -191,7 +198,7 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 			empresa = getFacadeService().getEmpresaService().findById(idRut);
 			this.getFiltroBackingBean().setEmpresa(empresa);
 			this.buildCuadroTreeMenu(this.getRoot());
-			this.buildAccordionPanelMenu();
+			this.buildAccordionPanelMenu(usuario);
 			this.buildCatalogoMap();
 			super.getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(HOME_VIEW_ID));
 		}catch(Exception e){
@@ -258,8 +265,10 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
 	/**
 	 * Construye el model de menu acordeon para navegacion
 	 */
-	private void buildAccordionPanelMenu(){
-		final List<Menu> menuList = this.getMenuList();
+	private void buildAccordionPanelMenu(final Usuario usuario){
+		
+		final List<Menu> menuList = this.getMenuList(usuario);
+
         List<Menu> menuParentList = new ArrayList<Menu>();
         List<Menu> menuChildList = new ArrayList<Menu>();
         MenuModel menuModel = null;
@@ -295,20 +304,20 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
     /**
      * @return
      */
-    public List<Menu> getMenuList() {
+	public List<Menu> getMenuList(final Usuario usuario) {
         if (menuList == null) {
             List<Grupo> grupoList;
             Set<Menu> menus = new LinkedHashSet<Menu>();
             menuList = new ArrayList<Menu>();
             try {
-            	final List<Grupo> gruposByUsuario = super.getFacadeService().getSeguridadService().findUsuarioByUserName(super.getNombreUsuario()).getGrupos();
+            	final List<Grupo> gruposByUsuario = usuario.getGrupos();
             	grupoList = select(gruposByUsuario,
             				having(on(Grupo.class).getAreaNegocio().getEmpresa().getIdRut(), Matchers.equalTo(this.getFiltroBackingBean().getEmpresa().getIdRut())));
             	if(grupoList.isEmpty()){
             		grupoList = gruposByUsuario;
             	}
                 for (Grupo grupo : grupoList) {
-                    for(final Menu menu1 : super.getFacadeService().getSeguridadService().findGrupoById(grupo).getMenus())  {
+                    for(final Menu menu1 : grupo.getMenus())  {
                         menus.add(menu1);
                     }
                 }
@@ -350,7 +359,7 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
     	if(super.getPrincipal() == null){
     		super.addFatalMessage("Debido a su inactividad, la Sesión ha Caducado. por favor ingrese nuevamente.");
     	}    	
-    	if(this.isSistemaBloqueado()){
+    	if(this.isSistemaBloqueado(super.getUsuarioSesion())){
     		super.getExternalContext().redirect(super.getExternalContext().getRequestContextPath().concat(INGRESO_BLOQUEADO_VIEW_ID));
     	}
     	if(this.getCatalogoSelected() != null){
@@ -432,10 +441,10 @@ public class MenuBackingBean extends AbstractBackingBean implements Serializable
      * @return
      * @throws Exception
      */
-    public boolean isSistemaBloqueado() throws Exception {
+    public boolean isSistemaBloqueado(Usuario usuario) throws Exception {
         sistemaBloqueado = Boolean.FALSE;
-        final List<Grupo> grupoList = select(this.getFacadeService().getSeguridadService().findUsuarioByUserName(super.getNombreUsuario()).getGrupos(), having(on(Grupo.class).getAccesoBloqueado(), equalTo(1L)));            
-        if(grupoList != null && grupoList.size() > 0){
+        //rdv final List<Grupo> grupoList = select(this.getFacadeService().getSeguridadService().findUsuarioByUserName(super.getNombreUsuario()).getGrupos(), having(on(Grupo.class).getAccesoBloqueado(), equalTo(1L)));            
+        final List<Grupo> grupoList = select(usuario.getGrupos(), having(on(Grupo.class).getAccesoBloqueado(), equalTo(1L)));        if(grupoList != null && grupoList.size() > 0){
             sistemaBloqueado = Boolean.TRUE;
         }
         return sistemaBloqueado;

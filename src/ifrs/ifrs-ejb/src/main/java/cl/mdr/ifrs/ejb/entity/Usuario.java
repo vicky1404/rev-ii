@@ -22,6 +22,8 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.Email;
 
 import com.google.common.base.Strings;
@@ -32,7 +34,7 @@ import com.google.common.base.Strings;
  */
 @Entity
 @NamedQueries( { 
-    @NamedQuery(name = Usuario.AUTHENTICATE_USER , query = " select u from Usuario u left join fetch u.grupos " +
+    @NamedQuery(name = Usuario.AUTHENTICATE_USER , query = " select u from Usuario u " +
     													   " where u.nombreUsuario =:nombreUsuario "),
     @NamedQuery(name = Usuario.FIND_BY_FILTRO , query = " select u from Usuario u " +
     													" left join fetch u.grupos " +
@@ -105,12 +107,12 @@ public class Usuario implements Serializable {
 	private List<HistorialReporte> historialReportes;
 
 	//bi-directional many-to-one association to HistorialVersion
-	@OneToMany(mappedBy="usuario", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy="usuario")
 	private List<HistorialVersion> historialVersiones;
 
 	//bi-directional many-to-many association to Grupo
-	@Fetch(FetchMode.JOIN)	
-    @ManyToMany(fetch = FetchType.LAZY) 
+	@LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany
 	@JoinTable(
 		name="IFRS_USUARIO_GRUPO"
 		, joinColumns={

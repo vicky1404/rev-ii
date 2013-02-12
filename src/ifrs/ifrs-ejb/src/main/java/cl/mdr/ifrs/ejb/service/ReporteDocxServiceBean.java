@@ -583,7 +583,7 @@ public class ReporteDocxServiceBean implements ReporteDocxServiceLocal {
     @Deprecated
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     private byte[] getBytesFormImage() throws Exception {
-        /*File file = new File("C:\\PROYECTOS\\REVELACIONES\\Revelaciones\\src\\ViewController\\public_html\\images\\logo\\logo-bice.jpg");        
+        /*File file = new File("C:\\PROYECTOS\\REVELACIONES\\Revelaciones\\src\\ViewController\\public_html\\images\\logo\\logo-exfida.jpg");        
         java.io.InputStream is = new FileInputStream(file);        
         long length = file.length();
         if (length > Integer.MAX_VALUE) {

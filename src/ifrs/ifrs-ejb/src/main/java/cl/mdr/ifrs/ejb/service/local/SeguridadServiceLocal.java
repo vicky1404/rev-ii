@@ -80,13 +80,6 @@ public interface SeguridadServiceLocal {
      * @throws Exception
      */
     List<Grupo> findGruposByUsuario(String usuario) throws Exception;
-    
-    /**
-     * @param userName
-     * @return
-     * @throws Exception
-     */
-    Usuario findUsuarioByUserName(final String userName)throws Exception;
 
     
     /**

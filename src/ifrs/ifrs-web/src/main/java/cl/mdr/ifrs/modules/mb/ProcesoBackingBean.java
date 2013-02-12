@@ -81,6 +81,8 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
 				return;
 			}
 			
+			long a = System.currentTimeMillis();
+			
 			estructuraList = super.getFacadeService().getEstructuraService().getEstructuraByVersion(versionSeleccionada, true);
             
 			if(!Util.esListaValida(getEstructuraList())){
@@ -90,7 +92,11 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
 			
             setListGrilla(estructuraList);
             this.renderVersionList = true;
+            
+            long b = System.currentTimeMillis();
 			
+            System.out.println("RD  Execution time: " + (b - a) );
+            
 		} catch (FormulaException e){
             logger.error(e.getCause(), e);
             super.addErrorMessage(PropertyManager.getInstance().getMessage("general_mensaje_cuadro_formula_loop_error"));  
