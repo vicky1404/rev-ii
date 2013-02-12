@@ -319,22 +319,37 @@ public class CargadorEstructuraServiceBean implements CargadorEstructuraServiceL
                                 Celda celda = new Celda();
                                 celda.setColumna(columna);
                                 celda.setIdColumna(columna.getIdColumna());
-                                celda.setIdFila(Util.getLong((row.getRowNum()+1), new Long(0)));                            
+                                celda.setIdFila(Util.getLong((row.getRowNum()), new Long(0)));                            
                                 if(cell.getCellType() == XSSFCell.CELL_TYPE_STRING){
                                     celda.setValor(cell.getStringCellValue());  
                                     celda.setTipoDato(this.getTipoDatoMap().get(TipoDatoEnum.TEXTO.getKey()));
                                     celda.setTipoCelda(this.getTipoCeldaMap().get(TipoCeldaEnum.TEXTO.getKey()));
                                 }                            
                                 if(cell.getCellType() == XSSFCell.CELL_TYPE_NUMERIC){
-                                    if(DateUtil.isCellDateFormatted(cell)){
+                                    
+                                	if(DateUtil.isCellDateFormatted(cell)){
                                         celda.setValor(""+cell.getDateCellValue());  
                                         celda.setValorDate(cell.getDateCellValue());
                                         celda.setTipoDato(this.getTipoDatoMap().get(TipoDatoEnum.FECHA.getKey()));
                                         celda.setTipoCelda(this.getTipoCeldaMap().get(TipoCeldaEnum.TEXTO_EDITABLE.getKey()));
                                     }else{
-                                        celda.setValor(""+new BigDecimal(cell.getNumericCellValue()));  
-                                        celda.setTipoDato(this.getTipoDatoMap().get(TipoDatoEnum.ENTERO.getKey()));
-                                        celda.setTipoCelda(this.getTipoCeldaMap().get(TipoCeldaEnum.NUMERO.getKey()));
+                                    	try{
+	                                        celda.setValor(""+new Double(cell.getNumericCellValue())); 
+	                                        String[] valorArray = celda.getValor().split("\\.");
+	                                        if(valorArray.length == 2){
+	                                        	if(valorArray[1].length()>0 && Integer.valueOf(valorArray[1].length()).intValue() > 0 ){
+	                                        		celda.setTipoDato(this.getTipoDatoMap().get(TipoDatoEnum.DECIMAL.getKey()));
+	    	                                        celda.setTipoCelda(this.getTipoCeldaMap().get(TipoCeldaEnum.NUMERO.getKey()));
+	                                        	}else{
+	                                        		setIntegerTipoDatoCelda(celda);
+	                                        	}
+	                                        }else{
+	                                        	setIntegerTipoDatoCelda(celda);
+	                                        }
+                                    	}catch(Exception e){
+                                    		celda.setValor("0");  
+                                    		setIntegerTipoDatoCelda(celda);
+                                    	}
                                     }                                
                                 }                                                                                                                   
                                 celdaList.add(celda);
@@ -348,6 +363,11 @@ public class CargadorEstructuraServiceBean implements CargadorEstructuraServiceL
         grilla.setColumnaList(columnaList);        
         return grilla;
      }
+    
+    private void setIntegerTipoDatoCelda(final Celda celda){
+    	celda.setTipoDato(this.getTipoDatoMap().get(TipoDatoEnum.ENTERO.getKey()));
+        celda.setTipoCelda(this.getTipoCeldaMap().get(TipoCeldaEnum.NUMERO.getKey()));
+    }
     
     /**
      * genera una Grilla con listado de columnas y celdas desde un archivo excel .xlsx
