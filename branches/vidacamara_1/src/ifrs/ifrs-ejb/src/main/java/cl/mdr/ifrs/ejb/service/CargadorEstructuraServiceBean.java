@@ -337,7 +337,7 @@ public class CargadorEstructuraServiceBean implements CargadorEstructuraServiceL
 	                                        celda.setValor(""+new Double(cell.getNumericCellValue())); 
 	                                        String[] valorArray = celda.getValor().split("\\.");
 	                                        if(valorArray.length == 2){
-	                                        	if(valorArray[1].length()>0 && Integer.valueOf(valorArray[1].length()).intValue() > 0 ){
+	                                        	if(valorArray[1].length()>0 && Integer.valueOf(valorArray[1]).intValue() > 0 ){
 	                                        		celda.setTipoDato(this.getTipoDatoMap().get(TipoDatoEnum.DECIMAL.getKey()));
 	    	                                        celda.setTipoCelda(this.getTipoCeldaMap().get(TipoCeldaEnum.NUMERO.getKey()));
 	                                        	}else{
