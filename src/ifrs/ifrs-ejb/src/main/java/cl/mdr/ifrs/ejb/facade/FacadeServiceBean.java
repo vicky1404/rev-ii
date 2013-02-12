@@ -4,16 +4,12 @@ package cl.mdr.ifrs.ejb.facade;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
-
-import cl.mdr.exfida.xbrl.ejb.service.local.TaxonomyLoaderServiceLocal;
-import cl.mdr.exfida.xbrl.ejb.service.local.TaxonomyMappingEstadoFinancieroServiceLocal;
-import cl.mdr.exfida.xbrl.ejb.service.local.TaxonomyMappingRevelacionServiceLocal;
 import cl.mdr.ifrs.ejb.facade.local.FacadeServiceLocal;
+import cl.mdr.ifrs.ejb.service.local.AreaNegocioServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.CargadorEeffServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.CargadorEstructuraServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.CatalogoServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.CeldaServiceLocal;
-import cl.mdr.ifrs.ejb.service.local.AreaNegocioServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.EmpresaServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.EstadoFinancieroServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.EstructuraServiceLocal;
@@ -50,13 +46,10 @@ public class FacadeServiceBean implements FacadeServiceLocal{
     @EJB private EstadoFinancieroServiceLocal estadoFinancieroService;
     @EJB private CargadorEeffServiceLocal cargadorEeffService;
     @EJB private EmpresaServiceLocal empresaService;
-    @EJB private TaxonomyLoaderServiceLocal taxonomyLoaderService;
     @EJB private FecuServiceLocal fecuService;
     @EJB private AreaNegocioServiceLocal areaNegocioService;
     @EJB private GrupoServiceLocal grupoService;
     @EJB private ParametroServiceLocal parametroService;
-    @EJB private TaxonomyMappingRevelacionServiceLocal taxonomyMappingRevelacionService;
-    @EJB private TaxonomyMappingEstadoFinancieroServiceLocal taxonomyMappingEstadoFinancieroService;
 
     
     
@@ -113,10 +106,6 @@ public class FacadeServiceBean implements FacadeServiceLocal{
 		return empresaService;
 	}
 
-	public TaxonomyLoaderServiceLocal getTaxonomyLoaderService() {
-		return taxonomyLoaderService;
-	}
-
 	public FecuServiceLocal getFecuService() {
 		return fecuService;
 	}
@@ -131,14 +120,6 @@ public class FacadeServiceBean implements FacadeServiceLocal{
 
 	public ParametroServiceLocal getParametroService() {
 		return parametroService;
-	}
-
-	public TaxonomyMappingRevelacionServiceLocal getTaxonomyMappingRevelacionService() {
-		return taxonomyMappingRevelacionService;
-	}
-
-	public TaxonomyMappingEstadoFinancieroServiceLocal getTaxonomyMappingEstadoFinancieroService() {
-		return taxonomyMappingEstadoFinancieroService;
 	}
 
 	public CatalogoServiceLocal getCatalogoService() {

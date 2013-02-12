@@ -167,13 +167,13 @@
 			<systemPath>${project.basedir}/lib/java2word.jar</systemPath>
 		</dependency>
 
-		<dependency>
+		<!-- dependency>
 			<groupId>xbrlcore</groupId>
 			<artifactId>xbrl-core</artifactId>
 			<scope>system</scope>
 			<version>1.0</version>
 			<systemPath>${project.basedir}/lib/xbrl-core-0.0.1-SNAPSHOT.jar</systemPath>
-		</dependency>
+		</dependency-->
 
 		<!-- dependency> <groupId>xbrlcore</groupId> <artifactId>xbrl-core</artifactId> 
 			<version>0.0.1-SNAPSHOT</version> <scope>provided</scope> </dependency -->
