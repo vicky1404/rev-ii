@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
@@ -23,8 +24,7 @@ import com.google.gson.annotations.Expose;
  */
 @Entity
 @NamedQueries({ 
-			@NamedQuery(name = Empresa.EMPRESA_FIND_ALL,  query = " select new cl.mdr.ifrs.ejb.entity.Empresa(o.idRut, o.dv, o.giro, o.nombre, o.razonSocial) " +
-																  " from Empresa o order by o.razonSocial"),
+			@NamedQuery(name = Empresa.EMPRESA_FIND_ALL,  query = " select o from Empresa o order by o.razonSocial"),
 			@NamedQuery(name = Empresa.EMPRESA_FIND_BY_ID, query = " select e " +
 					  											   " from Empresa e left join fetch e.grupos where e.idRut = :rut" +
 					  											   " order by e.razonSocial"),
@@ -73,11 +73,11 @@ public class Empresa implements Serializable {
 	@Expose
 	private String razonSocial;
 
-	@OneToMany(mappedBy="empresa")	
+	@OneToMany(mappedBy="empresa", fetch = FetchType.LAZY)	
 	private List<Catalogo> catalogos;
 	
 		
-	@ManyToMany(mappedBy="empresas")
+	@ManyToMany(mappedBy="empresas", fetch = FetchType.LAZY)
 	private List<Grupo> grupos;
 
     public Empresa() {

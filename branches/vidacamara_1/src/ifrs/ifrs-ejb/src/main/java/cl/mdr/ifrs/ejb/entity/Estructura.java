@@ -17,6 +17,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.BatchSize;
+
 import cl.mdr.ifrs.ejb.common.Constantes;
 import cl.mdr.ifrs.vo.GrillaVO;
 import cl.mdr.ifrs.vo.HtmlVO;
@@ -80,6 +82,7 @@ public class Estructura implements Serializable {
     //@OneToMany(mappedBy = "estructura1", targetEntity = Grilla.class, fetch = FetchType.EAGER)        
     @OneToOne(mappedBy = "estructura", fetch = FetchType.EAGER, orphanRemoval=true)
     @JoinColumn(name = "ID_GRILLA", referencedColumnName="ID_ESTRUCTURA",  insertable = false, updatable = false)
+    @BatchSize(size=5)
     private Grilla grilla;
        
     

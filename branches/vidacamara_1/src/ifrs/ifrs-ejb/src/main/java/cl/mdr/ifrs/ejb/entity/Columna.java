@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyCollection;
@@ -58,6 +59,7 @@ public class Columna implements Serializable {
     
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "columna", orphanRemoval=true)
+    @BatchSize(size=100)
     private List<Celda> celdaList;
     
     @ManyToOne

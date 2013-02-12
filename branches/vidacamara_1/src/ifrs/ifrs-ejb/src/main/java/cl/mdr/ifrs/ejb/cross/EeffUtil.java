@@ -300,7 +300,7 @@ public static String getTbodyRelEeff(){
     public static String concatUsuarioMail(String usuario){
         if(usuario==null)
             return "";
-        return usuario.toUpperCase()+"@BICEVIDA.CL";
+        return usuario.toUpperCase()+"@EXFIDA.CL";
     }
     
     public static Map<String, DetalleEeff> convertListEeffDetToMap(List<DetalleEeff> eeffDetList){

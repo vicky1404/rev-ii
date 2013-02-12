@@ -142,15 +142,13 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
         .getResultList();
     }
     
-    /* (non-Javadoc)
-     * @see cl.mdr.ifrs.ejb.service.local.SeguridadServiceLocal#findUsuarioByUserName(java.lang.String)
-     */
+    /*
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public Usuario findUsuarioByUserName(final String userName)throws Exception{
     	return (Usuario) em.createQuery("select u from Usuario u " +
     									"left join fetch u.grupos g " +
     									"where u.nombreUsuario =:userName").setParameter("userName", userName).getSingleResult();
-    }
+    }*/
     
     /* (non-Javadoc)
      * @see cl.mdr.ifrs.ejb.service.local.SeguridadServiceLocal#persistUsuarioGrupo(java.util.List, cl.mdr.ifrs.ejb.entity.Grupo)
@@ -212,7 +210,11 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
 	 */
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public Grupo findGrupoById(final Grupo grupo) throws Exception {
-        return (Grupo) em.createQuery("select g from Grupo g left join fetch g.menus where g =:grupo").setParameter("grupo", grupo).getSingleResult();
+        Query query = em.createQuery("select g from Grupo g left join fetch g.menus where g =:grupo");
+        query.setParameter("grupo", grupo);
+        query.setFirstResult(0);
+        query.setMaxResults(10);
+		return (Grupo) query.getSingleResult();
     }
     
 	/* (non-Javadoc)

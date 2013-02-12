@@ -90,7 +90,7 @@ public class Grupo implements Serializable {
 	private List<Empresa> empresas;
 
 	//bi-directional many-to-many association to Menu     
-    @ManyToMany(fetch = FetchType.LAZY)    
+    @ManyToMany(fetch = FetchType.EAGER)    
 	@JoinTable(
 		name="IFRS_MENU_GRUPO"
 		, joinColumns={
