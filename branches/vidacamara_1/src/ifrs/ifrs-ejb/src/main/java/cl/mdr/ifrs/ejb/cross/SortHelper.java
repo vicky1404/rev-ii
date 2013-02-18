@@ -1,13 +1,20 @@
 package cl.mdr.ifrs.ejb.cross;
 
 
+import static ch.lambdaj.Lambda.on;
+import static ch.lambdaj.Lambda.sort;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.apache.commons.collections.ComparatorUtils;
+
+import ch.lambdaj.function.compare.ArgumentComparator;
 import cl.mdr.ifrs.ejb.entity.AgrupacionColumna;
 import cl.mdr.ifrs.ejb.entity.Celda;
 import cl.mdr.ifrs.ejb.entity.Columna;
+import cl.mdr.ifrs.ejb.entity.Grilla;
 import cl.mdr.ifrs.ejb.entity.Version;
 import cl.mdr.ifrs.vo.FilaVO;
 
@@ -82,5 +89,32 @@ public class SortHelper {
             }
         });
     }
+    
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    public static void sortGrilla(Grilla grilla){
+    	
+    	if(grilla.getColumnaList()==null)
+    		return;
+    	
+    	List<Columna> sortedColumnas = sort(grilla.getColumnaList(), on(Columna.class).getIdColumna());
+    	
+    	
+		final Comparator byCelColumna = new ArgumentComparator(on(Celda.class).getIdColumna());
+        final Comparator byCelFila = new ArgumentComparator(on(Celda.class).getIdFila());
+        
+        final Comparator celdaOrdeBy = ComparatorUtils.chainedComparator(new Comparator[] {byCelColumna,byCelFila});
+        
+    	for(Columna columna : sortedColumnas){
+    		
+    		if(columna.getCeldaList()==null)
+    			continue;
+    		
+    		columna.setCeldaList(sort(columna.getCeldaList(), on(Celda.class), celdaOrdeBy));
+    	}
+    	
+    	grilla.setColumnaList(sortedColumnas);
+    	
+    }
+    
     
 }

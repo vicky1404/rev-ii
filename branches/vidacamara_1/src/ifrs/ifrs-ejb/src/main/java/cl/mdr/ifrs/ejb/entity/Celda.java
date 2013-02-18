@@ -31,8 +31,8 @@ import cl.mdr.ifrs.ejb.entity.pk.CeldaPK;
 
 @Entity
 @NamedQueries( { @NamedQuery(name = "Celda.findAll", query = "select o from Celda o"), 
-                 @NamedQuery(name = Celda.CELDA_FIND_BY_COLUMNA, query = "select o from Celda o where o.columna = :columna"),
-                 @NamedQuery(name = Celda.CELDA_FIND_BY_ID_GRILLA, query = "select o from Celda o where o.idGrilla = :idGrilla"),
+                 @NamedQuery(name = Celda.CELDA_FIND_BY_COLUMNA, query = "select o from Celda o where o.columna = :columna order by o.idFila"),
+                 @NamedQuery(name = Celda.CELDA_FIND_BY_ID_GRILLA, query = "select o from Celda o where o.idGrilla = :idGrilla order by o.idColumna, o.idFila"),
                  /*@NamedQuery(name = Celda.CELDA_FIND_BY_GRUPO, query = "select o from Celda o where o.grupo = :grupo and o.idGrilla = :idGrilla "),
                  @NamedQuery(name = Celda.CELDA_FIND_MAX_GRUPO, query = "select max(o.grupo) from Celda o where o.idGrilla = :idGrilla "),*/
                  @NamedQuery(name = Celda.CELDA_FIND_BY_ID_FILA, query = "select o from Celda o where o.idGrilla = :idGrilla and o.idFila = :idFila order by o.idColumna")                 

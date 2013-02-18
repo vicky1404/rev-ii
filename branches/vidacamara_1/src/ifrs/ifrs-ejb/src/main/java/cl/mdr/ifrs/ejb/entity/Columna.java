@@ -19,15 +19,14 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.BatchSize;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-
-import com.google.gson.annotations.Expose;
+import org.hibernate.annotations.OrderBy;
 
 import cl.mdr.ifrs.ejb.common.Constantes;
 import cl.mdr.ifrs.ejb.entity.pk.ColumnaPK;
+
+import com.google.gson.annotations.Expose;
 
 @Entity
 @NamedQueries( { @NamedQuery(name = "Columna.findAll", query = "select o from Columna o") })
@@ -60,6 +59,7 @@ public class Columna implements Serializable {
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "columna", orphanRemoval=true)
     @BatchSize(size=100)
+    //@OrderBy(clause="idGrilla,idColumna,idFila")
     private List<Celda> celdaList;
     
     @ManyToOne

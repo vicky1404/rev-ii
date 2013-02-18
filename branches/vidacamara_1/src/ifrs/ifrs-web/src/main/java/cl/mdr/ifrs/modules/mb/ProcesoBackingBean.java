@@ -19,6 +19,7 @@ import cl.mdr.ifrs.cross.util.GeneradorDisenoHelper;
 import cl.mdr.ifrs.cross.util.PropertyManager;
 import cl.mdr.ifrs.ejb.common.TipoEstructuraEnum;
 import cl.mdr.ifrs.ejb.common.VigenciaEnum;
+import cl.mdr.ifrs.ejb.cross.SortHelper;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.AgrupacionColumna;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
@@ -310,21 +311,24 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
 	//TODO cambiar metodo de posicion
     public void setListGrilla(List<Estructura> estructuraList) throws Exception {
         
-        for(Estructura estructuras : estructuraList){
+        for(Estructura estructura : estructuraList){
 
-            if(estructuras.getTipoEstructura().getIdTipoEstructura().equals(TipoEstructura.ESTRUCTURA_TIPO_GRILLA)){
-            	Grilla grilla = estructuras.getGrilla();
+            if(estructura.getTipoEstructura().getIdTipoEstructura().equals(TipoEstructura.ESTRUCTURA_TIPO_GRILLA)){
+            	Grilla grilla = estructura.getGrilla();
             	
             	if(grilla==null)
             		continue;
-            	estructuras.getGrillaVO().setTitulo(grilla.getTitulo());
-            	estructuras.getGrillaVO().setCeldaList(GeneradorDisenoHelper.builHtmlGrilla(grilla.getColumnaList()));
+            	
+            	SortHelper.sortGrilla(grilla);
+            	
+            	estructura.getGrillaVO().setTitulo(grilla.getTitulo());
+            	estructura.getGrillaVO().setCeldaList(GeneradorDisenoHelper.builHtmlGrilla(grilla.getColumnaList()));
             		
                 List<AgrupacionColumna> agrupaciones = getFacadeService().getEstructuraService().findAgrupacionColumnaByGrilla(grilla);
                 
                 if(Util.esListaValida(agrupaciones)){
                 	List<List<AgrupacionModelVO>> agrupacionesNivel = GeneradorDisenoHelper.crearAgrupadorHTMLVO(agrupaciones);
-                	estructuras.getGrillaVO().setAgrupaciones(agrupacionesNivel);
+                	estructura.getGrillaVO().setAgrupaciones(agrupacionesNivel);
                 }
             }
         }

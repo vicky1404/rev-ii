@@ -36,6 +36,7 @@ import cl.mdr.ifrs.cross.model.TreeFormula;
 import cl.mdr.ifrs.cross.util.PropertyManager;
 import cl.mdr.ifrs.ejb.common.VigenciaEnum;
 import cl.mdr.ifrs.ejb.cross.FormulaHelper;
+import cl.mdr.ifrs.ejb.cross.SortHelper;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
 import cl.mdr.ifrs.ejb.entity.Celda;
@@ -201,6 +202,7 @@ public class MantenedorFormulaBackingBean extends AbstractBackingBean implements
         try {
         	
 			final Grilla grilla = this.getFacadeService().getGrillaService().findGrillaById(estructura.getIdEstructura());
+			SortHelper.sortGrilla(grilla);
 			this.setGrillaVO(this.getFacadeService().getEstructuraService().getGrillaVO(grilla, Boolean.FALSE));
 			this.getTipoFormulaCombo().setValue(estructura.getGrilla().getTipoFormula());
 			this.setIdTipoFormula(estructura.getGrilla().getTipoFormula());

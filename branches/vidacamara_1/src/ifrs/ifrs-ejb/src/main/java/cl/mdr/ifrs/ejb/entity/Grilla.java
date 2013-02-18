@@ -16,14 +16,13 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.BatchSize;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-
-import com.google.gson.annotations.Expose;
+import org.hibernate.annotations.OrderBy;
 
 import cl.mdr.ifrs.ejb.common.Constantes;
+
+import com.google.gson.annotations.Expose;
 
 
 @Entity
@@ -54,6 +53,7 @@ public class Grilla implements Serializable {
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "grilla",  orphanRemoval=true)
     @BatchSize(size=10)
+    //@OrderBy(clause="idGrilla, idColumna")
     private List<Columna> columnaList;
     
     @OneToOne(targetEntity = Estructura.class, fetch = FetchType.EAGER, orphanRemoval=true)
