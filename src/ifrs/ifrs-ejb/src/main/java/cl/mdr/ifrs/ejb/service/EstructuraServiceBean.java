@@ -304,101 +304,33 @@ public class EstructuraServiceBean implements EstructuraServiceLocal {
     }
     
     
-    public List<Grilla> persistGrillaList(Grilla grilla){
+    public void persistGrillaList(Grilla grilla){
 
-            List<Grilla>  grillaList = new ArrayList<Grilla>();
-            Grilla grillaPaso = null;
-        
-            //for (Grilla grilla : grillas){
-                
-                    grillaPaso = new Grilla();
-                    grillaPaso.setIdGrilla(grilla.getEstructura().getIdEstructura());
-                    grillaPaso.setEstructura(grilla.getEstructura());
-                    grillaPaso.setTitulo(grilla.getTitulo());
-                    grillaPaso.setColumnaList(grilla.getColumnaList());
-                
-                    /*int returnDelete =  */
-                    em.createQuery("delete from Celda c where c.idGrilla = :idGrilla").setParameter("idGrilla", grilla.getIdGrilla()).executeUpdate();
-                
-                    for(Columna columna : grillaPaso.getColumnaList()){
-                        columna.setGrilla(grillaPaso);
-                        columna.setIdGrilla(grillaPaso.getEstructura().getIdEstructura());
-                        for(Celda celda : columna.getCeldaList()){
-                            celda.setIdColumna(columna.getIdColumna());
-                            celda.setIdGrilla(grillaPaso.getIdGrilla());
-                            celda.setColumna(columna);
-                            em.createNativeQuery(" Insert into " + Constantes.CELDA + " (ID_COLUMNA,ID_FILA,ID_GRILLA,ID_TIPO_CELDA,ID_TIPO_DATO,VALOR," +
-                            															" CHILD_HORIZONTAL,PARENT_HORIZONTAL,CHILD_VERTICAL,PARENT_VERTICAL,FORMULA)" +
-                            															" values (?,?,?,?,?,?,?,?,?,?,?) " , Celda.class)
-                            .setParameter(1, celda.getIdColumna())
-                            .setParameter(2, celda.getIdFila())
-                            .setParameter(3, celda.getIdGrilla())
-                            .setParameter(4, celda.getTipoCelda().getIdTipoCelda())
-                            .setParameter(5, celda.getTipoDato().getIdTipoDato())
-                            .setParameter(6, celda.getValor())
-                            .setParameter(7, celda.getChildHorizontal())
-                            .setParameter(8, celda.getParentHorizontal())
-                            .setParameter(9, celda.getChildVertical())
-                            .setParameter(10, celda.getParentVertical())
-                            .setParameter(11, celda.getFormula())
-                            .executeUpdate();
-                        }
-                    }
-                    
-                    
-                    /*
-                    
-                        if(returnDelete > 0){
-                            for(Columna columna : grillaPaso.getColumnaList()){
-                                columna.setGrilla(grillaPaso);
-                                columna.setIdGrilla(grillaPaso.getEstructura().getIdEstructura());
-                                for(Celda celda : columna.getCeldaList()){
-                                    celda.setIdColumna(columna.getIdColumna());
-                                    celda.setIdGrilla(grillaPaso.getIdGrilla());
-                                    celda.setColumna(columna);
-                                    em.createNativeQuery(" Insert into " + Constantes.CELDA + " (ID_COLUMNA,ID_FILA,ID_GRILLA,ID_TIPO_CELDA,ID_TIPO_DATO,VALOR," +
-                                    															" CHILD_HORIZONTAL,PARENT_HORIZONTAL,CHILD_VERTICAL,PARENT_VERTICAL,FORMULA)" +
-                                    															" values (?,?,?,?,?,?,?,?,?,?,?) " )
-                                    .setParameter(1, celda.getIdColumna())
-                                    .setParameter(2, celda.getIdFila())
-                                    .setParameter(3, celda.getIdGrilla())
-                                    .setParameter(4, celda.getTipoCelda().getIdTipoCelda())
-                                    .setParameter(5, celda.getTipoDato().getIdTipoDato())
-                                    .setParameter(6, celda.getValor())
-                                    .setParameter(7, celda.getChildHorizontal())
-                                    .setParameter(8, celda.getParentHorizontal())
-                                    .setParameter(9, celda.getChildVertical())
-                                    .setParameter(10, celda.getParentVertical())
-                                    .setParameter(11, celda.getFormula())
-                                    .executeUpdate();
-                                }
-                            }
-                        }else{
-                            for(Columna columna : grillaPaso.getColumnaList()){
-                                columna.setGrilla(grillaPaso);
-                                columna.setIdGrilla(grillaPaso.getIdGrilla());
-                                for(Celda celda : columna.getCeldaList()){
-                                    celda.setIdColumna(columna.getIdColumna());
-                                    celda.setIdGrilla(grillaPaso.getIdGrilla());
-                                    //celda.setGrupo(celda.getIdFila());
-                                    celda.setColumna(columna);                                
-                                }
-                            }
-                            
-                            grillaPaso = em.merge(grillaPaso);
-                            grillaList.add(grillaPaso);
-                            
-                            for (Columna columna : grillaPaso.getColumnaList()){
-                                for (AgrupacionColumna agrupacion : columna.getAgrupacionColumnaList()){
-                                        agrupacion = em.merge(agrupacion);    
-                                    }
-                            }
-                        }*/
-            //}
-        
-                    return grillaList;        
-            
+        /*int returnDelete =  */
+        em.createQuery("delete from Celda c where c.idGrilla = :idGrilla").setParameter("idGrilla", grilla.getIdGrilla()).executeUpdate();
+    
+        for(Columna columna : grilla.getColumnaList()){
+
+            for(Celda celda : columna.getCeldaList()){
+                em.createNativeQuery(" Insert into " + Constantes.CELDA + " (ID_COLUMNA,ID_FILA,ID_GRILLA,ID_TIPO_CELDA,ID_TIPO_DATO,VALOR," +
+                															" CHILD_HORIZONTAL,PARENT_HORIZONTAL,CHILD_VERTICAL,PARENT_VERTICAL,FORMULA)" +
+                															" values (?,?,?,?,?,?,?,?,?,?,?) ")
+                .setParameter(1, celda.getIdColumna())
+                .setParameter(2, celda.getIdFila())
+                .setParameter(3, celda.getIdGrilla())
+                .setParameter(4, celda.getTipoCelda().getIdTipoCelda())
+                .setParameter(5, celda.getTipoDato().getIdTipoDato())
+                .setParameter(6, celda.getValor())
+                .setParameter(7, celda.getChildHorizontal())
+                .setParameter(8, celda.getParentHorizontal())
+                .setParameter(9, celda.getChildVertical())
+                .setParameter(10, celda.getParentVertical())
+                .setParameter(11, celda.getFormula())
+                .executeUpdate();
+            }
         }
+    
+    }
     
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public List<AgrupacionColumna> findAgrupacionColumnaByGrillaNivel(Long idGrilla, Long idNivel) throws Exception {
