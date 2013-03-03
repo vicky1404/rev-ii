@@ -233,18 +233,18 @@ public class FlujoAprobacionBackingBean extends AbstractBackingBean implements S
                 }
             }
             
-            if((versionNew.getEstado().getIdEstado().equals(EstadoCuadroEnum.CONTINGENCIA.getKey())) ||
+            if(((versionNew.getEstado().getIdEstado().equals(EstadoCuadroEnum.CONTINGENCIA.getKey())) ||
                (versionNew.getEstado().getIdEstado().equals(EstadoCuadroEnum.CERRADO.getKey())) ||
-               (versionNew.getEstado().getIdEstado().equals(EstadoCuadroEnum.APROBADO.getKey())) ||
-               (versionNew.getCatalogo().getValidarEeff()!=null && versionNew.getCatalogo().getValidarEeff().equals(VigenciaEnum.VIGENTE.getKey())) &&
-               (versionNew.getValidadoEeff() != null && versionNew.getVersion().equals(VigenciaEnum.NO_VIGENTE.getKey()))
+               (versionNew.getEstado().getIdEstado().equals(EstadoCuadroEnum.APROBADO.getKey()))) &&
+               ((versionNew.getCatalogo().getValidarEeff()!=null && versionNew.getCatalogo().getValidarEeff().equals(VigenciaEnum.VIGENTE.getKey())) &&
+               (versionNew.getValidadoEeff() != null && versionNew.getValidadoEeff().equals(VigenciaEnum.NO_VIGENTE.getKey())))
                ){
             	
             	if(count == 1){
                     super.addWarnMessage(PropertyManager.getInstance().getMessage("workflow_mensaje_prohibido_cambiar_estado"));
                 }
                 
-                super.addWarnMessage(MessageFormat.format("{0} del estado: {1} hacia el estado {2} debido a que la nota no se encuentra Validada",  versionActual.getCatalogo().getNombre(), Util.capitalizar(versionActual.getEstado().getNombre()), Util.capitalizar(versionNew.getEstado().getNombre())));                        
+                super.addWarnMessage(MessageFormat.format("{0} del estado: {1} hacia el estado {2} debido a que la revelación no se encuentra Validada",  versionActual.getCatalogo().getNombre(), Util.capitalizar(versionActual.getEstado().getNombre()), Util.capitalizar(versionNew.getEstado().getNombre())));                        
                 result = Boolean.FALSE;
                 count++;
             	
