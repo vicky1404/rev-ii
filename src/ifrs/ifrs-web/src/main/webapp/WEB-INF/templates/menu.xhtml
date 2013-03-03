@@ -36,8 +36,10 @@
 					<p:treeNode>
 						<p:commandLink onclick="statusDialog.show();"
 							onstart="statusDialog.show();" oncomplete="statusDialog.hide();"
-							ajax="false"
-							value="#{menuBackingBean.catalogoMap[nodo].nombre == null ? nodo : menuBackingBean.catalogoMap[nodo].nombre}" />
+							ajax="true" update="@form"
+							value="#{menuBackingBean.catalogoMap[nodo].nombre == null ? nodo : menuBackingBean.catalogoMap[nodo].nombre}" >
+							
+							</p:commandLink>
 					</p:treeNode>
 				</p:tree>
 			</p:tab>

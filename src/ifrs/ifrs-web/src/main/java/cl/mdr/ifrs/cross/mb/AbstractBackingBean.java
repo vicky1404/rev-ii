@@ -8,6 +8,9 @@ import java.io.InputStreamReader;
 import java.security.Principal;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.StringTokenizer;
@@ -49,6 +52,11 @@ public abstract class AbstractBackingBean {
 
 	private Locale localeCL = new Locale("es", "CL");	
 	
+	private Integer restaLic = new Integer(0);
+	private boolean renderMensajeExpiracionLicencia;
+	
+	
+
 	public FacadeServiceLocal getFacadeService() {
 		return facadeService;
 	}
@@ -256,6 +264,13 @@ public abstract class AbstractBackingBean {
 	
 	protected boolean isValidSoft() throws Exception{
 		
+		Calendar fechaArchivo = GregorianCalendar.getInstance();
+		Calendar fechaActual = GregorianCalendar.getInstance();
+		
+		//fechaArchivo.set(2012, 0, 20);
+		fechaArchivo.set(Integer.parseInt(this.flic().substring(4, 8)) , Integer.parseInt(this.flic().substring(2, 4)) - 1 , Integer.parseInt( this.flic().substring(0, 2) ) );
+		fechaActual.setTime(new Date());
+		
 		List<Empresa> empresaList = null;
 		
 		File archivo = new File(this.getlicFile());
@@ -264,7 +279,13 @@ public abstract class AbstractBackingBean {
 			return false;
 		}	
 		
+		this.setRestaLic(new Integer(Util.restaLic(fechaArchivo, fechaActual)));
+		
 		if (this.licType().equalsIgnoreCase(Constantes.TYPE_INST_CL)){
+			if ((Constantes.D_LIC.intValue() - this.getRestaLic().intValue()) <= 0 ){
+				return false;
+			}
+			
 			empresaList = this.getFacadeService().getEmpresaService().findAll();
 			if(empresaList != null){
 				
@@ -288,6 +309,9 @@ public abstract class AbstractBackingBean {
 				
 			}
 		} else if (this.licType().equalsIgnoreCase(Constantes.TYPE_INST_OP)){
+			if ((Constantes.D_LIC.intValue() - this.getRestaLic().intValue()) <= 0 ){
+				return false;
+			}
 			empresaList = this.getFacadeService().getEmpresaService().findAll();
 			if (empresaList != null && empresaList.size() > 0 && empresaList.size() != this.numRuts().intValue()){
 				return false;	
@@ -344,6 +368,38 @@ public abstract class AbstractBackingBean {
 	 
 	 return type;
 	}
+	
+	public String flic(){
+		
+		 String type="";
+		 String key="";
+		 
+		 try{
+			  FileInputStream fstream = new FileInputStream(this.getlicFile());
+			  DataInputStream in = new DataInputStream(fstream);
+			  BufferedReader br = new BufferedReader(new InputStreamReader(in));
+			  String strLine;
+			  
+			  	while ((strLine = br.readLine()) != null)   {
+			  			strLine = decrypt(strLine);
+			  		    key = strLine.substring(0, strLine.indexOf("="));
+			  		    
+			  		    if (key.equalsIgnoreCase(Constantes.FLIC)){
+			  		    	type = strLine.substring(strLine.indexOf("=")+1, strLine.length());	
+			  		    	break;
+			  		    }
+			  			
+			  	}
+			  	
+			  	in.close();
+			  	
+		 }catch (Exception e){
+			 System.err.println("Error: " + e.getMessage());
+			 e.printStackTrace();
+		 }
+		 
+		 return type;
+		}
 	
 	
 	public String licRuts(){
@@ -442,5 +498,56 @@ public abstract class AbstractBackingBean {
         }
         return name;
     }
+	
+	public Integer getRestaLic() {
+		return restaLic;
+	}
+
+	public void setRestaLic(Integer restaLic) {
+		this.restaLic = restaLic;
+	}
+
+	public boolean isRenderMensajeExpiracionLicencia() {
+		
+		if (this.getRestaLic() != null && (Constantes.D_LIC.intValue() - this.restaLic.intValue()) <= Constantes.D_EX.intValue()){
+			
+			renderMensajeExpiracionLicencia = true;
+			
+			if (this.licType().equalsIgnoreCase(Constantes.TYPE_INST_FR)){
+				renderMensajeExpiracionLicencia = false;
+			}
+			
+			
+		} else {
+			
+			renderMensajeExpiracionLicencia = false;
+			
+		}
+		
+		return renderMensajeExpiracionLicencia;
+	}
+
+	public void setRenderMensajeExpiracionLicencia(
+			boolean renderMensajeExpiracionLicencia) {
+		this.renderMensajeExpiracionLicencia = renderMensajeExpiracionLicencia;
+	}
+	
+	public int getDiasRestantes(){
+		return (Constantes.D_LIC.intValue() - this.getRestaLic().intValue());
+	}
+	
+	public boolean isRenderLicenciaExpiro(){
+		
+		if (this.getRestaLic() != null && (Constantes.D_LIC.intValue() - this.getRestaLic().intValue()) <= 0){
+			renderMensajeExpiracionLicencia = true;
+			if (this.licType().equalsIgnoreCase(Constantes.TYPE_INST_FR)){
+				renderMensajeExpiracionLicencia = false;
+			}
+			
+		} else {
+			renderMensajeExpiracionLicencia = false;
+		}
+		return renderMensajeExpiracionLicencia;
+	}
 
 }
