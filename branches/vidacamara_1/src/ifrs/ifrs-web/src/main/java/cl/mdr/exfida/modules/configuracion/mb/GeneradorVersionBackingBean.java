@@ -567,6 +567,7 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
 				Grilla grillaNew = new Grilla();
 				List<Long> niveles = new ArrayList<Long>();
 				grillaNew.setTitulo(estructura.getGrilla().getTitulo());
+				grillaNew.setTipoFormula(estructura.getGrilla().getTipoFormula());
 				grillaNew.setColumnaList(estructura.getGrilla().getColumnaList());
 				grillaNew.setEstructura(estructura.getGrilla().getEstructura());
 
