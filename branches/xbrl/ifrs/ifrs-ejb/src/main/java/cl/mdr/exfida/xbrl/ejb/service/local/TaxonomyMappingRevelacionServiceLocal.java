@@ -1,6 +1,7 @@
 package cl.mdr.exfida.xbrl.ejb.service.local;
 
 import cl.mdr.ifrs.ejb.entity.Celda;
+import cl.mdr.ifrs.ejb.entity.Columna;
 import cl.mdr.ifrs.ejb.entity.Estructura;
 import cl.mdr.exfida.xbrl.ejb.entity.XbrlConceptoCelda;
 
@@ -21,7 +22,9 @@ public interface TaxonomyMappingRevelacionServiceLocal {
      * @param mapping
      * @throws Exception
      */
-    void persistMappingTaxonomiaRevelacion(XbrlTaxonomia xbrlTaxonomia, Map<Concept, Map<Celda, Boolean>> mapping) throws Exception;
+    void persistMappingTaxonomiaRevelacion(XbrlTaxonomia xbrlTaxonomia, Map<Celda, List<Concept>> mapping) throws Exception;
+    
+    void persistMappingTaxonomiaRevelacionColumnas(XbrlTaxonomia xbrlTaxonomia, Map<Columna, List<Concept>> mapping) throws Exception;
 
     /**
      * @param xbrlTaxonomia
@@ -41,5 +44,7 @@ public interface TaxonomyMappingRevelacionServiceLocal {
      * @return
      * @throws Exception
      */
-    Map<Concept, Map<Celda, Boolean>> buildMappingByEstructura(Estructura estructura , List<Concept> conceptList) throws Exception;
+    Map<Celda, List<Concept>> buildMappingByEstructura(Estructura estructura , List<Concept> conceptList) throws Exception;
+    
+    Map<Columna, List<Concept>> buildMappingByEstructuraColumna(Estructura estructura , List<Concept> conceptList) throws Exception;
 }

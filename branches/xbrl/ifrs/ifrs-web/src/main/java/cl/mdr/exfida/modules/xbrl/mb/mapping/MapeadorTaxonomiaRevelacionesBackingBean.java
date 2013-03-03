@@ -193,7 +193,7 @@ public class MapeadorTaxonomiaRevelacionesBackingBean extends AbstractBackingBea
             //this.buildTaxonomyTreeModel();
             this.buildTaxonomyConcepts();
             
-            this.setMapping( super.getFacadeService().getTaxonomyMappingRevelacionService().buildMappingByEstructura(estructura, this.getTaxonomyConceptList()) );
+           // this.setMapping( super.getFacadeService().getTaxonomyMappingRevelacionService().buildMappingByEstructura(estructura, this.getTaxonomyConceptList()) );
             this.setRenderMappingPanel(Boolean.TRUE);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
@@ -203,9 +203,11 @@ public class MapeadorTaxonomiaRevelacionesBackingBean extends AbstractBackingBea
     }
     
     
+    
+    
     public void guardarMapeo(ActionEvent event){
         try {
-            super.getFacadeService().getTaxonomyMappingRevelacionService().persistMappingTaxonomiaRevelacion(super.getFiltroBackingBean().getXbrlTaxonomia(), this.getMapping());
+            //super.getFacadeService().getTaxonomyMappingRevelacionService().persistMappingTaxonomiaRevelacion(super.getFiltroBackingBean().getXbrlTaxonomia(), this.getMapping());
             super.addInfoMessage("Se han guardado los Mapeos correctamente");   
             this.setUnsavedMappingsCount(0);  
             //AdfFacesContext.getCurrentInstance().addPartialTarget(this.getViewMappingPanel()); 
@@ -346,7 +348,7 @@ public class MapeadorTaxonomiaRevelacionesBackingBean extends AbstractBackingBea
         catalogoRoot = new ArrayList<TreeItem>();
         ArrayList<TreeItem> catalogoChildren = null;
         TreeItem nodo = null;
-        for(Version version : this.getVersionList()){
+        for(Version version : versionList){
             nodo = new TreeItem();
             nodo.setParent(Boolean.TRUE);
             nodo.setObject(version);
@@ -557,13 +559,7 @@ public class MapeadorTaxonomiaRevelacionesBackingBean extends AbstractBackingBea
     }
 
 
-    public List<Version> getVersionList() {
-		return versionList;
-	}
 
-	public void setVersionList(List<Version> versionList) {
-		this.versionList = versionList;
-	}
 
 	public void setRenderMappingPanel(boolean renderMappingPanel) {
         this.renderMappingPanel = renderMappingPanel;
