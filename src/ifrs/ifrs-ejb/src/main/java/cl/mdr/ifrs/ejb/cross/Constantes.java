@@ -26,7 +26,11 @@ public class Constantes {
     public static final String TYPE_INST="tip_inst";
     public static final String KEYS="keys";    
     public static final String NUM="nkeys";
+    public static final String FLIC="flic";
     public static final String TYPE_INST_CL="001";
     public static final String TYPE_INST_OP="002";
     public static final String TYPE_INST_FR="000";
+    public static final Integer D_EX = 30;
+    public static final Integer D_LIC = 365;
+    
 }
