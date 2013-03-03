@@ -20,7 +20,7 @@ import cl.mdr.ifrs.ejb.common.Constantes;
 
 
 @Entity
-@NamedQueries( { @NamedQuery(name = CodigoFecu.FIND_ALL, query = "select o from CodigoFecu o"),
+@NamedQueries( { @NamedQuery(name = CodigoFecu.FIND_ALL, query = "select o from CodigoFecu o order by o.idFecu"),
                  @NamedQuery(name = CodigoFecu.FIND_VIGENTE, query = "select o from CodigoFecu o where o.vigencia = 1 order by o.idFecu")})
 @Table(name = Constantes.CODIGO_FECU)
 

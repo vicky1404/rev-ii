@@ -19,7 +19,7 @@ import cl.mdr.ifrs.ejb.common.Constantes;
 
 
 @Entity
-@NamedQueries( { @NamedQuery(name = CuentaContable.FIND_ALL, query = "select o from CuentaContable o"),
+@NamedQueries( { @NamedQuery(name = CuentaContable.FIND_ALL, query = "select o from CuentaContable o order by o.idCuenta"),
                  @NamedQuery(name = CuentaContable.FIND_VIGENTE, query = "select o from CuentaContable o where o.vigencia = 1 order by o.idCuenta")})
 @Table(name = Constantes.CUENTA_CONTABLE)
 public class CuentaContable implements Serializable {

@@ -324,10 +324,21 @@ public class FormulaServiceBean implements FormulaServiceLocal{
                 }
                 
                 if(Util.esListaValida(cell.getRelacionEeffList()) || Util.esListaValida(cell.getRelacionDetalleEeffList())){
-                    if(!cell.getValorBigDecimal().equals(sum)){
-                        cell.setValid(false);
-                        isValid = false;
-                    }
+  
+	                if(cell.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.ENTERO.getKey())){
+	                	if(!cell.getValorLong().equals(sum.longValue())){
+	                        cell.setValid(false);
+	                        isValid = false;
+	                    }
+	                }else if(cell.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.DECIMAL.getKey())){
+	                	if(!cell.getValorBigDecimal().equals(sum)){
+	                        cell.setValid(false);
+	                        isValid = false;
+	                    }
+	                }
+                    
+                	
+                    
                 }
                 
                 cell.setSumaEeff(sum);

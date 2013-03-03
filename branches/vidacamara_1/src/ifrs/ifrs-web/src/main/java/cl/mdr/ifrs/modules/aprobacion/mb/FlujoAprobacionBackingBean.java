@@ -219,7 +219,10 @@ public class FlujoAprobacionBackingBean extends AbstractBackingBean implements S
             Version versionActual = it2.next();
             if(versionActual.getEstado().getIdEstado().equals(EstadoCuadroEnum.CERRADO.getKey())){
                 if(!(versionNew.getEstado().getIdEstado().equals(EstadoCuadroEnum.CONTINGENCIA.getKey())) &&
-                   !(versionNew.getEstado().getIdEstado().equals(EstadoCuadroEnum.CERRADO.getKey()))){
+                   !(versionNew.getEstado().getIdEstado().equals(EstadoCuadroEnum.CERRADO.getKey())) &&
+                   	(versionNew.getValidadoEeff() != null && versionNew.getVersion().equals(VigenciaEnum.NO_VIGENTE.getKey()))
+                   ){
+                	
                     if(count == 1){
                         super.addWarnMessage(PropertyManager.getInstance().getMessage("workflow_mensaje_prohibido_cambiar_estado"));
                     }
