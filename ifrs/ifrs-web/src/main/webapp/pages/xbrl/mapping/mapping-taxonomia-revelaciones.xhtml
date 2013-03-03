@@ -3,49 +3,8 @@
 <f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
         xmlns:h="http://java.sun.com/jsf/html" xmlns:fn="http://java.sun.com/jsp/jstl/functions">
     <af:document title="mapping-taxonomia.jsf" id="d1">
-        <af:resource source="/css/tabla-jsf.css" type="css"/>
-        <af:resource type="javascript">
-          function loaderMessage(evt) {
-              var popup = AdfPage.PAGE.findComponentByAbsoluteId('p1_loading');
-              if (popup != null) {
-                  AdfPage.PAGE.addBusyStateListener(popup, handleBusyState);
-                  evt.preventUserInput();
-              }
-          }
-          //JavaScript call back handler 
-          function handleBusyState(evt) {
-              var popup = AdfPage.PAGE.findComponentByAbsoluteId('p1_loading');
-              if (popup != null) {
-                  if (evt.isBusy()) {
-                      popup.show();
-                  }
-                  else if (popup.isPopupVisible()) {
-                      popup.hide();
-                      AdfPage.PAGE.removeBusyStateListener(popup, handleBusyState);
-                  }
-              }
-          }
-        </af:resource>
-        <af:resource type="css">
-            .ancho_100 {
-                width: 140px;
-            }
-
-            .ancho_250 {
-                width: 250px;
-            }
-        </af:resource>
-        <af:form id="f1">
-            <af:popup id="p1_loading" contentDelivery="immediate" animate="false">
-                <af:dialog id="d2" type="none" title="Cargando..." closeIconVisible="false" inlineStyle="width:220px;"
-                           modal="false">
-                    <af:panelGroupLayout id="pgl1" layout="horizontal">
-                        <af:image shortDesc="Procesando" source="/images/icon/loading5.gif" id="i2"/>
-                        <af:spacer width="30px;" id="s4"/>
-                        <af:outputText value="Cargando..." id="ot11"/>
-                    </af:panelGroupLayout>
-                </af:dialog>
-            </af:popup>
+         <af:form id="f1">
+            
             <af:panelBox id="pb1" text="Mapeo de Taxonomia y Revelaciones">
                 <h:panelGrid columns="2" id="pg1" columnClasses="ancho_100">
                     <af:outputLabel value="Taxonomía:" id="ol1" for="sol1"/>
