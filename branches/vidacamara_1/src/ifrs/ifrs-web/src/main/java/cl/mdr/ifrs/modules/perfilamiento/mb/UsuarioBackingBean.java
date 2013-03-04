@@ -72,7 +72,8 @@ public class UsuarioBackingBean extends AbstractBackingBean implements Serializa
 			super.getFacadeService().getSeguridadService().crearNuevoUsuario(this.getNuevoUsuario());
 			super.addInfoMessage(MessageFormat.format("Se ha creado el Usuario con éxito y se ha enviado un email de confirmación a: {0}", this.getNuevoUsuario().getEmail()));
 			this.setNuevoUsuario(null);
-			buscarAction();
+			//this.setFiltroUsuario(this.getNuevoUsuario());
+			//buscarAction();
 		} catch (MessagingException e) {
 			logger.error(e);
 			super.addErrorMessage("Se ha producido un error al enviar el mensaje de confirmación al usuario");
