@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+    <af:document title="401.jsf" id="d1">
+         <af:form id="f1">
+            <af:pageTemplate viewId="/template/main-template.jsf" id="pt1"/>
+            <f:facet name="topContent"/>
+            <f:facet name="leftContent"/>
+            <f:facet name="rightContent"/>
+            <f:facet name="mainContent">
+            <af:group id="g1">
+               <af:outputText value="No esta autorizado para acceder a este recurso" id="ot1"/>
+               <af:commandLink text="Volver" id="gl1" action="home"/>
+            </af:group>
+         </f:facet>
+        </af:form>
+    </af:document>
+</f:view>

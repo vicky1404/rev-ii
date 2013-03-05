@@ -1,0 +1,386 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+        xmlns:h="http://java.sun.com/jsf/html">
+    <af:document title="caratula-fecu.jsf" id="d1">
+        <af:resource source="/css/tabla-jsf.css" type="css"/>
+        <af:resource type="css">
+            .ancho_140 {
+                width: 350px;
+            }
+        </af:resource>
+        <af:resource type="javascript">
+          function loaderMessage(evt) {
+              var popup = AdfPage.PAGE.findComponentByAbsoluteId('p1_loading');
+              if (popup != null) {
+                  AdfPage.PAGE.addBusyStateListener(popup, handleBusyState);
+                  evt.preventUserInput();
+              }
+          }
+          //JavaScript call back handler 
+          function handleBusyState(evt) {
+              var popup = AdfPage.PAGE.findComponentByAbsoluteId('p1_loading');
+              if (popup != null) {
+                  if (evt.isBusy()) {
+                      popup.show();
+                  }
+                  else if (popup.isPopupVisible()) {
+                      popup.hide();
+                      AdfPage.PAGE.removeBusyStateListener(popup, handleBusyState);
+                  }
+              }
+          }
+        </af:resource>
+        <af:form id="f1">
+            <af:popup id="p1_loading" contentDelivery="immediate" animate="false">
+                <af:dialog id="d2" type="none" title="Cargando..." closeIconVisible="false" inlineStyle="width:220px;"
+                           modal="false">
+                    <af:panelGroupLayout id="pgl1" layout="horizontal">
+                        <af:image shortDesc="Procesando" source="/images/icon/loading5.gif" id="i2"/>
+                        <af:spacer width="30px;" id="s4"/>
+                        <af:outputText value="Procesando..." id="ot11"/>
+                    </af:panelGroupLayout>
+                </af:dialog>
+            </af:popup>
+            <af:panelBox id="pb1" text="Caratula FECU" styleClass="AFStretchWidth">
+                <h:panelGrid id="pg1" columns="2">
+                    <af:selectOneChoice id="soc1" value="#{caratulaFecuBackingBean.filtro.periodo.mesPeriodo}"
+                                        required="true" label="#{msg.etiqueta_periodo}"
+                                        requiredMessageDetail="#{msg.periodo_mensaje_seleccione_mes}">
+                        <f:selectItem itemLabel="#{msg.etiqueta_mes_periodo}" id="sel1"/>
+                        <f:selectItems value="#{caratulaFecuBackingBean.componenteBackingBean.meses}" id="meses"/>
+                    </af:selectOneChoice>
+                    <af:selectOneChoice label="" id="soc2" value="#{caratulaFecuBackingBean.filtro.periodo.anioPeriodo}"
+                                        required="true" requiredMessageDetail="#{msg.periodo_mensaje_seleccione_anio}">
+                        <f:selectItem itemLabel="#{msg.etiqueta_anio_periodo}" id="sel2"/>
+                        <f:selectItems value="#{caratulaFecuBackingBean.componenteBackingBean.anios}" id="anios"/>
+                    </af:selectOneChoice>
+                </h:panelGrid>
+                <h:panelGrid id="pg2" columns="3">
+                    <af:spacer width="50" id="s5"/>
+                    <af:commandButton text="#{msg.general_control_buscar}" id="cb1" blocking="true"
+                                      action="#{caratulaFecuBackingBean.buscarAction}">
+                        <af:clientListener method="loaderMessage" type="action"/>
+                    </af:commandButton>
+                    <af:commandButton text="#{msg.general_control_guardar}" id="cb2"
+                                      actionListener="#{caratulaFecuBackingBean.guardarAction}" blocking="true"
+                                      rendered="#{caratulaFecuBackingBean.renderPanelCaratula}">
+                        <af:clientListener method="loaderMessage" type="action"/>
+                    </af:commandButton>
+                </h:panelGrid>
+            </af:panelBox>
+            <af:panelGroupLayout id="pgl5" binding="#{caratulaFecuBackingBean.panelInformacionCaratula}"
+                                 rendered="#{caratulaFecuBackingBean.renderPanelCaratula}">
+                <af:panelGroupLayout id="pgl4">
+                    <af:showDetail disclosed="true" id="sd2"
+                                   disclosedText="#{caratulaFecuBackingBean.datoCaratulaFecuMap['FECHA_INICIO'].nombreDatoCaratulaFecu.nombreDatoCaratulaFecuPadre.glosaDato}">
+                        <table cellspacing="2" cellpadding="3" border="0" xmlns="http://www.w3.org/1999/xhtml">
+                            <tr>
+                                <td width="50%">
+                                    <af:inputDate label="#{caratulaFecuBackingBean.datoCaratulaFecuMap['FECHA_INICIO'].nombreDatoCaratulaFecu.glosaDato}"
+                                                  labelStyle="width:100px;"
+                                                  value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['FECHA_INICIO'].valor}"
+                                                  id="ot1">                                        
+                                    </af:inputDate>
+                                </td>
+                                <td width="50%">
+                                    <af:inputDate label="#{caratulaFecuBackingBean.datoCaratulaFecuMap['FECHA_TERMINO'].nombreDatoCaratulaFecu.glosaDato}"
+                                                  value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['FECHA_TERMINO'].valor}"
+                                                  id="it1" labelStyle="width:100px;"
+                                                  validator="#{caratulaFecuBackingBean.validarRangoFecha}">                                        
+                                    </af:inputDate>
+                                </td>
+                            </tr>
+                        </table>
+                    </af:showDetail>
+                </af:panelGroupLayout>
+                <af:separator id="s1"/>
+                <af:panelGroupLayout id="pgl3">
+                    <af:showDetail disclosed="true" id="sd1"
+                                   disclosedText="#{caratulaFecuBackingBean.datoCaratulaFecuMap['RUT'].nombreDatoCaratulaFecu.nombreDatoCaratulaFecuPadre.glosaDato}">
+                        <table cellspacing="2" cellpadding="3" border="0" xmlns="http://www.w3.org/1999/xhtml">
+                            <tr>
+                                <td width="50%"></td>
+                                <td width="50%">
+                                    <af:inputText label="#{caratulaFecuBackingBean.datoCaratulaFecuMap['RUT'].nombreDatoCaratulaFecu.glosaDato}"
+                                                  value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['RUT'].valor}"
+                                                  id="id1" labelStyle="width:100px;">
+                                        <f:validator validatorId="rutValidator"/>
+                                    </af:inputText>
+                                </td>
+                            </tr>
+                             
+                            <tr>
+                                <td width="50%">
+                                    <af:inputText label="#{caratulaFecuBackingBean.datoCaratulaFecuMap['RAZON_SOCIAL'].nombreDatoCaratulaFecu.glosaDato}"
+                                                  value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['RAZON_SOCIAL'].valor}"
+                                                  id="id2" labelStyle="width:100px;" columns="50"/>
+                                </td>
+                                <td width="50%"></td>
+                            </tr>
+                             
+                            <tr>
+                                <td width="50%">
+                                    <af:inputText label="#{caratulaFecuBackingBean.datoCaratulaFecuMap['NOMBRE_FANTASIA'].nombreDatoCaratulaFecu.glosaDato}"
+                                                  value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['NOMBRE_FANTASIA'].valor}"
+                                                  id="id3" labelStyle="width:100px;"/>
+                                </td>
+                                <td width="50%">
+                                    <af:inputText label="#{caratulaFecuBackingBean.datoCaratulaFecuMap['TELEFONO'].nombreDatoCaratulaFecu.glosaDato}"
+                                                  value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['TELEFONO'].valor}"
+                                                  id="it2" labelStyle="width:100px;"/>
+                                </td>
+                            </tr>
+                             
+                            <tr>
+                                <td width="50%">
+                                    <af:inputText label="#{caratulaFecuBackingBean.datoCaratulaFecuMap['DOMICILIO_LEGAL'].nombreDatoCaratulaFecu.glosaDato}"
+                                                  value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['DOMICILIO_LEGAL'].valor}"
+                                                  id="it3" labelStyle="width:100px;"/>
+                                </td>
+                                <td width="50%">
+                                    <af:inputText label="#{caratulaFecuBackingBean.datoCaratulaFecuMap['CASILLA'].nombreDatoCaratulaFecu.glosaDato}"
+                                                  value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['CASILLA'].valor}"
+                                                  id="it4" labelStyle="width:100px;"/>
+                                </td>
+                            </tr>
+                             
+                            <tr>
+                                <td width="50%"></td>
+                                <td width="50%">
+                                    <af:inputText label="#{caratulaFecuBackingBean.datoCaratulaFecuMap['FAX'].nombreDatoCaratulaFecu.glosaDato}"
+                                                  value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['FAX'].valor}"
+                                                  id="it6" labelStyle="width:100px;"/>
+                                </td>
+                            </tr>
+                             
+                            <tr>
+                                <td width="50%"></td>
+                                <td width="50%">
+                                    <af:inputText label="#{caratulaFecuBackingBean.datoCaratulaFecuMap['EMAIL'].nombreDatoCaratulaFecu.glosaDato}"
+                                                  value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['EMAIL'].valor}"
+                                                  id="it5" labelStyle="width:100px;">
+                                        <f:validator validatorId="emailValidator"/>
+                                    </af:inputText>
+                                </td>
+                            </tr>
+                             
+                            <tr>
+                                <td width="50%"></td>
+                                <td width="50%">
+                                    <af:inputText label="#{caratulaFecuBackingBean.datoCaratulaFecuMap['CODIGO'].nombreDatoCaratulaFecu.glosaDato}"
+                                                  value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['CODIGO'].valor}"
+                                                  id="it7" labelStyle="width:100px;"/>
+                                </td>
+                            </tr>
+                             
+                            <tr>
+                                <td width="50%">
+                                    <af:inputText label="#{caratulaFecuBackingBean.datoCaratulaFecuMap['CIUDAD'].nombreDatoCaratulaFecu.glosaDato}"
+                                                  value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['CIUDAD'].valor}"
+                                                  id="it8" labelStyle="width:100px;"/>
+                                </td>
+                                <td width="50%"></td>
+                            </tr>
+                             
+                            <tr>
+                                <td width="50%">
+                                    <af:inputText label="#{caratulaFecuBackingBean.datoCaratulaFecuMap['REGION'].nombreDatoCaratulaFecu.glosaDato}"
+                                                  value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['REGION'].valor}"
+                                                  id="it9" labelStyle="width:100px;"/>
+                                </td>
+                                <td width="50%"></td>
+                            </tr>
+                        </table>
+                    </af:showDetail>
+                </af:panelGroupLayout>
+                <af:separator id="s2"/>
+                <af:panelGroupLayout id="pgl2">
+                    <af:showDetail disclosed="false" id="sd3qw"
+                                   undisclosedText="#{caratulaFecuBackingBean.datoCaratulaFecuMap['REPRESENTANTE_LEGAL'].nombreDatoCaratulaFecu.nombreDatoCaratulaFecuPadre.glosaDato}"
+                                   disclosedText="#{caratulaFecuBackingBean.datoCaratulaFecuMap['REPRESENTANTE_LEGAL'].nombreDatoCaratulaFecu.nombreDatoCaratulaFecuPadre.glosaDato}">
+                        <table cellspacing="2" cellpadding="3" border="0" xmlns="http://www.w3.org/1999/xhtml">
+                            <tr>
+                                <td width="50%">
+                                    <af:outputLabel value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['REPRESENTANTE_LEGAL'].nombreDatoCaratulaFecu.glosaDato}"/>
+                                     
+                                    <af:inputText value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['REPRESENTANTE_LEGAL'].valor}"
+                                                  id="it10" columns="60"/>
+                                </td>
+                                <td width="50%">
+                                    <af:outputLabel value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['RUT_REPRESENTANTE_LEGAL'].nombreDatoCaratulaFecu.glosaDato}"/>
+                                     
+                                    <af:inputText value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['RUT_REPRESENTANTE_LEGAL'].valor}"
+                                                  id="it11">
+                                        <f:validator validatorId="rutValidator"/>
+                                    </af:inputText>
+                                </td>
+                            </tr>
+                             
+                            <tr>
+                                <td width="50%">
+                                    <af:outputLabel value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['GERENTE_GENERAL'].nombreDatoCaratulaFecu.glosaDato}"/>
+                                     
+                                    <af:inputText value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['GERENTE_GENERAL'].valor}"
+                                                  id="it12" columns="60"/>
+                                </td>
+                                <td width="50%">
+                                    <af:outputLabel value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['RUT_GERENTE_GENERAL'].nombreDatoCaratulaFecu.glosaDato}"/>
+                                     
+                                    <af:inputText value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['RUT_GERENTE_GENERAL'].valor}"
+                                                  id="it13">
+                                        <f:validator validatorId="rutValidator"/>
+                                    </af:inputText>
+                                </td>
+                            </tr>
+                             
+                            <tr>
+                                <td width="50%">
+                                    <af:outputLabel value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['GERENTE_FINANZAS'].nombreDatoCaratulaFecu.glosaDato}"/>
+                                     
+                                    <af:inputText value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['GERENTE_FINANZAS'].valor}"
+                                                  id="it14" columns="60"/>
+                                </td>
+                                <td width="50%">
+                                    <af:outputLabel value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['RUT_GERENTE_FINANZAS'].nombreDatoCaratulaFecu.glosaDato}"/>
+                                     
+                                    <af:inputText value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['RUT_GERENTE_FINANZAS'].valor}"
+                                                  id="it15">
+                                        <f:validator validatorId="rutValidator"/>
+                                    </af:inputText>
+                                </td>
+                            </tr>
+                             
+                            <tr>
+                                <td width="50%">
+                                    <af:outputLabel value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['PRESIDENTE_DIRECTORIO'].nombreDatoCaratulaFecu.glosaDato}"/>
+                                     
+                                    <af:inputText value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['PRESIDENTE_DIRECTORIO'].valor}"
+                                                  id="it16" columns="60"/>
+                                </td>
+                                <td width="50%">
+                                    <af:outputLabel value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['RUT_PRESIDENTE_DIRECTORIO'].nombreDatoCaratulaFecu.glosaDato}"/>
+                                     
+                                    <af:inputText value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['RUT_PRESIDENTE_DIRECTORIO'].valor}"
+                                                  id="it17">
+                                        <f:validator validatorId="rutValidator"/>
+                                    </af:inputText>
+                                </td>
+                            </tr>
+                        </table>
+                        <af:separator id="s3"/>
+                        <table cellspacing="2" cellpadding="3" border="0" xmlns="http://www.w3.org/1999/xhtml">
+                            <tr>
+                                <td width="50%">
+                                    <af:outputLabel value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['DIRECTOR_1'].nombreDatoCaratulaFecu.glosaDato}"/>
+                                     
+                                    <af:inputText value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['DIRECTOR_1'].valor}"
+                                                  id="it20" columns="60" label="1"/>
+                                </td>
+                                <td width="50%">
+                                    <af:outputLabel value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['RUT_DIRECTOR_1'].nombreDatoCaratulaFecu.glosaDato}"/>
+                                     
+                                    <af:inputText value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['RUT_DIRECTOR_1'].valor}"
+                                                  id="it21">
+                                        <f:validator validatorId="rutValidator"/>
+                                    </af:inputText>
+                                </td>
+                            </tr>
+                             
+                            <tr>
+                                <td width="50%">
+                                    <af:inputText value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['DIRECTOR_2'].valor}"
+                                                  id="it18" columns="60" label="2"/>
+                                </td>
+                                <td width="50%">
+                                    <af:inputText value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['RUT_DIRECTOR_2'].valor}"
+                                                  id="it19">
+                                        <f:validator validatorId="rutValidator"/>
+                                    </af:inputText>
+                                </td>
+                            </tr>
+                             
+                            <tr>
+                                <td width="50%">
+                                    <af:inputText value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['DIRECTOR_3'].valor}"
+                                                  id="it33" columns="60" label="3"/>
+                                </td>
+                                <td width="50%">
+                                    <af:inputText value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['RUT_DIRECTOR_3'].valor}"
+                                                  id="it32">
+                                        <f:validator validatorId="rutValidator"/>
+                                    </af:inputText>
+                                </td>
+                            </tr>
+                             
+                            <tr>
+                                <td width="50%">
+                                    <af:inputText value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['DIRECTOR_4'].valor}"
+                                                  id="it31" columns="60" label="4"/>
+                                </td>
+                                <td width="50%">
+                                    <af:inputText value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['RUT_DIRECTOR_4'].valor}"
+                                                  id="it30">
+                                        <f:validator validatorId="rutValidator"/>
+                                    </af:inputText>
+                                </td>
+                            </tr>
+                             
+                            <tr>
+                                <td width="50%">
+                                    <af:inputText value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['DIRECTOR_5'].valor}"
+                                                  id="it29" columns="60" label="5"/>
+                                </td>
+                                <td width="50%">
+                                    <af:inputText value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['RUT_DIRECTOR_5'].valor}"
+                                                  id="it28">
+                                        <f:validator validatorId="rutValidator"/>
+                                    </af:inputText>
+                                </td>
+                            </tr>
+                             
+                            <tr>
+                                <td width="50%">
+                                    <af:inputText value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['DIRECTOR_6'].valor}"
+                                                  id="it27" columns="60" label="6"/>
+                                </td>
+                                <td width="50%">
+                                    <af:inputText value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['RUT_DIRECTOR_6'].valor}"
+                                                  id="it26">
+                                        <f:validator validatorId="rutValidator"/>
+                                    </af:inputText>
+                                </td>
+                            </tr>
+                             
+                            <tr>
+                                <td width="50%">
+                                    <af:inputText value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['DIRECTOR_7'].valor}"
+                                                  id="it25" columns="60" label="7"/>
+                                </td>
+                                <td width="50%">
+                                    <af:inputText value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['RUT_DIRECTOR_7'].valor}"
+                                                  id="it24">
+                                        <f:validator validatorId="rutValidator"/>
+                                    </af:inputText>
+                                </td>
+                            </tr>
+                             
+                            <tr>
+                                <td width="50%">
+                                    <af:inputText value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['DIRECTOR_8'].valor}"
+                                                  id="it23" columns="60" label="8"/>
+                                </td>
+                                <td width="50%">
+                                    <af:inputText value="#{caratulaFecuBackingBean.datoCaratulaFecuMap['RUT_DIRECTOR_8'].valor}"
+                                                  id="it22">
+                                        <f:validator validatorId="rutValidator"/>
+                                    </af:inputText>
+                                </td>
+                            </tr>
+                        </table>
+                    </af:showDetail>
+                </af:panelGroupLayout>
+            </af:panelGroupLayout>
+        </af:form>
+    </af:document>
+</f:view>

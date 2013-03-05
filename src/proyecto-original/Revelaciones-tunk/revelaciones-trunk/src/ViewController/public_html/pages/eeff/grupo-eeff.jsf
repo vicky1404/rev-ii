@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets">
+    <af:document title="grupo-eeff.jsf" id="d1">
+        <ui:include src="/pages/util/loadMessage.jsff"/>
+        <af:resource source="/css/tabla-jsf.css" type="css"/>
+        <af:form id="f1">
+        
+        <af:panelBox id="pbVeeff" text="Grupos de EEFF - #{msg.etiqueta_periodo} #{visualizadorEeffBackingBean.periodo.periodoFormat}" inlineStyle="height:auto" styleClass="AFStretchWidth">
+                    
+                    <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+                    
+                            <f:facet name="toolbar">
+                                <af:toolbar id="tb1">
+                                    <af:commandToolbarButton text="Guardar" id="botonGuardar1"                                                     
+                                                             action="#{mantenedorGrupoEeffBackingBean.guardarGrupoEeff}"
+                                                             icon="/images/icon/save.png"/>
+                                     <af:commandToolbarButton text="#{msg.general_control_agregarFila}" id="cb1Agregar"
+                                                             partialSubmit="true" immediate="false"
+                                                             actionListener="#{mantenedorGrupoEeffBackingBean.agregarFilaGrupoEeff}"
+                                                             icon="/images/icon/add2.png"></af:commandToolbarButton>                                                             
+                                </af:toolbar>
+                            </f:facet>                        
+                            <af:table value="#{mantenedorGrupoEeffBackingBean.grupoEeffList}" id="t1" var="row" partialTriggers="::cb1Agregar ::botonGuardar1" 
+                            rowSelection="single" styleClass="AFStretchWidth" inlineStyle="height:inherit;">
+                                <af:column id="c2" headerText="Descripción" width="300px">
+                                    <af:inputText id="ot2" value="#{row.descripcion}" />
+                                </af:column>
+                                <af:column headerText="Vigente" align="center" id="c3" sortable="true" sortProperty="selected">
+                                    <af:selectBooleanCheckbox value="#{row.vigencia}" id="sel1" label=" ">                            
+                                    </af:selectBooleanCheckbox>
+                                </af:column>
+                                <af:column id="c1" headerText="Orden" width="50px">
+                                    <af:inputNumberSpinbox id="ins1" value="#{row.orden}" maximum="20" minimum="0" required="true"/>
+                                </af:column>
+                            </af:table>
+                   </af:panelCollection>         
+            </af:panelBox>
+        </af:form>
+    </af:document>
+</f:view>

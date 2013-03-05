@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+    <af:document title="historial-reporte.jsf" id="d1">
+        <af:form id="f1" usesUpload="true">
+            <af:panelBox id="pnBox1Periodo" text="Historial de Generación de Reportes MS Word" inlineStyle="height:auto;">
+                <af:group id="groupPeriodo">
+                    <af:panelFormLayout id="pfl1" rows="1" labelWidth="100" maxColumns="2" fieldWidth="30">
+                        <af:selectOneChoice id="soc1" value="#{historialReporteBackingBean.filtro.periodo.mesPeriodo}"
+                                            required="true" label="#{msg.etiqueta_periodo}"
+                                            requiredMessageDetail="#{msg.periodo_mensaje_seleccione_mes}">
+                            <f:selectItem itemLabel="#{msg.etiqueta_mes_periodo}" id="sel1"/>
+                            <f:selectItems value="#{historialReporteBackingBean.componenteBackingBean.meses}"
+                                           id="meses"/>
+                        </af:selectOneChoice>
+                        <af:selectOneChoice label=" " id="soc2"
+                                            value="#{historialReporteBackingBean.filtro.periodo.anioPeriodo}"
+                                            required="true"
+                                            requiredMessageDetail="#{msg.periodo_mensaje_seleccione_anio}"
+                                            inlineStyle="padding-left:200px;">
+                            <f:selectItem itemLabel="#{msg.etiqueta_anio_periodo}" id="sel2"/>
+                            <f:selectItems value="#{historialReporteBackingBean.componenteBackingBean.anios}"
+                                           id="anios"/>
+                        </af:selectOneChoice>
+                        <f:facet name="footer">
+                            <af:commandButton text="#{msg.general_control_buscar}" id="cbPeriodos"
+                                              action="#{historialReporteBackingBean.buscarAction}" blocking="true"/>
+                        </f:facet>
+                    </af:panelFormLayout>
+                </af:group>
+            </af:panelBox>
+            <af:spacer width="10" height="10" id="s1"/>
+            <af:panelCollection id="pc1" styleClass="AFStretchWidth"
+                                rendered="#{historialReporteBackingBean.renderHistorialReportes}">
+                <f:facet name="toolbar">
+                    <af:toolbar id="tb1">
+                        <!--af:commandToolbarButton text="#{msg.general_control_exportar_excel}" id="excb1"
+                                                 inlineStyle="padding-bottom:0px;"
+                                                 icon="/images/icon/page_excel_16x16.png">
+                            <af:exportCollectionActionListener filename="#{flujoAprobacionBackingBean.nombreArchivoExport}"
+                                                               type="excelHTML" exportedId="t1"
+                                                               title="Historial de generación de Reportes"/>
+                        </af:commandToolbarButton-->
+                    </af:toolbar>
+                </f:facet>
+                <f:facet name="secondaryToolbar"></f:facet>
+                <af:table value="#{historialReporteBackingBean.historialReporteList}" var="row" rowBandingInterval="1"
+                          styleClass="AFStretchWidth" summary="Tabla de catalogo" fetchSize="1000"
+                          columnResizing="enabled" inlineStyle="width:inherit; height:auto;" rowSelection="single"
+                          id="t1" columnStretching="column:c5" autoHeightRows="1000" contentDelivery="lazy"
+                          emptyText="#{msg.general_mensaje_busqueda_sin_registros}"
+                          binding="#{historialReporteBackingBean.historialReporteTable}">
+                    <af:column headerText="Usuario" sortable="true" sortProperty="usuarioOid" align="start" id="c1">
+                        <af:outputText value="#{row.usuarioOid}" id="ot1"/>
+                    </af:column>
+                    <af:column sortable="false" headerText="IP Usuario" align="right" id="c2">
+                        <af:outputText value="#{row.ipUsuario}" id="ot2"/>
+                    </af:column>
+                    <af:column sortable="true" sortProperty="fechaExportacion" headerText="Fecha Generación"
+                               align="right" id="c3" width="120">
+                        <af:outputText value="#{row.fechaExportacion}" id="ot3">
+                            <af:convertDateTime pattern="dd-MM-yyyy HH:mm:ss"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column sortable="false" headerText="Check Sum Comprobación" align="start" id="c4" width="220">
+                        <af:outputText value="#{row.checkSumExportacion}" id="ot4" inlineStyle="text-transform:uppercase;"/>
+                    </af:column>
+                    <af:column sortable="false" headerText="Comentario" align="start" id="c5" >
+                        <af:outputText value="#{row.comentario}" id="ot5"/>
+                    </af:column>
+                    <af:column sortable="false" headerText="Período" align="right" id="c8" width="70">
+                        <af:outputText value="#{row.periodo.anioPeriodo}-#{row.periodo.mesPeriodo}" id="ot8_1"/>
+                    </af:column>
+                    <af:column sortable="false" headerText="Descargar Archivo" align="center" id="c7" width="60">
+                        <af:commandImageLink shortDesc="Descargar Archivo: \'#{row.nombreArchivo}\'" id="ot6" icon="/images/icon/drive-download.png">
+                            <af:fileDownloadActionListener contentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                                                           filename="#{row.nombreArchivo}"
+                                                           method="#{historialReporteBackingBean.download}"/>
+                        </af:commandImageLink>
+                    </af:column>
+                    <af:column sortable="false" headerText="Validar Archivo" align="center" id="c6" width="60">
+                        <af:commandImageLink icon="/images/icon/validate-file.gif" shortDesc="Validar Archivo: \'#{row.nombreArchivo}\'"
+                                             id="cil1">                                                    
+                            <af:showPopupBehavior popupId="panelWindow" triggerType="action"/>
+                        </af:commandImageLink>
+                        <af:popup id="panelWindow" resetEditableValues="whenCanceled">
+                            <af:dialog title="Validar Archivo" id="d2" contentWidth="250" type="cancel" modal="false">
+                                <af:panelFormLayout id="pfl2">
+                                    <af:inputFile label="Archivo:" id="if1" autoSubmit="false" required="false"
+                                                  value="#{historialReporteBackingBean.uploadedFile}"
+                                                  binding="#{historialReporteBackingBean.richInputFile}"
+                                                  validator="#{historialReporteBackingBean.uploadFileValidator}"></af:inputFile>
+                                    <af:spacer width="10" height="20" id="s3"/>
+                                    <f:facet name="footer">
+                                        <af:panelGroupLayout id="pgl1" halign="right">
+                                            <af:commandButton text="Validar Archivo" id="cb1223" blocking="true"
+                                                              partialSubmit="false"
+                                                              actionListener="#{historialReporteBackingBean.validarArchivo}"
+                                                              icon="/images/icon/drive-upload.png">
+                                                <f:attribute name="historialReporte" value="#{row}"/>
+                                            </af:commandButton>
+                                        </af:panelGroupLayout>
+                                    </f:facet>
+                                </af:panelFormLayout>
+                            </af:dialog>
+                        </af:popup>
+                    </af:column>
+                </af:table>
+            </af:panelCollection>
+        </af:form>
+    </af:document>
+</f:view>

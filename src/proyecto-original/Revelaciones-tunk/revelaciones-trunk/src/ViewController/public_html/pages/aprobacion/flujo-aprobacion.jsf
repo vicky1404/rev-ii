@@ -1,0 +1,233 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+        xmlns:h="http://java.sun.com/jsf/html" xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <af:document title="#{msg.general_titulo_aplicacion}" id="d12">
+        <af:resource source="/css/tabla-jsf.css" type="css"/>
+        <af:resource type="javascript">
+          function cargarEvento(evt) {
+              var popup = AdfPage.PAGE.findComponentByAbsoluteId('p1_loading');
+              if (popup != null) {
+                  AdfPage.PAGE.addBusyStateListener(popup, handleBusyState);
+                  evt.preventUserInput();
+              }
+          }
+          //JavaScript call back handler 
+          function handleBusyState(evt) {
+              var popup = AdfPage.PAGE.findComponentByAbsoluteId('p1_loading');
+              if (popup != null) {
+                  if (evt.isBusy()) {
+                      popup.show();
+                  }
+                  else if (popup.isPopupVisible()) {
+                      popup.hide();
+                      AdfPage.PAGE.removeBusyStateListener(popup, handleBusyState);
+                  }
+              }
+          }
+        </af:resource>
+        <af:form id="f1">
+            <af:popup id="p1_loading" contentDelivery="immediate" animate="false">
+                <af:dialog id="d2" type="none" title="Cargando..." closeIconVisible="false" inlineStyle="width:220px;"
+                           modal="false">
+                    <af:panelGroupLayout id="pgl1" layout="horizontal">
+                        <af:image shortDesc="Procesando" source="/images/icon/loading5.gif" id="i2"/>
+                        <af:spacer width="30px;" id="s4"/>
+                        <af:outputText value="Procesando Flujo de Aprobación..." id="ot11"/>
+                    </af:panelGroupLayout>
+                </af:dialog>
+            </af:popup>
+            <af:group id="g1">
+                <af:panelBox id="pb1" text="#{msg.titulo_flujo_aprobacion}" styleClass="AFStretchWidth">
+                    <af:panelFormLayout id="pfl1" rows="1" labelWidth="100" maxColumns="2">
+                        <af:selectOneChoice id="soc1" value="#{flujoAprobacionBackingBean.filtro.periodo.mesPeriodo}"
+                                            required="true" label="#{msg.etiqueta_periodo}"
+                                            requiredMessageDetail="#{msg.periodo_mensaje_seleccione_mes}">
+                            <f:selectItem itemLabel="#{msg.etiqueta_mes_periodo}" id="sel1"/>
+                            <f:selectItems value="#{flujoAprobacionBackingBean.componenteBackingBean.meses}" id="meses"/>
+                        </af:selectOneChoice>
+                        <af:selectOneChoice label="" id="soc2" value="#{flujoAprobacionBackingBean.filtro.periodo.anioPeriodo}"
+                                            required="true"
+                                            requiredMessageDetail="#{msg.periodo_mensaje_seleccione_anio}">
+                            <f:selectItem itemLabel="#{msg.etiqueta_anio_periodo}" id="sel2"/>
+                            <f:selectItems value="#{flujoAprobacionBackingBean.componenteBackingBean.anios}" id="anios"/>
+                        </af:selectOneChoice>
+                        <f:facet name="footer"/>
+                    </af:panelFormLayout>
+                    <af:panelFormLayout id="pfl2" rows="1" labelWidth="100" maxColumns="0">
+                        <af:selectOneChoice label="#{msg.etiqueta_estado_cuadro}" id="soc3"
+                                            value="#{flujoAprobacionBackingBean.estadoCuadro}"
+                                            unselectedLabel="#{msg.general_control_todos}" required="false">
+                            <f:selectItems value="#{flujoAprobacionBackingBean.componenteBackingBean.estadoCuadroItems}" id="estados"/>
+                        </af:selectOneChoice>
+                    </af:panelFormLayout>
+                    <af:panelFormLayout id="pfl3" rows="1" labelWidth="100" maxColumns="0">
+                        <af:selectOneChoice label="#{msg.etiqueta_tipo_cuadro}:" id="cmb_tc"
+                                            value="#{flujoAprobacionBackingBean.tipoCuadro}"
+                                            unselectedLabel="#{msg.general_control_todos}" required="false"
+                                            requiredMessageDetail="#{msg.general_control_seleccione} #{msg.etiqueta_tipo_cuadro}">
+                            <f:selectItems value="#{flujoAprobacionBackingBean.componenteBackingBean.tipoCuadroItems}" id="tipos_c"/>
+                        </af:selectOneChoice>
+                        <f:facet name="footer">
+                            <af:commandButton text="#{msg.general_control_buscar}" id="cb1"
+                                              action="#{flujoAprobacionBackingBean.buscarAction}" blocking="true">
+                                <af:clientListener method="cargarEvento" type="action"/>
+                            </af:commandButton>
+                        </f:facet>
+                    </af:panelFormLayout>
+                </af:panelBox>
+                <af:spacer width="10" height="10" id="s1"/>
+                <af:panelCollection id="pc1" styleClass="AFStretchWidth"
+                                    rendered="#{flujoAprobacionBackingBean.renderFlujo}">
+                    <f:facet name="toolbar">
+                        <af:toolbar id="tb1">
+                            <af:commandToolbarButton text="#{msg.workflow_control_cambiar_estado}" id="botonGuardar"
+                                                     action="#{flujoAprobacionBackingBean.guardarAction}"
+                                                     partialSubmit="true" icon="/images/icon/save2.png"
+                                                     partialTriggers="::pc1">
+                                <af:clientListener method="cargarEvento" type="action"/>
+                            </af:commandToolbarButton>
+                            <!--af:commandToolbarButton text="#{msg.general_control_exportar_excel}" id="excb1"
+                                                     inlineStyle="padding-bottom:0px;"
+                                                     icon="/images/icon/page_excel_16x16.png">
+                                <af:exportCollectionActionListener filename="#{flujoAprobacionBackingBean.nombreArchivoExport}"
+                                                                   type="excelHTML" exportedId="t_cat1"
+                                                                   title="Catalogo"/>
+                            </af:commandToolbarButton-->
+                            <af:commandToolbarButton text="#{msg.general_control_exportar_excel}" id="excb1"
+                                                     inlineStyle="padding-bottom:0px;" 
+                                                     actionListener="#{flujoAprobacionBackingBean.reporteFlujoAprobacionAction}"
+                                                     partialSubmit="false"
+                                                     icon="/images/icon/page_excel_16x16.png"> 
+                                 <!--af:clientListener method="cargarEvento" type="action"/-->
+                            </af:commandToolbarButton>
+                            <!--af:commandToolbarButton text="Imprimir" id="ctb1">
+                                <af:showPrintablePageBehavior/>
+                            </af:commandToolbarButton-->
+                        </af:toolbar>
+                    </f:facet>
+                    <af:table summary="Catalogo" value="#{flujoAprobacionBackingBean.catalogoFlujoAprobacion}" var="row"
+                              rowBandingInterval="1" id="t_cat1"
+                              emptyText="#{msg.general_mensaje_nota_workflow_busqueda_sin_registros}"
+                              horizontalGridVisible="false" rowSelection="single" disableColumnReordering="false"
+                              columnResizing="enabled" columnSelection="none" contentDelivery="immediate"
+                              rendered="true" columnStretching="column:c4" inlineStyle="height:inherit; width:inherit;"
+                              fetchSize="2000" binding="#{flujoAprobacionBackingBean.tablaCatalogo}"
+                              rowDisclosureListener="#{flujoAprobacionBackingBean.onRowDisclousure}"
+                              selectionListener="#{flujoAprobacionBackingBean.onSelectionRow}"
+                              styleClass="AFStretchWidth" autoHeightRows="500">
+                        <f:facet name="detailStamp">
+                            <af:panelGroupLayout layout="scroll" id="scl12">
+                                <h:dataTable value="#{row.historialVersionPeriodoList}" var="detail" id="dt2"
+                                             styleClass="datalle_flujo" width="90%">
+                                    <!--oracle-jdev-comment:Faces.RI.DT.Class.Key:cl.bicevida.revelaciones.ejb.entity.HistorialVersionPeriodo-->
+                                    <h:column id="c16">
+                                        <f:facet name="header">
+                                            <h:outputText value="Fecha Proceso" id="ot21"/>
+                                        </f:facet>
+                                        <h:outputText value="#{detail.fechaProceso}" id="ot3">
+                                            <af:convertDateTime pattern="dd-MM-yyyy HH:mm:ss"/>
+                                        </h:outputText>
+                                    </h:column>
+                                    <h:column id="c15">
+                                        <f:facet name="header">
+                                            <h:outputText value="Observación" id="ot19"/>
+                                        </f:facet>
+                                        <h:outputText value="#{detail.comentario}" id="ot20"/>
+                                    </h:column>
+                                    <h:column id="c17">
+                                        <f:facet name="header">
+                                            <h:outputText value="Usuario" id="ot23"/>
+                                        </f:facet>
+                                        <h:outputText value="#{detail.usuario}" id="ot24"/>
+                                    </h:column>
+                                    <h:column id="c19">
+                                        <f:facet name="header">
+                                            <h:outputText value="Estado Cuadro" id="ot27"/>
+                                        </f:facet>
+                                        <h:outputText value="#{detail.estadoCuadro.nombre}" id="ot28"/>
+                                    </h:column>
+                                </h:dataTable>
+                                <af:spacer height="5" id="sp3"/>
+                            </af:panelGroupLayout>
+                        </f:facet>
+                        <af:column id="col_header2" headerText="Estado Cuadro" align="center" rowHeader="unstyled">
+                            <af:column sortable="true" align="center" id="c6" rowHeader="unstyled" width="150"
+                                       sortProperty="estado.idEstado">
+                                <af:selectOneChoice label=" " value="#{row.estado}" id="ce1" required="true"
+                                                    requiredMessageDetail="Seleccione el estado de: #{row.version.catalogo.nombre}"
+                                                    valueChangeListener="#{flujoAprobacionBackingBean.onChangeEstadoNota}"
+                                                    styleClass="x6 cmbEstadoNota" autoSubmit="true">
+                                    <f:selectItems value="#{flujoAprobacionBackingBean.componenteBackingBean.estadoCuadroItems}" id="est"/>
+                                </af:selectOneChoice>
+                                <f:facet name="header">
+                                    <af:selectOneChoice unselectedLabel="#{msg.general_control_seleccione}" label=" "
+                                                        id="estadoSelectHeader" autoSubmit="true"
+                                                        styleClass="x6 estadoSelectAll"
+                                                        shortDesc="#{msg.tooltip_combo_estado_nota_cambio_masivo}"
+                                                        valueChangeListener="#{flujoAprobacionBackingBean.onChangeEstadoNotaHeader}"
+                                                        binding="#{flujoAprobacionBackingBean.selectEstadoCuadroHeader}">
+                                        <f:selectItems value="#{flujoAprobacionBackingBean.componenteBackingBean.estadoCuadroItems}" id="estados2"/>
+                                    </af:selectOneChoice>
+                                </f:facet>
+                            </af:column>
+                        </af:column>
+                        <af:column id="col_header1" headerText=" ">
+                            <!--af:column sortable="true" sortProperty="version.catalogo.orden" headerText="Nombre"
+                                       align="start" id="c3" filterable="true" rowHeader="true">
+                                <af:outputText value="#{row.version.catalogo.nombre}" id="ot3"/>
+                            </af:column-->
+                            <af:column sortable="false" headerText="Título" align="start" id="c4" width="100">
+                                <af:outputText value="#{row.version.catalogo.titulo}" id="ot4"/>
+                            </af:column>
+                            <af:column id="c1" headerText="Área responsable " width="160">
+                                <af:iterator value="#{row.version.catalogo.catalogoGrupoList}" var="catalogoGrupo"
+                                             id="i1">
+                                    <af:switcher defaultFacet="#{catalogoGrupo.grupo.grupoOid.idGrupoOid == 'IFRS_SUPERVISOR' ? 'show':'hide'}"
+                                                 id="s3">
+                                        <f:facet name="show">
+                                            <af:outputText value="#{catalogoGrupo.grupo.nombre}" id="ot1"/>
+                                            <af:showDetail disclosed="false" id="sd1" undisclosedText="ver usuarios" disclosedText="ocultar">
+                                                <af:iterator value="#{catalogoGrupo.grupo.usuarioGrupoList}"
+                                                             var="usuario" id="i3">
+                                                    <af:panelList id="pl1">
+                                                        <af:outputText value="#{usuario.usuarioOid}" id="ot2"/>
+                                                    </af:panelList>
+                                                </af:iterator>
+                                            </af:showDetail>
+                                        </f:facet>
+                                    </af:switcher>
+                                </af:iterator>
+                            </af:column>
+                            <af:column sortable="false" headerText="Versión" align="right" id="c8" width="40">
+                                <af:outputText value="#{row.version.version}" id="ot8"/>
+                            </af:column>
+                            <af:column sortable="false" headerText="Observación" align="start" id="c5" width="230">
+                                <af:outputText value="#{row.comentario}" id="ot18"
+                                               rendered="#{row.estado.idEstado == 5 ? false : true}"/>
+                                <af:inputText id="txt_obs" rows="4" wrap="hard" inlineStyle="width: 90%" label=" "
+                                              required="#{row.estado.idEstado == 5 ? true : false}"
+                                              requiredMessageDetail="Ingrese la observación para: #{row.version.catalogo.nombre}"
+                                              rendered="#{row.estado.idEstado == 5 ? true : false}"
+                                              value="#{row.comentario}"/>
+                            </af:column>
+                            <af:column sortable="true" headerText="Fecha último proceso" align="right" id="c7"
+                                       width="130" sortProperty="fechaUltimoProceso">
+                                <af:outputText value="#{row.fechaUltimoProceso}" id="ot7">
+                                    <af:convertDateTime pattern="#{msg.date_time_es_pattern}"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column sortable="false" headerText="Período" align="right" id="c9" width="50">
+                                <af:outputText value="#{row.periodo.anioPeriodo}-#{row.periodo.mesPeriodo}" id="ot8_1"/>
+                            </af:column>
+                            <af:column sortable="true" headerText="Vigente" align="start" id="c10"
+                                       sortProperty="version.vigencia" width="40">
+                                <af:outputText value="#{row.version.vigencia eq 1 ? 'SI' : 'NO'}" id="ot10"/>
+                            </af:column>
+                        </af:column>
+                    </af:table>
+                </af:panelCollection>
+            </af:group>
+        </af:form>
+    </af:document>
+</f:view>

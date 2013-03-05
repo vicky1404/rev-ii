@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************************************************************
+Copyright © 2011 Superintendencia de Valores y Seguros de Chile (SVS) 
+This material is copyright of the SVS Chile and all rights are reserved. 
+No part of this material may be translated, reprinted, reproduced or utilised in 
+any form or manner that is not expressly permitted by the SVS Chile 
+IP Policy see: http://www.svs.cl/sitio/pop/politica.html
+*******************************************************************************************
+-->
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef xlink:href="rol_cl-cs_eeff_role-600000.xsd#eeff_role-600000" xlink:type="simple" roleURI="http://www.svs.cl/cl/fr/cs/role/eeff_role-600000" />
+  <link:calculationLink xlink:role="http://www.svs.cl/cl/fr/cs/role/eeff_role-600000" xlink:type="extended">
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_OperacionesConAccionistas" xlink:label="lbl4168" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_AumentoDisminucionCapital" xlink:label="lbl4169" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl4168" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl4169" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_ResultadoIntegral" xlink:label="lbl4170" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_ResultadoDelPeriodo" xlink:label="lbl4171" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl4170" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl4171" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_ImpuestoDiferido" xlink:label="lbl4172" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl4170" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl4172" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_OtrasOperacionesConAccionistas" xlink:label="lbl4173" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl4168" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl4173" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_Patrimonio" xlink:label="lbl4174" xlink:type="locator" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_PatrimonioPreviamenteReportado" xlink:label="lbl4175" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl4174" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl4175" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_IngresosGastosRegistradosConAbonoCargoPatrimonio" xlink:label="lbl4176" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl4170" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl4176" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_DistribucionDividendos" xlink:label="lbl4177" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl4168" weight="-1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl4177" />
+    <link:loc xlink:href="../../cl-cs_cor_2012-01-02.xsd#cl-cs_AjustesPatrimonioPeriodosAnteriores" xlink:label="lbl4178" xlink:type="locator" />
+    <link:calculationArc xlink:from="lbl4174" weight="+1" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:type="arc" xlink:to="lbl4178" />
+  </link:calculationLink>
+</link:linkbase>
+

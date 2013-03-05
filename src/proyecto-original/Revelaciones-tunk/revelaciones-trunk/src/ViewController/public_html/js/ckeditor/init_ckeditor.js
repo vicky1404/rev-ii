@@ -1,0 +1,3 @@
+function loadCKEditor(){   
+    CKEDITOR.replaceAll(); 
+}
