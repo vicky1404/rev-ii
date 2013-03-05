@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich" xmlns:ui="http://java.sun.com/jsf/facelets">
+    <af:document title="Cargador FECU" id="d1">
+    <af:resource source="/css/tabla-jsf.css" type="css"/>
+    <ui:include src="/pages/util/loadMessage.jsff"/>
+     <af:form id="f1" usesUpload="true">
+        <af:panelBox id="pnBox1Periodo" text="#{msg.carga_eeff_titulo_pagina} - #{msg.carga_eeff_periodo_actual} #{cargadorCuentaBackingBean.periodo.periodoFormat}" inlineStyle="height:auto">
+            
+                <af:group id="g1">
+                
+                <af:spacer height="10px" id="s1"/>
+                
+                <af:panelTabbed childCreation="lazy" styleClass="AFStretchWidth" id="ShowOneTab" dimensionsFrom="auto" >
+                
+                <af:showDetailItem id="tab1" textAndAccessKey="Editor Cuentas" shortDesc="Cuentas cargados desde excel" >
+                <af:spacer height="15" id="s2"/>
+                
+                <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+                
+                <f:facet name="toolbar">
+                    <af:toolbar id="tb1">
+                        <af:commandToolbarButton actionListener="#{cargadorCuentaBackingBean.editarListener}"
+                                                 text="#{msg.general_control_guardar}" id="cb1Guardar"
+                                                 partialSubmit="true" icon="/images/icon/save2.png" />
+                        <af:commandToolbarButton text="#{msg.general_control_agregarFila}" id="cb1Agregar"
+                                                 partialSubmit="false"
+                                                 action="#{cargadorCuentaBackingBean.agregarCuenta}"
+                                                 icon="/images/icon/add2.png" />
+                    </af:toolbar>
+                </f:facet>
+                
+                <af:table value="#{cargadorCuentaBackingBean.cuentaEditarList}" var="row" id="t1" 
+                    emptyText="#{msg.general_sin_informacion}" width="600px" styleClass="AFStretchWidth" columnStretching="column:c2"
+                    editingMode="clickToEdit">
+                
+                    <af:column headerText="#{msg.carga_eeff_codigo_cuenta}" id="c1" width="150">
+                        <af:outputText value="#{row.idCuenta}" id="ot1" rendered="#{!row.editarId}"/>
+                        <af:inputText value="#{row.idCuenta}" id="it2" required="true" rendered="#{row.editarId}">
+                        <af:convertNumber integerOnly="true" type="number" maxFractionDigits="0"
+                              groupingUsed="true"
+                              maxIntegerDigits="12"
+                              hintPattern="#{msg.general_mensaje_ingrese_numero_entero}"
+                              messageDetailConvertPattern="#{msg.general_mensaje_validacion_numero_entero}"/>
+                        </af:inputText>
+                    </af:column>
+                    <af:column headerText="#{msg.eeff_desc_cuenta}" id="c2" width="250">
+                        <af:inputText value="#{row.descripcion}" id="it1" required="true"/>
+                    </af:column>
+                    <af:column sortable="false" width="90" headerText="Vigencia" align="start" id="c8">
+                        <af:selectOneChoice label=" " id="soc1" value="#{row.vigencia}" showRequired="true"
+                                            requiredMessageDetail="Seleccione Vigencia" required="true">
+                            <f:selectItems value="#{cargadorCuentaBackingBean.componenteBackingBean.vigencias}" id="si1" itemValue="#{row.vigencia}"/>
+                        </af:selectOneChoice>
+                    </af:column>
+                </af:table>
+                </af:panelCollection>
+                
+                </af:showDetailItem>
+                
+                
+                <af:showDetailItem id="tab2" textAndAccessKey="Carga Cuentas" shortDesc="Cuentas cargados desde excel" immediate="true">
+                <af:spacer height="15" id="s4"/>
+                <af:panelGroupLayout layout="horizontal" id="pgl3">
+                    <af:inputFile label="#{msg.carga_eeff_archivo}" id="if10" autoSubmit="false" required="false"
+                                  value="#{cargadorCuentaBackingBean.uploadedFile}"
+                                  shortDesc="Seleccione archivo Excel con códigos FECU"
+                                  binding="#{cargadorCuentaBackingBean.richInputFile}"
+                                  validator="#{cargadorCuentaBackingBean.archivoEstructuraValidator}" />
+                    
+                    <af:spacer width="10" id="s5"/>
+                    
+                    <af:commandButton  text="#{msg.carga_eeff_cargar_archivo}" id="cb2"
+                                      action="#{cargadorCuentaBackingBean.procesarArchivo}"
+                                      icon="/images/icon/drive-upload.png" />
+                                      
+                    <af:spacer width="10" id="s6"/>
+                    
+                    <af:commandButton text="#{msg.carga_eeff_guardar}" id="cb3"
+                                  actionListener="#{cargadorCuentaBackingBean.guardarListener}"
+                                  icon="/images/icon/save2.png"
+                                  partialSubmit="true"/>
+                </af:panelGroupLayout>
+                <af:spacer height="15" id="s3"/>
+                
+                <af:table value="#{cargadorCuentaBackingBean.cuentaList}" var="row" id="t2" 
+                    emptyText="#{msg.general_sin_informacion}" width="420px" styleClass="AFStretchWidth" columnStretching="column:c2">
+                
+                    <af:column headerText="#{msg.carga_eeff_codigo_cuenta}" id="c3" width="150">
+                        <af:outputText value="#{row.idCuenta}" id="ot3"/>
+                    </af:column>
+                    <af:column headerText="#{msg.eeff_desc_cuenta}" id="c4" width="250">
+                        <af:outputText value="#{row.descripcion}" id="ot4"/>
+                    </af:column>
+                </af:table>
+                
+                </af:showDetailItem>
+                
+                </af:panelTabbed>
+                
+                </af:group>
+            
+        </af:panelBox>
+     </af:form>
+    </af:document>
+</f:view>

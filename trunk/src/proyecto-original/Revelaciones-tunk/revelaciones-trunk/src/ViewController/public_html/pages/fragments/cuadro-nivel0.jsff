@@ -1,0 +1,214 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <af:panelGroupLayout layout="scroll" id="pgl13" styleClass="AFStretchWidth">
+        <af:outputText value="ID Grilla: [#{item.grillaVO.grilla.idGrilla}]" id="ot1" styleClass="x15w"
+                       rendered="#{cuadroBackingBean.filtro.debug}"/>
+        <af:panelCollection id="pc3" styleClass="AFStretchWidth" inlineStyle="height:inherit;">
+            <f:facet name="toolbar">
+                <af:toolbar id="t2">
+                    <af:commandToolbarButton text="#{msg.general_control_exportar_excel}" id="ctb2"
+                                             inlineStyle="padding-bottom:0px;" icon="/images/icon/page_excel_16x16.png"
+                                             actionListener="#{reporteBackingBean.generarExcelForPrint}"
+                                             partialSubmit="false">
+                        <f:attribute name="version" value="#{item.version}"/>
+                    </af:commandToolbarButton>
+                </af:toolbar>
+            </f:facet>
+            <af:table var="row" value="#{item.grillaVO.rows}" rowSelection="single"
+                      id="t3_#{item.grillaVO.grilla.idGrilla}" emptyText="#{msg.general_mensaje_nota_sin_registros}"
+                      columnResizing="enabled" contentDelivery="lazy" autoHeightRows="100" fetchSize="1000"
+                      partialTriggers="cl2 cl3" varStatus="status">
+                <af:forEach items="#{item.grillaVO.columnas}" var="col">
+                    <af:column headerText="#{col.tituloColumna}" id="c2" rowHeader="#{col.rowHeader}"
+                               width="#{col.ancho}">
+                        <af:group id="g1">
+                             <af:activeImage source="/images/icon/desagregar.png"
+                                            rendered="#{item.version.desagregado and (row[col.idColumna].tipoDato.idTipoDato == 2 or row[col.idColumna].tipoDato.idTipoDato == 3)}" id="cil1">
+                                <af:showPopupBehavior popupId="::detalleDesagregacionesPopUp" triggerType="mouseHover"/>
+                                <af:clientAttribute name="idFila" value="#{row[col.idColumna].idFila}"/>                                
+                                <af:clientAttribute name="idColumna" value="#{row[col.idColumna].idColumna}"/>                                
+                                <af:clientAttribute name="columna" value="#{row[col.idColumna].columna}"/>                                
+                            </af:activeImage>                            
+                            <af:outputText value="[#{row[col.idColumna].idFila} - #{row[col.idColumna].idColumna}]"
+                                           id="ot2" inlineStyle="padding-bottom:10px;font-weight:bold"
+                                           rendered="#{cuadroBackingBean.filtro.debug}"/>
+                            <af:outputText value="#{row[col.idColumna].valor}" id="ot7"
+                                           inlineStyle="#{row[col.idColumna].tipoCelda.idTipoCelda == 4 or row[col.idColumna].tipoCelda.idTipoCelda == 5 ? 'padding-left:10px;font-weight:bold' : 'padding-left:10px'}"
+                                           rendered="#{ (row[col.idColumna].tipoCelda.idTipoCelda == 0 or row[col.idColumna].tipoCelda.idTipoCelda == 4 or row[col.idColumna].tipoCelda.idTipoCelda == 5) and (row[col.idColumna].tipoDato.idTipoDato != 2 and row[col.idColumna].tipoDato.idTipoDato != 3) }"></af:outputText>
+                            <af:outputText value="#{row[col.idColumna].valor}" id="ot8"
+                                           inlineStyle="font-weight:bold; text-align:left;"
+                                           rendered="#{row[col.idColumna].tipoCelda.idTipoCelda == 2}"></af:outputText>
+                            <af:inputText value="#{row[col.idColumna].valor}" id="it7" contentStyle="text-align:left;"
+                                          rendered="#{row[col.idColumna].tipoCelda.idTipoCelda == 6 and row[col.idColumna].tipoDato.idTipoDato == 0}"
+                                          disabled="#{item.version.desagregado}"
+                                          maximumLength="#{msg.constantes_max_caracter_cuadro}">
+                                <af:validateLength messageDetailMaximum="#{msg.general_mensaje_validacion_maximo_caracter_cuadro}"
+                                                   hintMaximum="#{msg.general_mensaje_hint_maximo_caracter_cuadro}"
+                                                   maximum="#{msg.constantes_max_caracter_cuadro}"/>
+                            </af:inputText>
+                            <af:inputText value="#{row[col.idColumna].valorLong}" id="it8"
+                                          rendered="#{row[col.idColumna].tipoDato.idTipoDato == 2}"
+                                          disabled="#{row[col.idColumna].tipoCelda.idTipoCelda == 4 or row[col.idColumna].tipoCelda.idTipoCelda == 5 or item.version.desagregado}"
+                                          contentStyle="#{ ( row[col.idColumna].tipoCelda.idTipoCelda == 4 or row[col.idColumna].tipoCelda.idTipoCelda == 5 ) ? 'border:none;background-color: white;font-weight:bold;':''} #{row[col.idColumna].valid ? 'color:black' : 'color:red'}"
+                                          maximumLength="#{msg.constantes_text_length_long}">
+                                <af:convertNumber integerOnly="true" type="number" maxFractionDigits="0"
+                                                  groupingUsed="true"
+                                                  maxIntegerDigits="#{msg.constantes_max_lenght_number}"
+                                                  locale="#{cuadroBackingBean.localeCL}" pattern="##,###,###,###"
+                                                  hintPattern="#{msg.general_mensaje_ingrese_numero_entero}"
+                                                  messageDetailConvertPattern="#{msg.general_mensaje_validacion_numero_entero}"/>
+                                <af:validateLongRange maximum="#{msg.constantes_maximum_validate_long_range}"
+                                                      hintMaximum="#{msg.constantes_msg_validate_long_range}"/>
+                            </af:inputText>
+                            <af:inputText value="#{row[col.idColumna].valorBigDecimal}" id="it9"
+                                          rendered="#{row[col.idColumna].tipoDato.idTipoDato == 3}"
+                                          maximumLength="#{msg.constantes_text_length_decimal}"
+                                          disabled="#{row[col.idColumna].tipoCelda.idTipoCelda == 4 or row[col.idColumna].tipoCelda.idTipoCelda == 5 or item.version.desagregado}"
+                                          contentStyle="#{row[col.idColumna].tipoCelda.idTipoCelda == 4 or row[col.idColumna].tipoCelda.idTipoCelda == 5 ? 'border:none;background-color: white;font-weight:bold;color:black':''} #{row[col.idColumna].valid ? 'color:black' : 'color:red'}">
+                                <af:convertNumber integerOnly="false" type="number"
+                                                  maxIntegerDigits="#{msg.constantes_max_lenght_number}"
+                                                  maxFractionDigits="4" locale="#{cuadroBackingBean.localeCL}"
+                                                  pattern="##,###,###,###.####"
+                                                  hintPattern="#{msg.general_mensaje_ingrese_numero_decimal}"
+                                                  messageDetailConvertPattern="#{msg.general_mensaje_validacion_numero_decimal}"/>
+                                <af:validateDoubleRange maximum="#{msg.constantes_maximum_validate_long_range}"
+                                                        hintMaximum="#{msg.constantes_msg_validate_decimal_range}"
+                                                        messageDetailMaximum=" "/>
+                            </af:inputText>
+                            <af:inputDate value="#{row[col.idColumna].valorDate}" id="it10" label=" "
+                                          disabled="#{item.version.desagregado}"
+                                          rendered="#{row[col.idColumna].tipoDato.idTipoDato == 1 and row[col.idColumna].tipoCelda.idTipoCelda == 6}">
+                                <af:convertDateTime pattern="dd-MM-yyyy" type="date"/>
+                            </af:inputDate>
+                            <af:switcher defaultFacet="#{row[col.idColumna].tipoCelda.idTipoCelda == 3  ? 'link' : ''}"
+                                         id="s2" rendered="#{!item.version.desagregado}">
+                                <f:facet name="link">
+                                    <af:panelGroupLayout layout="horizontal" halign="center" id="pgl1">
+                                        <af:commandLink actionListener="#{cuadroBackingBean.addRowListener}" id="cl2"
+                                                        rendered="true" partialSubmit="false">
+                                            <af:image source="/images/icon/add2.png" id="i3"
+                                                      shortDesc="#{msg.general_control_agregarFila}"/>
+                                            <f:param name="idFila" value="#{row[col.idColumna].idFila}" id="p1"/>
+                                            <f:param name="idGrilla" value="#{row[col.idColumna].idGrilla}" id="p2"/>
+                                        </af:commandLink>
+                                        <af:spacer width="10" id="s1"/>
+                                        <af:commandLink actionListener="#{cuadroBackingBean.deleteRowListener}" id="cl3"
+                                                        rendered="true" partialSubmit="false">
+                                            <af:image source="/images/icon/remove2.png" id="i1"
+                                                      shortDesc="#{msg.generador_eliminar_fila}"/>
+                                            <f:param name="idFila" value="#{row[col.idColumna].idFila}" id="p3"/>
+                                            <f:param name="idGrilla" value="#{row[col.idColumna].idGrilla}" id="p4"/>
+                                        </af:commandLink>
+                                    </af:panelGroupLayout>
+                                </f:facet>
+                            </af:switcher>
+                            <af:activeImage source="/images/icon/infoEeff.png" rendered="#{not row[col.idColumna].valid}"
+                                             id="ai1">
+                                <af:showPopupBehavior popupId="::relNote" triggerType="mouseHover"/>
+                                <af:clientAttribute name="relEeffList" value="#{row[col.idColumna].relacionEeffList}"/>
+                                <af:clientAttribute name="relDetEeffList" value="#{row[col.idColumna].relacionDetalleEeffList}"/>
+                                <af:clientAttribute name="relCeldaList" value="#{row[col.idColumna].celdaRelacionadaList}"/>
+                                <af:clientAttribute name="columna" value="#{row[col.idColumna].columna}"/>
+                            </af:activeImage>
+                        </af:group>
+                    </af:column>
+                </af:forEach>
+            </af:table>
+            <af:popup id="relNote" contentDelivery="lazyUncached" eventContext="launcher" launcherVar="source">
+                <af:noteWindow id="nw1">
+                
+                    <af:table value="#{cuadroBackingBean.relEeffList}"  var="info" id="t1" 
+                        rowSelection="single" 
+                        rendered="#{not empty cuadroBackingBean.relEeffList}"
+                        inlineStyle="height:inherit;"                         
+                        styleClass="AFStretchWidth" emptyText="#{msg.general_sin_informacion}">
+                        <af:column headerText="Validación contra EEFF (Código FECU)" id="c13" align="center">
+                            <af:column headerText="#{msg.eeff_codigo_fecu}" id="c5">
+                                <af:outputText value="#{info.fecuFormat}" id="ot5"/>
+                            </af:column>
+                        </af:column>
+                    </af:table>
+                    
+                    <af:table value="#{cuadroBackingBean.relDetEeffList}"  var="info" 
+                        rowSelection="single" 
+                        rendered="#{not empty cuadroBackingBean.relDetEeffList}"
+                        inlineStyle="height:inherit;"                         
+                        styleClass="AFStretchWidth" emptyText="#{msg.general_sin_informacion}" id="t3">
+                        <af:column headerText="Validación contra EEFF (Cuentas)" id="c14" align="center">                                
+                        <af:column headerText="#{msg.eeff_codigo_fecu}" id="c6">
+                                    <af:outputText value="#{info.fecuFormat}" id="ot6"/>
+                                </af:column>
+        
+                                <af:column headerText="#{msg.eeff_numero_cuenta}" id="c7">
+                                    <af:outputText value="#{info.idCuenta}" id="ot3"/>
+                                </af:column>
+                        </af:column>                                
+                        </af:table>
+                        
+                     <af:table value="#{cuadroBackingBean.relCeldaList}"  var="info" 
+                        rowSelection="single" 
+                        rendered="#{not empty cuadroBackingBean.relCeldaList}"
+                        inlineStyle="height:inherit;"                         
+                        styleClass="AFStretchWidth" emptyText="#{msg.general_sin_informacion}" id="t5">
+
+                        <af:column headerText="Validación contra celdas" id="c15" align="center">
+                                <af:column headerText="Cuadro" id="c8">
+                                    <af:outputText value="#{info.celda.columna.grilla.estructura1.version.catalogo.nombre}" id="ot4" />                                        
+                                </af:column>       
+
+                                <af:column headerText="Versión" id="c10">
+                                    <af:outputText value="#{info.celda.columna.grilla.estructura1.version.version}"
+                                                   id="ot10"/>
+                                </af:column>       
+                                
+                                <af:column headerText="Orden" id="c11">
+                                    <af:outputText value="#{info.celda.columna.grilla.estructura1.orden}" id="ot13"/>
+                                </af:column>       
+                        
+                                <af:column headerText="Celda" id="c12">
+                                    <af:outputText value="[#{info.celda.idColumna}, #{info.celda.idFila}]" id="ot14"/>
+                                </af:column>       
+                                <!--
+                                <af:column headerText="Valor" id="c9" align="right">
+                                    <af:outputText value="#{info.celda.valorBigDecimal}" id="ot9">
+                                        <af:convertNumber pattern="##,###,###.####"/>
+                                    </af:outputText>
+                                </af:column>       
+                                -->
+                        </af:column>        
+                        </af:table>                        
+                    
+                    
+                </af:noteWindow>
+                <af:setPropertyListener from="#{source.attributes.relEeffList}" to="#{cuadroBackingBean.relEeffList}" type="popupFetch"/>
+                <af:setPropertyListener from="#{source.attributes.relDetEeffList}" to="#{cuadroBackingBean.relDetEeffList}" type="popupFetch"/>
+                <af:setPropertyListener from="#{source.attributes.relCeldaList}" to="#{cuadroBackingBean.relCeldaList}" type="popupFetch"/>
+            </af:popup>
+            
+            <af:popup id="detalleDesagregacionesPopUp" contentDelivery="lazyUncached" eventContext="launcher" launcherVar="source">
+                <af:noteWindow id="nw2">
+                    <af:table value="#{cuadroBackingBean.subCeldaList}"  var="row"
+                        rowSelection="single" 
+                        inlineStyle="height:inherit;"                         
+                        styleClass="AFStretchWidth" emptyText="#{msg.general_sin_informacion}" id="t4">
+                        <af:column headerText="Detalle desagregación" id="c4" align="center">
+                            <af:column id="c1" headerText="Grupo" sortable="true" sortProperty="subColumna.subGrilla.grupo.nombre">
+                                <af:outputText value="#{row.subColumna.subGrilla.grupo.nombre}" id="ot12"/>
+                            </af:column>
+                            <af:column id="c3" headerText="Valor" align="right" >
+                                <af:outputText value="#{row.valorBigDecimal}" id="ot11">                    
+                                    <af:convertNumber locale="#{cuadroBackingBean.localeCL}" type="number" pattern="##,###,###,###.####"/>
+                                </af:outputText>
+                            </af:column>
+                        </af:column>
+                    </af:table>                   
+                    
+                </af:noteWindow>                     
+                <af:setPropertyListener from="#{source.attributes.idFila}" to="#{cuadroBackingBean.idFila}" type="popupFetch"/>
+                <af:setPropertyListener from="#{source.attributes.idColumna}" to="#{cuadroBackingBean.idColumna}" type="popupFetch"/>
+                <af:setPropertyListener from="#{source.attributes.columna}" to="#{cuadroBackingBean.columna}" type="popupFetch"/>
+           </af:popup>
+        </af:panelCollection>
+    </af:panelGroupLayout>
+</ui:composition>

@@ -1,0 +1,150 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+        xmlns:h="http://java.sun.com/jsf/html">
+    <af:document title="caratula-eeff.jsf" id="d1">
+        <af:resource source="/css/tabla-jsf.css" type="css"/>
+        <af:resource type="css">
+            .ancho_140 {
+                width: 350px;
+            }
+        </af:resource>
+        <af:resource type="javascript">
+          function loaderMessage(evt) {
+              var popup = AdfPage.PAGE.findComponentByAbsoluteId('p1_loading');
+              if (popup != null) {
+                  AdfPage.PAGE.addBusyStateListener(popup, handleBusyState);
+                  evt.preventUserInput();
+              }
+          }
+          //JavaScript call back handler 
+          function handleBusyState(evt) {
+              var popup = AdfPage.PAGE.findComponentByAbsoluteId('p1_loading');
+              if (popup != null) {
+                  if (evt.isBusy()) {
+                      popup.show();
+                  }
+                  else if (popup.isPopupVisible()) {
+                      popup.hide();
+                      AdfPage.PAGE.removeBusyStateListener(popup, handleBusyState);
+                  }
+              }
+          }
+        </af:resource>
+        <af:form id="f1">
+            <af:popup id="p1_loading" contentDelivery="immediate" animate="false">
+                <af:dialog id="d2" type="none" title="Cargando..." closeIconVisible="false" inlineStyle="width:220px;"
+                           modal="false">
+                    <af:panelGroupLayout id="pgl1" layout="horizontal">
+                        <af:image shortDesc="Procesando" source="/images/icon/loading5.gif" id="i2"/>
+                        <af:spacer width="30px;" id="s4"/>
+                        <af:outputText value="Procesando..." id="ot11"/>
+                    </af:panelGroupLayout>
+                </af:dialog>
+            </af:popup>
+            <af:panelBox id="pb1" text="Caratula EEFF" styleClass="AFStretchWidth">
+                <h:panelGrid id="pg1" columns="2">
+                    <af:selectOneChoice id="soc1" value="#{caratulaEeffBackingBean.filtro.periodo.mesPeriodo}"
+                                        required="true" label="#{msg.etiqueta_periodo}"
+                                        requiredMessageDetail="#{msg.periodo_mensaje_seleccione_mes}">
+                        <f:selectItem itemLabel="#{msg.etiqueta_mes_periodo}" id="sel1"/>
+                        <f:selectItems value="#{caratulaEeffBackingBean.componenteBackingBean.meses}" id="meses"/>
+                    </af:selectOneChoice>
+                    <af:selectOneChoice label="" id="soc2" value="#{caratulaEeffBackingBean.filtro.periodo.anioPeriodo}"
+                                        required="true" requiredMessageDetail="#{msg.periodo_mensaje_seleccione_anio}">
+                        <f:selectItem itemLabel="#{msg.etiqueta_anio_periodo}" id="sel2"/>
+                        <f:selectItems value="#{caratulaEeffBackingBean.componenteBackingBean.anios}" id="anios"/>
+                    </af:selectOneChoice>
+                </h:panelGrid>
+                <h:panelGrid columns="1">
+                    <af:selectOneChoice label="Grupos EEFF:" value="#{caratulaEeffBackingBean.grupoEeff}" id="soc3"> 
+                        <f:selectItem itemLabel="Sin Grupo" id="si2"/>
+                        <f:selectItems value="#{caratulaEeffBackingBean.componenteBackingBean.gruposEeff}" id="si1"/>
+                    </af:selectOneChoice>
+                </h:panelGrid>
+                <h:panelGrid id="pg2" columns="2">
+                    <af:spacer width="50" id="s5"/>
+                    <af:commandButton text="#{msg.general_control_buscar}" id="cb1" blocking="true"
+                                      action="#{caratulaEeffBackingBean.buscarAction}">
+                        <af:clientListener method="loaderMessage" type="action"/>
+                    </af:commandButton>
+                </h:panelGrid>
+            </af:panelBox>
+            <af:panelCollection id="pgl5" styleClass="AFStretchWidth">
+                            <f:facet name="toolbar">
+                                <af:toolbar id="t2">
+                                    <af:commandToolbarButton text="Guardar" id="botonGuardar"                                                     
+                                                             action="#{caratulaEeffBackingBean.guardarAction}"
+                                                             icon="/images/icon/save.png"/> 
+                                </af:toolbar>
+                                
+                            </f:facet>
+                            <f:facet name="secondaryToolbar">
+                                <af:toolbar id="tb1">
+                               
+                                    <af:commandToolbarButton text="Asignar a grupo" id="botonGuardar1"                                                     
+                                                             action="#{caratulaEeffBackingBean.asignarGrupoEeff}"
+                                                             icon="/images/icon/save.png"
+                                                             rendered="#{caratulaEeffBackingBean.renderSinGrupos}"/> 
+                                                             
+                                    <af:commandToolbarButton text="Desasignar del grupo" id="botonGuardar2"                                                     
+                                                             action="#{caratulaEeffBackingBean.desasignarGrupoEeff}"
+                                                             rendered="#{!caratulaEeffBackingBean.renderSinGrupos}"
+                                                             icon="/images/icon/save.png"/> 
+                                                             
+                                <af:selectOneChoice label="Grupos EEFF:" value="#{caratulaEeffBackingBean.grupoAsignacionEeff}" rendered="#{caratulaEeffBackingBean.renderSinGrupos}" id="soc4" unselectedLabel="Seleccione"> 
+                                    <f:selectItems  value="#{caratulaEeffBackingBean.componenteBackingBean.gruposEeff}" id="si3"/>
+                                </af:selectOneChoice>
+                               
+                                <!--
+                                        <af:commandLink text="#{msg.general_control_seleccionar_todo}" id="sel_all" immediate="true"
+                                                        partialSubmit="true">
+                                            <af:clientListener method="selectAll" type="click"/>
+                                        </af:commandLink>
+                                        
+                                        <af:commandLink text="#{msg.general_control_no_seleccionar_todo}" immediate="true"
+                                                        id="unsel_all" partialSubmit="true">
+                                            <af:clientListener method="unSelectAll" type="click"/>
+                                        </af:commandLink>
+                                -->
+                                 </af:toolbar>
+                                
+                                
+                            </f:facet>   
+                
+                            <af:table value="#{caratulaEeffBackingBean.grillaEstadoFinancieroList}"  id="t1" var="row" 
+                                rowSelection="single" partialTriggers=":cb1 ::botonGuardar ::botonGuardar1 ::botonGuardar2" styleClass="AFStretchWidth" inlineStyle="height:inherit;" emptyText="No hay registros">
+                                <af:column id="c6" headerText="Asignación" >
+                                    <af:selectBooleanCheckbox value="#{row.selected}" label=" " id="sbc3"/>                            
+                                </af:column>
+                                <af:column id="c1" headerText="Código" width="50px">
+                                    <af:outputText id="ot1" value="#{row.entity.codigoFecu.idFecu}" inlineStyle="#{row.entity.codigoFecu.subGrupo and row.entity.codigoFecu.bold ? 'font-weight:bold;' : row.entity.codigoFecu.subGrupo ? '' : row.entity.codigoFecu.bold ? 'font-weight:bold;' : ''}"/>                                    
+                                </af:column>
+                                <af:column id="c2" headerText="Descripción" width="400px">
+                                    <af:outputText id="ot22" value="#{row.entity.codigoFecu.descripcion}" inlineStyle="#{row.entity.codigoFecu.subGrupo and row.entity.codigoFecu.bold ? 'padding-left:10px;font-weight:bold;' : row.entity.codigoFecu.subGrupo ? 'padding-left:10px;' : row.entity.codigoFecu.bold ? 'font-weight:bold;' : ''}"/>
+                                </af:column>
+                                <af:column id="c3" headerText="Monto" width="100px" align="right">
+                                    
+                                    <af:outputText id="ot3" value="#{row.entity.montoTotal}" inlineStyle="#{row.entity.codigoFecu.subGrupo and row.entity.codigoFecu.bold ? 'font-weight:bold;' : row.entity.codigoFecu.subGrupo ? '' : row.entity.codigoFecu.bold ? 'font-weight:bold;' : ''}">
+                                        <af:convertNumber integerOnly="false" type="number"
+                                                      maxFractionDigits="4"
+                                                      locale="#{visualizadorEeffBackingBean.localeCL}" pattern="##,###,###,###.####"/> 
+                                    </af:outputText>              
+                                </af:column>
+                                <af:column headerText="Negrita" align="center" id="c4" sortable="true" sortProperty="selected" rendered="#{caratulaEeffBackingBean.grupoEeff != null ? true : false}">
+                                    <af:selectBooleanCheckbox value="#{row.entity.codigoFecu.bold}" label=" " id="sbc1">                            
+                                    </af:selectBooleanCheckbox>
+                                </af:column>
+                                <af:column headerText="Sangria" align="center" id="c5" sortable="true" sortProperty="selected" rendered="#{caratulaEeffBackingBean.grupoEeff != null ? true : false}">
+                                    <af:selectBooleanCheckbox value="#{row.entity.codigoFecu.subGrupo}" label=" " id="sbc2">                            
+                                    </af:selectBooleanCheckbox>
+                                </af:column>
+                                <af:column headerText="Orden" align="center" sortable="true" sortProperty="selected" id="c7" rendered="#{caratulaEeffBackingBean.grupoEeff != null ? true : false}">
+                                    <af:inputNumberSpinbox id="ins1" value="#{row.entity.codigoFecu.orden}" maximum="999" minimum="0" required="true"/>
+                                </af:column>    
+                            </af:table>    
+                
+            </af:panelCollection>
+        </af:form>
+    </af:document>
+</f:view>

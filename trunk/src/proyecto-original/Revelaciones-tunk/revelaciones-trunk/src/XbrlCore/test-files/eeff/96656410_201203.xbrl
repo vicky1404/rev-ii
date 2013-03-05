@@ -1,0 +1,1556 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- Archivo generado por Corvus XBRL de D&T Systems S. A. -->
+<!-- http://www.dytsystems.cl -->
+<xbrli:xbrl xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://xbrl.org/2006/xbrldi http://www.xbrl.org/2006/xbrldi-2006.xsd' xmlns:cl-cs_shell='http://www.svs.cl/cl/fr/cs/2012-01-02/shell' xmlns:eeff_role-600000_rol='http://www.svs.cl/cl/fr/cs/2012-01-02/rol_cl-cs_eeff_role-600000_rol' xmlns:ref='http://www.xbrl.org/2006/ref' xmlns:eeff_role-200000='http://www.svs.cl/cl/fr/cs/2012-01-02/cl-cs_eeff_role-200000' xmlns:xbrldt='http://xbrl.org/2005/xbrldt' xmlns:nonnum='http://www.xbrl.org/dtr/type/non-numeric' xmlns:eeff_role-300000='http://www.svs.cl/cl/fr/cs/2012-01-02/cl-cs_eeff_role-300000' xmlns:eeff_role-500000='http://www.svs.cl/cl/fr/cs/2012-01-02/cl-cs_eeff_role-500000' xmlns:link='http://www.xbrl.org/2003/linkbase' xmlns:eeff_role-110000_rol='http://www.svs.cl/cl/fr/cs/2012-01-02/rol_cl-cs_eeff_role-110000_rol' xmlns:net='http://www.xbrl.org/2009/role/net' xmlns:eeff_role-110000='http://www.svs.cl/cl/fr/cs/2012-01-02/cl-cs_eeff_role-110000' xmlns:num='http://www.xbrl.org/dtr/type/numeric' xmlns:eeff_role-600000='http://www.svs.cl/cl/fr/cs/2012-01-02/cl-cs_eeff_role-600000' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:eeff_role-500000_rol='http://www.svs.cl/cl/fr/cs/2012-01-02/rol_cl-cs_eeff_role-500000_rol' xmlns:cl-cs='http://www.svs.cl/cl/fr/cs/2012-01-02' xmlns:iso4217='http://www.xbrl.org/2003/iso4217' xmlns:xbrldi='http://xbrl.org/2006/xbrldi' xmlns:negated='xmlns:negated' xmlns:eeff_role-300000_rol='http://www.svs.cl/cl/fr/cs/2012-01-02/rol_cl-cs_eeff_role-300000_rol' xmlns:eeff_role-200000_rol='http://www.svs.cl/cl/fr/cs/2012-01-02/rol_cl-cs_eeff_role-200000' xmlns:xbrli='http://www.xbrl.org/2003/instance'>
+  <link:schemaRef xlink:href='/cl-cs_shell_2012-01-02.xsd' xlink:type='simple' />
+  <link:schemaRef xlink:href='/cl-cs_eeff/cl-cs_eeff_role-110000.xsd' xlink:type='simple' />
+  <link:schemaRef xlink:href='/cl-cs_eeff/cl-cs_eeff_role-200000.xsd' xlink:type='simple' />
+  <link:schemaRef xlink:href='/cl-cs_eeff/cl-cs_eeff_role-300000.xsd' xlink:type='simple' />
+  <link:schemaRef xlink:href='/cl-cs_eeff/cl-cs_eeff_role-500000.xsd' xlink:type='simple' />
+  <link:schemaRef xlink:href='/cl-cs_eeff/cl-cs_eeff_role-600000.xsd' xlink:type='simple' />
+  <xbrli:context id='AcumuladoActual'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2012-01-01</xbrli:startDate>
+      <xbrli:endDate>2012-03-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id='AcumuladoAnoActual'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2012-03-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id='AcumuladoAnoActual_CapitalPagadoMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2012-01-01</xbrli:startDate>
+      <xbrli:endDate>2012-03-31</xbrli:endDate>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:CapitalPagadoMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AcumuladoAnoActual_OtrasReservasMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2012-01-01</xbrli:startDate>
+      <xbrli:endDate>2012-03-31</xbrli:endDate>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:OtrasReservasMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AcumuladoAnoActual_OtrosAjustesMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2012-01-01</xbrli:startDate>
+      <xbrli:endDate>2012-03-31</xbrli:endDate>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:OtrosAjustesMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AcumuladoAnoActual_OtrosResultadosConAjusteEnPatrimonioMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2012-01-01</xbrli:startDate>
+      <xbrli:endDate>2012-03-31</xbrli:endDate>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:OtrosResultadosConAjusteEnPatrimonioMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AcumuladoAnoActual_ReservaAjustePorCalceMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2012-01-01</xbrli:startDate>
+      <xbrli:endDate>2012-03-31</xbrli:endDate>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ReservaAjustePorCalceMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AcumuladoAnoActual_ReservaDescalceSegurosCUIMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2012-01-01</xbrli:startDate>
+      <xbrli:endDate>2012-03-31</xbrli:endDate>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ReservaDescalceSegurosCUIMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AcumuladoAnoActual_ReservasMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2012-01-01</xbrli:startDate>
+      <xbrli:endDate>2012-03-31</xbrli:endDate>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ReservasMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AcumuladoAnoActual_ResultadoCoberturasFlujoCajaMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2012-01-01</xbrli:startDate>
+      <xbrli:endDate>2012-03-31</xbrli:endDate>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadoCoberturasFlujoCajaMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AcumuladoAnoActual_ResultadoDelPeriodoMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2012-01-01</xbrli:startDate>
+      <xbrli:endDate>2012-03-31</xbrli:endDate>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadoDelPeriodoMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AcumuladoAnoActual_ResultadoEvaluacionPropiedadesMueblesYEquipoMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2012-01-01</xbrli:startDate>
+      <xbrli:endDate>2012-03-31</xbrli:endDate>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadoEvaluacionPropiedadesMueblesYEquipoMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AcumuladoAnoActual_ResultadosActivosFinancierosMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2012-01-01</xbrli:startDate>
+      <xbrli:endDate>2012-03-31</xbrli:endDate>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadosActivosFinancierosMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AcumuladoAnoActual_ResultadosAcumuladosMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2012-01-01</xbrli:startDate>
+      <xbrli:endDate>2012-03-31</xbrli:endDate>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadosAcumuladosMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AcumuladoAnoActual_ResultadosAcumuladosPeriodosAnterioresMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2012-01-01</xbrli:startDate>
+      <xbrli:endDate>2012-03-31</xbrli:endDate>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadosAcumuladosPeriodosAnterioresMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AcumuladoAnoActual_SobrePrecioAccionesMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2012-01-01</xbrli:startDate>
+      <xbrli:endDate>2012-03-31</xbrli:endDate>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:SobrePrecioAccionesMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AcumuladoAnoAnterior'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2011-01-01</xbrli:startDate>
+      <xbrli:endDate>2011-03-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id='AcumuladoAnoAnterior_CapitalPagadoMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2011-01-01</xbrli:startDate>
+      <xbrli:endDate>2011-03-31</xbrli:endDate>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:CapitalPagadoMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AcumuladoAnoAnterior_OtrasReservasMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2011-01-01</xbrli:startDate>
+      <xbrli:endDate>2011-03-31</xbrli:endDate>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:OtrasReservasMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AcumuladoAnoAnterior_OtrosAjustesMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2011-01-01</xbrli:startDate>
+      <xbrli:endDate>2011-03-31</xbrli:endDate>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:OtrosAjustesMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AcumuladoAnoAnterior_OtrosResultadosConAjusteEnPatrimonioMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2011-01-01</xbrli:startDate>
+      <xbrli:endDate>2011-03-31</xbrli:endDate>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:OtrosResultadosConAjusteEnPatrimonioMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AcumuladoAnoAnterior_ReservaAjustePorCalceMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2011-01-01</xbrli:startDate>
+      <xbrli:endDate>2011-03-31</xbrli:endDate>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ReservaAjustePorCalceMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AcumuladoAnoAnterior_ReservaDescalceSegurosCUIMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2011-01-01</xbrli:startDate>
+      <xbrli:endDate>2011-03-31</xbrli:endDate>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ReservaDescalceSegurosCUIMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AcumuladoAnoAnterior_ReservasMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2011-01-01</xbrli:startDate>
+      <xbrli:endDate>2011-03-31</xbrli:endDate>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ReservasMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AcumuladoAnoAnterior_ResultadoCoberturasFlujoCajaMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2011-01-01</xbrli:startDate>
+      <xbrli:endDate>2011-03-31</xbrli:endDate>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadoCoberturasFlujoCajaMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AcumuladoAnoAnterior_ResultadoDelPeriodoMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2011-01-01</xbrli:startDate>
+      <xbrli:endDate>2011-03-31</xbrli:endDate>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadoDelPeriodoMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AcumuladoAnoAnterior_ResultadoEvaluacionPropiedadesMueblesYEquipoMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2011-01-01</xbrli:startDate>
+      <xbrli:endDate>2011-03-31</xbrli:endDate>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadoEvaluacionPropiedadesMueblesYEquipoMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AcumuladoAnoAnterior_ResultadosActivosFinancierosMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2011-01-01</xbrli:startDate>
+      <xbrli:endDate>2011-03-31</xbrli:endDate>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadosActivosFinancierosMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AcumuladoAnoAnterior_ResultadosAcumuladosMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2011-01-01</xbrli:startDate>
+      <xbrli:endDate>2011-03-31</xbrli:endDate>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadosAcumuladosMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AcumuladoAnoAnterior_ResultadosAcumuladosPeriodosAnterioresMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2011-01-01</xbrli:startDate>
+      <xbrli:endDate>2011-03-31</xbrli:endDate>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadosAcumuladosPeriodosAnterioresMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AcumuladoAnoAnterior_SobrePrecioAccionesMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2011-01-01</xbrli:startDate>
+      <xbrli:endDate>2011-03-31</xbrli:endDate>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:SobrePrecioAccionesMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AjusteInicioPeriodoActual'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2011-12-31</xbrli:startDate>
+      <xbrli:endDate>2011-12-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id='AjusteInicioPeriodoActual_CapitalPagadoMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:CapitalPagadoMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AjusteInicioPeriodoActual_OtrasReservasMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:OtrasReservasMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AjusteInicioPeriodoActual_OtrosAjustesMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:OtrosAjustesMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AjusteInicioPeriodoActual_OtrosResultadosConAjusteEnPatrimonioMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:OtrosResultadosConAjusteEnPatrimonioMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AjusteInicioPeriodoActual_ReservaAjustePorCalceMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ReservaAjustePorCalceMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AjusteInicioPeriodoActual_ReservaDescalceSegurosCUIMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ReservaDescalceSegurosCUIMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AjusteInicioPeriodoActual_ReservasMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ReservasMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AjusteInicioPeriodoActual_ResultadoCoberturasFlujoCajaMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadoCoberturasFlujoCajaMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AjusteInicioPeriodoActual_ResultadoDelPeriodoMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadoDelPeriodoMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AjusteInicioPeriodoActual_ResultadoEvaluacionPropiedadesMueblesYEquipoMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadoEvaluacionPropiedadesMueblesYEquipoMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AjusteInicioPeriodoActual_ResultadosActivosFinancierosMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadosActivosFinancierosMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AjusteInicioPeriodoActual_ResultadosAcumuladosMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadosAcumuladosMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AjusteInicioPeriodoActual_ResultadosAcumuladosPeriodosAnterioresMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadosAcumuladosPeriodosAnterioresMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AjusteInicioPeriodoActual_SobrePrecioAccionesMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:SobrePrecioAccionesMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AjusteInicioPeriodoAnterior'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2010-12-31</xbrli:startDate>
+      <xbrli:endDate>2010-12-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id='AjusteInicioPeriodoAnterior_CapitalPagadoMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2010-12-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:CapitalPagadoMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AjusteInicioPeriodoAnterior_OtrasReservasMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2010-12-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:OtrasReservasMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AjusteInicioPeriodoAnterior_OtrosAjustesMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2010-12-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:OtrosAjustesMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AjusteInicioPeriodoAnterior_OtrosResultadosConAjusteEnPatrimonioMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2010-12-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:OtrosResultadosConAjusteEnPatrimonioMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AjusteInicioPeriodoAnterior_ReservaAjustePorCalceMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2010-12-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ReservaAjustePorCalceMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AjusteInicioPeriodoAnterior_ReservaDescalceSegurosCUIMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2010-12-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ReservaDescalceSegurosCUIMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AjusteInicioPeriodoAnterior_ReservasMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2010-12-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ReservasMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AjusteInicioPeriodoAnterior_ResultadoCoberturasFlujoCajaMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2010-12-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadoCoberturasFlujoCajaMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AjusteInicioPeriodoAnterior_ResultadoDelPeriodoMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2010-12-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadoDelPeriodoMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AjusteInicioPeriodoAnterior_ResultadoEvaluacionPropiedadesMueblesYEquipoMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2010-12-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadoEvaluacionPropiedadesMueblesYEquipoMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AjusteInicioPeriodoAnterior_ResultadosActivosFinancierosMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2010-12-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadosActivosFinancierosMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AjusteInicioPeriodoAnterior_ResultadosAcumuladosMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2010-12-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadosAcumuladosMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AjusteInicioPeriodoAnterior_ResultadosAcumuladosPeriodosAnterioresMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2010-12-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadosAcumuladosPeriodosAnterioresMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='AjusteInicioPeriodoAnterior_SobrePrecioAccionesMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2010-12-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:SobrePrecioAccionesMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='CierreAnoAnterior'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id='CierreAnoAnteriorAnterior'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2010-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id='CierrePrimerSemestreAnoAnterior'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2012-03-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioFinalPeriodoActual_CapitalPagadoMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2012-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:CapitalPagadoMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioFinalPeriodoActual_OtrasReservasMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2012-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:OtrasReservasMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioFinalPeriodoActual_OtrosAjustesMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2012-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:OtrosAjustesMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioFinalPeriodoActual_OtrosResultadosConAjusteEnPatrimonioMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2012-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:OtrosResultadosConAjusteEnPatrimonioMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioFinalPeriodoActual_ReservaAjustePorCalceMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2012-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ReservaAjustePorCalceMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioFinalPeriodoActual_ReservaDescalceSegurosCUIMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2012-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ReservaDescalceSegurosCUIMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioFinalPeriodoActual_ReservasMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2012-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ReservasMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioFinalPeriodoActual_ResultadoCoberturasFlujoCajaMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2012-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadoCoberturasFlujoCajaMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioFinalPeriodoActual_ResultadoDelPeriodoMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2012-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadoDelPeriodoMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioFinalPeriodoActual_ResultadoEvaluacionPropiedadesMueblesYEquipoMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2012-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadoEvaluacionPropiedadesMueblesYEquipoMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioFinalPeriodoActual_ResultadosActivosFinancierosMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2012-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadosActivosFinancierosMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioFinalPeriodoActual_ResultadosAcumuladosMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2012-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadosAcumuladosMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioFinalPeriodoActual_ResultadosAcumuladosPeriodosAnterioresMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2012-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadosAcumuladosPeriodosAnterioresMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioFinalPeriodoActual_SobrePrecioAccionesMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2012-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:SobrePrecioAccionesMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioFinalPeriodoAnterior_CapitalPagadoMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:CapitalPagadoMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioFinalPeriodoAnterior_OtrasReservasMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:OtrasReservasMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioFinalPeriodoAnterior_OtrosAjustesMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:OtrosAjustesMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioFinalPeriodoAnterior_OtrosResultadosConAjusteEnPatrimonioMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:OtrosResultadosConAjusteEnPatrimonioMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioFinalPeriodoAnterior_ReservaAjustePorCalceMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ReservaAjustePorCalceMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioFinalPeriodoAnterior_ReservaDescalceSegurosCUIMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ReservaDescalceSegurosCUIMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioFinalPeriodoAnterior_ReservasMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ReservasMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioFinalPeriodoAnterior_ResultadoCoberturasFlujoCajaMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadoCoberturasFlujoCajaMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioFinalPeriodoAnterior_ResultadoDelPeriodoMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadoDelPeriodoMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioFinalPeriodoAnterior_ResultadoEvaluacionPropiedadesMueblesYEquipoMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadoEvaluacionPropiedadesMueblesYEquipoMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioFinalPeriodoAnterior_ResultadosActivosFinancierosMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadosActivosFinancierosMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioFinalPeriodoAnterior_ResultadosAcumuladosMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadosAcumuladosMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioFinalPeriodoAnterior_ResultadosAcumuladosPeriodosAnterioresMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadosAcumuladosPeriodosAnterioresMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioFinalPeriodoAnterior_SobrePrecioAccionesMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:SobrePrecioAccionesMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioInicioPeriodoActual_CapitalPagadoMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:CapitalPagadoMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioInicioPeriodoActual_OtrasReservasMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:OtrasReservasMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioInicioPeriodoActual_OtrosAjustesMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:OtrosAjustesMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioInicioPeriodoActual_OtrosResultadosConAjusteEnPatrimonioMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:OtrosResultadosConAjusteEnPatrimonioMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioInicioPeriodoActual_ReservaAjustePorCalceMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ReservaAjustePorCalceMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioInicioPeriodoActual_ReservaDescalceSegurosCUIMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ReservaDescalceSegurosCUIMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioInicioPeriodoActual_ReservasMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ReservasMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioInicioPeriodoActual_ResultadoCoberturasFlujoCajaMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadoCoberturasFlujoCajaMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioInicioPeriodoActual_ResultadoDelPeriodoMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadoDelPeriodoMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioInicioPeriodoActual_ResultadoEvaluacionPropiedadesMueblesYEquipoMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadoEvaluacionPropiedadesMueblesYEquipoMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioInicioPeriodoActual_ResultadosActivosFinancierosMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadosActivosFinancierosMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioInicioPeriodoActual_ResultadosAcumuladosMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadosAcumuladosMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioInicioPeriodoActual_ResultadosAcumuladosPeriodosAnterioresMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadosAcumuladosPeriodosAnterioresMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioInicioPeriodoActual_SobrePrecioAccionesMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-03-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:SobrePrecioAccionesMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioInicioPeriodoAnterior_CapitalPagadoMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2010-12-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:CapitalPagadoMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioInicioPeriodoAnterior_OtrasReservasMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2010-12-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:OtrasReservasMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioInicioPeriodoAnterior_OtrosAjustesMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2010-12-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:OtrosAjustesMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioInicioPeriodoAnterior_OtrosResultadosConAjusteEnPatrimonioMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2010-12-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:OtrosResultadosConAjusteEnPatrimonioMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioInicioPeriodoAnterior_ReservaAjustePorCalceMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2010-12-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ReservaAjustePorCalceMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioInicioPeriodoAnterior_ReservaDescalceSegurosCUIMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2010-12-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ReservaDescalceSegurosCUIMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioInicioPeriodoAnterior_ReservasMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2010-12-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ReservasMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioInicioPeriodoAnterior_ResultadoCoberturasFlujoCajaMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2010-12-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadoCoberturasFlujoCajaMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioInicioPeriodoAnterior_ResultadoDelPeriodoMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2010-12-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadoDelPeriodoMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioInicioPeriodoAnterior_ResultadoEvaluacionPropiedadesMueblesYEquipoMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2010-12-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadoEvaluacionPropiedadesMueblesYEquipoMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioInicioPeriodoAnterior_ResultadosActivosFinancierosMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2010-12-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadosActivosFinancierosMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioInicioPeriodoAnterior_ResultadosAcumuladosMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2010-12-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadosAcumuladosMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioInicioPeriodoAnterior_ResultadosAcumuladosPeriodosAnterioresMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2010-12-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:ResultadosAcumuladosPeriodosAnterioresMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:context id='PatrimonioInicioPeriodoAnterior_SobrePrecioAccionesMiembro'>
+    <xbrli:entity>
+      <xbrli:identifier scheme='http://www.svs.cl/rut'>96656410-5</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2010-12-31</xbrli:instant>
+    </xbrli:period>
+    <xbrli:scenario>
+      <xbrldi:explicitMember dimension='cl-cs:ComponentesDelPatrimonioEje'>cl-cs:SobrePrecioAccionesMiembro</xbrldi:explicitMember>
+    </xbrli:scenario>
+  </xbrli:context>
+  <xbrli:unit id='CLP'>
+    <xbrli:measure>iso4217:CLP</xbrli:measure>
+  </xbrli:unit>
+  <xbrli:unit id='shares'>
+    <xbrli:divide>
+      <xbrli:unitNumerator>
+        <xbrli:measure>iso4217:CLP</xbrli:measure>
+      </xbrli:unitNumerator>
+      <xbrli:unitDenominator>
+        <xbrli:measure>xbrli:shares</xbrli:measure>
+      </xbrli:unitDenominator>
+    </xbrli:divide>
+  </xbrli:unit>
+  <cl-cs:RUTEntidadInforma contextRef='AcumuladoActual'>96656410</cl-cs:RUTEntidadInforma>
+  <cl-cs:DescripcionMonedaPresentacion contextRef='AcumuladoActual'>iso4217:CLP</cl-cs:DescripcionMonedaPresentacion>
+  <cl-cs:RazonSocialEntidadQueInforma contextRef='AcumuladoActual'>BICE VIDA COMPAÑIA DE SEGUROS S.A.</cl-cs:RazonSocialEntidadQueInforma>
+  <cl-cs:FechaCierrePeriodoQueInforma contextRef='AcumuladoActual'>2012-03-31</cl-cs:FechaCierrePeriodoQueInforma>
+  <cl-cs:GrupoAsegurador contextRef='AcumuladoActual'>2</cl-cs:GrupoAsegurador>
+  <cl-cs:TipoEstadoFinanciero contextRef='AcumuladoActual'>I</cl-cs:TipoEstadoFinanciero>
+  <cl-cs:Activos unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>2007993639000</cl-cs:Activos>
+  <cl-cs:ActivosFinancierosCostoAmortizado unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>1468465314000</cl-cs:ActivosFinancierosCostoAmortizado>
+  <cl-cs:ActivosFinancierosValorRazonable unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>168590367000</cl-cs:ActivosFinancierosValorRazonable>
+  <cl-cs:ActivosIntangiblesDistintoAGoodwill unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>111568000</cl-cs:ActivosIntangiblesDistintoAGoodwill>
+  <cl-cs:ActivosNoCorrientesMantenidosParaVenta unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>2904351000</cl-cs:ActivosNoCorrientesMantenidosParaVenta>
+  <cl-cs:ActivosPorImpuestosDiferidos unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>7080809000</cl-cs:ActivosPorImpuestosDiferidos>
+  <cl-cs:AjustesPatrimonioPeriodosAnteriores unitRef='CLP' contextRef='AjusteInicioPeriodoActual_ResultadosAcumuladosMiembro' decimals='0'>5551404000</cl-cs:AjustesPatrimonioPeriodosAnteriores>
+  <cl-cs:AjustesPatrimonioPeriodosAnteriores unitRef='CLP' contextRef='AjusteInicioPeriodoActual_ResultadosAcumuladosPeriodosAnterioresMiembro' decimals='0'>5551404000</cl-cs:AjustesPatrimonioPeriodosAnteriores>
+  <cl-cs:AjustesPatrimonioPeriodosAnteriores unitRef='CLP' contextRef='CierreAnoAnterior' decimals='0'>5551404000</cl-cs:AjustesPatrimonioPeriodosAnteriores>
+  <cl-cs:AumentoDisminucionEfectivoYEquivalentes unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>-106430000</cl-cs:AumentoDisminucionEfectivoYEquivalentes>
+  <cl-cs:AvanceTenedoresPolizas unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>3121294000</cl-cs:AvanceTenedoresPolizas>
+  <cl-cs:Bancos unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>1390218000</cl-cs:Bancos>
+  <cl-cs:CambiosEnReservas unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>620780000</cl-cs:CambiosEnReservas>
+  <cl-cs:CambiosEnReservas unitRef='CLP' contextRef='AcumuladoAnoActual_OtrasReservasMiembro' decimals='0'>-25077000</cl-cs:CambiosEnReservas>
+  <cl-cs:CambiosEnReservas unitRef='CLP' contextRef='AcumuladoAnoActual_ReservaAjustePorCalceMiembro' decimals='0'>691667000</cl-cs:CambiosEnReservas>
+  <cl-cs:CambiosEnReservas unitRef='CLP' contextRef='AcumuladoAnoActual_ReservaDescalceSegurosCUIMiembro' decimals='0'>-45810000</cl-cs:CambiosEnReservas>
+  <cl-cs:CambiosEnReservas unitRef='CLP' contextRef='AcumuladoAnoActual_ReservasMiembro' decimals='0'>620780000</cl-cs:CambiosEnReservas>
+  <cl-cs:CapitalPagado unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>159350293000</cl-cs:CapitalPagado>
+  <cl-cs:ComisionAgentesDirectos unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>700188000</cl-cs:ComisionAgentesDirectos>
+  <cl-cs:ComisionCorredoresYRetribucionAsesoresPrevisionales unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>1622284000</cl-cs:ComisionCorredoresYRetribucionAsesoresPrevisionales>
+  <cl-cs:CostoDeRentasDelEjercicio unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>49245149000</cl-cs:CostoDeRentasDelEjercicio>
+  <cl-cs:CostoSiniestrosDelEjercicio unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>10103537000</cl-cs:CostoSiniestrosDelEjercicio>
+  <cl-cs:CostosAdministracion unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>6827517000</cl-cs:CostosAdministracion>
+  <cl-cs:CuentasActivosDeSeguros unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>17830685000</cl-cs:CuentasActivosDeSeguros>
+  <cl-cs:CuentasPasivosDeSeguros unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>1689331410000</cl-cs:CuentasPasivosDeSeguros>
+  <cl-cs:CuentasPorCobrarAsegurados unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>8545030000</cl-cs:CuentasPorCobrarAsegurados>
+  <cl-cs:CuentasPorCobrarDeSeguros unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>10807696000</cl-cs:CuentasPorCobrarDeSeguros>
+  <cl-cs:CuentasPorCobrarIntermediarios unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>79522000</cl-cs:CuentasPorCobrarIntermediarios>
+  <cl-cs:CuentasPorCobrarLeasing unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>124367025000</cl-cs:CuentasPorCobrarLeasing>
+  <cl-cs:CuentasPorCobrarPorImpuestoCorriente unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>1740008000</cl-cs:CuentasPorCobrarPorImpuestoCorriente>
+  <cl-cs:CuentasPorPagarPorImpuestosCorrientes unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>5473586000</cl-cs:CuentasPorPagarPorImpuestosCorrientes>
+  <cl-cs:DepreciacionInversiones unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>214681000</cl-cs:DepreciacionInversiones>
+  <cl-cs:DeterioroInversiones unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>841968000</cl-cs:DeterioroInversiones>
+  <cl-cs:DeterioroSeguros unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>120125000</cl-cs:DeterioroSeguros>
+  <cl-cs:DeudasConAsegurados unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>1725241000</cl-cs:DeudasConAsegurados>
+  <cl-cs:DeudasConElPersonal unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>247055000</cl-cs:DeudasConElPersonal>
+  <cl-cs:DeudasConIntermediarios unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>1249577000</cl-cs:DeudasConIntermediarios>
+  <cl-cs:DeudasConRelacionados unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>780846000</cl-cs:DeudasConRelacionados>
+  <cl-cs:DeudasDeEmpresasRelacionadas unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>10658693000</cl-cs:DeudasDeEmpresasRelacionadas>
+  <cl-cs:DeudasDelPersonal unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>375359000</cl-cs:DeudasDelPersonal>
+  <cl-cs:DeudasOperacionesDeSeguro unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>4357357000</cl-cs:DeudasOperacionesDeSeguro>
+  <cl-cs:DeudasOperacionesReaseguro unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>2632116000</cl-cs:DeudasOperacionesReaseguro>
+  <cl-cs:DeudoresPorOperacionesReaseguro unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>2262666000</cl-cs:DeudoresPorOperacionesReaseguro>
+  <cl-cs:DiferenciasCambio unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>-3234192000</cl-cs:DiferenciasCambio>
+  <cl-cs:EfectivoEnCaja unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>1890849000</cl-cs:EfectivoEnCaja>
+  <cl-cs:EfectivoYEfectivoEquivalente unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>1890849000</cl-cs:EfectivoYEfectivoEquivalente>
+  <cl-cs:EfectivoYEfectivoEquivalente unitRef='CLP' contextRef='CierreAnoAnterior' decimals='0'>1997280000</cl-cs:EfectivoYEfectivoEquivalente>
+  <cl-cs:EgresoActivosFinancierosValorRazonable unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>391675704000</cl-cs:EgresoActivosFinancierosValorRazonable>
+  <cl-cs:EgresoActivosInmobiliarios unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>4809621000</cl-cs:EgresoActivosInmobiliarios>
+  <cl-cs:EgresoComisionesSegurosDirectos unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>1558256000</cl-cs:EgresoComisionesSegurosDirectos>
+  <cl-cs:EgresoGastoAdministracion unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>7630689000</cl-cs:EgresoGastoAdministracion>
+  <cl-cs:EgresosActivosFinancierosCostoAmortizado unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>612220721000</cl-cs:EgresosActivosFinancierosCostoAmortizado>
+  <cl-cs:EgresosEfectivoActividadAseguradora unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>1059601217000</cl-cs:EgresosEfectivoActividadAseguradora>
+  <cl-cs:EgresosEfectivoActividadesFinanciamiento unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>-180865000</cl-cs:EgresosEfectivoActividadesFinanciamiento>
+  <cl-cs:EgresosEfectivoActividadesInversion unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>83150000</cl-cs:EgresosEfectivoActividadesInversion>
+  <cl-cs:EgresosPorPropiedadesMueblesYEquipo unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>82971000</cl-cs:EgresosPorPropiedadesMueblesYEquipo>
+  <cl-cs:EgresosPrestacionesSeguroDirectoYCoaseguro unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>88115000</cl-cs:EgresosPrestacionesSeguroDirectoYCoaseguro>
+  <cl-cs:EgresosPrestamosConRelacionados unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>-180865000</cl-cs:EgresosPrestamosConRelacionados>
+  <cl-cs:EquivalenteAlEfectivo unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>500631000</cl-cs:EquivalenteAlEfectivo>
+  <cl-cs:FlujosEfectivoNetoActividadesFinanciamiento unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>180865000</cl-cs:FlujosEfectivoNetoActividadesFinanciamiento>
+  <cl-cs:FlujosEfectivoNetoActividadesInversion unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>3853128000</cl-cs:FlujosEfectivoNetoActividadesInversion>
+  <cl-cs:FlujosEfectivoNetosActividadesOperacion unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>-4140423000</cl-cs:FlujosEfectivoNetosActividadesOperacion>
+  <cl-cs:GastosAnticipados unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>101044000</cl-cs:GastosAnticipados>
+  <cl-cs:GastosDeGestion unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>510183000</cl-cs:GastosDeGestion>
+  <cl-cs:GastosImpuestos unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>2096203000</cl-cs:GastosImpuestos>
+  <cl-cs:GastosMedicos unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>37098000</cl-cs:GastosMedicos>
+  <cl-cs:GastosPorReaseguroNoProporcional unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>45347000</cl-cs:GastosPorReaseguroNoProporcional>
+  <cl-cs:ImpuestoRenta unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>1817264000</cl-cs:ImpuestoRenta>
+  <cl-cs:ImpuestosPorCobrar unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>8820817000</cl-cs:ImpuestosPorCobrar>
+  <cl-cs:ImpuestosPorPagar unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>9536262000</cl-cs:ImpuestosPorPagar>
+  <cl-cs:IngresoActivosFinancierosCostoAmortizado unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>649838502000</cl-cs:IngresoActivosFinancierosCostoAmortizado>
+  <cl-cs:IngresoActivosFinancierosValorRazonable unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>349879783000</cl-cs:IngresoActivosFinancierosValorRazonable>
+  <cl-cs:IngresoActivosInmobiliarios unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>4008487000</cl-cs:IngresoActivosInmobiliarios>
+  <cl-cs:IngresoRentasYSiniestrosReasegurados unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>-717000</cl-cs:IngresoRentasYSiniestrosReasegurados>
+  <cl-cs:IngresosActivosMantenidosParaVenta unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>140489000</cl-cs:IngresosActivosMantenidosParaVenta>
+  <cl-cs:IngresosEfectivoActividadAseguradora unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>1055460794000</cl-cs:IngresosEfectivoActividadAseguradora>
+  <cl-cs:IngresosEfectivoActividadesInversion unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>3936278000</cl-cs:IngresosEfectivoActividadesInversion>
+  <cl-cs:IngresosPorPropiedadesMueblesYEquipo unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>138697000</cl-cs:IngresosPorPropiedadesMueblesYEquipo>
+  <cl-cs:IngresosPrimasSegurosYCoaseguro unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>53000538000</cl-cs:IngresosPrimasSegurosYCoaseguro>
+  <cl-cs:IngresosPropiedadesInversion unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>3657092000</cl-cs:IngresosPropiedadesInversion>
+  <cl-cs:Intangibles unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>111568000</cl-cs:Intangibles>
+  <cl-cs:InversionesFinancieras unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>1725568715000</cl-cs:InversionesFinancieras>
+  <cl-cs:InversionesInmobiliarias unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>223397937000</cl-cs:InversionesInmobiliarias>
+  <cl-cs:InversionesSegurosCuentaUnicaInversion unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>31915896000</cl-cs:InversionesSegurosCuentaUnicaInversion>
+  <cl-cs:MargenDeContribucion unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>-13874898000</cl-cs:MargenDeContribucion>
+  <cl-cs:MueblesEquiposUsoPropio unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>506484000</cl-cs:MueblesEquiposUsoPropio>
+  <cl-cs:OtrosActivos unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>38291951000</cl-cs:OtrosActivos>
+  <cl-cs:OtrosActivosOtrosActivosVarios unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>18144948000</cl-cs:OtrosActivosOtrosActivosVarios>
+  <cl-cs:OtrosActivosVarios unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>29359566000</cl-cs:OtrosActivosVarios>
+  <cl-cs:OtrosCostosAdministracion unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>3850121000</cl-cs:OtrosCostosAdministracion>
+  <cl-cs:OtrosDeudoresPorOperacionesReaseguro unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>1123549000</cl-cs:OtrosDeudoresPorOperacionesReaseguro>
+  <cl-cs:OtrosEgresosActividadAseguradora unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>-6213984000</cl-cs:OtrosEgresosActividadAseguradora>
+  <cl-cs:OtrosEgresosRelacionadosConActividadesInversion unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>179000</cl-cs:OtrosEgresosRelacionadosConActividadesInversion>
+  <cl-cs:OtrosGastos unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>79676000</cl-cs:OtrosGastos>
+  <cl-cs:OtrosIngresoActividadAseguradora unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>102685000</cl-cs:OtrosIngresoActividadAseguradora>
+  <cl-cs:OtrosIngresos unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>471742000</cl-cs:OtrosIngresos>
+  <cl-cs:OtrosIngresosYEgresos unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>392066000</cl-cs:OtrosIngresosYEgresos>
+  <cl-cs:OtrosPasivos unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>38870515000</cl-cs:OtrosPasivos>
+  <cl-cs:OtrosPasivosNoFinancieros unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>26923775000</cl-cs:OtrosPasivosNoFinancieros>
+  <cl-cs:OtrosPasivosOtrosPasivos unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>38737515000</cl-cs:OtrosPasivosOtrosPasivos>
+  <cl-cs:PagoRentasYSiniestros unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>45735892000</cl-cs:PagoRentasYSiniestros>
+  <cl-cs:ParticipacionReaseguroEnReservaMatematica unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>446261000</cl-cs:ParticipacionReaseguroEnReservaMatematica>
+  <cl-cs:ParticipacionReaseguroEnReservaRentasVitalicias unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>5971634000</cl-cs:ParticipacionReaseguroEnReservaRentasVitalicias>
+  <cl-cs:ParticipacionReaseguroEnReservaRiesgoEnCurso unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>174746000</cl-cs:ParticipacionReaseguroEnReservaRiesgoEnCurso>
+  <cl-cs:ParticipacionReaseguroEnReservaSiniestros unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>430348000</cl-cs:ParticipacionReaseguroEnReservaSiniestros>
+  <cl-cs:ParticipacionReaseguroEnReservasSegurosPrevisionales unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>5971634000</cl-cs:ParticipacionReaseguroEnReservasSegurosPrevisionales>
+  <cl-cs:ParticipacionReaseguroEnReservasTecnicas unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>7022989000</cl-cs:ParticipacionReaseguroEnReservasTecnicas>
+  <cl-cs:ParticipacionesEnEmpresasAsociadas unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>15560477000</cl-cs:ParticipacionesEnEmpresasAsociadas>
+  <cl-cs:ParticipacionesEnEmpresasSubsidiarias unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>3172149000</cl-cs:ParticipacionesEnEmpresasSubsidiarias>
+  <cl-cs:ParticipacionesEnEntidadesGrupo unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>18732626000</cl-cs:ParticipacionesEnEntidadesGrupo>
+  <cl-cs:Pasivos unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>1765978767000</cl-cs:Pasivos>
+  <cl-cs:PasivosFinancieros unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>37776842000</cl-cs:PasivosFinancieros>
+  <cl-cs:PasivosPorImpuestosDiferidos unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>4062676000</cl-cs:PasivosPorImpuestosDiferidos>
+  <cl-cs:PasivosYPatrimonio unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>2007993639000</cl-cs:PasivosYPatrimonio>
+  <cl-cs:Patrimonio unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>242014872000</cl-cs:Patrimonio>
+  <cl-cs:Patrimonio unitRef='CLP' contextRef='CierreAnoAnterior' decimals='0'>228929316000</cl-cs:Patrimonio>
+  <cl-cs:Patrimonio unitRef='CLP' contextRef='PatrimonioFinalPeriodoActual_CapitalPagadoMiembro' decimals='0'>159350293000</cl-cs:Patrimonio>
+  <cl-cs:Patrimonio unitRef='CLP' contextRef='PatrimonioFinalPeriodoActual_OtrasReservasMiembro' decimals='0'>2248207000</cl-cs:Patrimonio>
+  <cl-cs:Patrimonio unitRef='CLP' contextRef='PatrimonioFinalPeriodoActual_ReservaAjustePorCalceMiembro' decimals='0'>1657717000</cl-cs:Patrimonio>
+  <cl-cs:Patrimonio unitRef='CLP' contextRef='PatrimonioFinalPeriodoActual_ReservaDescalceSegurosCUIMiembro' decimals='0'>-178505000</cl-cs:Patrimonio>
+  <cl-cs:Patrimonio unitRef='CLP' contextRef='PatrimonioFinalPeriodoActual_ReservasMiembro' decimals='0'>7050516000</cl-cs:Patrimonio>
+  <cl-cs:Patrimonio unitRef='CLP' contextRef='PatrimonioFinalPeriodoActual_ResultadoDelPeriodoMiembro' decimals='0'>12464776000</cl-cs:Patrimonio>
+  <cl-cs:Patrimonio unitRef='CLP' contextRef='PatrimonioFinalPeriodoActual_ResultadosAcumuladosMiembro' decimals='0'>75614063000</cl-cs:Patrimonio>
+  <cl-cs:Patrimonio unitRef='CLP' contextRef='PatrimonioFinalPeriodoActual_ResultadosAcumuladosPeriodosAnterioresMiembro' decimals='0'>63149287000</cl-cs:Patrimonio>
+  <cl-cs:Patrimonio unitRef='CLP' contextRef='PatrimonioFinalPeriodoActual_SobrePrecioAccionesMiembro' decimals='0'>3323097000</cl-cs:Patrimonio>
+  <cl-cs:Patrimonio unitRef='CLP' contextRef='PatrimonioInicioPeriodoActual_CapitalPagadoMiembro' decimals='0'>159350293000</cl-cs:Patrimonio>
+  <cl-cs:Patrimonio unitRef='CLP' contextRef='PatrimonioInicioPeriodoActual_OtrasReservasMiembro' decimals='0'>2273284000</cl-cs:Patrimonio>
+  <cl-cs:Patrimonio unitRef='CLP' contextRef='PatrimonioInicioPeriodoActual_ReservaAjustePorCalceMiembro' decimals='0'>966050000</cl-cs:Patrimonio>
+  <cl-cs:Patrimonio unitRef='CLP' contextRef='PatrimonioInicioPeriodoActual_ReservaDescalceSegurosCUIMiembro' decimals='0'>-132695000</cl-cs:Patrimonio>
+  <cl-cs:Patrimonio unitRef='CLP' contextRef='PatrimonioInicioPeriodoActual_ReservasMiembro' decimals='0'>6429736000</cl-cs:Patrimonio>
+  <cl-cs:Patrimonio unitRef='CLP' contextRef='PatrimonioInicioPeriodoActual_ResultadoDelPeriodoMiembro' decimals='0'>17635063000</cl-cs:Patrimonio>
+  <cl-cs:Patrimonio unitRef='CLP' contextRef='PatrimonioInicioPeriodoActual_ResultadosAcumuladosMiembro' decimals='0'>63149287000</cl-cs:Patrimonio>
+  <cl-cs:Patrimonio unitRef='CLP' contextRef='PatrimonioInicioPeriodoActual_ResultadosAcumuladosPeriodosAnterioresMiembro' decimals='0'>45514224000</cl-cs:Patrimonio>
+  <cl-cs:Patrimonio unitRef='CLP' contextRef='PatrimonioInicioPeriodoActual_SobrePrecioAccionesMiembro' decimals='0'>3323097000</cl-cs:Patrimonio>
+  <cl-cs:PatrimonioPreviamenteReportado unitRef='CLP' contextRef='CierreAnoAnterior' decimals='0'>223377912000</cl-cs:PatrimonioPreviamenteReportado>
+  <cl-cs:PatrimonioPreviamenteReportado unitRef='CLP' contextRef='PatrimonioInicioPeriodoActual_CapitalPagadoMiembro' decimals='0'>159350293000</cl-cs:PatrimonioPreviamenteReportado>
+  <cl-cs:PatrimonioPreviamenteReportado unitRef='CLP' contextRef='PatrimonioInicioPeriodoActual_OtrasReservasMiembro' decimals='0'>2273284000</cl-cs:PatrimonioPreviamenteReportado>
+  <cl-cs:PatrimonioPreviamenteReportado unitRef='CLP' contextRef='PatrimonioInicioPeriodoActual_ReservaAjustePorCalceMiembro' decimals='0'>966050000</cl-cs:PatrimonioPreviamenteReportado>
+  <cl-cs:PatrimonioPreviamenteReportado unitRef='CLP' contextRef='PatrimonioInicioPeriodoActual_ReservaDescalceSegurosCUIMiembro' decimals='0'>-132695000</cl-cs:PatrimonioPreviamenteReportado>
+  <cl-cs:PatrimonioPreviamenteReportado unitRef='CLP' contextRef='PatrimonioInicioPeriodoActual_ReservasMiembro' decimals='0'>6429736000</cl-cs:PatrimonioPreviamenteReportado>
+  <cl-cs:PatrimonioPreviamenteReportado unitRef='CLP' contextRef='PatrimonioInicioPeriodoActual_ResultadoDelPeriodoMiembro' decimals='0'>17635063000</cl-cs:PatrimonioPreviamenteReportado>
+  <cl-cs:PatrimonioPreviamenteReportado unitRef='CLP' contextRef='PatrimonioInicioPeriodoActual_ResultadosAcumuladosMiembro' decimals='0'>57597883000</cl-cs:PatrimonioPreviamenteReportado>
+  <cl-cs:PatrimonioPreviamenteReportado unitRef='CLP' contextRef='PatrimonioInicioPeriodoActual_ResultadosAcumuladosPeriodosAnterioresMiembro' decimals='0'>39962820000</cl-cs:PatrimonioPreviamenteReportado>
+  <cl-cs:PatrimonioPreviamenteReportado unitRef='CLP' contextRef='PatrimonioInicioPeriodoActual_SobrePrecioAccionesMiembro' decimals='0'>3323097000</cl-cs:PatrimonioPreviamenteReportado>
+  <cl-cs:Prestamos unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>35973663000</cl-cs:Prestamos>
+  <cl-cs:PrestamosOtorgados unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>32852369000</cl-cs:PrestamosOtorgados>
+  <cl-cs:PrestamosYPartidasPorCobrar unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>-1368484000</cl-cs:PrestamosYPartidasPorCobrar>
+  <cl-cs:PrimasCedidas unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>440371000</cl-cs:PrimasCedidas>
+  <cl-cs:PrimasDirectas unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>50017317000</cl-cs:PrimasDirectas>
+  <cl-cs:PrimasRetenidas unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>49576946000</cl-cs:PrimasRetenidas>
+  <cl-cs:PropiedadesDeInversion unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>89579094000</cl-cs:PropiedadesDeInversion>
+  <cl-cs:PropiedadesMueblesEquipoUsoPropio unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>9451818000</cl-cs:PropiedadesMueblesEquipoUsoPropio>
+  <cl-cs:PropiedadesUsoPropio unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>8945334000</cl-cs:PropiedadesUsoPropio>
+  <cl-cs:Provisiones unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>133000000</cl-cs:Provisiones>
+  <cl-cs:Remuneraciones unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>2977396000</cl-cs:Remuneraciones>
+  <cl-cs:RentasDirectas unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>49245149000</cl-cs:RentasDirectas>
+  <cl-cs:ReservaDeRiesgoEnCurso unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>7160222000</cl-cs:ReservaDeRiesgoEnCurso>
+  <cl-cs:ReservaDeSiniestros unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>9045039000</cl-cs:ReservaDeSiniestros>
+  <cl-cs:ReservaMatematica unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>21989957000</cl-cs:ReservaMatematica>
+  <cl-cs:ReservaRentasPrivadas unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>19332158000</cl-cs:ReservaRentasPrivadas>
+  <cl-cs:ReservaValorDelFondo unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>31596694000</cl-cs:ReservaValorDelFondo>
+  <cl-cs:Reservas unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>7050516000</cl-cs:Reservas>
+  <cl-cs:ReservasRentasVitalicias unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>1585255938000</cl-cs:ReservasRentasVitalicias>
+  <cl-cs:ReservasSeguroInvalidezSobrevivencia unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>10594045000</cl-cs:ReservasSeguroInvalidezSobrevivencia>
+  <cl-cs:ReservasSegurosPrevisionales unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>1595849983000</cl-cs:ReservasSegurosPrevisionales>
+  <cl-cs:ReservasTecnicas unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>1684974053000</cl-cs:ReservasTecnicas>
+  <cl-cs:ResultadoDeIntermediacion unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>2322472000</cl-cs:ResultadoDeIntermediacion>
+  <cl-cs:ResultadoDeInversiones unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>53634459000</cl-cs:ResultadoDeInversiones>
+  <cl-cs:ResultadoDelEjercicio unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>12464776000</cl-cs:ResultadoDelEjercicio>
+  <cl-cs:ResultadoDelPeriodo unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>12464776000</cl-cs:ResultadoDelPeriodo>
+  <cl-cs:ResultadoDelPeriodo unitRef='CLP' contextRef='AcumuladoAnoActual_ResultadoDelPeriodoMiembro' decimals='0'>12464776000</cl-cs:ResultadoDelPeriodo>
+  <cl-cs:ResultadoDelPeriodo unitRef='CLP' contextRef='AcumuladoAnoActual_ResultadosAcumuladosMiembro' decimals='0'>12464776000</cl-cs:ResultadoDelPeriodo>
+  <cl-cs:ResultadoIntegral unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>12464776000</cl-cs:ResultadoIntegral>
+  <cl-cs:ResultadoIntegral unitRef='CLP' contextRef='AcumuladoAnoActual_ResultadoDelPeriodoMiembro' decimals='0'>12464776000</cl-cs:ResultadoIntegral>
+  <cl-cs:ResultadoIntegral unitRef='CLP' contextRef='AcumuladoAnoActual_ResultadosAcumuladosMiembro' decimals='0'>12464776000</cl-cs:ResultadoIntegral>
+  <cl-cs:ResultadoInversionesFinancierasDevengadas unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>34838230000</cl-cs:ResultadoInversionesFinancierasDevengadas>
+  <cl-cs:ResultadoInversionesFinancierasNoRealizadas unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>9315126000</cl-cs:ResultadoInversionesFinancierasNoRealizadas>
+  <cl-cs:ResultadoInversionesFinancierasRealizadas unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>5607841000</cl-cs:ResultadoInversionesFinancierasRealizadas>
+  <cl-cs:ResultadoInversionesInmobiliariasDevengadas unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>5063241000</cl-cs:ResultadoInversionesInmobiliariasDevengadas>
+  <cl-cs:ResultadoInversionesInmobiliariasNoRealizadas unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>237936000</cl-cs:ResultadoInversionesInmobiliariasNoRealizadas>
+  <cl-cs:ResultadoInversionesInmobiliariasRealizadas unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>138917000</cl-cs:ResultadoInversionesInmobiliariasRealizadas>
+  <cl-cs:ResultadoNetoInversionesDevengadas unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>39176607000</cl-cs:ResultadoNetoInversionesDevengadas>
+  <cl-cs:ResultadoNetoInversionesNoRealizadas unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>9553062000</cl-cs:ResultadoNetoInversionesNoRealizadas>
+  <cl-cs:ResultadoNetoInversionesRealizadas unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>5746758000</cl-cs:ResultadoNetoInversionesRealizadas>
+  <cl-cs:ResultadoOperacionesContinuasAntesDeImpuestoRenta unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>14282040000</cl-cs:ResultadoOperacionesContinuasAntesDeImpuestoRenta>
+  <cl-cs:ResultadoTecnicoDeSeguros unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>32932044000</cl-cs:ResultadoTecnicoDeSeguros>
+  <cl-cs:ResultadosAcumulados unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>75614063000</cl-cs:ResultadosAcumulados>
+  <cl-cs:ResultadosAcumuladosPeriodosAnteriores unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>63149287000</cl-cs:ResultadosAcumuladosPeriodosAnteriores>
+  <cl-cs:SiniestrosCedidos unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>333332000</cl-cs:SiniestrosCedidos>
+  <cl-cs:SiniestrosDirectos unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>10436869000</cl-cs:SiniestrosDirectos>
+  <cl-cs:SiniestrosPorCobrarReaseguradores unitRef='CLP' contextRef='AcumuladoAnoActual' decimals='0'>1139117000</cl-cs:SiniestrosPorCobrarReaseguradores>
+  <cl-cs:TransferenciasAResultadosAcumulados unitRef='CLP' contextRef='AcumuladoAnoActual_ResultadoDelPeriodoMiembro' decimals='0'>-17635063000</cl-cs:TransferenciasAResultadosAcumulados>
+  <cl-cs:TransferenciasAResultadosAcumulados unitRef='CLP' contextRef='AcumuladoAnoActual_ResultadosAcumuladosPeriodosAnterioresMiembro' decimals='0'>17635063000</cl-cs:TransferenciasAResultadosAcumulados>
+  <cl-cs:UtilidadPerdidaUnidadesReajustables unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>-15807878000</cl-cs:UtilidadPerdidaUnidadesReajustables>
+  <cl-cs:VariacionReservaDeRiesgoEnCurso unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>-217199000</cl-cs:VariacionReservaDeRiesgoEnCurso>
+  <cl-cs:VariacionReservaMatematica unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>399548000</cl-cs:VariacionReservaMatematica>
+  <cl-cs:VariacionReservaValorDelFondo unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>1395767000</cl-cs:VariacionReservaValorDelFondo>
+  <cl-cs:VariacionReservasTecnicas unitRef='CLP' contextRef='AcumuladoActual' decimals='0'>1578116000</cl-cs:VariacionReservasTecnicas>
+</xbrli:xbrl>

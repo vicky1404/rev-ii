@@ -1,0 +1,461 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+    <af:document title="validador-grillas.jsf" id="d1">
+        <af:resource source="/css/tabla-jsf.css" type="css"/>
+        <af:resource source="/js/jquery/jquery-1.6.4.min.js" type="javascript"/>
+        <ui:include src="/pages/util/loadMessage.jsff"/>
+        <af:form id="f1">
+            <af:decorativeBox id="db2" dimensionsFrom="auto" styleClass="AFStretchWidth">
+                <f:facet name="center">
+                    <af:group id="g3">
+                        <af:outputText value="Validador grillas #{validadorGrillaBackingBean.periodo.periodoFormat} "
+                                       id="ot1" inlineStyle="font-weight:bold; font-size:small; height:auto;"/>
+                        <div align="center">
+                            <table align="center">
+                                <tr>
+                                    <td>
+                                        <af:selectOneChoice label="#{msg.generador_tipo_cuadro}" id="soc01"
+                                                            
+                                                            requiredMessageDetail="#{msg.generador_required_tipo_cuadro}"
+                                                            valueChangeListener="#{validadorGrillaBackingBean.tipoCuadroChangeListener}"                                                            
+                                                            unselectedLabel="#{msg.general_control_seleccione}"
+                                                            changed="false" immediate="true" autoSubmit="true"
+                                                            binding="#{validadorGrillaBackingBean.tipoCuadroSelect}"
+                                                            partialTriggers="::cb02">
+                                            <f:selectItems value="#{validadorGrillaBackingBean.componenteBackingBean.tipoCuadroItems}" id="si1"/>
+                                        </af:selectOneChoice>
+                                    </td>
+                                    <td>
+                                        <af:inputText autoComplete="on" shortDesc="#{msg.eeff_ej_nota}"
+                                                      label="#{msg.generador_cuadro}" 
+                                                      requiredMessageDetail="Ingrese nota" id="it1"
+                                                      validator="#{validadorGrillaBackingBean.catalogoValidator}"
+                                                      value="#{validadorGrillaBackingBean.busqueda}"
+                                                      binding="#{validadorGrillaBackingBean.busquedaInputText}"                                                      
+                                                      partialTriggers="cb02">
+                                            <af:autoSuggestBehavior suggestItems="#{validadorGrillaBackingBean.catalogosSugeridos}"/>
+                                        </af:inputText>
+                                    </td>
+                                    <td>
+                                        <af:commandButton text="#{msg.general_control_buscar}" id="cb1" action="#{validadorGrillaBackingBean.buscarCatalogo}"/>
+                                    </td>
+                                    <td>
+                                        <af:commandButton text="#{msg.general_control_limpiar}" id="cb02"
+                                                          actionListener="#{validadorGrillaBackingBean.limpiarCatalogolistener}"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <af:spacer height="10px" id="s1"/>
+                            <af:table value="#{validadorGrillaBackingBean.versionVigente}" var="row"
+                                      rowBandingInterval="0" id="t1" columnStretching="column:c2"
+                                      contentDelivery="immediate" inlineStyle="height:inherit;"
+                                      emptyText="#{msg.general_sin_informacion}" varStatus="status"
+                                      styleClass="AFStretchWidth" autoHeightRows="50" fetchSize="50"
+                                      partialTriggers="::cb1 ::cb02">
+                                <af:column sortable="false" headerText="#{msg.eeff_cuadro}" align="start" id="c12"
+                                           inlineStyle="text-align:center;" width="300px">
+                                    <af:outputText value="#{row.catalogo.titulo}" id="ot22"/>
+                                </af:column>
+                                <af:column sortable="false" headerText="#{msg.eeff_fecha_creacion}" align="start"
+                                           id="c15" width="150px">
+                                    <af:outputText value="#{row.fechaCreacion}" id="ot18"/>
+                                </af:column>
+                                <af:column sortable="false" headerText="#{msg.eeff_vigencia}" align="start" id="c17"
+                                           inlineStyle="text-align:center;" width="150px">
+                                    <af:outputText value="#{row.vigencia==1?'Sí':'No'}" id="ot3"/>
+                                </af:column>
+                                <f:facet name="detailStamp">
+                                    <af:panelGroupLayout layout="scroll" id="pgl2" halign="center">
+                                        <table align="left" width="100%">
+                                            <af:forEach items="#{validadorGrillaBackingBean.estructuras}" var="row2">
+                                                <tr>
+                                                    <td width="100px" valign="top" class="xzl">
+                                                        <af:switcher id="s6"
+                                                                     defaultFacet="#{row2.tipoEstructura.idTipoEstructura == 0 ? 'link': (row2.tipoEstructura.idTipoEstructura == 2 ? 'text' : 'html')}">
+                                                            <f:facet name="link">
+                                                                <af:commandImageLink actionListener="#{validadorGrillaBackingBean.buscarEstructuraListener}"
+                                                                                     inlineStyle="border: 0px solid;"
+                                                                                     icon="/images/icon/search.png"
+                                                                                     shortDesc="#{msg.eeff_desc_grilla_num} - #{row2.orden}"
+                                                                                     partialSubmit="false" id="cl1"
+                                                                                     text="#{msg.eeff_cargar_info_cuadro}">
+                                                                    <f:attribute name="idEstructura"
+                                                                                 value="#{row2.idEstructura}"/>
+                                                                    <af:clientListener method="loaderMessage"
+                                                                                       type="action"/>
+                                                                </af:commandImageLink>
+                                                            </f:facet>
+                                                            <f:facet name="text">
+                                                                <af:outputText value="#{msg.eeff_texto_sin_seleccion}"
+                                                                               id="ot5"/>
+                                                            </f:facet>
+                                                            <f:facet name="html">
+                                                                <af:outputText value="#{msg.eeff_texto_sin_seleccion}"
+                                                                               id="ot6"/>
+                                                            </f:facet>
+                                                        </af:switcher>
+                                                    </td>
+                                                    <td width="70px" class="xzl">
+                                                        <af:outputText value="Orden:  #{row2.orden}" id="ot16"/>
+                                                    </td>
+                                                    <td width="150px" valign="top" align="left" class="xzl">
+                                                        <af:outputText value="#{msg.eeff_titulo_cuadro}: #{row2.grillaVO.titulo==null ? 'No tiene Título' : row2.grillaVO.titulo}"
+                                                                       id="ot13"/>
+                                                    </td>
+                                                </tr>
+                                            </af:forEach>
+                                        </table>
+                                    </af:panelGroupLayout>
+                                </f:facet>
+                            </af:table>
+                            <af:spacer height="8px" id="s2"/>
+                            <af:table var="row" value="#{validadorGrillaBackingBean.grillaVO.rows}" rowSelection="none"
+                                      emptyText="#{msg.general_mensaje_nota_sin_registros}" columnResizing="enabled"
+                                      autoHeightRows="5" fetchSize="50" varStatus="status"
+                                      
+                                      styleClass="AFStretchWidth" inlineStyle="height:inherit;" id="t2"
+                                      visible="#{validadorGrillaBackingBean.renderTablaCuadro}">
+                                <af:forEach items="#{validadorGrillaBackingBean.grillaVO.columnas}" var="col">
+                                    <af:column headerText="#{col.tituloColumna}" id="c2" rowHeader="#{col.idColumna==1}"
+                                               align="#{ (row[col.idColumna].tipoDato.idTipoDato == 2 or row[col.idColumna].tipoDato.idTipoDato == 3) ? 'right' : 'left'}"
+                                               width="#{col.ancho - 15}">
+                                        <af:panelGroupLayout id="pgl3">
+                                            <af:switcher defaultFacet="#{row[col.idColumna].tipoDato.idTipoDato == 2 ? 'entero' : ( row[col.idColumna].tipoDato.idTipoDato == 3 ? 'decimal' : 'otro' ) }"
+                                                         id="s16">
+                                                <f:facet name="entero">
+                                                    <af:outputText value="#{row[col.idColumna].valorLong}" id="ot2"
+                                                                   inlineStyle="text-align:right;">
+                                                        <af:convertNumber integerOnly="true" type="number"
+                                                                          maxFractionDigits="0"
+                                                                          locale="#{validadorGrillaBackingBean.localeCL}"
+                                                                          pattern="##,###,###,###"/>
+                                                    </af:outputText>
+                                                </f:facet>
+                                                <f:facet name="decimal">
+                                                    <af:outputText value="#{row[col.idColumna].valorBigDecimal}"
+                                                                   id="ot14" inlineStyle="text-align:right;">
+                                                        <af:convertNumber integerOnly="false" type="number"
+                                                                          maxFractionDigits="4"
+                                                                          locale="#{validadorGrillaBackingBean.localeCL}"
+                                                                          pattern="##,###,###,###.####"/>
+                                                    </af:outputText>
+                                                </f:facet>
+                                                <f:facet name="otro">
+                                                    <af:outputText value="#{row[col.idColumna].valor}" id="ot21"
+                                                                   inlineStyle="#{row[col.idColumna].tipoCelda.idTipoCelda == 2 ? 'font-weight:bold; text-align:left;' : ''}"/>
+                                                </f:facet>
+                                            </af:switcher>
+                                            <af:switcher defaultFacet="#{ !row[col.idColumna].esNumero ? 'nada' :  ( ( row[col.idColumna].sizeRelacionCeldaList == 0 ) ? 'flecha' : 'calculadora' ) }"
+                                                         id="s14">
+                                                <f:facet name="flecha">
+                                                    <af:group id="g1">
+                                                        <af:commandImageLink icon="/images/icon/flecha.jpg"
+                                                                             id="clRelCelda"
+                                                                             shortDesc="#{msg.eeff_cargar} : #{msg.eeff_columna} #{col.idColumna} , #{msg.eeff_fila} #{row[col.idColumna].idFila}"
+                                                                             partialSubmit="true"
+                                                                             actionListener="#{validadorGrillaBackingBean.cargarRelacionCeldaListener}">
+                                                            <f:attribute name="celda" value="#{row[col.idColumna]}"/>
+                                                        </af:commandImageLink>
+                                                        <af:outputText value="[#{col.idColumna},#{row[col.idColumna].idFila}]"
+                                                                       id="ot23"/>
+                                                    </af:group>
+                                                </f:facet>
+                                                <f:facet name="calculadora">
+                                                    <af:group id="g2">
+                                                        <af:commandImageLink icon="/images/icon/calculator12x12.jpg"
+                                                                             id="clRelCalcu"
+                                                                             shortDesc="#{msg.eeff_desc_consultar_rel}"
+                                                                             partialSubmit="true"
+                                                                             actionListener="#{validadorGrillaBackingBean.cargarRelacionCeldaListener}">
+                                                            <f:attribute name="celda" value="#{row[col.idColumna]}"/>
+                                                        </af:commandImageLink>
+                                                        <af:commandImageLink icon="/images/icon/remove-12x12.png"
+                                                                             id="clRelCalcuB"
+                                                                             shortDesc="#{msg.eeff_desc_eliminar_rel}"
+                                                                             partialSubmit="false"
+                                                                             actionListener="#{validadorGrillaBackingBean.eliminarRelacionListener}">
+                                                            <f:attribute name="celda" value="#{row[col.idColumna]}"/>
+                                                        </af:commandImageLink>
+                                                        <af:outputText value="[#{col.idColumna},#{row[col.idColumna].idFila}]"
+                                                                       id="ot24"/>
+                                                    </af:group>
+                                                </f:facet>
+                                            </af:switcher>
+                                        </af:panelGroupLayout>
+                                    </af:column>
+                                </af:forEach>
+                            </af:table>
+                            
+                            <af:spacer height="30px" id="s3"/>
+                            <!-- Celda a mapear -->
+                            <div class="xb7 p_AFSelected" title="Mapeo entre celdas">
+                                    <div class="xyk" style="height:2em"></div>
+                                    <div class="xym" style="height:2em">
+                                        <af:outputText value="Mapeo entre celdas" id="ot11"/>
+                                         
+                                          <af:outputText id="otCount"
+                                                       partialTriggers="::cil6 ::cb2 ::t22:clRelCelda2"                                                                         
+                                                       value=" #{msg.eeff_mapeo_sin_guardar}" inlineStyle="color:Red;"
+                                                       visible="#{validadorGrillaBackingBean.countMapping>0}" binding="#{validadorGrillaBackingBean.contadorMapeos}"/>
+                                    </div>
+                                    <div class="xyl" style="height:2em"></div>
+                                </div>
+                            <div class="p_AFHoverTarget xpa xpi" style="height: inherit;"> 
+                            <table align="left">
+                            <tr>
+                                <td>
+                                    <af:outputLabel value="#{msg.eeff_celda_seleccion} " id="ol1"/> 
+                                </td>
+                                <td>
+                                    <af:inputText value="[#{validadorGrillaBackingBean.relCelda.idColumna},#{validadorGrillaBackingBean.relCelda.idFila}]" columns="7" binding="#{validadorGrillaBackingBean.relCeldaText}" id="it2" visible="#{not empty validadorGrillaBackingBean.relCelda}"/>
+                                </td>
+                                <td>
+                                                <af:selectOneChoice label="Relación con [grilla] [celda]" id="socRelFecu"
+                                                                    value="#{validadorGrillaBackingBean.relCeldaSeleccionada}"
+                                                                    unselectedLabel="Ver" 
+                                                                    autoSubmit="true"                                                                    
+                                                                    valueChangeListener="#{validadorGrillaBackingBean.onChangeCelda}"
+                                                                    partialTriggers="::t22:clRelCelda2"
+                                                                    binding="#{validadorGrillaBackingBean.celdasAgregadasChoice}">
+                                                    <f:selectItems value="#{validadorGrillaBackingBean.itemCeldaList}" id="si3"></f:selectItems>                                                     
+                                                </af:selectOneChoice>
+  
+                                </td> 
+                                <td>
+                                    <af:commandButton text="#{msg.generador_guardar}"
+                                                                  icon="/images/icon/save2.png" id="cil6"
+                                                                  actionListener="#{validadorGrillaBackingBean.guardarRelacionListener}"
+                                                                  shortDesc="#{msg.eeff_desc_guardar_mapeo}">
+                                                    <af:clientListener method="loaderMessage" type="action"/>
+                                                </af:commandButton>
+                                </td>
+                                <td>
+                                    <af:commandButton text="#{msg.eeff_eliminar}"
+                                                                  icon="/images/icon/remove2.png" id="cb2"
+                                                                  shortDesc="#{msg.eeff_desc_eliminar_todo_mapeo}"
+                                                                  partialSubmit="true">
+                                                    <af:showPopupBehavior popupId="::popupEliminar"
+                                                                          triggerType="click"/>
+                                                </af:commandButton>
+                                </td>
+                            
+                                
+                                
+                            </tr>
+                            </table>
+                           </div>
+                                                        
+                            <!-- Mitad --> 
+                            
+                             <af:spacer height="30px" id="s4"/>
+                             
+                            <table align="center">
+                                <tr>
+                                    <td>
+                                        <af:selectOneChoice label="#{msg.generador_tipo_cuadro}" id="soc012"
+                                                            
+                                                            requiredMessageDetail="#{msg.generador_required_tipo_cuadro}"
+                                                            valueChangeListener="#{validadorGrillaBackingBean.tipoCuadroChangeListener}"
+                                                            unselectedLabel="#{msg.general_control_seleccione}"
+                                                            changed="false" immediate="true" autoSubmit="true"
+                                                            binding="#{validadorGrillaBackingBean.tipoCuadroSelect2}"                                                            
+                                                            partialTriggers="::cb022">
+                                            <f:selectItems value="#{validadorGrillaBackingBean.componenteBackingBean.tipoCuadroItems}" id="si12"/>
+                                        </af:selectOneChoice>
+                                    </td>
+                                    <td>
+                                        <af:inputText autoComplete="on" shortDesc="#{msg.eeff_ej_nota}"
+                                                      label="#{msg.generador_cuadro}" 
+                                                      requiredMessageDetail="Ingrese nota" id="it12"
+                                                      validator="#{validadorGrillaBackingBean.catalogoValidator}"
+                                                      value="#{validadorGrillaBackingBean.busqueda2}"
+                                                      binding="#{validadorGrillaBackingBean.busquedaInputText2}"                                                      
+                                                      partialTriggers="cb022">
+                                            <af:autoSuggestBehavior suggestItems="#{validadorGrillaBackingBean.catalogosSugeridos}"/>
+                                        </af:inputText>
+                                    </td>
+                                    <td>
+                                        <af:commandButton text="#{msg.general_control_buscar}" id="cb12"
+                                                          action="#{validadorGrillaBackingBean.buscarCatalogo2}"/>
+                                    </td>
+                                    <td>
+                                        <af:commandButton text="#{msg.general_control_limpiar}" id="cb022"
+                                                          actionListener="#{validadorGrillaBackingBean.limpiarCatalogolistener2}"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <af:spacer height="10px" id="s12"/>
+                            <af:table value="#{validadorGrillaBackingBean.versionVigente2}" var="row"
+                                      rowBandingInterval="0" id="t12" columnStretching="column:c2"
+                                      contentDelivery="immediate" inlineStyle="height:inherit;"
+                                      emptyText="#{msg.general_sin_informacion}" varStatus="status"
+                                      styleClass="AFStretchWidth" autoHeightRows="50" fetchSize="50"
+                                      partialTriggers="::cb1 ::cb02">
+                                <af:column sortable="false" headerText="#{msg.eeff_cuadro}" align="start" id="c122"
+                                           inlineStyle="text-align:center;" width="300px">
+                                    <af:outputText value="#{row.catalogo.titulo}" id="ot222"/>
+                                </af:column>
+                                <af:column sortable="false" headerText="#{msg.eeff_fecha_creacion}" align="start"
+                                           id="c152" width="150px">
+                                    <af:outputText value="#{row.fechaCreacion}" id="ot182"/>
+                                </af:column>
+                                <af:column sortable="false" headerText="#{msg.eeff_vigencia}" align="start" id="c172"
+                                           inlineStyle="text-align:center;" width="150px">
+                                    <af:outputText value="#{row.vigencia==1?'Sí':'No'}" id="ot32"/>
+                                </af:column>
+                                <f:facet name="detailStamp">
+                                    <af:panelGroupLayout layout="scroll" id="pgl22" halign="center">
+                                        <table align="left" width="100%">
+                                            <af:forEach items="#{validadorGrillaBackingBean.estructuras2}" var="row2">
+                                                <tr>
+                                                    <td width="100px" valign="top" class="xzl">
+                                                        <af:switcher id="s62"
+                                                                     defaultFacet="#{row2.tipoEstructura.idTipoEstructura == 0 ? 'link': (row2.tipoEstructura.idTipoEstructura == 2 ? 'text' : 'html')}">
+                                                            <f:facet name="link">
+                                                                <af:commandImageLink actionListener="#{validadorGrillaBackingBean.buscarEstructuraListener2}"
+                                                                                     inlineStyle="border: 0px solid;"
+                                                                                     icon="/images/icon/search.png"
+                                                                                     shortDesc="#{msg.eeff_desc_grilla_num} - #{row2.orden}"
+                                                                                     partialSubmit="false" id="cl12"
+                                                                                     text="#{msg.eeff_cargar_info_cuadro}">
+                                                                    <f:attribute name="idEstructura"
+                                                                                 value="#{row2.idEstructura}"/>
+                                                                    <af:clientListener method="loaderMessage"
+                                                                                       type="action"/>
+                                                                </af:commandImageLink>
+                                                            </f:facet>
+                                                            <f:facet name="text">
+                                                                <af:outputText value="#{msg.eeff_texto_sin_seleccion}"
+                                                                               id="ot52"/>
+                                                            </f:facet>
+                                                            <f:facet name="html">
+                                                                <af:outputText value="#{msg.eeff_texto_sin_seleccion}"
+                                                                               id="ot62"/>
+                                                            </f:facet>
+                                                        </af:switcher>
+                                                    </td>
+                                                    <td width="70px" class="xzl">
+                                                        <af:outputText value="Orden:  #{row2.orden}" id="ot162"/>
+                                                    </td>
+                                                    <td width="150px" valign="top" align="left" class="xzl">
+                                                        <af:outputText value="#{msg.eeff_titulo_cuadro}: #{row2.grillaVO.titulo==null ? 'No tiene Título' : row2.grillaVO.titulo}"
+                                                                       id="ot132"/>
+                                                    </td>
+                                                </tr>
+                                            </af:forEach>
+                                        </table>
+                                    </af:panelGroupLayout>
+                                </f:facet>
+                            </af:table>
+                            <af:spacer height="8px" id="s22"/>
+                            <af:table var="row" value="#{validadorGrillaBackingBean.grillaVO2.rows}" rowSelection="none"
+                                      emptyText="#{msg.general_mensaje_nota_sin_registros}" columnResizing="enabled"
+                                      autoHeightRows="5" fetchSize="50" varStatus="status"
+                                      partialTriggers="::socRelFecu"
+                                      styleClass="AFStretchWidth" inlineStyle="height:inherit;" id="t22"
+                                      visible="#{validadorGrillaBackingBean.renderTablaCuadro2}">
+                                <af:forEach items="#{validadorGrillaBackingBean.grillaVO2.columnas}" var="col">
+                                    <af:column headerText="#{col.tituloColumna}" id="c22" rowHeader="#{col.idColumna==1}"
+                                               align="#{ (row[col.idColumna].tipoDato.idTipoDato == 2 or row[col.idColumna].tipoDato.idTipoDato == 3) ? 'right' : 'left'}"
+                                               width="#{col.ancho - 15}">
+                                        <af:panelGroupLayout id="pgl32">
+                                            <af:switcher defaultFacet="#{row[col.idColumna].tipoDato.idTipoDato == 2 ? 'entero' : ( row[col.idColumna].tipoDato.idTipoDato == 3 ? 'decimal' : 'otro' ) }"
+                                                         id="s162">
+                                                <f:facet name="entero">
+                                                    <af:outputText value="#{row[col.idColumna].valorLong}" id="ot2222"
+                                                                   inlineStyle="text-align:right;">
+                                                        <af:convertNumber integerOnly="true" type="number"
+                                                                          maxFractionDigits="0"
+                                                                          locale="#{validadorGrillaBackingBean.localeCL}"
+                                                                          pattern="##,###,###,###"/>
+                                                    </af:outputText>
+                                                </f:facet>
+                                                <f:facet name="decimal">
+                                                    <af:outputText value="#{row[col.idColumna].valorBigDecimal}"
+                                                                   id="ot142" inlineStyle="text-align:right;">
+                                                        <af:convertNumber integerOnly="false" type="number"
+                                                                          maxFractionDigits="4"
+                                                                          locale="#{validadorGrillaBackingBean.localeCL}"
+                                                                          pattern="##,###,###,###.####"/>
+                                                    </af:outputText>
+                                                </f:facet>
+                                                <f:facet name="otro">
+                                                    <af:outputText value="#{row[col.idColumna].valor}" id="ot212"
+                                                                   inlineStyle="#{row[col.idColumna].tipoCelda.idTipoCelda == 2 ? 'font-weight:bold; text-align:left;' : ''}"/>
+                                                </f:facet>
+                                            </af:switcher>
+                                            
+                                                        <af:commandImageLink icon="/images/icon/flecha.jpg"
+                                                                             id="clRelCelda2"
+                                                                             rendered="#{row[col.idColumna].esNumero}"
+                                                                             shortDesc="#{msg.eeff_cargar} : #{msg.eeff_columna} #{col.idColumna} , #{msg.eeff_fila} #{row[col.idColumna].idFila}"                                                                             
+                                                                             partialSubmit="true"                                                                           
+                                                                             actionListener="#{validadorGrillaBackingBean.cargarCeldaListener}">                                                                             
+                                                            <f:attribute name="celda" value="#{row[col.idColumna]}"/>
+                                                        </af:commandImageLink>
+                                                        <af:outputText value="[#{col.idColumna},#{row[col.idColumna].idFila}]" id="ot232"  rendered="#{row[col.idColumna].esNumero}"/>
+                                                    
+                                        </af:panelGroupLayout>
+                                    </af:column>
+                                </af:forEach>
+                            </af:table>
+                        </div>                
+                    </af:group>
+                </f:facet>                
+                
+            </af:decorativeBox>
+            <af:popup id="popupCelda" contentDelivery="lazyUncached">
+                <af:dialog title="Detalle de celda" id="d3" cancelVisible="false">
+                    <table class="datalle_flujo" width="350px">
+                        <tr>
+                            <td>
+                                <af:outputText value="Cuadro" id="ot25"/>
+                            </td>
+                            <td>
+                                <af:outputText value="Versión" id="ot10"/>
+                            </td>
+                            <td>
+                                <af:outputText value="Orden" id="ot4"/>
+                            </td>
+                            <td>
+                                <af:outputText value="Valor" id="ot26"/>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                <af:outputText value="#{validadorGrillaBackingBean.relCeldaSeleccionada.celda.columna.grilla.estructura1.version.catalogo.nombre}" id="ot8"/>
+                            </td>
+                            <td>
+                                <af:outputText value="#{validadorGrillaBackingBean.relCeldaSeleccionada.celda.columna.grilla.estructura1.version.version}" id="ot12"/>
+                            </td>
+                            <td>
+                                <af:outputText value="#{validadorGrillaBackingBean.relCeldaSeleccionada.celda.columna.grilla.estructura1.orden}" id="ot9"/>
+                            </td>
+                            <td align="right">
+                                <af:outputText value="#{validadorGrillaBackingBean.relCeldaSeleccionada.celda.valorBigDecimal}" id="ot7">
+                                            <af:convertNumber pattern="##,###,###,###.####"/>                                
+                                </af:outputText>
+                            </td>
+                        </tr>
+                    </table>
+                </af:dialog>
+            </af:popup>
+            
+            <af:popup id="popupEliminar" contentDelivery="lazyUncached">
+                <af:dialog title="#{msg.eeff_pop_titulo_eli}" id="d5" type="none">
+                    <af:outputText value="#{msg.eeff_pop_seguro_eli}" id="ot36"/>
+                    <f:facet name="buttonBar">
+                        <af:commandButton id="cbpp1" text="#{msg.eeff_eliminar}"
+                                          actionListener="#{validadorGrillaBackingBean.eliminarTodasRelacionListener}"
+                                          shortDesc="#{msg.eeff_pop_conf_eli}">
+                            <af:clientListener method="loaderMessage" type="action"/>
+                        </af:commandButton>
+                    </f:facet>
+                </af:dialog>
+            </af:popup>
+        </af:form>
+    </af:document>
+</f:view>

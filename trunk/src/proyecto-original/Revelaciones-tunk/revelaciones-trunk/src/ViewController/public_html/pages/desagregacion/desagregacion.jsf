@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" 
+        xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+        xmlns:h="http://java.sun.com/jsf/html">
+    <af:document title="desagregacion.jsf" id="d1">
+        <af:resource source="/css/tabla-jsf.css" type="css"/>
+        <af:resource type="javascript">
+          function loaderMessage(evt) {
+              var popup = AdfPage.PAGE.findComponentByAbsoluteId('p1_loading');
+              if (popup != null) {
+                  AdfPage.PAGE.addBusyStateListener(popup, handleBusyState);
+                  evt.preventUserInput();
+              }
+          }
+        </af:resource>        
+        <af:form id="f1">
+        <af:popup id="p1_loading" contentDelivery="immediate" animate="false">
+                <af:dialog id="d2" type="none" title="Procesando..." closeIconVisible="false" inlineStyle="width:250px;"
+                           modal="false">
+                    <af:panelGroupLayout id="pgl12" layout="horizontal">
+                        <af:image source="/images/icon/loading5.gif" id="i2"/>
+                        <af:spacer width="30px;" id="s4"/>
+                        <af:outputFormatted value="Procesando datos de desagregación. &lt;br> Por Favor Espere..." id="ot11"/>
+                    </af:panelGroupLayout>
+                </af:dialog>
+            </af:popup>
+            <af:spacer width="10" height="10" id="s1"/>
+            <af:panelBox id="pnBox1Periodo" text="Desagregacion notas - #{msg.general_control_seleccione}" inlineStyle="height:auto;">
+                <table border="0" width="40%" align="center" id="tb1APeriodo">
+                    <tr>
+                        <td>
+                            <af:outputLabel value="#{msg.etiqueta_tipo_cuadro}:" id="ol1" for="cmb_tc"/>
+                        </td>
+                        <td>
+                            <af:selectOneChoice id="cmb_tc" value="#{desagregacionBackingBean.filtro.tipoCuadro}"
+                                                unselectedLabel="#{msg.general_control_seleccione}" required="true" binding="#{desagregacionBackingBean.tipoCuadroBinding}"
+                                                autoSubmit="true"
+                                                requiredMessageDetail="#{msg.general_control_seleccione} #{msg.etiqueta_tipo_cuadro}"                                                
+                                                valueChangeListener="#{desagregacionBackingBean.onChangeTipoCuadro}">
+                                <f:selectItems value="#{desagregacionBackingBean.componenteBackingBean.tipoCuadroItems}" id="tipos_c"/>
+                                <af:clientListener method="loaderMessage" type="valueChange"/>
+                            </af:selectOneChoice>
+                        </td>
+                    </tr>                     
+                    <tr>
+                        <td>
+                            <af:outputLabel value="#{msg.etiqueta_nombre}:" id="ol2" for="soc1Catalogo"/>
+                        </td>
+                        <td>
+                            <af:selectOneChoice id="soc1Catalogo" value="#{desagregacionBackingBean.filtro.catalogo}"
+                                                unselectedLabel="#{msg.general_control_seleccione}" required="true"
+                                                partialTriggers="cmb_tc"                                                
+                                                requiredMessageDetail="#{msg.catalogo_mensaje_seleccione}"                                               
+                                                binding="#{desagregacionBackingBean.catalogoBinding}">
+                                <f:selectItems value="#{desagregacionBackingBean.catalogoSelectItem}" id="catalogo"></f:selectItems> 
+                                <af:clientListener method="loaderMessage" type="valueChange"/>
+                            </af:selectOneChoice>
+                        </td>
+                    </tr> 
+                    <tr>
+                        <td>
+                            
+                        </td>
+                        <td align="right">
+                            <af:commandButton text="#{msg.general_control_buscar}" actionListener="#{desagregacionBackingBean.buscarVersionVigente}" partialSubmit="false" id="cb1">                                
+                            </af:commandButton>
+                        </td>
+                    </tr>
+                 </table>
+                        
+            </af:panelBox>
+            <af:panelGroupLayout id="pgl1" partialTriggers="::cb1" halign="left" layout="horizontal">
+                <af:panelCollection id="pc1" styleClass="AFStretchWidth" rendered="#{desagregacionBackingBean.renderTablaVersion}"> 
+                 <af:table id="t1" value="#{desagregacionBackingBean.versionList}" var="version" 
+                            rowBandingInterval="1"                             
+                            autoHeightRows="500"
+                            styleClass="AFStretchWidth"                             
+                            inlineStyle="height:inherit; width:inherit;"
+                            contentDelivery="immediate" 
+                            rendered="true"
+                            emptyText="#{msg.general_sin_informacion}">
+                     <af:column id="c7" headerText="#{msg.campo_desagregador_cuadro_a_desagregar}">   
+                         <af:column id="ac123" headerText="#{msg.campo_desagregador_nombre}">
+                                <h:outputText value="#{version.catalogo.nombre}" id="ot2213"/>
+                         </af:column> 
+                         <af:column id="ac12374" headerText="#{msg.campo_desagregador_titulo}" width="400">
+                                <h:outputText value="#{version.catalogo.titulo != null ? version.catalogo.titulo : ''}" id="ot221374"/>
+                         </af:column> 
+                         <af:column id="ac02" headerText="#{msg.campo_desagregador_version}">
+                                    <h:outputText value="#{version.version}" id="ot21"/>
+                         </af:column>
+                         <af:column id="ac022" headerText="#{msg.campo_desagregador_vigente}">
+                                    <h:outputText value="#{version.vigencia == 1 ? msg.generador_si : msg.generador_no}" id="ac0223"/>
+                         </af:column>
+                          <af:column id="ac124" align="center" headerText="#{msg.campo_desagregador_cantidad_grupos}">
+                                <af:inputNumberSpinbox label="Grupos" id="ins1" minimum="2" maximum="20" value="#{version.cantidadGrupos}" readOnly="#{version.desagregado}" rendered="#{version.contieneGrillas}"/>
+                                <af:outputText value="-" rendered="#{!version.contieneGrillas}" id="ot1"/>
+                        </af:column> 
+                         <af:column id="ac125" align="center" headerText="#{msg.campo_desagregador_codigo_desagregar}">
+                            <af:outputText id="ctb2" value="#{msg.campo_desagregador_sin_grillas}" rendered="#{!version.contieneGrillas}" inlineStyle="color:red;"/>
+                            <af:outputText id="ctb3" value="#{msg.campo_desagregador_codigo_desagregado}" rendered="#{version.desagregado}"/>
+                            <af:commandImageLink icon="/images/icon/desagregar.png" shortDesc="#{msg.campo_desagregador_codigo_desagregar}"  rendered="#{version.contieneGrillas and !version.desagregado}" id="cil1">
+                                <af:showPopupBehavior popupId=":popUp" /> 
+                            </af:commandImageLink>
+                            <!--af:commandButton id="ctb1" icon="/images/icon/save2.png" actionListener="#{desagregacionBackingBean.guardar}" rendered="#{version.contieneGrillas and !version.desagregado}"/-->
+                        </af:column> 
+                      </af:column>  
+                 </af:table>
+                 </af:panelCollection>
+            </af:panelGroupLayout>
+            
+             <af:popup id="popUp">
+                    <af:dialog title="Confirmar" modal="false" id="d4" inlineStyle="width:250px;" type="none">
+                        <af:panelGroupLayout layout="vertical" id="pgl1x" halign="center">                                                       
+                                <af:commandButton text="#{msg.campo_desagregador_codigo_desagregar}" actionListener="#{desagregacionBackingBean.guardar}" id="cb11x"/>                        
+                        </af:panelGroupLayout>        
+                    </af:dialog>
+                </af:popup>
+            
+        </af:form>
+    </af:document>
+</f:view>
