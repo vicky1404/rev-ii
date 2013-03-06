@@ -139,9 +139,10 @@
             </p:dataTable>
 		 	</p:tab>
 		 	<!-- DETALLE DE CARGA -->
-		 	<p:tab id="tab2" title="#{msg.carga_eeff_detalle_carga_eeff}" titletip="#{msg.carga_eeff_detalle_carga_eeff_desc}" rendered="#{cargadorEeff.renderTableRel}">
+		 	<!-- p:tab id="tab2" title="#{msg.carga_eeff_detalle_carga_eeff}" titletip="#{msg.carga_eeff_detalle_carga_eeff_desc}" rendered="#{cargadorEeff.renderTableRel}" -->
+		 	<p:tab id="tab2" title="#{msg.carga_eeff_detalle_carga_eeff}" titletip="#{msg.carga_eeff_detalle_carga_eeff_desc}" rendered="#{cargadorEeff.renderTableRel}" >
 		 	
-		 		<p:accordionPanel>  
+		 			<p:accordionPanel>  
 		 			<p:tab id="borradoList" title="#{msg.carga_eeff_fecu_eliminado}" rendered="#{not empty cargadorEeff.cargadorVO.eeffBorradoList}">
 				 		<p:dataTable value="#{cargadorEeff.cargadorVO.eeffBorradoList}" var="row" id="t3" style="height:inherit;" emptyMessage="#{msg.general_sin_informacion}">
 		                    <p:column headerText="#{msg.eeff_codigo_fecu}" id="c7" width="100">
@@ -152,6 +153,7 @@
 		                    </p:column>
 		                 </p:dataTable>
 		 			</p:tab>
+		 			
 		 			<p:tab id="DetBorradoList" title="#{msg.carga_eeff_cuenta_eliminado}" rendered="#{not empty cargadorEeff.cargadorVO.eeffDetBorradoList}">
                     <p:dataTable value="#{cargadorEeff.cargadorVO.eeffDetBorradoList}" var="row" id="t4" style="height:inherit;" emptyMessage="#{msg.general_sin_informacion}">
 	                    <p:column headerText="#{msg.carga_eeff_codigo_fecu}" id="c9" width="100">
@@ -193,7 +195,8 @@
                         </p:dataTable>
                 </p:tab>
                 
-                <p:tab text="#{msg.carga_eeff_montos_distinto_cuenta}" id="sdi4" persist="ALL" rendered="#{not empty cargadorEeff.cargadorVO.eeffDetDescuadreList}">
+                <p:tab title="#{msg.carga_eeff_montos_distinto_cuenta}" id="sdi4" rendered="#{not empty cargadorEeff.cargadorVO.eeffDetDescuadreList}">
+                
                      <p:dataTable value="#{cargadorEeff.cargadorVO.eeffDetDescuadreList}"  var="row" id="t4B" inlineStyle="height:inherit;"  emptyMessage="#{msg.general_sin_informacion}">
                         <p:column headerText="#{msg.carga_eeff_codigo_fecu}" id="c13" width="80">
                             <h:outputText value="#{row.fecuFormat}" id="ot15B"/>
@@ -215,17 +218,17 @@
                             </h:outputText>
                         </p:column>
                         </p:dataTable>
+                         
                 </p:tab>
                 
-                
-                <p:tab  title="#{msg.carga_eeff_resutlado_validacion_celdas}" id="sdi5" persist="ALL" 
+                <p:tab  title="#{msg.carga_eeff_resutlado_validacion_celdas}" id="sdi5" 
                                     rendered="#{not empty cargadorEeff.cargadorVO.relEeffDescuadreList or 
                                                 not empty cargadorEeff.cargadorVO.relEeffDetDescuadreList}" >
                                                 
                       <p:scrollPanel  id="pgl1" style="width:auto;height:100" > 
                         
                      <p:dataTable value="#{cargadorEeff.cargadorVO.relEeffDescuadreList}" 
-                        var="row" id="t4C" inlineStyle="height:inherit;" styleClass="AFStretchWidth"
+                        var="row" id="t4C" style="height:inherit;" 
                         emptyMessage="#{msg.general_sin_informacion}">
                         
                         <p:column headerText="#{msg.carga_eeff_codigo_fecu}" id="c22" width="80">
@@ -269,7 +272,7 @@
                         <p:spacer height="10" id="s6"/>
                         
                         <p:dataTable value="#{cargadorEeff.cargadorVO.relEeffDetDescuadreList}" 
-                        var="row" id="t7" inlineStyle="height:inherit;" styleClass="AFStretchWidth"
+                        var="row" id="t7" style="height:inherit;"
                         emptyMessage="#{msg.general_sin_informacion}">
                         
                         <p:column headerText="#{msg.carga_eeff_codigo_fecu}" id="c23" width="80">
@@ -315,15 +318,15 @@
                         </p:scrollPanel>
                 </p:tab>
                 
-                <p:tab text="#{msg.carga_eeff_cuadros_sin_relacion}" id="sdi6" 
-                    persist="ALL" rendered="#{not empty cargadorEeff.cargadorVO.relEeffBorradoList or
-                                              not empty cargadorEeff.cargadorVO.relEeffDetBorradoList}" styleClass="AFStretchWidth">
+                <p:tab title="#{msg.carga_eeff_cuadros_sin_relacion}" id="sdi6" 
+                   rendered="#{not empty cargadorEeff.cargadorVO.relEeffBorradoList or
+                                              not empty cargadorEeff.cargadorVO.relEeffDetBorradoList}">
                       
                       <p:scrollPanel id="pgl2" style="width:auto;height:100" >
                         
                      <p:dataTable value="#{cargadorEeff.cargadorVO.relEeffBorradoList}" 
-                        var="row" id="t8" inlineStyle="height:inherit;" styleClass="AFStretchWidth"
-                        emptyText="#{msg.general_sin_informacion}">
+                        var="row" id="t8" style="height:inherit;"
+                        emptyMessage="#{msg.general_sin_informacion}">
                         
                         <p:column headerText="#{msg.carga_eeff_codigo_fecu}" id="c32" width="80">
                             <h:outputText value="#{row.fecuFormat}" id="ot8"/>
@@ -351,9 +354,9 @@
                         
                         <p:spacer height="10" id="s8"/>
                         
+                        
                         <p:dataTable value="#{cargadorEeff.cargadorVO.relEeffDetBorradoList}" 
-                        var="row" id="t9" inlineStyle="height:inherit;" styleClass="AFStretchWidth"
-                        emptyText="#{msg.general_sin_informacion}">
+                        var="row" id="t9"  style="height:inherit;" emptyMessage="#{msg.general_sin_informacion}" >
                         
                         <p:column headerText="#{msg.carga_eeff_codigo_fecu}" id="c40" width="80">
                             <h:outputText value="#{row.fecuFormat}" id="ot42"/>
@@ -383,7 +386,12 @@
                         </p:dataTable>
                         </p:scrollPanel>
                 </p:tab>
-               </p:accordionPanel>
+                
+                
+                
+		 			</p:accordionPanel>
+		 	
+		 		
                
 		 	</p:tab>
 		 	
