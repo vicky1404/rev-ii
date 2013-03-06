@@ -2,6 +2,7 @@ package cl.mdr.ifrs.ejb.cross;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -314,16 +315,7 @@ public static String getTbodyRelEeff(){
         return relDetMap;
     }
     
-    public static Map<String, RelacionDetalleEeff> convertListRelEeffDetToMap(List<RelacionDetalleEeff> eeffDetList){
-        
-        Map<String, RelacionDetalleEeff> relDetMap = new HashMap<String, RelacionDetalleEeff>();
-        
-        for(RelacionDetalleEeff relDet : eeffDetList){
-            relDetMap.put(formatKeyFecuCuenta(relDet.getIdFecu(), relDet.getIdCuenta()), relDet);
-        }
-        
-        return relDetMap;
-    }
+   
     
     public static void setVersionEeffToEeffList(List<EstadoFinanciero> eeffList, VersionEeff versionEeff){
         
@@ -331,4 +323,77 @@ public static String getTbodyRelEeff(){
             eeff.setVersionEeff(versionEeff);
         }
     }
+    
+ public static Map<Long, List<RelacionEeff>> convertListRelEeffToMap(List<RelacionEeff> relEeffList){
+        
+        Map<Long, List<RelacionEeff>> relEeffMap = new LinkedHashMap<Long, List<RelacionEeff>>();
+        
+        for(RelacionEeff relEeff : relEeffList){
+            
+            Long key = relEeff.getIdFecu();
+            
+            if(relEeffMap.containsKey(key)){
+                relEeffMap.get(key).add(relEeff);
+            }else{
+                List<RelacionEeff> relDetList = new ArrayList<RelacionEeff>();
+                relDetList.add(relEeff);
+                relEeffMap.put(key, relDetList);
+            }
+        }
+        
+        return relEeffMap;
+    }
+ 
+ public static Map<String, List<RelacionDetalleEeff>> convertListRelEeffDetToMap(List<RelacionDetalleEeff> eeffDetList){
+     
+     Map<String, List<RelacionDetalleEeff>> relDetMap = new LinkedHashMap<String, List<RelacionDetalleEeff>>();
+     
+     for(RelacionDetalleEeff relDet : eeffDetList){
+         
+         String key = formatKeyFecuCuenta(relDet.getIdFecu(), relDet.getIdCuenta());
+         
+         if(relDetMap.containsKey(key)){
+             relDetMap.get(key).add(relDet);
+         }else{
+             List<RelacionDetalleEeff> relDetList = new ArrayList<RelacionDetalleEeff>();
+             relDetList.add(relDet);
+             relDetMap.put(key, relDetList);
+         }
+     }
+     
+     return relDetMap;
+ }
+ 
+ /*Errores*/
+ public static void addErrorFecuNotFound(Long fecu, List<String> errores){
+     errores.add("Código FECU no está registrado en base de datos : " + fecu);
+ }
+ 
+ public static void addErrorFecu(Long fecu, List<String> errores){
+     errores.add("Código FECU no existe en cabecera " + fecu);
+ }
+ 
+ 
+ public static void addErrorFecuDu(Long fecu, List<String> errores){
+     errores.add("Código FECU repetido : " + fecu);
+ }
+ 
+ 
+ public static void addErrorCuentaDu(Long cuenta , List<String> errores){
+     errores.add("Cuenta contable repetido : " + cuenta);
+ }
+ 
+ public static void addErrorCuentaNotFound(Long cuenta, List<String> errores){
+     errores.add("La cuenta contable : " +cuenta+ "  no está registrado en base de datos");
+ }
+ 
+ public static void addErrorFecuDescripcionNull(int col, int row, List<String> errores){
+     errores.add("Descripción de código FECU inválido en columna : "+ col + " - línea " + row);
+ }
+ 
+ public static void addErrorCuentaDescripcionNull(int col, int row, List<String> errores){
+     errores.add("Descripción de cuenta inválido en columna : "+ col + " - línea " + row);
+ }
+ 
+    
 }

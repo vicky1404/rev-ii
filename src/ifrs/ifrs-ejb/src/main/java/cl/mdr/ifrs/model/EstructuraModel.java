@@ -23,7 +23,7 @@ public class EstructuraModel implements Serializable {
     private Long grillaSelected;    
     private Long widthEditarGrillaTable = 15L;    
     private List<Long> cantidadFilasEdiciones;    
-    private Html html;    
+private Html html;    
     private Texto texto;    
     private Long tipoEstructura;     
     private String tituloGrilla;    

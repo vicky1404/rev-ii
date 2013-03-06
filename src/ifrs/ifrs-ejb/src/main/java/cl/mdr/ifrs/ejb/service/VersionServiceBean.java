@@ -22,6 +22,7 @@ import org.apache.log4j.Logger;
 import cl.mdr.ifrs.ejb.common.Constantes;
 import cl.mdr.ifrs.ejb.common.EstadoCuadroEnum;
 import cl.mdr.ifrs.ejb.common.VigenciaEnum;
+import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.AgrupacionColumna;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
 import cl.mdr.ifrs.ejb.entity.Celda;
@@ -212,14 +213,15 @@ public class VersionServiceBean implements VersionServiceLocal{
                     Grilla grilla = new Grilla();
                     grilla.setIdGrilla(idEstructura.longValue());
                     grilla.setEstructura(estructura);
-                    grilla.setTitulo(estructuraModel.getTituloGrilla());                                        
+                    grilla.setTitulo(estructuraModel.getTituloGrilla());   
+                    grilla.setTipoFormula(Util.getLong(estructura.getGrilla().getTipoFormula(), new Long(0) ));
                     
                     em.createNativeQuery(" INSERT "+
                     			   		 " INTO "+Constantes.GRILLA+" (ID_GRILLA,TITULO,TIPO_FORMULA)"+
                     		       		 " VALUES(?, ?, ?)").
                     		       		   setParameter(1, grilla.getIdGrilla().longValue()).
                     		       		   setParameter(2, grilla.getTitulo()).
-                    		       		   setParameter(3, 0L)
+                    		       		   setParameter(3, grilla.getTipoFormula())
                     		       		   .executeUpdate();
                     for(Columna columna : estructuraModel.getColumnas()){
                         columna.setGrilla(grilla);                        
