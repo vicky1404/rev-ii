@@ -197,30 +197,60 @@
 		<plugins>
 
 			<plugin>
-				<artifactId>maven-ejb-plugin</artifactId>
-				<version>2.3</version>
-				<configuration>
-					<!-- Tell Maven we are using EJB 3.1 -->
-					<ejbVersion>3.1</ejbVersion>
-				</configuration>
-			</plugin>
+            <artifactId>maven-ejb-plugin</artifactId>
+            <version>2.3</version>
+            <configuration>
+               <!-- Tell Maven we are using EJB 3.1 -->
+               <ejbVersion>3.1</ejbVersion>
+               <archive>
+                   <addMavenDescriptor>false</addMavenDescriptor>
+                 </archive>
+            </configuration>
+         </plugin>
 
 
-			<!-- plugin> <artifactId>maven-antrun-plugin</artifactId> <dependencies> 
-				<dependency> <groupId>yguard</groupId> <artifactId>yguard</artifactId> <version>2.4</version> 
-				<scope>system</scope> <systemPath>${project.basedir}\src\test\resources\yguard.jar</systemPath> 
-				</dependency> </dependencies> <executions> <execution> <phase>package</phase> 
-				<configuration> <tasks> <property refid="maven.compile.classpath" name="mvn.classpath"></property> 
-				<taskdef name="yguard" classname="com.yworks.yguard.YGuardTask" ></taskdef> 
-				<yguard> <externalclasses> <pathelement path="${mvn.classpath}"></pathelement> 
-				</externalclasses> <inoutpair in="${project.build.directory}/${project.build.finalName}.jar" 
-				out="${project.build.directory}/${project.build.finalName}-ofuscado.jar" 
-				/> <rename logfile="${project.build.directory}/yguard.log.xml" replaceClassNameStrings="true" 
-				> <keep> <class classes="public" methods="public"></class> <class classes="protected" 
-				methods="protected" fields="protected"></class> <class classes="public" methods="public" 
-				fields="private"> <patternset> <include name="**.*Entity"/> </patternset> 
-				</class> </keep> </rename> </yguard> </tasks> </configuration> <goals> <goal>run</goal> 
-				</goals> </execution> </executions> </plugin -->
+			<plugin> 
+				<artifactId>maven-antrun-plugin</artifactId> 
+				<dependencies> 
+				<dependency> 
+					<groupId>yguard</groupId> 
+					<artifactId>yguard</artifactId> 
+					<version>2.4</version> 
+					<scope>system</scope> <systemPath>${project.basedir}\src\test\resources\yguard.jar</systemPath> 
+				</dependency> 
+				</dependencies> 
+				<executions> 
+					<execution> 
+						<phase>package</phase> 
+						<configuration> 
+							<tasks> 
+								<property refid="maven.compile.classpath" name="mvn.classpath"></property> 
+									<taskdef name="yguard" classname="com.yworks.yguard.YGuardTask" ></taskdef> 
+									<yguard> 
+										<externalclasses> 
+											<pathelement path="${mvn.classpath}"></pathelement> 
+										</externalclasses> 
+										<inoutpair in="${project.build.directory}/${project.build.finalName}.jar" out="${project.build.directory}/${project.build.finalName}-ofuscado.jar"/> 
+											<rename logfile="${project.build.directory}/yguard.log.xml" replaceClassNameStrings="true"> 
+											<keep> 
+												<class classes="public" methods="public"></class> 
+												<class classes="protected"	methods="protected" fields="protected"></class> 
+												<class classes="public" methods="public" fields="private"> 
+													<patternset> 
+														<include name="**.*Entity"/> 
+													</patternset> 
+												</class> 
+											</keep> 
+											</rename> 
+									</yguard> 
+								</tasks> 
+							</configuration> 
+							<goals> 
+								<goal>run</goal> 
+							</goals> 
+					</execution> 
+				</executions> 
+				</plugin>
 		</plugins>
 	</build>
 
