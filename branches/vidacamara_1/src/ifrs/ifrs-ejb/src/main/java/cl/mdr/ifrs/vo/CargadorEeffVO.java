@@ -3,6 +3,7 @@ package cl.mdr.ifrs.vo;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import cl.mdr.ifrs.ejb.entity.DetalleEeff;
 import cl.mdr.ifrs.ejb.entity.EstadoFinanciero;
@@ -30,7 +31,11 @@ public class CargadorEeffVO implements Serializable{
     List<RelacionEeff>  relEeffBorradoList;
     List<RelacionDetalleEeff> relEeffDetBorradoList;
     
-    List<UsuarioGrupo> usuarioGrupoList;
+    private Map<Long,Long> grillaNoValida;
+    
+    
+
+	List<UsuarioGrupo> usuarioGrupoList;
     
     private int catidadEeffProcesado = 0;
     private int catidadEeffDetProcesado = 0;
@@ -134,5 +139,13 @@ public class CargadorEeffVO implements Serializable{
     public List<UsuarioGrupo> getUsuarioGrupoList() {
         return usuarioGrupoList;
     }
+    
+    public Map<Long, Long> getGrillaNoValida() {
+		return grillaNoValida;
+	}
+
+	public void setGrillaNoValida(Map<Long, Long> grillaNoValida) {
+		this.grillaNoValida = grillaNoValida;
+	}
 }
 
