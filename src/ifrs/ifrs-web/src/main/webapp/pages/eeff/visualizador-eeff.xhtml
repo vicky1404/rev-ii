@@ -105,12 +105,36 @@
                                 </f:facet>
                                 <h:outputText value="#{subRow.cuentaContable.descripcion}" id="ot28"/>
                             </p:column>
-                            <p:column id="c18">
+                            <p:column id="c1811">
                                 <f:facet name="header">
-                                    <h:outputText value="#{msg.carga_eeff_monto}" id="ot29"/>
+                                    <h:outputText value="Monto $" id="ot291"/>
                                 </f:facet>
                                 <div align="right">
-	                                <h:outputText value="#{subRow.montoXBRL}" id="ot21" >
+	                                <h:outputText value="#{subRow.montoPesos}" id="ot2111" >
+		                                <f:convertNumber integerOnly="false" type="number" maxFractionDigits="4" pattern="##,###,###,###.####"/>                            
+	                                </h:outputText>
+                                </div>
+                            </p:column>
+                            
+                            
+                            <p:column id="c1812">
+                                <f:facet name="header">
+                                    <h:outputText value="Monto $ Mil" id="ot2912"/>
+                                </f:facet>
+                                <div align="right">
+	                                <h:outputText value="#{subRow.montoMilesValidarMapeo}" id="ot211" >
+		                                <f:convertNumber integerOnly="false" type="number" maxFractionDigits="4" pattern="##,###,###,###.####"/>                            
+	                                </h:outputText>
+                                </div>
+                            </p:column>
+                            
+                            
+                            <p:column id="c181">
+                                <f:facet name="header">
+                                    <h:outputText value="Monto corrección" id="ot2911"/>
+                                </f:facet>
+                                <div align="right">
+	                                <h:outputText value="#{subRow.montoXBRL}" id="ot21111" >
 		                                <f:convertNumber integerOnly="false" type="number" maxFractionDigits="4" pattern="##,###,###,###.####"/>                            
 	                                </h:outputText>
                                 </div>
@@ -136,13 +160,31 @@
                         <p:column headerText="#{msg.carga_eeff_desc_cuenta}" id="c11B" width="300">
                             <h:outputText value="#{row.cuentaContable.descripcion}" id="ot17B"/>
                         </p:column>
-                        <p:column headerText="Valor Pesos" id="c15">
+                        
+                        <p:column headerText="Monto $" id="c151">
                         	<div align="right">
-	                            <h:outputText value="#{row.montoXBRL}" id="ot21" >
+	                            <h:outputText value="#{row.montoPesos}" id="ot2189" >
 		                                <f:convertNumber integerOnly="false" type="number" maxFractionDigits="4" pattern="##,###,###,###.####"/>                            
 	                             </h:outputText>
                             </div>
                         </p:column>
+                        
+                        <p:column headerText="Monto $ Miles" id="c152">
+                        	<div align="right">
+	                            <h:outputText value="#{row.montoMilesValidarMapeo}" id="ot21963" >
+		                                <f:convertNumber integerOnly="false" type="number" maxFractionDigits="4" pattern="##,###,###,###.####"/>                            
+	                             </h:outputText>
+                            </div>
+                        </p:column>
+                        
+                        <p:column headerText="Monto corrección" id="c153">
+                        	<div align="right">
+	                            <h:outputText value="#{row.montoXBRL}" id="ot2189895" >
+		                                <f:convertNumber integerOnly="false" type="number" maxFractionDigits="4" pattern="##,###,###,###.####"/>                            
+	                             </h:outputText>
+                            </div>
+                        </p:column>
+                        
                         
                     </p:dataTable>
                     </p:tab>
