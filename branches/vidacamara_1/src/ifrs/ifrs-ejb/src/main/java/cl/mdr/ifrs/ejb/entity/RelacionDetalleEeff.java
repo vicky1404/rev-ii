@@ -85,7 +85,7 @@ public class RelacionDetalleEeff implements Serializable {
         
     @Column(name = "MONTO_MILES")
     @Expose
-    private BigDecimal montoMiles;
+    private BigDecimal montoMilesValidarMapeo;
     
     @Column(name = "MONTO_PESOS")
     @Expose
@@ -116,11 +116,11 @@ public class RelacionDetalleEeff implements Serializable {
     
     @Column(name = "MONTO_PESOS_MIL")
     @Expose
-    private BigDecimal montoPesosMil;
+    private BigDecimal montoXBRL;
     
     @Transient
     @Expose
-    private BigDecimal montoPesosNuevo;
+    private BigDecimal montoMilesValidarMapeoNuevo;
 
     public RelacionDetalleEeff() {
     }
@@ -163,14 +163,7 @@ public class RelacionDetalleEeff implements Serializable {
 	}
 
 
-    public BigDecimal getMontoMiles() {
-        return montoMiles;
-    }
-
-    public void setMontoMiles(BigDecimal montoMiles) {
-        this.montoMiles = montoMiles;
-    }
-
+   
     public BigDecimal getMontoPesos() {
         return montoPesos;
     }
@@ -243,21 +236,7 @@ public class RelacionDetalleEeff implements Serializable {
             return "";
     }
 
-    public void setMontoPesosNuevo(BigDecimal montoPesosNuevo) {
-        this.montoPesosNuevo = montoPesosNuevo;
-    }
-
-    public BigDecimal getMontoPesosNuevo() {
-        return montoPesosNuevo;
-    }
-
-    public void setMontoPesosMil(BigDecimal montoPesosMil) {
-        this.montoPesosMil = montoPesosMil;
-    }
-
-    public BigDecimal getMontoPesosMil() {
-        return montoPesosMil;
-    }
+   
     
     public void setCuentaContable(CuentaContable cuentaContable) {
         this.cuentaContable = cuentaContable;
@@ -277,17 +256,42 @@ public class RelacionDetalleEeff implements Serializable {
         }
         this.periodoEmpresa = periodoEmpresa;
         this.cuentaContable = detalleEeff.getCuentaContable();
-        this.montoEbs = detalleEeff.getMontoEbs();
-        this.montoMiles = detalleEeff.getMontoMiles();
+       
+        this.montoMilesValidarMapeo = detalleEeff.getMontoMilesValidarMapeo();
         this.montoPesos = detalleEeff.getMontoPesos();
-        this.montoReclasificacion = detalleEeff.getMontoReclasificacion();
-        this.montoPesosMil = detalleEeff.getMontoPesosMil();
+      
+        this.montoXBRL = detalleEeff.getMontoXBRL();
         this.idGrilla = celda.getIdGrilla();
         this.idColumna = celda.getIdColumna();
         this.idFila = celda.getIdFila();
         this.celda5 = celda;
-        
     }
+    
+
+	public BigDecimal getMontoMilesValidarMapeo() {
+		return montoMilesValidarMapeo;
+	}
+
+	public void setMontoMilesValidarMapeo(BigDecimal montoMilesValidarMapeo) {
+		this.montoMilesValidarMapeo = montoMilesValidarMapeo;
+	}
+
+	public BigDecimal getMontoXBRL() {
+		return montoXBRL;
+	}
+
+	public void setMontoXBRL(BigDecimal montoXBRL) {
+		this.montoXBRL = montoXBRL;
+	}
+
+	public BigDecimal getMontoMilesValidarMapeoNuevo() {
+		return montoMilesValidarMapeoNuevo;
+	}
+
+	public void setMontoMilesValidarMapeoNuevo(
+			BigDecimal montoMilesValidarMapeoNuevo) {
+		this.montoMilesValidarMapeoNuevo = montoMilesValidarMapeoNuevo;
+	}
 
 	@Override
 	public int hashCode() {
