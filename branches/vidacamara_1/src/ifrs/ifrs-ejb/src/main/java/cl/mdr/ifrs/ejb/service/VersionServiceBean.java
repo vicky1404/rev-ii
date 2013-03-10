@@ -335,11 +335,11 @@ public class VersionServiceBean implements VersionServiceLocal{
                         					   setParameter(5, columna.getAncho()).
                         					   setParameter(6, 0).
                         					   executeUpdate();
-                        logger.info("Insertando Columna ->" + columna.getIdColumna());
+                        logger.debug("Insertando Columna ->" + columna.getIdColumna());
                         for(Celda celda : columna.getCeldaList()){
                         	celda.setIdGrilla(grilla.getIdGrilla());
                         	celda.setIdColumna(columna.getIdColumna());
-                        	logger.info("Insertando celda col->" + celda.getIdColumna() + " fila->" + celda.getIdFila() + " grilla->" + celda.getIdGrilla());
+                        	logger.debug("Insertando celda col->" + celda.getIdColumna() + " fila->" + celda.getIdFila() + " grilla->" + celda.getIdGrilla());
                         	
                         	em.createNativeQuery(" INSERT"+
                         						 " INTO "+Constantes.CELDA+" (ID_COLUMNA, ID_FILA, ID_GRILLA, ID_TIPO_CELDA, ID_TIPO_DATO, VALOR)"+

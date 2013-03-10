@@ -411,7 +411,7 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
                 eeff.setMontoTotalNuevo(eeffNuevo.getMontoTotal());
                 eeffDescuadreList.add(eeff);
                 
-                logger.info("Descuadre en monto Fecu : " + EeffUtil.formatFecu(idFecu) + 
+                logger.debug("Descuadre en monto Fecu : " + EeffUtil.formatFecu(idFecu) + 
                             " - Monto Nuevo : "  + eeff.getMontoTotalNuevo() + 
                             " - Monto Antiguo " + eeff.getMontoTotal());
             }
@@ -432,7 +432,7 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
                             eeffDet.setMontoMilesValidarMapeoNuevo(eeffDetNuevo.getMontoMilesValidarMapeo());
                             eeffDetDescuadreList.add(eeffDet);
                             
-                            logger.info("Descuadre en pesos Cuenta : " + eeffDetNuevo.getIdCuenta() + 
+                            logger.debug("Descuadre en pesos Cuenta : " + eeffDetNuevo.getIdCuenta() + 
                                         " - Monto Nuevo : "  + eeffDet.getMontoMilesValidarMapeoNuevo() + 
                                         " - Monto Antiguo " +  eeffDet.getMontoMilesValidarMapeo());
                         }
@@ -732,7 +732,7 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
                 }
             }
         }
-        	logger.info(mensaje);
+        	logger.debug(mensaje);
         	buildUsuarioGrupo(cargadorVO, mensajeMap);
     }
     

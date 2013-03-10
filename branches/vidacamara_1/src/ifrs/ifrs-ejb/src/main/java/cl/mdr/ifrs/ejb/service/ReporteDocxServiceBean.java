@@ -386,7 +386,7 @@ public class ReporteDocxServiceBean implements ReporteDocxServiceLocal {
             }//for
             table.addRow(TableRow.with(rowCells.toArray()));
         }
-        logger.info("ID Grilla ----------->"+grilla.getIdGrilla());        
+        logger.debug("ID Grilla ----------->"+grilla.getIdGrilla());        
         run.getContent().add(XmlUtils.unmarshalString(table.getContent()));
     }
     
