@@ -53,20 +53,15 @@ public class DetalleEeff implements Serializable {
     @Column(name = "ID_VERSION_EEFF", nullable = false, insertable = false, updatable = false)
     private Long idVersionEeff;
     
-    @Column(name = "MONTO_EBS", length = 256)
-    private BigDecimal montoEbs;
-    
+   
     @Column(name = "MONTO_PESOS")
     private BigDecimal montoPesos;
     
     @Column(name = "MONTO_MILES")
-    private BigDecimal montoMiles;
+    private BigDecimal montoMilesValidarMapeo;
     
     @Column(name = "MONTO_PESOS_MIL")
-    private BigDecimal montoPesosMil;
-    
-    @Column(name = "MONTO_RECLASIFICACION")
-    private BigDecimal montoReclasificacion;
+    private BigDecimal montoXBRL;
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_CUENTA")
@@ -78,7 +73,7 @@ public class DetalleEeff implements Serializable {
     private EstadoFinanciero estadoFinanciero1;
     
     @Transient
-    private BigDecimal montoPesosNuevo;
+    private BigDecimal montoMilesValidarMapeoNuevo;
     
     @Transient
     private boolean selectedForMapping;
@@ -86,14 +81,7 @@ public class DetalleEeff implements Serializable {
     public DetalleEeff() {
     }
 
-    public BigDecimal getMontoEbs() {
-        return montoEbs;
-    }
-
-    public void setMontoEbs(BigDecimal ebs) {
-        this.montoEbs = ebs;
-    }
-
+  
 
     public Long getIdCuenta() {
         return idCuenta;
@@ -104,13 +92,6 @@ public class DetalleEeff implements Serializable {
     }
 
 
-    public BigDecimal getMontoMiles() {
-        return montoMiles;
-    }
-
-    public void setMontoMiles(BigDecimal montoMiles) {
-        this.montoMiles = montoMiles;
-    }
 
     public BigDecimal getMontoPesos() {
         return montoPesos;
@@ -120,14 +101,7 @@ public class DetalleEeff implements Serializable {
         this.montoPesos = montoPesos;
     }
 
-    public BigDecimal getMontoReclasificacion() {
-        return montoReclasificacion;
-    }
-
-    public void setMontoReclasificacion(BigDecimal reclasificacion) {
-        this.montoReclasificacion = reclasificacion;
-    }
-
+   
     public EstadoFinanciero getEstadoFinanciero1() {
         return estadoFinanciero1;
     }
@@ -162,23 +136,45 @@ public class DetalleEeff implements Serializable {
             return "";
     }
 
-    public void setMontoPesosNuevo(BigDecimal montoPesosNuevo) {
-        this.montoPesosNuevo = montoPesosNuevo;
-    }
+ 
+    public BigDecimal getMontoMilesValidarMapeo() {
+		return montoMilesValidarMapeo;
+	}
 
-    public BigDecimal getMontoPesosNuevo() {
-        return montoPesosNuevo;
-    }
 
-    public void setMontoPesosMil(BigDecimal montoPesosMil) {
-        this.montoPesosMil = montoPesosMil;
-    }
 
-    public BigDecimal getMontoPesosMil() {
-        return montoPesosMil;
-    }
+	public void setMontoMilesValidarMapeo(BigDecimal montoMilesValidarMapeo) {
+		this.montoMilesValidarMapeo = montoMilesValidarMapeo;
+	}
 
-    public void setCuentaContable(CuentaContable cuentaContable) {
+
+
+	public BigDecimal getMontoXBRL() {
+		return montoXBRL;
+	}
+
+
+
+	public void setMontoXBRL(BigDecimal montoXBRL) {
+		this.montoXBRL = montoXBRL;
+	}
+
+
+
+	public BigDecimal getMontoMilesValidarMapeoNuevo() {
+		return montoMilesValidarMapeoNuevo;
+	}
+
+
+
+	public void setMontoMilesValidarMapeoNuevo(
+			BigDecimal montoMilesValidarMapeoNuevo) {
+		this.montoMilesValidarMapeoNuevo = montoMilesValidarMapeoNuevo;
+	}
+
+
+
+	public void setCuentaContable(CuentaContable cuentaContable) {
         this.cuentaContable = cuentaContable;
     }
 

@@ -228,23 +228,15 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
                     break;
                 
                 case 3:
-                    detalleEeff.setMontoEbs(getValorBigDecimal(cell));
-                    break;
-                
-                case 4:
-                    detalleEeff.setMontoReclasificacion(getValorBigDecimal(cell));
-                    break;
-                
-                case 5:
                     detalleEeff.setMontoPesos(getValorBigDecimal(cell));
                     break;
                 
-                case 6:
-                    detalleEeff.setMontoMiles(getValorBigDecimal(cell));
+                case 4:
+                    detalleEeff.setMontoMilesValidarMapeo(getValorBigDecimal(cell));
                     break;
                 
-                case 7:
-                    detalleEeff.setMontoPesosMil(getValorBigDecimal(cell));
+                case 5:
+                    detalleEeff.setMontoXBRL(getValorBigDecimal(cell));
                     break;
                 
                 }
@@ -445,14 +437,14 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
                         
                         DetalleEeff eeffDet = detalleEeffMap.get(key);
                         
-                        if(!eeffDet.getMontoPesos().equals(eeffDetNuevo.getMontoPesos())){
+                        if(!eeffDet.getMontoMilesValidarMapeo().equals(eeffDetNuevo.getMontoMilesValidarMapeo())){
                             
-                            eeffDet.setMontoPesosNuevo(eeffDetNuevo.getMontoPesos());
+                            eeffDet.setMontoMilesValidarMapeoNuevo(eeffDetNuevo.getMontoMilesValidarMapeo());
                             eeffDetDescuadreList.add(eeffDet);
                             
                             logger.info("Descuadre en pesos Cuenta : " + eeffDetNuevo.getIdCuenta() + 
-                                        " - Monto Nuevo : "  + eeffDet.getMontoPesosNuevo() + 
-                                        " - Monto Antiguo " +  eeffDet.getMontoPesos());
+                                        " - Monto Nuevo : "  + eeffDet.getMontoMilesValidarMapeoNuevo() + 
+                                        " - Monto Antiguo " +  eeffDet.getMontoMilesValidarMapeo());
                         }
                         
                         detalleEeffMap.remove(key);
@@ -507,25 +499,21 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
                         
                         for(RelacionDetalleEeff relEeffDet : relEeffDetList){
                         
-                        	if(!relEeffDet.getMontoPesos().equals(eeffDetNuevo.getMontoPesos())){
+                                if(!relEeffDet.getMontoMilesValidarMapeo().equals(eeffDetNuevo.getMontoMilesValidarMapeo())){
+                                    
+                                    relEeffDet.setMontoMilesValidarMapeoNuevo(eeffDetNuevo.getMontoMilesValidarMapeo());
+                                    relEeffDetDescuadreList.add(relEeffDet);
+                                    
+                                    logger.info("Descuadre en Mapeo pesos Cuenta : " + eeffDetNuevo.getIdCuenta() + 
+                                                " - Monto Nuevo : "  + relEeffDet.getMontoMilesValidarMapeoNuevo() + 
+                                                " - Monto Antiguo " +  relEeffDet.getMontoMilesValidarMapeo());
+                                }
                             
-	                            relEeffDet.setMontoPesosNuevo(eeffDetNuevo.getMontoPesos());
-	                            relEeffDetDescuadreList.add(relEeffDet);
-	                            
-	                            logger.info("Descuadre en Mapeo pesos Cuenta : " + eeffDetNuevo.getIdCuenta() + 
-	                                        " - Monto Nuevo : "  + relEeffDet.getMontoPesosNuevo() + 
-	                                        " - Monto Antiguo " + relEeffDet.getMontoPesos());
-	                        	}
-                        
-                        
-                        relDetalleEeffMap.remove(key);
-                        
+                                relDetalleEeffMap.remove(key);
                         }
-                        
                     }
                 }
             }
-            
             relEeffMap.remove(idFecu);
         }
     }
@@ -754,7 +742,16 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
     }
     
     private void buildUsuarioGrupo(final CargadorEeffVO cargadorVO, final Map<Long,List<StringBuilder>> mensajeMap) throws Exception{
+       
+    	/*
+        String dominio;
         
+        try{
+            dominio = facadeService.getParametroService().getParametrosConfigMapByTipoParametro(TipoParametroEnum.MAIL_CONFIG.getKey()).get(MailConfigEnum.MAIL_DOMINIO.getKey()).getValor();;
+        }catch(Exception e){
+            dominio = null;
+        }
+        */
         Map<String,UsuarioGrupo> usuarioMailMap = new LinkedHashMap<String,UsuarioGrupo>();
         
         for ( Map.Entry<Long, List<StringBuilder>> mensajeEntry : mensajeMap.entrySet() ){
@@ -885,4 +882,165 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
         }
         
     }
+    
+    
+    
+    /*
+    private void buildUsuarioGrupo(final CargadorEeffVO cargadorVO, final Map<Long,List<StringBuilder>> mensajeMap) throws Exception{
+        
+        String dominio;
+        
+        try{
+            dominio = facadeService.getParametroService().getParametrosConfigMapByTipoParametro(TipoParametroEnum.MAIL_CONFIG.getKey()).get(MailConfigEnum.MAIL_DOMINIO.getKey()).getValor();;
+        }catch(Exception e){
+            dominio = null;
+        }
+        
+        Map<String,UsuarioGrupo> usuarioMailMap = new LinkedHashMap<String,UsuarioGrupo>();
+        
+        for ( Map.Entry<Long, List<StringBuilder>> mensajeEntry : mensajeMap.entrySet() ){
+            
+            StringBuilder contenidoMail = new StringBuilder();
+            
+            Catalogo catalogo = facadeService.getCatalogoService().findCatalogoByCatalogo(new Catalogo(mensajeEntry.getKey()));
+            
+            Map<String,UsuarioGrupo> usuarioMap = index(facadeService.getSeguridadService().getUsuarioGrupoByCatalogo(mensajeEntry.getKey()), on(UsuarioGrupo.class).getUsuarioOid());
+            
+            for(StringBuilder str : mensajeEntry.getValue()){
+                contenidoMail.append(str).append("<br>");
+            }
+            
+            for(UsuarioGrupo usuarioTemp : usuarioMap.values()){
+                
+                usuarioTemp.setEmail(EeffUtil.concatUsuarioMail(usuarioTemp.getUsuarioOid(),dominio));
+                
+                if(usuarioMailMap.containsKey(usuarioTemp.getUsuarioOid())){
+                    usuarioMailMap.get(usuarioTemp.getUsuarioOid()).getContenidoMail().append(contenidoMail);
+                    usuarioMailMap.get(usuarioTemp.getUsuarioOid()).getCatalogoAsociadoList().add(catalogo);
+                }else{
+                    usuarioTemp.setContenidoMail(new StringBuilder(contenidoMail));
+                    usuarioTemp.setCatalogoAsociadoList(new ArrayList<Catalogo>());
+                    usuarioTemp.getCatalogoAsociadoList().add(catalogo);
+                    usuarioMailMap.put(usuarioTemp.getUsuarioOid(), usuarioTemp);
+                }
+            }
+        }
+        
+        cargadorVO.setUsuarioGrupoList(new ArrayList<UsuarioGrupo>(usuarioMailMap.values()));
+    }
+    
+    private void sortList(final CargadorEeffVO cargadorVO){
+        
+        final Comparator byIdFecu = new ArgumentComparator(on(EstadoFinanciero.class).getIdFecu());
+        
+        cargadorVO.setEeffBorradoList( sort(cargadorVO.getEeffBorradoList(), on(EstadoFinanciero.class),byIdFecu));
+        cargadorVO.setEeffDescuadreList(sort(cargadorVO.getEeffDescuadreList(), on(EstadoFinanciero.class),byIdFecu));
+        
+        final Comparator byIdCuenta = new ArgumentComparator(on(DetalleEeff.class).getIdCuenta());
+        
+        cargadorVO.setEeffDetBorradoList(sort(cargadorVO.getEeffDetBorradoList(), on(DetalleEeff.class),byIdCuenta));
+        cargadorVO.setEeffDetDescuadreList(sort(cargadorVO.getEeffDetDescuadreList(), on(DetalleEeff.class),byIdCuenta));
+        
+        final Comparator byFeGrilla = new ArgumentComparator(on(RelacionEeff.class).getIdGrilla());
+        final Comparator byFeColumna = new ArgumentComparator(on(RelacionEeff.class).getIdColumna());
+        final Comparator byFeFila = new ArgumentComparator(on(RelacionEeff.class).getIdFila());
+        final Comparator byFeIdFecu = new ArgumentComparator(on(RelacionEeff.class).getIdFecu());
+        
+        final Comparator fecuOrderBy = ComparatorUtils.chainedComparator(new Comparator[] {byFeGrilla, byFeColumna,byFeFila,byFeIdFecu});
+        
+        cargadorVO.setRelEeffBorradoList(sort(cargadorVO.getRelEeffBorradoList(), on(RelacionEeff.class), fecuOrderBy));
+        cargadorVO.setRelEeffDescuadreList(sort(cargadorVO.getRelEeffDescuadreList(), on(RelacionEeff.class), fecuOrderBy));
+        
+        final Comparator byCuGrilla = new ArgumentComparator(on(RelacionDetalleEeff.class).getIdGrilla());
+        final Comparator byCuColumna = new ArgumentComparator(on(RelacionDetalleEeff.class).getIdColumna());
+        final Comparator byCuFila = new ArgumentComparator(on(RelacionDetalleEeff.class).getIdFila());
+        final Comparator byCuIdFecu = new ArgumentComparator(on(RelacionDetalleEeff.class).getIdFecu());
+        final Comparator byCuIdCuenta = new ArgumentComparator(on(RelacionDetalleEeff.class).getIdCuenta());
+        
+        final Comparator cuentaOrderBy = ComparatorUtils.chainedComparator(new Comparator[] {byCuGrilla, byCuColumna,byCuFila,byCuIdFecu,byCuIdCuenta});
+        
+        cargadorVO.setRelEeffDetBorradoList(sort(cargadorVO.getRelEeffDetBorradoList(), on(RelacionDetalleEeff.class), cuentaOrderBy));
+        cargadorVO.setRelEeffDetDescuadreList(sort(cargadorVO.getRelEeffDetDescuadreList(), on(RelacionDetalleEeff.class), cuentaOrderBy));
+        
+    }
+    
+    public void sendMailEeff(List<UsuarioGrupo> usuarioGrupoList) throws Exception{
+        
+        final Map<String, Parametro> mailParams = facadeService.getParametroService().getParametrosConfigMapByTipoParametro(TipoParametroEnum.MAIL_CONFIG.getKey());
+        
+        String dominio,emailUser,emailPass,emailUserFrom,emailHost,emailPort,subject,enviarMail,usuarioTest = null;
+        Boolean autenticar = null;
+        try{
+            dominio = mailParams.get(MailConfigEnum.MAIL_DOMINIO.getKey()).getValor();
+            emailUser =  mailParams.get(MailConfigEnum.CARGADOR_MAIL_FROM.getKey()).getValor();
+            emailPass =  mailParams.get(MailConfigEnum.CARGADOR_MAIL_PASS_FROM.getKey()).getValor();
+            emailUserFrom =  EeffUtil.concatUsuarioMail(emailUser,dominio);
+            emailHost =  mailParams.get(MailConfigEnum.MAIL_HOST.getKey()).getValor();
+            emailPort =  mailParams.get(MailConfigEnum.MAIL_PORT.getKey()).getValor();
+            subject =    mailParams.get(MailConfigEnum.CARGADOR_SUBJECT.getKey()).getValor();
+            enviarMail =     mailParams.get(MailConfigEnum.ENVIAR_EMAIL.getKey()).getValor();
+            usuarioTest =  mailParams.get(MailConfigEnum.MAIL_USUARIO_TEST.getKey()).getValor();
+            autenticar =  new Boolean(mailParams.get(MailConfigEnum.MAIL_AUTENTUCAR.getKey()).getValor());
+        }catch(Exception e){
+            logger.error("Error al leer de bdd parámetros de configuración de mail" , e);
+            dominio = Constantes.MAIL_DOMINIO;
+            emailUser = Constantes.MAIL_USER;
+            emailPass = Constantes.MAIL_PASS;
+            emailUserFrom = EeffUtil.concatUsuarioMail(emailUser,dominio);
+            emailHost = Constantes.MAIL_HOST;
+            emailPort = Constantes.MAIL_PORT;
+            subject = Constantes.MAIL_SUBJECT;
+            enviarMail = Constantes.MAIL_SEND;
+            usuarioTest = Constantes.MAIL_USUARIO_TEST;
+            autenticar =  Constantes.MAIL_AUTENTICAR;
+        }
+         
+        Map<String,UsuarioGrupo> usuarioMap = index(usuarioGrupoList, on(UsuarioGrupo.class).getUsuarioOid());
+        
+        if(enviarMail==null || enviarMail.equalsIgnoreCase("false")){
+            for(UsuarioGrupo usuario : usuarioMap.values()){
+                if(usuarioTest!=null && usuarioTest.equalsIgnoreCase(usuario.getUsuarioOid())){
+                    sendMail(emailHost, emailUserFrom, emailUser, emailPass, emailUserFrom, subject, usuario.getContenidoMail().toString(),"text/html",emailPort,autenticar);
+				}
+            }
+        }else{
+            for(UsuarioGrupo usuario : usuarioMap.values()){
+                sendMail(emailHost, emailUserFrom, emailUser,emailPass, EeffUtil.concatUsuarioMail(usuario.getUsuarioOid(),dominio), subject, usuario.getContenidoMail().toString(),"text/html",emailPort,autenticar);
+            }
+        }
+    }
+    
+    
+    private void sendMail(String host, String emailUserFrom, String emailUser,  String emailPass, String emailTo, String subject, String mensaje, String type, String port, boolean autenticar)throws Exception{
+        
+        Properties properties = System.getProperties();
+        
+        properties.setProperty("mail.smtp.host", host);
+        properties.setProperty("mail.transport.protocol", "smtp");
+        properties.put("mail.smtp.port", port);
+		properties.put("mail.smtp.auth", "false");
+
+        
+
+        try{
+            Session mailSession = Session.getDefaultInstance(properties, null);
+            Transport transport = mailSession.getTransport();
+            MimeMessage message = new MimeMessage(mailSession);
+           message.setFrom(new InternetAddress(emailUserFrom));
+           message.addRecipient(Message.RecipientType.TO, new InternetAddress(emailTo));
+           message.setSubject(subject);
+           message.setContent(mensaje, type);
+            if(autenticar){
+                transport.connect(emailUser, emailPass);
+            }else{
+                transport.connect();
+            }
+            transport.sendMessage(message, message.getRecipients(Message.RecipientType.TO));
+           transport.close();
+        }catch (MessagingException mex) {
+           throw mex;
+        }
+        
+    }
+     */
 }
