@@ -78,11 +78,7 @@ public class RelacionDetalleEeff implements Serializable {
     @Column(name = "ID_FILA", nullable = false, insertable = false, updatable = false)
     @Expose
     private Long idFila;
-    
-    @Column(name = "MONTO_EBS", length = 256)
-    @Expose
-    private BigDecimal montoEbs;
-        
+            
     @Column(name = "MONTO_MILES")
     @Expose
     private BigDecimal montoMilesValidarMapeo;
@@ -90,11 +86,7 @@ public class RelacionDetalleEeff implements Serializable {
     @Column(name = "MONTO_PESOS")
     @Expose
     private BigDecimal montoPesos;
-    
-    @Column(name = "MONTO_RECLASIFICACION")
-    @Expose
-    private BigDecimal montoReclasificacion;
-    
+        
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_CUENTA")
     @Expose
@@ -125,15 +117,7 @@ public class RelacionDetalleEeff implements Serializable {
     public RelacionDetalleEeff() {
     }
 
-    public BigDecimal getMontoEbs() {
-        return montoEbs;
-    }
-
-    public void setMontoEbs(BigDecimal ebs) {
-        this.montoEbs = ebs;
-    }
-
-
+ 
     public Long getIdCuenta() {
         return idCuenta;
     }
@@ -172,15 +156,7 @@ public class RelacionDetalleEeff implements Serializable {
         this.montoPesos = montoPesos;
     }
 
-    public BigDecimal getMontoReclasificacion() {
-        return montoReclasificacion;
-    }
-
-    public void setMontoReclasificacion(BigDecimal reclasificacion) {
-        this.montoReclasificacion = reclasificacion;
-    }
-
-    public Celda getCelda5() {
+      public Celda getCelda5() {
         return celda5;
     }
 
