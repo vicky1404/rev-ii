@@ -139,21 +139,16 @@ public class CargadorEeffBackingBean extends AbstractBackingBean {
             versionEeffList = getFacadeService().getEstadoFinancieroService().getVersionEeffFindByPeriodo(periodoEmpresa.getIdPeriodo(), periodoEmpresa.getIdRut());
             
             
-            if(new Boolean(PropertyManager.getInstance().getMessage("cargador_enviar_mail")).equals(Boolean.TRUE)){
             
-	            String emailFrom = PropertyManager.getInstance().getMessage("cargador_mail_from");
-	            String emailHost = PropertyManager.getInstance().getMessage("mail_host");
-	            String subject = PropertyManager.getInstance().getMessage("cargador_subject");
-	            String isTest = PropertyManager.getInstance().getMessage("mail_is_test");
-	            String usuarioTest = PropertyManager.getInstance().getMessage("mail_user_test"); 
-	            
-	            getFacadeService().getCargadorEeffService().sendMailEeff(cargadorVO.getUsuarioGrupoList(), emailFrom, subject, emailHost,usuarioTest, new Boolean(isTest));
+            
+	           
+	            getFacadeService().getCargadorEeffService().sendMailEeff(cargadorVO.getUsuarioGrupoList());
 	            
 	            addInfoMessage(PropertyManager.getInstance().getMessage("eeff_mensaje_guardar_ok"));
 	            addInfoMessage(PropertyManager.getInstance().getMessage("eeff_codigo_fecu_procesados") + cargadorVO.getCatidadEeffProcesado());
 	            addInfoMessage(PropertyManager.getInstance().getMessage("eeff_cuentas_procesadas") + cargadorVO.getCatidadEeffDetProcesado());
             
-            }
+         
             
             addInfoMessage(PropertyManager.getInstance().getMessage("carga_eeff_guardar_correcto"));
             
