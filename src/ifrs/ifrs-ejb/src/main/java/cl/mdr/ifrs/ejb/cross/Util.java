@@ -539,7 +539,7 @@ public class Util{
     			respuesta = fechaFin.get(Calendar.DAY_OF_YEAR) - fechaInicio.get(Calendar.DAY_OF_YEAR);
     		} else if (fechaFin.get(Calendar.YEAR) > fechaInicio.get(Calendar.YEAR)){
     			anios = fechaFin.get(Calendar.YEAR) - fechaInicio.get(Calendar.YEAR);
-    			respuesta = (fechaFin.get(Calendar.DAY_OF_YEAR) + (Constantes.D_LIC * anios)) - fechaInicio.get(Calendar.DAY_OF_YEAR);
+    			respuesta = (fechaFin.get(Calendar.DAY_OF_YEAR) + (((150*2)+(15*4)+5) * anios)) - fechaInicio.get(Calendar.DAY_OF_YEAR);
     		}
     	}
     	
