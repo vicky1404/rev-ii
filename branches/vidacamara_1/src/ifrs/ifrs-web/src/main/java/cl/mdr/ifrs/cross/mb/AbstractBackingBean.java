@@ -52,6 +52,11 @@ public abstract class AbstractBackingBean {
 
 	private Locale localeCL = new Locale("es", "CL");	
 	
+	private final int D_EXT = (15 * 4) / 2;
+	private final int D_LIC = (150 * 2) + (15 * 4) + 5 ;
+	
+	
+
 	private Integer restaLic = new Integer(0);
 	private boolean renderMensajeExpiracionLicencia;
 	
@@ -282,7 +287,7 @@ public abstract class AbstractBackingBean {
 		this.setRestaLic(new Integer(Util.restaLic(fechaArchivo, fechaActual)));
 		
 		if (this.licType().equalsIgnoreCase(Constantes.TYPE_INST_CL)){
-			if ((Constantes.D_LIC.intValue() - this.getRestaLic().intValue()) <= 0 ){
+			if ((getD_LIC() - this.getRestaLic().intValue()) <= 0 ){
 				return false;
 			}
 			
@@ -309,7 +314,7 @@ public abstract class AbstractBackingBean {
 				
 			}
 		} else if (this.licType().equalsIgnoreCase(Constantes.TYPE_INST_OP)){
-			if ((Constantes.D_LIC.intValue() - this.getRestaLic().intValue()) <= 0 ){
+			if ((getD_LIC() - this.getRestaLic().intValue()) <= 0 ){
 				return false;
 			}
 			empresaList = this.getFacadeService().getEmpresaService().findAll();
@@ -509,7 +514,7 @@ public abstract class AbstractBackingBean {
 
 	public boolean isRenderMensajeExpiracionLicencia() {
 		
-		if (this.getRestaLic() != null && (Constantes.D_LIC.intValue() - this.restaLic.intValue()) <= Constantes.D_EX.intValue()){
+		if (this.getRestaLic() != null && (getD_LIC() - this.restaLic.intValue()) <= getD_EXT()){
 			
 			renderMensajeExpiracionLicencia = true;
 			
@@ -533,12 +538,12 @@ public abstract class AbstractBackingBean {
 	}
 	
 	public int getDiasRestantes(){
-		return (Constantes.D_LIC.intValue() - this.getRestaLic().intValue());
+		return (getD_LIC() - this.getRestaLic().intValue());
 	}
 	
 	public boolean isRenderLicenciaExpiro(){
 		
-		if (this.getRestaLic() != null && (Constantes.D_LIC.intValue() - this.getRestaLic().intValue()) <= 0){
+		if (this.getRestaLic() != null && (getD_LIC() - this.getRestaLic().intValue()) <= 0){
 			renderMensajeExpiracionLicencia = true;
 			if (this.licType().equalsIgnoreCase(Constantes.TYPE_INST_FR)){
 				renderMensajeExpiracionLicencia = false;
@@ -548,6 +553,14 @@ public abstract class AbstractBackingBean {
 			renderMensajeExpiracionLicencia = false;
 		}
 		return renderMensajeExpiracionLicencia;
+	}
+	
+	public int getD_EXT() {
+		return D_EXT;
+	}
+
+	public int getD_LIC() {
+		return D_LIC;
 	}
 
 }
