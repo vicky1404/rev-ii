@@ -19,5 +19,5 @@ public interface CargadorEeffServiceLocal {
 	CargadorEeffVO leerEeff(final InputStream loadedExcel)throws EstadoFinancieroException, Exception;
     void validarNuevoEeff(final List<EstadoFinanciero> eeffListNuevo,final PeriodoEmpresa periodoEmpresa,final CargadorEeffVO cargadorVO) throws Exception;
     void buildMailList(final CargadorEeffVO cargadorVO) throws Exception;
-    void sendMailEeff(List<UsuarioGrupo> usuarioGrupoList, String emailFrom, String subject, String host, String usuarioTest, Boolean isTest);
+    void sendMailEeff(List<UsuarioGrupo> usuarioGrupoList);
 }

@@ -27,12 +27,13 @@ import cl.mdr.ifrs.ejb.entity.pk.UsuarioGrupoPK;
     @NamedQuery(name = UsuarioGrupo.DELETE_BY_USUARIO , query = "delete from UsuarioGrupo o where upper(o.nombreUsuario) =:usuario"),
     @NamedQuery(name = UsuarioGrupo.DELETE_BY_GRUPO , query = "delete from UsuarioGrupo o where o.grupo =:grupo"),
     @NamedQuery(name = UsuarioGrupo.FIND_BY_ID_CATALOGO , query = "select distinct new cl.mdr.ifrs.ejb.entity.UsuarioGrupo(ug.nombreUsuario) from CatalogoGrupo cg, Grupo g, UsuarioGrupo ug where cg.idCatalogo = :idCatalogo and g.idGrupoAcceso = cg.idGrupoAcceso and ug.idGrupo = g.idGrupoAcceso order by ug.nombreUsuario"),
-    @NamedQuery(name = UsuarioGrupo.FIND_BY_ID_CATALOGO_EMAIL_NOT_NULL , query = "select distinct new cl.mdr.ifrs.ejb.entity.UsuarioGrupo(ug.nombreUsuario) " +
+    @NamedQuery(name = UsuarioGrupo.FIND_BY_ID_CATALOGO_EMAIL_NOT_NULL , query = "select distinct ug " +
     		" from CatalogoGrupo cg, Grupo g, UsuarioGrupo ug " +
     		" where cg.idCatalogo = :idCatalogo and " +
     		" g.idGrupoAcceso = cg.idGrupoAcceso and " +
     		" ug.idGrupo = g.idGrupoAcceso and " +
-    		" ug.usuario.email is not null " +
+    		" ug.usuario.email is not null and " +
+    		" ug.usuario.vigente = 1 " +
     		" order by ug.nombreUsuario ")
 })
 @Table(name = Constantes.USUARIO_GRUPO)

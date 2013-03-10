@@ -4,7 +4,6 @@ package cl.mdr.ifrs.ejb.service;
 import static ch.lambdaj.Lambda.index;
 import static ch.lambdaj.Lambda.on;
 import static ch.lambdaj.Lambda.sort;
-import static cl.mdr.ifrs.ejb.cross.Constantes.PERSISTENCE_UNIT_NAME;
 
 import java.io.InputStream;
 import java.math.BigDecimal;
@@ -18,9 +17,7 @@ import java.util.Map;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
 
 import org.apache.commons.collections.ComparatorUtils;
 import org.apache.log4j.Logger;
@@ -30,6 +27,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import ch.lambdaj.function.compare.ArgumentComparator;
+import cl.mdr.ifrs.ejb.common.MailConfigEnum;
 import cl.mdr.ifrs.ejb.cross.EeffUtil;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
@@ -53,9 +51,7 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
     
     private final Logger logger = Logger.getLogger(CargadorEeffServiceBean.class);
     
-    @PersistenceContext(unitName = PERSISTENCE_UNIT_NAME)
-    private EntityManager em;
-
+    
     @EJB
     private FacadeServiceLocal facadeService;
 
@@ -409,7 +405,7 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
             
             EstadoFinanciero eeff = eeffMap.get(idFecu);
             
-            if(!eeff.getMontoTotal().equals(eeffNuevo.getMontoTotal())){
+            if( ! Util.getDouble(eeff.getMontoTotal(), new Double(0) )  .equals (  Util.getDouble( eeffNuevo.getMontoTotal(), new Double(0)) )){
                 
                 eeff.setMontoTotalNuevo(eeffNuevo.getMontoTotal());
                 eeffDescuadreList.add(eeff);
@@ -430,7 +426,7 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
                         
                         DetalleEeff eeffDet = detalleEeffMap.get(key);
                         
-                        if(!eeffDet.getMontoMilesValidarMapeo().equals(eeffDetNuevo.getMontoMilesValidarMapeo())){
+                        if(! Util.getDouble(eeffDet.getMontoMilesValidarMapeo(), new Double(0))  .equals( Util.getDouble(eeffDetNuevo.getMontoMilesValidarMapeo(), new Double(0)))){
                             
                             eeffDet.setMontoMilesValidarMapeoNuevo(eeffDetNuevo.getMontoMilesValidarMapeo());
                             eeffDetDescuadreList.add(eeffDet);
@@ -805,11 +801,18 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
         
     }
     
-    public void sendMailEeff(List<UsuarioGrupo> usuarioGrupoList, String emailFrom, String subject, String host, String usuarioTest, Boolean isTest){
+    public void sendMailEeff(List<UsuarioGrupo> usuarioGrupoList){
+    	
+    	if(new Boolean(facadeService.getMailService().getMailParams().get(MailConfigEnum.EEFF_CARGADOR_ENVIAR_EMAIL.getKey()).getValor()).equals(Boolean.FALSE))
+    		return;
+    	
+    	String subject = facadeService.getMailService().getMailParams().get(MailConfigEnum.EEFF_SUBJECT.getKey()).getValor();
+        String isTest = facadeService.getMailService().getMailParams().get(MailConfigEnum.EEFF_IS_TEST.getKey()).getValor();
+        String usuarioTest = facadeService.getMailService().getMailParams().get(MailConfigEnum.EEFF_USUARIO_TEST.getKey()).getValor();
         
         Map<String,UsuarioGrupo> usuarioMap = index(usuarioGrupoList, on(UsuarioGrupo.class).getUsuario().getEmail());
         
-        if(isTest!=null && isTest.equals(Boolean.TRUE)){
+        if(isTest!=null && isTest.equalsIgnoreCase("TRUE")){
             for(UsuarioGrupo usuario : usuarioMap.values()){
                 if(usuarioTest!=null && usuarioTest.equalsIgnoreCase(usuario.getUsuario().getEmail())){
                 	try{

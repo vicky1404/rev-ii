@@ -101,7 +101,16 @@ public class Util{
     
     public static Double getDouble(Object arg1, Double arg2){
         try{
-            return (Double)arg1;
+        	return (Double)arg1;
+        }catch(Exception e){
+            //logger.error("Error al convertir Double ", e);
+            return arg2; 
+        }    
+    }
+    
+    public static Double getDouble(BigDecimal arg1, Double arg2){
+        try{
+        	return arg1.doubleValue();
         }catch(Exception e){
             //logger.error("Error al convertir Double ", e);
             return arg2; 
