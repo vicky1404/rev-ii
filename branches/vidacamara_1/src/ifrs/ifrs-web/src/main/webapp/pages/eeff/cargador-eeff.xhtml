@@ -348,7 +348,7 @@
                             <h:outputText value="#{row.idCuenta}" id="ot43"/>
                         </p:column>
                         <p:column headerText="#{msg.carga_eeff_cuadro}" id="c42" width="200">
-                            <h:outputText value="#{row.celda5.columna.grilla.estructura1.version.catalogo.nombre}" id="ot44"/>
+                            <h:outputText value="#{row.celda5.columna.grilla.estructura.version.catalogo.nombre}" id="ot44"/>
                         </p:column>
                         <p:column headerText="#{msg.carga_eeff_columna}" id="c43" width="150">
                             <h:outputText value="#{row.celda5.columna.tituloColumna}" id="ot45"/>
@@ -391,7 +391,7 @@
                     <h:outputText value="#{row.nombreUsuario}" id="ot41"/>
                 </p:column>
                 <p:column headerText="#{msg.etiqueta_email}" id="c38" width="450">
-                    <h:outputText value="#{row.email}" id="ot40"/>
+                    <h:outputText value="#{row.usuario.email}" id="ot40"/>
                 </p:column>
                 
                  <p:rowExpansion>
