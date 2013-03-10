@@ -477,6 +477,13 @@ public class VersionServiceBean implements VersionServiceLocal{
 	     query.setParameter("idCatalogo",idCatalogo);
 	     return query.getResultList();
 	}
+    
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public Version findVersionByIdEstructura(Long idEstructura)throws Exception{
+        Query query = em.createNamedQuery(Version.VERSION_FIND_BY_ID_ESTRUCTURA);
+        query.setParameter("idEstructura", idEstructura);
+        return (Version)query.getSingleResult();
+    }
 
 	public EstructuraServiceLocal getEstructuraService() {
 		return estructuraService;

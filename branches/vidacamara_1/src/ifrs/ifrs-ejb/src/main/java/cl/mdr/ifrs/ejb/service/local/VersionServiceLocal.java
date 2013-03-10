@@ -162,5 +162,7 @@ public interface VersionServiceLocal {
     List<Version> findVersionListActualToCompare( List<Version> versionesModificadas) throws Exception;
     
     List<Version> findVersionByCatalogoPeriodo(Long idCatalogo, PeriodoEmpresa periodoEmpresa) throws Exception;
+    
+    Version findVersionByIdEstructura(Long idEstructura)throws Exception;
 }
 
