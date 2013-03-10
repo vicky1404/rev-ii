@@ -87,24 +87,7 @@
 		                            <h:outputText value="#{subRow.cuentaContable.descripcion}" id="ot28"/>
 		                        </p:column>
 		                        
-		                        <p:column id="c18" >
-		                            <f:facet name="header">
-		                                <h:outputText value="#{msg.carga_eeff_monto_ebs}" id="ot29"/>
-		                            </f:facet>
-		                            <h:outputText value="#{subRow.montoEbs}" id="ot21" >
-		                            	<f:convertNumber integerOnly="false" type="number" maxFractionDigits="4" locale="#{cargadorEeff.localeCL}" pattern="##,###,###,###.####"/>                            
-		                            </h:outputText>
-		                        </p:column>
-		                        
-		                        <p:column id="c49">
-		                            <f:facet name="header">
-		                                <h:outputText value="#{msg.carga_eeff_monto_reclasificacion}" id="ot51"/>
-		                            </f:facet>
-		                            <h:outputText value="#{subRow.montoReclasificacion}" id="ot52">
-		                            	<f:convertNumber integerOnly="false" type="number" maxFractionDigits="4" locale="#{cargadorEeff.localeCL}" pattern="##,###,###,###.####"/>                            
-		                            </h:outputText>
-		                        </p:column>
-		                        
+		                   
 		                        <p:column id="c50">
 		                            <f:facet name="header">
 		                                <h:outputText value="#{msg.carga_eeff_monto_pesos}" id="ot53"/>
@@ -118,7 +101,7 @@
 		                            <f:facet name="header">
 		                                <h:outputText value="#{msg.carga_eeff_monto_miles_pesos}" id="ot55"/>
 		                            </f:facet>
-		                            <h:outputText value="#{subRow.montoMiles}" id="ot56">
+		                            <h:outputText value="#{subRow.montoMilesValidarMapeo}" id="ot56">
 		                            	<f:convertNumber integerOnly="false" type="number" maxFractionDigits="4" locale="#{cargadorEeff.localeCL}" pattern="##,###,###,###.####"/>                            
 		                            </h:outputText>
 		                        </p:column>
@@ -127,7 +110,7 @@
 		                            <f:facet name="header">
 		                                <h:outputText value="#{msg.carga_eeff_monto_validar}" id="ot57"/>
 		                            </f:facet>
-		                            <h:outputText value="#{subRow.montoPesosMil}" id="ot58">
+		                            <h:outputText value="#{subRow.montoXBRL}" id="ot58">
 		                            	<f:convertNumber integerOnly="false" type="number" maxFractionDigits="4" locale="#{cargadorEeff.localeCL}" pattern="##,###,###,###.####"/>                            
 		                            </h:outputText>
 		                        </p:column>		                        
@@ -208,12 +191,12 @@
                             <h:outputText value="#{row.cuentaContable.descripcion}" id="ot17B"/>
                         </p:column>
                         <p:column headerText="#{msg.carga_eeff_monto_anterior}" id="c15" width="90">
-                            <h:outputText value="#{row.montoPesosMil}" id="ot22">
+                            <h:outputText value="#{row.montoMilesValidarMapeo}" id="ot22">
                             <f:convertNumber integerOnly="false" type="number" maxFractionDigits="4" locale="#{cargadorEeff.localeCL}" pattern="##,###,###,###.####"/>                            
                             </h:outputText>
                         </p:column>
                         <p:column headerText="#{msg.carga_eeff_monto_nuevo}" id="c14" width="90">
-                            <h:outputText value="#{row.montoPesosNuevo}" id="ot31">
+                            <h:outputText value="#{row.montoMilesValidarMapeoNuevo}" id="ot31">
                             <f:convertNumber integerOnly="false" type="number" maxFractionDigits="4" locale="#{cargadorEeff.localeCL}" pattern="##,###,###,###.####"/>                            
                             </h:outputText>
                         </p:column>
@@ -301,14 +284,14 @@
                             </h:outputText>
                         </p:column>
                         <p:column headerText="#{msg.carga_eeff_monto_nuevo_eeff}" id="c29" width="120">
-                            <h:outputText value="#{row.montoPesosNuevo}" id="ot35">
+                            <h:outputText value="#{row.montoMilesValidarMapeoNuevo}" id="ot35">
                             <f:convertNumber integerOnly="false" type="number"
                                                       maxFractionDigits="4"
                                                       locale="#{cargadorEeff.localeCL}" pattern="##,###,###,###.####"/>
                             </h:outputText>
                         </p:column>
                         <p:column headerText="#{msg.carga_eeff_monto_anterior}" id="c30" width="120">
-                            <h:outputText value="#{row.montoPesos}" id="ot36">
+                            <h:outputText value="#{row.montoMilesValidarMapeo}" id="ot36">
                             <f:convertNumber integerOnly="false" type="number"
                                                       maxFractionDigits="4"
                                                       locale="#{cargadorEeff.localeCL}" pattern="##,###,###,###.####"/>
