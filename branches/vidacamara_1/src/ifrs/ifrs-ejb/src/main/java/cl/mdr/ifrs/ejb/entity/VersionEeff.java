@@ -23,7 +23,7 @@ import com.google.gson.annotations.Expose;
 
 @Entity
 @NamedQueries( { @NamedQuery(name = VersionEeff.FIND_ALL, query = "select o from VersionEeff o"),
-    @NamedQuery(name = VersionEeff.FIND_BY_PERIODO_EMPRESA, query = "select o from VersionEeff o where o.periodoEmpresa.idPeriodo = :idPeriodo and o.periodoEmpresa.idRut = :idRut order by o.version"),
+    @NamedQuery(name = VersionEeff.FIND_BY_PERIODO_EMPRESA, query = "select o from VersionEeff o where o.periodoEmpresa.idPeriodo = :idPeriodo and o.periodoEmpresa.idRut = :idRut order by o.version desc"),
     @NamedQuery(name = VersionEeff.FIND_VIGENTE_BY_PERIODO_EMPRESA, query = "select o from VersionEeff o where o.periodoEmpresa.idPeriodo = :idPeriodo and o.periodoEmpresa.idRut = :idRut and  o.vigencia = 1"),
     
     @NamedQuery(name = VersionEeff.FIN_MAX_VERSION_BY_PERIODO_EMPRESA, 

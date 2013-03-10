@@ -554,6 +554,7 @@ public class Util{
     	int respuesta = 0;
     	int anios = 0;
     	
+    	   	
     	if (fechaInicio != null && fechaFin != null){
     		
     		if (fechaFin.get(Calendar.YEAR) == fechaInicio.get(Calendar.YEAR)){
