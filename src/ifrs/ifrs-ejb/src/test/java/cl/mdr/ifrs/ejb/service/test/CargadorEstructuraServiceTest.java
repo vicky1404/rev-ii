@@ -67,7 +67,7 @@ public class CargadorEstructuraServiceTest {
 	public void testCargadorEstructura(){
 		try{		
 			Grilla grilla = this.getGrillaByExcel(loadedExcel);
-			System.out.println(grilla.getColumnaList());
+			
 		} catch (Exception e) {			
 			e.printStackTrace();
 		}
