@@ -482,7 +482,7 @@ public abstract class AbstractBackingBean {
 		
 	}
 	
-	public String decrypt(String cadena) {
+	private String decrypt(String cadena) {
 		StandardPBEStringEncryptor s = new StandardPBEStringEncryptor();
 		s.setPassword("uniquekey");
 		String devuelve = "";
@@ -496,7 +496,7 @@ public abstract class AbstractBackingBean {
 		return devuelve;
 	} 
 	
-	public String formatTaxonomyParentName(String name){
+	private String formatTaxonomyParentName(String name){
         name = name.replaceAll("http://www.svs.cl/cl/fr/cs/role/", "");
         if(name.contains("nota")){
             name = Util.capitalizar(name.replaceAll("_role", ""));
@@ -517,6 +517,10 @@ public abstract class AbstractBackingBean {
 		if (this.getRestaLic() != null && (getD_LIC() - this.restaLic.intValue()) <= getD_EXT()){
 			
 			renderMensajeExpiracionLicencia = true;
+			
+			if (this.getDiasRestantes() <= 0){
+				renderMensajeExpiracionLicencia = false;
+			}
 			
 			if (this.licType().equalsIgnoreCase(Constantes.TYPE_INST_FR)){
 				renderMensajeExpiracionLicencia = false;
