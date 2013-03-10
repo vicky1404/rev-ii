@@ -381,8 +381,8 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
     private void insertRelacionDetalleEeff(RelacionDetalleEeff relDetalleEeff) throws Exception{
     	StringBuffer sql = new StringBuffer();
     	sql.append(" INSERT INTO " + Constantes.RELACION_DETALLE_EEFF )
-    	.append(" (ID_COLUMNA,ID_CUENTA,ID_FECU,ID_FILA,ID_GRILLA,ID_PERIODO,ID_RUT,MONTO_EBS,MONTO_MILES,MONTO_PESOS,MONTO_RECLASIFICACION, MONTO_PESOS_MIL) values ")
-    	.append("  (?,?,?,?,?,?,?,?,?,?,?,?) ");
+    	.append(" (ID_COLUMNA,ID_CUENTA,ID_FECU,ID_FILA,ID_GRILLA,ID_PERIODO,ID_RUT,MONTO_MILES,MONTO_PESOS, MONTO_PESOS_MIL) values ")
+    	.append("  (?,?,?,?,?,?,?,?,?,?) ");
     		Query query = em.createNativeQuery(sql.toString());
         	int contador = 0;
         	query.setParameter(++contador, relDetalleEeff.getIdColumna());
@@ -392,10 +392,8 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
         	query.setParameter(++contador, relDetalleEeff.getIdGrilla());
         	query.setParameter(++contador, relDetalleEeff.getPeriodoEmpresa().getIdPeriodo());        	
         	query.setParameter(++contador, relDetalleEeff.getPeriodoEmpresa().getIdRut());
-        	query.setParameter(++contador, relDetalleEeff.getMontoEbs());
         	query.setParameter(++contador, relDetalleEeff.getMontoMilesValidarMapeo());
-        	query.setParameter(++contador, relDetalleEeff.getMontoPesos());
-        	query.setParameter(++contador, relDetalleEeff.getMontoReclasificacion());
+        	query.setParameter(++contador, relDetalleEeff.getMontoPesos());        	
         	query.setParameter(++contador, relDetalleEeff.getMontoXBRL());
         	query.executeUpdate();
     }
