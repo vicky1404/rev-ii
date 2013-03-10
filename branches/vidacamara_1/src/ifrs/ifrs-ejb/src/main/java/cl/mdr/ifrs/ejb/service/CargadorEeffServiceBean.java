@@ -733,25 +733,13 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
                 }
             }
         }
-        
-        
         	logger.info(mensaje);
         	buildUsuarioGrupo(cargadorVO, mensajeMap);
-        
-        
     }
+    
     
     private void buildUsuarioGrupo(final CargadorEeffVO cargadorVO, final Map<Long,List<StringBuilder>> mensajeMap) throws Exception{
        
-    	/*
-        String dominio;
-        
-        try{
-            dominio = facadeService.getParametroService().getParametrosConfigMapByTipoParametro(TipoParametroEnum.MAIL_CONFIG.getKey()).get(MailConfigEnum.MAIL_DOMINIO.getKey()).getValor();;
-        }catch(Exception e){
-            dominio = null;
-        }
-        */
         Map<String,UsuarioGrupo> usuarioMailMap = new LinkedHashMap<String,UsuarioGrupo>();
         
         for ( Map.Entry<Long, List<StringBuilder>> mensajeEntry : mensajeMap.entrySet() ){
@@ -830,18 +818,29 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
         
         if(isTest!=null && isTest.equals(Boolean.TRUE)){
             for(UsuarioGrupo usuario : usuarioMap.values()){
-                if(usuarioTest!=null && usuarioTest.equalsIgnoreCase(usuario.getUsuario().getEmail()))
-                    sendMail(host, emailFrom, usuario.getUsuario().getEmail(), subject, usuario.getContenidoMail().toString(),"text/html");
+                if(usuarioTest!=null && usuarioTest.equalsIgnoreCase(usuario.getUsuario().getEmail())){
+                	try{
+                		facadeService.getMailService().sendMail(subject, usuario.getContenidoMail().toString(), usuario.getUsuario().getEmail());
+                	}catch(Exception e){
+                		logger.error("Error de dirección de correo" + e.getMessage());
+                	}
+                		
+                }
+                    //sendMail(host, emailFrom, usuario.getUsuario().getEmail(), subject, usuario.getContenidoMail().toString(),"text/html");
             }
         }else{
             for(UsuarioGrupo usuario : usuarioMap.values()){
-                sendMail(host, emailFrom, usuario.getUsuario().getEmail(), subject, usuario.getContenidoMail().toString(),"text/html");
+            	try{
+            		facadeService.getMailService().sendMail(subject, usuario.getContenidoMail().toString(), usuario.getUsuario().getEmail());
+            	}catch(Exception e){
+            		logger.error("Error de dirección de correo" + e.getMessage());
+            	}
             }
         }
         
     }
     
-    private void sendMail(String host, String emailFrom, String emailTo, String subject, String mensaje, String type){
+    /*private void sendMail(String host, String emailFrom, String emailTo, String subject, String mensaje, String type){
         try {
             Properties properties = System.getProperties();
             properties.setProperty("mail.smtp.host", host);
@@ -860,7 +859,7 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
         } catch (Exception e) {
             logger.error("Error de dirección de correo" + e.getMessage());
         }
-    }
+    }*/
     
     
     private void cargarGrillaNoValida(final CargadorEeffVO cargadorVO){

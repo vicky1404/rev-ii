@@ -80,7 +80,7 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
     	em.persist(usuario);
     	mailService.sendMail("EXFIDA - Usuario creado", 
     						 MessageFormat.format(ResourceBundle.getBundle("exfida-mail-template").getString("exfida_nuevo_usuario_mail_template"), usuario.getNombre(), usuario.getApellidoPaterno(), usuario.getPassword(), usuario.getNombreUsuario()),     						
-    						 "contacto@exfida.com", usuario.getEmail());
+    						 usuario.getEmail());
     }
     
     /* (non-Javadoc)
@@ -91,7 +91,7 @@ public class SeguridadServiceBean implements SeguridadServiceLocal {
     	em.merge(usuario);
     	mailService.sendMail("EXFIDA - Clave regenerada", 
     						 MessageFormat.format(ResourceBundle.getBundle("exfida-mail-template").getString("exfida_merge_usuario_mail_template"), usuario.getNombre(), usuario.getApellidoPaterno(), usuario.getPassword(), usuario.getNombreUsuario()),     						
-    						 "contacto@exfida.com", usuario.getEmail());
+    						 usuario.getEmail());
     }
     
     /* (non-Javadoc)
