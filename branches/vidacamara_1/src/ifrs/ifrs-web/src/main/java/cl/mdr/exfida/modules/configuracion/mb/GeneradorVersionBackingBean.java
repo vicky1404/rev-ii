@@ -141,11 +141,7 @@ public class GeneradorVersionBackingBean extends AbstractBackingBean{
     }
 	
 	
-	public void tipoCuadroChangeValue(ValueChangeEvent event){
-		System.out.println("tipoCuadroChangeValue");
-	}
-	
-	
+
 	public void tipoCuadroChange(){
 		try{								
 			if(tipoCuadro != null){
