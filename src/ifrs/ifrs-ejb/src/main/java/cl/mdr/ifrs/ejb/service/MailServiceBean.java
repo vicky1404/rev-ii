@@ -52,25 +52,27 @@ public class MailServiceBean implements MailServiceLocal {
     	}
     }
             
-    public void sendMail(final String asunto, final String mensaje, final String de, final String... para) throws Exception, MessagingException{
+    public void sendMail(final String asunto, final String mensaje, final String... para) throws Exception, MessagingException{
     	final String tipoSmtp = this.getMailParams().get(MailConfigEnum.TIPO_SMTP.getKey()).getValor();
     	if(tipoSmtp.equals(TIPO_CONFIG_GOOGLE_APPS)){
-    		this.sendMailGoogleApps(asunto, mensaje, de, para);
+    		this.sendMailGoogleApps(asunto, mensaje, para);
     	}
     	else if (tipoSmtp.equals(TIPO_CONFIG_EXCHANGE)){
-    		this.sendMailExchange(asunto, mensaje, de, para);
+    		this.sendMailExchange(asunto, mensaje,para);
     	}
     	else if (tipoSmtp.equals(TIPO_CONFIG_SMTP)){
-    		this.sendMailSmtp(asunto, mensaje, de, para);
+    		this.sendMailSmtp(asunto, mensaje,para);
     	}
     }
     
     
-    private void sendMailExchange(final String asunto, final String mensaje, final String de, final String... para) throws Exception, MessagingException{
+    private void sendMailExchange(final String asunto, final String mensaje, final String... para) throws Exception, MessagingException{
     	final String host = this.getMailParams().get(MailConfigEnum.SMTP_HOST.getKey()).getValor();
     	final String user = this.getMailParams().get(MailConfigEnum.SMTP_USER.getKey()).getValor();
     	final String password = this.getMailParams().get(MailConfigEnum.SMTP_PASSWORD.getKey()).getValor();
     	final String port = this.getMailParams().get(MailConfigEnum.SMTP_PORT.getKey()).getValor();
+    	final String de = this.getMailParams().get(MailConfigEnum.SMTP_USER.getKey()).getValor();
+    	
     	Properties properties = System.getProperties();
         properties.setProperty("mail.smtp.host", host);
         properties.put("mail.smtp.starttls.enable", "false");
@@ -93,15 +95,18 @@ public class MailServiceBean implements MailServiceLocal {
     	transport.close();
     }
     
-    private void sendMailSmtp(final String asunto, final String mensaje, final String de, final String... para) throws Exception, MessagingException{
+    private void sendMailSmtp(final String asunto, final String mensaje, final String... para) throws Exception, MessagingException{
     	
     }
     
-    private void sendMailGoogleApps(final String asunto, final String mensaje, final String de, final String... para) throws Exception, MessagingException{    	
+    private void sendMailGoogleApps(final String asunto, final String mensaje,final String... para) throws Exception, MessagingException{
+    	
     	final String host = this.getMailParams().get(MailConfigEnum.SMTP_HOST.getKey()).getValor();
     	final String user = this.getMailParams().get(MailConfigEnum.SMTP_USER.getKey()).getValor();
     	final String password = this.getMailParams().get(MailConfigEnum.SMTP_PASSWORD.getKey()).getValor();
     	final String port = this.getMailParams().get(MailConfigEnum.SMTP_PORT.getKey()).getValor();
+    	final String de = this.getMailParams().get(MailConfigEnum.SMTP_USER.getKey()).getValor();
+    	
     	Properties props = System.getProperties();
     	props.put("mail.smtp.starttls.enable", "true");
     	props.put("mail.smtp.host", host);

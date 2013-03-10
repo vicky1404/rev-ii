@@ -15,6 +15,7 @@ import cl.mdr.ifrs.ejb.service.local.FecuServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.FormulaServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.GrillaServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.GrupoServiceLocal;
+import cl.mdr.ifrs.ejb.service.local.MailServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.MantenedoresTipoServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.ParametroServiceLocal;
 import cl.mdr.ifrs.ejb.service.local.PeriodoServiceLocal;
@@ -122,6 +123,11 @@ public interface FacadeServiceLocal{
      * @return Interfaz local de ParametroServiceBean
      */
     ParametroServiceLocal getParametroService();
+    
+    /**
+     * @return Interfaz local de MailServiceBean
+     */
+    MailServiceLocal getMailService();
 
     
 }
