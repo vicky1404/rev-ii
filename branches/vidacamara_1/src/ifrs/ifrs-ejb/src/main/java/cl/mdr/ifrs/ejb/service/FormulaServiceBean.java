@@ -318,7 +318,7 @@ public class FormulaServiceBean implements FormulaServiceLocal{
                 if(Util.esListaValida(cell.getRelacionDetalleEeffList())){
                 
 	                for(RelacionDetalleEeff relDetEeff : cell.getRelacionDetalleEeffList()){
-	                    sum = sum.add(Util.getBigDecimal(relDetEeff.getMontoPesosMil(), new BigDecimal(0)));
+	                    sum = sum.add(Util.getBigDecimal(relDetEeff.getMontoXBRL(), new BigDecimal(0)));
 	                }
                 
                 }
