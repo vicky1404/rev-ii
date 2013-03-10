@@ -10,6 +10,7 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -20,7 +21,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.text.WordUtils;
-import org.apache.log4j.Logger;
 import org.apache.xml.utils.XMLChar;
 import org.w3c.tidy.Tidy;
 
@@ -33,7 +33,6 @@ import cl.mdr.ifrs.ejb.entity.Html;
 
 
 public class Util{
-    private static Logger logger = Logger.getLogger(Util.class);
     public final static String NUMBER_DECIMAL_PATTERN = "#,###,###.####";
     public final static String NUMBER_INTEGER_PATTERN = "#,###,###.####";
     public final static String DATE_PATTERN_DD_MM_YYYY = "dd-MM-yyyy";
@@ -292,7 +291,20 @@ public class Util{
      * @param lista
      * @return
      */
-    public static boolean esListaValida(List lista){
+    @SuppressWarnings("rawtypes")
+	public static boolean esListaValida(List lista){
+        if(lista==null || lista.size()==0)
+            return false;
+        else
+            return true;
+    }
+    
+    /**
+     * @param lista
+     * @return
+     */
+    @SuppressWarnings("rawtypes")
+	public static boolean esListaValida(Collection lista){
         if(lista==null || lista.size()==0)
             return false;
         else

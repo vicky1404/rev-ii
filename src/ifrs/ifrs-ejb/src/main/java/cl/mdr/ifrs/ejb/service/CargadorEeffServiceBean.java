@@ -28,6 +28,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import ch.lambdaj.function.compare.ArgumentComparator;
 import cl.mdr.ifrs.ejb.common.MailConfigEnum;
+import cl.mdr.ifrs.ejb.common.VigenciaEnum;
 import cl.mdr.ifrs.ejb.cross.EeffUtil;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
@@ -462,49 +463,58 @@ public class CargadorEeffServiceBean implements CargadorEeffServiceLocal {
             List<RelacionEeff> relEeffList = relEeffMap.get(idFecu);
             
             for(RelacionEeff relEeff : relEeffList){
-            
-            if(!relEeff.getMontoTotal().equals(eeffNuevo.getMontoTotal())){
             	
-            	       
-                relEeff.setMontoTotalNuevo(eeffNuevo.getMontoTotal());
-                relEeffDescuadreList.add(relEeff);
-                
-                logger.info("Descuadre en Mapeo monto Fecu : " + EeffUtil.formatFecu(idFecu) + 
-                            " - Monto Nuevo : "  + relEeff.getMontoTotalNuevo() + 
-                            " - Monto Antiguo " + relEeff.getMontoTotal());
+            if(relEeff.getCelda2().getColumna().getGrilla().getEstructura().getVersion().getValidadoEeff().equals(VigenciaEnum.VIGENTE.getKey())){
+            
+	            if(!relEeff.getMontoTotal().equals(eeffNuevo.getMontoTotal())){
+	            	   
+	                relEeff.setMontoTotalNuevo(eeffNuevo.getMontoTotal());
+	                relEeffDescuadreList.add(relEeff);
+	                
+	                logger.debug("Descuadre en Mapeo monto Fecu : " + EeffUtil.formatFecu(idFecu) + 
+	                            " - Monto Nuevo : "  + relEeff.getMontoTotalNuevo() + 
+	                            " - Monto Antiguo " + relEeff.getMontoTotal());
             	}
+            
             }
             
-            /*Validando mapeo monto de CUENTA relacion EEFF contra monto CUENTA de EEFF nuevo*/
-            if(Util.esListaValida(eeffNuevo.getDetalleEeffList4())){
+            }
+            
+        }
+            
+        /*Validando mapeo monto de CUENTA relacion EEFF contra monto CUENTA de EEFF nuevo*/
+        if(Util.esListaValida(eeffNuevo.getDetalleEeffList4())){
+            
+            for(DetalleEeff eeffDetNuevo : eeffNuevo.getDetalleEeffList4()){
                 
-                for(DetalleEeff eeffDetNuevo : eeffNuevo.getDetalleEeffList4()){
+                String key = EeffUtil.formatKeyFecuCuenta(eeffDetNuevo.getIdFecu(), eeffDetNuevo.getIdCuenta());
+                
+                if(relDetalleEeffMap.containsKey(key)){
                     
-                    String key = EeffUtil.formatKeyFecuCuenta(eeffDetNuevo.getIdFecu(), eeffDetNuevo.getIdCuenta());
+                    List<RelacionDetalleEeff> relEeffDetList = relDetalleEeffMap.get(key);
                     
-                    if(relDetalleEeffMap.containsKey(key)){
+                    for(RelacionDetalleEeff relEeffDet : relEeffDetList){
+                    	
+                    	if(relEeffDet.getCelda5().getColumna().getGrilla().getEstructura().getVersion().getValidadoEeff().equals(VigenciaEnum.VIGENTE.getKey())){
+                    
+                            if(!relEeffDet.getMontoMilesValidarMapeo().equals(eeffDetNuevo.getMontoMilesValidarMapeo())){
+                                
+                                relEeffDet.setMontoMilesValidarMapeoNuevo(eeffDetNuevo.getMontoMilesValidarMapeo());
+                                relEeffDetDescuadreList.add(relEeffDet);
+                                
+                                logger.debug("Descuadre en Mapeo pesos Cuenta : " + eeffDetNuevo.getIdCuenta() + 
+                                            " - Monto Nuevo : "  + relEeffDet.getMontoMilesValidarMapeoNuevo() + 
+                                            " - Monto Antiguo " +  relEeffDet.getMontoMilesValidarMapeo());
+                            }
+                    	}
                         
-                        List<RelacionDetalleEeff> relEeffDetList = relDetalleEeffMap.get(key);
-                        
-                        for(RelacionDetalleEeff relEeffDet : relEeffDetList){
-                        
-                                if(!relEeffDet.getMontoMilesValidarMapeo().equals(eeffDetNuevo.getMontoMilesValidarMapeo())){
-                                    
-                                    relEeffDet.setMontoMilesValidarMapeoNuevo(eeffDetNuevo.getMontoMilesValidarMapeo());
-                                    relEeffDetDescuadreList.add(relEeffDet);
-                                    
-                                    logger.info("Descuadre en Mapeo pesos Cuenta : " + eeffDetNuevo.getIdCuenta() + 
-                                                " - Monto Nuevo : "  + relEeffDet.getMontoMilesValidarMapeoNuevo() + 
-                                                " - Monto Antiguo " +  relEeffDet.getMontoMilesValidarMapeo());
-                                }
-                            
-                                relDetalleEeffMap.remove(key);
-                        }
+                        relDetalleEeffMap.remove(key);
                     }
                 }
             }
-            relEeffMap.remove(idFecu);
         }
+        relEeffMap.remove(idFecu);
+        
     }
     
     

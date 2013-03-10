@@ -109,7 +109,10 @@ import com.google.gson.annotations.Expose;
                  			 		 " and o.periodoEmpresa.idPeriodo = :idPeriodo " +
                  			 		 " and o.periodoEmpresa.idRut = :idRut " +
                  			 		 " order by o.version desc"),
+                 @NamedQuery(name = Version.VERSION_FIND_BY_ID_ESTRUCTURA, 
+                 query = "select o.version from Estructura o where o.idEstructura = :idEstructura")
                  })
+                 
 @Table(name = Constantes.VERSION)
 public class Version implements Serializable {
 	
@@ -129,6 +132,7 @@ public class Version implements Serializable {
     public static final String VERSION_DETALLE_FIND_BY_FILTRO = "Version.findDetalleByFiltro";
     public static final String VERSION_FIND_BY_ID_CATALOGO_PERIODO_EMPRESA = "Version.findByIdCatalogoIdPeriodoEmpresa";
     public static final String FIND_VIGENTE_SIN_CERRAR = "Version.findVigenteSinCerrar";
+    public static final String VERSION_FIND_BY_ID_ESTRUCTURA = "Version.findByIdEstructura";
     
     @Id
     //@GeneratedValue(strategy=GenerationType.IDENTITY)

@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.ejb.Local;
-import javax.persistence.Query;
 
 import cl.mdr.ifrs.ejb.entity.Celda;
 import cl.mdr.ifrs.ejb.entity.CodigoFecu;
@@ -16,7 +15,9 @@ import cl.mdr.ifrs.ejb.entity.Grilla;
 import cl.mdr.ifrs.ejb.entity.RelacionDetalleEeff;
 import cl.mdr.ifrs.ejb.entity.RelacionEeff;
 import cl.mdr.ifrs.ejb.entity.TipoEstadoEeff;
+import cl.mdr.ifrs.ejb.entity.Usuario;
 import cl.mdr.ifrs.ejb.entity.VersionEeff;
+import cl.mdr.ifrs.vo.CargadorEeffVO;
 
 
 @Local
@@ -34,7 +35,7 @@ public interface EstadoFinancieroServiceLocal {
     
     void updateNoVigenteByPeriodo(Long idPeriodo, Long idRut, Long vigencia);
     
-    void persisVersionEeff(VersionEeff version);
+    void persisVersionEeff(final VersionEeff versionEeff, final CargadorEeffVO cargadorVO, final Usuario usuario) throws Exception;
     
     TipoEstadoEeff getTipoEstadoEeffById(Long idEstadoEeff);
     
@@ -62,7 +63,7 @@ public interface EstadoFinancieroServiceLocal {
     
     List<RelacionDetalleEeff> getRelacionDetalleEeffByPeriodoFecuCuenta(Long idPeriodo, Long idRut, Long idFecu, Long idCuenta);
 
-    void persistRelaccionEeff(Map<Celda, List[]> relacionMap)  throws Exception;
+    void persistRelaccionEeff(@SuppressWarnings("rawtypes") Map<Celda, List[]> relacionMap)  throws Exception;
 
     void deleteAllRelacionByGrillaPeriodo(Long idPeriodo, Long idRut, Long idGrilla);
 

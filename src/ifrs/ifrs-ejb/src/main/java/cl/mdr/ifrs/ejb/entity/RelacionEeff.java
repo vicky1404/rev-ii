@@ -31,19 +31,28 @@ import com.google.gson.annotations.Expose;
     @NamedQuery(name = RelacionEeff.DELETE_BY_CELDA, query = "delete from RelacionEeff o where o.celda2 = :celda"),
     @NamedQuery(name = RelacionEeff.DELETE_BY_GRILLA_PERIODO_EMPRESA, query = "delete from RelacionEeff o where o.idGrilla = :idGrilla and o.idPeriodo = :idPeriodo and o.idRut = :idRut"),
     @NamedQuery(name = RelacionEeff.FIND_BY_CELDA, query = "select o from RelacionEeff o where o.celda2 = :celda"),
-    @NamedQuery(name = RelacionEeff.FIND_BY_GRILLA, query = "select o from RelacionEeff o where o.celda2.columna.grilla = :idGrilla order by o.idColumna, o.idFila")})
+    @NamedQuery(name = RelacionEeff.FIND_BY_GRILLA, query = "select o from RelacionEeff o where o.celda2.columna.grilla = :idGrilla order by o.idColumna, o.idFila"),
+    @NamedQuery(name = RelacionEeff.DELETE_BY_FECU_PERIODO, query = "delete from RelacionEeff o where o.idFecu = :idFecu and o.idPeriodo = :idPeriodo and o.idRut = :idRut"),
+    @NamedQuery(name = RelacionEeff.UPDATE_MONTO_BY_FECU_PERIODO, query = "update RelacionEeff o set o.montoTotal = :montoTotal where o.idFecu = :idFecu and o.idPeriodo = :idPeriodo and o.idRut = :idRut")
+})
 @Table(name = Constantes.RELACION_EEFF)
 @IdClass(RelacionEeffPK.class)
 
 public class RelacionEeff implements Serializable {
 	
-    public static final String FIND_ALL = "RelacionEeff.findAll";
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -5471143893134696646L;
+	public static final String FIND_ALL = "RelacionEeff.findAll";
     public static final String FIND_BY_PERIODO_EMPRESA = "RelacionEeff.findByPeriodo";
     public static final String FIND_BY_PERIODO_FECU = "RelacionEeff.findByPeriodoFecu";
     public static final String DELETE_BY_CELDA = "RelacionEeff.deleteByCelda";
     public static final String DELETE_BY_GRILLA_PERIODO_EMPRESA = "RelacionEeff.deleteByGrillaPeriodo";
     public static final String FIND_BY_CELDA = "RelacionEeff.findByCelda";
     public static final String FIND_BY_GRILLA = "RelacionEeff.findByGrilla";
+    public static final String UPDATE_MONTO_BY_FECU_PERIODO = "RelacionEeff.updateMontoByFecuPeriodo";
+    public static final String DELETE_BY_FECU_PERIODO = "RelacionEeff.deleteByFecuPeriodo";
     
     @Id
     @Column(name = "ID_FECU", nullable = false, insertable = false, updatable = false)

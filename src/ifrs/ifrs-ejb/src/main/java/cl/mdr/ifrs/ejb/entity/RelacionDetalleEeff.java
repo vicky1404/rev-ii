@@ -30,19 +30,28 @@ import cl.mdr.ifrs.ejb.entity.pk.RelacionDetalleEeffPK;
     @NamedQuery(name = RelacionDetalleEeff.DELETE_BY_CELDA, query = "delete from RelacionDetalleEeff o where o.celda5 = :celda"),
     @NamedQuery(name = RelacionDetalleEeff.DELETE_BY_GRILLA_PERIODO_EMPRESA, query = "delete from RelacionDetalleEeff o where o.idGrilla = :idGrilla and o.idPeriodo = :idPeriodo and o.idRut = :idRut"),
     @NamedQuery(name = RelacionDetalleEeff.FIND_BY_CELDA, query = "select o from RelacionDetalleEeff o where o.celda5 = :celda"),
-    @NamedQuery(name = RelacionDetalleEeff.FIND_BY_GRILLA, query = "select o from RelacionDetalleEeff o where o.idGrilla = :idGrilla order by o.idColumna, o.idFila")})
+    @NamedQuery(name = RelacionDetalleEeff.FIND_BY_GRILLA, query = "select o from RelacionDetalleEeff o where o.idGrilla = :idGrilla order by o.idColumna, o.idFila"),
+	@NamedQuery(name = RelacionDetalleEeff.DELETE_BY_FECU_CUENTA_PERIODO, query = "delete from RelacionDetalleEeff o where o.idFecu = :idFecu and o.idCuenta = :idCuenta and o.idPeriodo = :idPeriodo and o.idRut = :idRut"),
+	@NamedQuery(name = RelacionDetalleEeff.UPDATE_MONTO_BY_FECU_CUENTA_PERIODO, query = "update RelacionDetalleEeff o set o.montoMilesValidarMapeo = :montoMilesValidarMapeo, o.montoXBRL = :montoXBRL, o.montoPesos = :montoPesos where o.idFecu = :idFecu and o.idCuenta = :idCuenta and o.idPeriodo = :idPeriodo and o.idRut = :idRut")
+})
 
 @Table(name = Constantes.RELACION_DETALLE_EEFF)
 @IdClass(RelacionDetalleEeffPK.class)
 public class RelacionDetalleEeff implements Serializable {
 
-    public static final String FIND_ALL = "RelacionDetalleEeff.findAll";
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -582270244294500114L;
+	public static final String FIND_ALL = "RelacionDetalleEeff.findAll";
     public static final String FIND_BY_PERIODO_FECU_CUENTA = "RelacionDetalleEeff.findByPeriodoFecuCuenta";
     public static final String FIND_BY_PERIODO_EMPRESA = "RelacionDetalleEeff.findByPeriodo";
     public static final String DELETE_BY_CELDA = "RelacionDetalleEeff.deleteByCelda";
     public static final String DELETE_BY_GRILLA_PERIODO_EMPRESA = "RelacionDetalleEeff.deleteByGrillaPeriodo";
     public static final String FIND_BY_CELDA = "RelacionDetalleEeff.findByCelda";
     public static final String FIND_BY_GRILLA = "RelacionDetalleEeff.findByGrilla";
+    public static final String DELETE_BY_FECU_CUENTA_PERIODO = "RelacionDetalleEeff.deleteByCuentaFecuPeriodo";
+    public static final String UPDATE_MONTO_BY_FECU_CUENTA_PERIODO = "RelacionDetalleEeff.updateMontoByFecuCuentaPeriodo";
     
     @Id
     @Column(name = "ID_CUENTA", nullable = false, insertable = false, updatable = false)

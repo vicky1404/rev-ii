@@ -20,7 +20,6 @@ import cl.mdr.ifrs.cross.util.PropertyManager;
 import cl.mdr.ifrs.ejb.common.TipoEstadoEeffEnum;
 import cl.mdr.ifrs.ejb.cross.EeffUtil;
 import cl.mdr.ifrs.ejb.cross.Util;
-import cl.mdr.ifrs.ejb.entity.Periodo;
 import cl.mdr.ifrs.ejb.entity.PeriodoEmpresa;
 import cl.mdr.ifrs.ejb.entity.TipoEstadoEeff;
 import cl.mdr.ifrs.ejb.entity.VersionEeff;
@@ -129,7 +128,7 @@ public class CargadorEeffBackingBean extends AbstractBackingBean {
         try{
             
             if(versionEeff!=null && cargadorVO.getEeffList()!=null)
-                getFacadeService().getEstadoFinancieroService().persisVersionEeff(versionEeff);
+                getFacadeService().getEstadoFinancieroService().persisVersionEeff(versionEeff, cargadorVO, getUsuarioSesion());
             else{
                 init();
                 addErrorMessage(PropertyManager.getInstance().getMessage("carga_eeff_error_debe_argar_info_antes_guardar"));
@@ -138,20 +137,11 @@ public class CargadorEeffBackingBean extends AbstractBackingBean {
             
             versionEeffList = getFacadeService().getEstadoFinancieroService().getVersionEeffFindByPeriodo(periodoEmpresa.getIdPeriodo(), periodoEmpresa.getIdRut());
             
-            
-            
-            
-	           
-	            getFacadeService().getCargadorEeffService().sendMailEeff(cargadorVO.getUsuarioGrupoList());
-	            
-	            addInfoMessage(PropertyManager.getInstance().getMessage("eeff_mensaje_guardar_ok"));
-	            addInfoMessage(PropertyManager.getInstance().getMessage("eeff_codigo_fecu_procesados") + cargadorVO.getCatidadEeffProcesado());
-	            addInfoMessage(PropertyManager.getInstance().getMessage("eeff_cuentas_procesadas") + cargadorVO.getCatidadEeffDetProcesado());
-            
-         
-            
-            addInfoMessage(PropertyManager.getInstance().getMessage("carga_eeff_guardar_correcto"));
-            
+			getFacadeService().getCargadorEeffService().sendMailEeff(cargadorVO.getUsuarioGrupoList());
+			
+			addInfoMessage(PropertyManager.getInstance().getMessage("eeff_mensaje_guardar_ok"));
+			addInfoMessage(PropertyManager.getInstance().getMessage("eeff_codigo_fecu_procesados") + cargadorVO.getCatidadEeffProcesado());
+			addInfoMessage(PropertyManager.getInstance().getMessage("eeff_cuentas_procesadas") + cargadorVO.getCatidadEeffDetProcesado());
             init();
             
         }catch(Exception e){
