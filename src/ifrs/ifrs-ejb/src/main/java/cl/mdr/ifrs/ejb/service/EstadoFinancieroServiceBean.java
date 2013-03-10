@@ -138,17 +138,15 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
 		        if(Util.esListaValida(eeff.getDetalleEeffList4())){
 		        	
 		        	for(DetalleEeff detEeff : eeff.getDetalleEeffList4()){
-		        		em.createNativeQuery(" Insert into " + Constantes.DETALLE_EEFF + " (ID_CUENTA,ID_FECU,ID_VERSION_EEFF,MONTO_EBS,MONTO_RECLASIFICACION,MONTO_PESOS,MONTO_MILES,MONTO_PESOS_MIL) " +
+		        		em.createNativeQuery(" Insert into " + Constantes.DETALLE_EEFF + " (ID_CUENTA,ID_FECU,ID_VERSION_EEFF,MONTO_PESOS,MONTO_MILES,MONTO_PESOS_MIL) " +
 		        																		 " values " +
-		        																		 " (?,?,?,?,?,?,?,?) ")
+		        																		 " (?,?,?,?,?,?) ")
 		        		.setParameter(1, detEeff.getIdCuenta())
 		        		.setParameter(2, detEeff.getIdFecu())
-		        		.setParameter(3, idVersion)
-		        		.setParameter(4, detEeff.getMontoEbs())
-		        		.setParameter(5, detEeff.getMontoReclasificacion())
-		        		.setParameter(6, detEeff.getMontoPesos())
-		        		.setParameter(7, detEeff.getMontoMiles())
-		        		.setParameter(8, detEeff.getMontoPesosMil())
+		        		.setParameter(3, idVersion)		        		
+		        		.setParameter(4, detEeff.getMontoPesos())
+		        		.setParameter(5, detEeff.getMontoMilesValidarMapeo())
+		        		.setParameter(6, detEeff.getMontoXBRL())
 		        		.executeUpdate();
 		        	}
 		        	
@@ -395,10 +393,10 @@ public class EstadoFinancieroServiceBean implements EstadoFinancieroServiceLocal
         	query.setParameter(++contador, relDetalleEeff.getPeriodoEmpresa().getIdPeriodo());        	
         	query.setParameter(++contador, relDetalleEeff.getPeriodoEmpresa().getIdRut());
         	query.setParameter(++contador, relDetalleEeff.getMontoEbs());
-        	query.setParameter(++contador, relDetalleEeff.getMontoMiles());
+        	query.setParameter(++contador, relDetalleEeff.getMontoMilesValidarMapeo());
         	query.setParameter(++contador, relDetalleEeff.getMontoPesos());
         	query.setParameter(++contador, relDetalleEeff.getMontoReclasificacion());
-        	query.setParameter(++contador, relDetalleEeff.getMontoPesosMil());
+        	query.setParameter(++contador, relDetalleEeff.getMontoXBRL());
         	query.executeUpdate();
     }
     
