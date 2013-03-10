@@ -2,6 +2,7 @@ package cl.mdr.ifrs.vo;
 
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -141,6 +142,9 @@ public class CargadorEeffVO implements Serializable{
     }
     
     public Map<Long, Long> getGrillaNoValida() {
+    	if (grillaNoValida == null){
+    		grillaNoValida = new HashMap<Long, Long>();
+    	}
 		return grillaNoValida;
 	}
 
