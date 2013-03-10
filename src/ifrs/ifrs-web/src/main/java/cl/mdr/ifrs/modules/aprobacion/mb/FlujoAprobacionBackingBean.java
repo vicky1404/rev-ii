@@ -78,7 +78,7 @@ public class FlujoAprobacionBackingBean extends AbstractBackingBean implements S
 	
     
     public void buscarAction() {
-        logger.info("buscando cuadros para workflow de aprobación");
+        logger.debug("buscando cuadros para workflow de aprobación");
         
         if(!isSelectedFiltroPeriodo() || !isSelectedEmpresa())
         	return;
@@ -157,7 +157,7 @@ public class FlujoAprobacionBackingBean extends AbstractBackingBean implements S
    
  
 	public void generarReporteFlujoAprobacionAction(ActionEvent event) {
-		logger.info("generando archivo excel");
+		logger.debug("generando archivo excel");
 		try {			
 			  this.setCatalogoFlujoAprobacionReporte(super.getFacadeService()
 													.getVersionService()
@@ -174,7 +174,7 @@ public class FlujoAprobacionBackingBean extends AbstractBackingBean implements S
 	}
     
     public String descargarReporteFlujoAprobacionAction(){
-        logger.info("descargando archivo excel");
+        logger.debug("descargando archivo excel");
         try{                               
             final XSSFWorkbook wb = super.getFacadeService().getServiceReporte().createReporteFlujoAprobacion(this.getCatalogoFlujoAprobacionReporte());        
             this.getReporteUtilBackingBean().setOuputStreamWorkBook(wb, "informe-flujo-aprobacion");                      

@@ -96,7 +96,7 @@ public class ProcesoBackingBean extends AbstractBackingBean implements Serializa
             
             long b = System.currentTimeMillis();
 			
-            System.out.println("RD  Execution time: " + (b - a) );
+            logger.debug("RD  Execution time: " + (b - a) );
             
 		} catch (FormulaException e){
             logger.error(e.getCause(), e);

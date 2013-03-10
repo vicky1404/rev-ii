@@ -47,7 +47,7 @@ public class ThemeBackingBean implements Serializable {
 	} 
 	
 	public void saveTheme() {
-        logger.info("theme: " + theme);
+        logger.debug("theme: " + theme);
         gp.setTheme(theme);
     }
 
