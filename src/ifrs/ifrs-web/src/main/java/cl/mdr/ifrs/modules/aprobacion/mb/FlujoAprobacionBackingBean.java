@@ -101,7 +101,7 @@ public class FlujoAprobacionBackingBean extends AbstractBackingBean implements S
     
     
     public String guardarAction(){  
-    	logger.info("guardando cuadros para workflow de aprobación");
+    	logger.debug("guardando cuadros para workflow de aprobación");
     	final List<Version> versionListChanged = select(this.getCatalogoFlujoAprobacion() , having(on(Version.class).isEstadoCambiado(), equalTo(Boolean.TRUE)));
         List<HistorialVersion> historialVersionList = new ArrayList<HistorialVersion>();
         HistorialVersion historialVersion= null;

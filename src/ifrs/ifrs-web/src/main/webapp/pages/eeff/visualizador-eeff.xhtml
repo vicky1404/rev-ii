@@ -31,7 +31,7 @@
                 </h:panelGrid>
                 <p:spacer height="10"></p:spacer>
                 
-                <p:dataTable value="#{visualizador.versionEeffList}" var="row" emptyMessage="#{msg.carga_eeff_empty_eeff}" id="t1" inlineStyle="height:inherit;" width="540" >
+                <p:dataTable value="#{visualizador.versionEeffList}" var="row" emptyMessage="#{msg.carga_eeff_empty_eeff}" id="t1" inlineStyle="height:inherit;" width="540" paginator="true" rows="3">
 							
 							<p:column sortable="false" headerText="#{msg.tabla_catalogo_version}" align="start" id="c1" width="100">
                                 <p:commandLink immediate="true" title="Seleccione versión para mostrar" id="cl1"  actionListener="#{visualizador.cargarEeff}" update="@form">

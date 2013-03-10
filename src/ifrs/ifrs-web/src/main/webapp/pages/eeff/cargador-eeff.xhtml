@@ -13,7 +13,7 @@
 			
 		 <p:panel header="#{menuBackingBean.breadcrumb} > Período actual : #{cargadorEeff.periodoEmpresa.periodo.periodoFormat}" toggleable="true" collapsed="#{cargadorEeff.versionEeffList.size() == 0}">
 		 
-		 	<p:dataTable value="#{cargadorEeff.versionEeffList}" var="row">
+		 	<p:dataTable value="#{cargadorEeff.versionEeffList}" var="row" paginator="true" rows="3">
 		 		<p:column headerText="Versión" id="c1">
 		 			<h:outputText value="#{row.version}" id="ot1" />
 		 		</p:column>
