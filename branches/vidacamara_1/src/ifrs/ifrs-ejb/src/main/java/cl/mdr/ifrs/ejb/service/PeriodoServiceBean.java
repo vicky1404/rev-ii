@@ -61,6 +61,7 @@ public class PeriodoServiceBean implements PeriodoServiceLocal{
     	callableStatement.execute();
 	
     	Integer outputValue = callableStatement.getInt(2);
+    	
 
     	return outputValue;
     	
@@ -77,7 +78,7 @@ public class PeriodoServiceBean implements PeriodoServiceLocal{
     	callableStatement.execute();
 	
     	Integer outputValue = callableStatement.getInt(4);
-
+    	
     	return outputValue;
     	
     }
