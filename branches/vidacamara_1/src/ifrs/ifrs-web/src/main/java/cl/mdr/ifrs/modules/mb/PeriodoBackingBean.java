@@ -21,6 +21,7 @@ import cl.mdr.ifrs.ejb.common.MensajePeriodoEnum;
 import cl.mdr.ifrs.ejb.cross.Util;
 import cl.mdr.ifrs.ejb.entity.Empresa;
 import cl.mdr.ifrs.ejb.entity.EstadoPeriodo;
+import cl.mdr.ifrs.ejb.entity.Estructura;
 import cl.mdr.ifrs.ejb.entity.PeriodoEmpresa;
 import cl.mdr.ifrs.ejb.entity.Version;
 
@@ -98,7 +99,8 @@ public class PeriodoBackingBean extends AbstractBackingBean{
         try {
         	
         	periodoEmpresa = getFacadeService().getPeriodoService().getMaxPeriodoEmpresaByEmpresa(getFiltroBackingBean().getEmpresa().getIdRut());
-            
+        	
+        	           
         	if (!periodoEmpresa.getEstadoPeriodo().getIdEstadoPeriodo().equals(EstadoPeriodo.ESTADO_CERRADO)){
         		
 		    	versionSinCerrarList = getFacadeService().getVersionService().findVersionVigenteSinCerrar(periodoEmpresa);
