@@ -10,15 +10,17 @@
 	<ui:define name="content">
 
 
-		
+
 
 		<h:form id="form">
-		
-			<p:remoteCommand name="addCelda" actionListener="#{mapeadorTaxonomiaNotasBackingBean.seleccionarCelda}" ></p:remoteCommand>
-			<p:remoteCommand name="removeCelda" actionListener="#{mapeadorTaxonomiaNotasBackingBean.deSeleccionarCelda}" ></p:remoteCommand>
-			
-			
-		
+
+			<p:remoteCommand name="addCelda"
+				actionListener="#{mapeadorTaxonomiaNotasBackingBean.seleccionarCelda}"></p:remoteCommand>
+			<p:remoteCommand name="removeCelda"
+				actionListener="#{mapeadorTaxonomiaNotasBackingBean.deSeleccionarCelda}"></p:remoteCommand>
+
+
+
 			<script type="text/javascript">
 				//<![CDATA[
 					function seleccionarCelda(obj, celda){
@@ -34,7 +36,7 @@
 					}	
 				//]]>
 			</script>
-		
+
 			<p:messages id="messages" autoUpdate="true" globalOnly="true" />
 			<p:ajaxStatus onstart="statusDialogNoModal.show();"
 				oncomplete="statusDialogNoModal.hide();" />
@@ -114,23 +116,23 @@
 						rendered="#{nodo.parent}" />
 
 					<h:commandButton value="Configurar Mapeo XBRL"
-						rendered="#{!nodo.parent and nodo.estructura.tipoEstructura.idTipoEstructura == 0}"
-						disabled="#{nodo.estructura.tipoEstructura.idTipoEstructura != 0 ? true : false}"
+						rendered="#{!nodo.parent}"						
 						actionListener="#{mapeadorTaxonomiaNotasBackingBean.buscarTaxonomyAndGrilla}">
 						<f:ajax render=":form" />
 						<f:attribute name="estructura" value="#{nodo.estructura}" />
 					</h:commandButton>
 
-					<p:commandButton value="Tipo Texto falta definir"
-						rendered="#{!nodo.parent and nodo.estructura.tipoEstructura.idTipoEstructura != 0}"
-						disabled="#{nodo.estructura.tipoEstructura.idTipoEstructura != 0 ? true : false}"
-						id="cl2"></p:commandButton>
 
 
 				</p:column>
 
 				<p:column headerText="Nombre">
 					<h:outputText value="#{nodo.estructura.version.catalogo.nombre}"
+						rendered="#{!nodo.parent}" />
+				</p:column>
+
+				<p:column headerText="Tipo">
+					<h:outputText value="#{nodo.estructura.tipoEstructura.nombre}"
 						rendered="#{!nodo.parent}" />
 				</p:column>
 
@@ -145,12 +147,13 @@
 
 			<h:panelGrid columns="2" width="100%" id="panelGroup"
 				rendered="#{mapeadorTaxonomiaNotasBackingBean.renderMappingPanel}">
-				<p:layout fullPage="false" id="ly1" style="min-height:800px">
+				<p:layout fullPage="false" id="ly1"
+					style="width:100%;min-width:400px;min-height:200px;">
 
 
 
-					<p:layoutUnit position="west" header="Left" resizable="true"
-						closable="false" size="800" collapsible="true">
+					<p:layoutUnit position="west" resizable="true" closable="true"
+						size="800" minSize="100" maxSize="1000">
 
 
 						<p:selectOneMenu label=""
@@ -166,8 +169,8 @@
 							value="#{mapeadorTaxonomiaNotasBackingBean.rootConcept}"
 							var="nodo" selectionMode="single"
 							selection="#{mapeadorTaxonomiaNotasBackingBean.selectedConcept}">
-							
-							
+
+
 							<f:facet name="header">
 									Conceptos
 								</f:facet>
@@ -200,10 +203,12 @@
 
 						<p:panelGrid columns="2">
 							<p:commandButton value="Mapear"
-								actionListener="#{mapeadorTaxonomiaNotasBackingBean.mapearConceptosNota}" update="tablaGrillaNotas" />
+								actionListener="#{mapeadorTaxonomiaNotasBackingBean.mapearConceptosNota}"
+								update="panelNotas" />
 							<p:commandButton value="Quitar"
-								actionListener="#{mapeadorTaxonomiaNotasBackingBean.quitarConceptosEEFF}" />
-							
+								actionListener="#{mapeadorTaxonomiaNotasBackingBean.quitarConceptosNotas}"
+								update="panelNotas" />
+
 						</p:panelGrid>
 
 
@@ -212,72 +217,97 @@
 
 					</p:layoutUnit>
 
-					<p:layoutUnit position="center" resizable="true" collapsible="true">
+					<p:layoutUnit position="center" resizable="true" closable="true"
+						size="800" minSize="100" maxSize="1000">
+
+						<p:panel id="panelNotas">
+
+							<p:panel
+								rendered="#{not mapeadorTaxonomiaNotasBackingBean.renderMappingGrilla}">
+								<p>
+									<h:outputText
+										value="#{mapeadorTaxonomiaNotasBackingBean.htmlContenido}" />
+								</p>
+
+								<p:dataList
+									value="#{mapeadorTaxonomiaNotasBackingBean.mappingHTML}"
+									var="concept">
+								#{concept.id}
+						</p:dataList>
+							</p:panel>
+
+							<p:dataTable style="width:100%" id="tablaGrillaNotas"
+								widgetVar="tablaGrilla"
+								rendered="#{mapeadorTaxonomiaNotasBackingBean.renderMappingGrilla}"
+								value="#{mapeadorTaxonomiaNotasBackingBean.grillaVO.rows}"
+								var="row">
+
+								<p:columns var="col" columnIndexVar="colStatus"
+									value="#{mapeadorTaxonomiaNotasBackingBean.grillaVO.columnas}">
+
+									<f:facet name="header">
+
+										<div
+											onclick="seleccionarCelda(this, [{name: 'columna', value:  'true'}, {name: 'id1', value:  '#{col.idColumna}'}, {name: 'id2', value:  '#{col.idGrilla}'}])"
+											onmouseover="$(this).addClass('ui-state-hover');"
+											onmouseout="$(this).removeClass('ui-state-hover')">
+											<h:outputText
+												value="#{col.tituloColumna} - #{col.idColumna} - #{col.idGrilla}" />
 
 
 
-						<p:dataTable
-							id="tablaGrillaNotas"
-							widgetVar="tablaGrilla"
-							value="#{mapeadorTaxonomiaNotasBackingBean.grillaVO.rows}"
-							var="row">
-							
-							<p:columns var="col" columnIndexVar="colStatus"  value="#{mapeadorTaxonomiaNotasBackingBean.grillaVO.columnas}">
-							
-								<f:facet name="header">
-								   
-									<div onclick="seleccionarCelda(this, [{name: 'columna', value:  'true'}, {name: 'id1', value:  '#{col.idColumna}'}, {name: 'id2', value:  '#{col.idGrilla}'}])" onmouseover="$(this).addClass('ui-state-hover');" onmouseout="$(this).removeClass('ui-state-hover')">
-										<h:outputText value="#{col.tituloColumna} - #{col.idColumna} - #{col.idGrilla}" />
-									
-								
-									<ul>
-										<li>ok</li>
-									</ul>
-									
-									</div>		
-								</f:facet>
-								
-									<div onclick="seleccionarCelda(this, [{name: 'columna', value:  'false'}, {name: 'id3', value:  '#{row[col.idColumna].idFila}'}, {name: 'id1', value:  '#{row[col.idColumna].idColumna}'}, {name: 'id2', value:  '#{row[col.idColumna].idGrilla}'}])" onmouseover="$(this).addClass('ui-state-hover')" onmouseout="$(this).removeClass('ui-state-hover')">
 
-									<!--
+										</div>
+									</f:facet>
+
+									<div
+										onclick="seleccionarCelda(this, [{name: 'columna', value:  'false'}, {name: 'id3', value:  '#{row[col.idColumna].idFila}'}, {name: 'id1', value:  '#{row[col.idColumna].idColumna}'}, {name: 'id2', value:  '#{row[col.idColumna].idGrilla}'}])"
+										onmouseover="$(this).addClass('ui-state-hover')"
+										onmouseout="$(this).removeClass('ui-state-hover')">
+
+
+										<!--
 									headerText="#{col.tituloColumna}"
 									
 									 h:outputText value="[#{row[col.idColumna].idFila} - #{row[col.idColumna].idColumna}]"
                                                                        inlineStyle="padding-bottom:10px;font-weight:bold"  / -->
 
-									<h:outputText value="#{row[col.idColumna].valor}"
-										inlineStyle="#{row[col.idColumna].tipoCelda.idTipoCelda == 4 or row[col.idColumna].tipoCelda.idTipoCelda == 5 ? 'padding-left:10px;font-weight:bold' : 'padding-left:10px'}"
-										rendered="#{ (row[col.idColumna].tipoCelda.idTipoCelda == 0 or row[col.idColumna].tipoCelda.idTipoCelda == 4 or row[col.idColumna].tipoCelda.idTipoCelda == 5) and (row[col.idColumna].tipoDato.idTipoDato != 2 and row[col.idColumna].tipoDato.idTipoDato != 3) }" />
+										<h:outputText value="#{row[col.idColumna].valor}"
+											inlineStyle="#{row[col.idColumna].tipoCelda.idTipoCelda == 4 or row[col.idColumna].tipoCelda.idTipoCelda == 5 ? 'padding-left:10px;font-weight:bold' : 'padding-left:10px'}"
+											rendered="#{ (row[col.idColumna].tipoCelda.idTipoCelda == 0 or row[col.idColumna].tipoCelda.idTipoCelda == 4 or row[col.idColumna].tipoCelda.idTipoCelda == 5) and (row[col.idColumna].tipoDato.idTipoDato != 2 and row[col.idColumna].tipoDato.idTipoDato != 3) }" />
 
-									<h:outputText value="#{row[col.idColumna].valor}" id="ot8"
-										inlineStyle="font-weight:bold; text-align:left;"
-										rendered="#{row[col.idColumna].tipoCelda.idTipoCelda == 2}" />
+										<h:outputText value="#{row[col.idColumna].valor}" id="ot8"
+											inlineStyle="font-weight:bold; text-align:left;"
+											rendered="#{row[col.idColumna].tipoCelda.idTipoCelda == 2}" />
 
-									<h:outputText value="#{row[col.idColumna].valor}"
-										rendered="#{row[col.idColumna].tipoCelda.idTipoCelda == 6 and row[col.idColumna].tipoDato.idTipoDato == 0}" />
+										<h:outputText value="#{row[col.idColumna].valor}"
+											rendered="#{row[col.idColumna].tipoCelda.idTipoCelda == 6 and row[col.idColumna].tipoDato.idTipoDato == 0}" />
 
-									<h:outputText value="#{row[col.idColumna].valorLong}"
-										rendered="#{row[col.idColumna].tipoDato.idTipoDato == 2}" />
+										<h:outputText value="#{row[col.idColumna].valorLong}"
+											rendered="#{row[col.idColumna].tipoDato.idTipoDato == 2}" />
 
 
 
-									<h:outputText value="#{row[col.idColumna].valorBigDecimal}"
-										rendered="#{row[col.idColumna].tipoDato.idTipoDato == 3}" />
+										<h:outputText value="#{row[col.idColumna].valorBigDecimal}"
+											rendered="#{row[col.idColumna].tipoDato.idTipoDato == 3}" />
 
-									<h:outputText value="#{row[col.idColumna].valorDate}"
-										rendered="#{row[col.idColumna].tipoDato.idTipoDato == 1 and row[col.idColumna].tipoCelda.idTipoCelda == 6}" />
+										<h:outputText value="#{row[col.idColumna].valorDate}"
+											rendered="#{row[col.idColumna].tipoDato.idTipoDato == 1 and row[col.idColumna].tipoCelda.idTipoCelda == 6}" />
 
-									<p:dataList value="#{mapeadorTaxonomiaNotasBackingBean.mapping[row[col.idColumna]]}" var="concept">
+										<p:dataList
+											value="#{mapeadorTaxonomiaNotasBackingBean.mapping[row[col.idColumna]]}"
+											var="concept">
 										#{concept.id}
 									</p:dataList>
-									
+
 									</div>
 
 
 
-							</p:columns>
-						</p:dataTable>
+								</p:columns>
+							</p:dataTable>
 
+						</p:panel>
 
 					</p:layoutUnit>
 				</p:layout>
