@@ -326,6 +326,10 @@ public class Concept implements Serializable, Cloneable {
 		}
 		
 	}
+
+	public boolean isMember() {
+		return "nonnum:domainItemType".equals(typeString);
+	}
 	
 	
 

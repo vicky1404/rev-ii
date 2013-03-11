@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/main-template.xhtml">
+
+	<ui:define name="content">
+
+
+		<h:form id="form">
+			<p:messages id="messages" autoUpdate="true" globalOnly="true" />
+			<p:ajaxStatus onstart="statusDialogNoModal.show();"
+				oncomplete="statusDialogNoModal.hide();" />
+			<ui:include src="/WEB-INF/templates/ajax-dialog-template.xhtml" />
+
+			<p:panel id="filtro" header="#{menuBackingBean.breadcrumb}"
+				toggleable="true" closable="false" toggleSpeed="500"
+				closeSpeed="2000" widgetVar="panel">
+				<h:panelGrid columns="3" cellpadding="10" border="0">
+					<p:selectOneMenu id="sol1" required="true"
+						unselectedLabel="#{msg.general_control_seleccione}"
+						value="#{generadorInstancia.filtroBackingBean.xbrlTaxonomia}"
+						converter="xbrlTaxonomiaConverter">
+						<f:selectItems
+							value="#{navegadorTaxonomiaBackingBean.xbrlTaxonomiasSelectItem}"
+							id="si1" />
+					</p:selectOneMenu>
+					<p:commandButton value="Generar"
+						actionListener="#{generadorInstancia.generarInstancia}"
+						update="@form"></p:commandButton>
+
+
+				</h:panelGrid>
+			</p:panel>
+
+			<p:panel header="Resultado" rendered="#{generadorInstancia.verDescarga}">
+
+				
+					<p:commandButton id="downloadLink" value="Download" ajax="false"
+						icon="ui-icon-arrowthichk-s" >
+						<p:fileDownload value="#{generadorInstancia.file}" />
+					</p:commandButton>
+
+
+
+				<pre>  
+					<h:outputText value="#{generadorInstancia.instanciaString}" />
+				</pre>
+			</p:panel>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

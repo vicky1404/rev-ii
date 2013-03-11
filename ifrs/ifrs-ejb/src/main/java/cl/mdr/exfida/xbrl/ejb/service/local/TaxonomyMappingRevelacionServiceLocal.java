@@ -1,19 +1,16 @@
 package cl.mdr.exfida.xbrl.ejb.service.local;
 
-import cl.mdr.ifrs.ejb.entity.Celda;
-import cl.mdr.ifrs.ejb.entity.Columna;
-import cl.mdr.ifrs.ejb.entity.Estructura;
-import cl.mdr.exfida.xbrl.ejb.entity.XbrlConceptoCelda;
-
-import cl.mdr.exfida.xbrl.ejb.entity.XbrlTaxonomia;
-
 import java.util.List;
-
 import java.util.Map;
 
 import javax.ejb.Local;
 
 import xbrlcore.taxonomy.Concept;
+import cl.mdr.exfida.xbrl.ejb.entity.XbrlConceptoCelda;
+import cl.mdr.exfida.xbrl.ejb.entity.XbrlTaxonomia;
+import cl.mdr.ifrs.ejb.entity.Celda;
+import cl.mdr.ifrs.ejb.entity.Estructura;
+import cl.mdr.ifrs.ejb.entity.Html;
 
 @Local
 public interface TaxonomyMappingRevelacionServiceLocal {
@@ -24,7 +21,7 @@ public interface TaxonomyMappingRevelacionServiceLocal {
      */
     void persistMappingTaxonomiaRevelacion(XbrlTaxonomia xbrlTaxonomia, Map<Celda, List<Concept>> mapping) throws Exception;
     
-    void persistMappingTaxonomiaRevelacionColumnas(XbrlTaxonomia xbrlTaxonomia, Map<Columna, List<Concept>> mapping) throws Exception;
+    void persistMappingTaxonomiaRevelacionHTML(XbrlTaxonomia xbrlTaxonomia, List<Concept> mapping, Html html) throws Exception;
 
     /**
      * @param xbrlTaxonomia
@@ -46,5 +43,5 @@ public interface TaxonomyMappingRevelacionServiceLocal {
      */
     Map<Celda, List<Concept>> buildMappingByEstructura(Estructura estructura , List<Concept> conceptList) throws Exception;
     
-    Map<Columna, List<Concept>> buildMappingByEstructuraColumna(Estructura estructura , List<Concept> conceptList) throws Exception;
+    List<Concept> buildMappingByEstructuraHTML(Estructura estructura , List<Concept> conceptList) throws Exception;
 }

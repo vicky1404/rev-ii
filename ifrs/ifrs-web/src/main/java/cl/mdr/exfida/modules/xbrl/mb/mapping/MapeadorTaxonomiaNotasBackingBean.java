@@ -5,7 +5,9 @@ import static ch.lambdaj.Lambda.on;
 import static ch.lambdaj.Lambda.select;
 import static org.hamcrest.Matchers.equalTo;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,13 +38,12 @@ import xbrlcore.taxonomy.sax.SAXBuilder;
 import xbrlcore.xlink.Arc;
 import xbrlcore.xlink.Locator;
 import cl.mdr.exfida.modules.xbrl.model.ConceptTreeNode;
-import cl.mdr.exfida.modules.xbrl.model.EEFFConceptMapping;
 import cl.mdr.exfida.modules.xbrl.model.VersionEstructuraTreeNode;
+import cl.mdr.exfida.xbrl.ejb.service.HTML2Texto;
 import cl.mdr.ifrs.cross.mb.AbstractBackingBean;
 import cl.mdr.ifrs.cross.mb.PropertyManager;
 import cl.mdr.ifrs.ejb.entity.Catalogo;
 import cl.mdr.ifrs.ejb.entity.Celda;
-import cl.mdr.ifrs.ejb.entity.EstadoFinanciero;
 import cl.mdr.ifrs.ejb.entity.Estructura;
 import cl.mdr.ifrs.ejb.entity.Grilla;
 import cl.mdr.ifrs.ejb.entity.Periodo;
@@ -68,8 +69,6 @@ public class MapeadorTaxonomiaNotasBackingBean extends AbstractBackingBean imple
 
 	private static Map<String, DiscoverableTaxonomySet> mapDTS = new HashMap<String, DiscoverableTaxonomySet>();
 
-	private List<Concept> taxonomyConceptList;
-
 	// tree taxonomia
 	private String parentTaxonomia;
 
@@ -77,26 +76,21 @@ public class MapeadorTaxonomiaNotasBackingBean extends AbstractBackingBean imple
 
 	private TreeNode root;
 
-	private List<EEFFConceptMapping> mappings;
-	private List<EEFFConceptMapping> mappingFilter;
-
-	private EEFFConceptMapping selectedconceptMapping;
-
 	private TreeNode selectedConcept;
 
 	private List<Catalogo> catalogoList;
 
 	private Estructura selectedEstructura;
 
-	private Grilla grilla;
-
 	private GrillaVO grillaVO;
 
 	private Celda celdaSeleccionda;
 
-	private Map<Celda, Celda> celdaMap = new HashMap<Celda, Celda>();
-
 	private Map<Celda, List<Concept>> mapping;
+
+	private List<Concept> mappingHTML;
+
+	private boolean renderMappingGrilla = false;
 
 	public MapeadorTaxonomiaNotasBackingBean() {
 	}
@@ -164,7 +158,7 @@ public class MapeadorTaxonomiaNotasBackingBean extends AbstractBackingBean imple
 	public void getCatalogoTreeModel() throws Exception {
 		root = new DefaultTreeNode();
 
-		// TODO: (saburto) Checkear si la obtencion de versión es la correcta
+		// TODO: (xbrl) Checkear si la obtencion de versión es la correcta
 		for (Version version : getFacadeService().getVersionService().findVersionAllByCatalogo(getFiltroBackingBean().getCatalogo())) {
 			TreeNode nodo = new DefaultTreeNode(new VersionEstructuraTreeNode(version), root);
 
@@ -201,12 +195,9 @@ public class MapeadorTaxonomiaNotasBackingBean extends AbstractBackingBean imple
 
 		selectedEstructura = (Estructura) event.getComponent().getAttributes().get("estructura");
 		try {
-			// grilla
 
-			grilla = (getFacadeService().getGrillaService().findGrillaById(selectedEstructura.getIdEstructura()));
-			grillaVO = (getFacadeService().getEstructuraService().getGrillaVO(grilla, Boolean.FALSE));
+			renderMappingGrilla = selectedEstructura.getTipoEstructura().getIdTipoEstructura() == 0;
 
-			buildCeldaMap();
 			// taxonomia
 
 			String uri = getFiltroBackingBean().getXbrlTaxonomia().getUri();
@@ -220,14 +211,39 @@ public class MapeadorTaxonomiaNotasBackingBean extends AbstractBackingBean imple
 			parentTaxonomia = seleccionarPosibleTaxonomiaParaNota();
 			buildTaxonomyTreeModel(parentTaxonomia);
 
-			buildTaxonomyConcepts();
+			ArrayList<Concept> conceptList = new ArrayList<Concept>(discoverableTaxonomySet.getConcepts());
 
-			setMapping((getFacadeService().getTaxonomyMappingRevelacionService().buildMappingByEstructura(selectedEstructura, getTaxonomyConceptList())));
+			// grilla
+			if (renderMappingGrilla) {
+				Grilla grilla = (getFacadeService().getGrillaService().findGrillaById(selectedEstructura.getIdEstructura()));
+				grillaVO = (getFacadeService().getEstructuraService().getGrillaVO(grilla, false));
+
+				setMapping((getFacadeService().getTaxonomyMappingRevelacionService().buildMappingByEstructura(selectedEstructura, conceptList)));
+			} else {
+				// html
+				mappingHTML = getFacadeService().getTaxonomyMappingRevelacionService().buildMappingByEstructuraHTML(selectedEstructura, conceptList);
+
+			}
+
 			renderMappingPanel = true;
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			super.addErrorMessage(PropertyManager.getInstance().getMessage("general_mensaje_nota_get_catalogo_error"));
 		}
+	}
+
+	public String getHtmlContenido() {
+		String contenidoStr = selectedEstructura.getHtml().getContenidoStr();
+
+		HTML2Texto html2Texto = new HTML2Texto();
+		try {
+			html2Texto.parse(new StringReader(contenidoStr));
+		} catch (IOException e) {
+			logger.error(e.getMessage(), e);
+
+			super.addErrorMessage("Error al mostrar solo texto");
+		}
+		return html2Texto.getText();
 	}
 
 	private String seleccionarPosibleTaxonomiaParaNota() {
@@ -251,115 +267,15 @@ public class MapeadorTaxonomiaNotasBackingBean extends AbstractBackingBean imple
 		return taxRoleURI;
 	}
 
-	private void buildCeldaMap() {
-		celdaMap.clear();
-		for (Map<Long, Celda> row : grillaVO.getRows()) {
-			for (Map.Entry<Long, Celda> entry : row.entrySet()) {
-				celdaMap.put(entry.getValue(), entry.getValue());
-			}
-		}
-	}
-
-	public void generarMappingAutomatico() {
-
-		// Set<RoleType> roleTypesSorted =
-		// discoverableTaxonomySet.getRoleTypesSorted();
-		// PresentationLinkbase presentationLinkbase =
-		// discoverableTaxonomySet.getPresentationLinkbase();
-		// for (RoleType roleType : roleTypesSorted) {
-		// List<PresentationLinkbaseElement> presentationListByLinkRole =
-		// presentationLinkbase.getPresentationListByLinkRole(roleType.getRoleURI());
-		//
-		// for (EstadoFinanciero estadoFinanciero : estadoFinancieroList) {
-		//
-		// FOR_CONCEP: for (PresentationLinkbaseElement
-		// presentationLinkbaseElement : presentationListByLinkRole) {
-		// Concept concept = presentationLinkbaseElement.getConcept();
-		// String codigo = concept.getAttrib("codigo");
-		// if (codigo != null && !codigo.isEmpty()) {
-		//
-		// if (codigo.equals(estadoFinanciero.getFecuFormat())) {
-		// List<Concept> list = mappingEstadoFinanciero.get(estadoFinanciero);
-		// if (list == null) {
-		// list = new ArrayList<Concept>();
-		// }
-		// list.add(concept);
-		// estadoFinanciero.setSelectedForMapping(true);
-		// mappingEstadoFinanciero.put(estadoFinanciero, list);
-		// break FOR_CONCEP;
-		// }
-		// }
-		//
-		// }
-		// }
-		//
-		// }
-	}
-
-	public void buscarTaxonomia(ActionEvent event) {
-
-		// try {
-		//
-		// String uri = getFiltroBackingBean().getXbrlTaxonomia().getUri();
-		// setDiscoverableTaxonomySet(new SAXBuilder(new
-		// DefaultStatusCallback(), new FilterSaxBuilder() {
-		// @Override
-		// public boolean isParseable(String name) {
-		// return name.contains("eeff") || name.contains("cor");
-		// }
-		// }).build(new InputSource(uri)));
-		//
-		// String taxRoleURI =
-		// discoverableTaxonomySet.getRoleTypesSorted().iterator().next().getRoleURI();
-		// buildTaxonomyTreeModel(taxRoleURI);
-		// buildTaxonomyConcepts();
-		// TaxonomyMappingEstadoFinancieroServiceLocal
-		// taxonomyMappingEstadoFinancieroService =
-		// getFacadeService().getTaxonomyMappingEstadoFinancieroService();
-		// this.mappingEstadoFinanciero =
-		// taxonomyMappingEstadoFinancieroService.buildMappingEstadoFinanciero(getFiltroBackingBean().getXbrlTaxonomia(),
-		// getTaxonomyConceptList(), getEstadoFinancieroList());
-		// setRenderMappingPanel(true);
-		//
-		// creaMapping(mappingEstadoFinanciero);
-		//
-		// filtrarEstadosFinancieros(taxRoleURI);
-		//
-		// } catch (Exception e) {
-		// logger.error(e.getMessage(), e);
-		// MapeadorTaxonomiaNotasBackingBean.super.addErrorMessage(PropertyManager.getInstance().getMessage("general_mensaje_nota_get_catalogo_error"));
-		// }
-
-	}
-
-	private void creaMapping(Map<EstadoFinanciero, List<Concept>> mappingEstadoFinanciero2) {
-		this.mappings = new ArrayList<EEFFConceptMapping>();
-		for (Entry<EstadoFinanciero, List<Concept>> mapp : mappingEstadoFinanciero2.entrySet()) {
-			EEFFConceptMapping e = new EEFFConceptMapping();
-			e.setConcepts(mapp.getValue());
-			e.setEstadoFinanciero(mapp.getKey());
-			mappings.add(e);
-		}
-
-	}
-
-	public void eliminarConceptoForMapping(ActionEvent event) {
-		// final Concept concept = (Concept)
-		// event.getComponent().getAttributes().get("concepto");
-		// try {
-		// getFacadeService().getTaxonomyMappingEstadoFinancieroService().deleteMappingByConceptoAndTaxonomia(super.getFiltroBackingBean().getXbrlTaxonomia(),
-		// concept);
-		// mappingEstadoFinanciero.remove(concept);
-		// } catch (Exception e) {
-		// logger.error(e.getCause(), e);
-		// super.addErrorMessage("Se ha producido un error al eliminar el Mapeo para el concepto");
-		// }
-
-	}
-
 	public void guardarMapeo(ActionEvent event) {
 		try {
-			getFacadeService().getTaxonomyMappingRevelacionService().persistMappingTaxonomiaRevelacion(getFiltroBackingBean().getXbrlTaxonomia(), mapping);
+			if (renderMappingGrilla) {
+				getFacadeService().getTaxonomyMappingRevelacionService().persistMappingTaxonomiaRevelacion(getFiltroBackingBean().getXbrlTaxonomia(), mapping);
+			} else {
+				getFacadeService().getTaxonomyMappingRevelacionService().persistMappingTaxonomiaRevelacionHTML(getFiltroBackingBean().getXbrlTaxonomia(),
+						mappingHTML, selectedEstructura.getHtml());
+			}
+
 			addInfoMessage("Se han guardado los Mapeos correctamente");
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
@@ -368,52 +284,109 @@ public class MapeadorTaxonomiaNotasBackingBean extends AbstractBackingBean imple
 	}
 
 	public void mapearConceptosNota(ActionEvent event) {
-		if (celdaSeleccionda == null || selectedConcept == null) {
-			super.addWarnMessage("Debe seleccionar un o varios Concepto desde la Taxonomía XBRL y una celda");
+
+		if (selectedConcept == null) {
+			super.addWarnMessage("Debe seleccionar unConcepto desde la Taxonomía XBRL");
 			return;
 		}
 
-		List<Concept> list = mapping.get(celdaSeleccionda);
-		if(list == null){
-			list = new ArrayList<Concept>();
-			mapping.put(celdaSeleccionda, list);
-		}
+		if (renderMappingGrilla) {
 
-		ConceptTreeNode data = (ConceptTreeNode) selectedConcept.getData();
-		if (!data.getConcept().isAbstract() || data.getConcept().getTypeString().equals("nonnum:domainItemType")) {
-			if (!list.contains(data.getConcept())) {
-				list.add(data.getConcept());
+			if (celdaSeleccionda == null || selectedConcept == null) {
+				super.addWarnMessage("Debe seleccionar una celda");
+				return;
 			}
+
+			mapearCelda();
+
 		} else {
-			super.addWarnMessage("El Concepto " + data.getConcept().getId() + " no se puede mapear con un valor.");
-			return;
+			if (mappingHTML == null) {
+				mappingHTML = new ArrayList<Concept>();
+			}
+			ConceptTreeNode data = (ConceptTreeNode) selectedConcept.getData();
+			if (!mappingHTML.contains(data.getConcept())) {
+				mappingHTML.add(data.getConcept());
+			}
+
 		}
 
 	}
 
-	public void quitarConceptosEEFF(ActionEvent event) {
-		// if (selectedconceptMapping == null) {
-		// super.addWarnMessage("Debe seleccionar un o varios Concepto desde la Taxonomía XBRL y un Codigo FECU");
-		// return;
-		// }
-		//
-		// List<Concept> list =
-		// mappingEstadoFinanciero.get(selectedconceptMapping.getEstadoFinanciero());
-		//
-		// if (selectedConcepts == null || selectedConcepts.length == 0) {
-		// list.clear();
-		// } else {
-		// for (TreeNode node : selectedConcepts) {
-		//
-		// ConceptTreeNode data = (ConceptTreeNode) node.getData();
-		// if (list.contains(data.getConcept())) {
-		// list.remove(data.getConcept());
-		// }
-		//
-		// }
-		// }
-		//
-		// filtrarEstadosFinancieros(parentTaxonomia);
+	private void mapearCelda() {
+		ConceptTreeNode data = (ConceptTreeNode) selectedConcept.getData();
+		Concept concept = data.getConcept();
+		if (concept.isMember()) {
+
+			Concept eje = getEje(selectedConcept.getParent());
+
+			Long idColumna = celdaSeleccionda.getIdColumna();
+
+			List<Map<Long, Celda>> rows = grillaVO.getRows();
+			for (Map<Long, Celda> map : rows) {
+				Celda celda = map.get(idColumna);
+				addConceptCelda(celda, concept);
+				addConceptCelda(celda, eje);
+			}
+
+		} else if (!concept.isAbstract()) {
+			Long idFila = celdaSeleccionda.getIdFila();
+			Map<Long, Celda> map = grillaVO.getRows().get(idFila.intValue() - 1);
+			Set<Entry<Long, Celda>> entrySet = map.entrySet();
+			for (Entry<Long, Celda> entry : entrySet) {
+				Celda celda = entry.getValue();
+				addConceptCelda(celda, concept);
+			}
+
+		} else {
+			super.addWarnMessage("El Concepto " + concept.getId() + " no se puede mapear con un valor.");
+		}
+	}
+
+	private Concept getEje(TreeNode node) {
+		ConceptTreeNode data = (ConceptTreeNode) node.getData();
+		if (data.getConcept().isExplicitDimension()) {
+			return data.getConcept();
+		} else if (node.getParent() == null) {
+			throw new RuntimeException("Member no tiene eje padre");
+		} else {
+			return getEje(node.getParent());
+		}
+	}
+
+	private void addConceptCelda(Celda celda, Concept concept) {
+
+		// TODO (xbrl): Validar que tipo de celda se puede mapear, por ejemplo
+		// alguno totales no se mapean.
+
+		List<Concept> list = mapping.get(celda);
+		if (list == null) {
+			list = new ArrayList<Concept>();
+			mapping.put(celda, list);
+		}
+		if (!list.contains(concept)) {
+			list.add(concept);
+		}
+	}
+
+	public void quitarConceptosNotas(ActionEvent event) {
+
+		if (renderMappingGrilla) {
+
+			if (celdaSeleccionda == null) {
+				super.addWarnMessage("Debe seleccionar una Celda");
+				return;
+			}
+
+			List<Concept> list = mapping.get(celdaSeleccionda);
+			if (list != null) {
+				list.clear();
+			}
+		}else{
+			if(mappingHTML != null){
+				mappingHTML.clear();	
+			}
+			
+		}
 
 	}
 
@@ -511,30 +484,9 @@ public class MapeadorTaxonomiaNotasBackingBean extends AbstractBackingBean imple
 		try {
 			String selectedTaxonomia = getParentTaxonomia();
 			buildTaxonomyTreeModel(selectedTaxonomia);
-			filtrarEstadosFinancieros(selectedTaxonomia);
-
 		} catch (Exception e) {
 			super.addErrorMessage("Se ha producido un error al consultar los conceptos de XBRL.");
 			logger.error(e.toString(), e);
-		}
-	}
-
-	private void filtrarEstadosFinancieros(String selectedTaxonomia) {
-		// String[] rango = rangoCodigoFecuMap.get(selectedTaxonomia);
-		//
-		// mappingFilter = select(
-		// this.mappings,
-		// having(on(EEFFConceptMapping.class).getFecuFormat(),
-		// greaterThanOrEqualTo(rango[0])).and(
-		// having(on(EEFFConceptMapping.class).getFecuFormat(),
-		// lessThanOrEqualTo(rango[1]))));
-
-	}
-
-	private void buildTaxonomyConcepts() {
-		taxonomyConceptList = new ArrayList<Concept>();
-		for (Concept concept : getDiscoverableTaxonomySet().getConcepts()) {
-			taxonomyConceptList.add(concept);
 		}
 	}
 
@@ -544,14 +496,6 @@ public class MapeadorTaxonomiaNotasBackingBean extends AbstractBackingBean imple
 
 	public DiscoverableTaxonomySet getDiscoverableTaxonomySet() {
 		return discoverableTaxonomySet;
-	}
-
-	public void setTaxonomyConceptList(List<Concept> taxonomyConceptList) {
-		this.taxonomyConceptList = taxonomyConceptList;
-	}
-
-	public List<Concept> getTaxonomyConceptList() {
-		return taxonomyConceptList;
 	}
 
 	public void setRenderMappingPanel(boolean renderMappingPanel) {
@@ -584,18 +528,6 @@ public class MapeadorTaxonomiaNotasBackingBean extends AbstractBackingBean imple
 
 	public void setRootConcept(TreeNode rootConcept) {
 		this.rootConcept = rootConcept;
-	}
-
-	public List<EEFFConceptMapping> getMappingFilter() {
-		return mappingFilter;
-	}
-
-	public EEFFConceptMapping getSelectedconceptMapping() {
-		return selectedconceptMapping;
-	}
-
-	public void setSelectedconceptMapping(EEFFConceptMapping selectedconceptMapping) {
-		this.selectedconceptMapping = selectedconceptMapping;
 	}
 
 	public TreeNode getRoot() {
@@ -644,6 +576,14 @@ public class MapeadorTaxonomiaNotasBackingBean extends AbstractBackingBean imple
 
 	public void setMapping(Map<Celda, List<Concept>> mapping) {
 		this.mapping = mapping;
+	}
+
+	public boolean isRenderMappingGrilla() {
+		return renderMappingGrilla;
+	}
+
+	public List<Concept> getMappingHTML() {
+		return mappingHTML;
 	}
 
 }
