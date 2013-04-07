@@ -14,9 +14,8 @@ import cl.mdr.ifrs.ejb.reporte.vo.ReportePrincipalVO;
 @Local
 public interface ReporteServiceLocal {
     
-    public XSSFWorkbook createXLSX(List<ReportePrincipalVO> reportes) throws Exception;
-       
-    XSSFWorkbook createInterfaceXBRL(List<ReportePrincipalVO> reportes) throws Exception;
-    
+    XSSFWorkbook createXLSX(List<ReportePrincipalVO> reportes, boolean formatoPesos, boolean formatoYYYYMMDD) throws Exception;
+    XSSFWorkbook createXLSXXbrl(List<ReportePrincipalVO> reportes, boolean formatoPesos, boolean formatoYYYYMMDD) throws Exception;       
+    XSSFWorkbook createInterfaceXBRL(List<ReportePrincipalVO> reportes) throws Exception;    
     XSSFWorkbook createReporteFlujoAprobacion(List<Version> versionPeriodoList) throws Exception;
 }
