@@ -455,6 +455,9 @@ public abstract class AbstractBackingBean {
 			  			strLine = decrypt(strLine);
 			  		    key = strLine.substring(0, strLine.indexOf("="));
 			  		    
+			  		    if ( key != null )
+			  		    key = key.trim();
+			  		    
 			  		    if (key.equalsIgnoreCase(Constantes.NUM)){
 			  		    	type = strLine.substring(strLine.indexOf("=")+1, strLine.length());	
 			  		    	break;
@@ -469,7 +472,7 @@ public abstract class AbstractBackingBean {
 			 e.printStackTrace();
 		 }
 		 
-		 if (type == null){
+		 if (type == null || type.equalsIgnoreCase("")){
 			 type = "0";
 		 }
 		 

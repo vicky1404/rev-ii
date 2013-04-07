@@ -26,10 +26,19 @@
 
 			<!-- dialogo de descarga excel -->
 			<p:dialog id="popUpDownExcel" header="#{msg.label_descargar}"
-				widgetVar="p_down_excel" width="300" height="50" modal="false"
+				widgetVar="p_down_excel" width="300" height="100" modal="false"
 				draggable="false" resizable="false">
 				<h:panelGrid columns="2">
+					<h:outputLabel value="Activar formato fecha YYYY-MM-YYYY : " />
+					<h:selectBooleanCheckbox value="#{reporteBackingBean.formatoFechaYYYYMMDD}" id="sbcb136"  />
+					<h:outputLabel value="Activar formato pesos ($ 999.000) : " />
+					<h:selectBooleanCheckbox value="#{reporteBackingBean.formatoPesos}" id="sbcb236" label="Formato pesos:"/>
+					<h:outputLabel value="Activar formato transpuesto : " />	
+					<h:selectBooleanCheckbox value="#{reporteBackingBean.transpuesto}" id="sbcb336" label="Formato transpuesto:"/>			
+				</h:panelGrid>
+				<h:panelGrid columns="2">	
 					<h:graphicImage value="/resources/images/icon/excel_16x16.png" />
+					
 					<h:commandLink action="#{reporteBackingBean.downloadExcel}"
 						id="cl1" value="#{msg.lavel_descargar_excel_generado}"
 						onblur="p_down_excel.hide();" style="text-decoration:underline;" />
