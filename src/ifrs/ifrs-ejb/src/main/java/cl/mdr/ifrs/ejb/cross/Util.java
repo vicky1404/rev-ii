@@ -36,6 +36,7 @@ public class Util{
     public final static String NUMBER_DECIMAL_PATTERN = "#,###,###.####";
     public final static String NUMBER_INTEGER_PATTERN = "#,###,###.####";
     public final static String DATE_PATTERN_DD_MM_YYYY = "dd-MM-yyyy";
+    public final static String DATE_PATTERN_YYYY_MM_DD = "yyyy-MM-dd";
     public final static String DATE_PATTERN_DD_MM_YYYY_HH_MM_SS = "dd-MM-yyyy HH:mm:ss";
     public final static String STRING_VACIO = "";
     

@@ -178,14 +178,17 @@ public abstract class SoporteReporte {
         return style;
     }
     
-    public static XSSFCellStyle getCellDateStyle(XSSFWorkbook wb, XSSFColor rowColor){        
+    public static XSSFCellStyle getCellDateStyle(XSSFWorkbook wb, XSSFColor rowColor, boolean formatoYYYYMMDD){        
         CreationHelper createHelper = wb.getCreationHelper();
         XSSFCellStyle style = wb.createCellStyle();
         style.setBorderBottom(XSSFCellStyle.BORDER_THIN);
         style.setBorderLeft(XSSFCellStyle.BORDER_THIN);
         style.setBorderRight(XSSFCellStyle.BORDER_THIN);
         style.setBorderTop(XSSFCellStyle.BORDER_THIN);
-        style.setDataFormat(createHelper.createDataFormat().getFormat(cl.mdr.ifrs.ejb.cross.Util.DATE_PATTERN_DD_MM_YYYY));
+        if (formatoYYYYMMDD)
+        	style.setDataFormat(createHelper.createDataFormat().getFormat(cl.mdr.ifrs.ejb.cross.Util.DATE_PATTERN_YYYY_MM_DD));
+        else
+        	style.setDataFormat(createHelper.createDataFormat().getFormat(cl.mdr.ifrs.ejb.cross.Util.DATE_PATTERN_DD_MM_YYYY));
         style.setFillForegroundColor(rowColor);
         //style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);  
         return style;

@@ -25,7 +25,7 @@ public class Constantes {
     public static final String LIC_FILE_NAME="lic-nr.exf";
     public static final String TYPE_INST="tip_inst";
     public static final String KEYS="keys";    
-    public static final String NUM="nkeys";
+    public static final String NUM="nkey";
     public static final String FLIC="flic";
     public static final String TYPE_INST_CL="001";
     public static final String TYPE_INST_OP="002";
