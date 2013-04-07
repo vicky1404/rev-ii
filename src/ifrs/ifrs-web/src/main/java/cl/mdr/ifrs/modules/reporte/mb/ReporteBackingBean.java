@@ -57,9 +57,36 @@ public class ReporteBackingBean extends AbstractBackingBean implements Serializa
     private boolean renderBotonExportarWord;    
     private List<Version> versionDownloadList;
     private Long tipoImpresionHeader;
+    private boolean formatoFechaYYYYMMDD;
+    private boolean formatoPesos;
+    private boolean transpuesto;
     
 	
     
+	public boolean isFormatoFechaYYYYMMDD() {
+		return formatoFechaYYYYMMDD;
+	}
+
+	public void setFormatoFechaYYYYMMDD(boolean formatoFechaYYYYMMDD) {
+		this.formatoFechaYYYYMMDD = formatoFechaYYYYMMDD;
+	}
+
+	public boolean isFormatoPesos() {
+		return formatoPesos;
+	}
+
+	public void setFormatoPesos(boolean formatoPesos) {
+		this.formatoPesos = formatoPesos;
+	}
+
+	public boolean isTranspuesto() {
+		return transpuesto;
+	}
+
+	public void setTranspuesto(boolean transpuesto) {
+		this.transpuesto = transpuesto;
+	}
+
 	/**
      * accion encargada de buscar catalogo para generacion de los reportes.
      * @return
@@ -167,8 +194,13 @@ public class ReporteBackingBean extends AbstractBackingBean implements Serializa
     public String downloadExcel(){
         logger.info("descargando archivo excel");
         try{
-            final List<ReportePrincipalVO> reportes = this.getReporteUtilBackingBean().getGenerarListReporteVO(this.getVersionDownloadList());                            
-            XSSFWorkbook wb = super.getFacadeService().getServiceReporte().createXLSX(reportes);        
+            final List<ReportePrincipalVO> reportes = this.getReporteUtilBackingBean().getGenerarListReporteVO(this.getVersionDownloadList());
+            XSSFWorkbook wb = null;
+            if (this.isTranspuesto())
+            	wb = super.getFacadeService().getServiceReporte().createXLSXXbrl(reportes, isFormatoPesos(), isFormatoFechaYYYYMMDD());
+            else 
+            	wb = super.getFacadeService().getServiceReporte().createXLSX(reportes, isFormatoPesos(), isFormatoFechaYYYYMMDD());
+            
             this.getReporteUtilBackingBean().setOuputStreamWorkBook(wb);                      
             super.getFacesContext().responseComplete();            
         } catch (Exception e) {
