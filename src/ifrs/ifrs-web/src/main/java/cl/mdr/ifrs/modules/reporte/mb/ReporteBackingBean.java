@@ -300,8 +300,7 @@ public class ReporteBackingBean extends AbstractBackingBean implements Serializa
 		return reporteUtilBackingBean;
 	}
 
-	public void setReporteUtilBackingBean(
-			ReporteUtilBackingBean reporteUtilBackingBean) {
+	public void setReporteUtilBackingBean(ReporteUtilBackingBean reporteUtilBackingBean) {
 		this.reporteUtilBackingBean = reporteUtilBackingBean;
 	}
 

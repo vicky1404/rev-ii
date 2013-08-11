@@ -26,10 +26,14 @@ import org.w3c.tidy.Tidy;
 
 import cl.mdr.ifrs.ejb.common.TipoCeldaEnum;
 import cl.mdr.ifrs.ejb.common.TipoDatoEnum;
+import cl.mdr.ifrs.ejb.common.TipoEstructuraEnum;
 import cl.mdr.ifrs.ejb.entity.Celda;
 import cl.mdr.ifrs.ejb.entity.Columna;
+import cl.mdr.ifrs.ejb.entity.Estructura;
 import cl.mdr.ifrs.ejb.entity.Grilla;
 import cl.mdr.ifrs.ejb.entity.Html;
+import cl.mdr.ifrs.exceptions.CargaGrillaExcelException;
+import cl.mdr.ifrs.vo.GrillaVO;
 
 
 public class Util{
@@ -126,6 +130,7 @@ public class Util{
         try{
             return (Integer.parseInt(arg1));
         }catch(Exception e){
+        	//e.printStackTrace();
             return arg2; 
         }    
     }
@@ -134,6 +139,7 @@ public class Util{
         try{
             return (Integer)arg1;
         }catch(Exception e){
+        	//e.printStackTrace();
             //logger.error("Error al convertir Integer ", e);
             return arg2; 
         }    
@@ -162,6 +168,7 @@ public class Util{
         try{
             return arg1+0;
         }catch(Exception e){
+        	//e.printStackTrace();
             return arg2; 
         }    
     }
@@ -170,6 +177,7 @@ public class Util{
         try{
             return arg1+0;
         }catch(Exception e){
+        	//e.printStackTrace();
             return arg2; 
         }    
     }
@@ -480,6 +488,42 @@ public class Util{
         
     }
     
+    public static boolean isCellTextEdit(Celda cell){
+        
+        if( (cell.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.TEXTO_EDITABLE.getKey())  &&
+             cell.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.TEXTO.getKey())) ){
+            
+            return true;
+        }
+        
+        return false;
+        
+    }
+    
+    public static boolean isCellNumericEnteroEdit(Celda cell){
+        
+        if( cell.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.NUMERO.getKey())  &&
+             cell.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.ENTERO.getKey()) ){
+            
+            return true;
+        }
+        
+        return false;
+        
+    }
+    
+    public static boolean isCellNumericDecimalEdit(Celda cell){
+        
+        if( cell.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.NUMERO.getKey())  &&
+             cell.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.DECIMAL.getKey()) ){
+            
+            return true;
+        }
+        
+        return false;
+        
+    }
+    
     public static Long getOnlyNumbers(final String str) {
     
         String numeros = "";
@@ -568,5 +612,164 @@ public class Util{
     	
     	return respuesta;
     }
+    
+    public static Grilla grillaById(List<Estructura> estructuraList, Long idGrilla){
+    	
+    	Grilla grilla = null;
+    	
+    	for (Estructura estructura : estructuraList) {
+    	
+	    	if (estructura.getTipoEstructura().getIdTipoEstructura().equals(TipoEstructuraEnum.GRILLA.getKey()) &&
+	    		estructura.getGrilla().getIdGrilla().equals(idGrilla)) {
+	    		
+	    		grilla = estructura.getGrilla();
+	    		
+	    		break;
+	    		
+	    	}
+    	}
+    	
+    	return grilla;
+    }
+    
+    public static void mezclarGrillaEstaticaConExcel(GrillaVO grillaDB, GrillaVO grillaExcel) throws CargaGrillaExcelException, Exception{
+    	
+    	/*boolean agrup1 = esListaValida(grillaDB.getAgrupaciones());
+    	boolean agrup2 = esListaValida(grillaExcel.getAgrupaciones());
+    	
+    	if(agrup1 != agrup2)
+    		throw new CargaGrillaExcelException("Error la cantidad de columnas no coincide");
+    	
+    	if(agrup1){
+    		if(grillaDB.getAgrupaciones().size() != grillaExcel.getAgrupaciones().size()){
+    			throw new CargaGrillaExcelException("Error la cantidad de columnas no coincide");
+    		}
+
+			for(int i=0; i<grillaDB.getAgrupaciones().size(); i++){
+				List<AgrupacionModelVO> colList1 = grillaDB.getAgrupaciones().get(i);
+				List<AgrupacionModelVO> colList2 = grillaExcel.getAgrupaciones().get(i);
+				
+				if(colList1.size() != colList2.size()){
+					throw new CargaGrillaExcelException("Error la cantidad de columnas no coincide");
+				}
+				
+				for(int a=0; a<colList1.size(); a++){
+					AgrupacionModelVO col1 = colList1.get(a);
+					AgrupacionModelVO col2 = colList1.get(a);
+					
+					if(!getString(col1.getTitulo(),"").equals(getString(col2.getTitulo(),""))){
+						throw new CargaGrillaExcelException("Error la cantidad de columnas no coincide");
+					}
+					
+				}
+			}
+			
+    	}*/
+    	
+    	
+    	
+    	if(grillaDB.getColumnas().size() != grillaExcel.getColumnas().size()){
+    		throw new CargaGrillaExcelException("Error la cantidad de columnas no coincide");
+		}
+    	
+    	
+		for(int i=0; i<grillaDB.getColumnas().size(); i++){
+			
+			Columna columna1 = grillaDB.getColumnas().get(i);
+			Columna columna2 = grillaExcel.getColumnas().get(i);
+			
+			if(!getString(columna1.getTituloColumna(),"").equals(getString(columna2.getTituloColumna(),""))){
+				throw new CargaGrillaExcelException("Error el título de columnas no coincide");
+			}
+			
+			if(columna1.getCeldaList().size() != columna2.getCeldaList().size()){
+				throw new CargaGrillaExcelException("Error la cantidad de celdas no coincide");
+			}
+			
+			for(int a=0; a<columna1.getCeldaList().size(); a++){
+				Celda celda1 = columna1.getCeldaList().get(a);
+				Celda celda2 = columna2.getCeldaList().get(a);
+				
+				
+				if(isCellTextEdit(celda1)){
+					try{
+						celda1.setValor(new Double(celda2.getValor()).intValue()+"");
+					}catch(Exception e){
+						//e.printStackTrace();
+					}
+					
+				}else if(isCellNumericEnteroEdit(celda1)){
+					try{
+						celda1.setValor(new Double(celda2.getValor()).intValue()+"");
+					}catch(Exception e){
+						//e.printStackTrace();
+					}
+	
+				}else if(isCellNumericDecimalEdit(celda1)){
+					try{
+						celda1.setValor(new Double(celda2.getValor()) + "");
+					}catch(Exception e){
+						//e.printStackTrace();
+					}
+				}
+				
+			}
+			
+		}
+
+    }
+    
+public static void mezclarGrillaDinamicaConExcel(GrillaVO grillaDB, GrillaVO grillaExcel, boolean isDinamic) throws CargaGrillaExcelException, Exception{
+    	
+		if(grillaDB.getColumnas().size() != grillaExcel.getColumnas().size()){
+			throw new CargaGrillaExcelException("Error la cantidad de columnas no coincide");
+		}
+	
+			
+		for(int i=0; i<grillaDB.getColumnas().size(); i++){
+			
+			Columna columna1 = grillaDB.getColumnas().get(i);
+			Columna columna2 = grillaExcel.getColumnas().get(i);
+			
+			if(!getString(columna1.getTituloColumna(),"").equals(getString(columna2.getTituloColumna(),""))){
+				throw new Exception("Error el título de las columnas no coincide");
+			}
+			
+			for(int a=0; a<columna2.getCeldaList().size(); a++){
+				
+				Celda celda1 = columna1.getCeldaList().get(a);
+				Celda celda2 = columna2.getCeldaList().get(a);
+				
+				
+				if(isCellTextEdit(celda1)){
+					try{
+						celda1.setValor(new Double(celda2.getValor()).intValue()+"");
+					}catch(Exception e){
+						//e.printStackTrace();
+					}
+					
+				}else if(isCellNumericEnteroEdit(celda1)){
+					try{
+						celda1.setValor(new Double(celda2.getValor()).intValue()+"");
+					}catch(Exception e){
+						//e.printStackTrace();
+					}
+	
+				}else if(isCellNumericDecimalEdit(celda1)){
+					try{
+						celda1.setValor(new Double(celda2.getValor()) + "");
+					}catch(Exception e){
+						//e.printStackTrace();
+					}
+				}
+				
+			}
+			
+		}
+	
+	}
+
+
+
 }
 

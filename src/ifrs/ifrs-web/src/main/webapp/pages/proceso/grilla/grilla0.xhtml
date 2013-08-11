@@ -7,11 +7,41 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">	
 	<div style="text-align: justify; font-size: 11px;">
-		<p:spacer height="20" />
-		<h:outputText value="#{item.grillaVO.titulo}"/>
-		<p:spacer height="20" />
+		<p:spacer height="7" />
+		<table>
+			<tr>
+			<td width="10px">
+							<h:commandLink action="#{procesoBackingBean.downloadExcelOneGrid}">
+											<p:graphicImage  value="/resources/images/icon/excel_16x16.png" title="Descargar a Excel" />
+											<f:param name="idGrillaExcel" value="#{item.grillaVO.grilla.idGrilla}" />
+							</h:commandLink>
+			</td>
+			<td width="10px">
+							<p:commandLink update="pr122" actionListener="#{procesoBackingBean.uploadExcelOneGrid}">
+											<p:graphicImage  value="/resources/images/icon/up_ok.png" title="Subir Excel" />
+							</p:commandLink>
+			</td>
+			<td width="10px"><h:outputText value="(#{procesoBackingBean.filaRowSelect})" id="txtPt1"/></td>
+			<td><h:outputText value="#{item.grillaVO.titulo}"/></td>
+			</tr>
+		</table>
+		<h:panelGroup layout="block" id="pr122" class="ui-widget">
+			<p:fileUpload label="Seleccionar Archivo" id="gDif1"
+				rendered="#{procesoBackingBean.renderUpload}"
+				requiredMessage="Debe seleccionar el Archivo de Plantilla de Configuración."
+				multiple="false" mode="advanced" update="@form" 
+				cancelLabel="Cancelar"
+				invalidFileMessage="El formato del Archivo es inválido, solo se permiten archivos MS Excel en formato 2007 o superior."
+				invalidSizeMessage="El Archivo a utilizar no puede superar los 3 MB."
+				sizeLimit="3145728" allowTypes="/(\.|\/)(xlsx)$/"
+				fileUploadListener="#{procesoBackingBean.cargaArchivoListener}">
+				<f:attribute name="gridSelect" value="#{item.grillaVO}" />
+			</p:fileUpload>
+		</h:panelGroup>
+		
 	</div>
 	<br />
+	<h:panelGroup layout="block" id="pgCEx" class="ui-widget">
 	<div class="ui-datatable ui-widget ui-datatable-resizable">
 		<table role="grid">
 			<thead>
@@ -171,10 +201,11 @@
 
 										<!-- Agregar o Quitar Fila -->
 
-										<p:panelGrid columns="3"
+										<p:panelGrid columns="5"
 											columnClasses="border_none, border_none, border_none"
 											rendered="#{row.tipoCelda.idTipoCelda == 3}"
 											style="display: inline;" layout="block">
+
 											<p:commandLink
 												actionListener="#{procesoBackingBean.addRowListener}"
 												id="cl2" rendered="true" update="@form">
@@ -184,7 +215,7 @@
 												<f:param name="idFila" value="#{row.idFila}" id="p1" />
 												<f:param name="idGrilla" value="#{row.idGrilla}" id="p2" />
 											</p:commandLink>
-											<p:spacer width="10" id="s1" />
+											<p:spacer width="4px" id="s1" />
 											<p:commandLink
 												actionListener="#{procesoBackingBean.deleteRowListener}"
 												id="cl3" rendered="true" update="@form">
@@ -194,6 +225,15 @@
 												<f:param name="idFila" value="#{row.idFila}" id="p3" />
 												<f:param name="idGrilla" value="#{row.idGrilla}" id="p4" />
 											</p:commandLink>
+											
+											<p:spacer width="4px" />
+											
+											<p:commandLink actionListener="#{procesoBackingBean.selectRowListener}" partialSubmit="true" update="@form" value="c_#{row.idFila}">
+												<f:param name="idFilaSel" value="#{row.idFila}" id="pS1" />
+												<f:param name="idGrillaSel" value="#{row.idGrilla}" id="pS2" />
+											</p:commandLink>
+											
+											
 										</p:panelGrid>
 
 
@@ -209,6 +249,7 @@
 		</table>
 	</div>
 
+	</h:panelGroup>
 
 	<p:spacer height="20px" />
 

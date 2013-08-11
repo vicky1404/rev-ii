@@ -9,7 +9,6 @@ import static ch.lambdaj.Lambda.select;
 import static org.hamcrest.Matchers.equalTo;
 
 import java.io.InputStream;
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -161,7 +160,7 @@ public class CargadorEstructuraServiceBean implements CargadorEstructuraServiceL
 	 * @return
 	 */
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public Set<Long> getFilasCabecera(final XSSFSheet sheet){
+	public Set<Long> getFilasCabecera(final XSSFSheet sheet, boolean filtroCabeceraColor){
 		Set<Long> headerRows = new HashSet<Long>();
 		XSSFRow row;  
         XSSFCell cell; 
@@ -184,7 +183,7 @@ public class CargadorEstructuraServiceBean implements CargadorEstructuraServiceL
                 for (int c = 0; c < cols; c++) {
                     cell = row.getCell((short)c);                    
                     if (cell != null) {
-                    	if(cell.getCellStyle().getFillBackgroundColorColor() != null){                    		
+                    	if(cell.getCellStyle().getFillBackgroundColorColor() != null || !filtroCabeceraColor){                    		
                     		headerRows.add(new Long(cell.getRowIndex()));
                     	}                    	                    	                   	                   
                     }
@@ -202,7 +201,7 @@ public class CargadorEstructuraServiceBean implements CargadorEstructuraServiceL
      * @throws Exception
      */
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-    public List<Columna> getColumnasBySheet(final XSSFSheet sheet)throws Exception, CargaGrillaExcelException{
+    public List<Columna> getColumnasBySheet(final XSSFSheet sheet, boolean filtroCabeceraColor)throws Exception, CargaGrillaExcelException{
         XSSFRow row;  
         XSSFCell cell; 
         int rows; 
@@ -210,7 +209,7 @@ public class CargadorEstructuraServiceBean implements CargadorEstructuraServiceL
         int cols = 0;  
         int tmp = 0; 
         List<Columna> columnaList = new ArrayList<Columna>();
-        Long columnRow = max(this.getFilasCabecera(sheet));
+        Long columnRow = max(this.getFilasCabecera(sheet, filtroCabeceraColor));
         
         if(columnRow == null){
         	throw new CargaGrillaExcelException("La Plantilla Excel no contiene datos de Cabecera");     
@@ -287,7 +286,7 @@ public class CargadorEstructuraServiceBean implements CargadorEstructuraServiceL
         int cols = 0;  
         int tmp = 0; 
         
-        columnaList = this.getColumnasBySheet(sheet);
+        columnaList = this.getColumnasBySheet(sheet, true);
         
         if(columnaList.isEmpty()){
             throw new CargaGrillaExcelException("El documento Excel no contiene columnas");     
@@ -401,7 +400,7 @@ public class CargadorEstructuraServiceBean implements CargadorEstructuraServiceL
         int colsSize = 0;
         boolean isDinamic=false;
         
-        columnaList = getColumnasBySheet(sheet);
+        columnaList = getColumnasBySheet(sheet, false);
         
         if(columnaList.isEmpty()){
             throw new CargaGrillaExcelException("El documento Excel no contiene columnas");     
@@ -433,11 +432,11 @@ public class CargadorEstructuraServiceBean implements CargadorEstructuraServiceL
         }
         
         if(colsSize != cols){
-            throw new CargaGrillaExcelException("La cantidad de columna no coincide con dise�o de grilla almacenado");
+            throw new CargaGrillaExcelException("La cantidad de columna no coincide con diseño de grilla almacenado");
         }
         
         List<String> detailErrors = new ArrayList<String>();
-        detailErrors.add("La grilla no puede tener celdas vac�as en :");
+        detailErrors.add("La grilla no puede tener celdas vacías en :");
         Map<Long, List<Celda>> mapCelda = new LinkedHashMap<Long, List<Celda>>();
         for(int posColumn = 0; posColumn < cols; posColumn++) {
             //System.out.println("posColumn ->"+posColumn);
@@ -478,7 +477,7 @@ public class CargadorEstructuraServiceBean implements CargadorEstructuraServiceL
         }
         
         if(detailErrors.size()>1){
-            throw new CargaGrillaExcelException("La cantidad de columna no coincide con dise�o de grilla almacenado",detailErrors);
+            throw new CargaGrillaExcelException("La cantidad de columna no coincide con diseño de grilla almacenado",detailErrors);
         }
 
         List<Celda> cellsNew;
