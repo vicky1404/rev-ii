@@ -252,7 +252,8 @@ public class EstructuraServiceBean implements EstructuraServiceLocal {
         
     }
     
-    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)    
+    @SuppressWarnings("unchecked")
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)    
     public List<AgrupacionColumna> findAgrupacionColumnaByGrilla(Grilla grilla) throws Exception {
         
             Query query = em.createNamedQuery(AgrupacionColumna.FIND_BY_GRILLA);
@@ -270,7 +271,8 @@ public class EstructuraServiceBean implements EstructuraServiceLocal {
     }
     
     
-    public List<Object> sql(String sql) throws Exception {
+    @SuppressWarnings("unchecked")
+	public List<Object> sql(String sql) throws Exception {
             Query query = em.createNativeQuery(sql);
             return query.getResultList();
      }
@@ -332,7 +334,8 @@ public class EstructuraServiceBean implements EstructuraServiceLocal {
     
     }
     
-    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    @SuppressWarnings("unchecked")
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public List<AgrupacionColumna> findAgrupacionColumnaByGrillaNivel(Long idGrilla, Long idNivel) throws Exception {
         Query query = em.createNamedQuery(AgrupacionColumna.FIND_BY_GRILLA_GRUPO);
         query.setParameter("idGrilla", idGrilla);

@@ -11,12 +11,10 @@ import javax.ejb.Stateless;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CreationHelper;
-import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFColor;
-import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -47,14 +45,29 @@ public class ReporteServiceBean implements ReporteServiceLocal {
         
     }
     
+    @Override
+    public XSSFWorkbook createXLSXOneGrid(Grilla grilla, String tituloHoja, boolean formatoPesos, boolean formatoYYYYMMDD)  throws Exception{
+    	
+    	XSSFWorkbook wb = new XSSFWorkbook();
+        XSSFCellStyle style = wb.createCellStyle(); 
+        XSSFSheet sheet = wb.createSheet(tituloHoja);
+        sheet.setZoom(6,7);
+        sheet.setFitToPage(true);
+        int posRow =1;
+        
+        processXLSX(grilla, wb, sheet, style, posRow, formatoPesos, formatoYYYYMMDD, false);
+        
+        return wb;
+    	
+    }
 
     @Override
     public XSSFWorkbook createXLSX(List<ReportePrincipalVO> reportes, boolean formatoPesos, boolean formatoYYYYMMDD) throws Exception{
 
         XSSFWorkbook wb = new XSSFWorkbook();
-        XSSFFont font;
+        //XSSFFont font;
         XSSFCellStyle style = wb.createCellStyle();        
-        DataFormat format = wb.createDataFormat();
+        //DataFormat format = wb.createDataFormat();
 
         for (ReportePrincipalVO reporte : reportes) {
 
@@ -90,8 +103,8 @@ public class ReporteServiceBean implements ReporteServiceLocal {
             }
 
             for (Estructura estructura : reporte.getVersion().getEstructuraList()) {
-                
-                posRow++;
+            	
+            	posRow++;
                 
                 if (estructura.getGrilla()==null)
                     continue;
@@ -101,224 +114,244 @@ public class ReporteServiceBean implements ReporteServiceLocal {
                 	continue;
                 
                 Grilla grilla = estructura.getGrilla();
-
-                tituloPrincipal = posRow;
                 
-                if(grilla.getTitulo() != null && !StringUtils.isEmpty(grilla.getTitulo())){
-                    
-                    posRow++;
-                    
-                    sheet.addMergedRegion(new CellRangeAddress(posRow, posRow, 1, 7));
-                    XSSFRow row2 = sheet.createRow(posRow);
-                    style.setFont(SoporteReporte.getFontTitle(wb));
-                    XSSFCell cell2 = row2.createCell(1);
-                    cell2.setCellValue(grilla.getTitulo());
-                    cell2.setCellStyle(style);
-                    
-                    posRow++;
-                    
-                }
-
-                if (grillaMayor < grilla.getColumnaList().size()) {
-                    grillaMayor = grilla.getColumnaList().size();
-                }
-                
-                List<AgrupacionColumna> agrupacionesNivel2 = estructuraService.findAgrupacionColumnaByGrillaNivel(grilla.getIdGrilla(), 2L);
-                
-                if(Util.esListaValida(agrupacionesNivel2)){
-                    List<AgrupacionModelVO> agrupacionesVO = SoporteReporte.createAgrupadorVO(agrupacionesNivel2);
-                    posRow++;
-                    XSSFRow row = sheet.createRow(posRow);
-                    for(AgrupacionModelVO agrupacion : agrupacionesVO){
-                        
-                        
-                        int hasta = agrupacion.getHasta().intValue();
-                        
-                        if(grilla.getColumnaList().get(grilla.getColumnaList().size()-1).getTituloColumna().replaceAll(" ", "").equals(SoporteReporte.LINK_NAME)){
-                            hasta=hasta-1;
-                        }
-                        
-                        XSSFCell cell = row.createCell(agrupacion.getDesde().intValue());
-                        style = SoporteReporte.getCellWithBorder(wb);
-                        style.setFillForegroundColor(new XSSFColor(new java.awt.Color(230, 233, 238)));
-                        style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
-                        style.setFont(SoporteReporte.getFontColumnHeader(wb));
-                        
-                        
-                        sheet.addMergedRegion(new CellRangeAddress(posRow,
-                                    posRow,
-                                    agrupacion.getDesde().intValue(),
-                                    hasta)
-                        );
-                        cell.setCellValue(agrupacion.getTitulo());
-                        cell.setCellStyle(style);
-                    }
-                    posRow++;
-                }
-                
-                List<AgrupacionColumna> agrupacionesNivel1 = estructuraService.findAgrupacionColumnaByGrillaNivel(grilla.getIdGrilla(), 1L);
-                
-                if(Util.esListaValida(agrupacionesNivel1)){
-                    List<AgrupacionModelVO> agrupacionesVO = SoporteReporte.createAgrupadorVO(agrupacionesNivel1);
-                    XSSFRow row = sheet.createRow(posRow);
-                    int c=0;
-                    for(AgrupacionModelVO agrupacion : agrupacionesVO){                                
-                        c++;
-                        int hasta = agrupacion.getHasta().intValue();
-                        if(c==agrupacionesVO.size()){
-                            if(grilla.getColumnaList().get(grilla.getColumnaList().size()-1).getTituloColumna().replaceAll(" ", "").equals(SoporteReporte.LINK_NAME)){
-                                hasta=hasta-1;
-                            }
-                        }
-                            System.out.println("desde "+agrupacion.getDesde().intValue()+" hasta "+hasta);
-                        XSSFCell cell = row.createCell(agrupacion.getDesde().intValue());
-                        style = SoporteReporte.getCellWithBorder(wb);
-                        style.setFillForegroundColor(new XSSFColor(new java.awt.Color(230, 233, 238)));
-                        style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
-                        style.setFont(SoporteReporte.getFontColumnHeader(wb));
-                        cell.setCellValue(agrupacion.getTitulo());
-                        cell.setCellStyle(style);
-                        
-                        sheet.addMergedRegion(new CellRangeAddress(posRow,
-                                    posRow,
-                                    agrupacion.getDesde().intValue(),
-                                    hasta)
-                        );
-                    }
-                    posRow++;
-                }
-                
-                XSSFRow row = sheet.createRow(posRow);
-                XSSFCell cell = null;
-                for (Columna columna : grilla.getColumnaList()){
-                    if(columna.getTituloColumna().replaceAll(" ", "").equals(SoporteReporte.LINK_NAME)){
-                        continue;
-                    }
-                    sheet.autoSizeColumn(columna.getIdColumna().intValue());
-                    style = SoporteReporte.getCellWithBorder(wb);
-                    style.setFillForegroundColor(new XSSFColor(new java.awt.Color(230, 233, 238)));
-                    style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
-                    style.setFont(SoporteReporte.getFontColumnHeader(wb));
-                    cell = row.createCell(columna.getIdColumna().intValue());                            
-                    cell.setCellValue(columna.getTituloColumna());
-                    cell.setCellStyle(style);
-                }
-                int numRow = grilla.getColumnaList().get(0).getCeldaList().size();
-                
-                int i=0;
-                
-                for(int j=0; j<numRow; j++){
-                    
-                    posRow++;
-                    row = sheet.createRow(posRow);
-                    style = SoporteReporte.getCellWithBorder(wb);
-                    XSSFColor rowColor = null;
-                    if ((j % 2) == 0) {
-                        rowColor = new XSSFColor(new java.awt.Color(246, 246, 246));
-                        style.setFillForegroundColor(rowColor);
-                        style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);                                    
-                    }
-                    for(Columna columna : grilla.getColumnaList()){
-                        
-                        if(columna.getTituloColumna().replaceAll(" ", "").equals(SoporteReporte.LINK_NAME)){
-                            continue;
-                        }
-                        
-                        Celda celda = columna.getCeldaList().get(i);
-                        //System.out.println("row->" + posRow + " celda->"+columna.getIdColumna().intValue()+" valor->"+ celda.getValor());
-                        cell = row.createCell(columna.getIdColumna().intValue());
-                        
-                        if(StringUtils.isEmpty(celda.getValor()) || (celda.getValor()==null?"0":celda.getValor().trim()).equals("0")){
-                            if( celda.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.NUMERO.getKey()) || celda.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.TOTAL.getKey()) || celda.getTipoCelda().getIdTipoCelda().equals( TipoCeldaEnum.SUBTOTAL.getKey()) ){                                                                                
-                                //style2.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);  
-                                //cell.setCellType(Cell.CELL_TYPE_NUMERIC);
-                                cell.setCellValue(new Double("0"));
-                                cell.setCellStyle(style);
-                            }else{                                    
-                                cell.setCellType(Cell.CELL_TYPE_STRING);
-                                cell.setCellValue(StringUtils.EMPTY);
-                                cell.setCellStyle(style);
-                            }
-                        }else{                                                                
-                                if( celda.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.TOTAL.getKey()) || celda.getTipoCelda().getIdTipoCelda().equals( TipoCeldaEnum.SUBTOTAL.getKey()) ){
-                                if ( celda.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.ENTERO.getKey()) ) {                                    
-                                    //style.setDataFormat(format.getFormat("#,###,###,###"));
-                                    cell.setCellType(Cell.CELL_TYPE_NUMERIC);
-                                    if (formatoPesos)
-                                    	cell.setCellValue(celda.getValorLong()*1000L);
-                                    else
-                                    	cell.setCellValue(celda.getValorLong());
-                                    
-                                    if(!celda.getValorLong().equals(0L)){
-                                        cell.setCellStyle(SoporteReporte.getCellIntegerStyle(wb, rowColor));
-                                    }
-                                }                                    
-                                else if (celda.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.DECIMAL.getKey()) ) {
-                                    //style.setDataFormat(format.getFormat("#,###,###,###.####"));
-                                    cell.setCellType(Cell.CELL_TYPE_NUMERIC);
-                                    cell.setCellValue(celda.getValorBigDecimal().doubleValue());
-                                    if(celda.getValorBigDecimal().equals(new BigDecimal(0))){
-                                        cell.setCellStyle(SoporteReporte.getCellDecimalStyle(wb, rowColor));
-                                    }
-                                }                                                                
-                            }
-                            
-                            else if( celda.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.TEXTO.getKey()) || celda.getTipoCelda().getIdTipoCelda().equals( TipoCeldaEnum.TEXTO_EDITABLE.getKey()) ){
-                                if(celda.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.TEXTO.getKey())){
-                                    //style.setFont(SoporteReporte.getFontNormal(wb));
-                                    cell.setCellType(Cell.CELL_TYPE_STRING);
-                                    cell.setCellValue(celda.getValor());
-                                    cell.setCellStyle(style);
-                                }
-                                else if(celda.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.FECHA.getKey())){
-                                    //style.setFont(SoporteReporte.getFontNormal(wb));
-                                    cell.setCellType(Cell.CELL_TYPE_STRING);
-                                    cell.setCellValue(celda.getValorDate());
-                                    cell.setCellStyle(SoporteReporte.getCellDateStyle(wb, rowColor, formatoYYYYMMDD));
-                                }                                
-                            }
-                            
-                            else if( celda.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.TITULO.getKey()) ){
-                                style.setFont(SoporteReporte.getFontTitulo(wb));
-                                cell.setCellType(Cell.CELL_TYPE_STRING);
-                                cell.setCellValue(celda.getValor());
-                                cell.setCellStyle(style);
-                            }
-                            
-                            else if( celda.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.NUMERO.getKey())){
-                                if(celda.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.ENTERO.getKey())){ 
-                                    //style.setDataFormat(format.getFormat("#,###,###,###"));
-                                    cell.setCellType(Cell.CELL_TYPE_NUMERIC);
-                                    if (formatoPesos)
-                                    	cell.setCellValue(celda.getValorLong()*1000L);
-                                    else
-                                    	cell.setCellValue(celda.getValorLong());                                            
-                                    if(!celda.getValorLong().equals(0L)){
-                                        cell.setCellStyle(SoporteReporte.getCellIntegerStyle(wb, rowColor));
-                                    }
-                                }
-                                else if(celda.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.DECIMAL.getKey())){
-                                    //style.setDataFormat(format.getFormat("#,###,###,###.####"));
-                                    cell.setCellType(Cell.CELL_TYPE_NUMERIC);
-                                    cell.setCellValue(celda.getValorBigDecimal().doubleValue());
-                                    cell.setCellStyle(style);
-                                    if(celda.getValorBigDecimal().equals(new BigDecimal(0))){
-                                        cell.setCellStyle(SoporteReporte.getCellDecimalStyle(wb, rowColor));
-                                    }
-                                }
-                            }                                
-                        }
-
-                        //cell.setCellStyle(style);
-                        
-                    }
-                    i++;
-                }
-                posRow++;
+                processXLSX(grilla, wb, sheet, style, posRow, formatoPesos, formatoYYYYMMDD, true);
+            	
             }
         }
 
         return wb;
+    }
+    
+    /**
+     * Se Agrega metodo reutilizable para generar excel de una o muchas grillas
+     * @param grilla
+     * @param wb
+     * @param sheet
+     * @param style
+     * @param posRow
+     * @param formatoPesos
+     * @param formatoYYYYMMDD
+     * @throws Exception
+     */
+    private void processXLSX(Grilla grilla,XSSFWorkbook wb, XSSFSheet sheet, XSSFCellStyle style,int posRow, boolean formatoPesos, boolean formatoYYYYMMDD, boolean mostrarTitulo)  throws Exception{
+
+        //tituloPrincipal = posRow;
+        
+    	
+    	
+        if(mostrarTitulo && grilla.getTitulo() != null && !StringUtils.isEmpty(grilla.getTitulo())){
+            
+            posRow++;
+            
+            sheet.addMergedRegion(new CellRangeAddress(posRow, posRow, 1, 7));
+            XSSFRow row2 = sheet.createRow(posRow);
+            style.setFont(SoporteReporte.getFontTitle(wb));
+            XSSFCell cell2 = row2.createCell(1);
+            cell2.setCellValue(grilla.getTitulo());
+            cell2.setCellStyle(style);
+            
+            posRow++;
+            
+        }
+
+        /*if (grillaMayor < grilla.getColumnaList().size()) {
+            grillaMayor = grilla.getColumnaList().size();
+        }*/
+        
+        List<AgrupacionColumna> agrupacionesNivel2 = estructuraService.findAgrupacionColumnaByGrillaNivel(grilla.getIdGrilla(), 2L);
+        
+        if(Util.esListaValida(agrupacionesNivel2)){
+            List<AgrupacionModelVO> agrupacionesVO = SoporteReporte.createAgrupadorVO(agrupacionesNivel2);
+            posRow++;
+            XSSFRow row = sheet.createRow(posRow);
+            for(AgrupacionModelVO agrupacion : agrupacionesVO){
+                
+                
+                int hasta = agrupacion.getHasta().intValue();
+                
+                if(grilla.getColumnaList().get(grilla.getColumnaList().size()-1).getTituloColumna().replaceAll(" ", "").equals(SoporteReporte.LINK_NAME)){
+                    hasta=hasta-1;
+                }
+                
+                XSSFCell cell = row.createCell(agrupacion.getDesde().intValue());
+                style = SoporteReporte.getCellWithBorder(wb);
+                style.setFillForegroundColor(new XSSFColor(new java.awt.Color(230, 233, 238)));
+                style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
+                style.setFont(SoporteReporte.getFontColumnHeader(wb));
+                
+                
+                sheet.addMergedRegion(new CellRangeAddress(posRow,
+                            posRow,
+                            agrupacion.getDesde().intValue(),
+                            hasta)
+                );
+                cell.setCellValue(agrupacion.getTitulo());
+                cell.setCellStyle(style);
+            }
+            posRow++;
+        }
+        
+        List<AgrupacionColumna> agrupacionesNivel1 = estructuraService.findAgrupacionColumnaByGrillaNivel(grilla.getIdGrilla(), 1L);
+        
+        if(Util.esListaValida(agrupacionesNivel1)){
+            List<AgrupacionModelVO> agrupacionesVO = SoporteReporte.createAgrupadorVO(agrupacionesNivel1);
+            XSSFRow row = sheet.createRow(posRow);
+            int c=0;
+            for(AgrupacionModelVO agrupacion : agrupacionesVO){                                
+                c++;
+                int hasta = agrupacion.getHasta().intValue();
+                if(c==agrupacionesVO.size()){
+                    if(grilla.getColumnaList().get(grilla.getColumnaList().size()-1).getTituloColumna().replaceAll(" ", "").equals(SoporteReporte.LINK_NAME)){
+                        hasta=hasta-1;
+                    }
+                }
+                    System.out.println("desde "+agrupacion.getDesde().intValue()+" hasta "+hasta);
+                XSSFCell cell = row.createCell(agrupacion.getDesde().intValue());
+                style = SoporteReporte.getCellWithBorder(wb);
+                style.setFillForegroundColor(new XSSFColor(new java.awt.Color(230, 233, 238)));
+                style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
+                style.setFont(SoporteReporte.getFontColumnHeader(wb));
+                cell.setCellValue(agrupacion.getTitulo());
+                cell.setCellStyle(style);
+                
+                sheet.addMergedRegion(new CellRangeAddress(posRow,
+                            posRow,
+                            agrupacion.getDesde().intValue(),
+                            hasta)
+                );
+            }
+            posRow++;
+        }
+        
+        XSSFRow row = sheet.createRow(posRow);
+        XSSFCell cell = null;
+        for (Columna columna : grilla.getColumnaList()){
+            if(columna.getTituloColumna().replaceAll(" ", "").equals(SoporteReporte.LINK_NAME)){
+                continue;
+            }
+            sheet.autoSizeColumn(columna.getIdColumna().intValue());
+            style = SoporteReporte.getCellWithBorder(wb);
+            style.setFillForegroundColor(new XSSFColor(new java.awt.Color(230, 233, 238)));
+            style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
+            style.setFont(SoporteReporte.getFontColumnHeader(wb));
+            cell = row.createCell(columna.getIdColumna().intValue());                            
+            cell.setCellValue(columna.getTituloColumna());
+            cell.setCellStyle(style);
+        }
+        int numRow = grilla.getColumnaList().get(0).getCeldaList().size();
+        
+        int i=0;
+        
+        for(int j=0; j<numRow; j++){
+            
+            posRow++;
+            row = sheet.createRow(posRow);
+            style = SoporteReporte.getCellWithBorder(wb);
+            XSSFColor rowColor = null;
+            if ((j % 2) == 0) {
+                rowColor = new XSSFColor(new java.awt.Color(246, 246, 246));
+                style.setFillForegroundColor(rowColor);
+                style.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);                                    
+            }
+            for(Columna columna : grilla.getColumnaList()){
+                
+                if(columna.getTituloColumna().replaceAll(" ", "").equals(SoporteReporte.LINK_NAME)){
+                    continue;
+                }
+                
+                Celda celda = columna.getCeldaList().get(i);
+                //System.out.println("row->" + posRow + " celda->"+columna.getIdColumna().intValue()+" valor->"+ celda.getValor());
+                cell = row.createCell(columna.getIdColumna().intValue());
+                
+                if(StringUtils.isEmpty(celda.getValor()) || (celda.getValor()==null?"0":celda.getValor().trim()).equals("0")){
+                    if( celda.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.NUMERO.getKey()) || celda.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.TOTAL.getKey()) || celda.getTipoCelda().getIdTipoCelda().equals( TipoCeldaEnum.SUBTOTAL.getKey()) ){                                                                                
+                        //style2.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);  
+                        //cell.setCellType(Cell.CELL_TYPE_NUMERIC);
+                        cell.setCellValue(new Double("0"));
+                        cell.setCellStyle(style);
+                    }else{                                    
+                        cell.setCellType(Cell.CELL_TYPE_STRING);
+                        cell.setCellValue(StringUtils.EMPTY);
+                        cell.setCellStyle(style);
+                    }
+                }else{                                                                
+                        if( celda.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.TOTAL.getKey()) || celda.getTipoCelda().getIdTipoCelda().equals( TipoCeldaEnum.SUBTOTAL.getKey()) ){
+                        if ( celda.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.ENTERO.getKey()) ) {                                    
+                            //style.setDataFormat(format.getFormat("#,###,###,###"));
+                            cell.setCellType(Cell.CELL_TYPE_NUMERIC);
+                            if (formatoPesos)
+                            	cell.setCellValue(celda.getValorLong()*1000L);
+                            else
+                            	cell.setCellValue(celda.getValorLong());
+                            
+                            if(!celda.getValorLong().equals(0L)){
+                                cell.setCellStyle(SoporteReporte.getCellIntegerStyle(wb, rowColor));
+                            }
+                        }                                    
+                        else if (celda.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.DECIMAL.getKey()) ) {
+                            //style.setDataFormat(format.getFormat("#,###,###,###.####"));
+                            cell.setCellType(Cell.CELL_TYPE_NUMERIC);
+                            cell.setCellValue(celda.getValorBigDecimal().doubleValue());
+                            if(celda.getValorBigDecimal().equals(new BigDecimal(0))){
+                                cell.setCellStyle(SoporteReporte.getCellDecimalStyle(wb, rowColor));
+                            }
+                        }                                                                
+                    }
+                    
+                    else if( celda.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.TEXTO.getKey()) || celda.getTipoCelda().getIdTipoCelda().equals( TipoCeldaEnum.TEXTO_EDITABLE.getKey()) ){
+                        if(celda.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.TEXTO.getKey())){
+                            //style.setFont(SoporteReporte.getFontNormal(wb));
+                            cell.setCellType(Cell.CELL_TYPE_STRING);
+                            cell.setCellValue(celda.getValor());
+                            cell.setCellStyle(style);
+                        }
+                        else if(celda.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.FECHA.getKey())){
+                            //style.setFont(SoporteReporte.getFontNormal(wb));
+                            cell.setCellType(Cell.CELL_TYPE_STRING);
+                            cell.setCellValue(celda.getValorDate());
+                            cell.setCellStyle(SoporteReporte.getCellDateStyle(wb, rowColor, formatoYYYYMMDD));
+                        }                                
+                    }
+                    
+                    else if( celda.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.TITULO.getKey()) ){
+                        style.setFont(SoporteReporte.getFontTitulo(wb));
+                        cell.setCellType(Cell.CELL_TYPE_STRING);
+                        cell.setCellValue(celda.getValor());
+                        cell.setCellStyle(style);
+                    }
+                    
+                    else if( celda.getTipoCelda().getIdTipoCelda().equals(TipoCeldaEnum.NUMERO.getKey())){
+                        if(celda.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.ENTERO.getKey())){ 
+                            //style.setDataFormat(format.getFormat("#,###,###,###"));
+                            cell.setCellType(Cell.CELL_TYPE_NUMERIC);
+                            if (formatoPesos)
+                            	cell.setCellValue(celda.getValorLong()*1000L);
+                            else
+                            	cell.setCellValue(celda.getValorLong());                                            
+                            if(!celda.getValorLong().equals(0L)){
+                                cell.setCellStyle(SoporteReporte.getCellIntegerStyle(wb, rowColor));
+                            }
+                        }
+                        else if(celda.getTipoDato().getIdTipoDato().equals(TipoDatoEnum.DECIMAL.getKey())){
+                            //style.setDataFormat(format.getFormat("#,###,###,###.####"));
+                            cell.setCellType(Cell.CELL_TYPE_NUMERIC);
+                            cell.setCellValue(celda.getValorBigDecimal().doubleValue());
+                            cell.setCellStyle(style);
+                            if(celda.getValorBigDecimal().equals(new BigDecimal(0))){
+                                cell.setCellStyle(SoporteReporte.getCellDecimalStyle(wb, rowColor));
+                            }
+                        }
+                    }                                
+                }
+
+                //cell.setCellStyle(style);
+                
+            }
+            i++;
+        }
+        posRow++;
+    	
     }
     
     
@@ -326,9 +359,9 @@ public class ReporteServiceBean implements ReporteServiceLocal {
     public XSSFWorkbook createXLSXXbrl(List<ReportePrincipalVO> reportes, boolean formatoPesos, boolean formatoYYYYMMDD) throws Exception {
  
         XSSFWorkbook wb = new XSSFWorkbook();
-        XSSFFont font;
+        //XSSFFont font;
         XSSFCellStyle style = wb.createCellStyle();
-       DataFormat format = wb.createDataFormat();
+        //DataFormat format = wb.createDataFormat();
  
         for (ReportePrincipalVO reporte : reportes) {
  

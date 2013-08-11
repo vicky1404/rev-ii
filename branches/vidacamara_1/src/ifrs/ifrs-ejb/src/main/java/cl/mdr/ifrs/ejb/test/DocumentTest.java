@@ -119,7 +119,7 @@ public class DocumentTest {
         Document doc = buildDocument(xml2);
         Node dataNode = doc.getFirstChild();
         System.out.println(dataNode.getChildNodes().getLength());
-        System.out.println(dataNode.getTextContent());
+        //System.out.println(dataNode.getTextContent());
     }
  
     
@@ -128,7 +128,7 @@ public class DocumentTest {
         Document doc = buildDocument(xml);
         Node dataNode = doc.getFirstChild();
         System.out.println(dataNode.getChildNodes().getLength());
-        System.out.println(dataNode.getFirstChild().getTextContent());
+        //System.out.println(dataNode.getFirstChild().getTextContent());
     }
  
     
